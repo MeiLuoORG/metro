@@ -1,21 +1,28 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "90e7987d-362a-fa40-8b30-ace672ea35b0",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "506FAE2E55823436D17976121DFBC828D22D037A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
     "90e7987d-362a-fa40-8b30-ace672ea35b0" : {
 
     }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "506FAE2E55823436D17976121DFBC828D22D037A" : 0,
     "90e7987d-362a-fa40-8b30-ace672ea35b0" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E380F1F9-DDA6-4B03-AFC2-74C9FBCB41F5",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "506FAE2E55823436D17976121DFBC828D22D037A" : "metro\/",
     "90e7987d-362a-fa40-8b30-ace672ea35b0" : "Matro\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Matro",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ios\/Matro\/Matro.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/MeiLuoORG\/metro.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "506FAE2E55823436D17976121DFBC828D22D037A"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/139.196.44.146\/svn\/Matro",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
