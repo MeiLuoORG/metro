@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="MLPersonOrderCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Nt-QP-fYw">
+                        <rect key="frame" x="0.0" y="8" width="78" height="61"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="待付款" image="daifukuan">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="daifukuanClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YD8-Jj-OAh"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BpS-kb-f7y">
+                        <rect key="frame" x="156" y="8" width="78" height="61"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="待收货" image="daishouhuo">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="daishouhuoClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="J3D-iu-tEH"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIf-er-tax">
+                        <rect key="frame" x="234" y="8" width="78" height="61"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="退货/换货" image="tuikuan">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="tuihuoClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JNv-JX-9ZL"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2EF-0J-NwV">
+                        <rect key="frame" x="0.0" y="69" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="obs-nc-ubA"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52W-eU-reF">
+                        <rect key="frame" x="78" y="8" width="78" height="61"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="待发货" image="daifahuo">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="dafahuoClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="u65-yj-naW"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="BpS-kb-f7y" firstAttribute="width" secondItem="9Nt-QP-fYw" secondAttribute="width" id="09y-0l-9rJ"/>
+                    <constraint firstItem="52W-eU-reF" firstAttribute="leading" secondItem="9Nt-QP-fYw" secondAttribute="trailing" id="ARM-gY-AvJ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="QIf-er-tax" secondAttribute="trailing" id="CG4-Nq-KlO"/>
+                    <constraint firstItem="QIf-er-tax" firstAttribute="width" secondItem="9Nt-QP-fYw" secondAttribute="width" id="CtA-Bu-vPI"/>
+                    <constraint firstItem="52W-eU-reF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Fl7-Ch-rzG"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="2EF-0J-NwV" secondAttribute="bottom" constant="-9" id="GSr-YZ-npT"/>
+                    <constraint firstItem="QIf-er-tax" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="L12-rT-kJu"/>
+                    <constraint firstItem="QIf-er-tax" firstAttribute="leading" secondItem="BpS-kb-f7y" secondAttribute="trailing" id="M0S-T1-8em"/>
+                    <constraint firstItem="QIf-er-tax" firstAttribute="height" secondItem="9Nt-QP-fYw" secondAttribute="height" id="OYO-lz-SUC"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="2EF-0J-NwV" secondAttribute="trailing" constant="-8" id="RPl-L5-ueh"/>
+                    <constraint firstItem="52W-eU-reF" firstAttribute="width" secondItem="9Nt-QP-fYw" secondAttribute="width" id="Rv8-15-ula"/>
+                    <constraint firstItem="2EF-0J-NwV" firstAttribute="top" secondItem="9Nt-QP-fYw" secondAttribute="bottom" id="V0N-zF-04F"/>
+                    <constraint firstItem="QIf-er-tax" firstAttribute="leading" secondItem="BpS-kb-f7y" secondAttribute="trailing" id="XyC-Z3-ZDo"/>
+                    <constraint firstItem="52W-eU-reF" firstAttribute="leading" secondItem="9Nt-QP-fYw" secondAttribute="trailing" id="euW-qT-2jP"/>
+                    <constraint firstItem="52W-eU-reF" firstAttribute="height" secondItem="9Nt-QP-fYw" secondAttribute="height" id="gOj-7z-VOG"/>
+                    <constraint firstItem="BpS-kb-f7y" firstAttribute="height" secondItem="9Nt-QP-fYw" secondAttribute="height" id="hDu-to-h4c"/>
+                    <constraint firstItem="BpS-kb-f7y" firstAttribute="leading" secondItem="52W-eU-reF" secondAttribute="trailing" id="hfc-V5-qSZ"/>
+                    <constraint firstItem="2EF-0J-NwV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="knr-OW-15Q"/>
+                    <constraint firstItem="BpS-kb-f7y" firstAttribute="leading" secondItem="52W-eU-reF" secondAttribute="trailing" id="nHd-1h-sHt"/>
+                    <constraint firstItem="BpS-kb-f7y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="qyd-tZ-4Fm"/>
+                    <constraint firstItem="2EF-0J-NwV" firstAttribute="top" secondItem="52W-eU-reF" secondAttribute="bottom" constant="2" id="sKr-2e-9HL"/>
+                    <constraint firstItem="2EF-0J-NwV" firstAttribute="top" secondItem="BpS-kb-f7y" secondAttribute="bottom" id="uaV-Hk-WoH"/>
+                    <constraint firstItem="2EF-0J-NwV" firstAttribute="top" secondItem="QIf-er-tax" secondAttribute="bottom" id="vUb-aO-J7y"/>
+                    <constraint firstItem="9Nt-QP-fYw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="vrv-wi-wXA"/>
+                    <constraint firstItem="QIf-er-tax" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="vtQ-Cq-V26"/>
+                    <constraint firstItem="9Nt-QP-fYw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="xAd-qd-EY4"/>
+                    <constraint firstItem="QIf-er-tax" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="zLT-r5-N0w"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="sKr-2e-9HL"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="272" y="373"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="daifahuo" width="21" height="16"/>
+        <image name="daifukuan" width="21" height="16"/>
+        <image name="daishouhuo" width="21" height="16"/>
+        <image name="tuikuan" width="21" height="16"/>
+    </resources>
+</document>
