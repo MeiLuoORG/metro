@@ -7,12 +7,9 @@
 //
 
 #import "MLBaseViewController.h"
-#import "MessagesViewController.h"
 
 @interface MLPersonViewController : MLBaseViewController
 @property (weak, nonatomic) IBOutlet UIControl *vipcardBgView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *vipcardHeight;
-
-@property (strong, nonatomic) UIButton * messageButton;
 
 @end

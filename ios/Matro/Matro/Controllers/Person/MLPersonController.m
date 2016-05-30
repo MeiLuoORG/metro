@@ -26,13 +26,19 @@
 
 #import "MLHYHTableViewController.h"
 #import "MLWishlistViewController.h"
-
+#import "MLPropertyCell.h"
+#import "MLPropertysubCell.h"
+#import "MLYHQViewController.h"
+#import "MLMyPropertyViewController.h"
+#import "JSBadgeView.h"
+#import "MJRefresh.h"
 
 @interface MLPersonController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *titleArray;
     NSArray *imgArray;
     NSString *loginid;
+    JSBadgeView *badgeView;
 }
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)MLPersonHeadView *headView;
@@ -45,7 +51,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      self.navigationItem.title = @"个人中心";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Home_top_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(messageButtonAction:)];
+    
+     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"icon_chakanpingjia"] style:UIBarButtonItemStylePlain target:self action:@selector(actMessage)];
+
+    self.navigationItem.rightBarButtonItem = right;
+    
     // Do any additional setup after loading the view.
     _tableView = ({
         UITableView *table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-64-self.tabBarController.tabBar.bounds.size.height)];
@@ -57,10 +67,14 @@
         [table registerNib:[UINib nibWithNibName:@"MLPersonAccountCell" bundle:nil] forCellReuseIdentifier:kMLPersonAccountCell];
         [table registerNib:[UINib nibWithNibName:@"MLCusServiceCell" bundle:nil] forCellReuseIdentifier:kMLCusServiceCell];
         [table registerNib:[UINib nibWithNibName:@"MLPersonOrderCell" bundle:nil] forCellReuseIdentifier:kMLPersonOrderCell];
+        [table registerNib:[UINib nibWithNibName:@"MLPropertyCell" bundle:nil] forCellReuseIdentifier:kMLPropertyCell];
+        [table registerNib:[UINib nibWithNibName:@"MLPropertysubCell" bundle:nil] forCellReuseIdentifier:kMLPropertysubCell];
         
         [self.view addSubview:table];
         table;
     });
+    
+    
     
     _headView = ({
         MLPersonHeadView *headView =[MLPersonHeadView personHeadView];
@@ -95,16 +109,14 @@
     
     self.tableView.tableHeaderView = self.headView;
     
-}
-
-- (void)messageButtonAction:(UIBarButtonItem *)sender{
-    self.hidesBottomBarWhenPushed = YES;
-    MessagesViewController * VC = [[MessagesViewController alloc]init];
+    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [_tableView.header endRefreshing];
+        //        page = 1;
+        //        [self downLoadList];
+        badgeView.hidden = NO;
+    }];
     
-    [self.navigationController pushViewController:VC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
 }
-
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -135,12 +147,14 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 3;
+    }else if (section == 1){
+        return 2;
     }
     return 5;
 }
@@ -158,7 +172,13 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (indexPath.section == 1) {
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        NSLog(@"我的资产");
+        MLMyPropertyViewController *vc = [[MLMyPropertyViewController alloc]init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (indexPath.section == 2) {
         switch (indexPath.row) {
             case 0:  //会员卡
             {
@@ -263,6 +283,9 @@
         }
         else if (indexPath.row == 2){
             MLPersonOrderCell *cell = [tableView dequeueReusableCellWithIdentifier:kMLPersonOrderCell forIndexPath:indexPath];
+            badgeView = [[JSBadgeView alloc] initWithParentView:cell.imgDaifukuan alignment:JSBadgeViewAlignmentTopRight];
+            badgeView.badgeText = @"2";
+            
             cell.daifahuoBlcok = ^(){
                 if (!loginid) {
                     [self showError];
@@ -279,6 +302,7 @@
                     [self showError];
                 }
                 else{
+                    badgeView.hidden = YES;
                     HFSOrderListViewController *vc = [[HFSOrderListViewController alloc]init];
                     vc.typeInteger = 1;
                     vc.hidesBottomBarWhenPushed = YES;
@@ -309,6 +333,48 @@
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                
+            };
+            return cell;
+        }
+    }
+    else if (indexPath.section == 1){
+    
+        if (indexPath.row == 0) {
+            MLPropertyCell *cell = [tableView dequeueReusableCellWithIdentifier:kMLPropertyCell forIndexPath:indexPath];
+            cell.myImageView.image = [UIImage imageNamed:@"Outlined_gray"];
+            cell.labProperty.text = @"我的资产";
+            return cell;
+        }
+        else{
+            MLPropertysubCell *cell = [tableView dequeueReusableCellWithIdentifier:kMLPropertysubCell forIndexPath:indexPath];
+            cell.sorceBlcok = ^(){
+                
+                if (!loginid) {
+                    [self showError];
+                }else{
+                
+                    NSLog(@"线上积分");
+                }
+            };
+            cell.chargeBlock = ^(){
+            
+                if (!loginid) {
+                    [self showError];
+                }else{
+                    NSLog(@"优惠券");
+                    MLYHQViewController *vc = [[MLYHQViewController alloc]init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            };
+            cell.moneyBlock = ^(){
+                if (!loginid) {
+                    [self showError];
+                }else{
+                
+                    NSLog(@"余额");
+                }
+            
             };
             return cell;
         }
@@ -394,9 +460,16 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0 && indexPath.row == 2) {
         return 70;
+    }if (indexPath.section == 1 && indexPath.row == 1) {
+        return 60;
     }
     return 44;
 }
 
+
+-(void)actMessage{
+    
+    NSLog(@"消息");
+}
 
 @end

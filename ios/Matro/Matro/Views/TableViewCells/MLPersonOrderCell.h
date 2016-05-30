@@ -24,5 +24,9 @@ typedef void(^TuihuoBlock)();
 @property (nonatomic,copy)DaifukuanBlock  daifukuanBlock;
 @property (nonatomic,copy)TuihuoBlock   tuihuoBlock;
 
+@property (weak, nonatomic) IBOutlet UIImageView *imgDaifahuo;
+@property (weak, nonatomic) IBOutlet UIImageView *imgDaifukuan;
+@property (weak, nonatomic) IBOutlet UIImageView *imgDaishouhuo;
+@property (weak, nonatomic) IBOutlet UIImageView *imgTuikuan;
 
 @end

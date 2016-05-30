@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CommonHeader.h"
 
 @interface MNNPurchaseHistoryTableViewCell : UITableViewCell
 

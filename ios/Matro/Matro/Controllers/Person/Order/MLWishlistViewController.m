@@ -21,9 +21,12 @@
 
 
 
-@interface MLWishlistViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MLWishlistViewController ()<UITableViewDelegate,UITableViewDataSource>{
 
-@property (nonatomic,strong)UITableView *tableView;
+    BOOL isSelect;
+}
+
+//@property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *dataSource;
 @property (nonatomic,strong)MLWishlistFootView *footView;
 @property (nonatomic,strong)NSMutableArray *wishlistArray;
@@ -39,9 +42,12 @@ static NSInteger page = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"商品收藏";
+    self.title = @"我的收藏";
+    isSelect = YES;
+    self.storesTableView.hidden = YES;
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    //self.view.backgroundColor = [UIColor whiteColor];
+    /*
     _tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
         tableView.backgroundColor = RGBA(245, 245, 245, 1);
@@ -53,24 +59,31 @@ static NSInteger page = 1;
         [self.view addSubview:tableView];
         tableView;
     });
+     */
+    self.goodsTableView.backgroundColor = RGBA(245, 245, 245, 1);
+    self.goodsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.goodsTableView registerNib:[UINib nibWithNibName:@"MLWishlistTableViewCell" bundle:nil] forCellReuseIdentifier:kMLWishlistTableViewCell];
     
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.goodsTableView.delegate = self;
+    self.goodsTableView.dataSource = self;
+    /*
+    [self.goodsTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.left.bottom.mas_equalTo(self.view);
     }];
+    */
     
-    
-    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self.tableView.header endRefreshing];
+    self.goodsTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self.goodsTableView.header endRefreshing];
         page = 1;
         [self downLoadList];
     }];
     
-    self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        [self.tableView.footer endRefreshing];
+    self.goodsTableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [self.goodsTableView.footer endRefreshing];
         [self downLoadList];
     }];
     
-    [self.tableView.header beginRefreshing];
+    [self.goodsTableView.header beginRefreshing];
     
     
     _footView = ({
@@ -105,7 +118,7 @@ static NSInteger page = 1;
                     model.isSelect = NO;
                 }
             }
-            [self.tableView reloadData];
+            [self.goodsTableView reloadData];
         };
         footView.hidden = YES;
         [self.view addSubview:footView];
@@ -144,7 +157,7 @@ static NSInteger page = 1;
                 [self.dataSource removeAllObjects];
             }
             [self.dataSource addObjectsFromArray:[MLWishlistModel mj_objectArrayWithKeyValuesArray:list]];
-            [self.tableView reloadData];
+            [self.goodsTableView reloadData];
             
             [self.view configBlankPage:EaseBlankPageTypeShouCang hasData:(self.dataSource.count>0)];
             self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
@@ -175,7 +188,7 @@ static NSInteger page = 1;
         }
         else{
             [MBProgressHUD showMessag:@"取消成功" toView:self.view];
-            [self.tableView.header beginRefreshing];
+            [self.goodsTableView.header beginRefreshing];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -228,12 +241,13 @@ static NSInteger page = 1;
 {
     isEditing = !isEditing;
     sender.title = isEditing?@"完成":@"编辑";
-    [self.tableView reloadData];
-    
-    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.goodsTableView reloadData];
+    /*
+    [self.goodsTableView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view).offset(isEditing?-50:0);
     }];
+     */
     self.footView.hidden = !isEditing;
     
 }
@@ -296,4 +310,26 @@ static NSInteger page = 1;
 }
 
 
+- (IBAction)actGoods:(id)sender {
+    
+    self.goodsTableView.hidden = NO;
+    [self.btnStores setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    self.storesView.backgroundColor = [UIColor whiteColor];
+    [self.btnGoods setTitleColor:MS_RGB(166,136,89) forState:UIControlStateNormal];
+    self.goodsView.backgroundColor = MS_RGB(166,136,89);
+    self.storesTableView.hidden = YES;
+    [self.goodsTableView reloadData];
+    
+}
+- (IBAction)actStores:(id)sender {
+    
+    self.storesTableView.hidden = NO;
+    [self.btnGoods setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    self.goodsView.backgroundColor = [UIColor whiteColor];
+    [self.btnStores setTitleColor:MS_RGB(166,136,89) forState:UIControlStateNormal];
+    self.storesView.backgroundColor = MS_RGB(166,136,89);
+    self.goodsTableView.hidden = YES;
+    [self.storesTableView reloadData];
+    
+}
 @end

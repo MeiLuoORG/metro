@@ -94,7 +94,7 @@
     
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"个人中心";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Home_top_icon"] style:UIBarButtonItemStylePlain target:self action:@selector(messageButtonAction:)];
+    
     //设置按钮里图片与文字之间关系的方法
     [_paymentButton centerImageAndTitleWithSpace:4];
     [_delivergoodsButton centerImageAndTitleWithSpace:4];
@@ -112,19 +112,11 @@
     self.vipcardBgView.hidden = YES;
     self.vipcardHeight.constant = 0;
     
-    //UIBarButtonItem * messgageButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"liulanzuji"] style:UIBarButtonItemStyleDone target:self action:@selector(messageButtonAction:)];
-    //[self.navigationItem setRightBarButtonItem:messgageButton];
-
+    
 //    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateUserInfo) name:NOTIFICATION_CHANGEUSERINFO object:nil];
 }
 
-- (void)messageButtonAction:(UIBarButtonItem *)sender{
-    self.hidesBottomBarWhenPushed = YES;
-    MessagesViewController * VC = [[MessagesViewController alloc]init];
-    
-    [self.navigationController pushViewController:VC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
-}
+
 
 
 

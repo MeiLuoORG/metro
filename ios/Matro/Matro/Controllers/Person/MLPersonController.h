@@ -7,7 +7,6 @@
 //
 
 #import "MLBaseViewController.h"
-#import "MessagesViewController.h"
 
 @interface MLPersonController : MLBaseViewController
 

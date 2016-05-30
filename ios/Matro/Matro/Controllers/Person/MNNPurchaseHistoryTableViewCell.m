@@ -27,13 +27,6 @@
     return self;
 }
 - (void)createViews {
-    
-    self.contentView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0f alpha:1.0f];
-    
-    UIView * blackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 120)];
-    blackView.backgroundColor = [UIColor whiteColor];
-    [self.contentView addSubview:blackView];
-    
     _time          = [UILabel new];
     _timeLabel     = [UILabel new];
     _money         = [UILabel new];
@@ -79,8 +72,6 @@
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
-
-    
     _time.frame = CGRectMake(10, 0, 80, 30);
     _timeLabel.frame = CGRectMake(CGRectGetWidth(self.frame)-210, 0, 200, 30);
     _money.frame = CGRectMake(10, CGRectGetMaxY(_time.frame), 80, 30);

@@ -18,6 +18,7 @@
 #import "MLReturnRequestViewController.h"
 #import "MLFootMarkViewController.h"
 #import "MLWishlistViewController.h"
+#import "MLYHQViewController.h"
 @interface MLHYHTableViewController ()
 
 @end
@@ -84,7 +85,7 @@
     else if (indexPath.row == 9){
         cell.textLabel.text = @"足迹列表";
     }
-    else{
+    else {
         cell.textLabel.text = @"商品收藏";
     }
     // Configure the cell...
@@ -187,7 +188,7 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else{
+    else {
         MLWishlistViewController *vc = [[MLWishlistViewController alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];

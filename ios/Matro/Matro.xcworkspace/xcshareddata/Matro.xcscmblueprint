@@ -1,11 +1,19 @@
 {
+<<<<<<< Updated upstream
   "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "506FAE2E55823436D17976121DFBC828D22D037A",
+=======
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "90e7987d-362a-fa40-8b30-ace672ea35b0++5326",
+>>>>>>> Stashed changes
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
-    "90e7987d-362a-fa40-8b30-ace672ea35b0" : {
+    "90e7987d-362a-fa40-8b30-ace672ea35b0++5326" : {
+
+    },
+    "90e7987d-362a-fa40-8b30-ace672ea35b0++3686" : {
 
     }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+<<<<<<< Updated upstream
     "506FAE2E55823436D17976121DFBC828D22D037A" : 0,
     "90e7987d-362a-fa40-8b30-ace672ea35b0" : 0
   },
@@ -13,10 +21,19 @@
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "506FAE2E55823436D17976121DFBC828D22D037A" : "metro\/",
     "90e7987d-362a-fa40-8b30-ace672ea35b0" : "Matro\/"
+=======
+    "90e7987d-362a-fa40-8b30-ace672ea35b0++5326" : 0,
+    "90e7987d-362a-fa40-8b30-ace672ea35b0++3686" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E380F1F9-DDA6-4B03-AFC2-74C9FBCB41F5",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "90e7987d-362a-fa40-8b30-ace672ea35b0++5326" : "ios\/",
+    "90e7987d-362a-fa40-8b30-ace672ea35b0++3686" : ""
+>>>>>>> Stashed changes
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Matro",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ios\/Matro\/Matro.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Matro\/Matro.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/MeiLuoORG\/metro.git",
@@ -26,7 +43,12 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/139.196.44.146\/svn\/Matro",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "90e7987d-362a-fa40-8b30-ace672ea35b0"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "90e7987d-362a-fa40-8b30-ace672ea35b0++3686"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/139.196.44.146\/svn\/Matro",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "90e7987d-362a-fa40-8b30-ace672ea35b0++5326"
     }
   ]
 }

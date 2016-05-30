@@ -1,1 +1,0 @@
-../../../../BaiduMap-iOS-SDK/BaiduMapAPI/BaiduMapAPI_Utils.framework/Headers/BMKOpenOption.h

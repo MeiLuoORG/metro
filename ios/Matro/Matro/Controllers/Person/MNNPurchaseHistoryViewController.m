@@ -36,11 +36,6 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 50)];
-    
-    UIView * blackView = [[UIView alloc]initWithFrame:CGRectMake(0, 5, MAIN_SCREEN_WIDTH, 40)];
-    blackView.backgroundColor = [UIColor whiteColor];
-    [headerView addSubview:blackView];
-    
     _usableLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, MAIN_SCREEN_WIDTH/2, 20)];
     _usableLabel.text = @"21450";
     _usableLabel.font = [UIFont systemFontOfSize:12];
@@ -83,7 +78,7 @@
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 130;
+    return 120;
 }
 
 
