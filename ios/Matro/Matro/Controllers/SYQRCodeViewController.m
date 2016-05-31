@@ -77,7 +77,7 @@ static const float kReaderViewHeight = 250;
     titleLab.shadowColor = [UIColor lightGrayColor];
     titleLab.shadowOffset = CGSizeMake(0, - 1);
     titleLab.font = [UIFont boldSystemFontOfSize:18.0];
-    titleLab.textColor = [UIColor whiteColor];
+    titleLab.textColor = [UIColor blackColor];
     titleLab.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:titleLab];
 }
@@ -86,7 +86,9 @@ static const float kReaderViewHeight = 250;
 {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setFrame:CGRectMake(10, 28, 44, 24)];
-    [btn setImage:[UIImage imageNamed:@"icon_jiantou_bai"] forState:UIControlStateNormal];
+   // [btn setImage:[UIImage imageNamed:@"icon_jiantou_bai"] forState:UIControlStateNormal];
+    [btn setTitle:@"取消" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(cancleSYQRCodeReading) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
 }

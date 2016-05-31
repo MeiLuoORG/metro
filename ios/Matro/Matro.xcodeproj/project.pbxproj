@@ -29,6 +29,10 @@
 		280F7D701CF972CC00D42FA6 /* MLPropertysubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280F7D6E1CF972CC00D42FA6 /* MLPropertysubCell.xib */; };
 		280F7D741CF981BA00D42FA6 /* MLMyPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 280F7D721CF981BA00D42FA6 /* MLMyPropertyViewController.m */; };
 		280F7D751CF981BA00D42FA6 /* MLMyPropertyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280F7D731CF981BA00D42FA6 /* MLMyPropertyViewController.xib */; };
+		285326E71CFD3A5800FA2AB0 /* MLYHQOutdateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285326E51CFD3A5800FA2AB0 /* MLYHQOutdateCell.m */; };
+		285326E81CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285326E61CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib */; };
+		285326EC1CFD3A7300FA2AB0 /* MLYHQUsedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285326EA1CFD3A7300FA2AB0 /* MLYHQUsedCell.m */; };
+		285326ED1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285326EB1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib */; };
 		28CEFB1A1CF99C940070E2CA /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CEFB191CF99C940070E2CA /* JSBadgeView.m */; };
 		28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85CE1CEDC59900E582EE /* UMSocialLocalizable.strings */; };
 		28CF86051CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85DC1CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a */; };
@@ -455,6 +459,12 @@
 		280F7D711CF981BA00D42FA6 /* MLMyPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLMyPropertyViewController.h; path = Matro/Views/TableViewCells/MLMyPropertyViewController.h; sourceTree = SOURCE_ROOT; };
 		280F7D721CF981BA00D42FA6 /* MLMyPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLMyPropertyViewController.m; path = Matro/Views/TableViewCells/MLMyPropertyViewController.m; sourceTree = SOURCE_ROOT; };
 		280F7D731CF981BA00D42FA6 /* MLMyPropertyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MLMyPropertyViewController.xib; path = Matro/Views/TableViewCells/MLMyPropertyViewController.xib; sourceTree = SOURCE_ROOT; };
+		285326E41CFD3A5800FA2AB0 /* MLYHQOutdateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLYHQOutdateCell.h; sourceTree = "<group>"; };
+		285326E51CFD3A5800FA2AB0 /* MLYHQOutdateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLYHQOutdateCell.m; sourceTree = "<group>"; };
+		285326E61CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLYHQOutdateCell.xib; sourceTree = "<group>"; };
+		285326E91CFD3A7300FA2AB0 /* MLYHQUsedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLYHQUsedCell.h; sourceTree = "<group>"; };
+		285326EA1CFD3A7300FA2AB0 /* MLYHQUsedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLYHQUsedCell.m; sourceTree = "<group>"; };
+		285326EB1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLYHQUsedCell.xib; sourceTree = "<group>"; };
 		28CEFB181CF99C940070E2CA /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
 		28CEFB191CF99C940070E2CA /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		28CF85CF1CEDC59900E582EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
@@ -1702,6 +1712,12 @@
 				280F7CE21CF832C600D42FA6 /* MLYHQTableViewCell.h */,
 				280F7CE31CF832C600D42FA6 /* MLYHQTableViewCell.m */,
 				280F7CE41CF832C600D42FA6 /* MLYHQTableViewCell.xib */,
+				285326E41CFD3A5800FA2AB0 /* MLYHQOutdateCell.h */,
+				285326E51CFD3A5800FA2AB0 /* MLYHQOutdateCell.m */,
+				285326E61CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib */,
+				285326E91CFD3A7300FA2AB0 /* MLYHQUsedCell.h */,
+				285326EA1CFD3A7300FA2AB0 /* MLYHQUsedCell.m */,
+				285326EB1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2880,6 +2896,7 @@
 				7AEDD0ED1CE5EE9A009B12F4 /* MLWishlistTableViewCell.xib in Resources */,
 				7AF6EEBA1CE40AD100ECFCAA /* MLPersonHeadView.xib in Resources */,
 				7AF141641CE1FD50005DDE70 /* MLProductOrderCell.xib in Resources */,
+				285326E81CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib in Resources */,
 				687704051CCF615E0008ED46 /* home_html.zip in Resources */,
 				7AEDD0C61CE59F5D009B12F4 /* MLSaleServiceProductCell.xib in Resources */,
 				3A633B8C1C9EA82200C11FD5 /* MLClassViewController.xib in Resources */,
@@ -2959,6 +2976,7 @@
 				6839EF1E1CD6C39100638B3D /* APPSettingViewController.xib in Resources */,
 				3AA0E7301CA8F0240079AA90 /* MLSureViewController.xib in Resources */,
 				3A1AA8C91CAA75E600AF73C2 /* GetArae.json in Resources */,
+				285326ED1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib in Resources */,
 				6839EF141CD5A8FC00638B3D /* MyAddressManagerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3040,6 +3058,7 @@
 				7AEC88CE1CE45D1500B43DD4 /* MLGoodsComHeadView.m in Sources */,
 				3A633B3C1C9EA36E00C11FD5 /* SDCollectionViewCell.m in Sources */,
 				7A3A62721CDB874F00D265F2 /* MLOrderSubHeadCell.m in Sources */,
+				285326E71CFD3A5800FA2AB0 /* MLYHQOutdateCell.m in Sources */,
 				3A21486A1CB3A5CC007DF97D /* LoginHistory.m in Sources */,
 				3AA0E72F1CA8F0240079AA90 /* MLSureViewController.m in Sources */,
 				3A16DC231C9FF423007AE4A2 /* MLVIPCardViewController.m in Sources */,
@@ -3265,6 +3284,7 @@
 				3A1AA8C61CAA58F200AF73C2 /* MLAddressInfoViewController.m in Sources */,
 				3AA0E7A91CA91E500079AA90 /* DataVerifier.m in Sources */,
 				3ACF2CDB1CA4E702003D1F67 /* MLMoreTableViewCell.m in Sources */,
+				285326EC1CFD3A7300FA2AB0 /* MLYHQUsedCell.m in Sources */,
 				6839EF131CD5A8FC00638B3D /* MyAddressManagerViewController.m in Sources */,
 				3A633B621C9EA36E00C11FD5 /* ZLNavigationController.m in Sources */,
 				3A633B2F1C9EA36E00C11FD5 /* UIImage+HeinQi.m in Sources */,

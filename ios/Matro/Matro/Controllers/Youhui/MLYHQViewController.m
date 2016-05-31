@@ -8,6 +8,8 @@
 
 #import "MLYHQViewController.h"
 #import "MLYHQTableViewCell.h"
+#import "MLYHQOutdateCell.h"
+#import "MLYHQUsedCell.h"
 #import "MJRefresh.h"
 
 @interface MLYHQViewController ()<UITableViewDelegate,UITableViewDataSource>{
@@ -35,24 +37,32 @@
     
     self.unuseTableView.backgroundColor = RGBA(245, 245, 245, 1);
     self.unuseTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    if (isunUsed) {
-        [self.unuseTableView registerNib:[UINib nibWithNibName:@"MLYHQTableViewCell" bundle:nil] forCellReuseIdentifier:@"MLYHQUnuseTableViewCell"];
-    }else if (isoutDate){
-    
-        [self.outdateTableView registerNib:[UINib nibWithNibName:@"MLYHQTableViewCell" bundle:nil] forCellReuseIdentifier:@"MLYHQOutdateTableViewCell"];
-    }else{
-    
-        [self.usedTableView registerNib:[UINib nibWithNibName:@"MLYHQTableViewCell" bundle:nil] forCellReuseIdentifier:@"MLYHQUsedTableViewCell"];
-    }
+    [self.unuseTableView registerNib:[UINib nibWithNibName:@"MLYHQTableViewCell" bundle:nil] forCellReuseIdentifier:@"MLYHQTableViewCell"];
+    [self.outdateTableView registerNib:[UINib nibWithNibName:@"MLYHQOutdateCell" bundle:nil] forCellReuseIdentifier:@"MLYHQOutdateCell"];
+    [self.usedTableView registerNib:[UINib nibWithNibName:@"MLYHQUsedCell" bundle:nil] forCellReuseIdentifier:@"MLYHQUsedCell"];
     
  
     self.unuseTableView.delegate = self;
     self.unuseTableView.dataSource = self;
+    self.usedTableView.delegate =self;
+    self.usedTableView.dataSource =self;
+    self.outdateTableView.dataSource =self;
+    self.outdateTableView.delegate =self;
     
     self.unuseTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self.unuseTableView.header endRefreshing];
 //        page = 1;
 //        [self downLoadList];
+    }];
+    self.outdateTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self.outdateTableView.header endRefreshing];
+        //        page = 1;
+        //        [self downLoadList];
+    }];
+    self.usedTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self.usedTableView.header endRefreshing];
+        //        page = 1;
+        //        [self downLoadList];
     }];
     isblank = NO;
     
@@ -80,18 +90,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    MLYHQTableViewCell *cell;
+    UITableViewCell *cell;
+    
     if (isunUsed) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"MLYHQUnuseTableViewCell" forIndexPath:indexPath];
-        cell.imageState.image = [UIImage imageNamed:@"outdate"];
+        
+        cell = [self.unuseTableView dequeueReusableCellWithIdentifier:@"MLYHQTableViewCell" forIndexPath:indexPath];
+        return cell;
+        
     }else if(isoutDate){
-        cell = [tableView dequeueReusableCellWithIdentifier:@"MLYHQOutdateTableViewCell" forIndexPath:indexPath];
-        cell.imageState.image = [UIImage imageNamed:@"outdate"];
+        
+        MLYHQOutdateCell *outdateCell = [[MLYHQOutdateCell alloc]init];
+        cell = [self.outdateTableView dequeueReusableCellWithIdentifier:@"MLYHQOutdateCell" forIndexPath:indexPath];
+        outdateCell.imageState.image = [UIImage imageNamed:@"outdate"];
         
     }else{
-    
-        cell = [tableView dequeueReusableCellWithIdentifier:@"MLYHQUsedTableViewCell" forIndexPath:indexPath];
-        cell.imageState.image = [UIImage imageNamed:@"used"];
+        
+        MLYHQUsedCell *usedCell = [[MLYHQUsedCell alloc]init];
+        cell = [self.usedTableView dequeueReusableCellWithIdentifier:@"MLYHQUsedCell" forIndexPath:indexPath];
+        usedCell.imageState.image = [UIImage imageNamed:@"used"];
     }
     
     /*
