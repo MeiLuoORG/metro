@@ -18,6 +18,8 @@
     UILabel *_label;
     UIView *_backgroundView;
     UILabel *_preferentialRules;//优惠规则内容
+    UIButton *btnTitle;
+    UIButton *btnSelect;
 }
 
 @end
@@ -54,18 +56,39 @@
     //huiyuanka_weijihuo huiyuanka_jinka huiyuanka_bojin
     
     [_backgroundView addSubview:_membershipCard];
-    _label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_membershipCard.frame)+20, MAIN_SCREEN_WIDTH, 20)];
-    if (_membershipCard.image == nil) {
+   // _label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_membershipCard.frame)+20, MAIN_SCREEN_WIDTH, 20)];
+    
+   if (_membershipCard.image == nil) {
+        _label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_membershipCard.frame)+20, MAIN_SCREEN_WIDTH, 20)];
         _label.text = @"您还没有会员卡，绑定即可享受线上优惠";
+        _label.font = [UIFont systemFontOfSize:12];
+        _label.textAlignment = NSTextAlignmentCenter;
         _membershipCard.image = [UIImage imageNamed:@"huiyuanka_weijihuo"];
+        
     }
     else {
+        _label = [[UILabel alloc] initWithFrame:CGRectMake(160, CGRectGetMaxY(_membershipCard.frame)+20, MAIN_SCREEN_WIDTH-160, 20)];
+        btnTitle = [[UIButton alloc] initWithFrame:CGRectMake(32, CGRectGetMaxY(_membershipCard.frame)+20, 60, 20)];
+        [btnTitle setTitle:@"设为默认" forState:UIControlStateNormal];
+        [btnTitle.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        [btnTitle setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(_membershipCard.frame)+24, 12, 12)];
+        btnSelect.selected  = NO;
+        [btnSelect setImage:[UIImage imageNamed:@"r01"] forState:UIControlStateNormal];
+        [btnSelect addTarget:self action:@selector(actSelect) forControlEvents:UIControlEventTouchUpInside];
+        
         _label.text = @"使用时向服务员出示二维码";
+        _label.font = [UIFont systemFontOfSize:12];
+        _label.textAlignment = NSTextAlignmentCenter;
         _membershipCard.image = [UIImage imageNamed:@"huiyuanka_jinka"];
     }
-    _label.font = [UIFont systemFontOfSize:12];
-    _label.textAlignment = NSTextAlignmentCenter;
+//    _label.font = [UIFont systemFontOfSize:12];
+//    _label.textAlignment = NSTextAlignmentCenter;
     [_backgroundView addSubview:_label];
+    [_backgroundView addSubview:btnSelect];
+    [_backgroundView addSubview:btnTitle];
+    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
     _preferentialRules = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, MAIN_SCREEN_WIDTH-20, 100)];
     _preferentialRules.text = @"此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则!!!!!!!";
@@ -81,6 +104,18 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
+}
+
+-(void)actSelect{
+    
+    if (btnSelect.selected) {
+        btnSelect.selected = NO;
+        [btnSelect setImage:[UIImage imageNamed:@"r1"] forState:UIControlStateNormal];
+    }else{
+        btnSelect.selected = YES;
+        [btnSelect setImage:[UIImage imageNamed:@"r01"] forState:UIControlStateNormal];
+    }
+    
 }
 #pragma mark -
 #pragma mark UITableViewDelegate
