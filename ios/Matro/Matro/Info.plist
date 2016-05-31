@@ -60,6 +60,12 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>baidumap</string>
+		<string>mqq</string>
+		<string>weixin</string>
+		<string>mqqapi</string>
+		<string>wechat</string>
+		<string>mqqopensdkapiV2</string>
+		<string>sinaweibosso</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -96,5 +102,7 @@
 	<true/>
 	<key>CFBundleDisplayName</key>
 	<string>苏州美罗精品</string>
+	<key></key>
+	<string></string>
 </dict>
 </plist>
