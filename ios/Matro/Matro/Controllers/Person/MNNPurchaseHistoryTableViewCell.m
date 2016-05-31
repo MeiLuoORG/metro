@@ -27,6 +27,10 @@
     return self;
 }
 - (void)createViews {
+        self.contentView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0f alpha:1.0f];
+    UIView * blackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 120)];
+    blackView.backgroundColor = [UIColor whiteColor];
+    [self.contentView addSubview:blackView];
     _time          = [UILabel new];
     _timeLabel     = [UILabel new];
     _money         = [UILabel new];

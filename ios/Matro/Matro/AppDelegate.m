@@ -31,7 +31,9 @@
 #import "IQKeyboardManager.h"
 
 
-@interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>
+@interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>{
+ BMKMapManager* _mapManager;
+}
 
 @end
 
@@ -42,7 +44,13 @@
     // Override point for customization after application launch.
     
     [self initializeHomePageData];
-   
+    /*百度地图*/
+    _mapManager = [[BMKMapManager alloc]init];
+    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
+    BOOL ret = [_mapManager start:@"GERkgmhZLebGqOAk5PZF5Qs6G0WqbowS" generalDelegate:nil];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
     MMMaterialDesignSpinner *_loadingSpinner = [[MMMaterialDesignSpinner alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width-80)/2, ([UIScreen mainScreen].bounds.size.height-80)/2, 80, 80)];
     _loadingSpinner.tintColor = [HFSUtility hexStringToColor:@"#ae8e5d"];
     _loadingSpinner.lineWidth = 5;

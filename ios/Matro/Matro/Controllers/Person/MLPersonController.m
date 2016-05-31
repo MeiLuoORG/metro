@@ -56,6 +56,19 @@
 
     self.navigationItem.rightBarButtonItem = right;
     
+    //right.badge.frame = CGRectMake(0, 0, 5, 5);
+    right.badgeValue = @"●";
+    right.badgeTextColor = [UIColor redColor];
+    right.badgeBGColor = [UIColor clearColor];
+    //right.badge.hidden = YES;
+    //right.badgeMinSize = 0.5f;
+    //right.badgeTextColor = [UIColor redColor];
+    
+    /*
+    badgeView = [[JSBadgeView alloc] initWithParentView:right.customView alignment:JSBadgeViewAlignmentTopRight];
+    badgeView.badgeText = @"2";
+     */
+    
     // Do any additional setup after loading the view.
     _tableView = ({
         UITableView *table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-64-self.tabBarController.tabBar.bounds.size.height)];
@@ -468,8 +481,12 @@
 
 
 -(void)actMessage{
+    self.hidesBottomBarWhenPushed = YES;
+    MessagesViewController * VC = [[MessagesViewController alloc]init];
     
-    NSLog(@"消息");
+    [self.navigationController pushViewController:VC animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
+
 }
 
 @end

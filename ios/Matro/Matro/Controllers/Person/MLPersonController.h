@@ -7,6 +7,8 @@
 //
 
 #import "MLBaseViewController.h"
+#import "MessagesViewController.h"
+#import "UIBarButtonItem+Badge.h"
 
 @interface MLPersonController : MLBaseViewController
 

@@ -59,22 +59,7 @@
 	<string>1.02</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>mqqOpensdkSSoLogin</string>
-		<string>mqzone</string>
-		<string>sinaweibo</string>
-		<string>alipayauth</string>
-		<string>alipay</string>
-		<string>safepay</string>
-		<string>mqq</string>
-		<string>mqqapi</string>
-		<string>mqqopensdkapiV3</string>
-		<string>mqqopensdkapiV2</string>
-		<string>mqqapiwallet</string>
-		<string>mqqwpa</string>
-		<string>mqqbrowser</string>
-		<string>wtloginmqq2</string>
-		<string>weixin</string>
-		<string>wechat</string>
+		<string>baidumap</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -105,5 +90,11 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<true/>
+	<key>CFBundleDisplayName</key>
+	<string>苏州美罗精品</string>
 </dict>
 </plist>
