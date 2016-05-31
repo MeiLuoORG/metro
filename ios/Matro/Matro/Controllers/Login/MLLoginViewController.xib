@@ -14,7 +14,6 @@
                 <outlet property="loginTypeBgView" destination="U9l-OH-CWc" id="1yq-O5-l8f"/>
                 <outlet property="loginTypeButton" destination="i80-jq-c0n" id="00T-i8-EK9"/>
                 <outlet property="passwordView" destination="Dx9-Um-hHg" id="0DT-TC-NGq"/>
-                <outlet property="qqLoginBgView" destination="pRO-XN-NI5" id="L1T-tp-3Ey"/>
                 <outlet property="rcodeView" destination="CKC-u3-NAc" id="6HH-Dh-ikf"/>
                 <outlet property="registerButton" destination="keX-M1-SgK" id="3FM-vG-SCZ"/>
                 <outlet property="registerTypeBgView" destination="xn9-JG-yaj" id="lIf-Rb-ohv"/>
@@ -580,69 +579,64 @@
                                 <constraint firstAttribute="height" constant="1" id="qUQ-pe-Rux"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DZJ-Cw-lgb">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gBS-9c-g50" userLabel="QQ登录">
+                            <rect key="frame" x="70" y="41" width="200" height="18"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="gBS-9c-g50" secondAttribute="height" multiplier="100:9" id="QEX-fa-Js8"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="   QQ登录" image="qq">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="qqLoginBtnAction:" destination="-1" eventType="touchUpInside" id="eE2-31-ZH6"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RDw-LW-hky">
+                            <rect key="frame" x="300" y="0.0" width="200" height="100"/>
                             <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pRO-XN-NI5">
-                                    <rect key="frame" x="83" y="0.0" width="200" height="100"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gBS-9c-g50" userLabel="QQ登录">
-                                            <rect key="frame" x="63" y="41" width="74" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <state key="normal" title="   QQ登录" image="qq">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="qqLoginButtonAction:" destination="-1" eventType="touchUpInside" id="dWV-9T-kNS"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RDw-LW-hky">
-                                    <rect key="frame" x="317" y="0.0" width="200" height="100"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9L-lu-8kP">
-                                            <rect key="frame" x="0.0" y="41" width="200" height="18"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <state key="normal" title="   微信登录" image="矢量智能对象">
-                                                <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="wxLoginButtonAction:" destination="-1" eventType="touchUpInside" id="A3d-fG-u9y"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9L-lu-8kP" userLabel="微信登录">
+                                    <rect key="frame" x="0.0" y="41" width="200" height="18"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="i9L-lu-8kP" secondAttribute="height" multiplier="100:9" id="EjS-h0-aA4"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <state key="normal" title="   微信登录" image="矢量智能对象">
+                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="wxLoginButtonAction:" destination="-1" eventType="touchUpInside" id="A3d-fG-u9y"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="i9L-lu-8kP" firstAttribute="centerX" secondItem="RDw-LW-hky" secondAttribute="centerX" id="mcm-eQ-en6"/>
+                                <constraint firstItem="i9L-lu-8kP" firstAttribute="centerY" secondItem="RDw-LW-hky" secondAttribute="centerY" id="yvg-iu-WNa"/>
+                            </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="JHa-JV-KLU" firstAttribute="top" secondItem="ObL-Qc-1VK" secondAttribute="top" id="13K-Ty-lnM"/>
                         <constraint firstItem="JHa-JV-KLU" firstAttribute="centerX" secondItem="ObL-Qc-1VK" secondAttribute="centerX" id="1ew-bR-rI8"/>
-                        <constraint firstItem="DZJ-Cw-lgb" firstAttribute="leading" secondItem="ObL-Qc-1VK" secondAttribute="leading" id="2tk-gf-8L3"/>
+                        <constraint firstAttribute="bottom" secondItem="RDw-LW-hky" secondAttribute="bottom" id="9O8-Ta-sJb"/>
                         <constraint firstItem="T33-Pb-sYo" firstAttribute="centerY" secondItem="JHa-JV-KLU" secondAttribute="centerY" id="G1Y-j4-zp7"/>
+                        <constraint firstAttribute="trailing" secondItem="RDw-LW-hky" secondAttribute="trailing" constant="100" id="KDI-YE-ezr"/>
+                        <constraint firstItem="RDw-LW-hky" firstAttribute="centerX" secondItem="ObL-Qc-1VK" secondAttribute="centerX" constant="80" id="M9F-w0-TUl"/>
                         <constraint firstItem="JHa-JV-KLU" firstAttribute="leading" secondItem="T33-Pb-sYo" secondAttribute="trailing" constant="12" id="OQs-Hg-gKV"/>
-                        <constraint firstAttribute="bottom" secondItem="DZJ-Cw-lgb" secondAttribute="bottom" id="PYs-bL-YDM"/>
+                        <constraint firstItem="RDw-LW-hky" firstAttribute="centerY" secondItem="ObL-Qc-1VK" secondAttribute="centerY" id="P94-i4-PDz"/>
+                        <constraint firstItem="gBS-9c-g50" firstAttribute="centerY" secondItem="ObL-Qc-1VK" secondAttribute="centerY" id="TUY-4v-rb2"/>
                         <constraint firstAttribute="height" constant="100" id="U6a-uU-GO3"/>
                         <constraint firstItem="9KH-j4-qDd" firstAttribute="centerY" secondItem="JHa-JV-KLU" secondAttribute="centerY" id="eoy-pz-Pgz"/>
                         <constraint firstAttribute="trailing" secondItem="9KH-j4-qDd" secondAttribute="trailing" id="iKF-hQ-c37"/>
-                        <constraint firstAttribute="trailing" secondItem="DZJ-Cw-lgb" secondAttribute="trailing" id="iMn-N4-YTY"/>
-                        <constraint firstItem="DZJ-Cw-lgb" firstAttribute="centerX" secondItem="ObL-Qc-1VK" secondAttribute="centerX" id="kA0-Ba-8yS"/>
                         <constraint firstItem="9KH-j4-qDd" firstAttribute="leading" secondItem="JHa-JV-KLU" secondAttribute="trailing" constant="12" id="r86-Uo-dhl"/>
-                        <constraint firstAttribute="trailing" secondItem="DZJ-Cw-lgb" secondAttribute="trailing" id="teG-3z-CVI"/>
                         <constraint firstItem="T33-Pb-sYo" firstAttribute="leading" secondItem="ObL-Qc-1VK" secondAttribute="leading" id="uJj-EA-LjM"/>
+                        <constraint firstItem="gBS-9c-g50" firstAttribute="centerX" secondItem="ObL-Qc-1VK" secondAttribute="centerX" constant="-80" id="xJ8-Y6-en7"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="iMn-N4-YTY"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

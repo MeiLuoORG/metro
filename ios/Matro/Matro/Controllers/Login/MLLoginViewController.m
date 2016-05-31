@@ -151,11 +151,13 @@
     //不支持QQ
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
         _qqLoginBgView.hidden = YES;
+        //NSLog(@"不支持QQ");
     }
     
     //不支持微信
     if (![WXApi isWXAppInstalled] || ![WXApi isWXAppSupportApi]) {
         _wxLoginBgView.hidden = YES;
+        //NSLog(@"不支持微信");
     }
     
 }
@@ -681,8 +683,10 @@
     //
     //    [self performSelector:@selector(dimissViewControllerAction) withObject:nil afterDelay:2.0f];
 }
-- (IBAction)qqLoginButtonAction:(id)sender {
-    
+
+- (IBAction)qqLoginBtnAction:(UIButton *)sender {
+
+    NSLog(@"点击了QQ");
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
     
     snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
@@ -701,7 +705,10 @@
             
         }});
     
+
 }
+
+
 - (IBAction)wxLoginButtonAction:(id)sender {
     
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
