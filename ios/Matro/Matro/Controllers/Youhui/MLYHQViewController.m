@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"优惠券";
+    self.navigationItem.title = @"优惠券";
     isunUsed = YES;
     isoutDate = NO;
     isUsed = NO;
@@ -37,6 +37,11 @@
     
     self.unuseTableView.backgroundColor = RGBA(245, 245, 245, 1);
     self.unuseTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.outdateTableView.backgroundColor = RGBA(245, 245, 245, 1);
+    self.outdateTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.usedTableView.backgroundColor = RGBA(245, 245, 245, 1);
+    self.usedTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     [self.unuseTableView registerNib:[UINib nibWithNibName:@"MLYHQTableViewCell" bundle:nil] forCellReuseIdentifier:@"MLYHQTableViewCell"];
     [self.outdateTableView registerNib:[UINib nibWithNibName:@"MLYHQOutdateCell" bundle:nil] forCellReuseIdentifier:@"MLYHQOutdateCell"];
     [self.usedTableView registerNib:[UINib nibWithNibName:@"MLYHQUsedCell" bundle:nil] forCellReuseIdentifier:@"MLYHQUsedCell"];

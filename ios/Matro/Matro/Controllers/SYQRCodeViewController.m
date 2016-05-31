@@ -35,6 +35,10 @@ static const float kReaderViewHeight = 250;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    UILabel *labTitle = [[UILabel alloc] initWithFrame:CGRectMake(40, 84, [UIScreen mainScreen].bounds.size.width - 80, 40)];
+    labTitle.text = @"对准二维码到框内即可扫描";
+    labTitle.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:labTitle];
     
     [self initUI];
     [self setOverlayPickerView];
@@ -73,8 +77,8 @@ static const float kReaderViewHeight = 250;
     
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kDeviceWidth - 40) / 2.0, 28, 40, 20)];
     
-    titleLab.text = @"扫描";
-    titleLab.shadowColor = [UIColor lightGrayColor];
+    titleLab.text = @"扫描二维码";
+   // titleLab.shadowColor = [UIColor lightGrayColor];
     titleLab.shadowOffset = CGSizeMake(0, - 1);
     titleLab.font = [UIFont boldSystemFontOfSize:18.0];
     titleLab.textColor = [UIColor blackColor];
