@@ -20,6 +20,8 @@
     UILabel *_preferentialRules;//优惠规则内容
     UIButton *btnTitle;
     UIButton *btnSelect;
+    UIScrollView *scrollview;
+    UIPageControl *pageControl;
 }
 
 @end
@@ -52,39 +54,92 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-20) style:UITableViewStyleGrouped];
     
     _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 230)];
-    _membershipCard = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 150)];
-    //huiyuanka_weijihuo huiyuanka_jinka huiyuanka_bojin
     
-    [_backgroundView addSubview:_membershipCard];
-   // _label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_membershipCard.frame)+20, MAIN_SCREEN_WIDTH, 20)];
+    //    _membershipCard = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 150)];
+    //    [_backgroundView addSubview:_membershipCard];
     
-   if (_membershipCard.image == nil) {
-        _label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_membershipCard.frame)+20, MAIN_SCREEN_WIDTH, 20)];
-        _label.text = @"您还没有会员卡，绑定即可享受线上优惠";
-        _label.font = [UIFont systemFontOfSize:12];
-        _label.textAlignment = NSTextAlignmentCenter;
-        _membershipCard.image = [UIImage imageNamed:@"huiyuanka_weijihuo"];
+    scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 150)];
+    
+    scrollview.backgroundColor=[UIColor blueColor];
+    scrollview.showsVerticalScrollIndicator = NO;
+    scrollview.showsHorizontalScrollIndicator = NO;
+    scrollview.bounces = NO;
+    
+    for (int i=0; i<4; i++) {
+        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0+(MAIN_SCREEN_WIDTH-40)*(i), 0, MAIN_SCREEN_WIDTH-40, 150)];
         
+        NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
+        
+        imageView.image=[UIImage imageNamed:str];
+        
+        [scrollview addSubview:imageView];
     }
-    else {
-        _label = [[UILabel alloc] initWithFrame:CGRectMake(160, CGRectGetMaxY(_membershipCard.frame)+20, MAIN_SCREEN_WIDTH-160, 20)];
-        btnTitle = [[UIButton alloc] initWithFrame:CGRectMake(32, CGRectGetMaxY(_membershipCard.frame)+20, 60, 20)];
-        [btnTitle setTitle:@"设为默认" forState:UIControlStateNormal];
-        [btnTitle.titleLabel setFont:[UIFont systemFontOfSize:12]];
-        [btnTitle setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        
-        btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(_membershipCard.frame)+24, 12, 12)];
-        btnSelect.selected  = NO;
-        [btnSelect setImage:[UIImage imageNamed:@"r01"] forState:UIControlStateNormal];
-        [btnSelect addTarget:self action:@selector(actSelect) forControlEvents:UIControlEventTouchUpInside];
-        
-        _label.text = @"使用时向服务员出示二维码";
-        _label.font = [UIFont systemFontOfSize:12];
-        _label.textAlignment = NSTextAlignmentCenter;
-        _membershipCard.image = [UIImage imageNamed:@"huiyuanka_jinka"];
-    }
-//    _label.font = [UIFont systemFontOfSize:12];
-//    _label.textAlignment = NSTextAlignmentCenter;
+    
+    scrollview.pagingEnabled=YES;
+    scrollview.delegate=self;
+    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH-40)*4, 150);
+    
+    
+    
+    pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(80, 140, MAIN_SCREEN_WIDTH-160, 30)];
+    
+    pageControl.numberOfPages=4;
+    
+    pageControl.currentPage=0;
+    
+    pageControl.pageIndicatorTintColor=[UIColor greenColor];
+    
+    pageControl.currentPageIndicatorTintColor=[UIColor redColor];
+    
+    
+    [_backgroundView addSubview:scrollview];
+    [_backgroundView addSubview:pageControl];
+    
+    
+    _label = [[UILabel alloc] initWithFrame:CGRectMake(160, CGRectGetMaxY(scrollview.frame)+20, MAIN_SCREEN_WIDTH-160, 20)];
+    btnTitle = [[UIButton alloc] initWithFrame:CGRectMake(32, CGRectGetMaxY(scrollview.frame)+20, 60, 20)];
+    [btnTitle setTitle:@"设为默认" forState:UIControlStateNormal];
+    [btnTitle.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [btnTitle setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(scrollview.frame)+24, 12, 12)];
+    btnSelect.selected  = NO;
+    [btnSelect setImage:[UIImage imageNamed:@"box"] forState:UIControlStateNormal];
+    [btnSelect addTarget:self action:@selector(actSelect) forControlEvents:UIControlEventTouchUpInside];
+    
+    _label.text = @"使用时向服务员出示二维码";
+    _label.font = [UIFont systemFontOfSize:12];
+    _label.textAlignment = NSTextAlignmentCenter;
+    
+    
+    /*
+     if (_membershipCard.image == nil) {
+     _label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(scrollView.frame)+20, MAIN_SCREEN_WIDTH, 20)];
+     _label.text = @"您还没有会员卡，绑定即可享受线上优惠";
+     _label.font = [UIFont systemFontOfSize:12];
+     _label.textAlignment = NSTextAlignmentCenter;
+     _membershipCard.image = [UIImage imageNamed:@"huiyuanka_weijihuo"];
+     
+     }
+     else {
+     _label = [[UILabel alloc] initWithFrame:CGRectMake(160, CGRectGetMaxY(_membershipCard.frame)+20, MAIN_SCREEN_WIDTH-160, 20)];
+     btnTitle = [[UIButton alloc] initWithFrame:CGRectMake(32, CGRectGetMaxY(_membershipCard.frame)+20, 60, 20)];
+     [btnTitle setTitle:@"设为默认" forState:UIControlStateNormal];
+     [btnTitle.titleLabel setFont:[UIFont systemFontOfSize:12]];
+     [btnTitle setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+     
+     btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(_membershipCard.frame)+24, 12, 12)];
+     btnSelect.selected  = NO;
+     [btnSelect setImage:[UIImage imageNamed:@"r01"] forState:UIControlStateNormal];
+     [btnSelect addTarget:self action:@selector(actSelect) forControlEvents:UIControlEventTouchUpInside];
+     
+     _label.text = @"使用时向服务员出示二维码";
+     _label.font = [UIFont systemFontOfSize:12];
+     _label.textAlignment = NSTextAlignmentCenter;
+     _membershipCard.image = [UIImage imageNamed:@"huiyuanka_jinka"];
+     }
+     */
+    
     [_backgroundView addSubview:_label];
     [_backgroundView addSubview:btnSelect];
     [_backgroundView addSubview:btnTitle];
@@ -103,17 +158,23 @@
     _tableView.tableFooterView = view;
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    
     [self.view addSubview:_tableView];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    pageControl.currentPage = scrollView.contentOffset.x/(MAIN_SCREEN_WIDTH-40);
 }
 
 -(void)actSelect{
     
     if (btnSelect.selected) {
         btnSelect.selected = NO;
-        [btnSelect setImage:[UIImage imageNamed:@"r1"] forState:UIControlStateNormal];
+        [btnSelect setImage:[UIImage imageNamed:@"check"] forState:UIControlStateNormal];
     }else{
         btnSelect.selected = YES;
-        [btnSelect setImage:[UIImage imageNamed:@"r01"] forState:UIControlStateNormal];
+        [btnSelect setImage:[UIImage imageNamed:@"box"] forState:UIControlStateNormal];
     }
     
 }

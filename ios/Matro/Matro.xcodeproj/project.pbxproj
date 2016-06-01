@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		280AADB11CFEDC7500E7A2FA /* 0.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 280AADAD1CFEDC7500E7A2FA /* 0.JPG */; };
+		280AADB21CFEDC7500E7A2FA /* 1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 280AADAE1CFEDC7500E7A2FA /* 1.JPG */; };
+		280AADB31CFEDC7500E7A2FA /* 2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 280AADAF1CFEDC7500E7A2FA /* 2.JPG */; };
+		280AADB41CFEDC7500E7A2FA /* 3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 280AADB01CFEDC7500E7A2FA /* 3.JPG */; };
 		280F7CD01CF7F44800D42FA6 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 280F7CC01CF7F44800D42FA6 /* bitstream.c */; };
 		280F7CD11CF7F44800D42FA6 /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 280F7CC21CF7F44800D42FA6 /* mask.c */; };
 		280F7CD21CF7F44800D42FA6 /* QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 280F7CC51CF7F44800D42FA6 /* QRCodeGenerator.m */; };
@@ -422,6 +426,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		280AADAD1CFEDC7500E7A2FA /* 0.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0.JPG; sourceTree = "<group>"; };
+		280AADAE1CFEDC7500E7A2FA /* 1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.JPG; sourceTree = "<group>"; };
+		280AADAF1CFEDC7500E7A2FA /* 2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.JPG; sourceTree = "<group>"; };
+		280AADB01CFEDC7500E7A2FA /* 3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.JPG; sourceTree = "<group>"; };
 		280F7CC01CF7F44800D42FA6 /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
 		280F7CC11CF7F44800D42FA6 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
 		280F7CC21CF7F44800D42FA6 /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
@@ -2539,6 +2547,10 @@
 		3ACF2CDD1CA5064C003D1F67 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				280AADAD1CFEDC7500E7A2FA /* 0.JPG */,
+				280AADAE1CFEDC7500E7A2FA /* 1.JPG */,
+				280AADAF1CFEDC7500E7A2FA /* 2.JPG */,
+				280AADB01CFEDC7500E7A2FA /* 3.JPG */,
 				7AF725B41CE0AF9800B00FB8 /* declare.html */,
 				687704041CCF615E0008ED46 /* home_html.zip */,
 			);
@@ -2865,6 +2877,7 @@
 				3AFB0C7B1CA28D6F00128368 /* HFSProductCollectionViewCell.xib in Resources */,
 				7A3A62711CDB874F00D265F2 /* MLOrderSubComCell.xib in Resources */,
 				3A633A651C9E9E2F00C11FD5 /* LaunchScreen.storyboard in Resources */,
+				280AADB31CFEDC7500E7A2FA /* 2.JPG in Resources */,
 				3A16DC2E1CA00968007AE4A2 /* MLLoginTableViewCell.xib in Resources */,
 				3A633A891C9E9FC200C11FD5 /* Default-568h@2x.png in Resources */,
 				3A1AA8B71CAA0DEC00AF73C2 /* MLInvoiceViewController.xib in Resources */,
@@ -2909,6 +2922,7 @@
 				3A633A621C9E9E2F00C11FD5 /* Assets.xcassets in Resources */,
 				7AEDD0D51CE5BB6E009B12F4 /* MLReturnRequestFootView.xib in Resources */,
 				D67CFBAC1CC0F698006F24BF /* MLAddressListViewController.xib in Resources */,
+				280AADB11CFEDC7500E7A2FA /* 0.JPG in Resources */,
 				3ACF2D101CA535FE003D1F67 /* MLRPayTableViewCell.xib in Resources */,
 				2CBAD6491CA3B0650044601B /* MLBagGoodsTableViewCell.xib in Resources */,
 				3A633A601C9E9E2F00C11FD5 /* Main.storyboard in Resources */,
@@ -2920,6 +2934,7 @@
 				3ACF2D011CA52F1F003D1F67 /* MLTisTableViewCell.xib in Resources */,
 				3A16DC401CA0EA69007AE4A2 /* RecommendCollectionViewCell.xib in Resources */,
 				3A1AA8C71CAA58F200AF73C2 /* MLAddressInfoViewController.xib in Resources */,
+				280AADB41CFEDC7500E7A2FA /* 3.JPG in Resources */,
 				3A16DC481CA0EB63007AE4A2 /* CPPhotoInfoViewController.xib in Resources */,
 				3ACF2CD41CA4D9DF003D1F67 /* WebViewJavascriptBridge.js.txt in Resources */,
 				7AEDD0D01CE5A913009B12F4 /* MLServiceTracksTableViewCell.xib in Resources */,
@@ -2927,6 +2942,7 @@
 				7A3A626A1CDB874F00D265F2 /* MLAfterSaleProductCell.xib in Resources */,
 				3AF01E5C1CBBAB94005830BD /* MLLogisticsViewController.xib in Resources */,
 				7A3A62731CDB874F00D265F2 /* MLOrderSubHeadCell.xib in Resources */,
+				280AADB21CFEDC7500E7A2FA /* 1.JPG in Resources */,
 				280F7D701CF972CC00D42FA6 /* MLPropertysubCell.xib in Resources */,
 				7AEC88EC1CE4813B00B43DD4 /* MLChangePhotoViewController.xib in Resources */,
 				28CF86111CEDC59A00E582EE /* WeiboSDK.bundle in Resources */,
