@@ -31,21 +31,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的会员卡";
+    /*
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
     [button setTitle:@"绑定会员卡" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:12];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+     */
     [self createTableView];
     // Do any additional setup after loading the view.
     
 }
+/*
 - (void)buttonAction {
     self.hidesBottomBarWhenPushed = YES;
     MNNBindCardViewController *bindCradVC = [MNNBindCardViewController new];
     [self.navigationController pushViewController:bindCradVC animated:YES];
 }
+ */
 #pragma mark 获取用户信息
 - (void)loadDate {
     
@@ -54,11 +58,14 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-20) style:UITableViewStyleGrouped];
     
     _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 230)];
+    UIView *sedbackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 25, MAIN_SCREEN_WIDTH, 160)];
+    sedbackgroundView.backgroundColor = [UIColor lightGrayColor];
+    [_backgroundView addSubview:sedbackgroundView];
     
     //    _membershipCard = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 150)];
     //    [_backgroundView addSubview:_membershipCard];
     
-    scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 150)];
+    scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 170)];
     
     scrollview.backgroundColor=[UIColor blueColor];
     scrollview.showsVerticalScrollIndicator = NO;
@@ -66,7 +73,7 @@
     scrollview.bounces = NO;
     
     for (int i=0; i<4; i++) {
-        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0+(MAIN_SCREEN_WIDTH-40)*(i), 0, MAIN_SCREEN_WIDTH-40, 150)];
+        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0+(MAIN_SCREEN_WIDTH-40)*(i), 0, MAIN_SCREEN_WIDTH-40, 170)];
         
         NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
         
@@ -77,11 +84,11 @@
     
     scrollview.pagingEnabled=YES;
     scrollview.delegate=self;
-    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH-40)*4, 150);
+    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH-40)*4, 170);
     
     
     
-    pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(80, 140, MAIN_SCREEN_WIDTH-160, 30)];
+    pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(80, 160, MAIN_SCREEN_WIDTH-160, 30)];
     
     pageControl.numberOfPages=4;
     
@@ -96,13 +103,13 @@
     [_backgroundView addSubview:pageControl];
     
     
-    _label = [[UILabel alloc] initWithFrame:CGRectMake(160, CGRectGetMaxY(scrollview.frame)+20, MAIN_SCREEN_WIDTH-160, 20)];
-    btnTitle = [[UIButton alloc] initWithFrame:CGRectMake(32, CGRectGetMaxY(scrollview.frame)+20, 60, 20)];
+    _label = [[UILabel alloc] initWithFrame:CGRectMake(160, CGRectGetMaxY(scrollview.frame)+15, MAIN_SCREEN_WIDTH-160, 20)];
+    btnTitle = [[UIButton alloc] initWithFrame:CGRectMake(32, CGRectGetMaxY(scrollview.frame)+15, 60, 20)];
     [btnTitle setTitle:@"设为默认" forState:UIControlStateNormal];
     [btnTitle.titleLabel setFont:[UIFont systemFontOfSize:12]];
     [btnTitle setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
-    btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(scrollview.frame)+24, 12, 12)];
+    btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(scrollview.frame)+19, 12, 12)];
     btnSelect.selected  = NO;
     [btnSelect setImage:[UIImage imageNamed:@"box"] forState:UIControlStateNormal];
     [btnSelect addTarget:self action:@selector(actSelect) forControlEvents:UIControlEventTouchUpInside];
