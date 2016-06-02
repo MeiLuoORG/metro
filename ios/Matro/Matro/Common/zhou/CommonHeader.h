@@ -85,7 +85,4 @@
 
 #import "Masonry.h"
 
-#define Main_BackgroundColor @"ae835d"
-#define Main_grayBackgroundColor @"bab6b7"
-
 #endif

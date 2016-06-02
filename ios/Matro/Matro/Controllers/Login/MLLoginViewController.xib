@@ -14,7 +14,6 @@
                 <outlet property="loginTypeBgView" destination="U9l-OH-CWc" id="1yq-O5-l8f"/>
                 <outlet property="loginTypeButton" destination="i80-jq-c0n" id="00T-i8-EK9"/>
                 <outlet property="passwordView" destination="Dx9-Um-hHg" id="0DT-TC-NGq"/>
-                <outlet property="qqLoginButton" destination="gBS-9c-g50" id="6xh-gt-aW8"/>
                 <outlet property="rcodeView" destination="CKC-u3-NAc" id="6HH-Dh-ikf"/>
                 <outlet property="registerButton" destination="keX-M1-SgK" id="3FM-vG-SCZ"/>
                 <outlet property="registerTypeBgView" destination="xn9-JG-yaj" id="lIf-Rb-ohv"/>
@@ -36,9 +35,8 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="F4z-Ib-9QC">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="F4z-Ib-9QC">
                     <rect key="frame" x="0.0" y="-64" width="600" height="664"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ANm-KJ-AaO">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
@@ -75,7 +73,7 @@
                         <constraint firstItem="i80-jq-c0n" firstAttribute="width" secondItem="2A7-8f-BH3" secondAttribute="width" id="zgL-vT-abn"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xn9-JG-yaj">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xn9-JG-yaj">
                     <rect key="frame" x="0.0" y="40" width="600" height="460"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61d-2h-SBH">
@@ -197,7 +195,7 @@
                                         <constraint firstAttribute="width" secondItem="TWJ-mJ-tOw" secondAttribute="height" multiplier="17:21" id="m6s-5H-4W2"/>
                                     </constraints>
                                 </imageView>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码（6-20位字母或数字）" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wlb-Wk-qRe">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码（6-16位字母和数字）" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wlb-Wk-qRe">
                                     <rect key="frame" x="48" y="0.0" width="516" height="40"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -352,7 +350,7 @@
                         <constraint firstItem="nn5-5p-nRv" firstAttribute="leading" secondItem="l1R-Th-65i" secondAttribute="trailing" constant="5" id="yDO-ef-adL"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U9l-OH-CWc">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U9l-OH-CWc">
                     <rect key="frame" x="0.0" y="40" width="600" height="460"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQ7-Hi-EI6">
@@ -682,6 +680,7 @@
         <image name="Left_Arrow_yuan" width="16" height="8"/>
         <image name="Lock" width="17" height="21"/>
         <image name="Profile" width="21" height="21"/>
+        <image name="background" width="360" height="640"/>
         <image name="iPhone" width="13" height="21"/>
         <image name="qq" width="21" height="18"/>
         <image name="sel_type_g" width="5" height="40"/>

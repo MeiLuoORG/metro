@@ -7,14 +7,10 @@
 //
 
 #import "MLBaseViewController.h"
-#import "SettingMoCardView.h"
-#import "CommonHeader.h"
 
-@interface MLLoginViewController : MLBaseViewController<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface MLLoginViewController : MLBaseViewController
 
 @property (nonatomic) BOOL isLogin;
 @property (weak, nonatomic) IBOutlet UIButton *termBtn;
-
-@property (strong ,nonatomic) SettingMoCardView * settingMoCardView;
 
 @end

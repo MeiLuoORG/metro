@@ -32,8 +32,6 @@
     NSInteger _endTime;
     NSManagedObjectContext *_context;
     NSMutableArray *_accountArray;
-    
-    BOOL _isReadDelegate;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *showpasswordButton;
@@ -60,9 +58,6 @@
 
 @property (strong, nonatomic) IBOutlet UIView *qqLoginBgView;
 @property (strong, nonatomic) IBOutlet UIView *wxLoginBgView;
-@property (weak, nonatomic) IBOutlet UIButton *qqLoginButton;
-
-
 @end
 
 @implementation MLLoginViewController
@@ -70,7 +65,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    _isReadDelegate = YES;
     
     [self loginVCUI];
     
@@ -93,7 +87,6 @@
     [self.termBtn addTarget:self action:@selector(termSel:) forControlEvents:UIControlEventTouchUpInside];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(bindSuccess) name:kNOTIFICATIONBINDSUC object:nil];
     
-    self.registerButton.enabled = NO;
 }
 
 - (void)bindSuccess{
@@ -106,41 +99,13 @@
     btn.selected = !btn.selected;
     if (!btn.selected) {
         self.registerButton.enabled = NO;
-        _isReadDelegate = NO;
     }
     else
     {
-        _isReadDelegate = YES;
-        if ([self checkRegisterButtonEnabledYESorNO]) {
-             self.registerButton.enabled = YES;
-        }
-        else {
-            self.registerButton.enabled = NO;
-        }
-       
+        self.registerButton.enabled = YES;
+
     }
-    
 }
-
-//检测按钮是否可以  用
-
-- (BOOL)checkRegisterButtonEnabledYESorNO{
-    BOOL isYes;
-    UITextField * phoneText = [self textField:self.rphoneView];
-    UITextField * codeText  = [self textField:self.rcodeView];
-    UITextField * passText = [self textField:self.rpasswordView];
-    UITextField * rePassText = [self textField:self.rrpasswordView];
-    NSLog(@"phoneText:%@,codeText:%@,passText:%@,rePassText:%@",phoneText.text,codeText.text,passText.text,rePassText.text);
-    
-    if ([phoneText.text isEqualToString:@""] || [codeText.text isEqualToString:@""] || [passText.text isEqualToString:@""] || [rePassText.text isEqualToString:@""]) {
-        isYes = NO;
-    }
-    else{
-        isYes = YES;
-    }
-    return isYes;
-}
-
 - (void)loginVCUI{
     //    UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Left_Arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
     
@@ -186,7 +151,6 @@
     //不支持QQ
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
         _qqLoginBgView.hidden = YES;
-        _qqLoginButton.hidden = YES;
         //NSLog(@"不支持QQ");
     }
     
@@ -451,9 +415,6 @@
 //注册按钮
 - (IBAction)registerButton:(id)sender {
     
-    //测试 选中 会员卡
-    //[self loadSettingMoCardView];
-    
     if ([self canRegister]) {
         //验证验证码有效性
         
@@ -463,35 +424,6 @@
     }
     
 }
-
-#pragma mark 注册后 显示选卡视图
-
-- (void)loadSettingMoCardView{
-    /*
-    [_hud show:YES];
-    _hud.mode = MBProgressHUDModeText;
-    _hud.labelText = @"注册成功";
-    [_hud hide:YES afterDelay:2];
-    
-    _loginTypeButton.selected = YES;
-    _loginTypeBgView.hidden = NO;
-    _registerTypeBgView.hidden = YES;
-    _registerTypeButton.selected = NO;
-    */
-    
-    NSLog(@"点击了注册按钮");
-    self.settingMoCardView = [[SettingMoCardView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT)];
-    [self.settingMoCardView loadViews];
-    [self.view addSubview:self.settingMoCardView];
-    //[self.view insertSubview:self.settingMoCardView atIndex:0];
-     
-   
-}
-
-
-#pragma end mark
-
-
 -(void)checkSms
 {
     
@@ -549,14 +481,12 @@
             _loginTypeBgView.hidden = NO;
             _registerTypeBgView.hidden = YES;
             _registerTypeButton.selected = NO;
-            NSLog(@"注册成功");
             
         }else{
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = result[@"msg"];
             [_hud hide:YES afterDelay:2];
-            NSLog(@"注册失败");
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -962,18 +892,7 @@
             _loginButton.layer.borderColor = [UIColor clearColor].CGColor;
         }
     }
-    if ([textField isEqual:[self textField:_rphoneView]] || [textField isEqual:[self textField:_rcodeView]] || [textField isEqual:[self textField:_rpasswordView]] || [textField isEqual:[self textField:_rrpasswordView]]) {
-        if (_isReadDelegate && [self checkRegisterButtonEnabledYESorNO]) {
-            
-            
-            self.registerButton.enabled = YES;
-            
-        }
-        else{
-            self.registerButton.enabled = NO;
-        }
-
-    }
+    
     
     return YES;
 }
@@ -985,9 +904,6 @@
         _tableView.hidden = YES;
         _showmoreaccoutButton.selected = NO;
     }
-    
-    
-    
 }
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
