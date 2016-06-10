@@ -36,6 +36,7 @@
     [super viewDidLoad];
     
     self.title = @"我的会员卡";
+<<<<<<< HEAD
     self.moRenIndex = 0;
     self.currentCardIndex = 0;
     self.cardARR = [[NSMutableArray alloc]init];
@@ -47,12 +48,20 @@
     _ValidCentSLabel.alpha = 0.5;
 
     
+=======
+    /*
+>>>>>>> origin/iOS
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
     [button setTitle:@"绑定会员卡" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:12];
+<<<<<<< HEAD
     //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+=======
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+     */
+>>>>>>> origin/iOS
     [self createTableView];
     // Do any additional setup after loading the view.
     [self loadData];
@@ -60,6 +69,7 @@
     _hud = [[MBProgressHUD alloc]initWithView:self.view];
     [self.view addSubview:_hud];
 }
+/*
 - (void)buttonAction {
     /*
     self.hidesBottomBarWhenPushed = YES;
@@ -205,6 +215,7 @@
     
 
 }
+<<<<<<< HEAD
 
 //更新会员卡图片
 - (void)updataCardScrollView{
@@ -213,6 +224,11 @@
     UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 40, scrollview.contentSize.width, 110)];
     bkView.backgroundColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
     [scrollview addSubview:bkView];
+=======
+ */
+#pragma mark 获取用户信息
+- (void)loadDate {
+>>>>>>> origin/iOS
     
     for (int i=0; i<self.cardARR.count; i++) {
         UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(20+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-40, 150)];
@@ -237,11 +253,18 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-20) style:UITableViewStyleGrouped];
     
     _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 230)];
+    UIView *sedbackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 25, MAIN_SCREEN_WIDTH, 160)];
+    sedbackgroundView.backgroundColor = [UIColor lightGrayColor];
+    [_backgroundView addSubview:sedbackgroundView];
     
     //    _membershipCard = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 150)];
     //    [_backgroundView addSubview:_membershipCard];
     
+<<<<<<< HEAD
     scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 190)];
+=======
+    scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 170)];
+>>>>>>> origin/iOS
     
 
     
@@ -249,6 +272,7 @@
     scrollview.showsVerticalScrollIndicator = NO;
     scrollview.showsHorizontalScrollIndicator = NO;
     scrollview.bounces = NO;
+<<<<<<< HEAD
     scrollview.pagingEnabled=YES;
     scrollview.delegate=self;
     scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*1, 190);
@@ -256,6 +280,26 @@
     
     /*
     pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(80, 140, MAIN_SCREEN_WIDTH-160, 30)];
+=======
+    
+    for (int i=0; i<4; i++) {
+        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0+(MAIN_SCREEN_WIDTH-40)*(i), 0, MAIN_SCREEN_WIDTH-40, 170)];
+        
+        NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
+        
+        imageView.image=[UIImage imageNamed:str];
+        
+        [scrollview addSubview:imageView];
+    }
+    
+    scrollview.pagingEnabled=YES;
+    scrollview.delegate=self;
+    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH-40)*4, 170);
+    
+    
+    
+    pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(80, 160, MAIN_SCREEN_WIDTH-160, 30)];
+>>>>>>> origin/iOS
     
     pageControl.numberOfPages=4;
     
@@ -288,6 +332,7 @@
     }
     
     [_backgroundView addSubview:scrollview];
+<<<<<<< HEAD
     //[_backgroundView addSubview:pageControl];
 
 
@@ -296,6 +341,19 @@
     [btnSelect setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnSelect.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
     btnSelect.selected  = YES;
+=======
+    [_backgroundView addSubview:pageControl];
+    
+    
+    _label = [[UILabel alloc] initWithFrame:CGRectMake(160, CGRectGetMaxY(scrollview.frame)+15, MAIN_SCREEN_WIDTH-160, 20)];
+    btnTitle = [[UIButton alloc] initWithFrame:CGRectMake(32, CGRectGetMaxY(scrollview.frame)+15, 60, 20)];
+    [btnTitle setTitle:@"设为默认" forState:UIControlStateNormal];
+    [btnTitle.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [btnTitle setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(scrollview.frame)+19, 12, 12)];
+    btnSelect.selected  = NO;
+>>>>>>> origin/iOS
     [btnSelect setImage:[UIImage imageNamed:@"box"] forState:UIControlStateNormal];
     [btnSelect setImage:[UIImage imageNamed:@"check"] forState:UIControlStateSelected];
     [btnSelect setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 50)];

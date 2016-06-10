@@ -34,10 +34,13 @@
     NSInteger _endTime;
     NSManagedObjectContext *_context;
     NSMutableArray *_accountArray;
+<<<<<<< HEAD
     
     BOOL _isReadDelegate;
     NavTopCommonImage * _navTopCommoImages;
     UIButton * _rightBtn;
+=======
+>>>>>>> origin/iOS
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *showpasswordButton;
@@ -64,9 +67,6 @@
 
 @property (strong, nonatomic) IBOutlet UIView *qqLoginBgView;
 @property (strong, nonatomic) IBOutlet UIView *wxLoginBgView;
-@property (weak, nonatomic) IBOutlet UIButton *qqLoginButton;
-
-
 @end
 
 @implementation MLLoginViewController
@@ -74,8 +74,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+<<<<<<< HEAD
     _isReadDelegate = YES;
     self.vipCardArray = [[NSMutableArray alloc]init];
+=======
+    
+>>>>>>> origin/iOS
     [self loginVCUI];
     
 //    _accountArray = [[NSMutableArray alloc]initWithArray:@[@"13218102399",@"13218102388"]];
@@ -97,6 +101,7 @@
     [self.termBtn addTarget:self action:@selector(termSel:) forControlEvents:UIControlEventTouchUpInside];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(bindSuccess) name:kNOTIFICATIONBINDSUC object:nil];
     
+<<<<<<< HEAD
     self.registerButton.enabled = NO;
     
     //设置边框颜色
@@ -120,6 +125,8 @@
 
     
     
+=======
+>>>>>>> origin/iOS
 }
 
 - (void)bindSuccess{
@@ -132,6 +139,7 @@
     btn.selected = !btn.selected;
     if (!btn.selected) {
         self.registerButton.enabled = NO;
+<<<<<<< HEAD
         self.registerButton.backgroundColor = [UIColor colorWithHexString:Main_grayBackgroundColor];
         _isReadDelegate = NO;
     }
@@ -165,10 +173,15 @@
     }
     else{
         isYes = YES;
+=======
     }
-    return isYes;
-}
+    else
+    {
+        self.registerButton.enabled = YES;
 
+>>>>>>> origin/iOS
+    }
+}
 - (void)loginVCUI{
     //    UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Left_Arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
     
@@ -216,7 +229,6 @@
     //不支持QQ
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
         _qqLoginBgView.hidden = YES;
-        _qqLoginButton.hidden = YES;
         //NSLog(@"不支持QQ");
     }
     
@@ -551,9 +563,6 @@
 //注册按钮
 - (IBAction)registerButton:(id)sender {
     
-    //测试 选中 会员卡
-    //[self loadSettingMoCardView];
-    
     if ([self canRegister]) {
         //验证验证码有效性
         
@@ -563,6 +572,7 @@
     }
     
 }
+<<<<<<< HEAD
 
 #pragma mark 注册后 显示选卡视图
 
@@ -702,6 +712,8 @@
 #pragma end mark
 
 
+=======
+>>>>>>> origin/iOS
 -(void)checkSms
 {
     
@@ -760,14 +772,12 @@
             _loginTypeBgView.hidden = NO;
             _registerTypeBgView.hidden = YES;
             _registerTypeButton.selected = NO;
-            NSLog(@"注册成功");
             
         }else{
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = result[@"msg"];
             [_hud hide:YES afterDelay:2];
-            NSLog(@"注册失败");
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1731,6 +1741,7 @@
             //_loginButton.layer.borderColor = [UIColor clearColor].CGColor;
         }
     }
+<<<<<<< HEAD
     if ([textField isEqual:[self textField:_rphoneView]] || [textField isEqual:[self textField:_rcodeView]] || [textField isEqual:[self textField:_rpasswordView]] || [textField isEqual:[self textField:_rrpasswordView]]) {
         if (_isReadDelegate && [self checkRegisterButtonEnabledYESorNO]) {
             
@@ -1745,6 +1756,9 @@
         }
 
     }
+=======
+    
+>>>>>>> origin/iOS
     
     return YES;
 }
@@ -1756,9 +1770,6 @@
         _tableView.hidden = YES;
         _showmoreaccoutButton.selected = NO;
     }
-    
-    
-    
 }
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate

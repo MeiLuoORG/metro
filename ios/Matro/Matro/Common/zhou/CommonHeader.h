@@ -84,6 +84,7 @@
 #define VERSION_NUM  @"V1.0"
 
 #import "Masonry.h"
+<<<<<<< HEAD
 //ae835d
 #define Main_BackgroundColor @"ae835d"
 //bab6b7
@@ -98,5 +99,7 @@
 #define Main_textRedBackgroundColor @"f1653e"
 //分割线
 #define Main_spelBackgroundColor @"dedede"
+=======
+>>>>>>> origin/iOS
 
 #endif
