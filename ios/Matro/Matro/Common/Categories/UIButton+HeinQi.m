@@ -42,6 +42,7 @@
 - (void)loginButtonType{
     
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    /*
     if(self.enabled == YES){
         
         [self setBackgroundImage:[UIImage imageNamed:@"quguangguang_button"] forState:UIControlStateNormal];
@@ -51,8 +52,13 @@
         self.layer.borderWidth = 1.0f;
         self.layer.borderColor = [UIColor colorWithHexString:@"#AE8E5D"].CGColor;
     }
-    
-    
+    */
+    if (self.enabled == YES) {
+        [self setBackgroundColor:[UIColor colorWithHexString:Main_BackgroundColor]];
+    }
+    else{
+        [self setBackgroundColor:[UIColor colorWithHexString:Main_grayBackgroundColor]];
+    }
 
 }
 

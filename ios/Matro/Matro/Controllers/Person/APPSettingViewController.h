@@ -24,6 +24,8 @@
 
 #import <BaiduMapAPI_Map/BMKMapView.h>//只引入所需的单个头文件
 
+#import "HFSServiceClient.h"
+
 @interface APPSettingViewController : MLBaseViewController<BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *settingTable;
 @property (weak, nonatomic) IBOutlet UIButton *logoutBtn;

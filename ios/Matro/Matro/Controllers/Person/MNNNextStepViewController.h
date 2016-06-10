@@ -7,10 +7,18 @@
 //
 
 #import "MLBaseViewController.h"
+#import "CommonHeader.h"
+#import "NavTopCommonImage.h"
+
+
+typedef void(^BackDismissBlock)(BOOL success);
 
 @interface MNNNextStepViewController : MLBaseViewController
 
+
+@property (copy, nonatomic) BackDismissBlock backBlock;
 @property (nonatomic,copy) NSString *vcode;
 @property (nonatomic,copy)NSString *phoneNum;
 
+- (void)backDismissBlockAction:(BackDismissBlock )block;
 @end

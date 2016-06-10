@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		280AADB11CFEDC7500E7A2FA /* 0.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 280AADAD1CFEDC7500E7A2FA /* 0.JPG */; };
 		280AADB21CFEDC7500E7A2FA /* 1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 280AADAE1CFEDC7500E7A2FA /* 1.JPG */; };
-		280AADB31CFEDC7500E7A2FA /* 2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 280AADAF1CFEDC7500E7A2FA /* 2.JPG */; };
 		280AADB41CFEDC7500E7A2FA /* 3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 280AADB01CFEDC7500E7A2FA /* 3.JPG */; };
 		280F7CD01CF7F44800D42FA6 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 280F7CC01CF7F44800D42FA6 /* bitstream.c */; };
 		280F7CD11CF7F44800D42FA6 /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 280F7CC21CF7F44800D42FA6 /* mask.c */; };
@@ -267,6 +266,8 @@
 		3AFB0C751CA28CD100128368 /* HFSProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB0C731CA28CD100128368 /* HFSProductTableViewCell.m */; };
 		3AFB0C7A1CA28D6F00128368 /* HFSProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB0C781CA28D6F00128368 /* HFSProductCollectionViewCell.m */; };
 		3AFB0C7B1CA28D6F00128368 /* HFSProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB0C791CA28D6F00128368 /* HFSProductCollectionViewCell.xib */; };
+		3C055CD81D08143700362C4D /* ShenFenZhengController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C055CD71D08143700362C4D /* ShenFenZhengController.m */; };
+		3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */; };
 		3C5B0C6E1CFC372D003FFD25 /* MessagesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */; };
 		3C5B0C6F1CFC372D003FFD25 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */; };
 		3C5B0C701CFC372D003FFD25 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C691CFC372D003FFD25 /* MessagesViewController.m */; };
@@ -279,9 +280,15 @@
 		3C5B0C881CFC4329003FFD25 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */; };
 		3C5B0C8A1CFC433E003FFD25 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */; };
 		3C5B0C8C1CFC4348003FFD25 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */; };
+		3CAE04891D06BC7B004504EA /* SettingMoCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CE087E81CFE730300DC3390 /* SettingMoCardCell.xib */; };
+		3CAE048E1D06C5FE004504EA /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE048D1D06C5FE004504EA /* VipCardModel.m */; };
+		3CAE049C1D06DDD5004504EA /* GCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04911D06DDD5004504EA /* GCD.m */; };
+		3CAE049D1D06DDD5004504EA /* GCDGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04931D06DDD5004504EA /* GCDGroup.m */; };
+		3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04961D06DDD5004504EA /* GCDQueue.m */; };
+		3CAE049F1D06DDD5004504EA /* GCDSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04981D06DDD5004504EA /* GCDSemaphore.m */; };
+		3CAE04A01D06DDD5004504EA /* GCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE049A1D06DDD5004504EA /* GCDTimer.m */; };
 		3CE087E51CFE72DA00DC3390 /* SettingMoCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE087E41CFE72DA00DC3390 /* SettingMoCardView.m */; };
 		3CE087E91CFE730300DC3390 /* SettingMoCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE087E71CFE730300DC3390 /* SettingMoCardCell.m */; };
-		3CE087EA1CFE730300DC3390 /* SettingMoCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CE087E81CFE730300DC3390 /* SettingMoCardCell.xib */; };
 		4F634A77A9985A18C9E56D1D /* Pods_Matro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C6CE0BB33E839F3EBF5309 /* Pods_Matro.framework */; };
 		6839EF0D1CD5187800638B3D /* MLBagFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6839EF0C1CD5187800638B3D /* MLBagFootView.m */; };
 		6839EF0F1CD518AB00638B3D /* MLBagFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6839EF0E1CD518AB00638B3D /* MLBagFootView.xib */; };
@@ -960,6 +967,10 @@
 		3AFB0C771CA28D6F00128368 /* HFSProductCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFSProductCollectionViewCell.h; sourceTree = "<group>"; };
 		3AFB0C781CA28D6F00128368 /* HFSProductCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFSProductCollectionViewCell.m; sourceTree = "<group>"; };
 		3AFB0C791CA28D6F00128368 /* HFSProductCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HFSProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		3C055CD61D08143700362C4D /* ShenFenZhengController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShenFenZhengController.h; sourceTree = "<group>"; };
+		3C055CD71D08143700362C4D /* ShenFenZhengController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShenFenZhengController.m; sourceTree = "<group>"; };
+		3C0AF2021CFFE1BC00E48B18 /* NavTopCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTopCommonImage.h; sourceTree = "<group>"; };
+		3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTopCommonImage.m; sourceTree = "<group>"; };
 		3C5B0C651CFC372D003FFD25 /* MessagesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesTableViewCell.h; sourceTree = "<group>"; };
 		3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesTableViewCell.m; sourceTree = "<group>"; };
 		3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
@@ -981,6 +992,20 @@
 		3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		3CAE048C1D06C5FE004504EA /* VipCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipCardModel.h; sourceTree = "<group>"; };
+		3CAE048D1D06C5FE004504EA /* VipCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipCardModel.m; sourceTree = "<group>"; };
+		3CAE04901D06DDD5004504EA /* GCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCD.h; sourceTree = "<group>"; };
+		3CAE04911D06DDD5004504EA /* GCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCD.m; sourceTree = "<group>"; };
+		3CAE04921D06DDD5004504EA /* GCDGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDGroup.h; sourceTree = "<group>"; };
+		3CAE04931D06DDD5004504EA /* GCDGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDGroup.m; sourceTree = "<group>"; };
+		3CAE04941D06DDD5004504EA /* GCDMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDMacros.h; sourceTree = "<group>"; };
+		3CAE04951D06DDD5004504EA /* GCDQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDQueue.h; sourceTree = "<group>"; };
+		3CAE04961D06DDD5004504EA /* GCDQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDQueue.m; sourceTree = "<group>"; };
+		3CAE04971D06DDD5004504EA /* GCDSemaphore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDSemaphore.h; sourceTree = "<group>"; };
+		3CAE04981D06DDD5004504EA /* GCDSemaphore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDSemaphore.m; sourceTree = "<group>"; };
+		3CAE04991D06DDD5004504EA /* GCDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDTimer.h; sourceTree = "<group>"; };
+		3CAE049A1D06DDD5004504EA /* GCDTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDTimer.m; sourceTree = "<group>"; };
+		3CAE049B1D06DDD5004504EA /* HYGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYGCD.h; sourceTree = "<group>"; };
 		3CE087E31CFE72DA00DC3390 /* SettingMoCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardView.h; sourceTree = "<group>"; };
 		3CE087E41CFE72DA00DC3390 /* SettingMoCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardView.m; sourceTree = "<group>"; };
 		3CE087E61CFE730300DC3390 /* SettingMoCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardCell.h; sourceTree = "<group>"; };
@@ -1650,6 +1675,7 @@
 		3A633AA41C9EA36E00C11FD5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3CAE048A1D06C5CE004504EA /* PersonModel */,
 				3AAA0A8B1CACB8E90071A313 /* HFSPriceDataObject.h */,
 				3AAA0A8C1CACB8E90071A313 /* HFSPriceDataObject.m */,
 				3AE02E0B1CABBBBF0016FA75 /* RADataObject.h */,
@@ -2272,6 +2298,7 @@
 		3A633B811C9EA7C900C11FD5 /* Person */ = {
 			isa = PBXGroup;
 			children = (
+				3C055CD51D08140800362C4D /* ManagerZhou */,
 				7A3A62471CDB874F00D265F2 /* Order */,
 				3A633B921C9EA85800C11FD5 /* MLPersonViewController.h */,
 				3A633B931C9EA85800C11FD5 /* MLPersonViewController.m */,
@@ -2615,6 +2642,24 @@
 			path = OredrInfo;
 			sourceTree = "<group>";
 		};
+		3C055CD51D08140800362C4D /* ManagerZhou */ = {
+			isa = PBXGroup;
+			children = (
+				3C055CD61D08143700362C4D /* ShenFenZhengController.h */,
+				3C055CD71D08143700362C4D /* ShenFenZhengController.m */,
+			);
+			path = ManagerZhou;
+			sourceTree = "<group>";
+		};
+		3C0AF2011CFFE1BC00E48B18 /* TopNavBackground */ = {
+			isa = PBXGroup;
+			children = (
+				3C0AF2021CFFE1BC00E48B18 /* NavTopCommonImage.h */,
+				3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */,
+			);
+			path = TopNavBackground;
+			sourceTree = "<group>";
+		};
 		3C5B0C611CFC372D003FFD25 /* CardControllsers */ = {
 			isa = PBXGroup;
 			children = (
@@ -2673,6 +2718,8 @@
 		3C5B0C721CFC37E3003FFD25 /* zhou */ = {
 			isa = PBXGroup;
 			children = (
+				3CAE048F1D06DDD5004504EA /* HYGCD */,
+				3C0AF2011CFFE1BC00E48B18 /* TopNavBackground */,
 				3CF868FE1CFD2BE200EFD96E /* UIButton+Badge */,
 				3C5B0C731CFC37E3003FFD25 /* CommonHeader.h */,
 				3C5B0C741CFC37E3003FFD25 /* CustomButton.h */,
@@ -2710,6 +2757,42 @@
 				3C5B0C7F1CFC37E3003FFD25 /* ZhengZePanDuan.m */,
 			);
 			path = ZhengZe;
+			sourceTree = "<group>";
+		};
+		3CAE048A1D06C5CE004504EA /* PersonModel */ = {
+			isa = PBXGroup;
+			children = (
+				3CAE048B1D06C5CE004504EA /* cardModel */,
+			);
+			path = PersonModel;
+			sourceTree = "<group>";
+		};
+		3CAE048B1D06C5CE004504EA /* cardModel */ = {
+			isa = PBXGroup;
+			children = (
+				3CAE048C1D06C5FE004504EA /* VipCardModel.h */,
+				3CAE048D1D06C5FE004504EA /* VipCardModel.m */,
+			);
+			path = cardModel;
+			sourceTree = "<group>";
+		};
+		3CAE048F1D06DDD5004504EA /* HYGCD */ = {
+			isa = PBXGroup;
+			children = (
+				3CAE04901D06DDD5004504EA /* GCD.h */,
+				3CAE04911D06DDD5004504EA /* GCD.m */,
+				3CAE04921D06DDD5004504EA /* GCDGroup.h */,
+				3CAE04931D06DDD5004504EA /* GCDGroup.m */,
+				3CAE04941D06DDD5004504EA /* GCDMacros.h */,
+				3CAE04951D06DDD5004504EA /* GCDQueue.h */,
+				3CAE04961D06DDD5004504EA /* GCDQueue.m */,
+				3CAE04971D06DDD5004504EA /* GCDSemaphore.h */,
+				3CAE04981D06DDD5004504EA /* GCDSemaphore.m */,
+				3CAE04991D06DDD5004504EA /* GCDTimer.h */,
+				3CAE049A1D06DDD5004504EA /* GCDTimer.m */,
+				3CAE049B1D06DDD5004504EA /* HYGCD.h */,
+			);
+			path = HYGCD;
 			sourceTree = "<group>";
 		};
 		3CF868FE1CFD2BE200EFD96E /* UIButton+Badge */ = {
@@ -2890,11 +2973,6 @@
 				3AFB0C7B1CA28D6F00128368 /* HFSProductCollectionViewCell.xib in Resources */,
 				7A3A62711CDB874F00D265F2 /* MLOrderSubComCell.xib in Resources */,
 				3A633A651C9E9E2F00C11FD5 /* LaunchScreen.storyboard in Resources */,
-<<<<<<< Updated upstream
-				280AADB31CFEDC7500E7A2FA /* 2.JPG in Resources */,
-=======
-				3CE087EA1CFE730300DC3390 /* SettingMoCardCell.xib in Resources */,
->>>>>>> Stashed changes
 				3A16DC2E1CA00968007AE4A2 /* MLLoginTableViewCell.xib in Resources */,
 				3A633A891C9E9FC200C11FD5 /* Default-568h@2x.png in Resources */,
 				3A1AA8B71CAA0DEC00AF73C2 /* MLInvoiceViewController.xib in Resources */,
@@ -2985,6 +3063,7 @@
 				7AEC88D01CE45D2200B43DD4 /* MLGoodsComHeadView.xib in Resources */,
 				28CF86081CEDC59A00E582EE /* UMSCommentInputControlleriPad.xib in Resources */,
 				D6D8036D1CAE6B62001C0FE0 /* MLFootprintViewController.xib in Resources */,
+				3CAE04891D06BC7B004504EA /* SettingMoCardCell.xib in Resources */,
 				28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */,
 				3ACF2CF61CA52062003D1F67 /* MLOrderInfoViewController.xib in Resources */,
 				7AEDD0DD1CE5CAF6009B12F4 /* MLReturnRequestTableViewCell.xib in Resources */,
@@ -3095,6 +3174,7 @@
 				7A3A62721CDB874F00D265F2 /* MLOrderSubHeadCell.m in Sources */,
 				285326E71CFD3A5800FA2AB0 /* MLYHQOutdateCell.m in Sources */,
 				3A21486A1CB3A5CC007DF97D /* LoginHistory.m in Sources */,
+				3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */,
 				3AA0E72F1CA8F0240079AA90 /* MLSureViewController.m in Sources */,
 				3A16DC231C9FF423007AE4A2 /* MLVIPCardViewController.m in Sources */,
 				3A16DC471CA0EB63007AE4A2 /* CPPhotoInfoViewController.m in Sources */,
@@ -3153,6 +3233,7 @@
 				3AA0E7341CA916A90079AA90 /* MLPayViewController.mm in Sources */,
 				D658CBE81CAA91DD006C70F4 /* MNNModifyPasswordViewController.m in Sources */,
 				3A633A5D1C9E9E2F00C11FD5 /* ViewController.m in Sources */,
+				3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */,
 				3A633B5F1C9EA36E00C11FD5 /* ZLPhotoPickerDatas.m in Sources */,
 				3A633B5B1C9EA36E00C11FD5 /* ZLPhotoPickerBrowserPhotoScrollView.m in Sources */,
 				3A633B3D1C9EA36E00C11FD5 /* SDCycleScrollView.m in Sources */,
@@ -3164,6 +3245,7 @@
 				3A633B551C9EA36E00C11FD5 /* ZLCameraViewController.m in Sources */,
 				280F7CD71CF7F44800D42FA6 /* split.c in Sources */,
 				3A1AA8D11CAA7D3400AF73C2 /* MLPayresultHeader.m in Sources */,
+				3CAE048E1D06C5FE004504EA /* VipCardModel.m in Sources */,
 				3AFB0C751CA28CD100128368 /* HFSProductTableViewCell.m in Sources */,
 				7AEDD0E81CE5EDC2009B12F4 /* MLWishlistViewController.m in Sources */,
 				3A16DC4C1CA10B27007AE4A2 /* MLGoodsDetailsViewController.m in Sources */,
@@ -3183,6 +3265,7 @@
 				3ACF2CED1CA5070E003D1F67 /* ioapi.c in Sources */,
 				3A633B381C9EA36E00C11FD5 /* TAAbstractDotView.m in Sources */,
 				3A633B661C9EA36E00C11FD5 /* ZLPhotoPickerCollectionView.m in Sources */,
+				3C055CD81D08143700362C4D /* ShenFenZhengController.m in Sources */,
 				3A633B501C9EA36E00C11FD5 /* UIImage+ZLPhotoLib.m in Sources */,
 				3A633B3A1C9EA36E00C11FD5 /* TADotView.m in Sources */,
 				3AA0E7C11CA920D20079AA90 /* MLPayTableViewCell.m in Sources */,
@@ -3236,6 +3319,7 @@
 				3AA0E72A1CA8C2990079AA90 /* MLLikeTableViewCell.m in Sources */,
 				7AED64631CDDAB13008F55BD /* MLTermViewController.m in Sources */,
 				3A633B2A1C9EA36E00C11FD5 /* AFHTTPRequestOperationManager+HeinQi.m in Sources */,
+				3CAE04A01D06DDD5004504EA /* GCDTimer.m in Sources */,
 				280F7D561CF93E3200D42FA6 /* NSSet+HYBUnicodeReadable.m in Sources */,
 				3AA0E7AC1CA91E500079AA90 /* openssl_wrapper.m in Sources */,
 				3A633B591C9EA36E00C11FD5 /* ZLPhotoPickerBrowserViewController.m in Sources */,
@@ -3291,6 +3375,7 @@
 				7AED64771CDE1F1C008F55BD /* NSString+GONMarkup.m in Sources */,
 				280F7CD51CF7F44800D42FA6 /* qrspec.c in Sources */,
 				687704111CD200930008ED46 /* JSONKit.m in Sources */,
+				3CAE049C1D06DDD5004504EA /* GCD.m in Sources */,
 				3AA0E7AB1CA91E500079AA90 /* NSDataEx.m in Sources */,
 				687704211CD34E4A0008ED46 /* NSString+SBJSON.m in Sources */,
 				3ACF2CEE1CA5070E003D1F67 /* mztools.c in Sources */,
@@ -3309,6 +3394,7 @@
 				7A3A626C1CDB874F00D265F2 /* MLHYHTableViewController.m in Sources */,
 				3A1AA8D71CAA8B7100AF73C2 /* MLPayerrTableViewCell.m in Sources */,
 				3ACB8D871CC08AEC00C7398B /* MLClassInfo.m in Sources */,
+				3CAE049F1D06DDD5004504EA /* GCDSemaphore.m in Sources */,
 				3A16DC511CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.m in Sources */,
 				7AEC88D31CE4617700B43DD4 /* MLGoodsComViewController.m in Sources */,
 				3A633B7E1C9EA65500C11FD5 /* HFSApplicationContext.m in Sources */,
@@ -3321,6 +3407,7 @@
 				3A1AA8C61CAA58F200AF73C2 /* MLAddressInfoViewController.m in Sources */,
 				3AA0E7A91CA91E500079AA90 /* DataVerifier.m in Sources */,
 				3ACF2CDB1CA4E702003D1F67 /* MLMoreTableViewCell.m in Sources */,
+				3CAE049D1D06DDD5004504EA /* GCDGroup.m in Sources */,
 				285326EC1CFD3A7300FA2AB0 /* MLYHQUsedCell.m in Sources */,
 				6839EF131CD5A8FC00638B3D /* MyAddressManagerViewController.m in Sources */,
 				3A633B621C9EA36E00C11FD5 /* ZLNavigationController.m in Sources */,

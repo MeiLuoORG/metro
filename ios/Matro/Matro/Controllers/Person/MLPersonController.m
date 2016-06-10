@@ -52,7 +52,7 @@
     [super viewDidLoad];
      self.navigationItem.title = @"个人中心";
     
-     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"icon_chakanpingjia"] style:UIBarButtonItemStylePlain target:self action:@selector(actMessage)];
+     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"news"] style:UIBarButtonItemStylePlain target:self action:@selector(actMessage)];
 
     self.navigationItem.rightBarButtonItem = right;
     
@@ -95,14 +95,16 @@
         headView.loginBlock = ^(){
             MLLoginViewController *vc = [[MLLoginViewController alloc]init];
             vc.isLogin = YES;
-            YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
-            [weakself presentViewController:nvc animated:YES completion:nil];
+            //YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
+            
+            [weakself presentViewController:vc animated:YES completion:nil];
+            
         };
         headView.regBlock = ^(){
             MLLoginViewController *vc = [[MLLoginViewController alloc]init];
             vc.isLogin = NO;
-            YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
-            [weakself presentViewController:nvc animated:YES completion:nil];
+            //YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
+            [weakself presentViewController:vc animated:YES completion:nil];
         };
         headView.imageBlock = ^(){
             if (!loginid) {
@@ -145,6 +147,7 @@
         self.headView.regBtn.hidden = NO;
     }
     NSString *nickname = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];
+    NSLog(@"用户昵称为：%@",nickname);
     if (nickname && ![@"" isEqualToString:nickname]) {
         self.headView.nickLabel.text = nickname;
         self.headView.nickLabel.hidden = NO;
@@ -169,7 +172,7 @@
     }else if (section == 1){
         return 2;
     }
-    return 5;
+    return 4;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -197,7 +200,9 @@
             {
                 MNNMemberViewController *memberVC = [MNNMemberViewController new];
                 memberVC.hidesBottomBarWhenPushed = YES;
+                //[memberVC loadData];
                 [self.navigationController pushViewController:memberVC animated:YES];
+                
             }
                 break;
             case 1:   //客服服务
@@ -290,7 +295,7 @@
             MLCusServiceCell *cell =[tableView dequeueReusableCellWithIdentifier:kMLCusServiceCell forIndexPath:indexPath];
             cell.myTitleLabel.text = @"我的订单";
             cell.myImageView.image = [UIImage imageNamed:@"wodedingdan"];
-            cell.mySubLabel.text = @"查看全部订单";
+            cell.mySubLabel.text = @"查看订单";
             cell.mySubLabel.hidden = NO;
             return cell;
         }
@@ -385,6 +390,12 @@
                     [self showError];
                 }else{
                 
+                    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+                    NSURL *url = [NSURL URLWithString:@"mqq://im/chat?chat_type=wpa&uin=2290103097&version=1&src_type=web"];
+                    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+                    //webView.delegate = self;
+                    [webView loadRequest:request];
+                    [self.view addSubview:webView];
                     NSLog(@"余额");
                 }
             
@@ -442,8 +453,9 @@
 {
     MLLoginViewController *vc = [[MLLoginViewController alloc]init];
     vc.isLogin = YES;
-    YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
-    [self presentViewController:nvc animated:YES completion:nil];
+    //YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
+    [self presentViewController:vc animated:YES completion:nil];
+    
 }
 
 

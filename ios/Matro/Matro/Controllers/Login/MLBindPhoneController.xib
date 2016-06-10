@@ -17,7 +17,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NFo-pf-mfZ" customClass="YMLeftImageField">
@@ -97,7 +97,7 @@
                 <constraint firstItem="yd6-tZ-E35" firstAttribute="height" secondItem="bwS-vN-tJT" secondAttribute="height" id="KOp-vJ-dhI"/>
                 <constraint firstItem="Or1-Q1-1IX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="MTu-FX-294"/>
                 <constraint firstAttribute="trailing" secondItem="yd6-tZ-E35" secondAttribute="trailing" constant="40" id="SeT-MY-4MQ"/>
-                <constraint firstItem="bwS-vN-tJT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="UBd-3f-MNa"/>
+                <constraint firstItem="bwS-vN-tJT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="UBd-3f-MNa"/>
                 <constraint firstItem="NFo-pf-mfZ" firstAttribute="height" secondItem="bwS-vN-tJT" secondAttribute="height" id="WEd-38-cte"/>
                 <constraint firstItem="yd6-tZ-E35" firstAttribute="leading" secondItem="NFo-pf-mfZ" secondAttribute="trailing" id="eq5-Hu-Akj"/>
                 <constraint firstAttribute="trailing" secondItem="bwS-vN-tJT" secondAttribute="trailing" constant="40" id="kGG-ww-3cK"/>
@@ -105,6 +105,7 @@
                 <constraint firstItem="yd6-tZ-E35" firstAttribute="centerY" secondItem="NFo-pf-mfZ" secondAttribute="centerY" id="qcO-Tc-kSJ"/>
                 <constraint firstItem="NFo-pf-mfZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="tkx-2h-Jf2"/>
             </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
             <variation key="default">
                 <mask key="subviews">
                     <exclude reference="NFo-pf-mfZ"/>
@@ -151,7 +152,7 @@
                     <include reference="qcO-Tc-kSJ"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="236" y="361"/>
+            <point key="canvasLocation" x="235.5" y="360.5"/>
         </view>
     </objects>
     <resources>
