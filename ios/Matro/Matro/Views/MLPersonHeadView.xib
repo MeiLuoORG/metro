@@ -73,6 +73,12 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMW-XB-sn0" userLabel="cardTypeLabel">
+                    <rect key="frame" x="236" y="156" width="128" height="22"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.74509803919999995" green="0.74509803919999995" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -94,12 +100,15 @@
                 <constraint firstItem="YRi-12-Ur1" firstAttribute="bottom" secondItem="7iM-23-8UK" secondAttribute="bottom" id="ctx-01-6pj"/>
                 <constraint firstItem="CZw-jA-aXA" firstAttribute="leading" secondItem="KoZ-Ig-6Ta" secondAttribute="trailing" constant="8" id="e0I-Lf-P1k"/>
                 <constraint firstItem="YRi-12-Ur1" firstAttribute="leading" secondItem="KoZ-Ig-6Ta" secondAttribute="trailing" constant="4" id="jao-eC-vvp"/>
+                <constraint firstItem="UMW-XB-sn0" firstAttribute="centerX" secondItem="guK-CL-b6i" secondAttribute="centerX" id="noK-jG-CFw"/>
                 <constraint firstItem="KoZ-Ig-6Ta" firstAttribute="centerY" secondItem="FyM-DJ-YD0" secondAttribute="centerY" id="sP0-Fu-iQb"/>
                 <constraint firstItem="CZw-jA-aXA" firstAttribute="centerY" secondItem="FyM-DJ-YD0" secondAttribute="centerY" id="vet-kR-exF"/>
+                <constraint firstItem="UMW-XB-sn0" firstAttribute="top" secondItem="guK-CL-b6i" secondAttribute="bottom" constant="8" id="zrI-CX-I1X"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="cardTypeLabel" destination="UMW-XB-sn0" id="Pqf-yd-1Vo"/>
                 <outlet property="headBtn" destination="7iM-23-8UK" id="dRn-i4-XKt"/>
                 <outlet property="loginBtn" destination="FyM-DJ-YD0" id="LiB-BV-2ik"/>
                 <outlet property="nickLabel" destination="guK-CL-b6i" id="Mby-KD-j6a"/>

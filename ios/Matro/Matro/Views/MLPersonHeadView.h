@@ -20,6 +20,7 @@ typedef void(^HeadViewImageBlock)();
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *regBtn;
 @property (weak, nonatomic) IBOutlet UILabel *nickLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cardTypeLabel;
 
 @property (nonatomic,copy)HeadViewLoginBlock loginBlock;
 

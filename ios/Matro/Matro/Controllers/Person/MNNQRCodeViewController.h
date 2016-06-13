@@ -7,7 +7,16 @@
 //
 
 #import "MLBaseViewController.h"
+#import "HFSConstants.h"
+#import "HFSUtility.h"
+#import "CommonHeader.h"
+#import "HFSServiceClient.h"
+#import "VipCardModel.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface MNNQRCodeViewController : MLBaseViewController
+
+@property (strong, nonatomic) NSString * cardNo;
+@property (strong, nonatomic) UIImageView * qrcodeView;
 
 @end

@@ -42,6 +42,11 @@
         //badgeView.hidden = NO;
         NSLog(@"消息执行了头部刷新");
     }];
+    self.tableViews.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [self.tableViews.footer endRefreshing];
+        NSLog(@"消息执行了尾部刷新！");
+    }];
+    
 }
 #pragma mark TableViewDelegate代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

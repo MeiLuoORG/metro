@@ -7,7 +7,10 @@
 //
 
 #import "MLBaseViewController.h"
+#import "ShenFenZhengController.h"
 
 @interface MNNManagementViewController : MLBaseViewController
+
+@property (strong, nonatomic) UILabel * shenFenLabel;
 
 @end

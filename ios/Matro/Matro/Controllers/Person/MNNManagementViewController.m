@@ -19,7 +19,7 @@
 #import "GTMNSString+URLArguments.h"
 #import "MyAddressManagerViewController.h"
 #import "MLChangePhotoViewController.h"
-
+#import "CommonHeader.h"
 
 @interface MNNManagementViewController ()<UITableViewDataSource,UITableViewDelegate,MNNModifyNameViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     UITableView *_tableView;
@@ -39,6 +39,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"账户信息设置";
+    
+    self.shenFenLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_WIDTH-200, 10, 150, 20)];
+    userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * str = [userDefaults objectForKey:KUSERDEFAULT_IDCARD_SHENFEN];
+    NSString * str2 = [str stringByReplacingCharactersInRange:NSMakeRange(4, 10) withString:@"****"];
+    self.shenFenLabel.text = str2;
+    
+    self.shenFenLabel.textAlignment = NSTextAlignmentRight;
+    self.shenFenLabel.font = [UIFont systemFontOfSize:15];
+    NSLog(@"身份信息：%@",str);
+    
     [self createTableView];
     userDefaults = [NSUserDefaults standardUserDefaults];
     loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
@@ -72,7 +83,7 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellId = @"cellID";
@@ -107,8 +118,13 @@
         lable.font = [UIFont systemFontOfSize:15];
         cell.accessoryView = lable;
     }else if (indexPath.row == 3) {
-        cell.textLabel.text = @"收货地址";
+        cell.textLabel.text = @"身份证号";
+
+        [cell addSubview:self.shenFenLabel];
     }else if (indexPath.row == 4) {
+        cell.textLabel.text = @"收货地址";
+    }
+    else if(indexPath.row == 5){
         cell.textLabel.text = @"修改密码";
     }
     if (indexPath.row != 2 || indexPath.row != 0) {
@@ -117,9 +133,16 @@
     
     return cell;
 }
+#pragma mark 修改昵称 代理
 - (void)MNNModifyNameViewController:(MNNModifyNameViewController *)ViewControlle userName:(NSString *)userName {
     _lable.text = userName;
 }
+#pragma end mark 
+#pragma mark 修改身份证
+
+
+#pragma end mark
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         return 80;
@@ -160,16 +183,30 @@
         [self.navigationController pushViewController:modifyNameVC animated:YES];
     }
     //收货地址
-    if (indexPath.row == 3) {
+    if (indexPath.row == 4) {
         MyAddressManagerViewController *vc = [[MyAddressManagerViewController alloc]init];
 //        vc.delegate = nil;
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
     //修改密码
-    if (indexPath.row == 4) {
+    if (indexPath.row == 5) {
         self.hidesBottomBarWhenPushed = YES;
         MNNModifyPasswordViewController *modifyPasswordVC = [MNNModifyPasswordViewController new];
+        
+        [self presentViewController:modifyPasswordVC animated:YES completion:nil];
+        //[self.navigationController pushViewController:modifyPasswordVC animated:YES];
+    }
+    //身份证号码
+    if (indexPath.row == 3) {
+        self.hidesBottomBarWhenPushed = YES;
+        ShenFenZhengController *modifyPasswordVC = [ShenFenZhengController new];
+        modifyPasswordVC.shenFenStr = [userDefaults objectForKey:KUSERDEFAULT_IDCARD_SHENFEN];
+        [modifyPasswordVC shenFenZhengBlockAction:^(BOOL success) {
+            NSString * str = [userDefaults objectForKey:KUSERDEFAULT_IDCARD_SHENFEN];
+            NSString * str2 = [str stringByReplacingCharactersInRange:NSMakeRange(4, 10) withString:@"****"];
+            self.shenFenLabel.text = str2;
+        }];
         [self.navigationController pushViewController:modifyPasswordVC animated:YES];
     }
 }

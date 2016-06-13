@@ -211,14 +211,40 @@ static NSMutableData *totaldata ;
         [orderSpec appendFormat:@"%@=%@&", key, [dic objectForKey:key]];
     }
     
+    //NSLog(@"签名++：%@",orderSpec);
     HBRSAHandler* handler = [HBRSAHandler new];
     [handler importKeyWithType:KeyTypePrivate andkeyString:private_key_string];
     [handler importKeyWithType:KeyTypePublic andkeyString:public_key_string];
 //    NSLog(@"sign string %@",[handler signString:@"123456"] );
     [tempdic setObject:[handler signString:orderSpec] forKey:@"sign"];
-    
+    //NSLog(@"签名：%@",[handler signString:orderSpec]);
+
     return tempdic;
     
+}
+
++ (NSString *)SIGNStrign:(NSDictionary *)dic{
+    NSMutableDictionary *tempdic = [[NSMutableDictionary alloc]initWithDictionary:dic];
+    
+    NSMutableString *orderSpec = [NSMutableString string];
+    NSArray *sortedKeys = [dic.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        return [obj1 caseInsensitiveCompare:obj2];
+    }];
+    for (NSString *key in sortedKeys) {
+        [orderSpec appendFormat:@"%@=%@&", key, [dic objectForKey:key]];
+    }
+    
+    NSLog(@"签名++：%@",orderSpec);
+    HBRSAHandler* handler = [HBRSAHandler new];
+    [handler importKeyWithType:KeyTypePrivate andkeyString:private_key_string];
+    [handler importKeyWithType:KeyTypePublic andkeyString:public_key_string];
+    //    NSLog(@"sign string %@",[handler signString:@"123456"] );
+    [tempdic setObject:[handler signString:orderSpec] forKey:@"sign"];
+    NSLog(@"签名：%@",[handler signString:orderSpec]);
+    
+    return [handler signString:orderSpec];
+    
+
 }
 
 HBRSAHandler* handler;
@@ -228,16 +254,22 @@ HBRSAHandler* handler;
 
 
 
+/*
 NSString * const private_key_string = @"MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAI6vuoAMJGAI6ybsPVwIPG1np7G3kyidYSsmdo6tZwYxXYo5xakVlyOBLOUFOY/vL688HpLypnT9PZ31ZGcvkOz4fD1YzyuKSXGvUGhCMW0HroO8fJlKo2L3loF7KQIBk7dkZSxmathV/VbmjDb65OnVMgBgYi9ssGSE6BXxv2q5AgMBAAECgYEAhqTW1cwfaywfUoxs3nK7KvY8bVxwlkvkjIZwK/T/mf1tamlX11WTWKKlzbufdO5dTfvqUfp+DzmFMpCE3UYqd7quiUdgB0YvOoczWCTtmq/MbWSdjxMSKV/1sziDOfC64RJrbuMakqVzTLmOMawt4I8ezrg0uBCEE0ZEcFcScZ0CQQDEmw+5Am1wT0U+Tevs6lhl2gHz75u00MwGsLlOfh5/yJ39YKxBwuSt0N+4lrmO0ERQKnE0LYLoOekXDq4i9BnHAkEAucqzaNiw0BBqmT8OybtFJDZApeDc0HIImWJAk1V8CCAgLGVUsEBCCu0Z7NYgxi/0vd8v70/KbbhBeXdFivxXfwJBAL/96MGz5Clbz/PC5lSKmN6FoYiUgYp2p/cUlzFWqfQBdn9b63ugle5DXmYFEpmrOjrK55ebpg2fl8cDd/v8QjsCQFXDB8YiIJwqt8o9nWnplCT/FiB8B/IAcY+8FurrzvFBQxi7PbiOMO4yPIFi5oYVpPfwioQBZQP4xeB3+hYKHakCQQCGMTAKDKWfVEfeexnhoys+485aeES9vWX2YLv/ffhTyJdWUuQncz31XKFlA4mgmK1cyJCbLGdz1TXNYlJ5Ny6k";
 
 NSString* const public_key_string = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJ63sg3wOv5TGokD5CyzOtQlrX6JYNELQ+S0N3FFmN6s/u2zeRxiK3VP9cO7nTgsZpvAtZvMwmuqU+qpXc0i1o/a3y7boIpS/L+jqleYS0OejcIlm2zS+imfbupfNq6Xz8AQT9kNu9b3nmZ4Zb2JFW92EdLPJAloyl0YmqycVqswIDAQAB";
+ */
+/*20160602更新*/
+NSString * const private_key_string = @"MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBALEYuw8m1sOqYNDUInVrOFxutqe5YKgdL+NLkL0ot/2x7I4w6Tcjf8bRRkrvw5yN9Xe+xVg3dadrnF3uACnuiadUTuc99tkXM//fK6/FvUfY7eroeen2RQ/iMtrm8+kRig/V+q7BhC2e5EzQWAkY04SoXi19qkXVrf8KnNfqNzvdAgMBAAECgYEAsP/TrcAWtDbsTqtGyW5hRVjOK/JGXZ/WRek3fydcRS34DOFrpdVQFwkApVLfgfAMHyNHH/VGHQ+bl/GQrlgfsLZRuG6w7aq91ZypDGIjza4DX7aDxtSzMObtiOf/p8UgdffoFkWDVSb0CwZK9w9B94hfeAiA5jxREejwG4SSv+ECQQDuyqUj3VeB5P4IT2n/FmS3B48eXifRp/GJfWMAJtzGOxIg5m1KgljqWFdWE2jrmAJ9Gt7HsZuG9j3ueTGp4HBlAkEAvdvnVUc8ejDMWw2vfOqekrW6aigmfdtMPt1/ik/XaEu5Klc7cZV8OioIHHrQO5RxiaY105jIdZ/EmpvsPToaGQJBAK6igx10jb/QcbwwH+vPO77jh1aFM4fP1ARiL9n3kfRjVQG8o2cfZtmT2+N2dH///qnx0cWnbX/JbEeQWLLNEkUCQBAsfp2OLwG9zHrpRIzgs9eNsa6/ct//4ZPtbKMMwC37XW/U9JRthqKx1/UNJVYeBDoUtbsr5c/XZ3lAVTS2EWkCQQCDs4kPEg7G/fuDVHe7YBBK72uo6zyaijji1EvtBMMoZ+hyn7yfUvwq4NW1qK6WPr+pvX32J7u6R54EOMAofaJd";
+NSString* const public_key_string = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAYvUzdMBGRFLLJgXWNuJvEB4dK8MhjvSHY4eaPn0QsEFxOJHZmfof1Ffk8AL5GLq2xH6wEW7qi+pEBQpa0VHJ1YlM0lSTD6AE5mNLXhPZ5KjXC+8ZZ5aj+dhIRcWxqCc6qEnl+VZht5+KQXe4OH0QCySnXCKwExFjp3dsyE6qyQIDAQAB";
+
 
 //返回RSA加密的字符串
 +(NSData *)RSADicToData:(NSDictionary *)dic01{
     
-    NSDictionary *dic = [HFSUtility SIGNDic:dic01];
+    //NSDictionary *dic = [HFSUtility SIGNDic:dic01];
     
-    NSString *jsonst = [self DataTOjsonString:dic];
+    NSString *jsonst = [self DataTOjsonString:dic01];
     NSData* data = [jsonst dataUsingEncoding:NSUTF8StringEncoding];
     if (!totaldata) {
         totaldata = [[NSMutableData alloc] init];

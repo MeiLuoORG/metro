@@ -30,5 +30,5 @@
 +(NSData *)RSADicToData:(NSDictionary *)dic01;
 -(NSData *)sectionRSASecret:(NSData*)tempstr;
 +(UIColor *) hexStringToColor: (NSString *) stringToConvert;
-
++ (NSString *)SIGNStrign:(NSDictionary *)dic;
 @end

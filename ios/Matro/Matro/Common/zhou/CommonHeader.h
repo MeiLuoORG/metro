@@ -84,8 +84,22 @@
 #define VERSION_NUM  @"V1.0"
 
 #import "Masonry.h"
-
+//ae835d
 #define Main_BackgroundColor @"ae835d"
+//bab6b7
 #define Main_grayBackgroundColor @"bab6b7"
+//浅灰
+#define Main_lightGrayBackgroundColor @"999999"
+//深灰
+#define Main_darkGrayBackgroundColor @"625046"
+//普色
+#define Main_textNormalBackgroundColor @"260e00"
+//重要文字
+#define Main_textRedBackgroundColor @"f1653e"
+//分割线
+#define Main_spelBackgroundColor @"dedede"
+//背景灰
+#define Main_beijingGray_BackgroundColor @"f1f1f1"
+
 
 #endif

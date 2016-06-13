@@ -9,6 +9,7 @@
 #import "MLBaseViewController.h"
 #import "MessagesViewController.h"
 #import "UIBarButtonItem+Badge.h"
+#import "UIButton+Badge.h"
 
 @interface MLPersonController : MLBaseViewController
 

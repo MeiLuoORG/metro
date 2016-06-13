@@ -44,7 +44,6 @@
         _hud.labelText = @"该设备不支持相机拍照";
         [_hud hide:YES afterDelay:2];
     }
-    
 }
 - (IBAction)bendiClick:(id)sender {
     [self showImagePickerView:UIImagePickerControllerSourceTypePhotoLibrary];
@@ -100,7 +99,7 @@
             [_client.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             
             [_client POST:@"image/upload" parameters:sbstr success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"%@",responseObject);
+                NSLog(@"修改头像信息%@",responseObject);
                 if (responseObject) {
                     NSDictionary *result = (NSDictionary *)responseObject;
                     if(result) {
@@ -137,28 +136,38 @@
     NSString *nikeName = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERNAME];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    NSDictionary *dic = @{@"appId":APP_ID,@"nickname":nikeName,@"cardno":cardno,@"mphone":mphone,@"headPicUrl":imgUrl};
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     
-    NSData *data = [HFSUtility RSADicToData:dic] ;
+    NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"phone":mphone,@"img":imgUrl}];
+    NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
+                            @"phone":mphone,
+                            @"img":imgUrl,
+                            @"sign":signDic[@"sign"],
+                            @"accessToken":accessToken
+                            };
+    
+    NSData *data = [HFSUtility RSADicToData:dic2] ;
     NSString *ret = base64_encode_data(data);
+
     
     
    HFSServiceClient  *_client = [[HFSServiceClient alloc]initWithBaseURL:[NSURL URLWithString:SERVICE_BASE_URL]];
     
     _client.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json", @"text/javascript",  @"text/plain",nil];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *accessToken = [userDefaults stringForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    /*
     if (!accessToken) {
         accessToken = @"";
     }
+    */
     [_client.requestSerializer setValue:@"text/json" forHTTPHeaderField:@"Content-Type"];
 
  
-    [_client POST:@"vip/updateUserInfo" parameters:ret success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [_client POST:XiuGaiInfo_URLString parameters:ret success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;
-        
-        if([@"0" isEqualToString:[NSString stringWithFormat:@"%@",result[@"status"]]]){
+        NSLog(@"修改头像imgUrl:%@",result);
+        if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
             
 //            [_hud show:YES];
 //            _hud.mode = MBProgressHUDModeText;

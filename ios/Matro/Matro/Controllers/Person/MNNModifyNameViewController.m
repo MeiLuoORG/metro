@@ -62,16 +62,23 @@
         NSString *avatorurl = [userDefaults objectForKey:kUSERDEFAULT_USERAVATOR];
         NSString *mphone = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];
         NSString *cardno = [userDefaults objectForKey:kUSERDEFAULT_USERCARDNO];
-        NSDictionary *dic = @{@"appId":APP_ID,@"nickName":_textField.text,@"cardno":cardno,@"mphone":mphone,@"headPicUrl":avatorurl};
+         NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+        NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"phone":mphone,@"nickName":_textField.text}];
+        NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
+                                @"phone":mphone,
+                                @"nickName":_textField.text,
+                                @"sign":signDic[@"sign"],
+                                @"accessToken":accessToken
+                                };
         
-        NSData *data = [HFSUtility RSADicToData:dic] ;
+        NSData *data = [HFSUtility RSADicToData:dic2] ;
         NSString *ret = base64_encode_data(data);
         
-        [[HFSServiceClient sharedClient]POST:@"vip/updateUserInfo" parameters:ret success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[HFSServiceClient sharedClient]POST:XiuGaiInfo_URLString parameters:ret success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             NSDictionary *result = (NSDictionary *)responseObject;
-            
-            if([@"0" isEqualToString:[NSString stringWithFormat:@"%@",result[@"status"]]]){
+            NSLog(@"修改昵称信息：%@",result);
+            if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
                 
                 [_hud show:YES];
                 _hud.mode = MBProgressHUDModeText;

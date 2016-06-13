@@ -9,9 +9,11 @@
 #import "MNNPurchaseHistoryViewController.h"
 #import "MNNPurchaseHistoryTableViewCell.h"
 #import "HFSConstants.h"
-
-
-
+#import "MJRefresh.h"
+#import "MJExtension.h"
+#import "MBProgressHUD+Add.h"
+#import "HFSUtility.h"
+#import "CommonHeader.h"
 
 @interface MNNPurchaseHistoryViewController ()<UITableViewDataSource,UITableViewDelegate> {
     UITableView *_tableView;
@@ -21,21 +23,24 @@
 }
 
 @end
-
+static NSInteger currentPage = 1;
 @implementation MNNPurchaseHistoryViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
     self.title = @"我的会员卡消费记录";
     _dataArray = [NSMutableArray array];
     [self createViews];
     // Do any additional setup after loading the view.
 }
 - (void)createViews {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-20) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-70) style:UITableViewStylePlain];
+    _tableView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 50)];
+    headerView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
     UIView * blackView = [[UIView alloc]initWithFrame:CGRectMake(0, 5, MAIN_SCREEN_WIDTH, 40)];
     blackView.backgroundColor = [UIColor whiteColor];
     [headerView addSubview:blackView];
@@ -63,14 +68,32 @@
     [headerView addSubview:label2];
     _tableView.tableHeaderView = headerView;
     [_tableView registerClass:[MNNPurchaseHistoryTableViewCell class] forCellReuseIdentifier:@"cellId"];
+    
+    //zhoulu  刷新控件
+    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        NSLog(@"头部刷新控件");
+        [_tableView.header endRefreshing];
+    }];
+    _tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        NSLog(@"尾部刷新控件");
+        [_tableView.footer endRefreshing];
+    }];
+    [_tableView.header beginRefreshing];
+    
     [self.view addSubview:_tableView];
+    
 }
 #pragma mark - 
 #pragma mark UITableViewDelegate
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 5;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MNNPurchaseHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];

@@ -180,9 +180,71 @@
     [userDefaults removeObjectForKey:kUSERDEFAULT_USERPHONE];
     
     [userDefaults removeObjectForKey:kUSERDEFAULT_USERNAME];
+    [userDefaults removeObjectForKey:KUSERDEFAULT_ISHAVE_DEFAULTCARD_BOOL];
+    [userDefaults removeObjectForKey:kUSERDEFAULT_ACCCESSTOKEN];
     
     [self.navigationController popViewControllerAnimated:YES];
+    //[self logoutAction];
 }
+
+#pragma mark 退出登录
+- (void)logoutAction{
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    //NSString * userId  = [userDefaults objectForKey:kUSERDEFAULT_USERID];
+    
+    NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU}];
+    NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
+                            @"sign":signDic[@"sign"],
+                            @"accessToken":accessToken
+                            };
+    
+    NSData *data2 = [HFSUtility RSADicToData:dic2];
+    NSString *ret2 = base64_encode_data(data2);
+    //@"vip/AuthUserInfo"
+    [[HFSServiceClient sharedClient] POST:Logout_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"%@",result);
+        if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+            
+            _hud.labelText = @"退出成功";
+            [_hud hide:YES afterDelay:2];
+            // 存储用户信息
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults removeObjectForKey:kUSERDEFAULT_USERCARDNO];
+            [userDefaults removeObjectForKey:kUSERDEFAULT_USERAVATOR];
+            [userDefaults removeObjectForKey:kUSERDEFAULT_USERID];
+            
+            [userDefaults removeObjectForKey:kUSERDEFAULT_USERPHONE];
+            
+            [userDefaults removeObjectForKey:kUSERDEFAULT_USERNAME];
+            [userDefaults removeObjectForKey:KUSERDEFAULT_ISHAVE_DEFAULTCARD_BOOL];
+            [userDefaults removeObjectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            //[self dismissViewControllerAnimated:YES completion:nil];
+        }else{
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = result[@"errMsg"];
+            [_hud hide:YES afterDelay:2];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:2];
+    }];
+
+}
+
+#pragma end mark
+
+
 #pragma mark- UITableViewDataSource And UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;{
     return 5;

@@ -13,10 +13,12 @@
 //#define SERVICE_BASEPAY_URL @"http://app-test.matrojp.com/PayCenter/"
 //#define SERVICE_GETBASE_URL @"http://61.155.212.163:81/"
 
-
+//http://app-test.matrojp.com
+//http://app.matrojp.com/P2MLinkCenter/
 #define SERVICE_BASE_URL @"http://app.matrojp.com/P2MLinkCenter/"
 #define SERVICE_BASEPAY_URL @"http://app.matrojp.com/PayCenter/"
-#define SERVICE_GETBASE_URL @"http://www.matrojp.com/"
+//http://www.matrojp.com/
+#define SERVICE_GETBASE_URL @"http://app-test.matrojp.com/"
 
 
 #define kNOTIFICATIONWXPAY   @"wxPayResult"
@@ -26,8 +28,10 @@
 
 //#define APP_ID @"testapp2"
 #define APP_ID @"3E125E14E3313B1A"
-
 #define NONCE_STR @"12345678"
+#define APP_ID_ZHOU @"test0002"
+#define APP_Secrect_ZHOU @"123456"
+
 
 #define MAIN_TINT_COLOR     @"#FFFFFF"
 
@@ -86,6 +90,15 @@
 #define kUSERDEFAULT_BASE_URL              @"USERDEFAULT_BASE_URL"
 #define ZIP_FILE_NAME                      @"home_html"
 
+/*zhoulu*/
+#define KUSERDEFAULT_ISHAVE_DEFAULTCARD_BOOL @"ISHAVE_DEFAULTCARD_BOOL"
+//身份证号
+#define KUSERDEFAULT_IDCARD_SHENFEN         @"USER_IDCARD_SHENFEN"
+//会员类型
+#define KUSERDEFAULT_CARDTYPE_CURRENT      @"USER_CARDTYPE_CURRENT"
+
+/*zhoulu*/
+
 #define LoadNibWithSelfClassName [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil]firstObject]
 
 
@@ -97,5 +110,40 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 
 #define RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 #define PLACEHOLDER_IMAGE [UIImage imageNamed:@"imageloading"]
+
+/*zhouluSTART*/
+//登录接口
+#define Login_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/login"
+//注册接口
+#define Regist_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/register"
+//验证码 接口
+#define Code_URLString @"http://app.matrojp.com/P2MLinkCenter/common/sendsms"
+//判断手机号是否注册过http://app-test.matrojp.com/member/ajax/app/sso/phoneIsRegister
+#define PhoneIsRegisted_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/phoneIsRegister"
+//退出登录
+#define Logout_URLString @"http://app-test.matrojp.com/member/ajax/app/access/loginOut"
+//第三方登录
+#define ThirdLogin_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/thirdPartyLogin"
+//第三方登录 绑定手机号
+#define ThirdLogin_BindPhone_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/thirdPartyLoginBind"
+//修改密码 http://app-test.matrojp.com/member/ajax/app/access/updatePsw
+#define XiuGaiPassword_URLString @"http://app-test.matrojp.com/member/ajax/app/access/updatePsw"
+//绑定会员卡
+#define BindCard_URLString @"http://app-test.matrojp.com/member/ajax/app/access/cardBind"
+//忘记密码
+#define ForgetPassword_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/forgetPsw"
+//会员信息查询 http://app-test.matrojp.com/member/ajax/app/access/getUser
+#define VIPInfo_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getUser"
+//会员卡可用积分
+#define VIPCardJiFen_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getOfflineVipCard"
+//消费记录
+#define VIPCardJiLu_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
+//修改账户信息
+#define XiuGaiInfo_URLString @"http://app-test.matrojp.com/member/ajax/app/access/updateUserInfo"
+
+
+
+/*zhouluEND*/
+
 
 #endif /* HFSConstants_h */

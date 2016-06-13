@@ -7,6 +7,8 @@
 //
 
 #import "MLBaseViewController.h"
+#import "CommonHeader.h"
+#import "NavTopCommonImage.h"
 
 @interface MNNModifyPasswordViewController : MLBaseViewController
 

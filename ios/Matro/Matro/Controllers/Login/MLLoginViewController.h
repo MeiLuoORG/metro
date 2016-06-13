@@ -9,6 +9,9 @@
 #import "MLBaseViewController.h"
 #import "SettingMoCardView.h"
 #import "CommonHeader.h"
+#import "NavTopCommonImage.h"
+#import "VipCardModel.h"
+#import "HYGCD.h"
 
 @interface MLLoginViewController : MLBaseViewController<UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -16,5 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *termBtn;
 
 @property (strong ,nonatomic) SettingMoCardView * settingMoCardView;
+
+@property (strong, nonatomic) NSMutableArray * vipCardArray;
 
 @end

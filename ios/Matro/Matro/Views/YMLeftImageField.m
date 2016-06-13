@@ -79,9 +79,6 @@
         
     }
     return iconRect;
-    
-    
-    
 }
 
 
