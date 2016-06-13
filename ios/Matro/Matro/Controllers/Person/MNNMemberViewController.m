@@ -479,16 +479,12 @@
     [_backgroundView addSubview:scrollview];
     //[_backgroundView addSubview:pageControl];
     
+    
     btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(scrollview.frame)+10, 70, 20)];
     [btnSelect setTitle:@"设为默认" forState:UIControlStateNormal];
     [btnSelect setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnSelect.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
     btnSelect.selected  = YES;
-
-    [_backgroundView addSubview:pageControl];
-    
-    
-    _label = [[UILabel alloc] initWithFrame:CGRectMake(160, CGRectGetMaxY(scrollview.frame)+15, MAIN_SCREEN_WIDTH-160, 20)];
     [btnSelect setImage:[UIImage imageNamed:@"box"] forState:UIControlStateNormal];
     [btnSelect setImage:[UIImage imageNamed:@"check"] forState:UIControlStateSelected];
     [btnSelect setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 50)];
