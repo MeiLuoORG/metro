@@ -72,7 +72,7 @@
     _hud = [[MBProgressHUD alloc]initWithView:self.view];
     [self.view addSubview:_hud];
 }
-/*
+
 - (void)buttonAction {
     /*
     self.hidesBottomBarWhenPushed = YES;
@@ -247,8 +247,9 @@
 }
 
 
-}
+
 #pragma mark 获取会员  会员卡信息
+
 - (void)loadData {
     /*
      zhoulu
@@ -395,8 +396,9 @@
     UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 40, scrollview.contentSize.width, 110)];
     bkView.backgroundColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
     [scrollview addSubview:bkView];
+}
 
- */
+
 #pragma mark 获取用户信息
 - (void)loadDate {
 
@@ -626,14 +628,6 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 
 }
-
-
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-
-}
-
 
 -(void)actSelect:(UIButton *)sender{
     

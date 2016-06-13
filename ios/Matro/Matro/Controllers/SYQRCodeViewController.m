@@ -75,7 +75,7 @@ static const float kReaderViewHeight = 250;
     bgView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:bgView];
     
-    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kDeviceWidth - 40) / 2.0, 28, 40, 20)];
+    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake((kDeviceWidth - 100) / 2.0, 28, 100, 20)];
     
     titleLab.text = @"扫描二维码";
    // titleLab.shadowColor = [UIColor lightGrayColor];

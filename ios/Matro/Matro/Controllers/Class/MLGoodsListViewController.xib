@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MLGoodsListViewController">
             <connections>
+                <outlet property="blankView" destination="yzY-5Y-Lhe" id="7ii-gJ-Eoq"/>
                 <outlet property="changeButton" destination="Rh4-ka-iCb" id="37j-ih-Ve8"/>
                 <outlet property="collectionView" destination="mqf-2T-1oT" id="6Vc-1V-kxq"/>
                 <outlet property="jiageButtton" destination="aFh-k6-1bs" id="dFq-pJ-efe"/>
@@ -43,7 +44,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="销量">
-                                <color key="titleColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" title="销量">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -60,7 +61,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                             <state key="normal" title="筛选" image="shaixuan">
-                                <color key="titleColor" red="0.054901960780000002" green="0.054901960780000002" blue="0.054901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="listButtonAction:" destination="-1" eventType="touchUpInside" id="url-IE-Ejg"/>
@@ -71,7 +72,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <state key="normal" title="价格" image="xiayiyexz_arrow">
-                                <color key="titleColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="listButtonAction:" destination="-1" eventType="touchUpInside" id="xZd-05-pJT"/>
@@ -151,7 +152,7 @@
                         <outlet property="delegate" destination="-1" id="wcE-VK-z82"/>
                     </connections>
                 </tableView>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzY-5Y-Lhe">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzY-5Y-Lhe">
                     <rect key="frame" x="12" y="45" width="576" height="555"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wufaxianshi" translatesAutoresizingMaskIntoConstraints="NO" id="gcI-mR-WpA">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -21,16 +21,16 @@
                             <constraint firstAttribute="width" secondItem="NBY-Mm-4KI" secondAttribute="height" id="xqw-TT-EhA"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPI-6Y-uvK">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPI-6Y-uvK">
                         <rect key="frame" x="138" y="16" width="164" height="47"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.12549019607843137" green="0.14509803921568626" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="¥30500.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XB6-QT-vMg">
-                        <rect key="frame" x="238" y="71" width="64" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="¥30500.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XB6-QT-vMg">
+                        <rect key="frame" x="138" y="71" width="64" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.68235294117647061" green="0.55686274509803924" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.94509803921568625" green="0.396078431372549" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXn-ge-pbW">
@@ -54,7 +54,7 @@
                         <color key="textColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="X1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EnG-Tj-zFD">
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="X1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EnG-Tj-zFD">
                         <rect key="frame" x="138" y="71" width="14" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -64,19 +64,19 @@
                 <constraints>
                     <constraint firstItem="CXn-ge-pbW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="3GT-xR-7sB"/>
                     <constraint firstItem="NBY-Mm-4KI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Fd0-1j-jgm"/>
-                    <constraint firstItem="tPI-6Y-uvK" firstAttribute="leading" secondItem="NBY-Mm-4KI" secondAttribute="trailing" constant="24" id="K4k-Ec-GUw"/>
-                    <constraint firstItem="EnG-Tj-zFD" firstAttribute="centerY" secondItem="XB6-QT-vMg" secondAttribute="centerY" id="Mkc-xY-d5D"/>
-                    <constraint firstItem="XB6-QT-vMg" firstAttribute="trailing" secondItem="tPI-6Y-uvK" secondAttribute="trailing" id="PVR-WM-Vd1"/>
+                    <constraint firstItem="tPI-6Y-uvK" firstAttribute="leading" secondItem="NBY-Mm-4KI" secondAttribute="trailing" constant="48" id="K4k-Ec-GUw"/>
                     <constraint firstItem="NBY-Mm-4KI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="XYZ-bm-ycf"/>
+                    <constraint firstItem="XB6-QT-vMg" firstAttribute="leading" secondItem="NBY-Mm-4KI" secondAttribute="trailing" constant="48" id="YXv-dt-OuD"/>
                     <constraint firstItem="tPI-6Y-uvK" firstAttribute="centerY" secondItem="NBY-Mm-4KI" secondAttribute="centerY" constant="-20" id="caA-TC-yGP"/>
                     <constraint firstItem="EnG-Tj-zFD" firstAttribute="leading" secondItem="tPI-6Y-uvK" secondAttribute="leading" id="fVu-7j-QAX"/>
                     <constraint firstAttribute="trailing" secondItem="ZL9-19-Wft" secondAttribute="trailing" id="g6G-LQ-obC"/>
                     <constraint firstItem="ZL9-19-Wft" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gmI-Dy-nvZ"/>
                     <constraint firstItem="CXn-ge-pbW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jOX-1U-5yu"/>
-                    <constraint firstItem="XB6-QT-vMg" firstAttribute="top" secondItem="tPI-6Y-uvK" secondAttribute="bottom" constant="10" id="nj4-Ph-Zih"/>
+                    <constraint firstItem="XB6-QT-vMg" firstAttribute="top" secondItem="tPI-6Y-uvK" secondAttribute="bottom" constant="20" id="kfp-So-cVK"/>
                     <constraint firstAttribute="trailing" secondItem="tPI-6Y-uvK" secondAttribute="trailing" constant="24" id="oC4-yU-AJF"/>
                     <constraint firstAttribute="bottom" secondItem="NBY-Mm-4KI" secondAttribute="bottom" constant="10" id="oyA-Hh-YSD"/>
                     <constraint firstAttribute="bottom" secondItem="ZL9-19-Wft" secondAttribute="bottom" id="sFU-Nd-X6p"/>
+                    <constraint firstItem="ZL9-19-Wft" firstAttribute="top" secondItem="XB6-QT-vMg" secondAttribute="bottom" constant="30" id="y2A-QT-4Y2"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

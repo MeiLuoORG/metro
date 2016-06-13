@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<<<<<<< Updated upstream
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+>>>>>>> Stashed changes
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -11,7 +15,9 @@
                 <outlet property="historyTableView" destination="o2w-j2-8Jn" id="e9K-uy-Scp"/>
                 <outlet property="hotSearchTagHeightConstraint" destination="DCp-qL-5eq" id="pBo-oa-SHs"/>
                 <outlet property="hotSearchTagView" destination="wl9-W7-wqh" id="3ah-h5-DeW"/>
+                <outlet property="labsearch" destination="3Iw-YG-ze6" id="Weo-QC-3c9"/>
                 <outlet property="rootScrollView" destination="9js-x7-Rp2" id="aPM-lx-qam"/>
+                <outlet property="searchView" destination="Zo1-Yu-JiO" id="gMj-qs-Yju"/>
                 <outlet property="tbvH" destination="JRM-iN-esE" id="ofi-ek-lT0"/>
                 <outlet property="view" destination="TrS-C0-qgl" id="u6q-77-lrA"/>
             </connections>
@@ -50,12 +56,6 @@
                                         <constraint firstAttribute="height" constant="35" id="DCp-qL-5eq"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的搜索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Iw-YG-ze6">
-                                    <rect key="frame" x="22" y="80" width="48" height="15"/>
-                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zo1-Yu-JiO">
                                     <rect key="frame" x="20" y="100" width="560" height="1"/>
                                     <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -83,12 +83,18 @@
                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
                                     <state key="normal" title="清空历史纪录">
-                                        <color key="titleColor" red="0.0078431372549019607" green="0.0078431372549019607" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
                                         <action selector="clearSearchHistoryAction:" destination="-1" eventType="touchUpInside" id="F4L-JO-kgD"/>
                                     </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="我的搜索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Iw-YG-ze6">
+                                    <rect key="frame" x="22" y="78" width="48" height="15"/>
+                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>

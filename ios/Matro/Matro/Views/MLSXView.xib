@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -37,7 +37,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="we1-fM-63d">
                             <rect key="frame" x="528" y="28" width="60" height="30"/>
                             <state key="normal" title="清除选项">
-                                <color key="titleColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="cleanButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Yfa-9a-8xH"/>
@@ -46,7 +46,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="筛选" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XmK-De-kYz">
                             <rect key="frame" x="283" y="32" width="34" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -80,8 +80,8 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CEe-h9-vo4">
                                     <rect key="frame" x="265" y="17" width="70" height="30"/>
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <state key="normal" title="全球购" backgroundImage="shangmenziti_button">
-                                        <color key="titleColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" title="全球购">
+                                        <color key="titleColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="sxTitleButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="gvx-KZ-X8f"/>
@@ -90,8 +90,8 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLG-FO-hML">
                                     <rect key="frame" x="433" y="17" width="70" height="30"/>
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <state key="normal" title="促销商品" backgroundImage="shangmenziti_button">
-                                        <color key="titleColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" title="促销商品">
+                                        <color key="titleColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="sxTitleButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="hEX-EZ-a9d"/>
@@ -151,8 +151,8 @@
                                         <constraint firstAttribute="width" constant="70" id="7co-mK-Mtg"/>
                                     </constraints>
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <state key="normal" title="仅看有货" backgroundImage="shangmenziti_button">
-                                        <color key="titleColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" title="仅看有货">
+                                        <color key="titleColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="sxTitleButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Hwb-Qw-YNt"/>
@@ -207,7 +207,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品分类" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwD-mF-Bei">
                                             <rect key="frame" x="12" y="14" width="60" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xiayiye_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="8ej-Qx-KGG">
@@ -264,7 +264,7 @@
                                                 <constraint firstAttribute="width" constant="34" id="CT8-nQ-cth"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xiayiye_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="ruF-O2-qHC">
@@ -326,7 +326,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="品牌" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iI4-yt-zFt">
                                             <rect key="frame" x="12" y="14" width="30" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xiayiye_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="cjx-9O-Eqn">
@@ -472,6 +472,8 @@
                 <outlet property="pinpai" destination="Fe3-xU-jEg" id="H4q-ne-xSu"/>
                 <outlet property="quanqiugouButton" destination="CEe-h9-vo4" id="P8J-ns-Ozy"/>
                 <outlet property="shaixuanNextView" destination="iSn-xM-LNB" id="EV9-FQ-Mbl"/>
+                <outlet property="subsureButton" destination="Qot-p8-mQ5" id="kM2-ix-g6I"/>
+                <outlet property="sureButton" destination="fyi-vk-LC0" id="X3G-dF-aHk"/>
                 <outlet property="sxRootView" destination="xu9-u9-DcW" id="hvD-MH-LBn"/>
                 <outlet property="tableView" destination="gUU-We-kjB" id="XM2-sq-EWH"/>
                 <outlet property="titleButtonBgView" destination="0vP-ft-kji" id="xvP-lT-hIZ"/>
@@ -482,7 +484,6 @@
         </view>
     </objects>
     <resources>
-        <image name="shangmenziti_button" width="87" height="33"/>
         <image name="xiayiye_arrow" width="9" height="17"/>
     </resources>
 </document>

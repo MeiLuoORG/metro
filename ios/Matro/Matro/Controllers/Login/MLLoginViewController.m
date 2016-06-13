@@ -123,10 +123,7 @@
     
     
 
-=======
-=======
->>>>>>> origin/iOS
->>>>>>> origin/iOS
+
 }
 
 - (void)bindSuccess{

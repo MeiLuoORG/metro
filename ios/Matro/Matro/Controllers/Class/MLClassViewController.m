@@ -66,18 +66,21 @@
     UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)] ;
     frameView.layer.borderWidth = 1;
     frameView.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
+    frameView.layer.cornerRadius = 4.f;
+    frameView.layer.masksToBounds = YES;
+    frameView.backgroundColor = [UIColor whiteColor];
     
     CGFloat H = frameView.bounds.size.height - 8;
     CGFloat imgW = H;
     CGFloat textW = frameView.bounds.size.width - imgW - 6;
     
     UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Magnifying-Class"]];
-    searchText = [[UITextField alloc] initWithFrame:CGRectMake(imgW + 4, 2, textW, H)];
+    searchText = [[UITextField alloc] initWithFrame:CGRectMake( 6, 4, textW, H)];
     searchText.enabled = NO;
     [frameView addSubview:searchImg];
     [frameView addSubview:searchText];
-    searchImg.frame = CGRectMake(4 , 4, imgW, imgW);
-    searchText.frame = CGRectMake(imgW + 6, 4, textW, H);
+    searchImg.frame = CGRectMake(textW - 58 , 4, imgW, imgW);
+    
     searchText.textColor = [UIColor grayColor];
     searchText.placeholder = @"寻找你想要的商品";
     searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
@@ -122,7 +125,16 @@
     
     MLSecondClass *headerClass = _classSecondArray[tap.view.tag];
     
+    //取到当前点击的title  作为keywords
+    NSArray *titlearray = [headerClass.SecondaryClassification_Ggw.TITLE componentsSeparatedByString:@"|"];
+    NSLog(@"titlearray=====%@",titlearray);
+    if (titlearray.count >0) {
+        vc.searchString = titlearray[0] ? titlearray[0] : @" ";
+        [vc.filterParam  setValue:vc.searchString forKey:@"SearchWord"];
+    }
     
+    //取到spflcode
+    /*
     NSArray *array = [headerClass.SecondaryClassification_Ggw.MC componentsSeparatedByString:@"="];
     
     if(array.count>0){
@@ -130,9 +142,9 @@
         result = [result stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
         vc.filterParam = @{@"spflcode":result};
-        
+     
     }
-    
+    */
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
@@ -347,6 +359,14 @@
     
     
     NSString *spfl = [resultDic objectForKey:@"MC"];
+   
+    //取到当前点击的title 作为keywords
+    NSString *selectTitle = [resultDic objectForKey:@"TITLE"];
+    NSArray *selectTitleArr = [selectTitle componentsSeparatedByString:@"|"];
+    if (selectTitleArr.count >0) {
+        vc.searchString = selectTitleArr[0] ? selectTitleArr[0] : @" ";
+    }
+    
     
     NSArray *strArr = [spfl componentsSeparatedByString:@"="];
     if(strArr.count>0){

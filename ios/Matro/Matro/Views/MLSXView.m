@@ -27,6 +27,7 @@
     
     NSMutableArray *ppArray;
     NSMutableArray *spArray;
+    NSString *maxprice;
     
     
     
@@ -42,6 +43,7 @@
     NSIndexPath *_customIndexPath;
     NSIndexPath *_selectMoreIndexPath;
     NSMutableDictionary *paramfilterDic;
+    
 }
 
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
@@ -49,6 +51,8 @@
 @property (strong, nonatomic) IBOutlet UIView *titleButtonBgView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIButton *cleanButton;
+@property (weak, nonatomic) IBOutlet UIButton *sureButton;
+@property (weak, nonatomic) IBOutlet UIButton *subsureButton;
 
 @property (strong, nonatomic) IBOutlet UIView *sxRootView;
 @property (strong, nonatomic) IBOutlet UIView *shaixuanNextView;
@@ -131,7 +135,7 @@ static BOOL selectPP = NO;
         
         ppArray = [NSMutableArray array];
         
-        RADataObject *ppAll = [RADataObject dataObjectWithId:@0 name:@"全部" children:nil];
+        RADataObject *ppAll = [RADataObject dataObjectWithId:@0 name:@"不限" children:nil];
         ppAll.level = @0;
         
         [ppArray addObject:ppAll];
@@ -139,13 +143,31 @@ static BOOL selectPP = NO;
         
         spArray = [NSMutableArray array];
         
-        RADataObject *spAll = [RADataObject dataObjectWithId:@0 name:@"全部" children:nil];
+        RADataObject *spAll = [RADataObject dataObjectWithId:@0 name:@"不限" children:nil];
         spAll.level = @0;
         
         [spArray addObject:spAll];
         
     }
-
+    self.quanqiugouButton.layer.cornerRadius = 4.f;
+    self.quanqiugouButton.layer.masksToBounds = YES;
+    self.quanqiugouButton.layer.borderWidth = 1.f;
+    self.quanqiugouButton.layer.borderColor = RGBA(241, 241, 241, 1).CGColor;
+    self.cuxiaoButton.layer.cornerRadius = 4.f;
+    self.cuxiaoButton.layer.masksToBounds = YES;
+    self.cuxiaoButton.layer.borderWidth = 1.f;
+    self.cuxiaoButton.layer.borderColor = RGBA(241, 241, 241, 1).CGColor;
+    self.youhuoButton.layer.cornerRadius = 4.f;
+    self.youhuoButton.layer.masksToBounds = YES;
+    self.youhuoButton.layer.borderWidth = 1.f;
+    self.youhuoButton.layer.borderColor = RGBA(241, 241, 241, 1).CGColor;
+    self.sureButton.layer.cornerRadius = 4.f;
+    self.sureButton.layer.masksToBounds = YES;
+    self.subsureButton.layer.cornerRadius = 4.f;
+    self.subsureButton.layer.masksToBounds = YES;
+    
+    
+    
 
     return self;
 }
@@ -172,8 +194,47 @@ static BOOL selectPP = NO;
 - (void) keyboardWillHide:(NSNotification *)notify {
     _bh.constant = 0;
 }
+
 #pragma mark 获取筛选条件
 //品牌
+-(void)loadretBrand{
+    //商品筛选（分类，品牌，价格）
+    //    http://bbctest.matrojp.com/api.php?m=product&s=filter&key=水&brandid=1853&searchType=1
+    //    "key : 产品搜索关键字
+    //    brandid: 品牌id (可为空)
+    //    searchType:搜索类型  ( 如果有关键字搜索, searchType 是必传参数 , 1  )
+    //    { ""code"" : ""0 表示查询成功"",""retbrand"" : 品牌查询结果集,""countbrand"" : ""品牌查询结果集条数"",""retcat"" : 分类查询结果集,""countcat"" : ""分类查询结果条数"",""maxprice"":""商品按条件查询最大价格""}"
+    
+    NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"%@",keystr);
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1",   @"http://bbctest.matrojp.com",keystr];
+    
+    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"responseObject ====%@",responseObject);
+        NSDictionary *dataDic = responseObject[@"data"];
+        NSArray *result = dataDic[@"retbrand"];
+        NSLog(@"result=111=%@",result);
+        
+        
+        if (result) {
+            for (NSDictionary *temp in result) {
+                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:temp[@"id"] name:temp[@"name"] children:nil];
+                itemAll.level = @0;
+                itemAll.dataId = [NSNumber numberWithInt:1];
+                itemAll.selected = NO;
+                [ppArray addObject:itemAll];
+            }
+            [_treeView reloadData];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求失败");
+        
+    }];
+}
+
+/*
 - (void)loadBrand:(NSString*)urlStr
 {
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -195,7 +256,164 @@ static BOOL selectPP = NO;
         
     }];
 }
+*/
+
 //价格
+-(void)loadmaxPrice{
+    //商品筛选（分类，品牌，价格）
+    //    http://bbctest.matrojp.com/api.php?m=product&s=filter&key=水&brandid=1853&searchType=1
+    //    "key : 产品搜索关键字
+    //    brandid: 品牌id (可为空)
+    //    searchType:搜索类型  ( 如果有关键字搜索, searchType 是必传参数 , 1  )
+    //    { ""code"" : ""0 表示查询成功"",""retbrand"" : 品牌查询结果集,""countbrand"" : ""品牌查询结果集条数"",""retcat"" : 分类查询结果集,""countcat"" : ""分类查询结果条数"",""maxprice"":""商品按条件查询最大价格""}"
+    NSMutableDictionary *priceDic1 = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *priceDic2 = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *priceDic3 = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *priceDic4 = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *priceDic5 = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *priceDic6 = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *priceDic7 = [[NSMutableDictionary alloc]init];
+    
+    [priceDic1 setObject:@"0" forKey:@"jgs"];
+    [priceDic1 setObject:@"100" forKey:@"jge"];
+    [priceDic2 setObject:@"101" forKey:@"jgs"];
+    [priceDic2 setObject:@"500" forKey:@"jge"];
+    [priceDic3 setObject:@"501" forKey:@"jgs"];
+    [priceDic3 setObject:@"1000" forKey:@"jge"];
+    [priceDic4 setObject:@"1001" forKey:@"jgs"];
+    [priceDic4 setObject:@"2000" forKey:@"jge"];
+    [priceDic5 setObject:@"2001" forKey:@"jgs"];
+    [priceDic5 setObject:@"5000" forKey:@"jge"];
+    [priceDic6 setObject:@"5001" forKey:@"jgs"];
+    [priceDic6 setObject:@"10000" forKey:@"jge"];
+    [priceDic7 setObject:@"10001" forKey:@"jgs"];
+    [priceDic7 setObject:@"20000" forKey:@"jge"];
+    
+    
+    _priceArray = [[NSMutableArray alloc ] initWithObjects:@"不限", @"自定义", nil];
+    NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"%@",keystr);
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1",   @"http://bbctest.matrojp.com",keystr];
+    
+    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"responseObject ====%@",responseObject);
+        NSDictionary *dataDic = responseObject[@"data"];
+        maxprice = dataDic[@"maxprice"];
+        NSLog(@"maxprice=333=%@",maxprice);
+        
+        NSMutableArray *array = [[NSMutableArray alloc]init];
+        
+        if ([maxprice floatValue] <= 100) {            
+//            startprice = @"0";
+//            endprice = @"100";
+//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
+//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
+//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
+//            [_priceArray insertObject:tempPriceDataObject.description atIndex:1];
+            [array addObject:priceDic1];
+    
+        }else if ([maxprice floatValue] > 100 && [maxprice floatValue] <= 500){
+//            startprice = @"101";
+//            endprice = @"500";
+//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
+//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
+//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
+//            [_priceArray insertObject:tempPriceDataObject.description atIndex:2];
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+
+            
+        }else if ([maxprice floatValue] > 500 && [maxprice floatValue] <= 1000){
+//            startprice = @"501";
+//            endprice = @"1000";
+//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
+//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
+//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
+//            [_priceArray insertObject:tempPriceDataObject.description atIndex:3];
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+            [array addObject:priceDic3];
+            
+        }else if ([maxprice floatValue] > 1000 && [maxprice floatValue] <= 2000){
+//            startprice = @"1001";
+//            endprice = @"2000";
+//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
+//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
+//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
+//            [_priceArray insertObject:tempPriceDataObject.description atIndex:4];
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+            [array addObject:priceDic3];
+            [array addObject:priceDic4];
+            
+        }else if ([maxprice floatValue] > 2000 && [maxprice floatValue] <= 5000){
+//            startprice = @"2001";
+//            endprice = @"5000";
+//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
+//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
+//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
+//            [_priceArray insertObject:tempPriceDataObject.description atIndex:5];
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+            [array addObject:priceDic3];
+            [array addObject:priceDic4];
+            [array addObject:priceDic5];
+            
+        }else if ([maxprice floatValue] > 5000 && [maxprice floatValue] <= 10000){
+//            startprice = @"5001";
+//            endprice = @"10000";
+//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
+//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
+//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
+//            [_priceArray insertObject:tempPriceDataObject.description atIndex:6];
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+            [array addObject:priceDic3];
+            [array addObject:priceDic4];
+            [array addObject:priceDic5];
+            [array addObject:priceDic6];
+            
+        }else {
+//            startprice = @"10001";
+//            endprice = @"20000";
+//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
+//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
+//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
+//            [_priceArray insertObject:tempPriceDataObject.description atIndex:7];
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+            [array addObject:priceDic3];
+            [array addObject:priceDic4];
+            [array addObject:priceDic5];
+            [array addObject:priceDic6];
+            [array addObject:priceDic7];
+            
+        }
+        NSLog(@"array === %@",array);
+        if (array && array.count>0) {
+            int i=1;
+            for (NSDictionary *temp in array) {
+                NSString *startprice = temp[@"jgs"];
+                NSString *endprice = temp[@"jge"];
+                NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
+                NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
+                HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
+                [_priceArray insertObject:tempPriceDataObject.description atIndex:i];
+                i++;
+            }
+        [self.tableView reloadData];
+        }
+        NSLog(@"请求成功");
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"价格筛选 请求失败");
+        
+    }];
+    
+}
+
+/*
 - (void)loadDatePrice {
     _priceArray = [[NSMutableArray alloc ] initWithObjects:@"全部", @"自定义", nil];
     
@@ -240,7 +458,52 @@ static BOOL selectPP = NO;
         NSLog(@"请求失败");
     }];
 }
+*/
+ 
 //分类
+-(void)loadretCat{
+    //商品筛选（分类，品牌，价格）
+    //    http://bbctest.matrojp.com/api.php?m=product&s=filter&key=水&brandid=1853&searchType=1
+    //    "key : 产品搜索关键字
+    //    brandid: 品牌id (可为空)
+    //    searchType:搜索类型  ( 如果有关键字搜索, searchType 是必传参数 , 1  )
+    //    { ""code"" : ""0 表示查询成功"",""retbrand"" : 品牌查询结果集,""countbrand"" : ""品牌查询结果集条数"",""retcat"" : 分类查询结果集,""countcat"" : ""分类查询结果条数"",""maxprice"":""商品按条件查询最大价格""}"
+    
+    NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"%@",keystr);
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1",   @"http://bbctest.matrojp.com",keystr];
+    
+    [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"responseObject ====%@",responseObject);
+        NSDictionary *dataDic = responseObject[@"data"];
+        
+        NSArray *result = dataDic[@"retcat"];
+        
+        NSLog(@"result=222=%@",result);
+
+        if (result) {
+            int i=0;
+            for (NSDictionary *temp in result) {
+               
+                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:temp[@"catid"] name:temp[@"cat"] children:nil];
+                itemAll.level = @0;
+                itemAll.dataId = [NSNumber numberWithInt:0];
+                itemAll.selected = NO;
+                [spArray addObject:itemAll];
+                i++;
+            }
+            [_treeView reloadData];
+        }
+        
+        NSLog(@"请求成功");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求失败");
+    }];
+
+}
+
+/*
 - (void)loadDateClass {
     NSString *urlStr = nil;
     
@@ -277,6 +540,9 @@ static BOOL selectPP = NO;
         NSLog(@"请求失败");
     }];
 }
+*/
+
+
 #pragma mark- 确定按钮
 /*
  根据标题来决定确定按钮的事件
@@ -286,13 +552,15 @@ static BOOL selectPP = NO;
 
     }else if ([_titleLabel.text isEqualToString:@"商品分类"]){
         _fenlei.text = _selectedItem.name;
+        
     }else if ([_titleLabel.text isEqualToString:@"品牌"]){
         
         _pinpai.text = _selectedPP.name;
+        
         [paramfilterDic setObject:_selectedPP.name forKey:@"spsb"];
         
     }else if ([_titleLabel.text isEqualToString:@"价格"]){
-//        _jiage.text = _selectedItem.name;
+        _jiage.text = _selectedItem.name;
         [self confirmAction];
     }
     
@@ -397,6 +665,22 @@ static BOOL selectPP = NO;
     }
     
     if (_youhuoButton.selected) {
+        [paramfilterDic setObject:@"1" forKey:@"listtype"];
+    }
+    else if (_cuxiaoButton.selected){
+        [paramfilterDic setObject:@"2" forKey:@"listtype"];
+        
+    }
+    else if(_quanqiugouButton.selected){
+        [paramfilterDic setObject:@"3" forKey:@"listtype"];
+        
+    }else{
+    
+        [paramfilterDic setObject:@"" forKey:@"listtype"];
+    }
+    
+    /*
+    if (_youhuoButton.selected) {
         [paramfilterDic setObject:@"true" forKey:@"iskc"];
     }
     else{
@@ -411,6 +695,7 @@ static BOOL selectPP = NO;
         [paramfilterDic setObject:@"false" forKey:@"zcsp"];
 
     }
+     */
 }
 
 #pragma mark- 分类，品牌，价格选项
@@ -434,6 +719,25 @@ static BOOL selectPP = NO;
             _shaixuanNextView.hidden = NO;
             _treeView.hidden = NO;
             _tableView.hidden = YES;
+            
+            selectPP = NO;
+            [self.treeView reloadData];
+            if (spArray.count > 1) {
+                
+                [self.treeView reloadData];
+                
+            }
+            else{
+                [self loadretCat];
+            }
+            
+            
+            
+            /*
+            _titleLabel.text = @"商品分类";
+            _shaixuanNextView.hidden = NO;
+            _treeView.hidden = NO;
+            _tableView.hidden = YES;
 //            _dataArray = [NSMutableArray array];
 //            RADataObject *itemAll = [RADataObject dataObjectWithId:@0 name:@"全部" children:nil];
 //            itemAll.level = @0;
@@ -450,11 +754,30 @@ static BOOL selectPP = NO;
             else{
                 [self loadDateClass];
             }
-            
+          */
         }
             break;
 #pragma mark- 品牌
         case 101:{
+            
+            
+            _titleLabel.text = @"品牌";
+            _shaixuanNextView.hidden = NO;
+            _treeView.hidden = NO;
+            _tableView.hidden = YES;
+          
+            selectPP = YES;
+            [self.treeView reloadData];
+            if (ppArray.count > 1) {
+                [self.treeView reloadData];
+            }
+            else{
+                [self loadretBrand];
+            }
+            
+            
+            
+            /*
             _titleLabel.text = @"品牌";
             _shaixuanNextView.hidden = NO;
             _treeView.hidden = NO;
@@ -467,11 +790,7 @@ static BOOL selectPP = NO;
 //            [_dataArray addObject:itemAll];
 //            _selectedItem = itemAll;
             
-            
-            
-
-            
-            
+    
             NSString *urlStr = nil;
             
             
@@ -484,8 +803,6 @@ static BOOL selectPP = NO;
                 urlStr = [NSString stringWithFormat:@"%@Ajax/search/search.ashx?op=getpp&spflcode=%@&ppcode=&key=",SERVICE_GETBASE_URL,self.spflCode];
             }
 
-            
-            
 //            if (self.keywords) {
 ////                self.keywords =@"奶粉"; // 以后要删掉
 //                NSString *keystr = [self.keywords stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
@@ -504,6 +821,7 @@ static BOOL selectPP = NO;
             else{
                 [self loadBrand:urlStr];
             }
+             */
             
         }
             break;
@@ -514,7 +832,9 @@ static BOOL selectPP = NO;
             _treeView.hidden = YES;
             _tableView.hidden = NO;
             
-            [self loadDatePrice];
+            [self loadmaxPrice];
+            
+            //[self loadDatePrice];
             
         }
             break;
@@ -590,9 +910,7 @@ static BOOL selectPP = NO;
 }
 
 -(void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
-    
-    
-    
+
     if(!selectPP){
         if (item == _selectedItem) {
             
@@ -634,11 +952,11 @@ static BOOL selectPP = NO;
                     NSString *spflcode = data.idstr;
                     NSLog(@"num is %@",spflcode);
                     if (data.dataId.intValue==0) {//商品分类
-                        [paramfilterDic setObject:[NSString stringWithFormat:@"%@",spflcode] forKey:@"spflcode"];
+                        [paramfilterDic setObject:[NSString stringWithFormat:@"%@",spflcode] forKey:@"id"];
                     }
                     
                     if (data.dataId.intValue==1) {//品牌
-                        [paramfilterDic setObject:[NSString stringWithFormat:@"%@",spflcode] forKey:@"ppcode"];
+                        [paramfilterDic setObject:[NSString stringWithFormat:@"%@",spflcode] forKey:@"brandid"];
                     }
                 }
 //                if (selectPP) {
@@ -693,11 +1011,11 @@ static BOOL selectPP = NO;
                     NSString *spflcode = data.idstr;
                     NSLog(@"num is %@",spflcode);
                     if (data.dataId.intValue==0) {//商品分类
-                        [paramfilterDic setObject:[NSString stringWithFormat:@"%@",spflcode] forKey:@"spflcode"];
+                        [paramfilterDic setObject:[NSString stringWithFormat:@"%@",spflcode] forKey:@"id"];
                     }
                     
                     if (data.dataId.intValue==1) {//品牌
-                        [paramfilterDic setObject:[NSString stringWithFormat:@"%@",spflcode] forKey:@"ppcode"];
+                        [paramfilterDic setObject:[NSString stringWithFormat:@"%@",spflcode] forKey:@"brandid"];
                     }
                 }
 //                if (selectPP) {
@@ -781,12 +1099,36 @@ static BOOL selectPP = NO;
 #pragma mark - UITableViewDataSource
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    /*
+    if ([maxprice floatValue] <= 100) {
+        return 3;
+    }else if ([maxprice floatValue] > 100 && [maxprice floatValue] <= 500){
+    
+        return 4;
+    }else if ([maxprice floatValue] > 500 && [maxprice floatValue] <= 1000){
+        
+        return 5;
+    }else if ([maxprice floatValue] > 1000 && [maxprice floatValue] <= 2000){
+        
+        return 6;
+    }else if ([maxprice floatValue] > 2000 && [maxprice floatValue] <= 5000){
+        
+        return 7;
+    }else if ([maxprice floatValue] > 5000 && [maxprice floatValue] <= 10000){
+        
+        return 8;
+    }
+    return 9;
+    */ 
+//    NSLog(@"_priceArray.count===%ld",_priceArray.count);
     return _priceArray.count;
+   
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:PriceCellIdentifier];
-    
+
     id data = _priceArray[indexPath.row];
     
     if ([data isKindOfClass:[HFSPriceDataObject class]]) {
