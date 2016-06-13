@@ -105,7 +105,10 @@
     NSLog(@"点击单元格");
     VipCardModel * cardModel = (VipCardModel *)[self.cardARR objectAtIndex:indexPath.row];
     self.cardNoString = cardModel.cardNo;
+
     self.cardNoString = cardModel.cardTypeIdString;
+
+
     SettingMoCardCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.selectButton.selected = YES;
     NSLog(@"所选默认卡的卡号为：%@",self.cardNoString);

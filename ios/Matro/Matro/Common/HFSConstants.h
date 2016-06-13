@@ -97,6 +97,9 @@
 //会员类型
 #define KUSERDEFAULT_CARDTYPE_CURRENT      @"USER_CARDTYPE_CURRENT"
 
+
+
+
 /*zhoulu*/
 
 #define LoadNibWithSelfClassName [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil]firstObject]
