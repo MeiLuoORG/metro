@@ -168,7 +168,7 @@ __strong static HFSServiceClient *_JSONClientNOT = nil;
     dispatch_once(&predicate, ^{
         
         _JSONClient = [[HFSServiceClient alloc]initWithBaseURL:[NSURL URLWithString:SERVICE_GETBASE_URL]];
-        _JSONClient.responseSerializer.acceptableContentTypes = [_JSONClient.responseSerializer.acceptableContentTypes setByAddingObject:[NSSet setWithObjects:@"application/json",@"text/json", @"text/javascript", @"text/plain",nil]];
+        _JSONClient.responseSerializer.acceptableContentTypes = [_JSONClient.responseSerializer.acceptableContentTypes setByAddingObject:[NSSet setWithObjects:@"application/json",@"text/json", @"text/javascript", @"text/plain",@"text/html",@"image/jpeg",@"image/png",@"image/jpg",nil]];
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *accessToken = [userDefaults stringForKey:kUSERDEFAULT_ACCCESSTOKEN];

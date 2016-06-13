@@ -46,6 +46,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *changeButton;//更改显示方式，列表、卡片
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *blankView;
 @end
 
 static NSInteger page = 1;
@@ -56,7 +57,7 @@ static NSInteger page = 1;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
    
-    
+    self.blankView.hidden = YES;
     _productList = [[NSMutableArray alloc]init];
     
     _isCardView = NO;//起始默认显示列表式
@@ -131,21 +132,23 @@ static NSInteger page = 1;
     //添加边框和提示
     UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)] ;
     frameView.layer.borderWidth = 1;
-    frameView.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
+    frameView.layer.borderColor = RGBA(38, 14, 0, 0.5).CGColor;
+    frameView.layer.cornerRadius = 4.f;
+    frameView.layer.masksToBounds = YES;
+    frameView.backgroundColor = [UIColor whiteColor];
     
     CGFloat H = frameView.bounds.size.height - 8;
     CGFloat imgW = H;
     CGFloat textW = frameView.bounds.size.width - imgW - 6;
     
+    
     UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Magnifying-Class"]];
-    searchText = [[UITextField alloc] initWithFrame:CGRectMake(imgW + 4, 2, textW, H)];
-    //    searchText.enabled = NO;
+    searchText = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, textW, H)];
     searchText.returnKeyType = UIReturnKeySearch;
     searchText.delegate = self;
     [frameView addSubview:searchImg];
     [frameView addSubview:searchText];
-    searchImg.frame = CGRectMake(4 , 4, imgW, imgW);
-    searchText.frame = CGRectMake(imgW + 6, 4, textW, H);
+    searchImg.frame = CGRectMake(textW - 108 , 4, imgW, imgW);
     searchText.textColor = [UIColor grayColor];
     searchText.placeholder = @"寻找你想要的商品";
     searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
@@ -232,89 +235,76 @@ static NSInteger page = 1;
 }
 #warning 先加分页index，之后还会加别的  关键字搜索
 - (void)getGoodsList{
-//    1. op：操作码
-//    2. spflcode：商品分类代码
-//    3. tpgg：图片规格
-//    4. sort：排序
-//    XSSL&false（销量）
-//    XJ&true（价格正序）
-//    XJ&false（价格倒序）
-//    5. spsb：商品商标代码
-//    6. pagesize：每页显示记录数，默认为：20
-//    7. pageindex：页码
-//    8. key：搜索关键字
-//    9. jgs：开始价格
-//    10. jge：结束价格
-//    11. iskc：是否仅显示有货（true表示显示有货，false则表示忽略）
-//    12. zcsp：是否跨境购（true表示跨境购，false则表示忽略）
-    if (_searchString) {
-        if ([self IsChinese:_searchString]) {
-            _searchString = [_searchString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-
-        }
-        
-    }
-    else
-    {
-        _searchString=@"";
-    }
     
+    //    http://bbctest.matrojp.com/api.php?m=product&s=list&key=水&startprice=0&endprice=60&pageindex=1&pagesize=20&listtype=1&searchType=1&orderby=amount&sort=desc&brand_id=1853
     
-    //XSSL&false（销量）
-    //    XJ&true（价格正序）
-    //    XJ&false（价格倒序）
-    NSString *isck=@"";
-    NSString *isgloble=@"";
-    NSString *spflcode =@"";
-    NSString *sortstr = @"";
-    NSString *spsbstr = @"";
+    //    key : 产品搜索关键字
+    //    startprice:价格区间开始值
+    //    endprice:价格区间结束值
+    //    pageindex: 第几页 (不传值，默认第1页)
+    //    pagesize: 每页最大查询条数 (不传值，默认20条)
+    //    listtype: 1 仅看有货; 2 促销商品; 3 全球购 (不传值, 即查询所有)
+    //    brandid : 品牌id
+    //    id: 分类id
+    //    searchType:搜索类型  ( 如果有关键字搜索, searchType 是必传参数 , 1  )
+    //    orderby: 排序:  amount 销量; clicks 人气 ; time 更新时间; price 价格
+    //    sort : 排序方式 : desc 倒序; asc 正序
+    //    code :  查询成功 或失败标记  0 标识查询成功 1表示查询失败
+    //    data : 返回Json数据集合
+    //    ret: 查询品牌结果集 ["商品id","商品名称","预计在多少天后开始发货","进货方式 1=>海外直邮 2=>仓库发货 3=>国内快递","原价","rmb符号", "价格"，"模块名","品牌","产品图",
+    //              "公司名称","国家图片","国家名称"]
+    //    retcount : 查询结果集条数
+    //sum: 不分页查询总条数
+    
+    NSString *listtepy=@"";
+    //NSString *sort=@"";//排列方式
+    NSString *orderby =@"";
+    NSString *spflid = @"";//商品分类id
     NSString *jgs = @"";
     NSString *jge = @"";
-    NSString *ppcode = @"";
+    NSString *ppid = @"";//品牌id
+    NSLog(@"filterparamDic === %@",filterparamDic);
     if (filterparamDic) {
-        if ([filterparamDic objectForKey:@"sortstr"]) {
-            sortstr = [filterparamDic objectForKey:@"sortstr"];
-        }
-        if ([filterparamDic objectForKey:@"iskc"]) {
-            isck = [filterparamDic objectForKey:@"iskc"];
-        }
-        if ([filterparamDic objectForKey:@"zcsp"]) {
-            isgloble = [filterparamDic objectForKey:@"zcsp"];
-        }
-        if ([filterparamDic objectForKey:@"spflcode"]) {
-            spflcode = [filterparamDic objectForKey:@"spflcode"];
-            
+        
+        if ([filterparamDic objectForKey:@"listtype"]) {
+            listtepy = [filterparamDic objectForKey:@"listtype"];
         }
         
-        if ([filterparamDic objectForKey:@"spsb"]) {
-            spsbstr =[filterparamDic objectForKey:@"spsb"];
-            spsbstr = [spsbstr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-        }
         if ([filterparamDic objectForKey:@"jgs"]) {
             jgs =[filterparamDic objectForKey:@"jgs"];
         }
         if ([filterparamDic objectForKey:@"jge"]) {
             jge =[filterparamDic objectForKey:@"jge"];
         }
-        
-        if ([filterparamDic objectForKey:@"ppcode"]) { //
-            ppcode =[filterparamDic objectForKey:@"ppcode"];
+        if ([filterparamDic objectForKey:@"orderby"]) {
+            orderby =[filterparamDic objectForKey:@"orderby"];
         }
-    }
-    if (_filterParam) {
-        spflcode = [_filterParam objectForKey:@"spflcode"];
+        if ([filterparamDic objectForKey:@"id"]) {
+            spflid =[filterparamDic objectForKey:@"id"];
+        }
+        if ([filterparamDic objectForKey:@"brandid"]) {
+            ppid =[filterparamDic objectForKey:@"brandid"];
+        }
+        
     }
     
-    if (sortstr && ![@"" isEqualToString:sortstr]) {
-//
-    }
     
-    //SPSB 品牌名称 sort 是字符串  jgs开始价格，jpe 结束价格
+    NSString *keystr = [_searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    NSString *str = [NSString stringWithFormat:@"%@Ajax/search/search.ashx?op=item_sp&spflcode=%@&tpgg=M&sort=%@&spsb=&pagesize=20&pageindex=%ld&key=%@&jgs=%@&jge=%@&iskc=%@&zcsp=%@&ppcode=%@",SERVICE_GETBASE_URL,spflcode,sortstr, (long)page,_searchString,jgs,jge,isck,isgloble,ppcode];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,ppid];
+    NSLog(@"str====%@",str);
     
     [[HFSServiceClient sharedJSONClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        NSLog(@"responseObject ====%@",responseObject);
+        NSString *sum = responseObject[@"data"][@"sum"];
+        if (sum.floatValue == 0) {
+            
+            self.blankView.hidden  = NO;
+            
+        }else{
+            self.blankView.hidden = YES;
+  
         if (page==1) {
             
             [_productList removeAllObjects];
@@ -323,12 +313,17 @@ static NSInteger page = 1;
         if (responseObject) {
             NSArray *ary;
             if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *resdic = (NSDictionary*)responseObject;
-                ary = (NSArray *)resdic[@"splist"];
-                NSNumber *count = resdic[@"count"];
+                
+                NSDictionary *resdic = responseObject[@"data"];
+                ary = (NSArray *)resdic[@"ret"];
+                
+                
+                NSNumber *count = resdic[@"retcount"];
+                NSLog(@"count====%@",count);
                 if ([count isEqualToNumber:@0] ) {
                     MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableView.footer;
                     footer.stateLabel.text = @"没有更多了";
+                    return ;
                 }
             }
             if ([responseObject isKindOfClass:[NSArray class]]) {
@@ -338,20 +333,25 @@ static NSInteger page = 1;
             if (ary && ary.count>0) {
                 [_productList addObjectsFromArray:ary];
             }
-            
+         
             
         }
+        
         page ++;
         
         [_tableView reloadData];
         [_collectionView reloadData];
-
+       
+        }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
+        NSLog(@"error===%@",error);
     }];
+    
 
 }
 -(NSString*)UrlValueEncode:(NSString*)str
@@ -406,11 +406,11 @@ static NSInteger page = 1;
     if ([typeStr isEqualToString:@"销量"]) {
         button.selected = !button.selected;
         if (button.selected) {
-            [filterparamDic setValue:@"XSSL%26false" forKey:@"sortstr"];
+            [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [filterparamDic setValue:@"amount" forKey:@"orderby"];
         }
-        else{
-            [filterparamDic setValue:@"XSSL%26true" forKey:@"sortstr"];
-        }
+        
         page = 1;
         [self getGoodsList];
     }else if ([typeStr isEqualToString:@"品牌"]){
@@ -431,13 +431,10 @@ static NSInteger page = 1;
     {
         button.selected = !button.selected;
         if (button.selected) {
-            [filterparamDic setValue:@"XJ%26true" forKey:@"sortstr"];
+            [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [filterparamDic setValue:@"price" forKey:@"orderby"];
 
-        }
-        else{
-            [filterparamDic setValue:@"XJ%26false" forKey:@"sortstr"];
-
-            
         }
         page = 1;
         [self getGoodsList];
@@ -456,6 +453,7 @@ static NSInteger page = 1;
             if (searchText.text.length >0) {
                 _sxView.keywords = searchText.text;
             }
+            
             else{
                 _sxView.spflCode = _filterParam[@"spflcode"];
             }
@@ -479,7 +477,7 @@ static NSInteger page = 1;
 
 #pragma mark - UITableViewDelegate and  UITableViewDataSource
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 10.0f;
+    return 5.0f;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -506,8 +504,9 @@ static NSInteger page = 1;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MLGoodsDetailsViewController * vc = [[MLGoodsDetailsViewController alloc]init];
     NSDictionary *paramdic = _productList[indexPath.section];
+    NSLog(@"paramdic ==== %@",paramdic);
     vc.paramDic = paramdic;
-    self.hidesBottomBarWhenPushed = YES;
+    //self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -527,9 +526,11 @@ static NSInteger page = 1;
     }
     NSDictionary *tempdic = _productList[indexPath.section];
     if (tempdic) {
-        [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:tempdic[@"IMGURL"]]];
+        
+        [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:tempdic[@"pic"]]];
         if (_filterParam) {
-            NSString *str = tempdic[@"SPNAME"];
+           
+            NSString *str = tempdic[@"pname"];
             
 //            NSArray *strArray = [str componentsSeparatedByString:@","];
 //            if (strArray.count>0) {
@@ -537,22 +538,30 @@ static NSInteger page = 1;
 //                [title deleteCharactersInRange:NSMakeRange(0, 2)];
 //                str = [title copy];
 //            }
-//            
+            
             cell.productNameLabel.text = str?:@"";
         }
         else{
-            NSString *str = tempdic[@"NAME"];
+        
+            NSString *str = tempdic[@"pname"];
             
+            /*
             NSArray *strArray = [str componentsSeparatedByString:@","];
+            
             if (strArray.count>0) {
                 NSMutableString *title = [[strArray firstObject] mutableCopy];
                 [title deleteCharactersInRange:NSMakeRange(0, 2)];
                 str = [title copy];
             }
+             */
             cell.productNameLabel.text =str?:@"";
         }
-        float price = [tempdic[@"XJ"] floatValue];
-        cell.currentPriceLabel.text =[NSString stringWithFormat:@"￥%.2f",price] ;
+        
+        float price = [tempdic[@"price"] floatValue];
+        
+        cell.currentPriceLabel.text =[NSString stringWithFormat:@"￥%.2f",price];
+        
+        
     }
     
     return cell;
@@ -569,9 +578,10 @@ static NSInteger page = 1;
     
     NSDictionary *tempdic = _productList[indexPath.row];
     
-    [cell.productImgview sd_setImageWithURL:[NSURL URLWithString:tempdic[@"IMGURL"]]];
+    [cell.productImgview sd_setImageWithURL:[NSURL URLWithString:tempdic[@"pic"]]];
     if (_filterParam) {
-        NSString *str = tempdic[@"SPNAME"];
+    
+        NSString *str = tempdic[@"pname"];
         
         NSArray *strArray = [str componentsSeparatedByString:@","];
         if (strArray.count>0) {
@@ -583,8 +593,8 @@ static NSInteger page = 1;
         cell.productnameLb.text =str;
     }
     else{
-        NSString *str = tempdic[@"NAME"];
-        
+       
+        NSString *str = tempdic[@"pname"];
         NSArray *strArray = [str componentsSeparatedByString:@","];
         if (strArray.count>0) {
             NSMutableString *title = [[strArray firstObject] mutableCopy];
@@ -593,7 +603,8 @@ static NSInteger page = 1;
         }
         cell.productnameLb.text =str;
     }
-    float price = [tempdic[@"XJ"] floatValue];
+    
+    float price = [tempdic[@"price"] floatValue];
     
     cell.priceLb.text =[NSString stringWithFormat:@"￥%.2f",price] ;
     return cell;
@@ -604,7 +615,7 @@ static NSInteger page = 1;
     MLGoodsDetailsViewController * vc = [[MLGoodsDetailsViewController alloc]init];
     vc.paramDic = tempdic;
 //     detailVc.paramDic = @{@"JMSP_ID":JMSP_ID?:@"",@"ZCSP":ZCSP};
-    self.hidesBottomBarWhenPushed = YES;
+   // self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -72,19 +72,24 @@
     //添加边框和提示
     UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)] ;
     frameView.layer.borderWidth = 1;
-    frameView.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
-
+    frameView.layer.borderColor = RGBA(38, 14, 0, 0.5).CGColor;
+    frameView.layer.cornerRadius = 4.f;
+    frameView.layer.masksToBounds = YES;
+    
     CGFloat H = frameView.bounds.size.height - 8;
     CGFloat imgW = H;
     CGFloat textW = frameView.bounds.size.width - imgW - 6;
+    NSLog(@"textW===%f",textW);
     
     UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Magnifying-Class"]];
-    UITextField *searchText = [[UITextField alloc] initWithFrame:CGRectMake(imgW + 4, 2, textW, H)];
+    
+    UITextField *searchText = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, textW, H)];
     searchText.enabled = NO;
-    [frameView addSubview:searchImg];
+    
     [frameView addSubview:searchText];
-    searchImg.frame = CGRectMake(4 , 4, imgW, imgW);
-    searchText.frame = CGRectMake(imgW + 6, 4, textW, H);
+    [frameView addSubview:searchImg];
+    searchImg.frame = CGRectMake(textW - 58 , 4, imgW, imgW);
+    
     searchText.textColor = [UIColor grayColor];
     searchText.placeholder = @"寻找你想要的商品";
     searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];

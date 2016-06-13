@@ -18,5 +18,7 @@
 
 @property (assign,nonatomic,readwrite)id <SearchDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UIButton *clearBtn;
+@property (weak, nonatomic) IBOutlet UILabel *labsearch;
+@property (weak, nonatomic) IBOutlet UIView *searchView;
 
 @end
