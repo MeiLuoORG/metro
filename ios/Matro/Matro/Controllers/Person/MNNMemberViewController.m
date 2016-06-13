@@ -395,14 +395,6 @@
 }
 
 
-//更新会员卡图片
-- (void)updataCardScrollView{
-
-    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*self.cardARR.count, 190);
-    UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 40, scrollview.contentSize.width, 110)];
-    bkView.backgroundColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
-    [scrollview addSubview:bkView];
-}
 
 
 
