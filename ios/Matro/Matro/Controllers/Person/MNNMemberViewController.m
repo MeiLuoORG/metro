@@ -72,7 +72,7 @@
     _hud = [[MBProgressHUD alloc]initWithView:self.view];
     [self.view addSubview:_hud];
 }
-/*
+
 - (void)buttonAction {
     /*
     self.hidesBottomBarWhenPushed = YES;
@@ -81,6 +81,7 @@
      */
 
 }
+
 #pragma mark 获取会员  会员卡信息
 - (void)loadData {
     /*
@@ -161,10 +162,9 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
-
-
 }
 
+/*
 #pragma mark 获取会员详细信息
 - (void)getCardInfowithcardNo:(NSString *)cardno{
 
@@ -207,19 +207,19 @@
              UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
              [alert show];
              */
-        }
-        
+
+/*
+}
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
-    
-    
 
 }
-
+*/
 //更新会员卡图片
 - (void)updataCardScrollView{
 
@@ -246,13 +246,13 @@
 
 }
 
-
-}
+/*
 #pragma mark 获取会员  会员卡信息
 - (void)loadData {
     /*
      zhoulu
      */
+/*
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
     NSString * phone = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];
@@ -312,12 +312,14 @@
             
             
         }else{
+ */
             /*
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = result[@"errMsg"];
             [_hud hide:YES afterDelay:2];
             */
+/*
             UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
             [alert show];
         }
@@ -331,6 +333,8 @@
 
 
 }
+
+*/
 
 #pragma mark 获取会员详细信息
 - (void)getCardInfowithcardNo:(NSString *)cardno{
@@ -388,15 +392,6 @@
 }
 
 
-//更新会员卡图片
-- (void)updataCardScrollView{
-
-    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*self.cardARR.count, 190);
-    UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 40, scrollview.contentSize.width, 110)];
-    bkView.backgroundColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
-    [scrollview addSubview:bkView];
-
- */
 #pragma mark 获取用户信息
 - (void)loadDate {
 
@@ -625,12 +620,7 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 
-}
 
-
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 
 }
 

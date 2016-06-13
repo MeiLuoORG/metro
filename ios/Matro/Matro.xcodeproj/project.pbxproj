@@ -268,9 +268,7 @@
 		3AFB0C7B1CA28D6F00128368 /* HFSProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB0C791CA28D6F00128368 /* HFSProductCollectionViewCell.xib */; };
 		3C055CD81D08143700362C4D /* ShenFenZhengController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C055CD71D08143700362C4D /* ShenFenZhengController.m */; };
 		3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */; };
-
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
-
 		3C5B0C6E1CFC372D003FFD25 /* MessagesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */; };
 		3C5B0C6F1CFC372D003FFD25 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */; };
 		3C5B0C701CFC372D003FFD25 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C691CFC372D003FFD25 /* MessagesViewController.m */; };
@@ -283,7 +281,6 @@
 		3C5B0C881CFC4329003FFD25 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */; };
 		3C5B0C8A1CFC433E003FFD25 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */; };
 		3C5B0C8C1CFC4348003FFD25 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */; };
-
 		3CAE04891D06BC7B004504EA /* SettingMoCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CE087E81CFE730300DC3390 /* SettingMoCardCell.xib */; };
 		3CAE048E1D06C5FE004504EA /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE048D1D06C5FE004504EA /* VipCardModel.m */; };
 		3CAE049C1D06DDD5004504EA /* GCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04911D06DDD5004504EA /* GCD.m */; };
@@ -291,9 +288,9 @@
 		3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04961D06DDD5004504EA /* GCDQueue.m */; };
 		3CAE049F1D06DDD5004504EA /* GCDSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04981D06DDD5004504EA /* GCDSemaphore.m */; };
 		3CAE04A01D06DDD5004504EA /* GCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE049A1D06DDD5004504EA /* GCDTimer.m */; };
-		3CE087E51CFE72DA00DC3390 /* SettingMoCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE087E41CFE72DA00DC3390 /* SettingMoCardView.m */; };
-		3CE087E91CFE730300DC3390 /* SettingMoCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE087E71CFE730300DC3390 /* SettingMoCardCell.m */; };
-
+		3CEA04CC1D0E820800E5C4B6 /* SettingMoCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */; };
+		3CEA04CF1D0E879600E5C4B6 /* SettingMoCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CEA04CE1D0E879600E5C4B6 /* SettingMoCardCell.xib */; };
+		3CF8CF761D0E72FA00C548AC /* SettingMoCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */; };
 		4F634A77A9985A18C9E56D1D /* Pods_Matro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C6CE0BB33E839F3EBF5309 /* Pods_Matro.framework */; };
 		6839EF0D1CD5187800638B3D /* MLBagFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6839EF0C1CD5187800638B3D /* MLBagFootView.m */; };
 		6839EF0F1CD518AB00638B3D /* MLBagFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6839EF0E1CD518AB00638B3D /* MLBagFootView.xib */; };
@@ -976,10 +973,8 @@
 		3C055CD71D08143700362C4D /* ShenFenZhengController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShenFenZhengController.m; sourceTree = "<group>"; };
 		3C0AF2021CFFE1BC00E48B18 /* NavTopCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTopCommonImage.h; sourceTree = "<group>"; };
 		3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTopCommonImage.m; sourceTree = "<group>"; };
-
 		3C2E204C1D0ABDAF00184D48 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
-
 		3C5B0C651CFC372D003FFD25 /* MessagesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesTableViewCell.h; sourceTree = "<group>"; };
 		3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesTableViewCell.m; sourceTree = "<group>"; };
 		3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
@@ -1001,7 +996,6 @@
 		3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-
 		3CAE048C1D06C5FE004504EA /* VipCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipCardModel.h; sourceTree = "<group>"; };
 		3CAE048D1D06C5FE004504EA /* VipCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipCardModel.m; sourceTree = "<group>"; };
 		3CAE04901D06DDD5004504EA /* GCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCD.h; sourceTree = "<group>"; };
@@ -1016,12 +1010,12 @@
 		3CAE04991D06DDD5004504EA /* GCDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDTimer.h; sourceTree = "<group>"; };
 		3CAE049A1D06DDD5004504EA /* GCDTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDTimer.m; sourceTree = "<group>"; };
 		3CAE049B1D06DDD5004504EA /* HYGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYGCD.h; sourceTree = "<group>"; };
-		3CE087E31CFE72DA00DC3390 /* SettingMoCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardView.h; sourceTree = "<group>"; };
-		3CE087E41CFE72DA00DC3390 /* SettingMoCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardView.m; sourceTree = "<group>"; };
-		3CE087E61CFE730300DC3390 /* SettingMoCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardCell.h; sourceTree = "<group>"; };
-		3CE087E71CFE730300DC3390 /* SettingMoCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardCell.m; sourceTree = "<group>"; };
 		3CE087E81CFE730300DC3390 /* SettingMoCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingMoCardCell.xib; sourceTree = "<group>"; };
-
+		3CEA04CD1D0E823300E5C4B6 /* SettingMoCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardCell.h; sourceTree = "<group>"; };
+		3CEA04CE1D0E879600E5C4B6 /* SettingMoCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingMoCardCell.xib; sourceTree = "<group>"; };
+		3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardCell.m; sourceTree = "<group>"; };
+		3CF8CF721D0E72FA00C548AC /* SettingMoCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardView.h; sourceTree = "<group>"; };
+		3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardView.m; sourceTree = "<group>"; };
 		5DBB37CE6C3BF0EADC461009 /* Pods-Matro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Matro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Matro/Pods-Matro.debug.xcconfig"; sourceTree = "<group>"; };
 		665E7595487B22B165F5C4BB /* Pods-Matro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Matro.release.xcconfig"; path = "Pods/Target Support Files/Pods-Matro/Pods-Matro.release.xcconfig"; sourceTree = "<group>"; };
 		6839EF0B1CD5187800638B3D /* MLBagFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBagFootView.h; sourceTree = "<group>"; };
@@ -2399,6 +2393,11 @@
 		3A877F961C9F81D60052F60A /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				3CEA04CE1D0E879600E5C4B6 /* SettingMoCardCell.xib */,
+				3CEA04CD1D0E823300E5C4B6 /* SettingMoCardCell.h */,
+				3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */,
+				3CF8CF721D0E72FA00C548AC /* SettingMoCardView.h */,
+				3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */,
 				7AED64601CDDAB13008F55BD /* MLTermViewController.h */,
 				7AED64611CDDAB13008F55BD /* MLTermViewController.m */,
 				7AED64621CDDAB13008F55BD /* MLTermViewController.xib */,
@@ -2981,9 +2980,6 @@
 				3AFB0C7B1CA28D6F00128368 /* HFSProductCollectionViewCell.xib in Resources */,
 				7A3A62711CDB874F00D265F2 /* MLOrderSubComCell.xib in Resources */,
 				3A633A651C9E9E2F00C11FD5 /* LaunchScreen.storyboard in Resources */,
-
-				280AADB31CFEDC7500E7A2FA /* 2.JPG in Resources */,
-
 				3A16DC2E1CA00968007AE4A2 /* MLLoginTableViewCell.xib in Resources */,
 				3A633A891C9E9FC200C11FD5 /* Default-568h@2x.png in Resources */,
 				3A1AA8B71CAA0DEC00AF73C2 /* MLInvoiceViewController.xib in Resources */,
@@ -3092,6 +3088,7 @@
 				3A633B871C9EA7F900C11FD5 /* MLHomeViewController.xib in Resources */,
 				6839EF231CD6C4B600638B3D /* APPSettingCell.xib in Resources */,
 				28CF86091CEDC59A00E582EE /* UMShareEditViewController.xib in Resources */,
+				3CEA04CF1D0E879600E5C4B6 /* SettingMoCardCell.xib in Resources */,
 				2CBAD64E1CA3B3AC0044601B /* MLBagZengpinTableViewCell.xib in Resources */,
 				2CBAD6441CA3AD4B0044601B /* MLBagActiveTableViewCell.xib in Resources */,
 				3A633B481C9EA36E00C11FD5 /* Documentation.html in Resources */,
@@ -3235,6 +3232,7 @@
 				7ACD3A7F1CE9669A004BAF8B /* MLWishlistModel.m in Sources */,
 				6839EF181CD5A94700638B3D /* AddressManagerCell.m in Sources */,
 				3A2148691CB3A5CC007DF97D /* LoginHistory+CoreDataProperties.m in Sources */,
+				3CEA04CC1D0E820800E5C4B6 /* SettingMoCardCell.m in Sources */,
 				7AF141631CE1FD50005DDE70 /* MLProductOrderCell.m in Sources */,
 				3A633B531C9EA36E00C11FD5 /* ZLCameraImageView.m in Sources */,
 				3A633B5C1C9EA36E00C11FD5 /* ZLPhotoPickerBrowserPhotoView.m in Sources */,
@@ -3286,6 +3284,7 @@
 				3A633B671C9EA36E00C11FD5 /* ZLPhotoPickerCollectionViewCell.m in Sources */,
 				3A633B631C9EA36E00C11FD5 /* ZLPhotoPickerAssetsViewController.m in Sources */,
 				2CBAD63D1CA399740044601B /* MLBagHeaderView.m in Sources */,
+				3CF8CF761D0E72FA00C548AC /* SettingMoCardView.m in Sources */,
 				3AFB0C7A1CA28D6F00128368 /* HFSProductCollectionViewCell.m in Sources */,
 				7A3A62781CDB874F00D265F2 /* MLReturnsViewController.m in Sources */,
 				3ACF2CF51CA52062003D1F67 /* MLOrderInfoViewController.m in Sources */,

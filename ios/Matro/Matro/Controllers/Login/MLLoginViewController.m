@@ -34,12 +34,10 @@
     NSInteger _endTime;
     NSManagedObjectContext *_context;
     NSMutableArray *_accountArray;
-
     
     BOOL _isReadDelegate;
     NavTopCommonImage * _navTopCommoImages;
     UIButton * _rightBtn;
-
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *showpasswordButton;
@@ -66,6 +64,9 @@
 
 @property (strong, nonatomic) IBOutlet UIView *qqLoginBgView;
 @property (strong, nonatomic) IBOutlet UIView *wxLoginBgView;
+@property (weak, nonatomic) IBOutlet UIButton *qqLoginButton;
+
+
 @end
 
 @implementation MLLoginViewController
@@ -73,10 +74,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-
     _isReadDelegate = YES;
     self.vipCardArray = [[NSMutableArray alloc]init];
-
     [self loginVCUI];
     
 //    _accountArray = [[NSMutableArray alloc]initWithArray:@[@"13218102399",@"13218102388"]];
@@ -98,7 +97,6 @@
     [self.termBtn addTarget:self action:@selector(termSel:) forControlEvents:UIControlEventTouchUpInside];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(bindSuccess) name:kNOTIFICATIONBINDSUC object:nil];
     
-
     self.registerButton.enabled = NO;
     
     //设置边框颜色
@@ -122,11 +120,6 @@
 
     
     
-
-=======
-=======
->>>>>>> origin/iOS
->>>>>>> origin/iOS
 }
 
 - (void)bindSuccess{
@@ -139,7 +132,6 @@
     btn.selected = !btn.selected;
     if (!btn.selected) {
         self.registerButton.enabled = NO;
-
         self.registerButton.backgroundColor = [UIColor colorWithHexString:Main_grayBackgroundColor];
         _isReadDelegate = NO;
     }
@@ -173,15 +165,10 @@
     }
     else{
         isYes = YES;
-
     }
-    else
-    {
-        self.registerButton.enabled = YES;
-
-
-    }
+    return isYes;
 }
+
 - (void)loginVCUI{
     //    UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Left_Arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(cancelAction)];
     
@@ -229,6 +216,7 @@
     //不支持QQ
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
         _qqLoginBgView.hidden = YES;
+        _qqLoginButton.hidden = YES;
         //NSLog(@"不支持QQ");
     }
     
@@ -351,14 +339,6 @@
          */
         [_loginButton setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
         
-
-    }
-    //设置是否可以注册
-    if (!_isReadDelegate || ![self checkRegisterButtonEnabledYESorNO]) {
-        
-        _registerButton.enabled = NO;
-        [_registerButton setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
-
     }
     //设置是否可以注册
     if (!_isReadDelegate || ![self checkRegisterButtonEnabledYESorNO]) {
@@ -366,7 +346,6 @@
         _registerButton.enabled = NO;
         [_registerButton setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
     }
-    
     
     
     //短信倒计时
@@ -572,6 +551,9 @@
 //注册按钮
 - (IBAction)registerButton:(id)sender {
     
+    //测试 选中 会员卡
+    //[self loadSettingMoCardView];
+    
     if ([self canRegister]) {
         //验证验证码有效性
         
@@ -581,7 +563,6 @@
     }
     
 }
-
 
 #pragma mark 注册后 显示选卡视图
 
@@ -617,7 +598,6 @@
     [self.settingMoCardView bindButtonBlockAction:^(BOOL success) {
         if (self.settingMoCardView.cardNoString != nil && ![self.settingMoCardView.cardNoString isEqualToString:@""]) {
             
-
             NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
             [userDefault setObject:self.settingMoCardView.cardNoString forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
             [userDefault synchronize];
@@ -631,12 +611,6 @@
             NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
             [userDefault setObject:cardModel.cardTypeIdString forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
             [userDefault synchronize];
-
-            [weakSelf loadBindCardViewwithPhone:phoneString withCardNo:self.settingMoCardView.cardNoString withAccessToken:accessTokenString];
-        }
-        else{
-            VipCardModel * cardModel = (VipCardModel *)[cardARR objectAtIndex:0];
-
             [weakSelf loadBindCardViewwithPhone:phoneString withCardNo:cardModel.cardNo withAccessToken:accessTokenString];
         }
         
@@ -737,7 +711,6 @@
 #pragma end mark
 
 
-
 -(void)checkSms
 {
     
@@ -796,12 +769,14 @@
             _loginTypeBgView.hidden = NO;
             _registerTypeBgView.hidden = YES;
             _registerTypeButton.selected = NO;
+            NSLog(@"注册成功");
             
         }else{
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = result[@"msg"];
             [_hud hide:YES afterDelay:2];
+            NSLog(@"注册失败");
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -902,7 +877,6 @@
             if (userDataDic[@"vipCard"]) {
                 NSArray * vipCardARR = userDataDic[@"vipCard"];
 
-
                 
                 if (vipCardARR.count == 1) {
                     
@@ -921,10 +895,6 @@
                             }
                         }
                     }
-
-                if (vipCardARR.count == 1) {
-                    
-
                 }
                 else if(vipCardARR.count > 1){
                     
@@ -1335,11 +1305,7 @@
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             NSDictionary * userDataDic = result[@"data"];
             NSArray * vipCardDic = userDataDic[@"vipCard"];
-
             
-
-            /*
->>>>>>> origin/iOS
             if (vipCardDic.count > 0) {
                 //存储时，除NSNumber类型使用对应的类型意外，其他的都是使用setObject:forKey:
                 //[userDefaults setObject:result[@"cardno"] forKey:kUSERDEFAULT_USERCARDNO ];
@@ -1349,19 +1315,13 @@
                 if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
                     NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
                     [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
-
                     NSString * cardTypeId = [NSString stringWithFormat:@"%@",dics[@"cardTypeId"]];
                     [userDefaults setObject:cardTypeId forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
-
                     //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
                 }
                 }
             }
-
             
-
-            */
-
             if (userDataDic[@"img"] && ![@"" isEqualToString:userDataDic[@"img"]]) {
                 [userDefaults setObject:userDataDic[@"img"] forKey:kUSERDEFAULT_USERAVATOR ];
 
@@ -1378,7 +1338,6 @@
                 //NSLog(@"登录方法中kUSERDEFAULT_USERNAME值nickname为：%@",userDataDic[@"nickname"]);
             }
            
-
             
             [userDefaults setObject:userDataDic[@"accessToken"] forKey:kUSERDEFAULT_ACCCESSTOKEN];
             
@@ -1391,19 +1350,7 @@
                 [userDefaults setObject:@"000000000000000000" forKey:KUSERDEFAULT_IDCARD_SHENFEN];
             }
             
-
             
-            [userDefaults setObject:userDataDic[@"accessToken"] forKey:kUSERDEFAULT_ACCCESSTOKEN];
-
-            
-            [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERID ];
-            NSLog(@"userDataDic-----:%@",userDataDic[@"idcard"]);
-            if (userDataDic[@"idcard"]) {
-                [userDefaults setObject:userDataDic[@"idcard"] forKey:KUSERDEFAULT_IDCARD_SHENFEN];
-            }
-            else{
-                [userDefaults setObject:@"000000000000000000" forKey:KUSERDEFAULT_IDCARD_SHENFEN];
-            }
             
             [userDefaults synchronize];
             
@@ -1511,7 +1458,6 @@
             
             
             NSLog(@"微信\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@\n,openId:%@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message,snsAccount.openId);
-
             
            // NSDictionary *dict = @{@"nickname":snsAccount.userName?:@"",@"headPicUrl":snsAccount.iconURL?:@"",@"source":@"WECHAT",@"partnerId":snsAccount.openId,@"appId":APP_ID};
             /*zhoulu*/
@@ -1527,23 +1473,6 @@
                                        @"type":@"02"
                                        };
             
-
-            
-           // NSDictionary *dict = @{@"nickname":snsAccount.userName?:@"",@"headPicUrl":snsAccount.iconURL?:@"",@"source":@"WECHAT",@"partnerId":snsAccount.openId,@"appId":APP_ID};
-            /*zhoulu*/
-            NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"openId":snsAccount.openId,@"type":@"02"}];
-            NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
-                                    @"openId":snsAccount.openId,
-                                    @"type":@"02",
-                                    @"sign":signDic[@"sign"]
-                                    };
-            
-            NSDictionary * bindDic = @{ @"nickname":snsAccount.userName,
-                                        @"imgUrl":snsAccount.iconURL,
-                                       @"type":@"02"
-                                       };
-            
-
             [self loginWxAndQQWithParams:dic2 withSignDic:signDic bindPoneDic:bindDic];
             
             
@@ -1563,10 +1492,6 @@
         NSDictionary *result = (NSDictionary *)responseObject;
         NSDictionary * userDataDic = result[@"data"];
 
-
-
-        NSLog(@"第三方登录");
-
         NSString * statusString = [NSString stringWithFormat:@"%@",[userDataDic objectForKey:@"status"]];
         if (![statusString isEqualToString:@"1"]) {//如果有userId说明第三方登录成功
             
@@ -1580,7 +1505,6 @@
             }
             [userDefaults setObject:result[@"phone"] forKey:kUSERDEFAULT_USERPHONE ];
             //[userDefaults setObject:result[@"nickname"] forKey:kUSERDEFAULT_USERNAME ];
-
             
              if ([userDataDic[@"nickName"] isEqualToString:@""] || !userDataDic[@"nickName"]) {
              [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERNAME ];
@@ -1610,24 +1534,6 @@
                     //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
                 }
             }
-
-            
-             if ([userDataDic[@"nickName"] isEqualToString:@""] || !userDataDic[@"nickName"]) {
-             [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERNAME ];
-             //NSLog(@"登录方法中kUSERDEFAULT_USERNAME值phone为：%@",userDataDic[@"phone"]);
-             }
-             else{
-             [userDefaults setObject:userDataDic[@"nickName"] forKey:kUSERDEFAULT_USERNAME ];
-             //NSLog(@"登录方法中kUSERDEFAULT_USERNAME值nickname为：%@",userDataDic[@"nickname"]);
-             }
-            if (userDataDic[@"idcard"]) {
-                [userDefaults setObject:userDataDic[@"idcard"] forKey:KUSERDEFAULT_IDCARD_SHENFEN];
-            }
-            else{
-                [userDefaults setObject:@"000000000000000000" forKey:KUSERDEFAULT_IDCARD_SHENFEN];
-            }
-            [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERID ];
-
             
         
             
@@ -1869,7 +1775,6 @@
             //_loginButton.layer.borderColor = [UIColor clearColor].CGColor;
         }
     }
-
     if ([textField isEqual:[self textField:_rphoneView]] || [textField isEqual:[self textField:_rcodeView]] || [textField isEqual:[self textField:_rpasswordView]] || [textField isEqual:[self textField:_rrpasswordView]]) {
         if (_isReadDelegate && [self checkRegisterButtonEnabledYESorNO]) {
             
@@ -1884,9 +1789,6 @@
         }
 
     }
-
-    
-
     
     return YES;
 }
@@ -1898,6 +1800,9 @@
         _tableView.hidden = YES;
         _showmoreaccoutButton.selected = NO;
     }
+    
+    
+    
 }
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
