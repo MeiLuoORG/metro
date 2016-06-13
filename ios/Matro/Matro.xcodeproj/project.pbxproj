@@ -86,7 +86,6 @@
 		3A16DC511CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A16DC4F1CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.m */; };
 		3A16DC521CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A16DC501CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.xib */; };
 		3A16DC611CA15BB7007AE4A2 /* MLSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A16DC5F1CA15BB7007AE4A2 /* MLSearchViewController.m */; };
-		3A16DC621CA15BB7007AE4A2 /* MLSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A16DC601CA15BB7007AE4A2 /* MLSearchViewController.xib */; };
 		3A1AA8B61CAA0DEC00AF73C2 /* MLInvoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AA8B41CAA0DEC00AF73C2 /* MLInvoiceViewController.m */; };
 		3A1AA8B71CAA0DEC00AF73C2 /* MLInvoiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AA8B51CAA0DEC00AF73C2 /* MLInvoiceViewController.xib */; };
 		3A1AA8BC1CAA2F8B00AF73C2 /* MLAddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AA8BA1CAA2F8B00AF73C2 /* MLAddressListViewController.m */; };
@@ -268,6 +267,7 @@
 		3AFB0C7B1CA28D6F00128368 /* HFSProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB0C791CA28D6F00128368 /* HFSProductCollectionViewCell.xib */; };
 		3C055CD81D08143700362C4D /* ShenFenZhengController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C055CD71D08143700362C4D /* ShenFenZhengController.m */; };
 		3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */; };
+		3C0FCEF91D0E8C170076396F /* MLSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */; };
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
 		3C5B0C6E1CFC372D003FFD25 /* MessagesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */; };
 		3C5B0C6F1CFC372D003FFD25 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */; };
@@ -281,7 +281,6 @@
 		3C5B0C881CFC4329003FFD25 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */; };
 		3C5B0C8A1CFC433E003FFD25 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */; };
 		3C5B0C8C1CFC4348003FFD25 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */; };
-		3CAE04891D06BC7B004504EA /* SettingMoCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CE087E81CFE730300DC3390 /* SettingMoCardCell.xib */; };
 		3CAE048E1D06C5FE004504EA /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE048D1D06C5FE004504EA /* VipCardModel.m */; };
 		3CAE049C1D06DDD5004504EA /* GCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04911D06DDD5004504EA /* GCD.m */; };
 		3CAE049D1D06DDD5004504EA /* GCDGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04931D06DDD5004504EA /* GCDGroup.m */; };
@@ -579,7 +578,6 @@
 		3A16DC501CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		3A16DC5E1CA15BB7007AE4A2 /* MLSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSearchViewController.h; sourceTree = "<group>"; };
 		3A16DC5F1CA15BB7007AE4A2 /* MLSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSearchViewController.m; sourceTree = "<group>"; };
-		3A16DC601CA15BB7007AE4A2 /* MLSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSearchViewController.xib; sourceTree = "<group>"; };
 		3A1AA8B31CAA0DEC00AF73C2 /* MLInvoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLInvoiceViewController.h; sourceTree = "<group>"; };
 		3A1AA8B41CAA0DEC00AF73C2 /* MLInvoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLInvoiceViewController.m; sourceTree = "<group>"; };
 		3A1AA8B51CAA0DEC00AF73C2 /* MLInvoiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLInvoiceViewController.xib; sourceTree = "<group>"; };
@@ -973,6 +971,7 @@
 		3C055CD71D08143700362C4D /* ShenFenZhengController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShenFenZhengController.m; sourceTree = "<group>"; };
 		3C0AF2021CFFE1BC00E48B18 /* NavTopCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTopCommonImage.h; sourceTree = "<group>"; };
 		3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTopCommonImage.m; sourceTree = "<group>"; };
+		3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSearchViewController.xib; sourceTree = "<group>"; };
 		3C2E204C1D0ABDAF00184D48 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		3C5B0C651CFC372D003FFD25 /* MessagesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesTableViewCell.h; sourceTree = "<group>"; };
@@ -1010,7 +1009,6 @@
 		3CAE04991D06DDD5004504EA /* GCDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDTimer.h; sourceTree = "<group>"; };
 		3CAE049A1D06DDD5004504EA /* GCDTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDTimer.m; sourceTree = "<group>"; };
 		3CAE049B1D06DDD5004504EA /* HYGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYGCD.h; sourceTree = "<group>"; };
-		3CE087E81CFE730300DC3390 /* SettingMoCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingMoCardCell.xib; sourceTree = "<group>"; };
 		3CEA04CD1D0E823300E5C4B6 /* SettingMoCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardCell.h; sourceTree = "<group>"; };
 		3CEA04CE1D0E879600E5C4B6 /* SettingMoCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingMoCardCell.xib; sourceTree = "<group>"; };
 		3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardCell.m; sourceTree = "<group>"; };
@@ -1508,9 +1506,9 @@
 		3A16DC5D1CA15BB7007AE4A2 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */,
 				3A16DC5E1CA15BB7007AE4A2 /* MLSearchViewController.h */,
 				3A16DC5F1CA15BB7007AE4A2 /* MLSearchViewController.m */,
-				3A16DC601CA15BB7007AE4A2 /* MLSearchViewController.xib */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3002,7 +3000,6 @@
 				3A1AA8D31CAA7D4D00AF73C2 /* MLPayresultHeader.xib in Resources */,
 				687703E71CCF3FD20008ED46 /* easyjs-inject.js in Resources */,
 				3ACF2CFC1CA52E35003D1F67 /* MLZTTableViewCell.xib in Resources */,
-				3A16DC621CA15BB7007AE4A2 /* MLSearchViewController.xib in Resources */,
 				687703691CC868810008ED46 /* pub.der in Resources */,
 				28CF86061CEDC59A00E582EE /* UMSCommentDetailController.xib in Resources */,
 				3AE02E0A1CAB9F510016FA75 /* MLSXView.xib in Resources */,
@@ -3022,6 +3019,7 @@
 				3C5B0C6F1CFC372D003FFD25 /* MessagesTableViewCell.xib in Resources */,
 				28CF860D1CEDC59A00E582EE /* UMSShareListController.xib in Resources */,
 				3A633A621C9E9E2F00C11FD5 /* Assets.xcassets in Resources */,
+				3C0FCEF91D0E8C170076396F /* MLSearchViewController.xib in Resources */,
 				7AEDD0D51CE5BB6E009B12F4 /* MLReturnRequestFootView.xib in Resources */,
 				D67CFBAC1CC0F698006F24BF /* MLAddressListViewController.xib in Resources */,
 				280AADB11CFEDC7500E7A2FA /* 0.JPG in Resources */,
@@ -3070,7 +3068,6 @@
 				7AEC88D01CE45D2200B43DD4 /* MLGoodsComHeadView.xib in Resources */,
 				28CF86081CEDC59A00E582EE /* UMSCommentInputControlleriPad.xib in Resources */,
 				D6D8036D1CAE6B62001C0FE0 /* MLFootprintViewController.xib in Resources */,
-				3CAE04891D06BC7B004504EA /* SettingMoCardCell.xib in Resources */,
 				28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */,
 				3ACF2CF61CA52062003D1F67 /* MLOrderInfoViewController.xib in Resources */,
 				7AEDD0DD1CE5CAF6009B12F4 /* MLReturnRequestTableViewCell.xib in Resources */,
