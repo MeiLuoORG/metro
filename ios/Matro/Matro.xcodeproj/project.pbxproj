@@ -37,6 +37,8 @@
 		285326EC1CFD3A7300FA2AB0 /* MLYHQUsedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285326EA1CFD3A7300FA2AB0 /* MLYHQUsedCell.m */; };
 		285326ED1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285326EB1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib */; };
 		285326EF1CFD6F1300FA2AB0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 285326EE1CFD6F1300FA2AB0 /* Info.plist */; };
+		28B228A61D0EAB0600E7AAFA /* MLGoodsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B228A31D0EAB0600E7AAFA /* MLGoodsDetailsViewController.m */; };
+		28B228A71D0EAB0600E7AAFA /* MLGoodsDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B228A41D0EAB0600E7AAFA /* MLGoodsDetailsViewController.xib */; };
 		28CEFB1A1CF99C940070E2CA /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CEFB191CF99C940070E2CA /* JSBadgeView.m */; };
 		28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85CE1CEDC59900E582EE /* UMSocialLocalizable.strings */; };
 		28CF86051CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85DC1CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a */; };
@@ -82,7 +84,6 @@
 		3A16DC431CA0EAD1007AE4A2 /* CPProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A16DC421CA0EAD1007AE4A2 /* CPProduct.m */; };
 		3A16DC471CA0EB63007AE4A2 /* CPPhotoInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A16DC451CA0EB63007AE4A2 /* CPPhotoInfoViewController.m */; };
 		3A16DC481CA0EB63007AE4A2 /* CPPhotoInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A16DC461CA0EB63007AE4A2 /* CPPhotoInfoViewController.xib */; };
-		3A16DC4C1CA10B27007AE4A2 /* MLGoodsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A16DC4A1CA10B27007AE4A2 /* MLGoodsDetailsViewController.m */; };
 		3A16DC511CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A16DC4F1CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.m */; };
 		3A16DC521CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A16DC501CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.xib */; };
 		3A16DC611CA15BB7007AE4A2 /* MLSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A16DC5F1CA15BB7007AE4A2 /* MLSearchViewController.m */; };
@@ -268,7 +269,10 @@
 		3C055CD81D08143700362C4D /* ShenFenZhengController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C055CD71D08143700362C4D /* ShenFenZhengController.m */; };
 		3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */; };
 		3C0FCEF91D0E8C170076396F /* MLSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */; };
+<<<<<<< Updated upstream
 		3C1599391D1008D2004CDFD9 /* VIPCardHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1599381D1008D2004CDFD9 /* VIPCardHistoryModel.m */; };
+=======
+>>>>>>> Stashed changes
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
 		3C5B0C6E1CFC372D003FFD25 /* MessagesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */; };
 		3C5B0C6F1CFC372D003FFD25 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */; };
@@ -409,7 +413,6 @@
 		7AEDD0E81CE5EDC2009B12F4 /* MLWishlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEDD0E71CE5EDC2009B12F4 /* MLWishlistViewController.m */; };
 		7AEDD0EC1CE5EE9A009B12F4 /* MLWishlistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEDD0EA1CE5EE9A009B12F4 /* MLWishlistTableViewCell.m */; };
 		7AEDD0ED1CE5EE9A009B12F4 /* MLWishlistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEDD0EB1CE5EE9A009B12F4 /* MLWishlistTableViewCell.xib */; };
-		7AF0BDAC1CDC74890093E2AF /* MLGoodsDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF0BDAB1CDC74890093E2AF /* MLGoodsDetailsViewController.xib */; };
 		7AF0BDAE1CDCA84D0093E2AF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF0BDAD1CDCA84D0093E2AF /* AVFoundation.framework */; };
 		7AF0D7CD1CE581E400A8F913 /* UIView+BlankPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0D7CC1CE581E400A8F913 /* UIView+BlankPage.m */; };
 		7AF0D7D61CE5957E00A8F913 /* MLSaleServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0D7D51CE5957E00A8F913 /* MLSaleServiceViewController.m */; };
@@ -499,6 +502,9 @@
 		285326EA1CFD3A7300FA2AB0 /* MLYHQUsedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLYHQUsedCell.m; sourceTree = "<group>"; };
 		285326EB1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLYHQUsedCell.xib; sourceTree = "<group>"; };
 		285326EE1CFD6F1300FA2AB0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		28B228A31D0EAB0600E7AAFA /* MLGoodsDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsDetailsViewController.m; sourceTree = "<group>"; };
+		28B228A41D0EAB0600E7AAFA /* MLGoodsDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsDetailsViewController.xib; sourceTree = "<group>"; };
+		28B228A51D0EAB0600E7AAFA /* MLGoodsDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsDetailsViewController.h; sourceTree = "<group>"; };
 		28CEFB181CF99C940070E2CA /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
 		28CEFB191CF99C940070E2CA /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		28CF85CF1CEDC59900E582EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
@@ -584,8 +590,6 @@
 		3A16DC441CA0EB63007AE4A2 /* CPPhotoInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPhotoInfoViewController.h; sourceTree = "<group>"; };
 		3A16DC451CA0EB63007AE4A2 /* CPPhotoInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPhotoInfoViewController.m; sourceTree = "<group>"; };
 		3A16DC461CA0EB63007AE4A2 /* CPPhotoInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPPhotoInfoViewController.xib; sourceTree = "<group>"; };
-		3A16DC491CA10B27007AE4A2 /* MLGoodsDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsDetailsViewController.h; sourceTree = "<group>"; };
-		3A16DC4A1CA10B27007AE4A2 /* MLGoodsDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsDetailsViewController.m; sourceTree = "<group>"; };
 		3A16DC4E1CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsDetailsTableViewCell.h; sourceTree = "<group>"; };
 		3A16DC4F1CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsDetailsTableViewCell.m; sourceTree = "<group>"; };
 		3A16DC501CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsDetailsTableViewCell.xib; sourceTree = "<group>"; };
@@ -985,8 +989,11 @@
 		3C0AF2021CFFE1BC00E48B18 /* NavTopCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTopCommonImage.h; sourceTree = "<group>"; };
 		3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTopCommonImage.m; sourceTree = "<group>"; };
 		3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSearchViewController.xib; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
 		3C1599371D1008D2004CDFD9 /* VIPCardHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIPCardHistoryModel.h; sourceTree = "<group>"; };
 		3C1599381D1008D2004CDFD9 /* VIPCardHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIPCardHistoryModel.m; sourceTree = "<group>"; };
+=======
+>>>>>>> Stashed changes
 		3C2E204C1D0ABDAF00184D48 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		3C5B0C651CFC372D003FFD25 /* MessagesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesTableViewCell.h; sourceTree = "<group>"; };
@@ -1231,7 +1238,6 @@
 		7AEDD0E91CE5EE9A009B12F4 /* MLWishlistTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLWishlistTableViewCell.h; sourceTree = "<group>"; };
 		7AEDD0EA1CE5EE9A009B12F4 /* MLWishlistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLWishlistTableViewCell.m; sourceTree = "<group>"; };
 		7AEDD0EB1CE5EE9A009B12F4 /* MLWishlistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLWishlistTableViewCell.xib; sourceTree = "<group>"; };
-		7AF0BDAB1CDC74890093E2AF /* MLGoodsDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsDetailsViewController.xib; sourceTree = "<group>"; };
 		7AF0BDAD1CDCA84D0093E2AF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7AF0D7CB1CE581E400A8F913 /* UIView+BlankPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BlankPage.h"; sourceTree = "<group>"; };
 		7AF0D7CC1CE581E400A8F913 /* UIView+BlankPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BlankPage.m"; sourceTree = "<group>"; };
@@ -2331,9 +2337,9 @@
 				3AFB0C6D1CA27C9100128368 /* MLGoodsListViewController.h */,
 				7AF1415C1CE1DB13005DDE70 /* MLGoodsListViewController.m */,
 				7A3BCB5F1CDC72BA00565E7C /* MLGoodsListViewController.xib */,
-				3A16DC491CA10B27007AE4A2 /* MLGoodsDetailsViewController.h */,
-				3A16DC4A1CA10B27007AE4A2 /* MLGoodsDetailsViewController.m */,
-				7AF0BDAB1CDC74890093E2AF /* MLGoodsDetailsViewController.xib */,
+				28B228A51D0EAB0600E7AAFA /* MLGoodsDetailsViewController.h */,
+				28B228A31D0EAB0600E7AAFA /* MLGoodsDetailsViewController.m */,
+				28B228A41D0EAB0600E7AAFA /* MLGoodsDetailsViewController.xib */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -3037,7 +3043,6 @@
 				3A633A891C9E9FC200C11FD5 /* Default-568h@2x.png in Resources */,
 				3A1AA8B71CAA0DEC00AF73C2 /* MLInvoiceViewController.xib in Resources */,
 				7ACD3A771CE842D8004BAF8B /* MLWishlistFootView.xib in Resources */,
-				7AF0BDAC1CDC74890093E2AF /* MLGoodsDetailsViewController.xib in Resources */,
 				7AEDD0CB1CE5A43A009B12F4 /* MLSaleServiceImageCell.xib in Resources */,
 				7AF1415F1CE1E5BC005DDE70 /* HFSProductTableViewCell.xib in Resources */,
 				280F7CE61CF832C600D42FA6 /* MLYHQTableViewCell.xib in Resources */,
@@ -3128,6 +3133,10 @@
 				7AEC88D01CE45D2200B43DD4 /* MLGoodsComHeadView.xib in Resources */,
 				28CF86081CEDC59A00E582EE /* UMSCommentInputControlleriPad.xib in Resources */,
 				D6D8036D1CAE6B62001C0FE0 /* MLFootprintViewController.xib in Resources */,
+<<<<<<< Updated upstream
+=======
+				28B228A71D0EAB0600E7AAFA /* MLGoodsDetailsViewController.xib in Resources */,
+>>>>>>> Stashed changes
 				28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */,
 				3ACF2CF61CA52062003D1F67 /* MLOrderInfoViewController.xib in Resources */,
 				7AEDD0DD1CE5CAF6009B12F4 /* MLReturnRequestTableViewCell.xib in Resources */,
@@ -3316,7 +3325,6 @@
 				3CAE048E1D06C5FE004504EA /* VipCardModel.m in Sources */,
 				3AFB0C751CA28CD100128368 /* HFSProductTableViewCell.m in Sources */,
 				7AEDD0E81CE5EDC2009B12F4 /* MLWishlistViewController.m in Sources */,
-				3A16DC4C1CA10B27007AE4A2 /* MLGoodsDetailsViewController.m in Sources */,
 				3A1F72D51CA3FAEC000ECE08 /* HFSOrderListViewController.m in Sources */,
 				7A3486561D0EAD50002EE211 /* MLShopCartViewController.m in Sources */,
 				6839EF0D1CD5187800638B3D /* MLBagFootView.m in Sources */,
@@ -3467,6 +3475,7 @@
 				3A633B861C9EA7F900C11FD5 /* MLHomeViewController.m in Sources */,
 				7A3A626C1CDB874F00D265F2 /* MLHYHTableViewController.m in Sources */,
 				3A1AA8D71CAA8B7100AF73C2 /* MLPayerrTableViewCell.m in Sources */,
+				28B228A61D0EAB0600E7AAFA /* MLGoodsDetailsViewController.m in Sources */,
 				3ACB8D871CC08AEC00C7398B /* MLClassInfo.m in Sources */,
 				3CAE049F1D06DDD5004504EA /* GCDSemaphore.m in Sources */,
 				3A16DC511CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.m in Sources */,

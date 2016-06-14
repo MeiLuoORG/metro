@@ -506,7 +506,7 @@ static NSInteger page = 1;
     NSDictionary *paramdic = _productList[indexPath.section];
     NSLog(@"paramdic ==== %@",paramdic);
     vc.paramDic = paramdic;
-    //self.hidesBottomBarWhenPushed = YES;
+    self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -615,7 +615,7 @@ static NSInteger page = 1;
     MLGoodsDetailsViewController * vc = [[MLGoodsDetailsViewController alloc]init];
     vc.paramDic = tempdic;
 //     detailVc.paramDic = @{@"JMSP_ID":JMSP_ID?:@"",@"ZCSP":ZCSP};
-   // self.hidesBottomBarWhenPushed = YES;
+    self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
