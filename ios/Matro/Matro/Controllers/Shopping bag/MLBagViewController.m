@@ -33,7 +33,6 @@
 #import "Masonry.h"
 
 
-
 #define HEADER_IDENTIFIER @"MLBagHeaderView"
 #define HEADER_IDENTIFIER01 @"OrderListHeaderIdentifier"
 #define FOOTER_IDENTIFIER @"OrderListFOOTIdentifier"
@@ -467,16 +466,8 @@
     
     MLLoginViewController *vc = [[MLLoginViewController alloc]init];
     vc.isLogin = YES;
-//    if ([typeStr isEqualToString:@"登录"]) {
-//        vc.isLogin = YES;
-//    }else{
-//        vc.isLogin = NO;
-//    }
-
-    YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
-    [self presentViewController:nvc animated:YES completion:^{
-        
-    }];
+    
+    [self presentViewController:vc animated:YES completion:nil];
 
 }
 

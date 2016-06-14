@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
+#define kProductCollectionViewCell  @"productCollectionViewCell"
 @interface HFSProductCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *productImgview;

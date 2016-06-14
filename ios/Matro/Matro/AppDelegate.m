@@ -29,7 +29,7 @@
 #import "UMSocialWechatHandler.h"
 
 #import "IQKeyboardManager.h"
-
+#import "MLShopCartViewController.h"
 
 @interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>{
  BMKMapManager* _mapManager;
@@ -255,7 +255,7 @@
     classNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"Starred-List-1"];
     classNavigationController.tabBarItem.title = @"分类";
     
-    MLBagViewController *bagViewController = [[MLBagViewController alloc]init];
+    MLShopCartViewController *bagViewController = [[MLShopCartViewController alloc]init];
     bagViewController.title = @"购物袋";
     MLNavigationController *bagNavigationController = [[MLNavigationController alloc]initWithRootViewController:bagViewController];
     bagNavigationController.tabBarItem.image = [UIImage imageNamed:@"Outlined"];
