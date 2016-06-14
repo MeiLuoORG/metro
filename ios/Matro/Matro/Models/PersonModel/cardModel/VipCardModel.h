@@ -21,6 +21,10 @@
 @property (assign, nonatomic) int status;
 @property (strong, nonatomic) NSString * offLineCardId;
 @property (strong, nonatomic) NSString * expireTime;
+@property (strong, nonatomic) NSString * qrCode;
 
+@property (strong, nonatomic) NSString * cardRule;
+@property (strong, nonatomic) NSString * cardImg;
+@property (strong, nonatomic) NSString * validCent;
 
 @end

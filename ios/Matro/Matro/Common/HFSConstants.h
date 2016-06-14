@@ -143,7 +143,9 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define VIPCardJiLu_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
 //修改账户信息
 #define XiuGaiInfo_URLString @"http://app-test.matrojp.com/member/ajax/app/access/updateUserInfo"
-
+//http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem
+//会员卡消费记录
+#define VIPCARD_HISTORY_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
 
 
 /*zhouluEND*/

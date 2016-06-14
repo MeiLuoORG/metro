@@ -268,6 +268,7 @@
 		3C055CD81D08143700362C4D /* ShenFenZhengController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C055CD71D08143700362C4D /* ShenFenZhengController.m */; };
 		3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */; };
 		3C0FCEF91D0E8C170076396F /* MLSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */; };
+		3C1599391D1008D2004CDFD9 /* VIPCardHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1599381D1008D2004CDFD9 /* VIPCardHistoryModel.m */; };
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
 		3C5B0C6E1CFC372D003FFD25 /* MessagesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */; };
 		3C5B0C6F1CFC372D003FFD25 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */; };
@@ -984,6 +985,8 @@
 		3C0AF2021CFFE1BC00E48B18 /* NavTopCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTopCommonImage.h; sourceTree = "<group>"; };
 		3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTopCommonImage.m; sourceTree = "<group>"; };
 		3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSearchViewController.xib; sourceTree = "<group>"; };
+		3C1599371D1008D2004CDFD9 /* VIPCardHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIPCardHistoryModel.h; sourceTree = "<group>"; };
+		3C1599381D1008D2004CDFD9 /* VIPCardHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIPCardHistoryModel.m; sourceTree = "<group>"; };
 		3C2E204C1D0ABDAF00184D48 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		3C5B0C651CFC372D003FFD25 /* MessagesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesTableViewCell.h; sourceTree = "<group>"; };
@@ -2827,6 +2830,8 @@
 			children = (
 				3CAE048C1D06C5FE004504EA /* VipCardModel.h */,
 				3CAE048D1D06C5FE004504EA /* VipCardModel.m */,
+				3C1599371D1008D2004CDFD9 /* VIPCardHistoryModel.h */,
+				3C1599381D1008D2004CDFD9 /* VIPCardHistoryModel.m */,
 			);
 			path = cardModel;
 			sourceTree = "<group>";
@@ -3264,6 +3269,7 @@
 				280F7D6A1CF9729A00D42FA6 /* MLPropertyCell.m in Sources */,
 				3C5B0C801CFC37E3003FFD25 /* CustomButton.m in Sources */,
 				3ACF2CF11CA5070E003D1F67 /* ZipArchive.mm in Sources */,
+				3C1599391D1008D2004CDFD9 /* VIPCardHistoryModel.m in Sources */,
 				7AED64731CDDBD9B008F55BD /* MLHelpCenterDetailController.m in Sources */,
 				2CBAD6431CA3AD4B0044601B /* MLBagActiveTableViewCell.m in Sources */,
 				3ACF2CF01CA5070E003D1F67 /* zip.c in Sources */,

@@ -20,6 +20,7 @@
     UILabel *_usableLabel;
     UILabel *_accumulateLabel;
     NSMutableArray *_dataArray;
+    NSString * _currentTimeString;
 }
 
 @end
@@ -32,6 +33,9 @@ static NSInteger currentPage = 1;
     self.title = @"我的会员卡消费记录";
     _dataArray = [NSMutableArray array];
     [self createViews];
+    //初始化弹出信息
+    _hud = [[MBProgressHUD alloc]initWithView:self.view];
+    [self.view addSubview:_hud];
     // Do any additional setup after loading the view.
 }
 - (void)createViews {
@@ -72,17 +76,47 @@ static NSInteger currentPage = 1;
     //zhoulu  刷新控件
     _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         NSLog(@"头部刷新控件");
-        [_tableView.header endRefreshing];
+        [self headerRefreshAction];
     }];
     _tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         NSLog(@"尾部刷新控件");
-        [_tableView.footer endRefreshing];
+        currentPage++;
+        [self footerRefreshActionWith:currentPage];
+        
     }];
     [_tableView.header beginRefreshing];
     
     [self.view addSubview:_tableView];
     
 }
+
+- (void)headerRefreshAction{
+    
+    //获取时间
+    NSDate * date = [NSDate date];
+    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *  locationString = [dateformatter stringFromDate:date];
+    NSLog(@"当前时间为：%@",locationString);
+    _currentTimeString = locationString;
+    [self getCardInfoWithpageIndex:@"1" withEndTime:locationString];
+
+}
+
+- (void)footerRefreshActionWith:(NSInteger )page{
+
+    NSString * pageStr = [NSString stringWithFormat:@"%ld",page];
+    
+    [self getCardInfoWithpageIndex:pageStr withEndTime:_currentTimeString];
+    
+}
+
+- (void)jieShuRefresh{
+
+    [_tableView.header endRefreshing];
+    [_tableView.footer endRefreshing];
+}
+
 #pragma mark - 
 #pragma mark UITableViewDelegate
 
@@ -91,7 +125,7 @@ static NSInteger currentPage = 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return _dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -100,6 +134,8 @@ static NSInteger currentPage = 1;
     if (cell == nil) {
         cell = [[MNNPurchaseHistoryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellId"];
     }
+
+    
     
     return cell;
 }
@@ -112,6 +148,93 @@ static NSInteger currentPage = 1;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma 请求消费记录
+- (void)getCardInfoWithpageIndex:(NSString *)pageIndex withEndTime:(NSString *)endTime{
+    
+    /*
+     zhoulu
+     */
+    NSLog(@"卡内码为：%@",self.cardID);
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    NSString * phone = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];
+    //{"appId": "test0002","phone":"18020260894","sign":$sign,"accessToken":$accessToken}
+
+    NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"cardId":@"1502648",@"startTime":@"1990-01-01",@"endTime":endTime,@"pageCount":@"20",@"pageIndex":pageIndex}];
+    NSLog(@"当前日期为：%@",endTime);
+    NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
+                           @"cardId":@"1502648",
+                            @"startTime":@"1990-01-01",
+                            @"endTime":endTime,
+                            @"pageCount":@"20",
+                            @"pageIndex":pageIndex,
+                            @"sign":signDic[@"sign"],
+                            @"accessToken":accessToken
+                            };
+    
+    NSData *data2 = [HFSUtility RSADicToData:dic2];
+    NSString *ret2 = base64_encode_data(data2);
+    NSLog(@"加密后的消费记录：%@",ret2);
+    //@"vip/AuthUserInfo"
+    [[HFSServiceClient sharedClient] POST:VIPCARD_HISTORY_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSDictionary * userDataDic = result[@"data"];
+        NSLog(@"获取消费记录信息%@",result);
+        if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+            NSString * sumStr = [NSString stringWithFormat:@"%@",userDataDic[@"sum"]];
+            if (![sumStr isEqualToString:@"0"]) {
+                
+                NSArray * historyARR = userDataDic[@"VipSaleItems"];
+                for (NSDictionary * dicss in historyARR) {
+                    
+                    VIPCardHistoryModel * vipHistoryModel = [VIPCardHistoryModel new];
+                    vipHistoryModel.saleTime = dicss[@"SaleTime"];
+                    vipHistoryModel.saleMoney = dicss[@"SaleMoney"];
+                    vipHistoryModel.billId = dicss[@"BillId"];
+                    vipHistoryModel.storeName = dicss[@"StoreName"];
+                    
+                    [_dataArray addObject:vipHistoryModel];
+                    //vipHistoryModel
+                    
+                }
+                
+
+                
+                
+                [_tableView reloadData];
+            }
+            
+
+            
+        }else{
+            
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = result[@"errMsg"];
+            [_hud hide:YES afterDelay:2];
+            
+            /*
+             UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
+             [alert show];
+             */
+        }
+        //结束刷新
+        [self jieShuRefresh];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        //结束刷新
+        [self jieShuRefresh];
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:2];
+    }];
+    
+    
+}
+
 
 /*
 #pragma mark - Navigation

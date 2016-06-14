@@ -16,6 +16,6 @@
 @property (assign, nonatomic) int moRenIndex;
 @property (assign, nonatomic) int currentCardIndex;
 @property (strong, nonatomic) NSMutableArray * cardARR;
-
+@property (strong, nonatomic) VipCardModel * currentCardModel;
 - (void)loadData;
 @end

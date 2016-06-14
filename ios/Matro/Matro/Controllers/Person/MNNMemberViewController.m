@@ -26,6 +26,9 @@
     MBProgressHUD *_hud;
     
     UILabel * _ValidCentSLabel;//可用积分
+    UIView * _guiZeView;//会员卡消费规则接口
+    
+    
 }
 
 @end
@@ -34,7 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
+   // [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
     self.title = @"我的会员卡";
     self.moRenIndex = 0;
     self.currentCardIndex = 0;
@@ -57,6 +61,7 @@
     // Do any additional setup after loading the view.
     [self loadData];
     
+    //初始化弹出信息
     _hud = [[MBProgressHUD alloc]initWithView:self.view];
     [self.view addSubview:_hud];
 }
@@ -103,6 +108,9 @@
                         cardModel.cardNo = dics[@"cardNo"];
                         cardModel.cardTypeIdString = dics[@"cardTypeId"];
                         cardModel.isDefault = [dics[@"isDefault"] intValue];
+                        cardModel.cardImg = dics[@"cardImg"];
+                        cardModel.cardRule = dics[@"cardRule"];
+                        cardModel.cardTypeName = dics[@"cardTypeName"];
                         [self.cardARR addObject:cardModel];
                         //请求默认卡的信息
                         [self getCardInfowithcardNo:cardModel.cardNo];
@@ -116,6 +124,9 @@
                         cardModel.cardNo = dics[@"cardNo"];
                         cardModel.cardTypeIdString = dics[@"cardTypeId"];
                         cardModel.isDefault = [dics[@"isDefault"] intValue];
+                        cardModel.cardImg = dics[@"cardImg"];
+                        cardModel.cardRule = dics[@"cardRule"];
+                        cardModel.cardTypeName = dics[@"cardTypeName"];
                         [self.cardARR addObject:cardModel];
                     }
                     
@@ -172,12 +183,17 @@
         
         NSDictionary *result = (NSDictionary *)responseObject;
         NSDictionary * userDataDic = result[@"data"];
-        NSLog(@"获取会员卡信息%@",result);
+        NSLog(@"获取单个会员卡详细信息%@",result);
         if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
             //vipCard
             //ValidCent
             //_ValidCentString = userDataDic[@"ValidCent"];
             _ValidCentSLabel.text = userDataDic[@"ValidCent"];
+            
+            self.currentCardModel = [VipCardModel new];
+            self.currentCardModel.cardID = userDataDic[@"CardId"];
+            self.currentCardModel.qrCode = userDataDic[@"QRCODE"];
+            self.currentCardModel.validCent = userDataDic[@"ValidCent"];
             //[_tableView reloadData];
             //[self.view layoutIfNeeded];
             //[self.view setNeedsLayout];
@@ -209,13 +225,15 @@
 //更新会员卡图片
 - (void)updataCardScrollView{
 
-    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*self.cardARR.count, 190);
-    UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 40, scrollview.contentSize.width, 110)];
+    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*self.cardARR.count, 267);
+    UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 30, scrollview.contentSize.width, 207)];
     bkView.backgroundColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
     [scrollview addSubview:bkView];
     
     for (int i=0; i<self.cardARR.count; i++) {
-        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(20+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-40, 150)];
+        VipCardModel * cardModel = [self.cardARR objectAtIndex:i];
+        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, 227)];
+        
         
         NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
         
@@ -228,20 +246,29 @@
         
         [scrollview addSubview:imageView];
     }
-
-
+    
+    VipCardModel * firstCardModel = [self.cardARR objectAtIndex:0];
+    
+     _preferentialRules.text = firstCardModel.cardRule;
+    NSLog(@"消费规则内容：%@",_preferentialRules.text);
+    CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
+    //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
+    _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
+    _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
+    
+    _tableView.tableFooterView = _guiZeView;
 }
 
 
 - (void)createTableView {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-20) style:UITableViewStyleGrouped];
-    
-    _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 230)];
-    
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-20) style:UITableViewStylePlain];
+    _tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
+    _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 307)];
+    _backgroundView.backgroundColor = [UIColor whiteColor];
     //    _membershipCard = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 150)];
     //    [_backgroundView addSubview:_membershipCard];
     
-    scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 190)];
+    scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 267)];
     
 
     
@@ -251,7 +278,7 @@
     scrollview.bounces = NO;
     scrollview.pagingEnabled=YES;
     scrollview.delegate=self;
-    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*1, 190);
+    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*1, 267);
     
     
     /*
@@ -267,12 +294,12 @@
     */
     
     //背景色块
-    UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 40, scrollview.contentSize.width, 110)];
+    UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 30, scrollview.contentSize.width, 207)];
     bkView.backgroundColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
     [scrollview addSubview:bkView];
 
     for (int i=0; i<1; i++) {
-        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(20+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-40, 150)];
+        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, 227)];
         
         NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
         
@@ -293,8 +320,8 @@
 
     btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(scrollview.frame)+10, 70, 20)];
     [btnSelect setTitle:@"设为默认" forState:UIControlStateNormal];
-    [btnSelect setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btnSelect.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
+    [btnSelect setTitleColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor] forState:UIControlStateNormal];
+    [btnSelect.titleLabel setFont:[UIFont systemFontOfSize:10.0f]];
     btnSelect.selected  = YES;
     [btnSelect setImage:[UIImage imageNamed:@"box"] forState:UIControlStateNormal];
     [btnSelect setImage:[UIImage imageNamed:@"check"] forState:UIControlStateSelected];
@@ -304,7 +331,8 @@
     
     _label = [[UILabel alloc] initWithFrame:CGRectMake(160, CGRectGetMaxY(scrollview.frame)+10, MAIN_SCREEN_WIDTH-160, 20)];
     _label.text = @"使用时向服务员出示二维码";
-    _label.font = [UIFont systemFontOfSize:12];
+    _label.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
+    _label.font = [UIFont systemFontOfSize:10.0f];
     _label.textAlignment = NSTextAlignmentCenter;
     
     
@@ -340,32 +368,42 @@
     [_backgroundView addSubview:btnSelect];
     //[_backgroundView addSubview:btnTitle];
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
-    _preferentialRules = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, MAIN_SCREEN_WIDTH-20, 100)];
+    _guiZeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
+    _guiZeView.backgroundColor = [UIColor whiteColor];
+    _preferentialRules = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, 100)];
     _preferentialRules.text = @"此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则!!!!!!!";
     _preferentialRules.font = [UIFont systemFontOfSize:12];
     _preferentialRules.alpha = 0.5;
     _preferentialRules.numberOfLines = 0;
-    CGSize size = [_preferentialRules.text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(_preferentialRules.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-    
-    view.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, size.height+60);
-    _preferentialRules.frame = CGRectMake(10, 5, MAIN_SCREEN_WIDTH-20, size.height);
-    [view addSubview:_preferentialRules];
+    //CGSize size = [_preferentialRules.text sizeWithFont:[UIFont systemFontOfSize:10.0f] constrainedToSize:CGSizeMake(_preferentialRules.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+
+    CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
+    //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
+    _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
+    _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
+    [_guiZeView addSubview:_preferentialRules];
     _tableView.tableHeaderView = _backgroundView;
-    _tableView.tableFooterView = view;
+    _tableView.tableFooterView = _guiZeView;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     
     [self.view addSubview:_tableView];
+    
+    
 }
-
+-(CGFloat)textHeight:(NSString *)string{
+    //传字符串返回高度
+    CGRect rect =[string boundingRectWithSize:CGSizeMake(394, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]} context:nil];//计算字符串所占的矩形区域的大小
+    return rect.size.height;//返回高度
+}
+/*
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     //pageControl.currentPage = scrollView.contentOffset.x/(MAIN_SCREEN_WIDTH);
     //动画过程中 一直执行
     //NSLog(@"scrollViewDidScroll");
     self.currentCardIndex = scrollview.contentOffset.x/MAIN_SCREEN_WIDTH;
-    NSLog(@"scrollView结束拖拽：%d",self.currentCardIndex);
+    //NSLog(@"scrollView正在+++拖拽：%d",self.currentCardIndex);
     if (self.currentCardIndex == self.moRenIndex) {
         
         btnSelect.selected = YES;
@@ -374,13 +412,46 @@
         btnSelect.selected = NO;
      
     }
+    VipCardModel * firstCardModel = [self.cardARR objectAtIndex:self.currentCardIndex];
     
+    _preferentialRules.text = firstCardModel.cardRule;
+    //NSLog(@"消费规则内容：%@",_preferentialRules.text);
+    CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
+    //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
+    _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
+    _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
+    
+    _tableView.tableFooterView = _guiZeView;
     
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-
+*/
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    self.currentCardIndex = scrollview.contentOffset.x/MAIN_SCREEN_WIDTH;
+    //NSLog(@"scrollView正在+++拖拽：%d",self.currentCardIndex);
+    if (self.currentCardIndex == self.moRenIndex) {
+        
+        btnSelect.selected = YES;
+    }
+    else{
+        btnSelect.selected = NO;
+        
+    }
+    VipCardModel * firstCardModel = [self.cardARR objectAtIndex:self.currentCardIndex];
+    
+    _preferentialRules.text = firstCardModel.cardRule;
+    //NSLog(@"消费规则内容：%@",_preferentialRules.text);
+    CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
+    //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
+    _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
+    _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
+    _tableView.tableFooterView = _guiZeView;
+    
+    [self getCardInfowithcardNo:firstCardModel.cardNo];
 }
+
+
+
 
 -(void)actSelect:(UIButton *)sender{
     
@@ -491,15 +562,16 @@
     }
     if (indexPath.row == 0) {
         cell.textLabel.text = @"会员卡";
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-50, 10, 20, 20)];
-        imageView.image = [UIImage imageNamed:@"accessToken"];//个人二维码图标
+        cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(SIZE_WIDTH - 50, 10, 20, 20)];
+        imageView.image = [UIImage imageNamed:@"erweima"];//个人二维码图标
         //imageView.backgroundColor = [UIColor redColor];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryNone;
         [cell addSubview:imageView];
     }
     if (indexPath.row == 1) {
         cell.textLabel.text = @"可用积分";
-        
+        cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
         [cell addSubview:_ValidCentSLabel];
     }/*
     if (indexPath.row == 2) {
@@ -513,21 +585,24 @@
     }*/
     if (indexPath.row == 2) {
         cell.textLabel.text = @"使用记录";
+        cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_WIDTH-130, 10,100 , 20)];
         label.textAlignment = NSTextAlignmentRight;
         label.text = @"查看消费记录";
-        label.font = [UIFont systemFontOfSize:12];
+        label.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
+        label.font = [UIFont systemFontOfSize:10.0f];
         label.alpha = 0.5;
         [cell.contentView addSubview:label];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     if (indexPath.row == 3) {
         cell.textLabel.text = @"优惠规则";
+        cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
     }
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 40;
+    return 44.0f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -535,15 +610,29 @@
     if (indexPath.row == 0) {
         self.hidesBottomBarWhenPushed = YES;
         MNNQRCodeViewController *qrCodeVC = [MNNQRCodeViewController new];
-        
-        VipCardModel * cardModel = [self.cardARR objectAtIndex:self.moRenIndex];
+        VipCardModel * cardModel = [self.cardARR objectAtIndex:self.currentCardIndex];
         qrCodeVC.cardNo = cardModel.cardNo;
+        /*
+        if (self.currentCardModel.qrCode) {
+            
+            qrCodeVC.cardNo = self.currentCardModel.qrCode;
+            
+        }
+        */
         [self.navigationController pushViewController:qrCodeVC animated:YES];
+        
     }
     if (indexPath.row == 2) {
         self.hidesBottomBarWhenPushed = YES;
         MNNPurchaseHistoryViewController *purchasHistoryVC = [MNNPurchaseHistoryViewController new];
-        [self.navigationController pushViewController:purchasHistoryVC animated:YES];
+        
+        if (self.currentCardModel.cardID) {
+            
+            purchasHistoryVC.cardID = self.currentCardModel.cardID;
+            [self.navigationController pushViewController:purchasHistoryVC animated:YES];
+        }
+        
+        
     }
 }
 - (void)didReceiveMemoryWarning {
