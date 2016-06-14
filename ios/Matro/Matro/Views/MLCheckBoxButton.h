@@ -12,6 +12,7 @@
 
 @property (nonatomic,assign)BOOL isSelected;
 
+@property (nonatomic,assign)BOOL cartSelected;
 
 
 @end

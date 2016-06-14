@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#define kLikeHeadCollectionReusableView @"LikeHeadCollectionReusableView"
 @interface MLLikeHeadCollectionReusableView : UICollectionReusableView
 
 @end

@@ -36,7 +36,6 @@
     [super viewDidLoad];
     
     self.title = @"我的会员卡";
-
     self.moRenIndex = 0;
     self.currentCardIndex = 0;
     self.cardARR = [[NSMutableArray alloc]init];
@@ -48,23 +47,12 @@
     _ValidCentSLabel.alpha = 0.5;
 
     
-
-    /*
-
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
     [button setTitle:@"绑定会员卡" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:12];
-
     //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-
-
-    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-     */
-
     [self createTableView];
     // Do any additional setup after loading the view.
     [self loadData];
@@ -72,16 +60,13 @@
     _hud = [[MBProgressHUD alloc]initWithView:self.view];
     [self.view addSubview:_hud];
 }
-
 - (void)buttonAction {
     /*
     self.hidesBottomBarWhenPushed = YES;
     MNNBindCardViewController *bindCradVC = [MNNBindCardViewController new];
     [self.navigationController pushViewController:bindCradVC animated:YES];
      */
-
 }
-
 #pragma mark 获取会员  会员卡信息
 - (void)loadData {
     /*
@@ -162,9 +147,10 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
+
+
 }
 
-/*
 #pragma mark 获取会员详细信息
 - (void)getCardInfowithcardNo:(NSString *)cardno{
 
@@ -207,19 +193,19 @@
              UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
              [alert show];
              */
-
-/*
-}
-
+        }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
+    
+    
 
 }
-*/
+
 //更新会员卡图片
 - (void)updataCardScrollView{
 
@@ -247,206 +233,18 @@
 }
 
 
-/*
-
-#pragma mark 获取会员  会员卡信息
-
-- (void)loadData {
-    /*
-     zhoulu
-     */
-/*
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-    NSString * phone = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];
-    //{"appId": "test0002","phone":"18020260894","sign":$sign,"accessToken":$accessToken}
-    NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"phone":phone}];
-    NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
-                            @"phone":phone,
-                            @"sign":signDic[@"sign"],
-                            @"accessToken":accessToken
-                            };
-
-    NSData *data2 = [HFSUtility RSADicToData:dic2];
-    NSString *ret2 = base64_encode_data(data2);
-    //@"vip/AuthUserInfo"
-    [[HFSServiceClient sharedClient] POST:VIPInfo_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSDictionary *result = (NSDictionary *)responseObject;
-        NSDictionary * userDataDic = result[@"data"];
-        NSLog(@"获取会员卡信息%@",result);
-        if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-            //vipCard
-            NSArray * vipCardARR = userDataDic[@"vipCard"];
-            if (vipCardARR.count > 0) {
-                
-                for (NSDictionary * dics  in vipCardARR) {
-                    
-                    if ([[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@"1"]) {
-                        VipCardModel * cardModel = [[VipCardModel alloc]init];
-                        cardModel.cardNo = dics[@"cardNo"];
-                        cardModel.cardTypeIdString = dics[@"cardTypeId"];
-                        cardModel.isDefault = [dics[@"isDefault"] intValue];
-                        [self.cardARR addObject:cardModel];
-                        //请求默认卡的信息
-                        [self getCardInfowithcardNo:cardModel.cardNo];
-                    }
-                    
-                }
-                for (NSDictionary * dics  in vipCardARR) {
-                    
-                    if ([[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@"0"]) {
-                        VipCardModel * cardModel = [[VipCardModel alloc]init];
-                        cardModel.cardNo = dics[@"cardNo"];
-                        cardModel.cardTypeIdString = dics[@"cardTypeId"];
-                        cardModel.isDefault = [dics[@"isDefault"] intValue];
-                        [self.cardARR addObject:cardModel];
-                    }
-                    
-                }
-                [self updataCardScrollView];
-                
-            }
-            else{
-            
-            
-            }
-            
-            
-            
-        }else{
- */
-            /*
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = result[@"errMsg"];
-            [_hud hide:YES afterDelay:2];
-            */
-/*
-            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
-            [alert show];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
-    }];
-
-
-}
-
-*/
-
-#pragma mark 获取会员详细信息
-- (void)getCardInfowithcardNo:(NSString *)cardno{
-
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-    NSString * phone = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];
-    //{"appId": "test0002","phone":"18020260894","sign":$sign,"accessToken":$accessToken}
-    NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"cardNo":cardno}];
-    NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
-                            @"cardNo":cardno,
-                            @"sign":signDic[@"sign"],
-                            @"accessToken":accessToken
-                            };
-    
-    NSData *data2 = [HFSUtility RSADicToData:dic2];
-    NSString *ret2 = base64_encode_data(data2);
-    //@"vip/AuthUserInfo"
-    [[HFSServiceClient sharedClient] POST:VIPCardJiFen_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSDictionary *result = (NSDictionary *)responseObject;
-        NSDictionary * userDataDic = result[@"data"];
-        NSLog(@"获取会员卡信息%@",result);
-        if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-            //vipCard
-            //ValidCent
-            //_ValidCentString = userDataDic[@"ValidCent"];
-            _ValidCentSLabel.text = userDataDic[@"ValidCent"];
-            //[_tableView reloadData];
-            //[self.view layoutIfNeeded];
-            //[self.view setNeedsLayout];
-            //[self.view setNeedsDisplay];
-        }else{
-            
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = result[@"errMsg"];
-            [_hud hide:YES afterDelay:2];
-            
-            /*
-             UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
-             [alert show];
-             */
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
-    }];
-    
-    
-
-}
-
-
-
-
-
-#pragma mark 获取用户信息
-- (void)loadDate {
-
-    
-    for (int i=0; i<self.cardARR.count; i++) {
-        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(20+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-40, 150)];
-        
-        NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
-        
-        imageView.image=[UIImage imageNamed:str];
-        //加阴影 zhou
-        imageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
-        imageView.layer.shadowOffset = CGSizeMake(8,8);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
-        imageView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
-        imageView.layer.shadowRadius = 7;//阴影半径，默认3
-        
-        [scrollview addSubview:imageView];
-    }
-
-
-}
-
-
-
 - (void)createTableView {
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-20) style:UITableViewStyleGrouped];
     
     _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 230)];
-    UIView *sedbackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 25, MAIN_SCREEN_WIDTH, 160)];
-    sedbackgroundView.backgroundColor = [UIColor lightGrayColor];
-    [_backgroundView addSubview:sedbackgroundView];
     
     //    _membershipCard = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 150)];
     //    [_backgroundView addSubview:_membershipCard];
     
-
     scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 190)];
     
 
     
-
-    scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 190)];
-
-    scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 170)];
-
-    
-
-    
-
     scrollview.backgroundColor=[UIColor whiteColor];
     scrollview.showsVerticalScrollIndicator = NO;
     scrollview.showsHorizontalScrollIndicator = NO;
@@ -458,35 +256,6 @@
     
     /*
     pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(80, 140, MAIN_SCREEN_WIDTH-160, 30)];
-
-
-    scrollview.pagingEnabled=YES;
-    scrollview.delegate=self;
-    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*1, 190);
-    
-    
-    /*
-    pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(80, 140, MAIN_SCREEN_WIDTH-160, 30)];
-
-    
-    for (int i=0; i<4; i++) {
-        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(0+(MAIN_SCREEN_WIDTH-40)*(i), 0, MAIN_SCREEN_WIDTH-40, 170)];
-        
-        NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
-        
-        imageView.image=[UIImage imageNamed:str];
-        
-        [scrollview addSubview:imageView];
-    }
-    
-    scrollview.pagingEnabled=YES;
-    scrollview.delegate=self;
-    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH-40)*4, 170);
-    
-    
-    
-    pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(80, 160, MAIN_SCREEN_WIDTH-160, 30)];
-
     
     pageControl.numberOfPages=4;
     
@@ -519,7 +288,6 @@
     }
     
     [_backgroundView addSubview:scrollview];
-
     //[_backgroundView addSubview:pageControl];
 
 
@@ -528,19 +296,6 @@
     [btnSelect setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnSelect.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
     btnSelect.selected  = YES;
-
-    [_backgroundView addSubview:pageControl];
-    
-    
-    _label = [[UILabel alloc] initWithFrame:CGRectMake(160, CGRectGetMaxY(scrollview.frame)+15, MAIN_SCREEN_WIDTH-160, 20)];
-    btnTitle = [[UIButton alloc] initWithFrame:CGRectMake(32, CGRectGetMaxY(scrollview.frame)+15, 60, 20)];
-    [btnTitle setTitle:@"设为默认" forState:UIControlStateNormal];
-    [btnTitle.titleLabel setFont:[UIFont systemFontOfSize:12]];
-    [btnTitle setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(scrollview.frame)+19, 12, 12)];
-    btnSelect.selected  = NO;
-
     [btnSelect setImage:[UIImage imageNamed:@"box"] forState:UIControlStateNormal];
     [btnSelect setImage:[UIImage imageNamed:@"check"] forState:UIControlStateSelected];
     [btnSelect setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 50)];
@@ -621,17 +376,11 @@
     }
     
     
-
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 
-
-
-
 }
-
-
 
 -(void)actSelect:(UIButton *)sender{
     
@@ -704,14 +453,12 @@
                     _hud.mode = MBProgressHUDModeText;
                     _hud.labelText = @"默认卡设置成功！";
                     [_hud hide:YES afterDelay:2];
-
                     
                     NSString * cardTypeStr = [NSString stringWithFormat:@"%@",moCard.cardTypeIdString];
                     NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
                     [userDefault setObject:cardTypeStr forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                     [userDefault synchronize];
                     
-
                 }else{
                     [_hud show:YES];
                     _hud.mode = MBProgressHUDModeText;
@@ -754,11 +501,7 @@
         cell.textLabel.text = @"可用积分";
         
         [cell addSubview:_ValidCentSLabel];
-
     }/*
-
-    }
-
     if (indexPath.row == 2) {
         cell.textLabel.text = @"当前余额";
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-100, 10,70 , 20)];

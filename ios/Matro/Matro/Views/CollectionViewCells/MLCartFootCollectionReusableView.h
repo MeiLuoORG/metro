@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLCheckBoxButton.h"
+
+#define kCartFootCollectionReusableView @"CartFootCollectionReusableView"
 
 @interface MLCartFootCollectionReusableView : UICollectionReusableView
+@property (weak, nonatomic) IBOutlet MLCheckBoxButton *checkBox;
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel;
+@property (weak, nonatomic) IBOutlet UIButton *clearingBtn;
 
 @end

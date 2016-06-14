@@ -24,5 +24,17 @@
 }
 
 
+- (void)setCartSelected:(BOOL)cartSelected{
+    if (_cartSelected != cartSelected) {
+        _cartSelected = cartSelected;
+        if (_cartSelected) {
+            [self setImage:[UIImage imageNamed:@"zSelected"] forState:UIControlStateNormal];
+        }
+        else{
+            [self setImage:[UIImage imageNamed:@"zSelectBtn"] forState:UIControlStateNormal];
+        }
+    }
+}
+
 
 @end

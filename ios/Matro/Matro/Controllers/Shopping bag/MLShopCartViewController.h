@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLBaseViewController.h"
 
-@interface MLShopCartViewController : UIViewController
+@interface MLShopCartViewController : MLBaseViewController
 
 @end

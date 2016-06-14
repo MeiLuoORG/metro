@@ -12,17 +12,27 @@
 #import "MJRefresh.h"
 #import "UIImageView+WebCache.h"
 #import "MLShopCartCollectionViewCell.h"
-#import "HFSProductCollectionViewCell.h"
-
+#import "HFSServiceClient.h"
+#import "MJExtension.h"
 #import "Masonry.h"
+#import "HFSServiceClient.h"
+#import "MLShopingCartlistModel.h"
+#import "MLLikeHeadCollectionReusableView.h"
+#import "MLCartFootCollectionReusableView.h"
+#import "MLCartHeadCollectionReusableView.h"
+#import "MLGoodsLikeCollectionViewCell.h"
+#import "MLCheckBoxButton.h"
+//#import "MBProgressHUD+Add.h"
+#import "UIView+BlankPage.h"
+#import "MLLoginViewController.h"
 
-@interface MLShopCartViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+
+@interface MLShopCartViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CPStepperDelegate>
 
 @property (nonatomic,strong)UICollectionView *collectionView;
 @property (nonatomic,strong)NSMutableArray *likeArray;
-@property (nonatomic,strong)NSMutableArray *cartArray;
 @property (nonatomic,strong)UIView *loginView;
-
+@property (nonatomic,strong)MLShopingCartlistModel *shopCart;
 @end
 
 static BOOL showLogin;
@@ -73,8 +83,12 @@ static BOOL showLogin;
         collectionView.dataSource = self;
         collectionView.backgroundColor = RGBA(245, 245, 245, 1);
         [collectionView registerNib:[UINib nibWithNibName:@"MLShopCartCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:kShopCartCollectionViewCell];
-        [collectionView registerNib:[UINib nibWithNibName:@"HFSProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:kProductCollectionViewCell];
+        [collectionView registerNib:[UINib nibWithNibName:@"MLGoodsLikeCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:kGoodsLikeCollectionViewCell];
                 [self.view addSubview:collectionView];
+        [collectionView registerNib:[UINib nibWithNibName:@"MLLikeHeadCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kLikeHeadCollectionReusableView];
+        [collectionView registerNib:[UINib nibWithNibName:@"MLCartHeadCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kCartHeadCollectionReusableView];
+        [collectionView registerNib:[UINib nibWithNibName:@"MLCartFootCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:kCartFootCollectionReusableView];
+
         collectionView;
     });
 
@@ -88,19 +102,43 @@ static BOOL showLogin;
         make.top.mas_equalTo(self.loginView.mas_bottom).offset(8);
         make.left.right.bottom.mas_equalTo(self.view);
     }];
+    
 }
 
+
+- (void)getDataSource{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
+    [[HFSServiceClient sharedJSONClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        
+        if ([[result objectForKey:@"code"] isEqual:@0]) {
+            self.shopCart = [MLShopingCartlistModel mj_objectWithKeyValues:result[@"data"][@"cart_list"]];
+            [self.collectionView reloadData];
+            [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"网络错误");
+        
+    }];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self getDataSource];
+}
 
 #pragma mark -- UICollectionViewDataSource
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == self.cartArray.count) {
+    if (section == self.shopCart.cart.count) {
         return self.likeArray.count;
     }
     else{
-        NSArray *arr = [self.cartArray objectAtIndex:section];
-        return arr.count;
+        
+        MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:section];
+        return cart.prolist.count;
     }
     
 }
@@ -108,22 +146,42 @@ static BOOL showLogin;
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     //如果是购物车里面有东西就显示猜你喜欢
-    return  self.cartArray.count > 0?self.cartArray.count + 1:0;
+    return  self.shopCart.cart.count > 0?self.shopCart.cart.count + 1:0;
 }
 //每个UICollectionView展示的内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == self.cartArray.count) {
-        HFSProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kProductCollectionViewCell forIndexPath:indexPath];
+    if (indexPath.section == self.shopCart.cart.count) {
+        MLGoodsLikeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kGoodsLikeCollectionViewCell forIndexPath:indexPath];
         return cell;
     }
     else{
         MLShopCartCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kShopCartCollectionViewCell forIndexPath:indexPath];
+        MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
+        MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
+        cell.prolistModel = model;
+        cell.checkBox.cartSelected = (model.is_check == 1);
+        cell.countField.value = model.num;
+        cell.countField.stepperDelegate = self;
+        cell.countField.proList = model;
+        NSLog(@"****%@****",model.ID);
         return cell;
-//        HFSProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kProductCollectionViewCell forIndexPath:indexPath];
-//        return cell;
     }
 
+}
+
+
+
+- (void)addButtonClick:(MLProlistModel *)prolist count:(int)textCount{
+    //调用接口
+    [self changeNumWith:prolist andCount:textCount];
+    
+}
+- (void)subButtonClick:(MLProlistModel *)prolist count:(int)textCount{
+    prolist.num = textCount;//调用接口
+    [self changeNumWith:prolist andCount:textCount];
+    
+    
 }
 
 
@@ -133,38 +191,39 @@ static BOOL showLogin;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     //如果购物车里有数据
-    if (self.cartArray.count > 0) {
-        if (indexPath.section == self.cartArray.count) {
-            CGFloat cellW = (MAIN_SCREEN_WIDTH - 10)/2;
-            return CGSizeMake(cellW,cellW*1.3);
+//    if (self.shopCart.cart.count > 0) {
+        if (indexPath.section == self.shopCart.cart.count) {
+            CGFloat cellW = (MAIN_SCREEN_WIDTH - 8)/2;
+            return CGSizeMake(cellW,cellW*1.4);
         }
         else{
-            return CGSizeMake(MAIN_SCREEN_WIDTH, 150);
+//            MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
+//            MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
+        
+            return CGSizeMake(MAIN_SCREEN_WIDTH, 150);//没有包邮情况
         }
-    }
-    return CGSizeZero;
+//    }
+//    return CGSizeZero;
     
 }
 //定义每个UICollectionView 的间距
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    
-    if (self.cartArray.count>0) {
-        if (section == self.cartArray.count) {
-            return UIEdgeInsetsMake(0, 0, 5, 5);
-        }
-        else{
-            return UIEdgeInsetsMake(0, 0 , 0, 0);
-        }
+    return UIEdgeInsetsMake(0, 0 , 8, 0);
+}
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0.0f;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    if (section == self.shopCart.cart.count) {
+        return 0;
     }
-    return UIEdgeInsetsZero;
-    
-    
+    return 1.f;
 }
-//定义每个UICollectionView 纵向的间距
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
-}
+
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -179,21 +238,90 @@ static BOOL showLogin;
 //头部显示的内容
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == self.cartArray.count) { //猜你喜欢
-        if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            UICollectionReusableView *likeHead = [[UICollectionReusableView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 40)];
-            UILabel *label = [[UILabel alloc]initWithFrame:likeHead.bounds];
-            label.text = @"猜你喜欢";
-            label.textAlignment = NSTextAlignmentCenter;
-            [likeHead addSubview:label];
-
-            
-        }
+    if (indexPath.section == self.shopCart.cart.count && [kind isEqualToString:UICollectionElementKindSectionHeader]) { //猜你喜欢
+        MLLikeHeadCollectionReusableView *likeHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kLikeHeadCollectionReusableView forIndexPath:indexPath];
         
+        return likeHead;
+    }else if (indexPath.section == self.shopCart.cart.count - 1 && [kind isEqualToString:UICollectionElementKindSectionFooter]) {
+       MLCartFootCollectionReusableView *cartFoot = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:kCartFootCollectionReusableView forIndexPath:indexPath];
+        [cartFoot.checkBox addTarget:self action:@selector(selectAllGoods:) forControlEvents:UIControlEventTouchUpInside];
+        [cartFoot.clearingBtn addTarget:self action:@selector(clearingAction) forControlEvents:UIControlEventTouchUpInside];
+        
+        return cartFoot;
     }
+    else{
+        MLCartHeadCollectionReusableView *cartHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kCartHeadCollectionReusableView forIndexPath:indexPath];
+        MLShopingCartModel *model = [self.shopCart.cart objectAtIndex:indexPath.section];
+        cartHead.checkBox.cartSelected = model.select_All;
+        cartHead.shopingCart = model;
+        cartHead.cartHeadBlock = ^(BOOL isSelect){
+            [self.collectionView reloadData];
+        };
+        
+        
+        return cartHead;
+    }
+    
+    
     return nil;
     
 }
+
+- (void)selectAllGoods:(MLCheckBoxButton *)sender{
+    sender.cartSelected = !sender.cartSelected;
+    
+    for (MLShopingCartModel *model in self.shopCart.cart) {
+        model.select_All = sender.cartSelected;
+    }
+    [self.collectionView reloadData];
+}
+
+
+
+- (void)clearingAction{//结算操作
+    
+    
+    NSMutableArray *temp = [NSMutableArray array];
+    for (MLShopingCartModel *model in self.shopCart.cart) {
+        for (MLProlistModel *prolist in model.prolist) {
+            if (prolist.is_check == 1) {
+                [temp addObject:model];
+            }
+        }
+    }
+    if (temp.count == 0) {
+        NSLog(@"还没有商品加入购物车");
+    }
+    else{ //发送下单请求
+        
+    }
+    
+    
+}
+
+
+
+
+
+//返回头headerView的大小
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    if (section <= self.shopCart.cart.count) {
+        CGSize size={MAIN_SCREEN_WIDTH,45};
+        return size;
+    }
+    return CGSizeZero;
+   
+}
+//返回头footerView的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
+{
+    if (section == self.shopCart.cart.count - 1) {
+        CGSize size={MAIN_SCREEN_WIDTH,50};
+        return size;
+    }
+    return CGSizeZero;
+}
+
 
 
 - (void)loginAction:(id)sender{
@@ -223,15 +351,23 @@ static BOOL showLogin;
     return _likeArray;
 }
 
-- (NSMutableArray *)cartArray{
-    if (!_cartArray) {
-        _cartArray = [NSMutableArray array];
-        [_cartArray addObject:@[@"1",@"1"]];
-        [_cartArray addObject:@[@"1",@"1",@"1"]];
-        [_cartArray addObject:@[@"1"]];
+- (void)changeNumWith:(MLProlistModel *)prolist andCount:(NSInteger)count{
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=modify&id=%@&nums=%@",@"http://bbctest.matrojp.com",prolist.ID,[NSNumber numberWithInteger:count]];
+    [[HFSServiceClient sharedJSONClient]POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+
+        if ([[result objectForKey:@"code"] isEqual:@0]) { //如果成功
+            NSDictionary *data = [result objectForKey:@"data"];
+            prolist.num = count;
+            prolist.pro_price = [[data objectForKey:@"price"] floatValue];
+            [self.collectionView reloadData];
+        }
+        else{
+            [self.collectionView reloadData];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-    }
-    return _cartArray;
+    }];
 }
 
 

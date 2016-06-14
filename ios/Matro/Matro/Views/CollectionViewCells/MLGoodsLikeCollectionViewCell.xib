@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MLGoodsLikeCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="145" height="228"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="145" height="228"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qy7-li-WHP">
+                        <rect key="frame" x="0.0" y="0.0" width="145" height="220"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageloading" translatesAutoresizingMaskIntoConstraints="NO" id="EhP-GQ-eZC">
+                                <rect key="frame" x="0.0" y="0.0" width="145" height="145"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="EhP-GQ-eZC" secondAttribute="height" multiplier="1:1" id="sng-wb-r3n"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Obzeekangjinyoung 韩国专柜 5WMP2-WJ210" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbI-LP-gM6">
+                                <rect key="frame" x="16" y="153" width="113" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥2999.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rEu-Am-w2v">
+                                <rect key="frame" x="16" y="190" width="113" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.30588235289999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EhP-GQ-eZC" firstAttribute="top" secondItem="qy7-li-WHP" secondAttribute="top" id="H0Z-Nv-e0r"/>
+                            <constraint firstItem="rbI-LP-gM6" firstAttribute="leading" secondItem="qy7-li-WHP" secondAttribute="leading" constant="16" id="Ot4-tB-4wz"/>
+                            <constraint firstAttribute="trailing" secondItem="EhP-GQ-eZC" secondAttribute="trailing" id="Q52-dL-oPh"/>
+                            <constraint firstAttribute="trailing" secondItem="rbI-LP-gM6" secondAttribute="trailing" constant="16" id="Tza-Hd-9Ze"/>
+                            <constraint firstItem="rbI-LP-gM6" firstAttribute="top" secondItem="EhP-GQ-eZC" secondAttribute="bottom" constant="8" id="krJ-1c-vDs"/>
+                            <constraint firstItem="EhP-GQ-eZC" firstAttribute="leading" secondItem="qy7-li-WHP" secondAttribute="leading" id="s8Y-T7-a66"/>
+                            <constraint firstItem="rEu-Am-w2v" firstAttribute="top" secondItem="rbI-LP-gM6" secondAttribute="bottom" constant="8" id="uA7-Fp-gFa"/>
+                            <constraint firstItem="rEu-Am-w2v" firstAttribute="leading" secondItem="qy7-li-WHP" secondAttribute="leading" constant="16" id="uwn-aX-ywo"/>
+                            <constraint firstAttribute="trailing" secondItem="rEu-Am-w2v" secondAttribute="trailing" constant="16" id="zhG-Pb-jS0"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="qy7-li-WHP" secondAttribute="bottom" constant="8" id="LHx-SU-qnE"/>
+                <constraint firstItem="qy7-li-WHP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WvQ-zm-3XX"/>
+                <constraint firstAttribute="trailing" secondItem="qy7-li-WHP" secondAttribute="trailing" id="luf-pL-3aZ"/>
+                <constraint firstItem="qy7-li-WHP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="tod-Fp-FQX"/>
+            </constraints>
+            <point key="canvasLocation" x="251.5" y="365"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="imageloading" width="354" height="354"/>
+    </resources>
+</document>

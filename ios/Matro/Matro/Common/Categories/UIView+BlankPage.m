@@ -33,7 +33,7 @@ static char  BlankPageViewKey;
         }
     }else{
         if (!self.blankPage) {
-            self.blankPage = [[EaseBlankPageView alloc] initWithFrame:self.bounds];
+            self.blankPage = [[EaseBlankPageView alloc] initWithFrame:CGRectMake(0, 60, self.bounds.size.width, self.bounds.size.height)];
         }
         self.blankPage.hidden = NO;
         [self.blankPageContainer addSubview:self.blankPage];
@@ -129,6 +129,13 @@ static char  BlankPageViewKey;
         {
             imageName = @"icon_shouhou_kong";
             tipStr = @"您还没有浏览的商品";
+            break;
+        }
+        case EaseBlankPageTypeGouWuDai://空购物袋
+        {
+            imageName = @"wufaxianshi";
+            tipStr = @"购物袋还空着呢";
+            break;
         }
         case EaseBlankPageTypeZhuiZong://空浏览
         {
@@ -163,6 +170,7 @@ static char  BlankPageViewKey;
         switch (blankPageType) {
             case EaseBlankPageTypeShouCang:
             case EaseBlankPageTypeLiuLan:
+            case EaseBlankPageTypeGouWuDai:
                 titleStr=@"去逛逛";
                 break;
             default:

@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CPStepper.h"
+#import "MLShopingCartlistModel.h"
+#import "MLCheckBoxButton.h"
+
+
 #define kShopCartCollectionViewCell   @"shopCartCollectionViewCell"
 @interface MLShopCartCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *goodImgView;
+@property (weak, nonatomic) IBOutlet UILabel *goodName;
+@property (weak, nonatomic) IBOutlet UILabel *goodDesc;
+@property (weak, nonatomic) IBOutlet UILabel *goodPrice;
+@property (weak, nonatomic) IBOutlet CPStepper *countField;
+@property (weak, nonatomic) IBOutlet UILabel *actDesc;
+@property (weak, nonatomic) IBOutlet UILabel *giftDesc;
+@property (weak, nonatomic) IBOutlet MLCheckBoxButton *checkBox;
+@property (nonatomic,strong)MLProlistModel *prolistModel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraints;
 
 @end

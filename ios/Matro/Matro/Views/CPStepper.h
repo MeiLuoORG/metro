@@ -7,14 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLShopingCartlistModel.h"
 
 @protocol CPStepperDelegate <NSObject>
 
+@optional
 - (void)addButtonClicked:(UIButton *)sender;
 - (void)subButtonClicked:(UIButton *)sender;
 
 - (void)addButtonClicked:(NSDictionary *)param count:(int)textCount;
 - (void)subButtonClicked:(NSDictionary *)param count:(int)textCount;
+
+- (void)addButtonClick:(MLProlistModel *)prolist count:(int)textCount;
+- (void)subButtonClick:(MLProlistModel *)prolist count:(int)textCount;
+
+
 
 @end
 
@@ -25,6 +32,9 @@
 
 @property (nonatomic) NSUInteger value;
 @property (nonatomic,strong) NSDictionary *paramDic;
+
+@property (nonatomic,strong)MLProlistModel *proList;
+
 -(void)setTextValue:(int)value;
 
 @property (nonatomic, weak) id<CPStepperDelegate> stepperDelegate;

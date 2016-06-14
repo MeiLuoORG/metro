@@ -80,8 +80,11 @@
     
     self.text = [NSString stringWithFormat:@"%lu", (unsigned long)_value];
     
-    if (self.stepperDelegate) {
+    if (self.stepperDelegate && [self.stepperDelegate respondsToSelector:@selector(subButtonClicked: count:)]) {
         [self.stepperDelegate subButtonClicked:self.paramDic count:self.text.intValue];
+    }
+    if (self.stepperDelegate && [self.stepperDelegate respondsToSelector:@selector(subButtonClick: count:)]) {
+        [self.stepperDelegate subButtonClick:self.proList count:self.text.intValue];
     }
 }
 
@@ -96,8 +99,11 @@
     
     self.text = [NSString stringWithFormat:@"%lu", (unsigned long)_value];
     
-    if (self.stepperDelegate) {
+    if (self.stepperDelegate && [self.stepperDelegate respondsToSelector:@selector(addButtonClicked: count:)] ) {
         [self.stepperDelegate addButtonClicked:self.paramDic count:self.text.intValue];
+    }
+    if (self.stepperDelegate && [self.stepperDelegate respondsToSelector:@selector(addButtonClick: count:)]) {
+        [self.stepperDelegate addButtonClick:self.proList count:self.text.intValue];
     }
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField {
@@ -113,8 +119,11 @@
         _value = _maxValue;
         textField.text = [NSString stringWithFormat:@"%lu", (unsigned long)_value];
     }
-    if (self.stepperDelegate) {
+    if (self.stepperDelegate &&  [self.stepperDelegate respondsToSelector:@selector(subButtonClicked: count:)]) {
         [self.stepperDelegate subButtonClicked:self.paramDic count:self.text.intValue];
+    }
+    if (self.stepperDelegate && [self.stepperDelegate respondsToSelector:@selector(subButtonClick: count:)]) {
+        [self.stepperDelegate subButtonClick:self.proList count:self.text.intValue];
     }
 }
 
