@@ -13,6 +13,7 @@
 #import "HFSUtility.h"
 #import "MBProgressHUD.h"
 #import "MLAddressInfoViewController.h"
+#import "UIView+BlankPage.h"
 
 @interface MyAddressManagerViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 {
@@ -37,16 +38,13 @@
     [self.addBtn addTarget:self action:@selector(addAddress:) forControlEvents:UIControlEventTouchUpInside];
     _hud = [[MBProgressHUD alloc]initWithView:self.view];
     [self.view addSubview:_hud];
+
 }
 -(void)viewDidAppear:(BOOL)animated
 {
     self.hidesBottomBarWhenPushed = YES;
     [self loadDateAddressList];
 
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
@@ -214,13 +212,30 @@
             if (array && array.count>0) {
                 [addressAry addObjectsFromArray:array];
             }
-            
         }
         [_addressTBView reloadData];
+        [self configBlankView];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败");
+        [self configBlankView];
     }];
 }
+
+
+- (void)configBlankView{
+     [self.view configBlankPage:EaseBlankPageTypeShouhuodizhi hasData:(addressAry.count>0)];
+    __weak typeof(self) weakself = self;
+    self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+        NSLog(@"新增收货地址");
+        MLAddressInfoViewController *vc = [[MLAddressInfoViewController alloc]init];
+        vc.isNewAddress = YES;
+        [weakself.navigationController pushViewController:vc animated:YES];
+    };
+    self.view.backgroundColor = (addressAry.count>0)?[UIColor whiteColor]:RGBA(245, 245, 245, 1);
+    self.addBtn.hidden = !(addressAry.count>0);
+}
+
 
 #pragma mark 设置默认地址
 -(void)setDefaultAddress

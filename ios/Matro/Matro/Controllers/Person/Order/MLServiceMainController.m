@@ -68,7 +68,6 @@
     self.title = @"售后服务";
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
     self.viewFrame = CGRectMake(0, 8, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-10);
-    
     // Do any additional setup after loading the view.
 }
 

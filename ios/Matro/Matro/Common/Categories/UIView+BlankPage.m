@@ -129,14 +129,30 @@ static char  BlankPageViewKey;
         {
             imageName = @"icon_shouhou_kong";
             tipStr = @"您还没有浏览的商品";
-            break;
+            
         }
+        break;
         case EaseBlankPageTypeGouWuDai://空购物袋
         {
             imageName = @"wufaxianshi";
             tipStr = @"购物袋还空着呢";
-            break;
+           
         }
+        break;
+        case EaseBlankPageTypeDingdan://空订单
+        {
+            imageName = @"wufaxianshi";
+            tipStr = @"您目前还没有订单";
+            
+        }
+            break;
+        case EaseBlankPageTypeShouhuodizhi://空地址记录
+        {
+            imageName = @"wufaxianshi";
+            tipStr = @"暂无收货地址，请直接新增";
+            
+        }
+            break;
         case EaseBlankPageTypeZhuiZong://空浏览
         {
             imageName = @"";
@@ -165,17 +181,32 @@ static char  BlankPageViewKey;
             make.top.equalTo(_tipLabel.mas_bottom).offset(15);
             make.centerX.equalTo(self);
         }];
+        if (blankPageType == EaseBlankPageTypeShouhuodizhi) {
+            [actionBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(_tipLabel.mas_bottom).offset(15);
+                make.centerX.equalTo(self);
+                make.left.mas_equalTo(self).offset(50);
+                make.right.mas_equalTo(self).offset(-50);
+            }];
+            actionBtn.layer.masksToBounds = YES;
+            actionBtn.layer.cornerRadius = 3.f;
+        }
         
         NSString *titleStr;
         switch (blankPageType) {
             case EaseBlankPageTypeShouCang:
             case EaseBlankPageTypeLiuLan:
             case EaseBlankPageTypeGouWuDai:
+            case EaseBlankPageTypeDingdan:
                 titleStr=@"去逛逛";
+                break;
+            case EaseBlankPageTypeShouhuodizhi:
+                titleStr = @"新增收货地址";
                 break;
             default:
                 break;
         }
+        
         
         [actionBtn setTitle:titleStr forState:UIControlStateNormal];
         

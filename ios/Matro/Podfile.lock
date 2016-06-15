@@ -26,18 +26,18 @@ PODS:
     - AFNetworking/NSURLSession
   - BaiduMap-iOS-SDK (2.10.2)
   - Base64nl (1.2)
-  - Bugly (2.2)
+  - Bugly (2.2.3)
   - DWTagList (0.0.7)
   - GONMarkupParser (0.6.8):
     - NSString+Color
-  - IQKeyboardManager (4.0.2)
+  - IQKeyboardManager (4.0.3)
   - MagicalRecord (2.3.2):
     - MagicalRecord/Core (= 2.3.2)
   - MagicalRecord/Core (2.3.2)
   - Mantle (2.0.7):
     - Mantle/extobjc (= 2.0.7)
   - Mantle/extobjc (2.0.7)
-  - Masonry (1.0.0)
+  - Masonry (1.0.1)
   - MBProgressHUD (0.9.2)
   - MJExtension (3.0.10)
   - MJRefresh (2.2.1)
@@ -72,13 +72,13 @@ SPEC CHECKSUMS:
   AFNetworking-Synchronous: 29531ad341ec465a4ff9b66dea9cf7272080e12e
   BaiduMap-iOS-SDK: 970d9c1c07c227d23fba9a9bd0e7567b2958d72c
   Base64nl: a497bdcd1c01ea793d36b399016195a8713c0e95
-  Bugly: b24bdd3017bb05d4749d66e1b95bd1ba7207e7bd
+  Bugly: db578ea92b2a6b132cc19f79adf3bcd3b0fe6769
   DWTagList: cdf3607a7c37850a0c437d63c981f643dc5904bb
   GONMarkupParser: 08679f1f5d368ff027e527fdd352f544189d6eec
-  IQKeyboardManager: 2341089c4ae25fa2fa82ce356a259fcd267dc6b6
+  IQKeyboardManager: be9695ffc5a52077deb4847608f338771022d6d1
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
   Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
-  Masonry: b529bb169217897b6354d4b56b1fada6d475b13d
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJExtension: d86aacb740c87519d20e3cca55b6fa4be6cc7548
   MJRefresh: c3fa0387e8e97a11a9666639d2f815607edd1c2f

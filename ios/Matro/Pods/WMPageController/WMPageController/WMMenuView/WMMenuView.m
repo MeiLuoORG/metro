@@ -348,7 +348,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - self.progressHeight, self.scrollView.contentSize.width, self.progressHeight)];
     pView.itemFrames = self.frames;
     pView.color = self.lineColor.CGColor;
-    pView.backgroundColor = [UIColor colorWithRed:202/255.0 green:202/255.0 blue:202/255.0 alpha:1];
+    pView.backgroundColor = [UIColor clearColor];
     self.progressView = pView;
     [self.scrollView addSubview:pView];
 }

@@ -33,6 +33,10 @@
 #import "JSBadgeView.h"
 #import "MJRefresh.h"
 
+
+#import "MLAllOrdersViewController.h"
+
+
 @interface MLPersonController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSArray *titleArray;
@@ -194,8 +198,7 @@
         return;
     }
     if (indexPath.section == 0 && indexPath.row == 1) { //我的订单
-        HFSOrderListViewController *vc = [[HFSOrderListViewController alloc]init];
-        vc.typeInteger = 0;
+        MLAllOrdersViewController *vc = [[MLAllOrdersViewController alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

@@ -38,7 +38,6 @@
 		285326ED1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285326EB1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib */; };
 		285326EF1CFD6F1300FA2AB0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 285326EE1CFD6F1300FA2AB0 /* Info.plist */; };
 		28B228A61D0EAB0600E7AAFA /* MLGoodsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B228A31D0EAB0600E7AAFA /* MLGoodsDetailsViewController.m */; };
-		28B228A71D0EAB0600E7AAFA /* MLGoodsDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B228A41D0EAB0600E7AAFA /* MLGoodsDetailsViewController.xib */; };
 		28CEFB1A1CF99C940070E2CA /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CEFB191CF99C940070E2CA /* JSBadgeView.m */; };
 		28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85CE1CEDC59900E582EE /* UMSocialLocalizable.strings */; };
 		28CF86051CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85DC1CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a */; };
@@ -355,6 +354,7 @@
 		7A4869C81D0F9C73001FDE5C /* MLShopingCartlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4869C71D0F9C73001FDE5C /* MLShopingCartlistModel.m */; };
 		7A5DCF0F1CD9FEFC003030C7 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7A5DCF0A1CD9FEFC003030C7 /* read_me.txt */; };
 		7A5DCF2F1CDA068C003030C7 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DCF2E1CDA068C003030C7 /* Order.m */; };
+		7A61D6351D10EA85004F0487 /* VIPCardHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A61D6341D10EA85004F0487 /* VIPCardHistoryModel.m */; };
 		7A6B22CB1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B22C91D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.m */; };
 		7A6B22CC1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A6B22CA1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.xib */; };
 		7A7672E01D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7672DE1D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.m */; };
@@ -367,6 +367,16 @@
 		7ACD3A7A1CE86D97004BAF8B /* MLReturnsHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD3A791CE86D97004BAF8B /* MLReturnsHeader.m */; };
 		7ACD3A7C1CE86DA5004BAF8B /* MLReturnsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ACD3A7B1CE86DA5004BAF8B /* MLReturnsHeader.xib */; };
 		7ACD3A7F1CE9669A004BAF8B /* MLWishlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD3A7E1CE9669A004BAF8B /* MLWishlistModel.m */; };
+		7ACFA5F61D11233B00987A03 /* MLPersonAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACFA5F41D11233B00987A03 /* MLPersonAlertViewController.m */; };
+		7ACFA5F71D11233B00987A03 /* MLPersonAlertViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ACFA5F51D11233B00987A03 /* MLPersonAlertViewController.xib */; };
+		7ACFA5FA1D1124D900987A03 /* MLAllOrdersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACFA5F91D1124D900987A03 /* MLAllOrdersViewController.m */; };
+		7ACFA5FD1D1125AF00987A03 /* MLPersonOrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACFA5FC1D1125AF00987A03 /* MLPersonOrderListViewController.m */; };
+		7ACFA6011D112DE200987A03 /* MLOrderCenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACFA5FF1D112DE200987A03 /* MLOrderCenterTableViewCell.m */; };
+		7ACFA6021D112DE200987A03 /* MLOrderCenterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ACFA6001D112DE200987A03 /* MLOrderCenterTableViewCell.xib */; };
+		7ACFA6101D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACFA60E1D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.m */; };
+		7ACFA6111D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ACFA60F1D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.xib */; };
+		7ACFA6151D11436200987A03 /* MLOrderInfoFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACFA6131D11436200987A03 /* MLOrderInfoFooterTableViewCell.m */; };
+		7ACFA6161D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ACFA6141D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib */; };
 		7AD815FD1CDD7736001761C8 /* YMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD815FC1CDD7736001761C8 /* YMNavigationController.m */; };
 		7AEC88C91CE4522E00B43DD4 /* MLScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC88C81CE4522E00B43DD4 /* MLScoreView.m */; };
 		7AEC88CE1CE45D1500B43DD4 /* MLGoodsComHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC88CD1CE45D1500B43DD4 /* MLGoodsComHeadView.m */; };
@@ -1140,6 +1150,8 @@
 		7A5DCF0D1CD9FEFC003030C7 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		7A5DCF2D1CDA068C003030C7 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		7A5DCF2E1CDA068C003030C7 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		7A61D6331D10EA85004F0487 /* VIPCardHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIPCardHistoryModel.h; sourceTree = "<group>"; };
+		7A61D6341D10EA85004F0487 /* VIPCardHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIPCardHistoryModel.m; sourceTree = "<group>"; };
 		7A6B22C81D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCartHeadCollectionReusableView.h; sourceTree = "<group>"; };
 		7A6B22C91D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCartHeadCollectionReusableView.m; sourceTree = "<group>"; };
 		7A6B22CA1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLCartHeadCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -1160,6 +1172,22 @@
 		7ACD3A7B1CE86DA5004BAF8B /* MLReturnsHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLReturnsHeader.xib; sourceTree = "<group>"; };
 		7ACD3A7D1CE9669A004BAF8B /* MLWishlistModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLWishlistModel.h; sourceTree = "<group>"; };
 		7ACD3A7E1CE9669A004BAF8B /* MLWishlistModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLWishlistModel.m; sourceTree = "<group>"; };
+		7ACFA5F31D11233B00987A03 /* MLPersonAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPersonAlertViewController.h; sourceTree = "<group>"; };
+		7ACFA5F41D11233B00987A03 /* MLPersonAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPersonAlertViewController.m; sourceTree = "<group>"; };
+		7ACFA5F51D11233B00987A03 /* MLPersonAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLPersonAlertViewController.xib; sourceTree = "<group>"; };
+		7ACFA5F81D1124D900987A03 /* MLAllOrdersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAllOrdersViewController.h; sourceTree = "<group>"; };
+		7ACFA5F91D1124D900987A03 /* MLAllOrdersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAllOrdersViewController.m; sourceTree = "<group>"; };
+		7ACFA5FB1D1125AF00987A03 /* MLPersonOrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPersonOrderListViewController.h; sourceTree = "<group>"; };
+		7ACFA5FC1D1125AF00987A03 /* MLPersonOrderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPersonOrderListViewController.m; sourceTree = "<group>"; };
+		7ACFA5FE1D112DE200987A03 /* MLOrderCenterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderCenterTableViewCell.h; sourceTree = "<group>"; };
+		7ACFA5FF1D112DE200987A03 /* MLOrderCenterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderCenterTableViewCell.m; sourceTree = "<group>"; };
+		7ACFA6001D112DE200987A03 /* MLOrderCenterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLOrderCenterTableViewCell.xib; sourceTree = "<group>"; };
+		7ACFA60D1D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderInfoHeaderTableViewCell.h; sourceTree = "<group>"; };
+		7ACFA60E1D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderInfoHeaderTableViewCell.m; sourceTree = "<group>"; };
+		7ACFA60F1D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLOrderInfoHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		7ACFA6121D11436200987A03 /* MLOrderInfoFooterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderInfoFooterTableViewCell.h; sourceTree = "<group>"; };
+		7ACFA6131D11436200987A03 /* MLOrderInfoFooterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderInfoFooterTableViewCell.m; sourceTree = "<group>"; };
+		7ACFA6141D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLOrderInfoFooterTableViewCell.xib; sourceTree = "<group>"; };
 		7AD815FB1CDD7736001761C8 /* YMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMNavigationController.h; sourceTree = "<group>"; };
 		7AD815FC1CDD7736001761C8 /* YMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMNavigationController.m; sourceTree = "<group>"; };
 		7AEC88C71CE4522E00B43DD4 /* MLScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLScoreView.h; sourceTree = "<group>"; };
@@ -2693,6 +2721,15 @@
 				3ACF2D0C1CA535FE003D1F67 /* MLRPayTableViewCell.h */,
 				3ACF2D0D1CA535FE003D1F67 /* MLRPayTableViewCell.m */,
 				3ACF2D0E1CA535FE003D1F67 /* MLRPayTableViewCell.xib */,
+				7ACFA5FE1D112DE200987A03 /* MLOrderCenterTableViewCell.h */,
+				7ACFA5FF1D112DE200987A03 /* MLOrderCenterTableViewCell.m */,
+				7ACFA6001D112DE200987A03 /* MLOrderCenterTableViewCell.xib */,
+				7ACFA60D1D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.h */,
+				7ACFA60E1D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.m */,
+				7ACFA60F1D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.xib */,
+				7ACFA6121D11436200987A03 /* MLOrderInfoFooterTableViewCell.h */,
+				7ACFA6131D11436200987A03 /* MLOrderInfoFooterTableViewCell.m */,
+				7ACFA6141D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib */,
 			);
 			path = OredrInfo;
 			sourceTree = "<group>";
@@ -2825,10 +2862,10 @@
 		3CAE048B1D06C5CE004504EA /* cardModel */ = {
 			isa = PBXGroup;
 			children = (
+				7A61D6331D10EA85004F0487 /* VIPCardHistoryModel.h */,
+				7A61D6341D10EA85004F0487 /* VIPCardHistoryModel.m */,
 				3CAE048C1D06C5FE004504EA /* VipCardModel.h */,
 				3CAE048D1D06C5FE004504EA /* VipCardModel.m */,
-				3C1599371D1008D2004CDFD9 /* VIPCardHistoryModel.h */,
-				3C1599381D1008D2004CDFD9 /* VIPCardHistoryModel.m */,
 			);
 			path = cardModel;
 			sourceTree = "<group>";
@@ -2914,6 +2951,9 @@
 		7A3A62471CDB874F00D265F2 /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				7ACFA5F31D11233B00987A03 /* MLPersonAlertViewController.h */,
+				7ACFA5F41D11233B00987A03 /* MLPersonAlertViewController.m */,
+				7ACFA5F51D11233B00987A03 /* MLPersonAlertViewController.xib */,
 				7A3A624E1CDB874F00D265F2 /* MLAfterSaleViewController.h */,
 				7A3A624F1CDB874F00D265F2 /* MLAfterSaleViewController.m */,
 				7A3A62501CDB874F00D265F2 /* MLHYHTableViewController.h */,
@@ -2935,6 +2975,10 @@
 				7AEDD0E61CE5EDC2009B12F4 /* MLWishlistViewController.h */,
 				7AEDD0E71CE5EDC2009B12F4 /* MLWishlistViewController.m */,
 				280F7CDA1CF8249000D42FA6 /* MLWishlistViewController.xib */,
+				7ACFA5F81D1124D900987A03 /* MLAllOrdersViewController.h */,
+				7ACFA5F91D1124D900987A03 /* MLAllOrdersViewController.m */,
+				7ACFA5FB1D1125AF00987A03 /* MLPersonOrderListViewController.h */,
+				7ACFA5FC1D1125AF00987A03 /* MLPersonOrderListViewController.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -3066,6 +3110,7 @@
 				7AEDD0C61CE59F5D009B12F4 /* MLSaleServiceProductCell.xib in Resources */,
 				3A633B8C1C9EA82200C11FD5 /* MLClassViewController.xib in Resources */,
 				3A1F72CC1CA3F904000ECE08 /* HFSOrderListFooterView.xib in Resources */,
+				7ACFA6161D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib in Resources */,
 				3A16DC521CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.xib in Resources */,
 				3A633B4D1C9EA36E00C11FD5 /* Documentation.html in Resources */,
 				3C5B0C6F1CFC372D003FFD25 /* MessagesTableViewCell.xib in Resources */,
@@ -3083,6 +3128,7 @@
 				3C5B0C711CFC372D003FFD25 /* MessagesViewController.xib in Resources */,
 				280F7CDB1CF8249000D42FA6 /* MLWishlistViewController.xib in Resources */,
 				7AF725BA1CE1306600B00FB8 /* MLKuajingCell.xib in Resources */,
+				7ACFA6021D112DE200987A03 /* MLOrderCenterTableViewCell.xib in Resources */,
 				3ACF2D011CA52F1F003D1F67 /* MLTisTableViewCell.xib in Resources */,
 				3A16DC401CA0EA69007AE4A2 /* RecommendCollectionViewCell.xib in Resources */,
 				3A1AA8C71CAA58F200AF73C2 /* MLAddressInfoViewController.xib in Resources */,
@@ -3093,6 +3139,7 @@
 				7AEC88D81CE462EF00B43DD4 /* MLGoodsComFootView.xib in Resources */,
 				7A3A626A1CDB874F00D265F2 /* MLAfterSaleProductCell.xib in Resources */,
 				3AF01E5C1CBBAB94005830BD /* MLLogisticsViewController.xib in Resources */,
+				7ACFA5F71D11233B00987A03 /* MLPersonAlertViewController.xib in Resources */,
 				7A3A62731CDB874F00D265F2 /* MLOrderSubHeadCell.xib in Resources */,
 				280AADB21CFEDC7500E7A2FA /* 1.JPG in Resources */,
 				280F7D701CF972CC00D42FA6 /* MLPropertysubCell.xib in Resources */,
@@ -3124,6 +3171,7 @@
 				7AEC88D01CE45D2200B43DD4 /* MLGoodsComHeadView.xib in Resources */,
 				28CF86081CEDC59A00E582EE /* UMSCommentInputControlleriPad.xib in Resources */,
 				D6D8036D1CAE6B62001C0FE0 /* MLFootprintViewController.xib in Resources */,
+				7ACFA6111D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.xib in Resources */,
 				28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */,
 				3ACF2CF61CA52062003D1F67 /* MLOrderInfoViewController.xib in Resources */,
 				7AEDD0DD1CE5CAF6009B12F4 /* MLReturnRequestTableViewCell.xib in Resources */,
@@ -3243,8 +3291,10 @@
 				3A633B2E1C9EA36E00C11FD5 /* UIColor+HeinQi.m in Sources */,
 				3C5B0C811CFC37E3003FFD25 /* CustomeColorObject.m in Sources */,
 				3A633B5E1C9EA36E00C11FD5 /* ZLPhotoAssets.m in Sources */,
+				7ACFA6011D112DE200987A03 /* MLOrderCenterTableViewCell.m in Sources */,
 				7AF0D7CD1CE581E400A8F913 /* UIView+BlankPage.m in Sources */,
 				3A633B8B1C9EA82200C11FD5 /* MLClassViewController.m in Sources */,
+				7ACFA6151D11436200987A03 /* MLOrderInfoFooterTableViewCell.m in Sources */,
 				3A1F72CB1CA3F904000ECE08 /* HFSOrderListFooterView.m in Sources */,
 				3AE02DB11CAB5F810016FA75 /* Model.xcdatamodeld in Sources */,
 				280F7CD01CF7F44800D42FA6 /* bitstream.c in Sources */,
@@ -3265,7 +3315,6 @@
 				280F7D6A1CF9729A00D42FA6 /* MLPropertyCell.m in Sources */,
 				3C5B0C801CFC37E3003FFD25 /* CustomButton.m in Sources */,
 				3ACF2CF11CA5070E003D1F67 /* ZipArchive.mm in Sources */,
-				3C1599391D1008D2004CDFD9 /* VIPCardHistoryModel.m in Sources */,
 				7AED64731CDDBD9B008F55BD /* MLHelpCenterDetailController.m in Sources */,
 				2CBAD6431CA3AD4B0044601B /* MLBagActiveTableViewCell.m in Sources */,
 				3ACF2CF01CA5070E003D1F67 /* zip.c in Sources */,
@@ -3290,6 +3339,7 @@
 				7AF141631CE1FD50005DDE70 /* MLProductOrderCell.m in Sources */,
 				3A633B531C9EA36E00C11FD5 /* ZLCameraImageView.m in Sources */,
 				3A633B5C1C9EA36E00C11FD5 /* ZLPhotoPickerBrowserPhotoView.m in Sources */,
+				7ACFA5FD1D1125AF00987A03 /* MLPersonOrderListViewController.m in Sources */,
 				2CBAD64D1CA3B3AC0044601B /* MLBagZengpinTableViewCell.m in Sources */,
 				687704241CD34E4A0008ED46 /* SBJsonParser.m in Sources */,
 				3A633B4E1C9EA36E00C11FD5 /* SSKeychain.m in Sources */,
@@ -3306,6 +3356,7 @@
 				3A16DC611CA15BB7007AE4A2 /* MLSearchViewController.m in Sources */,
 				7A3A62701CDB874F00D265F2 /* MLOrderSubComCell.m in Sources */,
 				7A3A626D1CDB874F00D265F2 /* MLOrderComProductCell.m in Sources */,
+				7ACFA6101D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.m in Sources */,
 				3A633B551C9EA36E00C11FD5 /* ZLCameraViewController.m in Sources */,
 				280F7CD71CF7F44800D42FA6 /* split.c in Sources */,
 				3A1AA8D11CAA7D3400AF73C2 /* MLPayresultHeader.m in Sources */,
@@ -3320,6 +3371,7 @@
 				7A3A62461CDB872700D265F2 /* YMLeftImageField.m in Sources */,
 				3AE02E081CAB9F430016FA75 /* MLSXView.m in Sources */,
 				3A633B641C9EA36E00C11FD5 /* ZLPhotoPickerGroupViewController.m in Sources */,
+				7A61D6351D10EA85004F0487 /* VIPCardHistoryModel.m in Sources */,
 				3A633B311C9EA36E00C11FD5 /* UIView+HeinQi.m in Sources */,
 				7A3486691D0EC01F002EE211 /* MLCartFootCollectionReusableView.m in Sources */,
 				3A633B391C9EA36E00C11FD5 /* TAAnimatedDotView.m in Sources */,
@@ -3331,6 +3383,7 @@
 				687703D01CCEE9330008ED46 /* MMMaterialDesignSpinner.m in Sources */,
 				3ACF2CED1CA5070E003D1F67 /* ioapi.c in Sources */,
 				3A633B381C9EA36E00C11FD5 /* TAAbstractDotView.m in Sources */,
+				7ACFA5FA1D1124D900987A03 /* MLAllOrdersViewController.m in Sources */,
 				3A633B661C9EA36E00C11FD5 /* ZLPhotoPickerCollectionView.m in Sources */,
 				3C055CD81D08143700362C4D /* ShenFenZhengController.m in Sources */,
 				3A633B501C9EA36E00C11FD5 /* UIImage+ZLPhotoLib.m in Sources */,
@@ -3390,6 +3443,7 @@
 				7AED64631CDDAB13008F55BD /* MLTermViewController.m in Sources */,
 				3A633B2A1C9EA36E00C11FD5 /* AFHTTPRequestOperationManager+HeinQi.m in Sources */,
 				3CAE04A01D06DDD5004504EA /* GCDTimer.m in Sources */,
+				7ACFA5F61D11233B00987A03 /* MLPersonAlertViewController.m in Sources */,
 				280F7D561CF93E3200D42FA6 /* NSSet+HYBUnicodeReadable.m in Sources */,
 				3AA0E7AC1CA91E500079AA90 /* openssl_wrapper.m in Sources */,
 				3A633B591C9EA36E00C11FD5 /* ZLPhotoPickerBrowserViewController.m in Sources */,

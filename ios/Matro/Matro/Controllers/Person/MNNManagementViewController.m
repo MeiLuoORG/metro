@@ -285,7 +285,6 @@
             NSData *imgdata = [NSData dataWithContentsOfFile:filePath];
             
             NSString *_encodedImageStr =[NSString stringWithFormat:@"data:image/jpeg;base64,%@",[imgdata base64EncodedStringWithOptions:0]] ;
-//            _encodedImageStr=[_encodedImageStr gtm_stringByEscapingForURLArgument];
             NSDictionary *persondic = @{@"imgFileName":@"avator.jpg",@"imgType":@"ReduceResolution",@"imgContent":_encodedImageStr};
             
             SBJSON *sbjson = [SBJSON new];

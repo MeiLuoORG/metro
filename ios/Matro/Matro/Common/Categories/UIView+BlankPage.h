@@ -13,8 +13,11 @@ typedef NS_ENUM(NSInteger,EaseBlankPageType){
     EaseBlankPageTypeShouHou,
     EaseBlankPageTypeZhuiZong,
     EaseBlankPageTypeShouCang,
+    EaseBlankPageTypeShouhuodizhi,
     EaseBlankPageTypeGouWuDai,
+    EaseBlankPageTypeDingdan,
     EaseBlankPageTypeLiuLan,
+   
 };
 @interface UIView (BlankPage)
 

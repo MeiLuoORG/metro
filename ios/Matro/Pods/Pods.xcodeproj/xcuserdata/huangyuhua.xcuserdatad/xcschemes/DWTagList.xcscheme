@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '28B6700A1E28698B26BF5914'
+               BlueprintIdentifier = 'CC2E14B94BE7CFFBF4084BA9'
                BlueprintName = 'DWTagList'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'DWTagList.framework'>

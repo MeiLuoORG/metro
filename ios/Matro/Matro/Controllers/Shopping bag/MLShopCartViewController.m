@@ -102,7 +102,7 @@ static BOOL showLogin;
         make.top.mas_equalTo(self.loginView.mas_bottom).offset(8);
         make.left.right.bottom.mas_equalTo(self.view);
     }];
-    
+    [self getDataSource];
 }
 
 
@@ -117,15 +117,20 @@ static BOOL showLogin;
             [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"网络错误");
-        
+        NSLog(@"网络错误");  
     }];
 }
 
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self getDataSource];
+     NSString  *loginid = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
+    if (loginid) {
+        [self showOrHiddenLoginView:NO];
+    }
+    else{
+        [self showOrHiddenLoginView:YES];
+    }
 }
 
 #pragma mark -- UICollectionViewDataSource
@@ -322,8 +327,12 @@ static BOOL showLogin;
 
 
 - (void)loginAction:(id)sender{
-    showLogin = !showLogin;
-    [self showOrHiddenLoginView:showLogin];
+    
+    
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+    
 }
 
 
