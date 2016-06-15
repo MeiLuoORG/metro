@@ -129,7 +129,7 @@ static BOOL showLogin;
 }
 
 #pragma mark -- UICollectionViewDataSource
-//定义展示的UICollectionViewCell的个数
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if (section == self.shopCart.cart.count) {
@@ -164,7 +164,6 @@ static BOOL showLogin;
         cell.countField.value = model.num;
         cell.countField.stepperDelegate = self;
         cell.countField.proList = model;
-        NSLog(@"****%@****",model.ID);
         return cell;
     }
 
@@ -178,10 +177,8 @@ static BOOL showLogin;
     
 }
 - (void)subButtonClick:(MLProlistModel *)prolist count:(int)textCount{
-    prolist.num = textCount;//调用接口
     [self changeNumWith:prolist andCount:textCount];
-    
-    
+
 }
 
 
@@ -333,7 +330,7 @@ static BOOL showLogin;
 - (void)showOrHiddenLoginView:(BOOL)isShow{
     self.loginView.hidden = !isShow;
     [self.collectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(isShow? self.loginView.mas_bottom:self.view);
+        make.top.mas_equalTo(isShow? self.loginView.mas_bottom:self.view).offset(10);
         make.left.right.bottom.mas_equalTo(self.view);
     }];
 }

@@ -29,7 +29,7 @@
 
 
 - (void)setProlistModel:(MLProlistModel *)prolistModel{
-    if (_prolistModel != prolistModel) {
+//    if (_prolistModel != prolistModel) {
         _prolistModel = prolistModel;
         [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic]];
         self.goodName.text = _prolistModel.pname;
@@ -45,11 +45,9 @@
 //        }
         self.giftDesc.text = @"暂无数据";
         
-        self.countField.value = _prolistModel.num;
+        [self.countField setTextValue:_prolistModel.num];
         
-        
-        
-    }
+//    }
 }
 
 
