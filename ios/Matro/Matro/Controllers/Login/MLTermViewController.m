@@ -20,6 +20,8 @@
 //    NSURL *url = [[NSURL alloc]initWithString:@"http://www.matrojp.com/Bzzx/BzzxPage.aspx?code=0103010901"];
 //    
 //    [_termWebview loadRequest:[NSURLRequest requestWithURL:url]];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self loadTopView];
     self.title = @"用户协议";
     NSString* path = [[NSBundle mainBundle] pathForResource:@"declare" ofType:@"html"];
     NSURL* url = [NSURL fileURLWithPath:path];
@@ -31,6 +33,17 @@
 //    self.title = @"美罗全球购注册协议";
 //    NSString *body = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
 //    [_termWebview loadHTMLString:body baseURL:nil];
+    
+    
+}
+- (void)loadTopView{
+    NavTopCommonImage * navTop = [[NavTopCommonImage alloc]initWithTitle:@"用户协议"];
+    [navTop loadLeftBackButtonwith:0];
+    [navTop backButtonAction:^(BOOL succes) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [self.view addSubview:navTop];
+
 }
 
 - (void)didReceiveMemoryWarning {

@@ -29,7 +29,8 @@
     UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationItem setBackBarButtonItem:item];
     
-    self.view.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
+    self.view.backgroundColor = [UIColor whiteColor];
+    //self.view.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
 }
 
 - (AppDelegate *)getAppDelegate {

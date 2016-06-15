@@ -182,6 +182,7 @@
     [userDefaults removeObjectForKey:kUSERDEFAULT_USERNAME];
     [userDefaults removeObjectForKey:KUSERDEFAULT_ISHAVE_DEFAULTCARD_BOOL];
     [userDefaults removeObjectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    [userDefaults removeObjectForKey:KUSERDEFAULT_CARDTYPE_CURRENT];
     
     [self.navigationController popViewControllerAnimated:YES];
     //[self logoutAction];

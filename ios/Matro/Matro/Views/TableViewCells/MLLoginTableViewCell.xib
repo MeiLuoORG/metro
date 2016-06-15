@@ -20,10 +20,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QK9-wb-Jn6">
-                        <rect key="frame" x="5" y="0.0" width="315" height="43"/>
+                        <rect key="frame" x="19" y="0.0" width="301" height="43"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.68235294117647061" green="0.55686274509803924" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADR-9y-Hkf">
@@ -43,7 +43,7 @@
                     <constraint firstItem="QK9-wb-Jn6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1Bc-xn-bpo"/>
                     <constraint firstItem="Sxc-N3-mQl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="379-V7-axN"/>
                     <constraint firstItem="Sxc-N3-mQl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6MK-jn-Au3"/>
-                    <constraint firstItem="QK9-wb-Jn6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="MaS-Nu-CcN"/>
+                    <constraint firstItem="QK9-wb-Jn6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="MaS-Nu-CcN"/>
                     <constraint firstAttribute="trailing" secondItem="Sxc-N3-mQl" secondAttribute="trailing" id="T54-Dg-5wB"/>
                     <constraint firstAttribute="trailing" secondItem="QK9-wb-Jn6" secondAttribute="trailing" id="blm-jV-efL"/>
                     <constraint firstAttribute="bottom" secondItem="Sxc-N3-mQl" secondAttribute="bottom" id="fLp-fW-L5e"/>

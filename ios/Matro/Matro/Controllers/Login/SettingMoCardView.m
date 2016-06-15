@@ -25,6 +25,7 @@
 */
 
 - (void)loadViews{
+    self.selectedBtnARR = [[NSMutableArray alloc]init];
     self.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.8];
     
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SIZE_WIDTH, SIZE_HEIGHT-64)];
@@ -57,7 +58,7 @@
     
     self.OKButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.OKButton setTitle:@"确定" forState:UIControlStateNormal];
-    [self.OKButton setFrame:CGRectMake(30, SIZE_HEIGHT-80, SIZE_WIDTH-60, 40)];
+    [self.OKButton setFrame:CGRectMake(22, SIZE_HEIGHT-80, SIZE_WIDTH-44, 40)];
     [self.OKButton setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
     [self.OKButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.OKButton addTarget:self action:@selector(OKbuttonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -83,8 +84,8 @@
 }
 */
 - (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-
-    return self.cardARR.count;
+    return 7;
+    //return self.cardARR.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -96,16 +97,25 @@
    // SettingMoCardCell * cell2 = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
         cell = (SettingMoCardCell *)[[NSBundle mainBundle] loadNibNamed:@"MessagesTableViewCell" owner:nil options:nil][0];
+        
     }
+    [self.selectedBtnARR addObject:cell.selectButton];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"点击单元格");
+    //数组里每个对象都执行一个方法
+    //[self.selectedBtnARR makeObjectsPerformSelector:@selector()];
+    for (UIButton * btn in self.selectedBtnARR) {
+        btn.selected = NO;
+    }
+    
     VipCardModel * cardModel = (VipCardModel *)[self.cardARR objectAtIndex:indexPath.row];
     self.cardNoString = cardModel.cardNo;
-    self.cardNoString = cardModel.cardTypeIdString;
+    //self.cardNoString = cardModel.cardTypeIdString;
+    self.cardTypeName = cardModel.cardTypeName;
     SettingMoCardCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.selectButton.selected = YES;
     NSLog(@"所选默认卡的卡号为：%@",self.cardNoString);
@@ -114,10 +124,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    /*
     SettingMoCardCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-
     cell.selectButton.selected = NO;
-    [tableView reloadData];
+    */
+     //[tableView reloadData];
+    
     //[tableView reloadRowsAtIndexPaths:indexPath withRowAnimation:nil];
     //self layoutIfNeeded
 }

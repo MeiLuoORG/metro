@@ -99,6 +99,8 @@
 #define Main_textRedBackgroundColor @"f1653e"
 //分割线
 #define Main_spelBackgroundColor @"dedede"
+//边框颜色灰色
+#define Main_bianGrayBackgroundColor @"cccccc"
 
 //背景灰
 #define Main_beijingGray_BackgroundColor @"f1f1f1"

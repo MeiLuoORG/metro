@@ -24,6 +24,7 @@
 #pragma 正则匹配用户密码6-18位数字和字母组合
 + (BOOL)checkPassword:(NSString *) password
 {
+///^[0-9a-zA-Z_]*$/
     NSString *pattern = @"^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,18}";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
     BOOL isMatch = [pred evaluateWithObject:password];
@@ -31,10 +32,18 @@
     
 }
 
++ (BOOL)checkPasswordMeiLuo:(NSString *)password{
+    NSString *pattern = @"^([0-9a-zA-Z_]*$){6,20}";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:password];
+    return isMatch;
+
+}
+
 #pragma 正则匹配用户姓名,20位的中文或英文
 + (BOOL)checkUserName : (NSString *) userName
 {
-    NSString *pattern = @"^[a-zA-Z一-龥]{1,20}";
+    NSString *pattern = @"^[a-zA-Z一-龥]{6,20}";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
     BOOL isMatch = [pred evaluateWithObject:userName];
     return isMatch;

@@ -12,6 +12,7 @@
 #import "NavTopCommonImage.h"
 #import "VipCardModel.h"
 #import "HYGCD.h"
+#import "ZhengZePanDuan.h"
 
 @interface MLLoginViewController : MLBaseViewController<UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -21,5 +22,7 @@
 @property (strong ,nonatomic) SettingMoCardView * settingMoCardView;
 
 @property (strong, nonatomic) NSMutableArray * vipCardArray;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *thirdLoginViewTopC;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *thirdLoginViewButtomC;
 
 @end

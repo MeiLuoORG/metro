@@ -39,6 +39,9 @@
 		285326EF1CFD6F1300FA2AB0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 285326EE1CFD6F1300FA2AB0 /* Info.plist */; };
 <<<<<<< Updated upstream
 		28B228A61D0EAB0600E7AAFA /* MLGoodsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B228A31D0EAB0600E7AAFA /* MLGoodsDetailsViewController.m */; };
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 		28CEFB1A1CF99C940070E2CA /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CEFB191CF99C940070E2CA /* JSBadgeView.m */; };
@@ -2871,8 +2874,13 @@
 			isa = PBXGroup;
 			children = (
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 				7A61D6331D10EA85004F0487 /* VIPCardHistoryModel.h */,
 				7A61D6341D10EA85004F0487 /* VIPCardHistoryModel.m */,
+=======
+				3CD1BB141D10EA2100D4A3BA /* VIPCardHistoryModel.h */,
+				3CD1BB151D10EA2100D4A3BA /* VIPCardHistoryModel.m */,
+>>>>>>> Stashed changes
 =======
 				3CD1BB141D10EA2100D4A3BA /* VIPCardHistoryModel.h */,
 				3CD1BB151D10EA2100D4A3BA /* VIPCardHistoryModel.m */,
@@ -3387,7 +3395,11 @@
 				3AE02E081CAB9F430016FA75 /* MLSXView.m in Sources */,
 				3A633B641C9EA36E00C11FD5 /* ZLPhotoPickerGroupViewController.m in Sources */,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 				7A61D6351D10EA85004F0487 /* VIPCardHistoryModel.m in Sources */,
+=======
+				3CD1BB161D10EA2100D4A3BA /* VIPCardHistoryModel.m in Sources */,
+>>>>>>> Stashed changes
 =======
 				3CD1BB161D10EA2100D4A3BA /* VIPCardHistoryModel.m in Sources */,
 >>>>>>> Stashed changes

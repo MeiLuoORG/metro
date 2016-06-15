@@ -21,4 +21,6 @@
 + (BOOL)checkEmployeeNumber : (NSString *) number;
 #pragma 正则匹配URL
 + (BOOL)checkURL : (NSString *) url;
+#pragma 6-20位数字或字符组合
++ (BOOL)checkPasswordMeiLuo:(NSString *)password;
 @end

@@ -22,6 +22,9 @@ typedef void(^BindButtonBlock)(BOOL success);
 @property (strong, nonatomic) NSString * cardNoString;
 @property (assign, nonatomic) NSString * cardTypeStr;
 @property (strong, nonatomic) UIButton * OKButton;
+@property (strong, nonatomic) NSString * cardTypeName;
+
+@property (strong, nonatomic) NSMutableArray * selectedBtnARR;
 
 - (void)bindButtonBlockAction:(BindButtonBlock )block;
 - (void)loadViews;
