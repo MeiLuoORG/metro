@@ -201,9 +201,11 @@
     }
     if (indexPath.section == 1 && indexPath.row == 0) {
         NSLog(@"我的资产");
+        /*
         MLMyPropertyViewController *vc = [[MLMyPropertyViewController alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
+         */
     }
     if (indexPath.section == 2) {
         switch (indexPath.row) {

@@ -7,7 +7,11 @@
 //
 
 #import "MLBaseViewController.h"
-
+#import "HFSServiceClient.h"
+#import "VIPCardHistoryModel.h"
 @interface MNNPurchaseHistoryViewController : MLBaseViewController
+
+@property (strong, nonatomic) NSString * cardID;
+
 
 @end

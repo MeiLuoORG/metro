@@ -32,6 +32,7 @@
 #import "MLShareGoodsViewController.h"
 #import "MLGoodsSharePhotoViewController.h"
 #import "MBProgressHUD+Add.h"
+#import <DWTagList/DWTagList.h>
 
 
 @interface UIImage (SKTagView)
@@ -39,7 +40,7 @@
 + (UIImage *)imageWithColor: (UIColor *)color;
 @end
 
-@interface MLGoodsDetailsViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIAlertViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,YAScrollSegmentControlDelegate>{
+@interface MLGoodsDetailsViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIAlertViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,YAScrollSegmentControlDelegate,DWTagListDelegate>{
     
     NSMutableArray *_imageArray;//轮播图数组
     
@@ -54,6 +55,10 @@
     NSMutableArray *imgUrlArray;
     
     UIView *overView;
+    DWTagList *huoyuanList;
+    DWTagList *jieduanList;
+    NSArray *huoyuanArray;
+    NSArray *jieduanArray;
     
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;//最底层的SV
@@ -90,10 +95,15 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tisH;
 
 @property (strong, nonatomic) IBOutlet UIWebView *webView;//图文详情，加在第二页
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *kuajingHeight;
 
 @property (nonatomic,strong)MLKuajingCell *xiaoshuiView;
 @property (nonatomic,strong)MLKuajingCell *zengzhiView;
+@property (weak, nonatomic) IBOutlet UIView *tedianView;
+@property (weak, nonatomic) IBOutlet UIView *zengpinView;
+@property (weak, nonatomic) IBOutlet UIView *huoYuanView;
+@property (weak, nonatomic) IBOutlet UIView *jieDuanView;
 
 
 
@@ -109,6 +119,7 @@
     titleView.backgroundColor = [UIColor clearColor];
     titleView.tintColor = [UIColor clearColor];
     titleView.buttons = @[@"商    品",@"图文详情"];
+    
     [titleView setTitleColor:[UIColor colorWithHexString:@"AE8E5D"] forState:UIControlStateSelected];
     [titleView setTitleColor:[UIColor colorWithHexString:@"0E0E0E"] forState:UIControlStateNormal];
     [titleView setBackgroundImage:[UIImage imageNamed:@"sel_type_g"] forState:UIControlStateSelected];
@@ -117,10 +128,14 @@
     self.navigationItem.titleView = titleView;
     _recommendArray = [[NSMutableArray alloc] init];
     
+//    _xiaoshuiView = [MLKuajingCell kuajingCell];
+//    _xiaoshuiView.titleLabel.text = @"关税税率:";
+//    _zengzhiView = [MLKuajingCell kuajingCell];
+//    _zengzhiView.titleLabel.text = @"增值税率:";
     _xiaoshuiView = [MLKuajingCell kuajingCell];
-    _xiaoshuiView.titleLabel.text = @"关税税率:";
+    _xiaoshuiView.titleLabel.text = @"原产国:";
     _zengzhiView = [MLKuajingCell kuajingCell];
-    _zengzhiView.titleLabel.text = @"增值税率:";
+    _zengzhiView.titleLabel.text = @"税率:";
     
     imgUrlArray = [NSMutableArray array];
     // 一期隐藏
@@ -194,11 +209,205 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
 }
+
+
+-(DWTagList *)styleTagList:(DWTagList *)tagList {
+    
+    tagList.font = [UIFont systemFontOfSize:14.0f];
+    tagList.borderColor = [UIColor colorWithHexString:@"#EBEBEB"];
+    tagList.textColor = [UIColor colorWithHexString:@"#ffffff"];
+    tagList.labelMargin = 6.0f;
+    [tagList setTagBackgroundColor:RGBA(252, 132, 106, 1)];
+    tagList.cornerRadius = 4.0f;
+    tagList.horizontalPadding = 6.0f;
+    tagList.verticalPadding = 6.0f;
+    
+    return tagList;
+}
+
+
 #pragma mark 获取商品详情数据
 - (void)loadDateProDetail {
+    //http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233
+    
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@",@"http://bbctest.matrojp.com",_paramDic[@"id"]];
+    
+    [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"responseObject===%@",responseObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSDictionary *dic = responseObject[@"data"];
+       
+        
+        if (dic && dic[@"pinfo"] && dic[@"pinfo"]!=[NSNull null]) {
+            NSLog(@"return dic %@",dic);
+            NSDictionary *tempdic = dic[@"pinfo"];
+            self.shareDic = tempdic;
+            if (tempdic[@"jmsp_id"] && tempdic[@"jmsp_id"] !=[NSNull null]) {
+                spid = dic[@"pinfo"][@"jmsp_id"];
+                
+            }
+            if (dic[@"pinfo"][@"production_name"]) {
+                self.yuanchandiLabel.text = dic[@"pinfo"][@"production_name"];
+                
+            }
+            
+            //加载h5详情页
+            if (dic[@"pinfo"][@"detail"]) {
+                NSString *htmlCode = [NSString stringWithFormat:@"<html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"><style type=\"text/css\">body{font-size : 0.9em;}img{width:%@ !important;}</style></head><body>%@</body></html>",@"100%",dic[@"pinfo"][@"detail"]];
+                NSLog(@"%@",htmlCode);
+                
+                [self.webView loadHTMLString:htmlCode baseURL:nil];
+            }
+//            self.biaotiLabel.text = dic[@"pinfo"][@"NAMELIST"][@"2"]?:@"";
+//            self.texingLabel.text = dic[@"pinfo"][@"NAMELIST"][@"3"]?:@"";
+            self.biaotiLabel.text = dic[@"pinfo"][@"pname"];
+            self.texingLabel.text = dic[@"pinfo"][@"p_name"];
+            float  originprice= [dic[@"pinfo"][@"price"] floatValue];
+            
+            float pricef = [dic[@"pinfo"][@"market_price"] floatValue];
+            NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
+            self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+            
+            NSAttributedString *attrStr =
+            [[NSAttributedString alloc]initWithString:pricestr
+                                           attributes:
+             @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+               NSForegroundColorAttributeName:[UIColor grayColor],
+               NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+               NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+            self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
+            
+//            
+//            self.shuliangStepper.paramDic = dic;
+//            [self.shuliangStepper setTextValue:1];
+//            self.kuncuntisLabel.text = dic[@"pinfo"][@"amount"];
+           // UIButton *leftbtn = (UIButton*)self.shuliangStepper.leftView;
+            //UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
+            
+            /*
+            if ([self.kuncuntisLabel.text isEqualToString:@"售罄"]) {
+                [self.shuliangStepper setTextValue:0];
+                leftbtn.enabled=NO;
+                rightbtn.enabled = NO;
+            }
+             */
+            NSLog(@"%@",dic);
+            if ([dic[@"pinfo"][@"way"] isEqualToString:@"1"]) {
+                self.kujingBgView.hidden = YES;
+                self.kuajingHeight.constant = 0;
+                isglobal = NO;
+            }else if ([dic[@"pinfo"][@"way"] isEqualToString:@"3"]){
+            
+                self.kujingBgView.hidden = YES;
+                self.kuajingHeight.constant = 0;
+                isglobal = NO;
+            
+            }
+             
+            else{
+                self.kujingBgView.hidden = NO;
+                self.kuajingHeight.constant = 120;
+                
+                float shuiliv = [dic[@"SpXqInfo"][@"SL"] floatValue];
+                float xfshuilv =[dic[@"SpXqInfo"][@"GSSL"] floatValue];
+                float zzshuilv = [dic[@"SpXqInfo"][@"ZZSL"] floatValue];
+                self.shuilvLabel.text =[NSString stringWithFormat:@"%.2f%%",shuiliv*100];
+                self.xiaoshuiView.shuilvLabel.text = [NSString stringWithFormat:@"%.2f%%",xfshuilv*100];
+                self.zengzhiView.shuilvLabel.text = [NSString stringWithFormat:@"%.2f%%",zzshuilv*100];
+                
+                isglobal = YES;
+                
+            }
+            
+        }
+        if (dic && dic[@"pinfo"] && dic[@"pinfo"] !=[NSNull null]) {
+            
+            NSDictionary *tempdic2 = dic[@"pinfo"];
+            if (tempdic2[@"detail"] && tempdic2[@"detail"] !=[NSNull null]) {
+                weburl = tempdic2[@"detail"];
+            }
+        }
+        
+        NSLog(@"_imageArray===%@",dic[@"pinfo"][@"pic_more"]);
+        _imageArray = dic[@"pinfo"][@"pic_more"];
+        
+        if (![_imageArray isKindOfClass:[NSNull class]]) {//防崩溃
+            [self imageUIInit];
+        }
+        
+        
+        /*
+         if (responseObject) {
+         NSDictionary *porpertydic = dic[@"pinfo"];
+         NSArray *porpertyArr = porpertydic[@"porperty"];
+         int i=0;
+         if (porpertyArr && porpertyArr.count>0) {
+         for (NSDictionary *tempDic in porpertyArr) {
+         NSArray *setmealArr = tempDic[@"setmeal"];
+         NSDictionary *dic = setmealArr[0];
+         [huoyuanArray addObject:dic[@"129"]];
+         i++;
+         }
+         NSLog(@"huoyuanArray===%@",huoyuanArray);
+         huoyuanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
+         huoyuanList.tagDelegate = self;
+         huoyuanList = [self styleTagList:huoyuanList];
+         [huoyuanList setTags:huoyuanArray];
+         [_huoYuanView addSubview:huoyuanList];
+         //  _hotSearchTagHeightConstraint.constant = _hotSearchTagList.contentSize.height;
+         [self.view layoutIfNeeded];
+         huoyuanList.frame = CGRectMake(0, 5, _huoYuanView.bounds.size.width, _huoYuanView.bounds.size.height - 10);
+         
+         }
+         }
+         */
+        
+        
+        huoyuanArray = @[@"美国绿",@"中国红",@"非洲黑"];
+        
+        NSLog(@"huoyuanArray====%@",huoyuanArray);
+        
+        huoyuanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
+        huoyuanList.tagDelegate = self;
+        huoyuanList = [self styleTagList:huoyuanList];
+        [huoyuanList setTags:huoyuanArray];
+        [_huoYuanView addSubview:huoyuanList];
+        
+        [self.view layoutIfNeeded];
+        huoyuanList.frame = CGRectMake(0, 5, _huoYuanView.bounds.size.width, _huoYuanView.bounds.size.height - 10);
+                
+        jieduanArray = @[@"一阶",@"二阶",@"三阶"];
+        
+        NSLog(@"huoyuanArray====%@",jieduanArray);
+        
+        jieduanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 0, MAIN_SCREEN_WIDTH - 60, 40)];
+        jieduanList.tagDelegate = self;
+        jieduanList = [self styleTagList:jieduanList];
+        [jieduanList setTags:jieduanArray];
+        [_jieDuanView addSubview:jieduanList];
+        
+        [self.view layoutIfNeeded];
+        _jieDuanView.frame = CGRectMake(0, 5, _jieDuanView.bounds.size.width, _jieDuanView.bounds.size.height - 10);
+        
+        
+        
+        [overView removeFromSuperview];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [overView removeFromSuperview];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:2];
+    }];
     
     
     
+    /*
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@ajax/app/index.ashx?op=prodetail&jmsp_id=%@&zcsp=%@",SERVICE_GETBASE_URL,_paramDic[@"JMSP_ID"]?:@"",_paramDic[@"ZCSP"]?:@""];
@@ -220,8 +429,9 @@
                 self.yuanchandiLabel.text = dic[@"SpXqInfo"][@"CD"];
                 
             }
+     
             //加载h5详情页
-            if (dic[@"SpmsInfo"][@"MS"]) {
+            if (dic[@"detail"][@"MS"]) {
                 NSString *htmlCode = [NSString stringWithFormat:@"<html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"><style type=\"text/css\">body{font-size : 0.9em;}img{width:%@ !important;}</style></head><body>%@</body></html>",@"100%",dic[@"SpmsInfo"][@"MS"]];
                 NSLog(@"%@",htmlCode);
                 [self.webView loadHTMLString:htmlCode baseURL:nil];
@@ -312,9 +522,34 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
-    
+    */
 }
 
+/*
+- (void)selectedTag:(NSString *)tagName;{
+    [self hide];
+    
+    BOOL isRepeat = NO;
+    for (NSString *searhStr in _historySearchTextArray) {
+        if ([searhStr isEqualToString:tagName]) {
+            isRepeat = YES;
+        }
+    }
+    if (!isRepeat) {
+        SearchHistory *searchHistory = [SearchHistory MR_createEntityInContext:_context];
+        searchHistory.keywork = tagName;
+        
+        [_context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError *error) {
+            [self loadSearchHistory];
+        }];
+        
+    }
+    
+    
+    [_delegate SearchText:tagName];
+    
+}
+*/
 
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -379,7 +614,7 @@
 }
 #pragma mark 加入购物袋
 - (IBAction)addShoppingBag:(id)sender {
-
+/*
     if ([self.kuncuntisLabel.text isEqualToString:@"售罄"]) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
@@ -387,7 +622,7 @@
         [_hud hide:YES afterDelay:1];
         return;
     }
-    
+   */
     if (userid) {
         NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/products.ashx?op=addcart&jmsp_id=%@&spsl=%ld&userid=%@",SERVICE_GETBASE_URL,spid,(unsigned long)_shuliangStepper.value, userid];
         
@@ -496,18 +731,13 @@
             if ([_imageArray[i] isKindOfClass:[NSNull class]]) {
                 continue;
             }
-            NSString *imgUrl = _imageArray[i][@"URL"];
-            imgUrl = [imgUrl lowercaseString];
-            
-            if([imgUrl rangeOfString:@"ml.jpg"].location != NSNotFound ||
-               [imgUrl rangeOfString:@"ml.png"].location != NSNotFound){
-                [imgUrlArray addObject:imgUrl];
-            }
+
         }
-    
-    for (int i=0; i<imgUrlArray.count; i++) {
+    for (int i=0; i<_imageArray.count; i++) {
         UIImageView *imageview =[[UIImageView alloc]initWithFrame:CGRectMake(imageScrollViewWidth*i, 0, imageScrollViewWidth,imageScrollViewHeight)];
-        [imageview sd_setImageWithURL:[NSURL URLWithString:imgUrlArray[i]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        [imageview sd_setImageWithURL:[NSURL URLWithString:_imageArray[i]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        NSLog(@"imageview == %@",imageview.sd_imageURL);
+        
         imageview.contentMode = UIViewContentModeScaleAspectFit;
         imageview.tag = i;
         imageview.userInteractionEnabled = YES;
@@ -516,13 +746,14 @@
         [_imageScrollView addSubview:imageview];
     }
     
+
     _imageScrollView.contentSize = CGSizeMake(imageScrollViewWidth*_imageArray.count, 0);
     _imageScrollView.bounces = NO;
     _imageScrollView.pagingEnabled = YES;
     _imageScrollView.delegate = self;
     _imageScrollView.showsHorizontalScrollIndicator = NO;
     
-    _pagecontrol.numberOfPages = imgUrlArray.count;
+    _pagecontrol.numberOfPages = _imageArray.count;
 
 }
 

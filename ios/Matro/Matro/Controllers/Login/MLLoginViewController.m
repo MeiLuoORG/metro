@@ -107,19 +107,40 @@
 
 
 - (void)setViewLayerBorderColor{
+    /*zhoulu 20160613*//*
+                        //1.边框
+                        _currentIntLabel.layer.cornerRadius = CGRectGetHeight(_currentIntLabel.bounds)/2;
+                        _currentIntLabel.layer.masksToBounds = YES;//设置边框可见
+                        _currentIntLabel.layer.borderWidth = 1.0f;
+                        _currentIntLabel.layer.borderColor = customColor.CGColor;
+                        */
     
     UIColor * grayColors = [HFSUtility hexStringToColor:@"cccccc"];
     _passwordView.layer.borderColor = grayColors.CGColor;
-    _rrpasswordView.layer.borderColor = grayColors.CGColor;
-    _rpasswordView.layer.borderColor = grayColors.CGColor;
-    _accountView.layer.borderColor = grayColors.CGColor;
-    _rphoneView.layer.borderColor = grayColors.CGColor;
-    _rcodeView.layer.borderColor = grayColors.CGColor;
-    [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:@"b9b6b6"]];
-    
+    _passwordView.layer.cornerRadius = 4.0f;
 
+
+    _rrpasswordView.layer.borderColor = grayColors.CGColor;
+    _rrpasswordView.layer.cornerRadius = 4.0f;
+    
+    _rpasswordView.layer.borderColor = grayColors.CGColor;
+    _rpasswordView.layer.cornerRadius = 4.0f;
+    
+    _accountView.layer.borderColor = grayColors.CGColor;
+    _accountView.layer.cornerRadius = 4.0f;
     
     
+    _rphoneView.layer.borderColor = grayColors.CGColor;
+    _rphoneView.layer.cornerRadius = 4.0f;
+    
+    _rcodeView.layer.borderColor = grayColors.CGColor;
+    _rcodeView.layer.cornerRadius = 4.0f;
+    
+    [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:@"b9b6b6"]];
+    _codeButton.layer.cornerRadius = 4.0f;
+    
+    self.registerButton.layer.cornerRadius = 4.0f;
+    self.loginButton.layer.cornerRadius = 4.0f;
 }
 
 - (void)bindSuccess{
@@ -245,7 +266,7 @@
         
         _rightBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_rightBtn setTitle:@"快速注册" forState:UIControlStateNormal];
-        [_rightBtn setFrame:CGRectMake(SIZE_WIDTH-80, 40, 60, 22)];
+        [_rightBtn setFrame:CGRectMake(SIZE_WIDTH-80, 34, 60, 22)];
         [_rightBtn setTitleColor:[HFSUtility hexStringToColor:Main_BackgroundColor] forState:UIControlStateNormal];
         [_rightBtn addTarget:self action:@selector(quicklyBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [_navTopCommoImages addSubview:_rightBtn];

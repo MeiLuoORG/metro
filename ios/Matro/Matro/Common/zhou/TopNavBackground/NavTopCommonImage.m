@@ -42,6 +42,9 @@
         self.tittleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.tittleLabel];
         
+        UIView * spView = [[UIView alloc]initWithFrame:CGRectMake(0, 62, SIZE_WIDTH, 1.3)];
+        spView.backgroundColor = [HFSUtility hexStringToColor:Main_spelBackgroundColor];
+        [self addSubview:spView];
         //[self addSubview:navBackImage];
 
     }
@@ -61,11 +64,11 @@
 - (void)loadLeftBackButtonwith:(int)index{
     if (index == 0) {
         UIButton * backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [backBtn setFrame:CGRectMake(7, 30, 37, 31)];
+        [backBtn setFrame:CGRectMake(12, 34, 30, 17)];
         //[backBtn setBackgroundColor:[UIColor redColor]];
         [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         //[backBtn setBackgroundImage:[UIImage imageNamed:@"Left_Arrow"] forState:UIControlStateNormal];
-        [backBtn setImage:[UIImage imageNamed:@"Left_Arrow"] forState:UIControlStateNormal];
+        [backBtn setImage:[UIImage imageNamed:@"zlBackBtn"] forState:UIControlStateNormal];
         backBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
         [self addSubview:backBtn];
     }
