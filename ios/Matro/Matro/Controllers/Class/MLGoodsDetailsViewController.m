@@ -33,7 +33,8 @@
 #import "MLGoodsSharePhotoViewController.h"
 #import "MBProgressHUD+Add.h"
 #import <DWTagList/DWTagList.h>
-
+#import "SearchHistory.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @interface UIImage (SKTagView)
 
@@ -46,6 +47,7 @@
     
     NSMutableArray *_recommendArray;
     NSArray *_titleArray;//随机出现的商品属性选择的标题数组
+    NSArray *tempArr;
     
     YAScrollSegmentControl *titleView;//标题上选择查看商品还是详情按钮
     NSString *userid;
@@ -57,9 +59,12 @@
     UIView *overView;
     DWTagList *huoyuanList;
     DWTagList *jieduanList;
-    NSArray *huoyuanArray;
-    NSArray *jieduanArray;
+    NSMutableArray *huoyuanArray;
+    NSMutableArray *jieduanArray;
+    NSDictionary *tempDictionary;
+    NSManagedObjectContext *_context;
     
+    NSMutableArray *promotionArray;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;//最底层的SV
 @property (strong, nonatomic) IBOutlet UIPageControl *pagecontrol;
@@ -90,6 +95,12 @@
 @property (strong, nonatomic) IBOutlet UILabel *kuncuntisLabel;//库存
 @property (strong, nonatomic) IBOutlet CPStepper *shuliangStepper;
 @property (strong, nonatomic) IBOutlet UIView *pingjiaView;//遍历这个View,来修改星星图片 tag 101~105
+@property (weak, nonatomic) IBOutlet UIImageView *star1;
+@property (weak, nonatomic) IBOutlet UIImageView *star2;
+@property (weak, nonatomic) IBOutlet UIImageView *star3;
+@property (weak, nonatomic) IBOutlet UIImageView *star4;
+@property (weak, nonatomic) IBOutlet UIImageView *star5;
+
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *likeH;//猜你喜欢的collectionView的高度
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tisH;
@@ -104,6 +115,8 @@
 @property (weak, nonatomic) IBOutlet UIView *zengpinView;
 @property (weak, nonatomic) IBOutlet UIView *huoYuanView;
 @property (weak, nonatomic) IBOutlet UIView *jieDuanView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cuxiaoH;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cuxiaoxinxiH;
 
 
 
@@ -127,15 +140,11 @@
     titleView.delegate = self;
     self.navigationItem.titleView = titleView;
     _recommendArray = [[NSMutableArray alloc] init];
+    _titleArray = [[NSArray alloc] init];
+    huoyuanArray = [[NSMutableArray alloc]init];
+    jieduanArray = [[NSMutableArray alloc] init];
+    promotionArray = [[NSMutableArray alloc] init];
     
-//    _xiaoshuiView = [MLKuajingCell kuajingCell];
-//    _xiaoshuiView.titleLabel.text = @"关税税率:";
-//    _zengzhiView = [MLKuajingCell kuajingCell];
-//    _zengzhiView.titleLabel.text = @"增值税率:";
-    _xiaoshuiView = [MLKuajingCell kuajingCell];
-    _xiaoshuiView.titleLabel.text = @"原产国:";
-    _zengzhiView = [MLKuajingCell kuajingCell];
-    _zengzhiView.titleLabel.text = @"税率:";
     
     imgUrlArray = [NSMutableArray array];
     // 一期隐藏
@@ -195,6 +204,7 @@
     [self.view addSubview:cover];
     
     [self loadDateProDetail];
+
     [self guessYLike];
 
 }
@@ -215,9 +225,10 @@
     
     tagList.font = [UIFont systemFontOfSize:14.0f];
     tagList.borderColor = [UIColor colorWithHexString:@"#EBEBEB"];
-    tagList.textColor = [UIColor colorWithHexString:@"#ffffff"];
+    tagList.borderWidth = 1.f;
+    tagList.textColor = [UIColor colorWithHexString:@"#260E00"];
     tagList.labelMargin = 6.0f;
-    [tagList setTagBackgroundColor:RGBA(252, 132, 106, 1)];
+    [tagList setTagBackgroundColor:RGBA(255, 255, 255, 1)];
     tagList.cornerRadius = 4.0f;
     tagList.horizontalPadding = 6.0f;
     tagList.verticalPadding = 6.0f;
@@ -234,12 +245,108 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@",@"http://bbctest.matrojp.com",_paramDic[@"id"]];
+    //NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
     
     [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *dic = responseObject[@"data"];
-       
+        
+        
+        _titleArray = dic[@"pinfo"][@"porperty_name"];
+        
+        
+        if (_titleArray && _titleArray.count >0) {
+            NSArray *porpertyArr = dic[@"pinfo"][@"porperty"];
+            
+            NSLog(@"porpertyArr===%@",porpertyArr);
+            for (NSDictionary *tempdic in porpertyArr) {
+                NSLog(@"tempdic==%@",tempdic);
+                NSArray *setmealArr = tempdic[@"setmeal"];
+                NSLog(@"setmealArr==%@",setmealArr);
+                NSDictionary *guigeDic1 = setmealArr[0];
+                NSDictionary *guigeDic2 = setmealArr[1];
+                NSString *guigestr1 = guigeDic1[@"name"];
+                NSString *guigestr2 = guigeDic2[@"name"];
+               
+                [huoyuanArray addObject:guigestr1];
+                [jieduanArray addObject:guigestr2];
+                NSLog(@"huoyuanArray===%@,jieduanArray===%@",huoyuanArray,jieduanArray);
+            }
+            
+            [_tableView reloadData];
+        }else{
+            _titleArray = @[@"货源",@"阶段"];
+            [_tableView reloadData];
+        }
+        
+        NSArray *promotionArr = dic[@"promotion"];
+        NSLog(@"promotionArr===%@",promotionArr);
+        for (NSDictionary *promotionDic in promotionArr) {
+            
+            NSString *nameStr = promotionDic[@"name"];
+            [promotionArray addObject:nameStr];
+        }
+        NSLog(@"promotionArray===%@",promotionArray);
+        //①②③④
+        if (promotionArray.count == 0) {
+            self.cuxiaoxinxiLabel.text = @"";
+        }else if (promotionArray.count == 1){
+            self.cuxiaoH .constant  = 40;
+            self.cuxiaoxinxiH.constant  = 18;
+            self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@",promotionArray[0]];
+        }
+        else if (promotionArray.count == 2){
+            self.cuxiaoH.constant  = 58;
+            self.cuxiaoxinxiH.constant  = 36;
+            self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@",promotionArray[0],promotionArray[1]];
+        }else if (promotionArray.count == 3){
+            self.cuxiaoH.constant  = 76;
+            self.cuxiaoxinxiH.constant  = 54;
+            self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@",promotionArray[0],promotionArray[1],promotionArray[2]];
+        }else if (promotionArray.count == 4){
+            self.cuxiaoH.constant  = 94;
+            self.cuxiaoxinxiH.constant  = 72;
+            self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3]];
+        }
+        
+        NSString *count = dic[@"comment_score"];
+        NSLog(@"count===%@",count);
+        UIImage *image1 = [UIImage imageNamed:@"Star_small1"];
+        
+        if (count.intValue == 0) {
+            
+            self.star1.image = image1;
+            self.star2.image = image1;
+            self.star3.image = image1;
+            self.star4.image = image1;
+            self.star5.image = image1;
+        }else if (count.intValue == 1){
+          
+            self.star2.image = image1;
+            self.star3.image = image1;
+            self.star4.image = image1;
+            self.star5.image = image1;
+        
+        }else if (count.intValue == 2){
+            
+            self.star3.image = image1;
+            self.star4.image = image1;
+            self.star5.image = image1;
+            
+        }else if (count.intValue == 3){
+            
+            self.star4.image = image1;
+            self.star5.image = image1;
+            
+        }else if (count.intValue == 4){
+            
+            self.star5.image = image1;
+            
+        }else if (count.intValue == 5){
+            
+            
+        }
         
         if (dic && dic[@"pinfo"] && dic[@"pinfo"]!=[NSNull null]) {
             NSLog(@"return dic %@",dic);
@@ -261,8 +368,7 @@
                 
                 [self.webView loadHTMLString:htmlCode baseURL:nil];
             }
-//            self.biaotiLabel.text = dic[@"pinfo"][@"NAMELIST"][@"2"]?:@"";
-//            self.texingLabel.text = dic[@"pinfo"][@"NAMELIST"][@"3"]?:@"";
+
             self.biaotiLabel.text = dic[@"pinfo"][@"pname"];
             self.texingLabel.text = dic[@"pinfo"][@"p_name"];
             float  originprice= [dic[@"pinfo"][@"price"] floatValue];
@@ -337,61 +443,6 @@
         if (![_imageArray isKindOfClass:[NSNull class]]) {//防崩溃
             [self imageUIInit];
         }
-        
-        
-        /*
-         if (responseObject) {
-         NSDictionary *porpertydic = dic[@"pinfo"];
-         NSArray *porpertyArr = porpertydic[@"porperty"];
-         int i=0;
-         if (porpertyArr && porpertyArr.count>0) {
-         for (NSDictionary *tempDic in porpertyArr) {
-         NSArray *setmealArr = tempDic[@"setmeal"];
-         NSDictionary *dic = setmealArr[0];
-         [huoyuanArray addObject:dic[@"129"]];
-         i++;
-         }
-         NSLog(@"huoyuanArray===%@",huoyuanArray);
-         huoyuanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
-         huoyuanList.tagDelegate = self;
-         huoyuanList = [self styleTagList:huoyuanList];
-         [huoyuanList setTags:huoyuanArray];
-         [_huoYuanView addSubview:huoyuanList];
-         //  _hotSearchTagHeightConstraint.constant = _hotSearchTagList.contentSize.height;
-         [self.view layoutIfNeeded];
-         huoyuanList.frame = CGRectMake(0, 5, _huoYuanView.bounds.size.width, _huoYuanView.bounds.size.height - 10);
-         
-         }
-         }
-         */
-        
-        
-        huoyuanArray = @[@"美国绿",@"中国红",@"非洲黑"];
-        
-        NSLog(@"huoyuanArray====%@",huoyuanArray);
-        
-        huoyuanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
-        huoyuanList.tagDelegate = self;
-        huoyuanList = [self styleTagList:huoyuanList];
-        [huoyuanList setTags:huoyuanArray];
-        [_huoYuanView addSubview:huoyuanList];
-        
-        [self.view layoutIfNeeded];
-        huoyuanList.frame = CGRectMake(0, 5, _huoYuanView.bounds.size.width, _huoYuanView.bounds.size.height - 10);
-                
-        jieduanArray = @[@"一阶",@"二阶",@"三阶"];
-        
-        NSLog(@"huoyuanArray====%@",jieduanArray);
-        
-        jieduanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 0, MAIN_SCREEN_WIDTH - 60, 40)];
-        jieduanList.tagDelegate = self;
-        jieduanList = [self styleTagList:jieduanList];
-        [jieduanList setTags:jieduanArray];
-        [_jieDuanView addSubview:jieduanList];
-        
-        [self.view layoutIfNeeded];
-        _jieDuanView.frame = CGRectMake(0, 5, _jieDuanView.bounds.size.width, _jieDuanView.bounds.size.height - 10);
-        
         
         
         [overView removeFromSuperview];
@@ -525,12 +576,11 @@
     */
 }
 
+
 /*
 - (void)selectedTag:(NSString *)tagName;{
-    [self hide];
-    
     BOOL isRepeat = NO;
-    for (NSString *searhStr in _historySearchTextArray) {
+    for (NSString *searhStr in huoyuanArray) {
         if ([searhStr isEqualToString:tagName]) {
             isRepeat = YES;
         }
@@ -538,11 +588,11 @@
     if (!isRepeat) {
         SearchHistory *searchHistory = [SearchHistory MR_createEntityInContext:_context];
         searchHistory.keywork = tagName;
-        
+ 
         [_context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError *error) {
             [self loadSearchHistory];
         }];
-        
+ 
     }
     
     
@@ -560,12 +610,8 @@
 //    //根据接口换地址
 //    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:weburl]];
 //    [_webView loadRequest:request];
-    
-    
-    _titleArray = @[@"货       源：",@"阶       段："];
-    
-   
-    
+    //_titleArray = @[@"货  源:",@"阶  段:"];
+
 }
 
 - (void)guessYLike {
@@ -623,6 +669,21 @@
         return;
     }
    */
+    
+    //加入购物车接口
+/*
+   http://localbbc.matrojp.com/api.php?m=product&s=cart&action=add_cart
+    
+    POST
+    
+    id=12301
+    
+    nums=1
+    
+    sid=12311
+    
+    sku=0
+ */
     if (userid) {
         NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/products.ashx?op=addcart&jmsp_id=%@&spsl=%ld&userid=%@",SERVICE_GETBASE_URL,spid,(unsigned long)_shuliangStepper.value, userid];
         
@@ -911,13 +972,37 @@
     
     static NSString *CellIdentifier = @"MLGoodsDetailsTableViewCell" ;
     MLGoodsDetailsTableViewCell *cell = (MLGoodsDetailsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     if (cell == nil) {
         NSArray *array = [[NSBundle mainBundle]loadNibNamed: CellIdentifier owner:self options:nil];
         cell = [array objectAtIndex:0];
     }
     
-    cell.infoTitleLabel.text = _titleArray[indexPath.row];
-
+    cell.infoTitleLabel.text = [ NSString stringWithFormat:@"%@:", _titleArray[indexPath.row]];
+    
+    if (indexPath.row == 0) {
+        
+        huoyuanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
+        huoyuanList.tagDelegate = self;
+        huoyuanList = [self styleTagList:huoyuanList];
+        [huoyuanList setTags:huoyuanArray];
+        [cell.tagView addSubview:huoyuanList];
+        [self.view layoutIfNeeded];
+        huoyuanList.frame = CGRectMake(0, 5, cell.tagView.bounds.size.width, cell.tagView.bounds.size.height - 10);
+    }else{
+    
+        jieduanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
+        jieduanList.tagDelegate = self;
+        jieduanList = [self styleTagList:jieduanList];
+        [jieduanList setTags:jieduanArray];
+        [cell.tagView addSubview:jieduanList];
+        [self.view layoutIfNeeded];
+        jieduanList.frame = CGRectMake(0, 5, cell.tagView.bounds.size.width, cell.tagView.bounds.size.height - 10);
+    }
+    
+    
+    
+    
     
     return cell;
 }

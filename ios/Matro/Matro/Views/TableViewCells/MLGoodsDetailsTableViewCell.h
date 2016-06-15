@@ -16,5 +16,6 @@
 @property (strong, nonatomic) IBOutlet UIView *tagView;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tisH;
+@property (weak, nonatomic) IBOutlet UIButton *tagBtn1;
 
 @end
