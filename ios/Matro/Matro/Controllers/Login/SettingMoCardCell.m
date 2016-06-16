@@ -13,8 +13,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    [self.selectButton setBackgroundImage:[UIImage imageNamed:@"box"] forState:UIControlStateNormal];
-    [self.selectButton setBackgroundImage:[UIImage imageNamed:@"check"] forState:UIControlStateSelected];
+    [self.selectButton setBackgroundImage:[UIImage imageNamed:@"zSelectBtn"] forState:UIControlStateNormal];
+    [self.selectButton setBackgroundImage:[UIImage imageNamed:@"zSelected"] forState:UIControlStateSelected];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

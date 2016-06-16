@@ -11,7 +11,11 @@
 #import "CommonHeader.h"
 #import "VipCardModel.h"
 #import "SettingMoCardView.h"
-@interface MLBindPhoneController : MLBaseViewController
+#import "LoginHistory.h"
+
+typedef void(^BackBlocks)(BOOL success);
+
+@interface MLBindPhoneController : MLBaseViewController<UITextFieldDelegate>
 @property (nonatomic,copy)NSString *open_id;
 @property (strong, nonatomic) NSString * imgUrl;
 @property (strong, nonatomic) NSString * nickname;
@@ -19,4 +23,9 @@
 @property (strong, nonatomic) NSMutableArray * vipCardArray;
 @property (strong, nonatomic)UIView *bkView;
 @property (strong ,nonatomic) SettingMoCardView * settingMoCardView;
+
+@property (copy, nonatomic) BackBlocks backBlock;
+
+- (void)backBlocksAction:(BackBlocks )block;
+
 @end

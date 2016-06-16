@@ -12,6 +12,7 @@
 #import "HFSServiceClient.h"
 #import "YMPhoneCondeButton.h"
 #import "HFSUtility.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @interface MLBindPhoneController ()
 @property (weak, nonatomic) IBOutlet YMLeftImageField *phoneField;
@@ -28,7 +29,11 @@
 
 static BOOL isPass = NO;
 
-@implementation MLBindPhoneController
+@implementation MLBindPhoneController{
+
+    NSManagedObjectContext *_context;
+
+}
 
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -39,7 +44,7 @@ static BOOL isPass = NO;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NavTopCommonImage * topImage = [[NavTopCommonImage alloc]initWithTitle:@"绑定手机号"];
+    NavTopCommonImage * topImage = [[NavTopCommonImage alloc]initWithTitle:@"账号绑定"];
     [topImage loadLeftBackButtonwith:0];
     [topImage backButtonAction:^(BOOL succes) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -47,7 +52,7 @@ static BOOL isPass = NO;
     [self.view addSubview:topImage];
     //
     //self.bkView.backgroundColor = [HFSUtility hexStringToColor:Main_BackgroundColor];
-    self.title = @"绑定手机号";
+    self.title = @"账号绑定";
     self.view.backgroundColor = [UIColor whiteColor];
     self.bkView = [[UIView alloc]init];
     [self.bkView setFrame:CGRectMake(0, 64, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-64)];
@@ -60,6 +65,8 @@ static BOOL isPass = NO;
         
     }];
     */
+     _context = [NSManagedObjectContext MR_defaultContext];
+    
     NSLog(@"self.phoneField.frame.orign.x.y分别为：%g----%g",self.phoneField.frame.origin.x,self.phoneField.frame.origin.y);
     /*
     [self.view bringSubviewToFront:self.bkView];
@@ -67,50 +74,68 @@ static BOOL isPass = NO;
     [self.bkView addSubview:self.codeField];
     [self.bkView addSubview:self.subCodeBtn];
     */
-    
+    self.phoneField.placeholder = @"手机号";
+    self.phoneField.delegate = self;
     self.phoneField.layer.borderWidth = 1.f;
-    self.phoneField.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
+    self.phoneField.layer.cornerRadius = 4.0f;
+    self.phoneField.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
     self.phoneField.layer.masksToBounds = YES;
-    self.phoneField.leftImgName = @"Profile_gray";
+    self.phoneField.font = [UIFont systemFontOfSize:12.0f];
+    //self.phoneField.leftImgName = @"Profile_gray";
     self.phoneField.leftOffset = 5.f;
     self.phoneField.rightOffset = 5.f;
     self.codeField.layer.borderWidth = 1.f;
-    self.codeField.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
+    self.codeField.delegate = self;
+    self.codeField.layer.cornerRadius = 4.0f;
+    self.codeField.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
     self.codeField.layer.masksToBounds = YES;
+    self.codeField.placeholder = @"验证码";
     self.codeField.leftOffset = 5.f;
     self.codeField.rightOffset = 5.f;
-    self.codeField.leftImgName = @"Lock_gray";
-    self.subCodeBtn.layer.borderWidth = 1.f;
-    self.subCodeBtn.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
+    self.codeField.font = [UIFont systemFontOfSize:12.0f];
+   // self.codeField.leftImgName = @"Lock_gray";
+    //self.subCodeBtn.layer.borderWidth = 1.f;
+    self.subCodeBtn.layer.cornerRadius = 4.0f;
+    [self.subCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //self.subCodeBtn.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
     self.subCodeBtn.layer.masksToBounds = YES;
+    [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+    self.subCodeBtn.enabled = NO;
     
+    [self.subCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     
+    self.bindBtn.enabled = NO;
+    [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
     
     _passField = ({
        YMLeftImageField *filed = [[YMLeftImageField alloc]initWithFrame:self.bindBtn.frame];
+        filed.delegate = self;
         filed.secureTextEntry = YES;
-        filed.placeholder = @"6-20位字母或数字密码";
+        filed.placeholder = @"密码(6-20位字母或数字)";
         filed.leftOffset = 5.f;
         filed.rightOffset = 5.f;
-        filed.leftImgName = @"Lock_gray";
-        filed.font = [UIFont systemFontOfSize:14];
+        //filed.leftImgName = @"Lock_gray";
+        filed.font = [UIFont systemFontOfSize:12];
         filed.layer.borderWidth = 1.f;
-        filed.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
+        filed.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
         filed.layer.masksToBounds = YES;
+        filed.layer.cornerRadius = 4.0f;
         filed;
     });
     
     _rPassField = ({
         YMLeftImageField *filed = [[YMLeftImageField alloc]initWithFrame:self.bindBtn.frame];
+        filed.delegate = self;
         filed.secureTextEntry = YES;
-        filed.placeholder = @"请输入确认密码";
+        filed.placeholder = @"确认密码";
         filed.leftOffset = 5.f;
         filed.rightOffset = 5.f;
-        filed.leftImgName = @"Lock_gray";
-        filed.font = [UIFont systemFontOfSize:14];
+        //filed.leftImgName = @"Lock_gray";
+        filed.font = [UIFont systemFontOfSize:12];
         filed.layer.borderWidth = 1.f;
-        filed.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
+        filed.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
         filed.layer.masksToBounds = YES;
+        filed.layer.cornerRadius = 4.0f;
         filed;
     });
     
@@ -124,11 +149,14 @@ static BOOL isPass = NO;
         NSDictionary *result = (NSDictionary *)responseObject;
         
         if([@"0" isEqualToString:[NSString stringWithFormat:@"%@",result[@"status"]]]){
+            /*
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"验证码已发送，请注意查收";
             [_hud hide:YES afterDelay:2];
+             */
             YMPhoneCondeButton *btn = (YMPhoneCondeButton *)sender;
+            
             [btn startUpTimer];
             
         }else{
@@ -250,16 +278,16 @@ static BOOL isPass = NO;
     
     
     [UIView animateWithDuration:0.3 animations:^{
-        self.bindConstraint.constant = 110;
+        self.bindConstraint.constant = 191;
         [self.passField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.codeField.mas_bottom).offset(10);
+            make.top.mas_equalTo(self.codeField.mas_bottom).offset(29);
             make.left.right.mas_equalTo(self.phoneField);
-            make.height.mas_equalTo(40);
+            make.height.mas_equalTo(41);
         }];
         [self.rPassField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.passField.mas_bottom).offset(10);
+            make.top.mas_equalTo(self.passField.mas_bottom).offset(29);
             make.left.right.mas_equalTo(self.phoneField);
-            make.height.mas_equalTo(40);
+            make.height.mas_equalTo(41);
         }];
         
     }];
@@ -383,34 +411,59 @@ static BOOL isPass = NO;
                     [userDefaults setObject:userDic[@"idcard"] forKey:KUSERDEFAULT_IDCARD_SHENFEN];
                 }
                 else{
-                    [userDefaults setObject:@"000000000000000000" forKey:KUSERDEFAULT_IDCARD_SHENFEN];
+                    [userDefaults setObject:@"" forKey:KUSERDEFAULT_IDCARD_SHENFEN];
                 }
                 [userDefaults setObject:userDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE ];
                 [userDefaults setObject:userDic[@"nickName"] forKey:kUSERDEFAULT_USERNAME ];
                 [userDefaults setObject:userDic[@"phone"] forKey:kUSERDEFAULT_USERID ];
                 [userDefaults setObject:userDic[@"accessToken"] forKey:kUSERDEFAULT_ACCCESSTOKEN];
                 
-
-
-                if (isPass) {
-                    if (userDic[@"vipCard"]) {
-                        NSArray * vipCardARR = userDic[@"vipCard"];
-                        if (vipCardARR.count == 1) {
-                            for(NSDictionary * dics in vipCardARR) {
-                                
-                                if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
-                                    NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
-                                    [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
-                                    NSString * cardTypeId = [NSString stringWithFormat:@"%@",dics[@"cardTypeId"]];
-                                    [userDefaults setObject:cardTypeId forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
-                                    //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
+                BOOL isDefault = NO;
+                if (userDic[@"vipCard"]) {
+                    NSArray * vipCardARR = userDic[@"vipCard"];
+                    if (vipCardARR.count == 1) {
+                        //存储时，除NSNumber类型使用对应的类型意外，其他的都是使用setObject:forKey:
+                        //[userDefaults setObject:result[@"cardno"] forKey:kUSERDEFAULT_USERCARDNO ];
+                        
+                        for(NSDictionary * dics in vipCardARR) {
+                            
+                            if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
+                                NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
+                                [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
+                                if ([NSString stringWithFormat:@"%@",dics[@"cardTypeName"]]) {
+                                    NSString * cardTypeName = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
+                                    [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                 }
+                                else{
+                                    [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                    
+                                }
+                                
+                                //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
+                                isDefault = YES;
+                            }
+                            else{
+                                isDefault = NO;
                             }
                         }
-                        else if(vipCardARR.count > 1){
+                        
+                    }
+                    else if(vipCardARR.count > 1){
+                        
+                        for(NSDictionary * dics in vipCardARR) {
                             
+                            if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
+                                NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
+                                [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
+                                NSString * cardTypeName = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
+                                [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
+                                isDefault = YES;
+                            }
                             
-                            
+                        }
+                        
+                        if (!isDefault) {
                             //存储时，除NSNumber类型使用对应的类型意外，其他的都是使用setObject:forKey:
                             //[userDefaults setObject:result[@"cardno"] forKey:kUSERDEFAULT_USERCARDNO ];
                             //self.vipCardArray = vipCardARR;
@@ -427,35 +480,63 @@ static BOOL isPass = NO;
                                 VipCardModel * cardModel = [[VipCardModel alloc]init];
                                 cardModel.cardNo = dics[@"cardNo"];
                                 cardModel.cardTypeIdString = dics[@"cardTypeId"];
+                                cardModel.cardTypeName = dics[@"cardTypeName"];
+                                cardModel.cardImg = dics[@"cardImg"];
                                 [self.vipCardArray addObject:cardModel];
                                 
                             }
-                            //绑定会员卡
-                            [weakSelf loadSettingMoCardViewWithCardARR:self.vipCardArray withPhone:self.passField.text withCardNo:nil withAccessToken:userDic[@"accessToken"]];
                             
+                            
+                            
+                            //绑定会员卡
+                            [weakSelf loadSettingMoCardViewWithCardARR:self.vipCardArray withPhone:self.phoneField.text withCardNo:nil withAccessToken:userDic[@"accessToken"]];
                         }
                         
+                        
+                        
                     }
+                    
+                }
+                else{
+                    isDefault = YES;
                 }
                 
                 [userDefaults synchronize];
-                [self dismissViewControllerAnimated:YES completion:nil];
+                
+                /*
+                //保存登录账号下次使用
+                LoginHistory *loginHistory = [LoginHistory MR_findFirstByAttribute:@"loginkeyword" withValue:userDic[@"phone"] inContext:_context];
+                if (!loginHistory) {
+                    LoginHistory *loginHistory = [LoginHistory MR_createEntityInContext:_context];
+                    loginHistory.loginkeyword = [self textField:_accountView].text;
+                    [_context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError *error) {
+                        //[self loadLoginHistory];
+                    }];
+                }
+                */
+                /*
+                 [_hud show:YES];
+                 _hud.mode = MBProgressHUDModeText;
+                 _hud.labelText = @"注册成功";
+                 [_hud hide:YES afterDelay:2];
+                 */
+
+                if (isDefault) {
+                    //[weakSelf dismissViewControllerAnimated:NO completion:nil];
+                    [weakSelf dismissViewControllerAnimated:NO completion:^{
+                        weakSelf.backBlock(YES);
+                    }];
+                }
+
                 
                 [[NSNotificationCenter defaultCenter]postNotificationName:kNOTIFICATIONBINDSUC object:nil];
                 
-                
-                
             }else{
-                
                  [_hud show:YES];
                  _hud.mode = MBProgressHUDModeText;
                  _hud.labelText = @"绑定失败";
                  [_hud hide:YES afterDelay:2];
-                
-                
             }
-            
-            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
@@ -528,6 +609,10 @@ static BOOL isPass = NO;
 
      */
 }
+#pragma 返回Block
+- (void)backBlocksAction:(BackBlocks)block{
+    self.backBlock = block;
+}
 
 - (void)loadSettingMoCardViewWithCardARR:(NSArray *)cardARR withPhone:(NSString *)phoneString withCardNo:(NSString *)cardNO withAccessToken:(NSString *)accessTokenString{
     /*
@@ -562,7 +647,7 @@ static BOOL isPass = NO;
         if (self.settingMoCardView.cardNoString != nil && ![self.settingMoCardView.cardNoString isEqualToString:@""]) {
             
             NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
-            [userDefault setObject:self.settingMoCardView.cardTypeStr forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+            [userDefault setObject:self.settingMoCardView.cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
             [userDefault synchronize];
             
             [weakSelf loadBindCardViewwithPhone:phoneString withCardNo:self.settingMoCardView.cardNoString withAccessToken:accessTokenString];
@@ -571,7 +656,7 @@ static BOOL isPass = NO;
             VipCardModel * cardModel = (VipCardModel *)[cardARR objectAtIndex:0];
             
             NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
-            [userDefault setObject:cardModel.cardTypeIdString forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+            [userDefault setObject:cardModel.cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
             [userDefault synchronize];
             
             [weakSelf loadBindCardViewwithPhone:phoneString withCardNo:cardModel.cardNo withAccessToken:accessTokenString];
@@ -581,7 +666,7 @@ static BOOL isPass = NO;
     }];
     [self.view addSubview:self.settingMoCardView];
     
-    [UIView animateWithDuration:1.0f animations:^{
+    [UIView animateWithDuration:0.50f animations:^{
         [self.settingMoCardView setFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT)];
         
     } completion:^(BOOL finished) {
@@ -609,6 +694,50 @@ static BOOL isPass = NO;
     
     
 }
+#pragma mark TextField 代理方法
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+
+    if ([textField isEqual:self.phoneField]) {
+        if (self.phoneField.text.length > 0) {
+            self.subCodeBtn.enabled = YES;
+            [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_BackgroundColor]];
+            
+        }else{
+            self.subCodeBtn.enabled = NO;
+            [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+        
+        }
+    }
+    if (isPass) {
+        if (self.phoneField.text.length > 0 && self.codeField.text.length>0 && self.passField.text.length > 0 &&self.rPassField.text.length > 0) {
+            self.bindBtn.enabled = YES;
+            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_BackgroundColor]];
+        }
+        else{
+            self.bindBtn.enabled = NO;
+            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+        
+        }
+        
+    }
+    else {
+        if (self.phoneField.text.length > 0 && self.codeField.text.length>0) {
+            self.bindBtn.enabled = YES;
+            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_BackgroundColor]];
+        }
+        else{
+            self.bindBtn.enabled = NO;
+            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+            
+        }
+    
+    }
+    
+    
+    return YES;
+}
+
+
 
 #pragma mark 注册后 绑定会员卡
 - (void)loadBindCardViewwithPhone:(NSString *)phone withCardNo:(NSString *)cardNo withAccessToken:(NSString *)accessToken{
@@ -639,7 +768,7 @@ static BOOL isPass = NO;
             NSLog(@"设置默认卡%@",result);
             if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
                 
-                [UIView animateWithDuration:1.0f animations:^{
+                [UIView animateWithDuration:0.50f animations:^{
                     [self.settingMoCardView setFrame:CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT)];
                     
                     

@@ -224,39 +224,44 @@
 
 //更新会员卡图片
 - (void)updataCardScrollView{
-
-    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*self.cardARR.count, 267);
-    UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 30, scrollview.contentSize.width, 207)];
-    bkView.backgroundColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
-    [scrollview addSubview:bkView];
-    
-    for (int i=0; i<self.cardARR.count; i++) {
-        VipCardModel * cardModel = [self.cardARR objectAtIndex:i];
-        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, 227)];
+    if (self.cardARR.count > 0) {
+        scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*self.cardARR.count, 267);
+        UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 30, scrollview.contentSize.width, 207)];
+        bkView.backgroundColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
+        [scrollview addSubview:bkView];
         
+        for (int i=0; i<self.cardARR.count; i++) {
+            VipCardModel * cardModel = [self.cardARR objectAtIndex:i];
+            UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, 227)];
+            
+            
+            NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
+            
+            imageView.image=[UIImage imageNamed:str];
+            
+            [imageView sd_setImageWithURL:[NSURL URLWithString:cardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+            
+            //加阴影 zhou
+            imageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
+            imageView.layer.shadowOffset = CGSizeMake(8,8);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+            imageView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
+            imageView.layer.shadowRadius = 7;//阴影半径，默认3
+            
+            [scrollview addSubview:imageView];
+        }
         
-        NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
+        VipCardModel * firstCardModel = [self.cardARR objectAtIndex:0];
         
-        imageView.image=[UIImage imageNamed:str];
-        //加阴影 zhou
-        imageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
-        imageView.layer.shadowOffset = CGSizeMake(8,8);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
-        imageView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
-        imageView.layer.shadowRadius = 7;//阴影半径，默认3
+        _preferentialRules.text = firstCardModel.cardRule;
+        NSLog(@"消费规则内容：%@",_preferentialRules.text);
+        CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
+        //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
+        _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
+        _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
         
-        [scrollview addSubview:imageView];
+        _tableView.tableFooterView = _guiZeView;
     }
-    
-    VipCardModel * firstCardModel = [self.cardARR objectAtIndex:0];
-    
-     _preferentialRules.text = firstCardModel.cardRule;
-    NSLog(@"消费规则内容：%@",_preferentialRules.text);
-    CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
-    //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
-    _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
-    _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
-    
-    _tableView.tableFooterView = _guiZeView;
+
 }
 
 
@@ -323,8 +328,8 @@
     [btnSelect setTitleColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor] forState:UIControlStateNormal];
     [btnSelect.titleLabel setFont:[UIFont systemFontOfSize:10.0f]];
     btnSelect.selected  = YES;
-    [btnSelect setImage:[UIImage imageNamed:@"box"] forState:UIControlStateNormal];
-    [btnSelect setImage:[UIImage imageNamed:@"check"] forState:UIControlStateSelected];
+    [btnSelect setImage:[UIImage imageNamed:@"zSelectBtn"] forState:UIControlStateNormal];
+    [btnSelect setImage:[UIImage imageNamed:@"zSelected"] forState:UIControlStateSelected];
     [btnSelect setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 50)];
     
     [btnSelect addTarget:self action:@selector(actSelect:) forControlEvents:UIControlEventTouchUpInside];
@@ -371,7 +376,7 @@
     _guiZeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
     _guiZeView.backgroundColor = [UIColor whiteColor];
     _preferentialRules = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, 100)];
-    _preferentialRules.text = @"此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则，此处显示优惠规则!!!!!!!";
+    _preferentialRules.text = @"优惠规则";
     _preferentialRules.font = [UIFont systemFontOfSize:12];
     _preferentialRules.alpha = 0.5;
     _preferentialRules.numberOfLines = 0;
@@ -543,10 +548,7 @@
                 _hud.labelText = @"请求失败";
                 [_hud hide:YES afterDelay:2];
             }];
-            
-            
         }
-
 }
 
 #pragma mark -

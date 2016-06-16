@@ -10,6 +10,7 @@
 #import "HFSServiceClient.h"
 #import "VipCardModel.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 @interface MNNMemberViewController : MLBaseViewController
 
 

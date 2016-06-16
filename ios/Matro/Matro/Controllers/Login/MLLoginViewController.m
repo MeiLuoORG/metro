@@ -718,7 +718,7 @@
     [[HFSServiceClient sharedClient] POST:Regist_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;
-        //NSLog(@"%@",result);
+        NSLog(@"注册信息：%@",result);
         if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
             
             // _hud.labelText = @"注册成功";
@@ -754,14 +754,10 @@
             }
             [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERID ];
             
-            
+            BOOL isDefault = NO;
             if (userDataDic[@"vipCard"]) {
                 NSArray * vipCardARR = userDataDic[@"vipCard"];
-                
-                
                 if (vipCardARR.count == 1) {
-                    
-
                         //存储时，除NSNumber类型使用对应的类型意外，其他的都是使用setObject:forKey:
                         //[userDefaults setObject:result[@"cardno"] forKey:kUSERDEFAULT_USERCARDNO ];
                         
@@ -770,45 +766,73 @@
                             if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
                                 NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
                                 [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
-                                NSString * cardTypeName = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
-                                [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                if ([NSString stringWithFormat:@"%@",dics[@"cardTypeName"]]) {
+                                    NSString * cardTypeName = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
+                                    [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                }
+                                else{
+                                    [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+
+                                }
+                               
                                 //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
+                                isDefault = YES;
+                            }
+                            else{
+                                isDefault = NO;
                             }
                         }
                     
                 }
                 else if(vipCardARR.count > 1){
                     
-                    
-                    
-                    //存储时，除NSNumber类型使用对应的类型意外，其他的都是使用setObject:forKey:
-                    //[userDefaults setObject:result[@"cardno"] forKey:kUSERDEFAULT_USERCARDNO ];
-                    //self.vipCardArray = vipCardARR;
-                    
                     for(NSDictionary * dics in vipCardARR) {
                         
-                        /*
-                         if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
-                         NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
-                         [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
-                         //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
-                         }
-                         */
-                        VipCardModel * cardModel = [[VipCardModel alloc]init];
-                        cardModel.cardNo = dics[@"cardNo"];
-                        cardModel.cardTypeIdString = dics[@"cardTypeId"];
-                        cardModel.cardTypeName = dics[@"cardTypeName"];
-                        [self.vipCardArray addObject:cardModel];
+                        if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
+                            NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
+                            [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
+                            NSString * cardTypeName = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
+                            [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                            //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
+                            isDefault = YES;
+                        }
                         
                     }
-                    //绑定会员卡
-                    [weakSelf loadSettingMoCardViewWithCardARR:self.vipCardArray withPhone:[self textField:_rphoneView].text withCardNo:nil withAccessToken:userDataDic[@"accessToken"]];
+                    
+                    if (!isDefault) {
+                        //存储时，除NSNumber类型使用对应的类型意外，其他的都是使用setObject:forKey:
+                        //[userDefaults setObject:result[@"cardno"] forKey:kUSERDEFAULT_USERCARDNO ];
+                        //self.vipCardArray = vipCardARR;
+                        
+                        for(NSDictionary * dics in vipCardARR) {
+                            
+                            /*
+                             if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
+                             NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
+                             [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
+                             //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
+                             }
+                             */
+                            VipCardModel * cardModel = [[VipCardModel alloc]init];
+                            cardModel.cardNo = dics[@"cardNo"];
+                            cardModel.cardTypeIdString = dics[@"cardTypeId"];
+                            cardModel.cardTypeName = dics[@"cardTypeName"];
+                            cardModel.cardImg = dics[@"cardImg"];
+                            [self.vipCardArray addObject:cardModel];
+                            
+                        }
+                        
+                        
+                        
+                        //绑定会员卡
+                        [weakSelf loadSettingMoCardViewWithCardARR:self.vipCardArray withPhone:[self textField:_rphoneView].text withCardNo:nil withAccessToken:userDataDic[@"accessToken"]];
+                    }
+                    
+
                     
                 }
                 
             }
-            
-            
             
             [userDefaults synchronize];
             
@@ -838,8 +862,10 @@
             _registerTypeBgView.hidden = YES;
             _registerTypeButton.selected = NO;
             NSLog(@"注册成功");
+            if (isDefault) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
             
-            //[self dismissViewControllerAnimated:YES completion:nil];
         }else{
             /*
              _hud.labelText = result[@"errMsg"];
@@ -913,7 +939,7 @@
     }];
     [self.view addSubview:self.settingMoCardView];
     
-    [UIView animateWithDuration:1.0f animations:^{
+    [UIView animateWithDuration:0.5f animations:^{
         [self.settingMoCardView setFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT)];
         
     } completion:^(BOOL finished) {
@@ -971,7 +997,7 @@
             //NSLog(@"设置默认卡%@",result);
             if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
                 
-                [UIView animateWithDuration:1.0f animations:^{
+                [UIView animateWithDuration:0.5f animations:^{
                     [self.settingMoCardView setFrame:CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT)];
                     
                     
@@ -1501,7 +1527,6 @@
             
         }});
     
-
 }
 
 
@@ -1542,6 +1567,8 @@
 
 
 - (void)loginWxAndQQWithParams:(NSDictionary *)params withSignDic:(NSDictionary * )signDic bindPoneDic:(NSDictionary *)bindDic{
+    
+    __weak typeof(self) weakSelf = self;
     
     NSData *data = [HFSUtility RSADicToData:params] ;
     NSString *ret = base64_encode_data(data);
@@ -1591,8 +1618,8 @@
                         if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
                             NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
                             [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
-                            NSString * cardTypeId = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
-                            [userDefaults setObject:cardTypeId forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                            NSString * cardTypeName = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
+                            [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                             //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
                         }
                     }
@@ -1600,26 +1627,28 @@
                 
                 
                 [userDefaults setObject:userDataDic[@"accessToken"] forKey:kUSERDEFAULT_ACCCESSTOKEN];
-                
 
-                
                 [userDefaults synchronize];
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
                 
             }
             else{//如果没有调到绑定页面
                 NSLog(@"登录到绑定页");
                 MLBindPhoneController *vc = [[MLBindPhoneController alloc]init];
+                [vc backBlocksAction:^(BOOL success) {
+                    if (success) {
+                        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                    }
+                }];
                 //vc.hidesBottomBarWhenPushed = YES;
                 vc.open_id = params[@"openId"];
                 NSLog(@"++++openId为：%@",vc.open_id);
                 vc.nickname = bindDic[@"nickname"];
                 vc.imgUrl = bindDic[@"imgUrl"];
                 vc.type = bindDic[@"type"];
-                [self presentViewController:vc animated:YES completion:nil];
+                [weakSelf presentViewController:vc animated:YES completion:nil];
                 //[self.navigationController pushViewController:vc animated:YES];
             }
-
             
         }
         else{

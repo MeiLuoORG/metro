@@ -147,6 +147,9 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 //会员卡消费记录
 #define VIPCARD_HISTORY_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
 
+//会员卡的默认名称
+#define VIPCARDIMG_DEFAULTNAME @"b54504436257.jpg"
+
 
 /*zhouluEND*/
 

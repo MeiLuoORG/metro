@@ -10,13 +10,13 @@
 
 @implementation MNNPurchaseHistoryTableViewCell {
     UILabel *_time;
-    UILabel *_timeLabel;
+
     UILabel *_money;
-    UILabel *_moneyLabel;
+
     UILabel *_integral;
-    UILabel *_integralLabel;
+
     UILabel *_address;
-    UILabel *_addressLabel;
+
 }
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -28,62 +28,75 @@
 }
 - (void)createViews {
         self.contentView.backgroundColor = [UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0f alpha:1.0f];
-    UIView * blackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 120)];
+    UIView * blackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 168)];
     blackView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:blackView];
     _time          = [UILabel new];
-    _timeLabel     = [UILabel new];
+    self.timeLabel     = [UILabel new];
     _money         = [UILabel new];
-    _moneyLabel    = [UILabel new];
+    self.moneyLabel    = [UILabel new];
     _integral      = [UILabel new];
-    _integralLabel = [UILabel new];
+    self.integralLabel = [UILabel new];
     _address       = [UILabel new];
-    _addressLabel  = [UILabel new];
+    self.addressLabel  = [UILabel new];
     [self.contentView addSubview:_time];
-    [self.contentView addSubview:_timeLabel];
+    [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:_money];
-    [self.contentView addSubview:_moneyLabel];
+    [self.contentView addSubview:self.moneyLabel];
     [self.contentView addSubview:_integral];
-    [self.contentView addSubview:_integralLabel];
+    [self.contentView addSubview:self.integralLabel];
     [self.contentView addSubview:_address];
-    [self.contentView addSubview:_addressLabel];
+    [self.contentView addSubview:self.addressLabel];
 }
 - (void)reloadCell {
     _time.text           = @"消费时间";
-    _time.font           = [UIFont systemFontOfSize:14];
+    _time.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
+    _time.font           = [UIFont systemFontOfSize:12];
     _money.text          = @"消费金额";
-    _money.font          = [UIFont systemFontOfSize:14];
-    _integral.text       = @"消费积分";
-    _integral.font       = [UIFont systemFontOfSize:14];
+    _money.font          = [UIFont systemFontOfSize:12];
+    _money.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
+
+    _integral.text       = @"获得积分";
+    _integral.font       = [UIFont systemFontOfSize:12];
+    _integral.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
+
     _address.text        = @"消费门店";
-    _address.font        = [UIFont systemFontOfSize:14];
-    _timeLabel.text      = @"2016-03-01 12:00:00";
-    _timeLabel.font      = [UIFont systemFontOfSize:14];
-    _timeLabel.alpha     = 0.7;
-    _timeLabel.textAlignment = NSTextAlignmentRight;
-    _moneyLabel.text     = @"￥12543.00";
-    _moneyLabel.font     = [UIFont systemFontOfSize:14];
-    _moneyLabel.alpha    = 0.7;
-    _moneyLabel.textAlignment = NSTextAlignmentRight;
-    _integralLabel.text  = @"1000000";
-    _integralLabel.font  = [UIFont systemFontOfSize:14];
-    _integralLabel.alpha = 0.7;
-    _integralLabel.textAlignment = NSTextAlignmentRight;
-    _addressLabel.text   = @"美罗观前街";
-    _addressLabel.font   = [UIFont systemFontOfSize:14];
-    _addressLabel.alpha  = 0.7;
-    _addressLabel.textAlignment = NSTextAlignmentRight;
+    _address.font        = [UIFont systemFontOfSize:12];
+    _address.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
+
+    self.timeLabel.text      = @"2016-03-01 12:00:00";
+    self.timeLabel.font      = [UIFont systemFontOfSize:12];
+
+    self.timeLabel.textAlignment = NSTextAlignmentRight;
+    self.timeLabel.textColor = [UIColor grayColor];
+    self.moneyLabel.text     = @"￥12543.00";
+    self.moneyLabel.font     = [UIFont systemFontOfSize:12];
+
+    self.moneyLabel.textAlignment = NSTextAlignmentRight;
+     self.moneyLabel.textColor = [UIColor grayColor];
+    self.integralLabel.text  = @"1000000";
+    self.integralLabel.font  = [UIFont systemFontOfSize:12];
+
+    self.integralLabel.textAlignment = NSTextAlignmentRight;
+     self.integralLabel.textColor = [UIColor grayColor];
+    self.addressLabel.text   = @"美罗观前街";
+    self.addressLabel.font   = [UIFont systemFontOfSize:12];
+
+    self.addressLabel.textAlignment = NSTextAlignmentRight;
+     self.addressLabel.textColor = [UIColor grayColor];
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _time.frame = CGRectMake(10, 0, 80, 30);
-    _timeLabel.frame = CGRectMake(CGRectGetWidth(self.frame)-210, 0, 200, 30);
-    _money.frame = CGRectMake(10, CGRectGetMaxY(_time.frame), 80, 30);
-    _moneyLabel.frame = CGRectMake(CGRectGetWidth(self.frame)-210, CGRectGetMaxY(_timeLabel.frame), 200, 30);
-    _integral.frame = CGRectMake(10, CGRectGetMaxY(_money.frame), 80, 30);
-    _integralLabel.frame = CGRectMake(CGRectGetWidth(self.frame)-210, CGRectGetMaxY(_moneyLabel.frame), 200, 30);
-    _address.frame = CGRectMake(10, CGRectGetMaxY(_integral.frame), 80, 30);
-    _addressLabel.frame = CGRectMake(CGRectGetWidth(self.frame)-210, CGRectGetMaxY(_integralLabel.frame), 200, 30);
+    _time.frame = CGRectMake(19, 0, 80, 42.5);
+    self.timeLabel.frame = CGRectMake(CGRectGetWidth(self.frame)-210, 0, 191, 42.5);
+    self.timeLabel.adjustsFontSizeToFitWidth = YES;
+    self.timeLabel.minimumScaleFactor = 0.5f;
+    _money.frame = CGRectMake(19, CGRectGetMaxY(_time.frame), 80, 42.5);
+    self.moneyLabel.frame = CGRectMake(CGRectGetWidth(self.frame)-210, CGRectGetMaxY(self.timeLabel.frame), 191, 42.5);
+    _integral.frame = CGRectMake(19, CGRectGetMaxY(_money.frame), 80, 42.5);
+    self.integralLabel.frame = CGRectMake(CGRectGetWidth(self.frame)-210, CGRectGetMaxY(self.moneyLabel.frame), 191, 42.5);
+    _address.frame = CGRectMake(19, CGRectGetMaxY(_integral.frame), 80, 42.5);
+    self.addressLabel.frame = CGRectMake(CGRectGetWidth(self.frame)-210, CGRectGetMaxY(self.integralLabel.frame), 191, 42.5);
 }
 - (void)awakeFromNib {
     // Initialization code

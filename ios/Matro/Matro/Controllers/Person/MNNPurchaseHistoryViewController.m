@@ -30,7 +30,7 @@ static NSInteger currentPage = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
-    self.title = @"我的会员卡消费记录";
+    self.title = @"会员卡消费记录";
     _dataArray = [NSMutableArray array];
     [self createViews];
     //初始化弹出信息
@@ -70,7 +70,7 @@ static NSInteger currentPage = 1;
     label2.font = [UIFont systemFontOfSize:12];
     label2.textAlignment = NSTextAlignmentCenter;
     [headerView addSubview:label2];
-    _tableView.tableHeaderView = headerView;
+    //_tableView.tableHeaderView = headerView;
     [_tableView registerClass:[MNNPurchaseHistoryTableViewCell class] forCellReuseIdentifier:@"cellId"];
     
     //zhoulu  刷新控件
@@ -91,7 +91,7 @@ static NSInteger currentPage = 1;
 }
 
 - (void)headerRefreshAction{
-    
+    [_dataArray removeAllObjects];
     //获取时间
     NSDate * date = [NSDate date];
     NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
@@ -106,7 +106,7 @@ static NSInteger currentPage = 1;
 - (void)footerRefreshActionWith:(NSInteger )page{
 
     NSString * pageStr = [NSString stringWithFormat:@"%ld",page];
-    
+    NSLog(@"加载到第几页：%@",pageStr);
     [self getCardInfoWithpageIndex:pageStr withEndTime:_currentTimeString];
     
 }
@@ -128,19 +128,29 @@ static NSInteger currentPage = 1;
     return _dataArray.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (MNNPurchaseHistoryTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MNNPurchaseHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
     if (cell == nil) {
         cell = [[MNNPurchaseHistoryTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellId"];
-    }
 
+    }
+    
+    
+    VIPCardHistoryModel * historyModel = [_dataArray objectAtIndex:indexPath.row];
+    cell.timeLabel.text = historyModel.saleTime;
+    cell.moneyLabel.text = historyModel.saleMoney;
+    cell.addressLabel.text = historyModel.storeName;
+    cell.integralLabel.text = historyModel.gainedCent;
+    NSLog(@"执行了cellindex：%ld",indexPath.row);
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 130;
+    return 175;
 }
 
 
@@ -160,11 +170,11 @@ static NSInteger currentPage = 1;
     NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
     NSString * phone = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];
     //{"appId": "test0002","phone":"18020260894","sign":$sign,"accessToken":$accessToken}
-
-    NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"cardId":@"1502648",@"startTime":@"1990-01-01",@"endTime":endTime,@"pageCount":@"20",@"pageIndex":pageIndex}];
+//1502648
+    NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"cardId":self.cardID,@"startTime":@"1990-01-01",@"endTime":endTime,@"pageCount":@"20",@"pageIndex":pageIndex}];
     NSLog(@"当前日期为：%@",endTime);
     NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
-                           @"cardId":@"1502648",
+                           @"cardId":self.cardID,
                             @"startTime":@"1990-01-01",
                             @"endTime":endTime,
                             @"pageCount":@"20",
@@ -194,18 +204,26 @@ static NSInteger currentPage = 1;
                     vipHistoryModel.saleMoney = dicss[@"SaleMoney"];
                     vipHistoryModel.billId = dicss[@"BillId"];
                     vipHistoryModel.storeName = dicss[@"StoreName"];
+                    vipHistoryModel.gainedCent = dicss[@"GainedCent"];
                     
                     [_dataArray addObject:vipHistoryModel];
                     //vipHistoryModel
                     
                 }
                 
-
+                NSLog(@"请求道记录的总数为：%ld",_dataArray.count);
                 
                 
                 [_tableView reloadData];
             }
+            else{
             
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"暂无消费记录";
+                [_hud hide:YES afterDelay:2];
+                
+            }
 
             
         }else{

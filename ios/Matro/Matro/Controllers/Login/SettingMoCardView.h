@@ -11,6 +11,8 @@
 #import "SettingMoCardCell.h"
 #import "HFSUtility.h"
 #import "VipCardModel.h"
+#import "HFSConstants.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 typedef void(^BindButtonBlock)(BOOL success);
 
@@ -25,6 +27,8 @@ typedef void(^BindButtonBlock)(BOOL success);
 @property (strong, nonatomic) NSString * cardTypeName;
 
 @property (strong, nonatomic) NSMutableArray * selectedBtnARR;
+@property (strong, nonatomic) NSMutableDictionary * selectedBtnDic;
+@property (strong, nonatomic) NSString * currentSelectIndex;
 
 - (void)bindButtonBlockAction:(BindButtonBlock )block;
 - (void)loadViews;

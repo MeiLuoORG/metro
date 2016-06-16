@@ -216,15 +216,21 @@
         switch (indexPath.row) {
             case 0:  //会员卡
             {
-                MNNMemberViewController *memberVC = [MNNMemberViewController new];
-                memberVC.hidesBottomBarWhenPushed = YES;
-                //[memberVC loadData];
-                [self.navigationController pushViewController:memberVC animated:YES];
+                NSUserDefaults * userdefault = [NSUserDefaults standardUserDefaults];
+                NSString * str = [userdefault objectForKey:kUSERDEFAULT_USERCARDNO];
+                if(![str isEqualToString:@""] && str ) {
+                    MNNMemberViewController *memberVC = [MNNMemberViewController new];
+                    memberVC.hidesBottomBarWhenPushed = YES;
+                    //[memberVC loadData];
+                    [self.navigationController pushViewController:memberVC animated:YES];
+                }
+
                 
             }
                 break;
             case 1:   //客服服务
             {
+                
                 MLCusServiceController *vc = [[MLCusServiceController alloc]init];
                 vc.hidesBottomBarWhenPushed = YES;
                 

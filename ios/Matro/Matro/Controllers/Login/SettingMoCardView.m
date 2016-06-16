@@ -26,15 +26,17 @@
 
 - (void)loadViews{
     self.selectedBtnARR = [[NSMutableArray alloc]init];
+    self.selectedBtnDic = [[NSMutableDictionary alloc]init];
     self.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.8];
     
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SIZE_WIDTH, SIZE_HEIGHT-64)];
     backView.backgroundColor = [UIColor whiteColor];
     [self addSubview:backView];
     
-    UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 60, SIZE_WIDTH, 30)];
+    UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 90, SIZE_WIDTH, 30)];
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text = @"您是美罗VIP会员,请选择默认会员卡";
+    titleLabel.text = @"您是美罗VIP会员,可用会员卡直接登录\n请点击卡片选择一张常用卡";
+    titleLabel.numberOfLines = 2;
     titleLabel.textColor = [UIColor blackColor];
     titleLabel.minimumScaleFactor = 0.5;
     titleLabel.adjustsFontSizeToFitWidth = YES;
@@ -46,9 +48,9 @@
     [closeBtn setFrame:CGRectMake(SIZE_WIDTH-50, 55, 30, 30)];
     [closeBtn setTitle:@"X" forState:UIControlStateNormal];
     [closeBtn addTarget:self action:@selector(closeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:closeBtn];
+    //[self addSubview:closeBtn];
     
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 122, SIZE_WIDTH, SIZE_HEIGHT-250) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 152, SIZE_WIDTH, SIZE_HEIGHT-270) style:UITableViewStylePlain];
     self.tableview.backgroundColor = [UIColor whiteColor];
     [self.tableview registerNib:[UINib nibWithNibName:@"SettingMoCardCell" bundle:nil] forCellReuseIdentifier:CELLID];
     self.tableview.delegate = self;
@@ -84,8 +86,8 @@
 }
 */
 - (NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 7;
-    //return self.cardARR.count;
+    
+    return self.cardARR.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -93,14 +95,33 @@
 }
 
 - (SettingMoCardCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    SettingMoCardCell * cell = [tableView dequeueReusableCellWithIdentifier:CELLID];
-   // SettingMoCardCell * cell2 = [tableView cellForRowAtIndexPath:indexPath];
+    //SettingMoCardCell * cell = [tableView dequeueReusableCellWithIdentifier:CELLID];
+   SettingMoCardCell * cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
-        cell = (SettingMoCardCell *)[[NSBundle mainBundle] loadNibNamed:@"MessagesTableViewCell" owner:nil options:nil][0];
+        cell = (SettingMoCardCell *)[[NSBundle mainBundle] loadNibNamed:@"SettingMoCardCell" owner:nil options:nil][0];
         
     }
-    [self.selectedBtnARR addObject:cell.selectButton];
+    NSString * rowKey = [NSString stringWithFormat:@"%ld",indexPath.row];
+    [self.selectedBtnDic setObject:cell.selectButton forKey:rowKey];
+    
+    NSLog(@"执行了cellForRowAtIndexPath：allKeys:%ld",self.selectedBtnDic.allKeys.count);
+    if ([rowKey isEqualToString:self.currentSelectIndex]) {
+        cell.selectButton.selected  = YES;
+    }
+    
+    
+    //[self.selectedBtnARR addObject:cell.selectButton];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    VipCardModel * cardModel = [self.cardARR objectAtIndex:indexPath.row];
+    NSLog(@"会员卡的URL：%@",cardModel.cardImg);
+    [cell.cardImageView sd_setImageWithURL:[NSURL URLWithString:cardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+    
+   // cell.cardImageView sd_setImageWithURL:<#(NSURL *)#> placeholderImage:<#(UIImage *)#> completed:<#^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)completedBlock#>
+    /*
+         NSMutableArray * urlArr = [[NSMutableArray alloc]initWithObjects:@"http://www.bz55.com/uploads/allimg/130406/1-130406122508.jpg",@"http://cdn.duitang.com/uploads/item/201206/11/20120611175238_aCNGz.jpeg",@"http://www.bz55.com/uploads/allimg/130406/1-130406122508.jpg",nil];
+     
+     */
     return cell;
 }
 
@@ -108,9 +129,17 @@
     NSLog(@"点击单元格");
     //数组里每个对象都执行一个方法
     //[self.selectedBtnARR makeObjectsPerformSelector:@selector()];
+    /*
     for (UIButton * btn in self.selectedBtnARR) {
         btn.selected = NO;
+    }*/
+    for (NSString * key in self.selectedBtnDic.allKeys) {
+        
+        UIButton * btn = (UIButton *)[self.selectedBtnDic objectForKey:key];
+        btn.selected = NO;
+        NSLog(@"执行了取消选中:%@",key);
     }
+    
     
     VipCardModel * cardModel = (VipCardModel *)[self.cardARR objectAtIndex:indexPath.row];
     self.cardNoString = cardModel.cardNo;
@@ -118,6 +147,14 @@
     self.cardTypeName = cardModel.cardTypeName;
     SettingMoCardCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.selectButton.selected = YES;
+    
+    NSString * currentKey  = [NSString stringWithFormat:@"%ld",indexPath.row];
+    self.currentSelectIndex = currentKey;
+    UIButton * btn = [self.selectedBtnDic objectForKey:currentKey];
+    btn.selected = YES;
+    
+    
+    
     NSLog(@"所选默认卡的卡号为：%@",self.cardNoString);
     [self.OKButton setBackgroundColor:[HFSUtility hexStringToColor:Main_BackgroundColor]];
     self.OKButton.userInteractionEnabled = YES;
