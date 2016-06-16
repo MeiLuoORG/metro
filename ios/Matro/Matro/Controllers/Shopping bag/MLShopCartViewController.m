@@ -26,7 +26,6 @@
 #import "UIView+BlankPage.h"
 #import "MLLoginViewController.h"
 
-
 @interface MLShopCartViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CPStepperDelegate>
 
 @property (nonatomic,strong)UICollectionView *collectionView;
@@ -358,6 +357,7 @@ static BOOL showLogin;
 }
 
 - (void)changeNumWith:(MLProlistModel *)prolist andCount:(NSInteger)count{
+    
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=modify&id=%@&nums=%@",@"http://bbctest.matrojp.com",prolist.ID,[NSNumber numberWithInteger:count]];
     [[HFSServiceClient sharedJSONClient]POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;

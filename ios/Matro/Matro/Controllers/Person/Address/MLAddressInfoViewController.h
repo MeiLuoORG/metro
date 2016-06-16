@@ -7,11 +7,15 @@
 //
 
 #import "MLBaseViewController.h"
+#import "MLAddressListModel.h"
 
 typedef void(^AddAddressSuccess)();
 @interface MLAddressInfoViewController : MLBaseViewController
 
 @property (nonatomic) BOOL isNewAddress;
-@property (nonatomic,retain) NSDictionary *paramdic;
 @property (nonatomic,copy)AddAddressSuccess addressSuccess;
+
+@property (nonatomic,strong)MLAddressListModel *addressDetail;
+
+
 @end

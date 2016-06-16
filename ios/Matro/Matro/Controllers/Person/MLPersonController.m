@@ -32,9 +32,11 @@
 #import "MLMyPropertyViewController.h"
 #import "JSBadgeView.h"
 #import "MJRefresh.h"
+#import "MLPersonOrderListViewController.h"
 
 
 #import "MLAllOrdersViewController.h"
+#import "MLAddressSelectViewController.h"
 
 
 @interface MLPersonController ()<UITableViewDelegate,UITableViewDataSource>
@@ -348,8 +350,8 @@
                 }
                 else{
                     badgeView.hidden = YES;
-                    HFSOrderListViewController *vc = [[HFSOrderListViewController alloc]init];
-                    vc.typeInteger = 1;
+                    MLPersonOrderListViewController *vc = [[MLPersonOrderListViewController alloc]initWithOrderType:OrderType_Fukuan];
+
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
@@ -360,8 +362,7 @@
                     [self showError];
                 }
                 else{
-                    HFSOrderListViewController *vc = [[HFSOrderListViewController alloc]init];
-                    vc.typeInteger = 3;
+                    MLPersonOrderListViewController *vc = [[MLPersonOrderListViewController alloc]initWithOrderType:OrderType_Shouhuo];
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
@@ -372,8 +373,7 @@
                     [self showError];
                 }
                 else{
-                    HFSOrderListViewController *vc = [[HFSOrderListViewController alloc]init];
-                    vc.typeInteger = 4;
+                    MLAddressSelectViewController *vc = [[MLAddressSelectViewController alloc]init];
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
                 }

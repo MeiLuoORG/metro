@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLPersonOrderModel.h"
+
+
 #define kOrderInfoHeaderTableViewCell @"orderInfoHeaderTableViewCell"
 @interface MLOrderInfoHeaderTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *shopName;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+
+@property (nonatomic,strong)MLPersonOrderModel *orderList;
+
+
 
 @end

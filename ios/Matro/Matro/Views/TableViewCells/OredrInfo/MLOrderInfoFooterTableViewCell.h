@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLPersonOrderModel.h"
+
+
 #define kOrderInfoFooterTableViewCell  @"orderInfoFooterTableViewCell"
 @interface MLOrderInfoFooterTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (nonatomic,strong)MLPersonOrderModel *orderList;
 
 @end

@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "MLBaseViewController.h"
 
+typedef NS_ENUM(NSInteger,OrderType){
+    OrderType_All,
+    OrderType_Fukuan,
+    OrderType_Shouhuo,
+    OrderType_Pingjia,
+};
 
 @interface MLPersonOrderListViewController : MLBaseViewController
+- (instancetype)initWithOrderType:(OrderType)orderType;
 
 @end

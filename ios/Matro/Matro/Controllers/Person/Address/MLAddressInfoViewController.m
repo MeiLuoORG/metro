@@ -7,21 +7,20 @@
 //
 
 #import "MLAddressInfoViewController.h"
-
 #import "HFSConstants.h"
 #import "UIColor+HeinQi.h"
 #import "SBJSON.h"
-
 #import "HFSServiceClient.h"
 #import "HFSUtility.h"
+#import "MLShippingaddress.h"
+#import "MJExtension.h"
 
 @interface MLAddressInfoViewController ()<UIPickerViewDataSource,UIPickerViewDelegate>{
     UIControl *_blackView;
     
     //省市区的数组，解析的是本地的json
-    NSMutableArray * addressArray01;
-    NSMutableArray * addressArray02;
-    NSMutableArray * addressArray03;
+    
+    
     NSArray * jsonObj;
     NSString *userid;
     NSString *selcode;
@@ -41,25 +40,26 @@
 @property (strong, nonatomic) IBOutlet UILabel *tisLabel;
 @property (strong, nonatomic) IBOutlet UITextField *inputTextField;
 
+@property (nonatomic,strong)NSMutableArray *addressData;
+
+
 @end
+
+
+static MLShippingaddress *province,*city,*area;
+
 
 @implementation MLAddressInfoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 
-    
-    selcode = _paramdic[@"SHRSF"]?:@"";
     
     // Do any additional setup after loading the view from its nib.
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
-    addressArray01 = [NSMutableArray array];
-    addressArray02 = [NSMutableArray array];
-    addressArray03 = [NSMutableArray array];
     [self notDefault];
     if (_isNewAddress) {
         self.title = @"新增收货地址";
@@ -67,33 +67,23 @@
         
     }else{
         self.title = @"编辑收货地址";
-        self.nameTextField.text = _paramdic[@"SHRMC"];
-        self.phoneTextField.text = _paramdic[@"SHRMPHONE"];
-        self.inputTextField.text = _paramdic[@"SHRADDRESS"];
-        self.selTextField.text = _paramdic[@"SFNAME"];
+        self.nameTextField.text = self.addressDetail.name;
         
-        if ([@"1" isEqualToString:_paramdic[@"MRSHRBJ"]]) {
-            [self isonDefault];
-            isdefault = 1;
-        }
-        else{
-            isdefault = 0;
-            [self notDefault];
-
-        }
+        self.phoneTextField.text = self.addressDetail.mobile;
+        
+        self.inputTextField.text = self.addressDetail.address;
+        
+        self.selTextField.text = self.addressDetail.area;
+        
     }
     
-    //隐藏键盘
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
-    //设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
-    tapGestureRecognizer.cancelsTouchesInView = NO;
-//    tapGestureRecognizer.delegate = self;
-    //将触摸事件添加到当前view
-    [self.view addGestureRecognizer:tapGestureRecognizer];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    UIButton *save = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 44)];
+    [save setTitleColor:RGBA(174, 142, 93, 1) forState:UIControlStateNormal];
+    [save setTitle:@"保存" forState:UIControlStateNormal];
+    [save addTarget:self action:@selector(sureButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:save];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     
     _blackView = [[UIControl alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT -  224)];
@@ -103,6 +93,8 @@
     _blackView.hidden = YES;
     UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:_blackView];
+
+    
     
     NSString *string = [[NSString alloc]initWithContentsOfFile:[self getDocumentpath] encoding:NSUTF8StringEncoding error:nil];
     if (!string) {
@@ -111,9 +103,18 @@
     else{
         SBJSON *sbjson = [SBJSON new];
         NSArray *ary = [sbjson objectWithString:string error:nil];
-        [addressArray01 addObjectsFromArray:ary];
-        addressArray02 = addressArray01[0][@"Sub"]; //默认显示第一个
-        addressArray03 = addressArray02[0][@"Sub"];
+        
+        NSArray *modelArt = [MLShippingaddress mj_objectArrayWithKeyValuesArray:ary];
+        self.addressData = [modelArt mutableCopy];
+        
+        province = [self.addressData firstObject];
+        if (province.childAddress.count>0) {
+            city = [province.childAddress firstObject];
+            if (city.childAddress.count>0) {
+                [city.childAddress firstObject];
+            }
+        }
+        [self.addressPickerView reloadAllComponents];
 
     }
     
@@ -124,46 +125,64 @@
     NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"Area.json"]];
     return filePath;
 }
+
+
+
+
 -(void)getAllarea
 {
-    
-    [[HFSServiceClient sharedClient] GET:[NSString stringWithFormat:@"%@Ajax/Common/District.ashx?op=all",SERVICE_GETBASE_URL] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (responseObject) {
-            NSDictionary *tempdic = (NSDictionary*)responseObject;
-            NSLog(@"temdic %@",tempdic);
-            
+    [[HFSServiceClient sharedJSONClientNOT] GET:[NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=dis",@"http://bbctest.matrojp.com"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([[result objectForKey:@"code"] isEqual:@0]) {
+            NSDictionary *data = result[@"data"];
+            NSArray *district_info = [MLShippingaddress mj_objectArrayWithKeyValuesArray:data[@"district_info"]];
+            for (MLShippingaddress *parent in district_info) {
+                if ([parent.pid isEqualToString:@"0"]) {
+                    parent.childAddress = [self getChildAddress:district_info pid:parent.ID];
+                    [self.addressData addObject:parent];
+                }
+            }
+            //缓存本地
+            NSArray *tmp = [MLShippingaddress mj_keyValuesArrayWithObjectArray:district_info];
+            NSLog(@"%@",tmp);
             SBJSON *sbjson = [SBJSON new];
             NSError *error;
-            NSString *jsonstr = [sbjson stringWithObject:tempdic error:&error];
+            NSString *jsonstr = [sbjson stringWithObject:tmp error:&error];
             if (jsonstr) {
                 [jsonstr writeToFile:[self getDocumentpath] atomically:YES encoding:NSUTF8StringEncoding error:&error];
             }
             
-            NSArray *ary = (NSArray*)responseObject;
-            if (ary && ary.count>0) {
-                
-                [addressArray01 addObjectsFromArray:ary];
-                addressArray02 = addressArray01[0][@"Sub"]; //默认显示第一个
-                addressArray03 = addressArray02[0][@"Sub"];
+            
+            province = [self.addressData firstObject];
+            if (province.childAddress.count>0) {
+                city = [province.childAddress firstObject];
+                if (city.childAddress.count>0) {
+                    [city.childAddress firstObject];
+                }
             }
-            
-            
-            
+            [self.addressPickerView reloadAllComponents];
         }
-        
-        [self.navigationController popViewControllerAnimated:YES];
+    
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
         
     }];
 
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (NSArray *)getChildAddress:(NSArray *)allAddress pid:(NSString *)pid{
+    NSMutableArray *tmp = [NSMutableArray array];
+    for (MLShippingaddress *address in allAddress) {
+        if ([address.pid isEqualToString:pid]) {
+            address.childAddress = [self getChildAddress:allAddress pid:address.ID];
+            [tmp addObject:address];
+        }
+    }
+    return [tmp copy];
 }
+
+
+
 
 - (void)viewWillAppear:(BOOL)animated{
     _rH.constant = MAIN_SCREEN_HEIGHT - 64;
@@ -172,6 +191,7 @@
 
 
 - (IBAction)selAddressButtonAction:(id)sender {
+    [self.view endEditing:YES];
     _blackView.hidden = _pickerRootView.hidden = NO;
 }
 
@@ -182,27 +202,15 @@
 - (IBAction)addressSureButtonAction:(id)sender {
     _pickerRootView.hidden = YES;
     _blackView.hidden = YES;
-    
-    NSMutableString *addressStr = [[NSMutableString alloc]initWithString:addressArray01[[_addressPickerView selectedRowInComponent:0]][@"Name"]];
-    
-    if (addressArray02.count > 0) {
-        [addressStr appendFormat:@"%@",addressArray02[[_addressPickerView selectedRowInComponent:1]][@"Name"]];
-        selcode = addressArray02[[_addressPickerView selectedRowInComponent:1]][@"Code"];
-    }
-    
-    if (addressArray03.count > 0) {
-        [addressStr appendFormat:@"%@",addressArray03[[_addressPickerView selectedRowInComponent:2]][@"Name"]];
-        selcode = addressArray03[[_addressPickerView selectedRowInComponent:2]][@"Code"];
 
-    }
-    _selTextField.text = addressStr;
+    
+    NSString *address = [NSString stringWithFormat:@"%@%@%@",province?province.name:@"",city?city.name:@"",area?area.name:@""];
+    _selTextField.text = address;
     
 }
 
 - (IBAction)sButtonAction:(id)sender {
     
-//    UIButton * button = ((UIButton *)sender);
-//    button.selected = !button.selected;
     
     if (_sOn.selected) {
         [self notDefault];
@@ -268,43 +276,21 @@
         return;
 
     }
-    if ([self.inputTextField.text isEqualToString:@""]) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"地区不能为空";
-        [_hud hide:YES afterDelay:1];
-        return;
-
-    }
-    
-    NSString *urlStr;
-    if (_isNewAddress) {
-        //新增地址
-        urlStr = [NSString stringWithFormat:@"%@Ajax/member/glshdz.ashx?op=saveaddr&textSjrXm=%@&textSfzHm=&sf=%@&textXxdz=%@&textMPhoneNumber=%@&textPhoneNumber=%@&inx=&userid=%@",SERVICE_GETBASE_URL,self.nameTextField.text, selcode,self.inputTextField.text,self.phoneTextField.text,@"",userid];
-        NSLog(@"%@",urlStr);
-    }else {
-        //编辑地址
-        urlStr = [NSString stringWithFormat:@"%@Ajax/member/glshdz.ashx?op=saveaddr&textSjrXm=%@&sf=%@&textXxdz=%@&textMPhoneNumber=%@&textPhoneNumber=%@&inx=%@&userid=%@&textSfzHm=",SERVICE_GETBASE_URL,self.nameTextField.text,selcode,self.inputTextField.text,self.phoneTextField.text,_paramdic[@"SHRPHONE"],_paramdic[@"INX"],userid];
-        NSLog(@"%@",urlStr);
-    }
-    urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *loginid = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
+        
+     NSString  *urlStr = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=%@&uid=%@&name=%@&areaid=%@&area=%@&address=%@&provinceid=%@&cityid=%@&zip=%@&tel=%@&mobile=%@&default=2",@"http://bbctest.matrojp.com",_isNewAddress?@"add":@"upd",loginid,self.nameTextField.text,area.ID, self.selTextField.text,self.inputTextField.text,province.ID,city.ID,@"215000",@"65123123",self.phoneTextField.text];
+     urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [[HFSServiceClient sharedJSONClient] POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@",responseObject);
-        
-        if ( isdefault!=1)
-        {
-            [self setDefaultAddress:nil];
-        }
-        else{
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"新增地址成功";
-            [_hud hide:YES afterDelay:1];
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
             
-            [self.navigationController popViewControllerAnimated:YES];
+            
+            if (self.addressSuccess) {
+                self.addressSuccess();
+            }
         }
         
-       
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败");
         
@@ -315,54 +301,7 @@
 #pragma mark 设置默认地址
 -(void)setDefaultAddress:(NSDictionary*)dic
 {
-    NSString *inx=@"";
-    if (_paramdic) {
-        inx = _paramdic[@"INX"];
-    }
-    NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/member/glshdz.ashx?op=moren&inx=%@&userid=%@",SERVICE_GETBASE_URL,inx,userid];
-    NSURL * URL = [NSURL URLWithString:urlStr];
     
-    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
-    [request setHTTPMethod:@"get"]; //指定请求方式
-    [request setURL:URL]; //设置请求的地址
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                            completionHandler:
-                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                      //NSData 转NSString
-                                      if (data && data.length>0) {
-                                          NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                          NSLog(@"error %@",result);
-                                          if ([@"true" isEqualToString:result]) {
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  
-                                                  [_hud show:YES];
-                                                  _hud.mode = MBProgressHUDModeText;
-                                                  _hud.labelText = @"修改成功";
-                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
-                                                  [_hud hide:YES afterDelay:1];
-                                                  [self.navigationController popViewControllerAnimated:YES];
-
-                                              });
-
-                                          }
-                                          else
-                                          {
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  
-                                                  [_hud show:YES];
-                                                  _hud.mode = MBProgressHUDModeText;
-                                                  _hud.labelText = result;
-                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
-                                                  [_hud hide:YES afterDelay:2];
-                                              });
-                                              
-                                          }
-                                      }
-                                      
-                                  }];
-    
-    [task resume];
     
 }
 
@@ -393,29 +332,43 @@
 
 // returns the # of rows in each component..
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;{
+    
     switch (component) {
         case 0:
-            return addressArray01.count;
+            return self.addressData.count;
             break;
         case 1:
-            return addressArray02.count;
+            return province.childAddress.count;
             break;
         default:
-            return addressArray03.count;
+        {
+            return city.childAddress.count;;
+        }
             break;
     }
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    
     switch (component) {
         case 0:
-            return addressArray01[row][@"Name"];
+        {
+            MLShippingaddress *add = [self.addressData objectAtIndex:row];
+            return add.name;
+        }
             break;
         case 1:
-            return addressArray02[row][@"Name"];
+        {
+            MLShippingaddress *tt = [province.childAddress objectAtIndex:row];
+            return tt.name;
+        }
+           
             break;
         default:
-            return addressArray03[row][@"Name"];
+        {
+            MLShippingaddress *tt = [city.childAddress objectAtIndex:row];
+            return tt.name;
+        }
             break;
     }
 }
@@ -440,26 +393,31 @@
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     switch (component) {
-        case 0://滑动第一个轮子，然后根据第二第三个轮子数据的实际情况改变第二第三个轮子
-            addressArray02 = addressArray01[row][@"Sub"];
-            [_addressPickerView reloadComponent:1];//更新第二个轮子
-            if (addressArray02.count > 0) {//第二个轮子有数据的时候才执行更新
-                [_addressPickerView selectRow:0 inComponent:1 animated:YES];//第二个轮子滑动到第一行
-                addressArray03 = addressArray02[0][@"Sub"];
+        case 0:
+            province = [self.addressData objectAtIndex:row];
+            [self.addressPickerView reloadComponent:1];
+            if (province.childAddress.count>0) {
+                city = [province.childAddress firstObject];
+                [_addressPickerView selectRow:0 inComponent:1 animated:YES];
+                if (city.childAddress.count>0) {
+                    [self.addressPickerView reloadComponent:2];
+                    area = [city.childAddress firstObject];
+                    [_addressPickerView selectRow:0 inComponent:2 animated:YES];
+                }
             }
-            
-            [_addressPickerView reloadComponent:2];//第三个轮子的数据前面判断过了，只能是有或者没有，可以直接刷新第三个轮子
-            if (addressArray03.count > 0) {//判断第三个轮子有没有数据，有的话让滑动到第一个，第三个轮子已经是最后一个轮子了没有其他的事件了
-                [_addressPickerView selectRow:0 inComponent:2 animated:YES];
-            }
-            
+              [_addressPickerView reloadComponent:2];
             break;
-        case 1://滑动第二个轮子的事件，根据情况改变第三个轮子，同滑动第一个轮子的方法中改变第三个轮子
-            addressArray03 = addressArray02[row][@"Sub"];
-            [_addressPickerView reloadComponent:2];
-            if (addressArray03.count > 0) {
+        case 1:
+            city = [province.childAddress objectAtIndex:row];
+            [self.addressPickerView reloadComponent:2];
+            if (city.childAddress.count>0) {
+                area = [city.childAddress firstObject];
                 [_addressPickerView selectRow:0 inComponent:2 animated:YES];
             }
+
+            break;
+        case 2:
+            area = [city.childAddress objectAtIndex:row];
             break;
         default:
             
@@ -467,15 +425,14 @@
     }
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSMutableArray *)addressData{
+    if (!_addressData) {
+        _addressData = [NSMutableArray array];
+    }
+    return _addressData;
 }
-*/
+
+
+
 
 @end

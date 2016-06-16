@@ -52,44 +52,8 @@ static NSInteger firstLoad = 0;
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {
 
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/member/glshdz.ashx?op=getshdzlist&userid=%@",SERVICE_GETBASE_URL,userid];
-    [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"请求成功%@",responseObject);
-        [_addressArray removeAllObjects];
-        if(responseObject)
-        {
-            NSLog(@"%@",responseObject);
-            NSArray *array = (NSArray *)responseObject;
-            if (array && array.count>0) {
-                [_addressArray addObjectsFromArray:array];
-                self.tisBgView.hidden = YES;
-                self.listBgView.hidden = NO;
-            }
-            if (!firstLoad) {
-                for (NSInteger i=0; i<array.count; i++) {
-                    NSDictionary *dic = [array objectAtIndex:i];
-                    if ([dic[@"MRSHRBJ"] isEqualToString:@"1"]) {
-                        firstLoad++;
-                        if (firstLoad == 1) {
-                            selNum = i;
-                        }
-                        
-                    }
-                }
-            }
-            
-        }
-        [_tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
-    }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)viewWillAppear:(BOOL)animated{
     if (_addressArray.count == 0) {
@@ -113,7 +77,7 @@ static NSInteger firstLoad = 0;
     NSLog(@"%ld",button.tag);
     MLAddressInfoViewController * vc = [[MLAddressInfoViewController alloc]init];
     NSDictionary *dic = [_addressArray objectAtIndex:button.tag];
-    vc.paramdic = dic;
+//    vc.paramdic = dic;
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

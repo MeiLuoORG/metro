@@ -73,6 +73,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"订单管理";
     // Do any additional setup after loading the view.
     self.scrollView.scrollEnabled = NO;
     self.viewFrame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-64);

@@ -22,4 +22,11 @@
     // Configure the view for the selected state
 }
 
+- (void)setOrderList:(MLPersonOrderModel *)orderList{
+    _orderList = orderList;
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderList.product_price];
+}
+
+
+
 @end

@@ -34,6 +34,9 @@
                     <constraint firstItem="kCF-v3-nyG" firstAttribute="leading" secondItem="s2Y-Fp-mIb" secondAttribute="trailing" id="yRh-4F-Jrb"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="priceLabel" destination="kCF-v3-nyG" id="fFo-3B-u7a"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

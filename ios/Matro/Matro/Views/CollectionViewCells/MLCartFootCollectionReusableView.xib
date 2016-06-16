@@ -11,8 +11,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wo3-Lf-k38" customClass="MLCheckBoxButton">
-                    <rect key="frame" x="15" y="19" width="18" height="22"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wo3-Lf-k38" customClass="MLCheckBoxButton">
+                    <rect key="frame" x="16" y="23" width="15" height="15"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="NGC-5Z-91e"/>
                         <constraint firstAttribute="width" constant="15" id="XP0-wr-Uwo"/>
@@ -25,9 +25,9 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="合计:￥8900.0 共4件，不含运费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CD-0S-7AP">
-                    <rect key="frame" x="87" y="22" width="147" height="17"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" misplaced="YES" text="合计:￥8900.0 共4件，不含运费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CD-0S-7AP">
+                    <rect key="frame" x="82" y="23" width="152" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -54,6 +54,7 @@
                 <constraint firstItem="2CD-0S-7AP" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="7dy-VC-Gjp"/>
                 <constraint firstAttribute="trailing" secondItem="9XI-8k-E7p" secondAttribute="trailing" constant="8" id="80p-MU-QXr"/>
                 <constraint firstItem="9XI-8k-E7p" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="FgD-eQ-Quh"/>
+                <constraint firstItem="2CD-0S-7AP" firstAttribute="leading" secondItem="7CX-Bz-ZlG" secondAttribute="trailing" constant="15" id="IB9-DH-fJF"/>
                 <constraint firstItem="wo3-Lf-k38" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="16" id="OL9-yq-3rt"/>
                 <constraint firstItem="7CX-Bz-ZlG" firstAttribute="leading" secondItem="wo3-Lf-k38" secondAttribute="trailing" constant="8" id="OgN-vd-PqA"/>
                 <constraint firstItem="2CD-0S-7AP" firstAttribute="leading" secondItem="7CX-Bz-ZlG" secondAttribute="trailing" constant="20" id="OrM-v7-XgW"/>
@@ -62,6 +63,11 @@
                 <constraint firstItem="7CX-Bz-ZlG" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="wY7-0U-fHg"/>
                 <constraint firstItem="9XI-8k-E7p" firstAttribute="leading" secondItem="2CD-0S-7AP" secondAttribute="trailing" constant="8" id="ztI-hZ-sZ2"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="OrM-v7-XgW"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="checkBox" destination="wo3-Lf-k38" id="VTh-o5-pcO"/>
                 <outlet property="clearingBtn" destination="9XI-8k-E7p" id="jyy-UO-M6Y"/>

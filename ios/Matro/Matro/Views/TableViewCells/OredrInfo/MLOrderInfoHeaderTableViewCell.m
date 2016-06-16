@@ -23,4 +23,12 @@
     // Configure the view for the selected state
 }
 
+
+- (void)setOrderList:(MLPersonOrderModel *)orderList{
+    _orderList = orderList;
+    self.shopName.text = _orderList.company;
+    self.statusLabel.text = _orderList.statu_text;
+    
+}
+
 @end

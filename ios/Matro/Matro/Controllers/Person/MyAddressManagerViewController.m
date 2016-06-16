@@ -14,6 +14,9 @@
 #import "MBProgressHUD.h"
 #import "MLAddressInfoViewController.h"
 #import "UIView+BlankPage.h"
+#import "MLAddressListModel.h"
+#import "MJExtension.h"
+
 
 @interface MyAddressManagerViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 {
@@ -30,19 +33,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"收货地址管理";
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
+    userid = [[NSUserDefaults standardUserDefaults] valueForKey:kUSERDEFAULT_USERID];
     addressAry = [[NSMutableArray alloc] init];
     _addressTBView.sectionFooterHeight = 0.1f;
     [self.addBtn setBackgroundColor:[HFSUtility hexStringToColor:@"AE8E5D"]];
     [self.addBtn addTarget:self action:@selector(addAddress:) forControlEvents:UIControlEventTouchUpInside];
     _hud = [[MBProgressHUD alloc]initWithView:self.view];
     [self.view addSubview:_hud];
-
-}
--(void)viewDidAppear:(BOOL)animated
-{
-    self.hidesBottomBarWhenPushed = YES;
     [self loadDateAddressList];
 
 }
@@ -66,94 +63,41 @@
     if (cell == nil) {
         NSArray *array = [[NSBundle mainBundle]loadNibNamed: CellIdentifier owner:self options:nil];
         cell = [array objectAtIndex:0];
-        cell.editBtn.layer.borderWidth = 0.5f;
-        cell.delBtn.layer.borderWidth = 0.5f;
-        [cell.checkBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [cell.checkBtn setTitleColor:[HFSUtility hexStringToColor:@"AE8E5D"] forState:UIControlStateSelected];
     }
+    MLAddressListModel *model = [addressAry objectAtIndex:indexPath.section];
     
-    NSDictionary *dic = [addressAry objectAtIndex:indexPath.section];
+    cell.address = model;
     
-    cell.usernameLabel.text = dic[@"SHRMC"];
-    cell.phoneLabel.text = dic[@"SHRMPHONE"];
-    cell.addressLabel.text =[NSString stringWithFormat:@"%@%@", dic[@"SFNAME"],dic[@"SHRADDRESS"]];
-    cell.checkBtn.tag = indexPath.section;
-    [cell.checkBtn addTarget:self action:@selector(setSelAddress:) forControlEvents:UIControlEventTouchUpInside];
-    if (lastselbtn) {
-        if (indexPath.section==lastselbtn.tag) {
-            cell.checkBtn.selected = YES;
-        }
-        else{
-            cell.checkBtn.selected = NO;
-        }
-    }
-    else{
-        if ([@"1" isEqualToString:dic[@"MRSHRBJ"]] ) {
-            cell.checkBtn.selected = YES;
-        }
-    }
+    __weak typeof(self) weakself = self;
+    
+    cell.addressManagerEdit = ^(){//编辑记录 跳转到
+        MLAddressInfoViewController *vc = [MLAddressInfoViewController new];
+        vc.addressDetail = model;
+        vc.isNewAddress = NO;
+        weakself.hidesBottomBarWhenPushed = YES;
+        [weakself.navigationController pushViewController:vc animated:YES];
+    };
+    cell.addressDefault = ^(){
+        [weakself changeAddressStatus:model];
+    };
+    cell.addressManagerDel = ^(){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定删除此记录" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { //调接口删除
+            
+            
+        }];
+        [alert addAction:done];
+        [alert addAction:cancel];
+        [weakself presentViewController:alert animated:YES completion:nil];
+    };
     
     
-    
-    cell.editBtn.tag = indexPath.section;
-    [cell.editBtn addTarget:self action:@selector(editButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    cell.delBtn.tag = indexPath.section;
-    [cell.delBtn addTarget:self action:@selector(delBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
 
--(void)delBtnAction:(id)sender
-{
-    UIButton *btn = (UIButton*)sender;
-    
-    UIAlertView *alertview =[[UIAlertView alloc]initWithTitle:@"提示" message:@"您确定要删除此地址信息吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    alertview.tag = btn.tag;
-    [alertview show];
-    
 
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex==1) {
-        NSDictionary *dic = addressAry[alertView.tag];
-        NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/member/glshdz.ashx?op=deladdr&inx=%@&userid=%@",SERVICE_GETBASE_URL,dic[@"INX"],userid];
-        NSURL * URL = [NSURL URLWithString:urlStr];
-        
-        NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
-        [request setHTTPMethod:@"get"]; //指定请求方式
-        [request setURL:URL]; //设置请求的地址
-        NSURLSession *session = [NSURLSession sharedSession];
-        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                                completionHandler:
-                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          //NSData 转NSString
-                                          if (data && data.length>0) {
-                                              NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                              if ([@"true" isEqualToString:result]) {
-                                                  [self loadDateAddressList];
-                                              }
-                                              else
-                                              {
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      
-                                                      [_hud show:YES];
-                                                      _hud.mode = MBProgressHUDModeText;
-                                                      _hud.labelText = result;
-                                                      _hud.labelFont = [UIFont systemFontOfSize:13];
-                                                      [_hud hide:YES afterDelay:2];
-                                                  });
-                                                  
-                                              }
-                                          }
-                                          
-                                      }];
-        
-        [task resume];
-
-    }
-}
 
 -(void)addAddress:(id)sender
 {
@@ -161,20 +105,10 @@
     vc.isNewAddress = YES;
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
-//    self.hidesBottomBarWhenPushed = NO;
 }
 
--(void)editButtonAction:(id)sender
-{
-    UIButton *btn = (UIButton*)sender;
-    NSInteger index = btn.tag;
-    NSDictionary *dic = [addressAry objectAtIndex:index];
-    MLAddressInfoViewController *vc = [MLAddressInfoViewController new];
-    vc.paramdic = dic;
-    self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
-//    self.hidesBottomBarWhenPushed = NO;
-}
+
+
 -(void)setSelAddress:(id)sender
 {
     
@@ -199,25 +133,49 @@
     
 }
 
+
+
+#pragma mark 修改默认地址状态
+- (void)changeAddressStatus:(MLAddressListModel *)model{
+    
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=setdef&id=%@&uid=%@",@"http://bbctest.matrojp.com",model.ID,userid];
+    [[HFSServiceClient sharedJSONClientNOT]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) { //重置成功
+            [self loadDateAddressList];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
+    
+    
+    
+}
+
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/member/glshdz.ashx?op=getshdzlist&userid=%@",SERVICE_GETBASE_URL,userid];
-    [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"请求成功");
-        if(responseObject)
-        {
-            [addressAry removeAllObjects];
-            NSArray *array = (NSArray *)responseObject;
-            if (array && array.count>0) {
-                [addressAry addObjectsFromArray:array];
-            }
-        }
-        [_addressTBView reloadData];
-        [self configBlankView];
+//    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=lists&uid=21357"];
+    NSString *urlStr = [NSString stringWithFormat:@"http://192.168.21.212/addresslist.php"];
+    
+    [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        NSDictionary *result = (NSDictionary *)responseObject;
+        
+        if([result[@"code"] isEqual:@0])
+        {
+            NSDictionary *data = result[@"data"];
+            NSArray *address_lists = data[@"address_lists"];
+            
+            if (address_lists.count>0) {
+                [addressAry removeAllObjects];
+                [addressAry addObjectsFromArray:[MLAddressListModel mj_objectArrayWithKeyValuesArray:address_lists]];
+            }
+            [_addressTBView reloadData];
+        }
+        [self configBlankView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
         [self configBlankView];
     }];
 }
@@ -240,40 +198,6 @@
 #pragma mark 设置默认地址
 -(void)setDefaultAddress
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/member/glshdz.ashx?op=moren&inx=%@&userid=%@",SERVICE_GETBASE_URL,selAddress[@"INX"]?:@"",userid];
-    NSURL * URL = [NSURL URLWithString:urlStr];
-    
-    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
-    [request setHTTPMethod:@"get"]; //指定请求方式
-    [request setURL:URL]; //设置请求的地址
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                            completionHandler:
-                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                      //NSData 转NSString
-                                      if (data && data.length>0) {
-                                          NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                          NSLog(@"error %@",result);
-                                          if ([@"true" isEqualToString:result]) {
-                                              [self loadDateAddressList];
-                                          }
-                                          else
-                                          {
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  
-                                                  [_hud show:YES];
-                                                  _hud.mode = MBProgressHUDModeText;
-                                                  _hud.labelText = result;
-                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
-                                                  [_hud hide:YES afterDelay:2];
-                                              });
-                                              
-                                          }
-                                      }
-                                      
-                                  }];
-    
-    [task resume];
 
 }
 @end

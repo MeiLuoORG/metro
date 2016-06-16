@@ -87,6 +87,13 @@
                 </variation>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="goodsCount" destination="z3Z-1o-LkM" id="UzP-T5-z02"/>
+                <outlet property="goodsDesc" destination="5YL-ex-TYa" id="tG4-0d-gYS"/>
+                <outlet property="goodsImg" destination="qHt-jS-tQL" id="mZs-ZB-yPi"/>
+                <outlet property="goodsName" destination="QTt-dK-zOO" id="OAK-TK-EPi"/>
+                <outlet property="goodsPrice" destination="Rhk-UM-eV3" id="MU7-zZ-ecP"/>
+            </connections>
             <point key="canvasLocation" x="413" y="364"/>
         </tableViewCell>
     </objects>
