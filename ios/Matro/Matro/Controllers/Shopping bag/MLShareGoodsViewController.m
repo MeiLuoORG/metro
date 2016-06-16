@@ -16,6 +16,7 @@
 }
 
 @property (weak, nonatomic) IBOutlet UIView *shareBgView;
+@property (weak, nonatomic) IBOutlet UIButton *quxiaoBtn;
 
 @end
 
@@ -25,9 +26,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.shareBgView.layer.masksToBounds = YES;
-    self.shareBgView.layer.cornerRadius = 3.f;
+    self.shareBgView.layer.cornerRadius = 4.f;
+    self.quxiaoBtn.layer.cornerRadius = 4.f;
+    self.quxiaoBtn.layer.masksToBounds = YES;
     
-    if ([_paramDic[@"ZCSP"] isEqualToString:@"5"]) {
+    if ([_paramDic[@"way"] isEqualToString:@"5"]) {
         share_Url = [NSString stringWithFormat:@"http://m.matrojp.com/products/products_hwg.aspx?JMSP_ID=%@",_paramDic[@"JMSP_ID"]];
     }
     else{

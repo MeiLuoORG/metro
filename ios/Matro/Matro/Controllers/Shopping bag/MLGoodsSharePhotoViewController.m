@@ -20,6 +20,7 @@
 {
     NSString *share_Url;
 }
+@property (weak, nonatomic) IBOutlet UIView *shareView;
 @property (weak, nonatomic) IBOutlet UIView *shareImageView;
 
 @property (weak, nonatomic) IBOutlet UIButton *closeBtn;
@@ -36,16 +37,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.titleLabel.text = self.goodsDetail[@"NAMELIST"][@"2"]?:@"";
+    self.shareView.layer.masksToBounds = YES;
+    self.shareView.layer.cornerRadius = 4.f;
     
     
-    [self.goodsImage sd_setImageWithURL:[NSURL URLWithString:_img_url] placeholderImage:PLACEHOLDER_IMAGE];
+    self.titleLabel.text = self.goodsDetail[@"pname"];
     
-    float pricef = [_goodsDetail[@"XJ"] floatValue];
+    
+    [self.goodsImage sd_setImageWithURL:[NSURL URLWithString:self.goodsDetail[@"pic"]] placeholderImage:PLACEHOLDER_IMAGE];
+    
+    float pricef = [_goodsDetail[@"price"] floatValue];
     self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
     
     
-    if ([_paramDic[@"ZCSP"] isEqualToString:@"5"]) {
+    if ([_paramDic[@"way"] isEqualToString:@"5"]) {
         share_Url = [NSString stringWithFormat:@"http://m.matrojp.com/products/products_hwg.aspx?JMSP_ID=%@",_paramDic[@"JMSP_ID"]];
     }
     else{

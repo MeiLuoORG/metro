@@ -278,7 +278,7 @@ NSString* const public_key_string = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAYv
         [totaldata setLength:0];
     }
     NSData *signeddata = [self sectionRSASecret:data];
-
+    NSLog(@"signeddata===%@",signeddata);
     return signeddata;
 }
 

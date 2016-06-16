@@ -142,7 +142,7 @@ static NSInteger page = 1;
     CGFloat textW = frameView.bounds.size.width - imgW - 6;
     
     
-    UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Magnifying-Class"]];
+    UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuo"]];
     searchText = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, textW, H)];
     searchText.returnKeyType = UIReturnKeySearch;
     searchText.delegate = self;
@@ -165,13 +165,13 @@ static NSInteger page = 1;
     self.navigationItem.rightBarButtonItem = button;
     
     [_jiageButtton changeImageAndTitle];
-    [_jiageButtton setImage:[UIImage imageNamed:@"jiage_arrow"] forState:UIControlStateNormal];
-    [_jiageButtton setImage:[UIImage imageNamed:@"jiage_arrow_shang"] forState:UIControlStateSelected];
+    [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateNormal];
+    [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
     
     [_shaixuanButton changeImageAndTitle];
     
-    [_changeButton setImage:[UIImage imageNamed:@"kapianmoshi-3"] forState:UIControlStateNormal];
-    [_changeButton setImage:[UIImage imageNamed:@"Starred-List"] forState:UIControlStateSelected];
+    [_changeButton setImage:[UIImage imageNamed:@"liebiao"] forState:UIControlStateNormal];
+    [_changeButton setImage:[UIImage imageNamed:@"list"] forState:UIControlStateSelected];
     
     
     _blackControl = [[UIControl alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH ,MAIN_SCREEN_HEIGHT)];
@@ -301,6 +301,8 @@ static NSInteger page = 1;
         if (sum.floatValue == 0) {
             
             self.blankView.hidden  = NO;
+            [self.tableView reloadData];
+            [self.collectionView reloadData];
             
         }else{
             self.blankView.hidden = YES;

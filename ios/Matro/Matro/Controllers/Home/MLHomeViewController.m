@@ -81,7 +81,7 @@
     CGFloat textW = frameView.bounds.size.width - imgW - 6;
     NSLog(@"textW===%f",textW);
     
-    UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Magnifying-Class"]];
+    UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuo"]];
     
     UITextField *searchText = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, textW, H)];
     searchText.enabled = NO;

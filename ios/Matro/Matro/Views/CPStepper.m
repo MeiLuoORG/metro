@@ -32,7 +32,7 @@
     
     UIButton *subButton = [UIButton buttonWithType:UIButtonTypeSystem];
     subButton.frame = CGRectMake(0, 0, 25, rect.size.height);
-    [subButton setTitle:@"-" forState:UIControlStateNormal];
+    [subButton setTitle:@"- |" forState:UIControlStateNormal];
     subButton.titleLabel.font = [UIFont systemFontOfSize:20.0f];
     [subButton setTintColor:[UIColor colorWithHexString:@"#C9C9C9"]];
     [subButton addTarget:self action:@selector(sub:) forControlEvents:UIControlEventTouchUpInside];
@@ -41,7 +41,7 @@
     
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];
     addButton.frame = CGRectMake(0, 0, 25, rect.size.height);
-    [addButton setTitle:@"+" forState:UIControlStateNormal];
+    [addButton setTitle:@"| +" forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:20.0f];
     [addButton setTintColor:[UIColor colorWithHexString:@"#C9C9C9"]];
     

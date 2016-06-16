@@ -57,14 +57,16 @@
     NSMutableArray *imgUrlArray;
     
     UIView *overView;
+    
+    NSMutableArray *porpertyArray;//规格数组
+    NSMutableArray *huoyuanArray;//规格1
+    NSMutableArray *jieduanArray;//规格2
     DWTagList *huoyuanList;
     DWTagList *jieduanList;
-    NSMutableArray *huoyuanArray;
-    NSMutableArray *jieduanArray;
-    NSDictionary *tempDictionary;
-    NSManagedObjectContext *_context;
     
-    NSMutableArray *promotionArray;
+    NSMutableArray *promotionArray;//优惠券
+    
+    
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;//最底层的SV
 @property (strong, nonatomic) IBOutlet UIPageControl *pagecontrol;
@@ -117,6 +119,7 @@
 @property (weak, nonatomic) IBOutlet UIView *jieDuanView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cuxiaoH;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cuxiaoxinxiH;
+@property (weak, nonatomic) IBOutlet UIView *biaotiView;
 
 
 
@@ -144,11 +147,12 @@
     huoyuanArray = [[NSMutableArray alloc]init];
     jieduanArray = [[NSMutableArray alloc] init];
     promotionArray = [[NSMutableArray alloc] init];
+    porpertyArray = [[NSMutableArray alloc] init];
     
     
     imgUrlArray = [NSMutableArray array];
     // 一期隐藏
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Share"] style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonAction)];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Share-1"] style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonAction)];
     self.navigationItem.rightBarButtonItem = shareButton;
     
     _imageScrollView.delegate = self;
@@ -258,6 +262,7 @@
         
         if (_titleArray && _titleArray.count >0) {
             NSArray *porpertyArr = dic[@"pinfo"][@"porperty"];
+            [porpertyArray addObjectsFromArray:porpertyArr];
             
             NSLog(@"porpertyArr===%@",porpertyArr);
             for (NSDictionary *tempdic in porpertyArr) {
@@ -312,7 +317,7 @@
         
         NSString *count = dic[@"comment_score"];
         NSLog(@"count===%@",count);
-        UIImage *image1 = [UIImage imageNamed:@"Star_small1"];
+        UIImage *image1 = [UIImage imageNamed:@"xin2"];
         
         if (count.intValue == 0) {
             
@@ -355,11 +360,9 @@
             if (tempdic[@"jmsp_id"] && tempdic[@"jmsp_id"] !=[NSNull null]) {
                 spid = dic[@"pinfo"][@"jmsp_id"];
                 
-            }
-            if (dic[@"pinfo"][@"production_name"]) {
-                self.yuanchandiLabel.text = dic[@"pinfo"][@"production_name"];
                 
             }
+            
             
             //加载h5详情页
             if (dic[@"pinfo"][@"detail"]) {
@@ -386,26 +389,42 @@
                NSStrikethroughColorAttributeName:[UIColor grayColor]}];
             self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
             
-//            
-//            self.shuliangStepper.paramDic = dic;
-//            [self.shuliangStepper setTextValue:1];
-//            self.kuncuntisLabel.text = dic[@"pinfo"][@"amount"];
-           // UIButton *leftbtn = (UIButton*)self.shuliangStepper.leftView;
-            //UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
             
-            /*
-            if ([self.kuncuntisLabel.text isEqualToString:@"售罄"]) {
+            
+            self.shuliangStepper.paramDic = dic;
+            
+            [self.shuliangStepper setTextValue:1];
+            UIButton *leftbtn = (UIButton*)self.shuliangStepper.leftView;
+            UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
+            
+            NSString *amount = dic[@"pinfo"][@"amount"];
+            NSString *safe_amount = dic[@"pinfo"][@"safe_amount"];
+            NSString *sell_amount = dic[@"pinfo"][@"sell_amount"];
+            
+            if (amount.floatValue >= safe_amount.floatValue) {
+                self.kuncuntisLabel.text = @"库存充足";
+            }else if(amount.floatValue < safe_amount.floatValue){
+            
+                self.kuncuntisLabel.text = [NSString stringWithFormat:@"%@",amount];
+            }
+            
+            if (amount.floatValue == 0) {
                 [self.shuliangStepper setTextValue:0];
                 leftbtn.enabled=NO;
                 rightbtn.enabled = NO;
+                self.kuncuntisLabel.text = @"售罄";
             }
-             */
+            
             NSLog(@"%@",dic);
             if ([dic[@"pinfo"][@"way"] isEqualToString:@"1"]) {
                 self.kujingBgView.hidden = YES;
                 self.kuajingHeight.constant = 0;
                 isglobal = NO;
-            }else if ([dic[@"pinfo"][@"way"] isEqualToString:@"3"]){
+                [self.tedianView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.top.mas_equalTo(self.biaotiView.mas_bottom);
+                }];
+            }
+            else if ([dic[@"pinfo"][@"way"] isEqualToString:@"3"]){
             
                 self.kujingBgView.hidden = YES;
                 self.kuajingHeight.constant = 0;
@@ -417,12 +436,16 @@
                 self.kujingBgView.hidden = NO;
                 self.kuajingHeight.constant = 120;
                 
-                float shuiliv = [dic[@"SpXqInfo"][@"SL"] floatValue];
-                float xfshuilv =[dic[@"SpXqInfo"][@"GSSL"] floatValue];
-                float zzshuilv = [dic[@"SpXqInfo"][@"ZZSL"] floatValue];
-                self.shuilvLabel.text =[NSString stringWithFormat:@"%.2f%%",shuiliv*100];
-                self.xiaoshuiView.shuilvLabel.text = [NSString stringWithFormat:@"%.2f%%",xfshuilv*100];
-                self.zengzhiView.shuilvLabel.text = [NSString stringWithFormat:@"%.2f%%",zzshuilv*100];
+                if (dic[@"pinfo"][@"production_name"]) {
+                    self.yuanchandiLabel.text = dic[@"pinfo"][@"production_name"];
+                    
+                }
+                
+                float shuiliv = [dic[@"pinfo"][@"tax"] floatValue];
+                float pricef = [dic[@"pinfo"][@"market_price"] floatValue];
+                float shuifei = (shuiliv * pricef)/100;
+                self.shuilvLabel.text =[NSString stringWithFormat:@"预计￥%.2f",shuifei];
+                
                 
                 isglobal = YES;
                 
@@ -457,149 +480,84 @@
     }];
     
     
-    
-    /*
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@ajax/app/index.ashx?op=prodetail&jmsp_id=%@&zcsp=%@",SERVICE_GETBASE_URL,_paramDic[@"JMSP_ID"]?:@"",_paramDic[@"ZCSP"]?:@""];
-    
-    [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-     
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        
-        NSDictionary *dic = (NSDictionary *)responseObject;
-        if (dic && dic[@"SpXqInfo"] && dic[@"SpXqInfo"]!=[NSNull null]) {
-            NSLog(@"return dic %@",dic);
-            NSDictionary *tempdic = dic[@"SpXqInfo"];
-            self.shareDic = tempdic;
-            if (tempdic[@"JMSP_ID"] && tempdic[@"JMSP_ID"] !=[NSNull null]) {
-                spid = dic[@"SpXqInfo"][@"JMSP_ID"];
-
-            }
-            if (dic[@"SpXqInfo"][@"CD"]) {
-                self.yuanchandiLabel.text = dic[@"SpXqInfo"][@"CD"];
-                
-            }
-     
-            //加载h5详情页
-            if (dic[@"detail"][@"MS"]) {
-                NSString *htmlCode = [NSString stringWithFormat:@"<html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"><style type=\"text/css\">body{font-size : 0.9em;}img{width:%@ !important;}</style></head><body>%@</body></html>",@"100%",dic[@"SpmsInfo"][@"MS"]];
-                NSLog(@"%@",htmlCode);
-                [self.webView loadHTMLString:htmlCode baseURL:nil];
-            }
-            self.biaotiLabel.text = dic[@"SpXqInfo"][@"NAMELIST"][@"2"]?:@"";
-            self.texingLabel.text = dic[@"SpXqInfo"][@"NAMELIST"][@"3"]?:@"";
-            float  originprice= [dic[@"SpXqInfo"][@"LSDJ"] floatValue];
-
-            float pricef = [dic[@"SpXqInfo"][@"XJ"] floatValue];
-            NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
-            self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-
-            NSAttributedString *attrStr =
-            [[NSAttributedString alloc]initWithString:pricestr
-                                          attributes:
-              @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-                NSForegroundColorAttributeName:[UIColor grayColor],
-                NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-                NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-            self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-            
-           
-            self.shuliangStepper.paramDic = dic;
-            [self.shuliangStepper setTextValue:1];
-            self.kuncuntisLabel.text = dic[@"SpXqInfo"][@"KCSL"];
-            UIButton *leftbtn = (UIButton*)self.shuliangStepper.leftView;
-            UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
-
-            
-            if ([self.kuncuntisLabel.text isEqualToString:@"售罄"]) {
-                [self.shuliangStepper setTextValue:0];
-                leftbtn.enabled=NO;
-                rightbtn.enabled = NO;
-            }
-            NSLog(@"%@",dic);
-            if ([dic[@"SpXqInfo"][@"ZCSP"] isEqualToString:@"0"]) {
-                self.kujingBgView.hidden = YES;
-                self.kuajingHeight.constant = 0;
-                isglobal = NO;
-            }
-            else{
-                self.kujingBgView.hidden = NO;
-                self.kuajingHeight.constant = 200;
-                [self.kujingBgView addSubview:self.zengzhiView];
-                [self.kujingBgView addSubview:self.xiaoshuiView];
-                [self.zengzhiView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.mas_equalTo(self.shuiView.mas_bottom);
-                    make.left.right.mas_equalTo(self.shuiView);
-                    make.height.mas_equalTo(40);
-                }];
-                [self.xiaoshuiView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.mas_equalTo(self.zengzhiView.mas_bottom);
-                    make.left.right.mas_equalTo(self.shuiView);
-                    make.height.mas_equalTo(40);
-                }];
-                
-                float shuiliv = [dic[@"SpXqInfo"][@"SL"] floatValue];
-                float xfshuilv =[dic[@"SpXqInfo"][@"GSSL"] floatValue];
-                float zzshuilv = [dic[@"SpXqInfo"][@"ZZSL"] floatValue];
-                self.shuilvLabel.text =[NSString stringWithFormat:@"%.2f%%",shuiliv*100];
-                self.xiaoshuiView.shuilvLabel.text = [NSString stringWithFormat:@"%.2f%%",xfshuilv*100];
-                self.zengzhiView.shuilvLabel.text = [NSString stringWithFormat:@"%.2f%%",zzshuilv*100];
-                
-                isglobal = YES;
-                
-            }
-        }
-        if (dic && dic[@"SpmsInfo"] && dic[@"SpmsInfo"] !=[NSNull null]) {
-
-            NSDictionary *tempdic2 = dic[@"SpmsInfo"];
-            if (tempdic2[@"MS"] && tempdic2[@"MS"] !=[NSNull null]) {
-                weburl = tempdic2[@"MS"];
-            }
-        }
-        
-            _imageArray = dic[@"SptpList"];
-        
-        if (![_imageArray isKindOfClass:[NSNull class]]) {//防崩溃
-            [self imageUIInit];
-        }
-        [overView removeFromSuperview];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [overView removeFromSuperview];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
-    }];
-    */
 }
 
 
-/*
-- (void)selectedTag:(NSString *)tagName;{
-    BOOL isRepeat = NO;
-    for (NSString *searhStr in huoyuanArray) {
-        if ([searhStr isEqualToString:tagName]) {
-            isRepeat = YES;
-        }
-    }
-    if (!isRepeat) {
-        SearchHistory *searchHistory = [SearchHistory MR_createEntityInContext:_context];
-        searchHistory.keywork = tagName;
- 
-        [_context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError *error) {
-            [self loadSearchHistory];
-        }];
- 
+- (void)selectedTag:(NSString *)tagName{
+    
+    NSLog(@"点击了====%@",tagName);
+    NSLog(@"array====%@",porpertyArray);
+    
+    NSString *price;
+    NSString *market_price;
+    NSString *stock;
+    NSString *safe_stock;
+    
+    for (NSDictionary *searchDic in porpertyArray) {
+        
+        NSArray *setmealArr = searchDic[@"setmeal"];
+        NSDictionary *guigeDic1 = setmealArr[0];
+        NSDictionary *guigeDic2 = setmealArr[1];
+        NSString *guigestr1 = guigeDic1[@"name"];
+        NSString *guigestr2 = guigeDic2[@"name"];
+        NSMutableArray *guige = [[NSMutableArray alloc] init];
+        [guige addObject:guigestr1];
+        [guige addObject:guigestr2];
+        
+        NSLog(@"guige===%@",guige);
+        
+        for (NSString *searchStr in guige) {
+            if ([searchStr isEqualToString:tagName]) {
+                
+                price = searchDic[@"price"];
+                market_price = searchDic[@"market_price"];
+                stock = searchDic[@"stock"];
+                safe_stock = searchDic[@"safe_stock"];
+                
+                }
+            }
+        
+        
     }
     
+    NSLog(@"%@  %@  %@  %@",price,market_price,stock,safe_stock);
     
-    [_delegate SearchText:tagName];
+    float pricef = price.floatValue;
+    self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+    
+    NSAttributedString *attrStr =
+    [[NSAttributedString alloc]initWithString:market_price
+                                   attributes:
+     @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+       NSForegroundColorAttributeName:[UIColor grayColor],
+       NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+       NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+    self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
+    
+    
+    [self.shuliangStepper setTextValue:1];
+    UIButton *leftbtn = (UIButton*)self.shuliangStepper.leftView;
+    UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
+    
+    
+    if (stock.floatValue >= safe_stock.floatValue) {
+        self.kuncuntisLabel.text = @"库存充足";
+    }else if(stock.floatValue < safe_stock.floatValue){
+        
+        self.kuncuntisLabel.text = [NSString stringWithFormat:@"%@",stock];
+    }
+    
+    if (stock.floatValue == 0) {
+        [self.shuliangStepper setTextValue:0];
+        leftbtn.enabled=NO;
+        rightbtn.enabled = NO;
+        self.kuncuntisLabel.text = @"售罄";
+    }
+    
+
     
 }
-*/
+
 
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -615,6 +573,7 @@
 }
 
 - (void)guessYLike {
+    
     NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/order/shoppingcart.ashx?op=getcnxh&spsl=6",SERVICE_GETBASE_URL];
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if(responseObject)
@@ -670,20 +629,6 @@
     }
    */
     
-    //加入购物车接口
-/*
-   http://localbbc.matrojp.com/api.php?m=product&s=cart&action=add_cart
-    
-    POST
-    
-    id=12301
-    
-    nums=1
-    
-    sid=12311
-    
-    sku=0
- */
     if (userid) {
         NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/products.ashx?op=addcart&jmsp_id=%@&spsl=%ld&userid=%@",SERVICE_GETBASE_URL,spid,(unsigned long)_shuliangStepper.value, userid];
         
@@ -712,7 +657,7 @@
         
         [alert show];
     }
-    
+   
    
 }
 
@@ -732,6 +677,7 @@
     if (!self.shareDic) {
         return;
     }
+    NSLog(@"self.paramDic===%@",self.paramDic);
     
     MLShareGoodsViewController *vc = [[MLShareGoodsViewController alloc]init];
     vc.paramDic = self.paramDic;
@@ -989,6 +935,8 @@
         [cell.tagView addSubview:huoyuanList];
         [self.view layoutIfNeeded];
         huoyuanList.frame = CGRectMake(0, 5, cell.tagView.bounds.size.width, cell.tagView.bounds.size.height - 10);
+        huoyuanList.alwaysBounceVertical = NO;
+        huoyuanList.alwaysBounceHorizontal = NO;
     }else{
     
         jieduanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
@@ -998,6 +946,8 @@
         [cell.tagView addSubview:jieduanList];
         [self.view layoutIfNeeded];
         jieduanList.frame = CGRectMake(0, 5, cell.tagView.bounds.size.width, cell.tagView.bounds.size.height - 10);
+        jieduanList.alwaysBounceVertical = NO;
+        jieduanList.alwaysBounceHorizontal = NO;
     }
     
     
