@@ -6,13 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#define MS_RGB(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
 @protocol DWTagListDelegate, DWTagViewDelegate;
 
 @interface DWTagList : UIScrollView
 {
     UIView      *view;
     NSArray     *textArray;
+    NSArray     *tagArray;
     CGSize      sizeFit;
     UIColor     *lblBackgroundColor;
 }
@@ -39,7 +40,9 @@
 
 - (void)setTagBackgroundColor:(UIColor *)color;
 - (void)setTagHighlightColor:(UIColor *)color;
+
 - (void)setTags:(NSArray *)array;
+- (void)setTags:(NSArray *)array tagArray:(NSArray *)tagarray;
 - (void)display;
 - (CGSize)fittedSize;
 - (void)scrollToBottomAnimated:(BOOL)animated;

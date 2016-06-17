@@ -23,6 +23,8 @@
     NSMutableArray *_historySearchTextArray;//搜索历史的数组，用于保存热门搜索历史
     
     DWTagList *_hotSearchTagList;//标签控件，标签的形式显示热门列表
+    NSMutableArray *hotSearchTagArray;
+    
     
     NSManagedObjectContext *_context;
     NSMutableArray *hotSearchArray;
@@ -46,7 +48,7 @@ static CGFloat kHeight = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self registerForKeyboardNotifications];
-//    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 44)];
+    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 44)];
 //    _searchBar.placeholder = @"寻找你想要的商品";
 //    _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
 //    _searchBar.showsCancelButton = NO;
@@ -54,21 +56,21 @@ static CGFloat kHeight = 0;
 //    self.navigationItem.titleView = _searchBar;
     
     hotSearchArray = [NSMutableArray new];
+    hotSearchTagArray = [NSMutableArray new];
+   
+    
     hotSearchplaceholderArray = [NSMutableArray new];
     [self getSearchplaceholder];
     //弹出系统键盘
-//    [_searchBar becomeFirstResponder];
+    [_searchBar becomeFirstResponder];
     
     //返回按钮
-    UIBarButtonItem *returnBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Left_Arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(returnAction :)];
-    self.navigationItem.leftBarButtonItem = returnBtn;
-    
-    //扫描按钮
-    //    UIBarButtonItem *scan = [[UIBarButtonItem alloc] init];
-    //    scan.image = [UIImage imageNamed:@"shouyesaoyisao"];
-    //
-    //    self.navigationItem.rightBarButtonItem = scan;
-    
+    //UIBarButtonItem *returnBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Left_Arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(returnAction :)];
+    UIBarButtonItem *returnBtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(returnAction :)];
+    NSDictionary * attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14]};
+    [returnBtn setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    [returnBtn setTintColor:RGBA(131, 131, 131, 1)];
+    self.navigationItem.rightBarButtonItem = returnBtn;
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"#F6F6F6"];
     
@@ -105,28 +107,12 @@ static CGFloat kHeight = 0;
     // Dispose of any resources that can be recreated.
 }
 
--(DWTagList *)styleTagList:(DWTagList *)tagList {
-    
-    tagList.font = [UIFont systemFontOfSize:14.0f];
-    tagList.borderColor = [UIColor colorWithHexString:@"#EBEBEB"];
-    tagList.textColor = [UIColor colorWithHexString:@"#505050"];
-    tagList.labelMargin = 6.0f;
-    [tagList setTagBackgroundColor:RGBA(252, 132, 106, 1)];
-    tagList.cornerRadius = 4.0f;
-    tagList.horizontalPadding = 6.0f;
-    tagList.verticalPadding = 6.0f;
-    
-//    [_hotSearchTagList setCornerRadius:4.f];
-//    [_hotSearchTagList setTagBackgroundColor:RGBA(252, 132, 106, 1)];//252,132,106
-    
-    return tagList;
-}
 
 -(void)getSearchplaceholder{
+    
     //热门搜索关键字推荐
     //http://bbctest.matrojp.com/api.php?m=product&s=recommend&method=input_recommend
-    //弹出系统键盘
-    [_searchBar becomeFirstResponder];
+    
     
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=input_recommend",@"http://bbctest.matrojp.com"];
     
@@ -138,7 +124,7 @@ static CGFloat kHeight = 0;
         
         NSLog(@"hotSearchplaceholderArray===%@",hotSearchplaceholderArray);
         
-        _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 44)];
+        
         if (hotSearchplaceholderArray.count == 0) {
             _searchBar.placeholder  = @"寻找你想要的商品";
         }else{
@@ -147,18 +133,6 @@ static CGFloat kHeight = 0;
         
         _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
         
-      
-        _searchBar.showsCancelButton = YES;
-        for(UIView *view in  [[[_searchBar subviews] objectAtIndex:0] subviews]) {
-            if([view isKindOfClass:[NSClassFromString(@"UINavigationButton") class]]) {
-                UIButton * cancel =(UIButton *)view;
-                [cancel setTitle:@"取消" forState:UIControlStateNormal];
-                [cancel.titleLabel setFont:[UIFont systemFontOfSize:14]];
-                [cancel setTitleColor:RGBA(38, 14, 0, 1) forState:UIControlStateNormal];
-            }
-        }
-//        _searchBar.layer.borderWidth = 1.f;
-//        _searchBar.layer.borderColor = RGBA(38, 14, 0, 1).CGColor;
         _searchBar.delegate = self;
         self.navigationItem.titleView = _searchBar;
         
@@ -192,13 +166,18 @@ static CGFloat kHeight = 0;
                     if (i>20) {
                         break;
                     }
+                    
+                    [hotSearchTagArray addObject:tempDic[@"statu"]];
                     [hotSearchArray addObject:tempDic[@"keyword"]];
                     i++;
                 }
+                
                 _hotSearchTagList = [[DWTagList alloc]initWithFrame:CGRectMake(12, 0, MAIN_SCREEN_WIDTH - 24, 35)];
                 _hotSearchTagList.tagDelegate = self;
-                _hotSearchTagList = [self styleTagList:_hotSearchTagList];
-                [_hotSearchTagList setTags:hotSearchArray];
+                
+    
+                
+                [_hotSearchTagList setTags:dic];
                 [_hotSearchTagView addSubview:_hotSearchTagList];
                 _hotSearchTagHeightConstraint.constant = _hotSearchTagList.contentSize.height;
                 [self.view layoutIfNeeded];
@@ -254,6 +233,7 @@ static CGFloat kHeight = 0;
 
 //返回的方法(就是把他隐藏起来)
 -(void)returnAction:(UISearchBar *)searchBar {
+    [_searchBar resignFirstResponder];
     [self hide];
 }
 
@@ -304,13 +284,14 @@ static CGFloat kHeight = 0;
     }else{
         _searchBar.text  = _searchBar.placeholder;
     }
-    [_searchBar becomeFirstResponder];
+//    [_searchBar becomeFirstResponder];
     //    searchBar.showsCancelButton = YES;
 }
 
 //点击取消
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     [_searchBar resignFirstResponder];
+    [self hide];
 
 }
 
@@ -325,6 +306,7 @@ static CGFloat kHeight = 0;
     
     cell.textLabel.text = _historySearchTextArray[indexPath.row];
     cell.textLabel.textColor = RGBA(38, 14, 0, 1);
+    cell.textLabel.font = [UIFont systemFontOfSize:14];
     
     return cell;
 }

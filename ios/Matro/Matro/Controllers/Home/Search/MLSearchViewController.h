@@ -8,6 +8,7 @@
 
 #import "MLBaseViewController.h"
 
+
 @protocol SearchDelegate <NSObject>
 - (void)SearchText:(NSString *)text;
 @end

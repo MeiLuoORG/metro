@@ -244,8 +244,8 @@
     MLHomeViewController *homeViewController = [[MLHomeViewController alloc]init];
     homeViewController.title = @"首页";
     MLNavigationController *homeNavigationController = [[MLNavigationController alloc]initWithRootViewController:homeViewController];
-    homeNavigationController.tabBarItem.image = [UIImage imageNamed:@"Home2"];
-    homeNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"Home"];
+    homeNavigationController.tabBarItem.image = [UIImage imageNamed:@"home-2"];
+    homeNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"homeSelect"];
     homeNavigationController.tabBarItem.title = @"首页";
     
     MLClassViewController *classViewController = [[MLClassViewController alloc]init];
@@ -258,15 +258,15 @@
     MLShopCartViewController *bagViewController = [[MLShopCartViewController alloc]init];
     bagViewController.title = @"购物袋";
     MLNavigationController *bagNavigationController = [[MLNavigationController alloc]initWithRootViewController:bagViewController];
-    bagNavigationController.tabBarItem.image = [UIImage imageNamed:@"Outlined"];
-    bagNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"Outlined2"];
+    bagNavigationController.tabBarItem.image = [UIImage imageNamed:@"shopCar"];
+    bagNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"shopCarselect"];
     bagNavigationController.tabBarItem.title = @"购物袋";
     
     MLPersonController *personViewController = [[MLPersonController alloc]init];
     personViewController.title = @"我";
     MLNavigationController *personalNavigationController = [[MLNavigationController alloc]initWithRootViewController:personViewController];
-    personalNavigationController.tabBarItem.image = [UIImage imageNamed:@"User"];
-    personalNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"User-1"];
+    personalNavigationController.tabBarItem.image = [UIImage imageNamed:@"me"];
+    personalNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"meSelect"];
     personalNavigationController.tabBarItem.title = @"我";
     
     _tabBarController = [[UITabBarController alloc]init];

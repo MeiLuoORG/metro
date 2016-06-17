@@ -24,13 +24,15 @@
 #import "MJRefresh.h"
 #import "SearchHistory.h"
 #import <MagicalRecord/MagicalRecord.h>
+#import "MLSearchViewController.h"
+#import "AppDelegate.h"
 
 #define SEARCH_PAGE_SIZE @10
 #define HFSProductTableViewCellIdentifier @"HFSProductTableViewCellIdentifier"
 #define HFSProductCollectionViewCellIdentifier @"HFSProductCollectionViewCellIdentifier"
-#define CollectionViewCellMargin 10.0f
+#define CollectionViewCellMargin 5.0f
 
-@interface MLGoodsListViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,NNSXDelegate,UITextFieldDelegate>{
+@interface MLGoodsListViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,NNSXDelegate,UITextFieldDelegate,UISearchBarDelegate,SearchDelegate,UIGestureRecognizerDelegate>{
     NSMutableArray *_productList;//当前商品列表的原数组，collectionView和tableView都共用
     BOOL _isCardView;//判断是否当前显示的是tableView还是collectionView
     
@@ -86,6 +88,19 @@ static NSInteger page = 1;
     }
      _context = [NSManagedObjectContext MR_defaultContext];
 
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    MLSearchViewController *searchViewController = [[MLSearchViewController alloc]init];
+    searchViewController.delegate = self;
+    searchViewController.activeViewController = self;
+    MLNavigationController *searchNavigationViewController = [[MLNavigationController alloc]initWithRootViewController:searchViewController];
+    
+    UIViewController *rootViewController = ((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
+    [rootViewController addChildViewController:searchNavigationViewController];
+    [rootViewController.view addSubview:searchNavigationViewController.view];
+    
 }
 
 -(void)getGoodsFromClass
@@ -148,6 +163,9 @@ static NSInteger page = 1;
     searchText.delegate = self;
     [frameView addSubview:searchImg];
     [frameView addSubview:searchText];
+    
+    
+    
     searchImg.frame = CGRectMake(textW - 108 , 4, imgW, imgW);
     searchText.textColor = [UIColor grayColor];
     searchText.placeholder = @"寻找你想要的商品";
@@ -189,6 +207,11 @@ static NSInteger page = 1;
     [currentWindow addSubview:_blackControl];
     [currentWindow addSubview:_sxView];
     
+    
+    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    [frameView addGestureRecognizer:singleTap];
+    
+    
     //隐藏键盘
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
     //设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
@@ -207,8 +230,36 @@ static NSInteger page = 1;
     
 }
 
+//搜索器的UIView的点击事件
+-(void)handleSingleTap:(UITapGestureRecognizer *)sender
+
+{
+    
+    MLSearchViewController *searchViewController = [[MLSearchViewController alloc]init];
+    searchViewController.delegate = self;
+    searchViewController.activeViewController = self;
+    MLNavigationController *searchNavigationViewController = [[MLNavigationController alloc]initWithRootViewController:searchViewController];
+    
+    UIViewController *rootViewController = ((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
+    [rootViewController addChildViewController:searchNavigationViewController];
+    [rootViewController.view addSubview:searchNavigationViewController.view];
+    
+}
+
+
 -(void)keyboardHide:(UITapGestureRecognizer*)tap{
     [_sxView endEditing:YES];
+    
+}
+
+#pragma mark-SearchDelegate
+-(void)SearchText:(NSString *)text{
+    //    NSLog(@"%@",text);
+    MLGoodsListViewController *vc =[[MLGoodsListViewController alloc]init];
+    self.hidesBottomBarWhenPushed = YES;
+    vc.searchString = text;
+    [self.navigationController pushViewController:vc animated:NO];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 #pragma mark- 刷新相关
@@ -324,7 +375,10 @@ static NSInteger page = 1;
                 NSLog(@"count====%@",count);
                 if ([count isEqualToNumber:@0] ) {
                     MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableView.footer;
+                    MJRefreshAutoNormalFooter *footer1 = (MJRefreshAutoNormalFooter *)self.collectionView.footer;
                     footer.stateLabel.text = @"没有更多了";
+                    footer1.stateLabel.text = @"没有更多了";
+                    
                     return ;
                 }
             }
@@ -479,26 +533,17 @@ static NSInteger page = 1;
 
 #pragma mark - UITableViewDelegate and  UITableViewDataSource
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 5.0f;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 1.0f;
 }
 
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 95.0f;
+    return 168.0f;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * view = [[UIView alloc]init];
-    view.backgroundColor = [UIColor clearColor];
-    return view;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView * view = [[UIView alloc]init];
-    view.backgroundColor = [UIColor clearColor];
+    view.backgroundColor = RGBA(245, 245, 245, 1);
     return view;
 }
 
@@ -528,18 +573,16 @@ static NSInteger page = 1;
     }
     NSDictionary *tempdic = _productList[indexPath.section];
     if (tempdic) {
-        
-        [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:tempdic[@"pic"]]];
+        NSString *pic = tempdic[@"pic"];
+        if (![pic isKindOfClass:[NSNull class]]) {
+            [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:pic]];
+        }else{
+            cell.productImageView.image = [UIImage imageNamed:@"imageloading"];
+        }
         if (_filterParam) {
            
             NSString *str = tempdic[@"pname"];
-            
-//            NSArray *strArray = [str componentsSeparatedByString:@","];
-//            if (strArray.count>0) {
-//                NSMutableString *title = [[strArray firstObject] mutableCopy];
-//                [title deleteCharactersInRange:NSMakeRange(0, 2)];
-//                str = [title copy];
-//            }
+ 
             
             cell.productNameLabel.text = str?:@"";
         }
@@ -547,15 +590,6 @@ static NSInteger page = 1;
         
             NSString *str = tempdic[@"pname"];
             
-            /*
-            NSArray *strArray = [str componentsSeparatedByString:@","];
-            
-            if (strArray.count>0) {
-                NSMutableString *title = [[strArray firstObject] mutableCopy];
-                [title deleteCharactersInRange:NSMakeRange(0, 2)];
-                str = [title copy];
-            }
-             */
             cell.productNameLabel.text =str?:@"";
         }
         
@@ -580,35 +614,29 @@ static NSInteger page = 1;
     
     NSDictionary *tempdic = _productList[indexPath.row];
     
-    [cell.productImgview sd_setImageWithURL:[NSURL URLWithString:tempdic[@"pic"]]];
+    NSString *pic = tempdic[@"pic"];
+    if (![pic isKindOfClass:[NSNull class]]) {
+        [cell.productImgview sd_setImageWithURL:[NSURL URLWithString:pic]];
+    }else{
+        cell.productImgview.image = [UIImage imageNamed:@"imageloading"];
+    }
+    
     if (_filterParam) {
     
         NSString *str = tempdic[@"pname"];
         
-        NSArray *strArray = [str componentsSeparatedByString:@","];
-        if (strArray.count>0) {
-            NSMutableString *title = [[strArray firstObject] mutableCopy];
-            [title deleteCharactersInRange:NSMakeRange(0, 2)];
-            str = [title copy];
-        }
-        
-        cell.productnameLb.text =str;
+        cell.productnameLb.text = str?:@"";
     }
     else{
        
         NSString *str = tempdic[@"pname"];
-        NSArray *strArray = [str componentsSeparatedByString:@","];
-        if (strArray.count>0) {
-            NSMutableString *title = [[strArray firstObject] mutableCopy];
-            [title deleteCharactersInRange:NSMakeRange(0, 2)];
-            str = [title copy];
-        }
-        cell.productnameLb.text =str;
+
+        cell.productnameLb.text = str?:@"";
     }
     
     float price = [tempdic[@"price"] floatValue];
     
-    cell.priceLb.text =[NSString stringWithFormat:@"￥%.2f",price] ;
+    cell.priceLb.text =[NSString stringWithFormat:@"￥%.2f",price];
     return cell;
 }
 
@@ -616,7 +644,7 @@ static NSInteger page = 1;
     NSDictionary *tempdic = _productList[indexPath.row];
     MLGoodsDetailsViewController * vc = [[MLGoodsDetailsViewController alloc]init];
     vc.paramDic = tempdic;
-//     detailVc.paramDic = @{@"JMSP_ID":JMSP_ID?:@"",@"ZCSP":ZCSP};
+
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -624,13 +652,13 @@ static NSInteger page = 1;
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    float width = (collectionView.bounds.size.width - 3 * CollectionViewCellMargin) / 2;
+    float width = (collectionView.bounds.size.width - 2*CollectionViewCellMargin) / 2;
     float height = width / 290 * 408;
     return CGSizeMake(width, height);
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(CollectionViewCellMargin, CollectionViewCellMargin, CollectionViewCellMargin, CollectionViewCellMargin);
+    return UIEdgeInsetsMake(0, 0, CollectionViewCellMargin, 0);
 }
 
 #pragma mark- NNSXDelegate 筛选后重新call接口

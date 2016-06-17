@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
@@ -395,11 +394,6 @@
                                 <mask key="constraints">
                                     <exclude reference="88P-aI-pbl"/>
                                     <exclude reference="8IS-U2-gkp"/>
-                                    <exclude reference="cfV-2b-gbR"/>
-                                    <exclude reference="wPs-G9-9fB"/>
-                                    <exclude reference="DT1-SS-Idk"/>
-                                    <exclude reference="JEZ-6c-23b"/>
-                                    <exclude reference="gOO-ZW-bkl"/>
                                     <exclude reference="Yu4-lT-d7Q"/>
                                     <exclude reference="iC3-wZ-mb1"/>
                                     <exclude reference="oFB-ds-7gt"/>
@@ -407,6 +401,11 @@
                                     <exclude reference="cgr-dd-AkF"/>
                                     <exclude reference="dii-5T-K5T"/>
                                     <exclude reference="sbf-6s-cg9"/>
+                                    <exclude reference="cfV-2b-gbR"/>
+                                    <exclude reference="wPs-G9-9fB"/>
+                                    <exclude reference="DT1-SS-Idk"/>
+                                    <exclude reference="JEZ-6c-23b"/>
+                                    <exclude reference="gOO-ZW-bkl"/>
                                 </mask>
                             </variation>
                             <variation key="widthClass=compact">
@@ -420,11 +419,6 @@
                                 <mask key="constraints">
                                     <include reference="88P-aI-pbl"/>
                                     <include reference="8IS-U2-gkp"/>
-                                    <include reference="cfV-2b-gbR"/>
-                                    <include reference="wPs-G9-9fB"/>
-                                    <include reference="DT1-SS-Idk"/>
-                                    <include reference="JEZ-6c-23b"/>
-                                    <include reference="gOO-ZW-bkl"/>
                                     <include reference="Yu4-lT-d7Q"/>
                                     <include reference="iC3-wZ-mb1"/>
                                     <include reference="oFB-ds-7gt"/>
@@ -432,6 +426,11 @@
                                     <include reference="cgr-dd-AkF"/>
                                     <include reference="dii-5T-K5T"/>
                                     <include reference="sbf-6s-cg9"/>
+                                    <include reference="cfV-2b-gbR"/>
+                                    <include reference="wPs-G9-9fB"/>
+                                    <include reference="DT1-SS-Idk"/>
+                                    <include reference="JEZ-6c-23b"/>
+                                    <include reference="gOO-ZW-bkl"/>
                                 </mask>
                             </variation>
                         </view>

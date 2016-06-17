@@ -91,6 +91,21 @@
     }
 }
 
+- (void)setTags:(NSArray *)array tagArray:(NSArray *)tagarray{
+    textArray = [[NSArray alloc] initWithArray:array];
+    tagArray = [[NSArray alloc] initWithArray:tagarray];
+    sizeFit = CGSizeZero;
+    if (automaticResize) {
+        [self display];
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, sizeFit.width, sizeFit.height);
+    }
+    else {
+        [self display];
+    }
+    
+}
+
+
 - (void)setTagBackgroundColor:(UIColor *)color
 {
     lblBackgroundColor = color;
@@ -116,6 +131,7 @@
     [super layoutSubviews];
 }
 
+
 - (void)display
 {
     NSMutableArray *tagViews = [NSMutableArray array];
@@ -137,7 +153,300 @@
     BOOL gotPreviousFrame = NO;
     
     NSInteger tag = 0;
+    
+    for (NSDictionary *textdic in textArray) {
+        if (tag > 20) {
+            break;
+        }
+        NSString *text = textdic[@"keyword"];
+        NSString *tagStr = textdic[@"statu"];
+        if ([tagStr isEqualToString:@"0"]) {
+            DWTagView *tagView;
+            if (tagViews.count > 0) {
+                tagView = [tagViews lastObject];
+                [tagViews removeLastObject];
+            }
+            else {
+                tagView = [[DWTagView alloc] init];
+            }
+            
+            
+            [tagView updateWithString:text
+                                 font:self.font
+                   constrainedToWidth:self.frame.size.width - (self.horizontalPadding * 2)
+                              padding:CGSizeMake(self.horizontalPadding, self.verticalPadding)
+                         minimumWidth:self.minimumWidth
+             ];
+            
+            if (gotPreviousFrame) {
+                CGRect newRect = CGRectZero;
+                if (previousFrame.origin.x + previousFrame.size.width + tagView.frame.size.width + self.labelMargin > self.frame.size.width) {
+                    newRect.origin = CGPointMake(0, previousFrame.origin.y + tagView.frame.size.height + self.bottomMargin);
+                } else {
+                    newRect.origin = CGPointMake(previousFrame.origin.x + previousFrame.size.width + self.labelMargin, previousFrame.origin.y);
+                }
+                newRect.size = tagView.frame.size;
+                [tagView setFrame:newRect];
+            }
+            
+            previousFrame = tagView.frame;
+            gotPreviousFrame = YES;
+            
+            
+            [tagView setBackgroundColor:[self getBackgroundColor]];
+            [tagView setCornerRadius:4.f];
+            [tagView setBorderColor:[UIColor clearColor].CGColor];
+            [tagView setBorderWidth:0.f];
+            [tagView setTextColor:MS_RGB(38, 14, 0)];
+            [tagView setTextShadowColor:self.textShadowColor];
+            [tagView setTextShadowOffset:self.textShadowOffset];
+            [tagView setTag:tag];
+            [tagView setDelegate:self];
+            
+            tag++;
+            
+            [self addSubview:tagView];
+            
+            if (!_viewOnly) {
+                [tagView.button addTarget:self action:@selector(touchDownInside:) forControlEvents:UIControlEventTouchDown];
+                [tagView.button addTarget:self action:@selector(touchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+                [tagView.button addTarget:self action:@selector(touchDragExit:) forControlEvents:UIControlEventTouchDragExit];
+                [tagView.button addTarget:self action:@selector(touchDragInside:) forControlEvents:UIControlEventTouchDragInside];
+            }
+        }
+        else{
+        DWTagView *tagView;
+        if (tagViews.count > 0) {
+            tagView = [tagViews lastObject];
+            [tagViews removeLastObject];
+        }
+        else {
+            tagView = [[DWTagView alloc] init];
+        }
+        
+        
+        [tagView updateWithString:text
+                             font:self.font
+               constrainedToWidth:self.frame.size.width - (self.horizontalPadding * 2)
+                          padding:CGSizeMake(self.horizontalPadding, self.verticalPadding)
+                     minimumWidth:self.minimumWidth
+         ];
+        
+        if (gotPreviousFrame) {
+            CGRect newRect = CGRectZero;
+            if (previousFrame.origin.x + previousFrame.size.width + tagView.frame.size.width + self.labelMargin > self.frame.size.width) {
+                newRect.origin = CGPointMake(0, previousFrame.origin.y + tagView.frame.size.height + self.bottomMargin);
+            } else {
+                newRect.origin = CGPointMake(previousFrame.origin.x + previousFrame.size.width + self.labelMargin, previousFrame.origin.y);
+            }
+            newRect.size = tagView.frame.size;
+            [tagView setFrame:newRect];
+        }
+        
+        previousFrame = tagView.frame;
+        gotPreviousFrame = YES;
+        /*
+        [tagView setBackgroundColor:[UIColor greenColor]];
+        [tagView setCornerRadius:self.cornerRadius];
+        [tagView setBorderColor:self.borderColor.CGColor];
+        [tagView setBorderWidth:self.borderWidth];
+        [tagView setTextColor:self.textColor];
+        [tagView setTextShadowColor:self.textShadowColor];
+        [tagView setTextShadowOffset:self.textShadowOffset];
+        [tagView setTag:tag];
+        [tagView setDelegate:self];
+        */
+            [tagView setBackgroundColor:MS_RGB(252, 132, 106)];
+            [tagView setCornerRadius:4.f];
+            [tagView setBorderColor:[UIColor clearColor].CGColor];
+            [tagView setBorderWidth:0.f];
+            [tagView setTextColor:[UIColor whiteColor]];
+            [tagView setTextShadowColor:self.textShadowColor];
+            [tagView setTextShadowOffset:self.textShadowOffset];
+            [tagView setTag:tag];
+            [tagView setDelegate:self];
+            
+        tag++;
+        
+        [self addSubview:tagView];
+        
+        if (!_viewOnly) {
+            [tagView.button addTarget:self action:@selector(touchDownInside:) forControlEvents:UIControlEventTouchDown];
+            [tagView.button addTarget:self action:@selector(touchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+            [tagView.button addTarget:self action:@selector(touchDragExit:) forControlEvents:UIControlEventTouchDragExit];
+            [tagView.button addTarget:self action:@selector(touchDragInside:) forControlEvents:UIControlEventTouchDragInside];
+        }
+        }
+    }
+    
+    sizeFit = CGSizeMake(self.frame.size.width, previousFrame.origin.y + previousFrame.size.height + self.bottomMargin + 1.0f);
+    self.contentSize = sizeFit;
+}
+
+
+/*
+- (void)display
+{
+    NSMutableArray *tagViews = [NSMutableArray array];
+    for (UIView *subview in [self subviews]) {
+        if ([subview isKindOfClass:[DWTagView class]]) {
+            DWTagView *tagView = (DWTagView*)subview;
+            for (UIGestureRecognizer *gesture in [subview gestureRecognizers]) {
+                [subview removeGestureRecognizer:gesture];
+            }
+            
+            [tagView.button removeTarget:nil action:nil forControlEvents:UIControlEventAllEvents];
+            
+            [tagViews addObject:subview];
+        }
+        [subview removeFromSuperview];
+    }
+    
+    CGRect previousFrame = CGRectZero;
+    BOOL gotPreviousFrame = NO;
+    
+    NSInteger tag = 0;
+    
     for (id text in textArray) {
+        for (NSDictionary *tempDic in tagArray) {
+            NSString *textStr = tempDic[@"keyword"];
+            NSString *tagStr = tempDic[@"statu"];
+            if ([textStr isEqualToString:text] && [tagStr isEqualToString:@"1"] ) {
+            DWTagView *tagView;
+            if (tagViews.count > 0) {
+                tagView = [tagViews lastObject];
+                [tagViews removeLastObject];
+            }
+            else {
+                tagView = [[DWTagView alloc] init];
+            }
+            
+            
+            [tagView updateWithString:text
+                                 font:self.font
+                   constrainedToWidth:self.frame.size.width - (self.horizontalPadding * 2)
+                              padding:CGSizeMake(self.horizontalPadding, self.verticalPadding)
+                         minimumWidth:self.minimumWidth
+             ];
+            
+            if (gotPreviousFrame) {
+                CGRect newRect = CGRectZero;
+                if (previousFrame.origin.x + previousFrame.size.width + tagView.frame.size.width + self.labelMargin > self.frame.size.width) {
+                    newRect.origin = CGPointMake(0, previousFrame.origin.y + tagView.frame.size.height + self.bottomMargin);
+                } else {
+                    newRect.origin = CGPointMake(previousFrame.origin.x + previousFrame.size.width + self.labelMargin, previousFrame.origin.y);
+                }
+                newRect.size = tagView.frame.size;
+                [tagView setFrame:newRect];
+            }
+            
+            previousFrame = tagView.frame;
+            gotPreviousFrame = YES;
+            
+            [tagView setBackgroundColor:[UIColor greenColor]];
+            [tagView setCornerRadius:self.cornerRadius];
+            [tagView setBorderColor:self.borderColor.CGColor];
+            [tagView setBorderWidth:self.borderWidth];
+            [tagView setTextColor:self.textColor];
+            [tagView setTextShadowColor:self.textShadowColor];
+            [tagView setTextShadowOffset:self.textShadowOffset];
+            [tagView setTag:tag];
+            [tagView setDelegate:self];
+            
+            tag++;
+            
+            [self addSubview:tagView];
+            
+            if (!_viewOnly) {
+                [tagView.button addTarget:self action:@selector(touchDownInside:) forControlEvents:UIControlEventTouchDown];
+                [tagView.button addTarget:self action:@selector(touchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+                [tagView.button addTarget:self action:@selector(touchDragExit:) forControlEvents:UIControlEventTouchDragExit];
+                [tagView.button addTarget:self action:@selector(touchDragInside:) forControlEvents:UIControlEventTouchDragInside];
+            }
+            }else{
+            
+                DWTagView *tagView;
+                if (tagViews.count > 0) {
+                    tagView = [tagViews lastObject];
+                    [tagViews removeLastObject];
+                }
+                else {
+                    tagView = [[DWTagView alloc] init];
+                }
+                
+                
+                [tagView updateWithString:text
+                                     font:self.font
+                       constrainedToWidth:self.frame.size.width - (self.horizontalPadding * 2)
+                                  padding:CGSizeMake(self.horizontalPadding, self.verticalPadding)
+                             minimumWidth:self.minimumWidth
+                 ];
+                
+                if (gotPreviousFrame) {
+                    CGRect newRect = CGRectZero;
+                    if (previousFrame.origin.x + previousFrame.size.width + tagView.frame.size.width + self.labelMargin > self.frame.size.width) {
+                        newRect.origin = CGPointMake(0, previousFrame.origin.y + tagView.frame.size.height + self.bottomMargin);
+                    } else {
+                        newRect.origin = CGPointMake(previousFrame.origin.x + previousFrame.size.width + self.labelMargin, previousFrame.origin.y);
+                    }
+                    newRect.size = tagView.frame.size;
+                    [tagView setFrame:newRect];
+                }
+                
+                previousFrame = tagView.frame;
+                gotPreviousFrame = YES;
+                
+                [tagView setBackgroundColor:[self getBackgroundColor]];
+                [tagView setCornerRadius:self.cornerRadius];
+                [tagView setBorderColor:self.borderColor.CGColor];
+                [tagView setBorderWidth:self.borderWidth];
+                [tagView setTextColor:self.textColor];
+                [tagView setTextShadowColor:self.textShadowColor];
+                [tagView setTextShadowOffset:self.textShadowOffset];
+                [tagView setTag:tag];
+                [tagView setDelegate:self];
+                
+                tag++;
+                
+                [self addSubview:tagView];
+                
+                if (!_viewOnly) {
+                    [tagView.button addTarget:self action:@selector(touchDownInside:) forControlEvents:UIControlEventTouchDown];
+                    [tagView.button addTarget:self action:@selector(touchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+                    [tagView.button addTarget:self action:@selector(touchDragExit:) forControlEvents:UIControlEventTouchDragExit];
+                    [tagView.button addTarget:self action:@selector(touchDragInside:) forControlEvents:UIControlEventTouchDragInside];
+                }
+            
+            }
+    }
+        
+    }
+    sizeFit = CGSizeMake(self.frame.size.width, previousFrame.origin.y + previousFrame.size.height + self.bottomMargin + 1.0f);
+    self.contentSize = sizeFit;
+    
+    /*
+    NSMutableArray *tagViews = [NSMutableArray array];
+    for (UIView *subview in [self subviews]) {
+        if ([subview isKindOfClass:[DWTagView class]]) {
+            DWTagView *tagView = (DWTagView*)subview;
+            for (UIGestureRecognizer *gesture in [subview gestureRecognizers]) {
+                [subview removeGestureRecognizer:gesture];
+            }
+            
+            [tagView.button removeTarget:nil action:nil forControlEvents:UIControlEventAllEvents];
+            
+            [tagViews addObject:subview];
+        }
+        [subview removeFromSuperview];
+    }
+    
+    CGRect previousFrame = CGRectZero;
+    BOOL gotPreviousFrame = NO;
+    
+    NSInteger tag = 0;
+    for (id text in textArray) {
+        for (NSString *tagStr in tagArray) {
+            
         DWTagView *tagView;
         if (tagViews.count > 0) {
             tagView = [tagViews lastObject];
@@ -188,12 +497,14 @@
             [tagView.button addTarget:self action:@selector(touchUpInside:) forControlEvents:UIControlEventTouchUpInside];
             [tagView.button addTarget:self action:@selector(touchDragExit:) forControlEvents:UIControlEventTouchDragExit];
             [tagView.button addTarget:self action:@selector(touchDragInside:) forControlEvents:UIControlEventTouchDragInside];
+            }
         }
     }
-    
     sizeFit = CGSizeMake(self.frame.size.width, previousFrame.origin.y + previousFrame.size.height + self.bottomMargin + 1.0f);
     self.contentSize = sizeFit;
+ 
 }
+*/
 
 - (CGSize)fittedSize
 {
@@ -297,6 +608,7 @@
     lblBackgroundColor = nil;
 }
 
+
 #pragma mark - DWTagViewDelegate
 
 - (void)tagViewWantsToBeDeleted:(DWTagView *)tagView {
@@ -392,12 +704,12 @@
 
 - (void)setTextShadowColor:(UIColor*)textShadowColor
 {
-    [_label setShadowColor:textShadowColor];
+    //[_label setShadowColor:textShadowColor];
 }
 
 - (void)setTextShadowOffset:(CGSize)textShadowOffset
 {
-    [_label setShadowOffset:textShadowOffset];
+    //[_label setShadowOffset:textShadowOffset];
 }
 
 - (void)dealloc

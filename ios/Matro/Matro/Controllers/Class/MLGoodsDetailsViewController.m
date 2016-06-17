@@ -120,6 +120,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cuxiaoH;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cuxiaoxinxiH;
 @property (weak, nonatomic) IBOutlet UIView *biaotiView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *guigeH;
+
 
 
 
@@ -240,6 +242,10 @@
     return tagList;
 }
 
+- (IBAction)actPingjia:(id)sender {
+    
+    NSLog(@"pingjia===");
+}
 
 #pragma mark 获取商品详情数据
 - (void)loadDateProDetail {
@@ -281,8 +287,9 @@
             
             [_tableView reloadData];
         }else{
-            _titleArray = @[@"货源",@"阶段"];
-            [_tableView reloadData];
+            self.guigeH.constant = 0;
+//            _titleArray = @[@"货源",@"阶段"];
+//            [_tableView reloadData];
         }
         
         NSArray *promotionArr = dic[@"promotion"];
