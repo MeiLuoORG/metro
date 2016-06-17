@@ -1390,6 +1390,7 @@
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             NSDictionary * userDataDic = result[@"data"];
             NSArray * vipCardDic = userDataDic[@"vipCard"];
+            BOOL isDefault = NO;
             
             if (vipCardDic.count > 0) {
                 //存储时，除NSNumber类型使用对应的类型意外，其他的都是使用setObject:forKey:
@@ -1403,6 +1404,7 @@
                     NSString * cardTypeId = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
                     [userDefaults setObject:cardTypeId forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                     //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
+                    isDefault = YES;
                 }
                 }
             }
@@ -1449,8 +1451,27 @@
                 }];
             }
             
-            [self dismissViewControllerAnimated:YES completion:nil];
+            if (isDefault) {
+                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            }
+            else{
+                if (vipCardDic.count > 0) {
+                    NSDictionary * dics = [vipCardDic objectAtIndex:0];
+
+                            NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
+                            [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
+                            NSString * cardTypeId = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
+                            [userDefaults setObject:cardTypeId forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                            //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]  forKey:kUSERDEFAULT_USERCARDNO];
+                    
+                    //绑定会员卡
+                    [weakSelf loadBindCardViewwithPhone:userDataDic[@"phone"] withCardNo:cardno withAccessToken:userDataDic[@"accessToken"]];
+
+                }
+
+            }
             
+
 
         }else{
             [_hud show:YES];
@@ -1611,6 +1632,7 @@
                 [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERID ];
                 [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE];
                 NSArray * vipCardDic = userDataDic[@"vipCard"];
+                BOOL isDefault = NO;
                 
                 if (vipCardDic.count > 0) {
                     for(NSDictionary * dics in vipCardDic) {
@@ -1621,6 +1643,7 @@
                             NSString * cardTypeName = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
                             [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                             //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
+                            isDefault = YES;
                         }
                     }
                 }
@@ -1629,7 +1652,29 @@
                 [userDefaults setObject:userDataDic[@"accessToken"] forKey:kUSERDEFAULT_ACCCESSTOKEN];
 
                 [userDefaults synchronize];
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                
+                
+                if (isDefault) {
+                    [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                }
+                else{
+                    if (vipCardDic.count > 0) {
+                        NSDictionary * dics = [vipCardDic objectAtIndex:0];
+                        
+                        NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
+                        [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
+                        NSString * cardTypeId = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
+                        [userDefaults setObject:cardTypeId forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                        //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]  forKey:kUSERDEFAULT_USERCARDNO];
+                        
+                        //绑定会员卡
+                        [weakSelf loadBindCardViewwithPhone:userDataDic[@"phone"] withCardNo:cardno withAccessToken:userDataDic[@"accessToken"]];
+                        
+                    }
+                    
+                }
+                
+                
                 
             }
             else{//如果没有调到绑定页面

@@ -10,6 +10,6 @@
 #import "CommonHeader.h"
 #import "NavTopCommonImage.h"
 
-@interface MNNModifyPasswordViewController : MLBaseViewController
+@interface MNNModifyPasswordViewController : MLBaseViewController<UITextFieldDelegate>
 
 @end

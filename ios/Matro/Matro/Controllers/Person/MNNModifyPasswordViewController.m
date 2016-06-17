@@ -37,7 +37,7 @@ static NSString *phoneNum = @"";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"修改密码";
+    self.title = @"重置密码";
     residualTime = 6;
    
 
@@ -50,7 +50,7 @@ static NSString *phoneNum = @"";
 //Lock_xiugaimima锁     Profile_xiugaimima人    golden_button
 
 - (void)loadTopView{
-    NavTopCommonImage * img = [[NavTopCommonImage alloc]initWithTitle:@"修改密码"];
+    NavTopCommonImage * img = [[NavTopCommonImage alloc]initWithTitle:@"重置密码"];
     [img loadLeftBackButtonwith:0];
     [img backButtonAction:^(BOOL succes) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -81,7 +81,7 @@ static NSString *phoneNum = @"";
         _getVerificationCode.enabled = NO;
     }
     
-    [self codeTimeCountdown];
+    //[self codeTimeCountdown];
 }
 
 - (void)tap {
@@ -96,13 +96,13 @@ static NSString *phoneNum = @"";
     lable1.textAlignment = NSTextAlignmentCenter;
     lable1.textColor = [UIColor colorWithHexString:@"#AE8E5D"];
     lable1.font = [UIFont systemFontOfSize:15];
-    [_bkView addSubview:lable1];
+    //[_bkView addSubview:lable1];
     UILabel *lable2 = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth-120)/2+80, 30, (kScreenWidth-120)/2, 20)];
     lable2.text = @"修改密码";
     lable2.textAlignment = NSTextAlignmentCenter;
     lable2.textColor = [UIColor lightGrayColor];
     lable2.font = [UIFont systemFontOfSize:12];
-    [_bkView addSubview:lable2];
+    //[_bkView addSubview:lable2];
     //圆圈数字
     UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(40, 30, 20, 20)];
     label3.layer.cornerRadius = 10;
@@ -112,7 +112,7 @@ static NSString *phoneNum = @"";
     label3.text = @"1";
     label3.textColor = [UIColor whiteColor];
     label3.textAlignment = NSTextAlignmentCenter;
-    [_bkView addSubview:label3];
+   // [_bkView addSubview:label3];
     UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth-120)/2+90, 32, 15, 15)];
     label4.layer.cornerRadius = 7.5;
     label4.layer.masksToBounds = YES;
@@ -121,43 +121,80 @@ static NSString *phoneNum = @"";
     label4.text = @"2";
     label4.textColor = [UIColor whiteColor];
     label4.textAlignment = NSTextAlignmentCenter;
-    [_bkView addSubview:label4];
+    //[_bkView addSubview:label4];
     
     
-    [self createlableWithRect:CGRectMake(10, 79, kScreenWidth-20, 1)];
-    _phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, 90, kScreenWidth-50, 30)];
+    //[self createlableWithRect:CGRectMake(10, 79, kScreenWidth-20, 1)];
+    _phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(22, 42, kScreenWidth-44, 41)];
     _phoneTextField.placeholder = @"手机号";
     _phoneTextField.borderStyle = UITextBorderStyleNone;
     UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(15, 90, 20, 20)];
     imageView1.image = [UIImage imageNamed:@"Profile_xiugaimima"];
-    [_bkView addSubview:imageView1];
+    //[_bkView addSubview:imageView1];
     _phoneTextField.clearsOnBeginEditing = YES;
+    _phoneTextField.font = [UIFont systemFontOfSize:12.0f];
     _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
+    _phoneTextField.layer.cornerRadius = 4.0f;
+    _phoneTextField.layer.borderWidth = 1.0f;
+    _phoneTextField.layer.masksToBounds = YES;
+    _phoneTextField.delegate = self;
+    _phoneTextField.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 19, 0)];
+    _phoneTextField.leftViewMode = UITextFieldViewModeAlways;
+    _phoneTextField.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
     [_phoneTextField setValue:[UIFont boldSystemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
     [_bkView addSubview:_phoneTextField];
-    [self createlableWithRect:CGRectMake(10, CGRectGetMaxY(_phoneTextField.frame), kScreenWidth-20, 1)];
-    _verificationNumberTextField = [[UITextField alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(_phoneTextField.frame)+15, kScreenWidth-160, 30)];
+    
+    
+    
+    //[self createlableWithRect:CGRectMake(10, CGRectGetMaxY(_phoneTextField.frame), kScreenWidth-20, 1)];
+    _verificationNumberTextField = [[UITextField alloc] initWithFrame:CGRectMake(22, CGRectGetMaxY(_phoneTextField.frame)+29, kScreenWidth-160, 41)];
+    _verificationNumberTextField.layer.cornerRadius = 4.0f;
+    _verificationNumberTextField.layer.borderWidth = 1.0f;
+    _verificationNumberTextField.layer.masksToBounds = YES;
+    _verificationNumberTextField.delegate = self;
+    _verificationNumberTextField.font = [UIFont systemFontOfSize:12.0f];
+    _verificationNumberTextField.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
+    _verificationNumberTextField.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 19, 0)];
+    _verificationNumberTextField.leftViewMode = UITextFieldViewModeAlways;
     _verificationNumberTextField.placeholder = @"验证码";
     _verificationNumberTextField.borderStyle = UITextBorderStyleNone;
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(_phoneTextField.frame)+15, 20, 20)];
     imageView2.image = [UIImage imageNamed:@"Lock_xiugaimima"];
-    [_bkView addSubview:imageView2];
+    //[_bkView addSubview:imageView2];
     _verificationNumberTextField.clearsOnBeginEditing = YES;
     _verificationNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
     [_verificationNumberTextField setValue:[UIFont boldSystemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
     [_bkView addSubview:_verificationNumberTextField];
-    _getVerificationCode = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth-110, CGRectGetMaxY(_phoneTextField.frame)+10, 100, 30)];
+   
+    
+    _getVerificationCode = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth-140, CGRectGetMaxY(_phoneTextField.frame)+29, 118, 41)];
     _getVerificationCode.tag = 10000;
-    [_getVerificationCode setBackgroundImage:[UIImage imageNamed:@"golden_button"] forState:UIControlStateNormal];
+    _getVerificationCode.layer.cornerRadius = 4.0f;
+    //_getVerificationCode.layer.borderWidth = 1.0f;
+    _getVerificationCode.layer.masksToBounds = YES;
+    //_getVerificationCode.font = [UIFont systemFontOfSize:12.0f];
+   // _getVerificationCode.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
+    //[_getVerificationCode setBackgroundImage:[UIImage imageNamed:@"golden_button"] forState:UIControlStateNormal];
+    [_getVerificationCode setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+    _getVerificationCode.enabled = NO;
     [_getVerificationCode setTitle:@"获取验证码" forState:UIControlStateNormal];
-    _getVerificationCode.titleLabel.font = [UIFont systemFontOfSize:13];
+    _getVerificationCode.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+    [_getVerificationCode setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_getVerificationCode addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [_bkView addSubview:_getVerificationCode];
-    [self createlableWithRect:CGRectMake(10, CGRectGetMaxY(_verificationNumberTextField.frame)+5, kScreenWidth-20, 1)];
-    _nextStep = [[UIButton alloc] initWithFrame:CGRectMake(50, self.view.frame.size.height-230, kScreenWidth-100, 30)];
+    
+    //[self createlableWithRect:CGRectMake(10, CGRectGetMaxY(_verificationNumberTextField.frame)+5, kScreenWidth-20, 1)];
+    
+    _nextStep = [[UIButton alloc] initWithFrame:CGRectMake(45, CGRectGetMaxY(_verificationNumberTextField.frame)+60, kScreenWidth-90, 42)];
     _nextStep.tag = 10001;
-    [_nextStep setBackgroundImage:[UIImage imageNamed:@"golden_button"] forState:UIControlStateNormal];
+    _nextStep.layer.cornerRadius = 4.0f;
+    //_getVerificationCode.layer.borderWidth = 1.0f;
+    _nextStep.layer.masksToBounds = YES;
+    //[_nextStep setBackgroundImage:[UIImage imageNamed:@"golden_button"] forState:UIControlStateNormal];
     [_nextStep setTitle:@"下一步" forState:UIControlStateNormal];
+    [_nextStep setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_nextStep setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+    _nextStep.enabled = NO;
     [_nextStep addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [_bkView addSubview:_nextStep];
 }
@@ -167,6 +204,36 @@ static NSString *phoneNum = @"";
     label.alpha = 0.4;
     [_bkView addSubview:label];
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+
+    if ([textField isEqual:_phoneTextField]) {
+        
+        if (_phoneTextField.text.length > 0) {
+            _getVerificationCode.enabled = YES;
+            [_getVerificationCode setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
+        }
+        else{
+        
+            _getVerificationCode.enabled = NO;
+            [_getVerificationCode setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+        }
+        
+    }
+    NSLog(@"phoneTextField值为;%@+++verificationNumber值为：%@",_phoneTextField.text,_verificationNumberTextField.text);
+    if (![_phoneTextField.text isEqualToString:@""] && ![_verificationNumberTextField.text isEqualToString:@""]) {
+        _nextStep.enabled = YES;
+        [_nextStep setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
+    }
+    else{
+        _nextStep.enabled = NO;
+        [_nextStep setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+    }
+    
+    
+    return YES;
+}
+
 #pragma mark  验证码倒计时
 -(void)codeTimeCountdown{
     __block NSInteger timeout=_endTime; //倒计时时间
@@ -178,11 +245,18 @@ static NSString *phoneNum = @"";
             dispatch_source_cancel(_timer);
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置界面的按钮显示 根据自己需求设置
-                _getVerificationCode.enabled=YES;
+                //_getVerificationCode.enabled=NO;
                 [_getVerificationCode setTitle:@"获取验证码" forState:UIControlStateNormal];
                 [_getVerificationCode setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                [_getVerificationCode setBackgroundImage:[UIImage imageNamed:@"quguangguang_button"] forState:UIControlStateNormal];
-                _getVerificationCode.backgroundColor = [UIColor clearColor];
+               
+                if (_getVerificationCode.isEnabled) {
+                     [_getVerificationCode setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
+                }
+                else{
+                    [_getVerificationCode setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+                }
+                //[_getVerificationCode setBackgroundImage:[UIImage imageNamed:@"quguangguang_button"] forState:UIControlStateNormal];
+                //_getVerificationCode.backgroundColor = [UIColor clearColor];
                 _getVerificationCode.layer.borderWidth = 1.0f;
                 _getVerificationCode.layer.borderColor = [UIColor clearColor].CGColor;
             });
@@ -198,11 +272,12 @@ static NSString *phoneNum = @"";
                 //设置界面的按钮显示 根据自己需求设置
                 _getVerificationCode.enabled=NO;
                 [_getVerificationCode setTitle:strTime forState:UIControlStateNormal];
-                [_getVerificationCode setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                [_getVerificationCode setBackgroundImage:[UIImage imageNamed:@"TM.jpg"] forState:UIControlStateNormal];
-                _getVerificationCode.backgroundColor = [UIColor clearColor];
-                _getVerificationCode.layer.borderWidth = 1.0f;
-                _getVerificationCode.layer.borderColor = [UIColor colorWithHexString:@"#AE8E5D"].CGColor;
+                [_getVerificationCode setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                 [_getVerificationCode setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+                //[_getVerificationCode setBackgroundImage:[UIImage imageNamed:@"TM.jpg"] forState:UIControlStateNormal];
+                //_getVerificationCode.backgroundColor = [UIColor clearColor];
+               // _getVerificationCode.layer.borderWidth = 1.0f;
+               // _getVerificationCode.layer.borderColor = [UIColor colorWithHexString:@"#AE8E5D"].CGColor;
             });
             timeout--;
         }
@@ -218,7 +293,7 @@ static NSString *phoneNum = @"";
     if (button.tag == 10000) {
         phoneNum = _phoneTextField.text;
         if ([@"" isEqualToString: _phoneTextField.text]) {
-            NSString  *errStr = @"手机号不能为空";
+            NSString  *errStr = @"手机号格式错误，请确认";
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = errStr;
@@ -226,7 +301,7 @@ static NSString *phoneNum = @"";
             return;
         }
         if (![HFSUtility validateMobile:_phoneTextField.text]) {
-           NSString  *errStr = @"手机号码格式不正确";
+           NSString  *errStr = @"手机号格式错误，请确认";
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = errStr;
@@ -267,7 +342,7 @@ static NSString *phoneNum = @"";
         }
        
         if(_verificationNumberTextField.text.length != 4 || !(phoneNum.length>0)){
-           NSString   *errStr = @"验证码错误";
+           NSString   *errStr = @"验证码错误,请确认";
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = errStr;
@@ -285,12 +360,12 @@ static NSString *phoneNum = @"";
 -(BOOL)canRegister{
     NSString *errStr = nil;
     if ([@"" isEqualToString: _phoneTextField.text]) {
-        errStr = @"手机号不能为空";
+        errStr = @"手机号格式错误，请确认。";
     }
     else if (![HFSUtility validateMobile:_phoneTextField.text]) {
-        errStr = @"手机号码格式不正确";
+        errStr = @"手机号格式错误，请确认。";
     }else if (_verificationNumberTextField.text.length != 4){
-        errStr = @"验证码错误";
+        errStr = @"验证码错误,请确认";
     }
     else{
         errStr = nil;

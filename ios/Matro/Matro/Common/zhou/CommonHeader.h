@@ -105,5 +105,9 @@
 //背景灰
 #define Main_beijingGray_BackgroundColor @"f1f1f1"
 
+//按钮背景灰色
+#define Main_ButtonGray_backgroundColor @"b9b6b6"
+//按钮正常颜色
+#define Main_ButtonNormel_backgroundColor @"ae8e5d"
 
 #endif

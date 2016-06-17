@@ -11,9 +11,13 @@
 #import "VipCardModel.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIImageView+WebCache.h>
-@interface MNNMemberViewController : MLBaseViewController
+#import "iCarousel.h"
 
 
+
+@interface MNNMemberViewController : MLBaseViewController<iCarouselDataSource, iCarouselDelegate>
+
+@property (nonatomic, strong) iCarousel *carousel;
 @property (assign, nonatomic) int moRenIndex;
 @property (assign, nonatomic) int currentCardIndex;
 @property (strong, nonatomic) NSMutableArray * cardARR;

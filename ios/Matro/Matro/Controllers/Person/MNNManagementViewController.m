@@ -43,8 +43,11 @@
     self.shenFenLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_WIDTH-200, 10, 150, 20)];
     userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * str = [userDefaults objectForKey:KUSERDEFAULT_IDCARD_SHENFEN];
-    NSString * str2 = [str stringByReplacingCharactersInRange:NSMakeRange(4, 10) withString:@"****"];
-    self.shenFenLabel.text = str2;
+    if (str.length == 18) {
+        NSString * str2 = [str stringByReplacingCharactersInRange:NSMakeRange(4, 10) withString:@"****"];
+        self.shenFenLabel.text = str2;
+    }
+
     
     self.shenFenLabel.textAlignment = NSTextAlignmentRight;
     self.shenFenLabel.font = [UIFont systemFontOfSize:15];

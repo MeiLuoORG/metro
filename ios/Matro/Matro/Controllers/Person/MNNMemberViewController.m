@@ -13,6 +13,14 @@
 #import "HFSConstants.h"
 #import "HFSUtility.h"
 #import "CommonHeader.h"
+
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
+#define NUMBER_OF_ITEMS (IS_IPAD? 19: 12)
+#define NUMBER_OF_VISIBLE_ITEMS 25
+#define ITEM_SPACING 210.0f
+#define INCLUDE_PLACEHOLDERS YES
+
 @interface MNNMemberViewController ()<UITableViewDataSource,UITableViewDelegate> {
     UITableView *_tableView;
     UIImageView *_membershipCard;//VIP标志图
@@ -28,12 +36,23 @@
     UILabel * _ValidCentSLabel;//可用积分
     UIView * _guiZeView;//会员卡消费规则接口
     
+    UIImageView * _defaultImageView;
     
 }
-
+@property (nonatomic, assign) BOOL wrap;
+@property (nonatomic, retain) NSMutableArray *items;
+@property (nonatomic, retain) IBOutlet UIBarItem *orientationBarItem;
+@property (nonatomic, retain) IBOutlet UIBarItem *wrapBarItem;
 @end
 
 @implementation MNNMemberViewController
+
+@synthesize wrap;
+@synthesize items;
+@synthesize carousel;
+@synthesize orientationBarItem;
+@synthesize wrapBarItem;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,7 +83,261 @@
     //初始化弹出信息
     _hud = [[MBProgressHUD alloc]initWithView:self.view];
     [self.view addSubview:_hud];
+    
+    //加载3D图片
+    //[self setUp];
 }
+
+
+#pragma 3D 图片开始
+
+- (void)setUp
+{
+    if (self.cardARR.count > 0) {
+        _defaultImageView.hidden = YES;
+        
+        //set up data
+        //set up data
+        self.wrap = NO;
+        self.items = [NSMutableArray array];
+        for (int i = 0; i < self.cardARR.count; i++)
+        {
+            [self.items addObject:@(i)];
+        }
+        
+        //configure carousel
+        //configure carousel
+        self.carousel = [[iCarousel alloc]initWithFrame:CGRectMake(14, 20,SIZE_WIDTH-28, 227)];
+        self.carousel.delegate = self;
+        self.carousel.dataSource = self;
+        self.carousel.type = iCarouselTypeRotary;
+        
+        [_backgroundView addSubview:self.carousel];
+        
+
+        VipCardModel * firstCardModel = [self.cardARR objectAtIndex:0];
+        
+        _preferentialRules.text = firstCardModel.cardRule;
+        NSLog(@"消费规则内容：%@",_preferentialRules.text);
+        CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
+        //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
+        _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
+        _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
+        
+        NSLog(@"消费规则视图的高度为：%g",rect.size.height+60);
+        
+        _tableView.tableFooterView = _guiZeView;
+    }
+
+
+}
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    self.carousel = nil;
+
+    self.orientationBarItem = nil;
+    self.wrapBarItem = nil;
+}
+
+#pragma mark iCarousel methods
+
+#pragma mark iCarousel methods
+
+- (NSInteger)numberOfItemsInCarousel:(__unused iCarousel *)carousel
+{
+    return (NSInteger)[self.items count];
+}
+
+- (UIView *)carousel:(__unused iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
+{
+    UILabel *label = nil;
+    
+    //create new view if no view is available for recycling
+    if (view == nil)
+    {
+        if (self.cardARR.count > 0) {
+            VipCardModel * CardModel = [self.cardARR objectAtIndex:index];
+            view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, 227.0f)];
+            //((UIImageView *)view).image = [UIImage imageNamed:VIPCARDIMG_DEFAULTNAME];
+            [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:CardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+            //加阴影 zhou
+            view.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
+            view.layer.shadowOffset = CGSizeMake(8,8);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+            view.layer.shadowOpacity = 0.5;//阴影透明度，默认0
+            view.layer.shadowRadius = 7;//阴影半径，默认3
+            //view.contentMode = UIViewContentModeCenter;
+            /*
+             label = [[UILabel alloc] initWithFrame:view.bounds];
+             label.backgroundColor = [UIColor clearColor];
+             label.textAlignment = NSTextAlignmentCenter;
+             label.font = [label.font fontWithSize:50];
+             label.tag = 1;
+             [view addSubview:label];
+             */
+        }
+
+    }
+    else
+    {
+        //get a reference to the label in the recycled view
+        label = (UILabel *)[view viewWithTag:1];
+    }
+    
+    //set item label
+    //remember to always set any properties of your carousel item
+    //views outside of the `if (view == nil) {...}` check otherwise
+    //you'll get weird issues with carousel item content appearing
+    //in the wrong place in the carousel
+    label.text = [self.items[(NSUInteger)index] stringValue];
+    
+    return view;
+}
+
+- (NSInteger)numberOfPlaceholdersInCarousel:(__unused iCarousel *)carousel
+{
+    //note: placeholder views are only displayed on some carousels if wrapping is disabled
+    return 0;
+}
+
+- (UIView *)carousel:(__unused iCarousel *)carousel placeholderViewAtIndex:(NSInteger)index reusingView:(UIView *)view
+{
+    UILabel *label = nil;
+    
+    //create new view if no view is available for recycling
+    if (view == nil)
+    {
+        if (self.cardARR.count > 0) {
+            //don't do anything specific to the index within
+            //this `if (view == nil) {...}` statement because the view will be
+            //recycled and used with other index values later
+            VipCardModel * CardModel = [self.cardARR objectAtIndex:index];
+            view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, 227.0f)];
+            //((UIImageView *)view).image = [UIImage imageNamed:VIPCARDIMG_DEFAULTNAME];
+            [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:CardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+            //加阴影 zhou
+            view.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
+            view.layer.shadowOffset = CGSizeMake(8,8);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+            view.layer.shadowOpacity = 0.5;//阴影透明度，默认0
+            view.layer.shadowRadius = 7;//阴影半径，默认3
+            //view.contentMode = UIViewContentModeCenter;
+            /*
+             label = [[UILabel alloc] initWithFrame:view.bounds];
+             label.backgroundColor = [UIColor clearColor];
+             label.textAlignment = NSTextAlignmentCenter;
+             label.font = [label.font fontWithSize:50.0f];
+             label.tag = 1;
+             [view addSubview:label];
+             */
+
+        }
+    }
+    else
+    {
+        //get a reference to the label in the recycled view
+        label = (UILabel *)[view viewWithTag:1];
+    }
+    
+    //set item label
+    //remember to always set any properties of your carousel item
+    //views outside of the `if (view == nil) {...}` check otherwise
+    //you'll get weird issues with carousel item content appearing
+    //in the wrong place in the carousel
+    label.text = (index == 0)? @"[": @"]";
+    
+    return view;
+}
+
+- (CATransform3D)carousel:(__unused iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform
+{
+    //implement 'flip3D' style carousel
+    transform = CATransform3DRotate(transform, M_PI / 8.0f, 0.0f, 1.0f, 0.0f);
+    return CATransform3DTranslate(transform, 0.0f, 0.0f, offset * self.carousel.itemWidth);
+}
+
+- (CGFloat)carousel:(__unused iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+{
+    //customize carousel display
+    switch (option)
+    {
+        case iCarouselOptionWrap:
+        {
+            //normally you would hard-code this to YES or NO
+            return self.wrap;
+        }
+        case iCarouselOptionSpacing:
+        {
+            //add a bit of spacing between the item views
+            return value * 1.05f;
+        }
+        case iCarouselOptionFadeMax:
+        {
+            if (self.carousel.type == iCarouselTypeCustom)
+            {
+                //set opacity based on distance from camera
+                return 0.0f;
+            }
+            return value;
+        }
+        case iCarouselOptionShowBackfaces:
+        case iCarouselOptionRadius:
+        case iCarouselOptionAngle:
+        case iCarouselOptionArc:
+        case iCarouselOptionTilt:
+        case iCarouselOptionCount:
+        case iCarouselOptionFadeMin:
+        case iCarouselOptionFadeMinAlpha:
+        case iCarouselOptionFadeRange:
+        case iCarouselOptionOffsetMultiplier:
+        case iCarouselOptionVisibleItems:
+        {
+            return value;
+        }
+    }
+}
+
+#pragma mark -
+#pragma mark iCarousel taps
+
+- (void)carousel:(__unused iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index
+{
+    NSNumber *item = (self.items)[(NSUInteger)index];
+    NSLog(@"点击了Tapped view number: %@", item);
+}
+
+- (void)carouselCurrentItemIndexDidChange:(__unused iCarousel *)carousel
+{
+    NSLog(@"滑动到第几Index: %@", @(self.carousel.currentItemIndex));
+    if (self.cardARR.count > 0) {
+        self.currentCardIndex = (int)self.carousel.currentItemIndex;
+        //NSLog(@"scrollView正在+++拖拽：%d",self.currentCardIndex);
+        if (self.currentCardIndex == self.moRenIndex) {
+            
+            btnSelect.selected = YES;
+        }
+        else{
+            btnSelect.selected = NO;
+            
+        }
+        VipCardModel * firstCardModel = [self.cardARR objectAtIndex:self.currentCardIndex];
+        
+        _preferentialRules.text = firstCardModel.cardRule;
+        //NSLog(@"消费规则内容：%@",_preferentialRules.text);
+        CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
+        //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
+        _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
+        _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
+        _tableView.tableFooterView = _guiZeView;
+        NSLog(@"消费规则视图的高度为：%g",rect.size.height+60);
+        [self getCardInfowithcardNo:firstCardModel.cardNo];
+    }
+    
+    
+}
+
+#pragma end 3D图片结束
+//////////////////////////////--------------------------
+
 - (void)buttonAction {
     /*
     self.hidesBottomBarWhenPushed = YES;
@@ -119,7 +392,7 @@
                 }
                 for (NSDictionary * dics  in vipCardARR) {
                     
-                    if ([[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@"0"]) {
+                    if ([[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@"0"] || [[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@""] || ![NSString stringWithFormat:@"%@",dics[@"isDefault"]]) {
                         VipCardModel * cardModel = [[VipCardModel alloc]init];
                         cardModel.cardNo = dics[@"cardNo"];
                         cardModel.cardTypeIdString = dics[@"cardTypeId"];
@@ -131,8 +404,8 @@
                     }
                     
                 }
-                [self updataCardScrollView];
-                
+                //[self updataCardScrollView];
+                [self setUp];
             }
             else{
             
@@ -225,6 +498,7 @@
 //更新会员卡图片
 - (void)updataCardScrollView{
     if (self.cardARR.count > 0) {
+        _defaultImageView.hidden = YES;
         scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*self.cardARR.count, 267);
         UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 30, scrollview.contentSize.width, 207)];
         bkView.backgroundColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -234,11 +508,11 @@
             VipCardModel * cardModel = [self.cardARR objectAtIndex:i];
             UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, 227)];
             
-            
+            /*
             NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
             
             imageView.image=[UIImage imageNamed:str];
-            
+            */
             [imageView sd_setImageWithURL:[NSURL URLWithString:cardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
             
             //加阴影 zhou
@@ -274,9 +548,6 @@
     //    [_backgroundView addSubview:_membershipCard];
     
     scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 267)];
-    
-
-    
     scrollview.backgroundColor=[UIColor whiteColor];
     scrollview.showsVerticalScrollIndicator = NO;
     scrollview.showsHorizontalScrollIndicator = NO;
@@ -301,14 +572,19 @@
     //背景色块
     UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 30, scrollview.contentSize.width, 207)];
     bkView.backgroundColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
-    [scrollview addSubview:bkView];
+    //[scrollview addSubview:bkView];
 
     for (int i=0; i<1; i++) {
-        UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, 227)];
+        _defaultImageView = [[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, 227)];
         
-        NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
+        //NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
         
-        imageView.image=[UIImage imageNamed:str];
+        _defaultImageView.image=[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME];
+        //加阴影 zhou
+        _defaultImageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
+        _defaultImageView.layer.shadowOffset = CGSizeMake(8,8);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+        _defaultImageView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
+        _defaultImageView.layer.shadowRadius = 7;//阴影半径，默认3
         /*
         //加阴影 zhou
         imageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
@@ -316,7 +592,7 @@
         imageView.layer.shadowOpacity = 0.8;//阴影透明度，默认0
         imageView.layer.shadowRadius = 10;//阴影半径，默认3
         */
-        [scrollview addSubview:imageView];
+        [scrollview addSubview:_defaultImageView];
     }
     
     [_backgroundView addSubview:scrollview];
@@ -377,7 +653,7 @@
     _guiZeView.backgroundColor = [UIColor whiteColor];
     _preferentialRules = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, 100)];
     _preferentialRules.text = @"优惠规则";
-    _preferentialRules.font = [UIFont systemFontOfSize:12];
+    _preferentialRules.font = [UIFont systemFontOfSize:10];
     _preferentialRules.alpha = 0.5;
     _preferentialRules.numberOfLines = 0;
     //CGSize size = [_preferentialRules.text sizeWithFont:[UIFont systemFontOfSize:10.0f] constrainedToSize:CGSizeMake(_preferentialRules.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
@@ -394,6 +670,8 @@
     
     [self.view addSubview:_tableView];
     
+    //加载3D
+    //[self setUp];
     
 }
 -(CGFloat)textHeight:(NSString *)string{
@@ -431,30 +709,34 @@
 }
 
 */
+/*
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    self.currentCardIndex = scrollview.contentOffset.x/MAIN_SCREEN_WIDTH;
-    //NSLog(@"scrollView正在+++拖拽：%d",self.currentCardIndex);
-    if (self.currentCardIndex == self.moRenIndex) {
+    if (self.cardARR.count > 0) {
+        self.currentCardIndex = scrollview.contentOffset.x/MAIN_SCREEN_WIDTH;
+        //NSLog(@"scrollView正在+++拖拽：%d",self.currentCardIndex);
+        if (self.currentCardIndex == self.moRenIndex) {
+            
+            btnSelect.selected = YES;
+        }
+        else{
+            btnSelect.selected = NO;
+            
+        }
+        VipCardModel * firstCardModel = [self.cardARR objectAtIndex:self.currentCardIndex];
         
-        btnSelect.selected = YES;
-    }
-    else{
-        btnSelect.selected = NO;
+        _preferentialRules.text = firstCardModel.cardRule;
+        //NSLog(@"消费规则内容：%@",_preferentialRules.text);
+        CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
+        //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
+        _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
+        _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
+        _tableView.tableFooterView = _guiZeView;
         
+        [self getCardInfowithcardNo:firstCardModel.cardNo];
     }
-    VipCardModel * firstCardModel = [self.cardARR objectAtIndex:self.currentCardIndex];
-    
-    _preferentialRules.text = firstCardModel.cardRule;
-    //NSLog(@"消费规则内容：%@",_preferentialRules.text);
-    CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
-    //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
-    _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
-    _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
-    _tableView.tableFooterView = _guiZeView;
-    
-    [self getCardInfowithcardNo:firstCardModel.cardNo];
-}
 
+}
+*/
 
 
 
@@ -493,12 +775,14 @@
 }
 #pragma mark 设置默认卡
 - (void)setMoRenCard{
-    VipCardModel * moCard = [self.cardARR objectAtIndex:self.moRenIndex];
-    
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * phone = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];
-    NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-    
+    if (self.cardARR.count > 0) {
+     
+        VipCardModel * moCard = [self.cardARR objectAtIndex:self.moRenIndex];
+        
+        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString * phone = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];
+        NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+        
         if (accessToken == nil) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
@@ -528,7 +812,7 @@
                     [_hud show:YES];
                     _hud.mode = MBProgressHUDModeText;
                     _hud.labelText = @"默认卡设置成功！";
-                    [_hud hide:YES afterDelay:2];
+                    [_hud hide:YES afterDelay:1.0f];
                     
                     NSString * cardTypeStr = [NSString stringWithFormat:@"%@",moCard.cardTypeIdString];
                     NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
@@ -549,8 +833,11 @@
                 [_hud hide:YES afterDelay:2];
             }];
         }
-}
+    
+        
+    }
 
+}
 #pragma mark -
 #pragma mark UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

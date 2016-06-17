@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"修改密码";
+    self.title = @"重置密码";
     
     
     
@@ -45,7 +45,7 @@
 //Lock_xiugaimima锁     Profile_xiugaimima人    golden_button
 - (void)loadTopView{
     
-    NavTopCommonImage * img = [[NavTopCommonImage alloc]initWithTitle:@"修改密码"];
+    NavTopCommonImage * img = [[NavTopCommonImage alloc]initWithTitle:@"重置密码"];
     [img loadLeftBackButtonwith:0];
     [img backButtonAction:^(BOOL succes) {
         [self dismissViewControllerAnimated:NO completion:nil];
@@ -72,13 +72,13 @@
     lable1.textAlignment = NSTextAlignmentCenter;
     lable1.textColor = [UIColor colorWithHexString:@"#AE8E5D"];
     lable1.font = [UIFont systemFontOfSize:15];
-    [_bkView addSubview:lable1];
+    //[_bkView addSubview:lable1];
     UILabel *lable2 = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth-120)/2+80, 30, (kScreenWidth-120)/2, 20)];
     lable2.text = @"修改密码";
     lable2.textAlignment = NSTextAlignmentCenter;
     lable2.textColor = [UIColor colorWithHexString:@"#AE8E5D"];
     lable2.font = [UIFont systemFontOfSize:15];
-    [_bkView addSubview:lable2];
+    //[_bkView addSubview:lable2];
 
     UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(40, 30, 20, 20)];
     label3.layer.cornerRadius = 10;
@@ -88,7 +88,7 @@
     label3.text = @"1";
     label3.textColor = [UIColor whiteColor];
     label3.textAlignment = NSTextAlignmentCenter;
-    [_bkView addSubview:label3];
+    //[_bkView addSubview:label3];
     UILabel *label4 = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth-120)/2+80, 30, 20, 20)];
     label4.layer.cornerRadius = 10;
     label4.layer.masksToBounds = YES;
@@ -97,36 +97,58 @@
     label4.text = @"2";
     label4.textColor = [UIColor whiteColor];
     label4.textAlignment = NSTextAlignmentCenter;
-    [_bkView addSubview:label4];
-    [self createlableWithRect:CGRectMake(10, 79, kScreenWidth-20, 1)];
-    _newPassword = [[UITextField alloc] initWithFrame:CGRectMake(40, 90, kScreenWidth-50, 30)];
+    //[_bkView addSubview:label4];
+    
+    
+    //[self createlableWithRect:CGRectMake(10, 79, kScreenWidth-20, 1)];
+    _newPassword = [[UITextField alloc] initWithFrame:CGRectMake(22, 42, kScreenWidth-44, 41)];
     _newPassword.placeholder = @"新密码";
-    _newPassword.borderStyle = UITextBorderStyleNone;
+    _newPassword.delegate = self;
+    //_newPassword.borderStyle = UITextBorderStyleNone;
     _newPassword.secureTextEntry = YES;
     [_newPassword setValue:[UIFont boldSystemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
+    _newPassword.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
+    _newPassword.layer.cornerRadius = 4.0f;
+    _newPassword.layer.borderWidth = 1.0f;
+    _newPassword.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 19, 0)];
+    _newPassword.leftViewMode = UITextFieldViewModeAlways;
+    
+    
     UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(15, 90, 15, 20)];
     imageView1.image = [UIImage imageNamed:@"Lock_xiugaimima"];
-    [_bkView addSubview:imageView1];
+    //[_bkView addSubview:imageView1];
     _newPassword.clearsOnBeginEditing = YES;
     _newPassword.keyboardType = UIKeyboardAppearanceDefault;
     [_bkView addSubview:_newPassword];
-    [self createlableWithRect:CGRectMake(10, CGRectGetMaxY(_newPassword.frame), kScreenWidth-20, 1)];
+    //[self createlableWithRect:CGRectMake(10, CGRectGetMaxY(_newPassword.frame), kScreenWidth-20, 1)];
   
-    _confirmPassword = [[UITextField alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(_newPassword.frame)+10, kScreenWidth-160, 30)];
+    _confirmPassword = [[UITextField alloc] initWithFrame:CGRectMake(22, CGRectGetMaxY(_newPassword.frame)+29, kScreenWidth-44, 41)];
+    _confirmPassword.delegate = self;
+    _confirmPassword.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
+    _confirmPassword.layer.cornerRadius = 4.0f;
+    _confirmPassword.layer.borderWidth = 1.0f;
+    _confirmPassword.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 19, 0)];
+    _confirmPassword.leftViewMode = UITextFieldViewModeAlways;
     _confirmPassword.placeholder = @"确认新密码";
-    _confirmPassword.borderStyle = UITextBorderStyleNone;
+    
+    //_confirmPassword.borderStyle = UITextBorderStyleNone;
     _confirmPassword.secureTextEntry = YES;
     [_confirmPassword setValue:[UIFont boldSystemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(_newPassword.frame)+10, 15, 20)];
     imageView2.image = [UIImage imageNamed:@"Lock_xiugaimima"];
-    [_bkView addSubview:imageView2];
+    //[_bkView addSubview:imageView2];
     _confirmPassword.clearsOnBeginEditing = YES;
     _confirmPassword.keyboardType = UIKeyboardAppearanceDefault;
     [_bkView addSubview:_confirmPassword];
-    [self createlableWithRect:CGRectMake(10, CGRectGetMaxY(_confirmPassword.frame), kScreenWidth-20, 1)];
-    _determine = [[UIButton alloc] initWithFrame:CGRectMake(50, self.view.frame.size.height-230, kScreenWidth-100, 30)];
-    [_determine setBackgroundImage:[UIImage imageNamed:@"golden_button"] forState:UIControlStateNormal];
+    
+    //[self createlableWithRect:CGRectMake(10, CGRectGetMaxY(_confirmPassword.frame), kScreenWidth-20, 1)];
+    _determine = [[UIButton alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(_confirmPassword.frame)+60, kScreenWidth-80, 42)];
+    [_determine setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+    _determine.enabled = NO;
+    //[_determine setBackgroundImage:[UIImage imageNamed:@"golden_button"] forState:UIControlStateNormal];
     [_determine setTitle:@"确定" forState:UIControlStateNormal];
+    _determine.layer.cornerRadius = 4.0f;
+    _determine.layer.masksToBounds = YES;
     [_determine addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
     [_bkView addSubview:_determine];
 }
@@ -136,27 +158,38 @@
     label.alpha = 0.7;
     [_bkView addSubview:label];
 }
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+
+    if (![_newPassword.text isEqualToString:@""] && ![_confirmPassword.text isEqualToString:@""]) {
+        _determine.enabled = YES;
+        [_determine setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
+        
+        
+    }
+    else{
+        _determine.enabled = NO;
+        [_determine setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+    }
+    
+    return YES;
+}
 
 #pragma mark 修改密码
 - (void)buttonAction {
     __weak __typeof(&*self)weakSelf =self;
     [_newPassword resignFirstResponder];
     [_confirmPassword resignFirstResponder];
-    if ([_newPassword.text isEqualToString:@""]||[_confirmPassword.text isEqualToString:@""]) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请将信息填写完整";
-        [_hud hide:YES afterDelay:2];
-    }
-    else {
+    
+    if ([self canRegister]) {
+        
         if ([_newPassword.text isEqualToString:_confirmPassword.text]) {
             //{"appId": "test0002","phone":"18020260894","password":"654321","sign":$sign,"accessToken":$accessToken}
-        /*zhoulu*/
+            /*zhoulu*/
             
-        // 存储用户信息
-        NSUserDefaults *userDefaults1 = [NSUserDefaults standardUserDefaults];
-        NSString * accessToken = [userDefaults1 objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-        
+            // 存储用户信息
+            NSUserDefaults *userDefaults1 = [NSUserDefaults standardUserDefaults];
+            NSString * accessToken = [userDefaults1 objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+            
             if (accessToken) {
                 //accessToken存在
                 //修改密码
@@ -268,8 +301,8 @@
                     _hud.labelText = @"请求失败";
                     [_hud hide:YES afterDelay:2];
                 }];
-            
-
+                
+                
                 
             }
             else{
@@ -384,57 +417,91 @@
                 }];
             }
             
-
-        
-        /*
-        if ([_newPassword.text isEqualToString:_confirmPassword.text]) {
-            //{"appId": "test0002","phone":"18020260894","password":"654321","sign":$sign,"accessToken":$accessToken}
-           
             
             
-            //没有登录账号无法获得验证码
-            NSDictionary *dic = @{@"appId":APP_ID,@"nonceStr":NONCE_STR,@"pwd":_newPassword.text,@"mphone":_phoneNum?:@"",@"vcode":self.vcode?:@""};
-            NSLog(@"%@",dic);
-            NSData *data = [HFSUtility RSADicToData:dic] ;
-            NSString *ret = base64_encode_data(data);
-            
-            [[HFSServiceClient sharedClient] POST:@"vip/ResetPassword" parameters:ret success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                
-                NSDictionary *result = (NSDictionary *)responseObject;
-                NSLog(@"返回编码:%@",result[@"status"]);
-                NSLog(@"%@",result[@"msg"]);
-                if([@"0" isEqualToString:[NSString stringWithFormat:@"%@",result[@"status"]]]){
-                    
-                    [_hud show:YES];
-                    _hud.mode = MBProgressHUDModeText;
-                    _hud.labelText = @"密码修改成功";
-                    [_hud hide:YES afterDelay:2];
-                    [self performSelector:@selector(popView) withObject:nil afterDelay:2];
-                }
-                else{
-                    [_hud show:YES];
-                    _hud.mode = MBProgressHUDModeText;
-                    _hud.labelText = result[@"msg"];
-                    [_hud hide:YES afterDelay:2];
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"请求失败");
-                [_hud show:YES];
-                _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"请求失败";
-                [_hud hide:YES afterDelay:2];
-            }];
-        }
-         */
+            /*
+             if ([_newPassword.text isEqualToString:_confirmPassword.text]) {
+             //{"appId": "test0002","phone":"18020260894","password":"654321","sign":$sign,"accessToken":$accessToken}
+             
+             
+             
+             //没有登录账号无法获得验证码
+             NSDictionary *dic = @{@"appId":APP_ID,@"nonceStr":NONCE_STR,@"pwd":_newPassword.text,@"mphone":_phoneNum?:@"",@"vcode":self.vcode?:@""};
+             NSLog(@"%@",dic);
+             NSData *data = [HFSUtility RSADicToData:dic] ;
+             NSString *ret = base64_encode_data(data);
+             
+             [[HFSServiceClient sharedClient] POST:@"vip/ResetPassword" parameters:ret success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSDictionary *result = (NSDictionary *)responseObject;
+             NSLog(@"返回编码:%@",result[@"status"]);
+             NSLog(@"%@",result[@"msg"]);
+             if([@"0" isEqualToString:[NSString stringWithFormat:@"%@",result[@"status"]]]){
+             
+             [_hud show:YES];
+             _hud.mode = MBProgressHUDModeText;
+             _hud.labelText = @"密码修改成功";
+             [_hud hide:YES afterDelay:2];
+             [self performSelector:@selector(popView) withObject:nil afterDelay:2];
+             }
+             else{
+             [_hud show:YES];
+             _hud.mode = MBProgressHUDModeText;
+             _hud.labelText = result[@"msg"];
+             [_hud hide:YES afterDelay:2];
+             }
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败");
+             [_hud show:YES];
+             _hud.mode = MBProgressHUDModeText;
+             _hud.labelText = @"请求失败";
+             [_hud hide:YES afterDelay:2];
+             }];
+             }
+             */
         }
         else {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"两次输入密码不同";
-            [_hud hide:YES afterDelay:2];
+            [_hud hide:YES afterDelay:1];
         }
     }
+
+    
 }
+
+-(BOOL)canRegister{
+    NSString *errStr = nil;
+    
+    if ([_newPassword.text isEqualToString:@""]||[_confirmPassword.text isEqualToString:@""]) {
+         errStr = @"请输入密码";
+    }else if (![_newPassword.text isEqualToString:_confirmPassword.text]){
+        errStr = @"两次密码输入不一致，请确认。";
+    } else if (_newPassword.text.length < 6 || _newPassword.text.length > 20){
+        errStr = @"请使用6-20位字母或数字。";
+    }
+    else if (![ZhengZePanDuan checkPasswordMeiLuo:_newPassword.text]){
+        errStr = @"请使用6-20位字母或数字。";
+    }
+    else{
+        errStr = nil;
+    }
+    
+    if (errStr) {
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = errStr;
+        [_hud hide:YES afterDelay:1];
+        
+        return NO;
+    }
+    return YES;
+}
+
+
+
 - (void)popView {
     NSArray *viewControllers = self.navigationController.viewControllers;
     UIViewController *management = [viewControllers objectAtIndex:1];

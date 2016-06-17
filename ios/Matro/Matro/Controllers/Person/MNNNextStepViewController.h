@@ -9,11 +9,11 @@
 #import "MLBaseViewController.h"
 #import "CommonHeader.h"
 #import "NavTopCommonImage.h"
-
+#import "ZhengZePanDuan.h"
 
 typedef void(^BackDismissBlock)(BOOL success);
 
-@interface MNNNextStepViewController : MLBaseViewController
+@interface MNNNextStepViewController : MLBaseViewController<UITextFieldDelegate>
 
 
 @property (copy, nonatomic) BackDismissBlock backBlock;
