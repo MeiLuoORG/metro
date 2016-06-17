@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#define kTisTableViewCell  @"TisTableViewCell"
 @interface MLTisTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *tisLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;

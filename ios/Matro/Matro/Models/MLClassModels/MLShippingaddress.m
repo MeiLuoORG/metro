@@ -17,7 +17,7 @@
 
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"childAddress":[MLShippingaddress class]};
+    return @{@"sub":[MLShippingaddress class]};
 }
 
 

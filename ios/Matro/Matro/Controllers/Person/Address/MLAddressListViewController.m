@@ -38,8 +38,7 @@ static NSInteger firstLoad = 0;
     }else{
         self.title = @"收货地址管理";
     }
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
+    userid = [[NSUserDefaults standardUserDefaults] valueForKey:kUSERDEFAULT_USERID];
     _addressArray = [[NSMutableArray alloc] init];
    
   

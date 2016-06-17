@@ -61,8 +61,6 @@
     }
 }
 - (IBAction)checkBoxClick:(id)sender {
-    AddressCheckBox *btn = (AddressCheckBox *)sender;
-    btn.isSelected = !btn.isSelected;
     if (self.addressDefault) {
         self.addressDefault();
     }
@@ -76,6 +74,8 @@
 - (void)setIsSelected:(BOOL)isSelected{
     _isSelected = isSelected;
     [self setImage:[UIImage imageNamed:_isSelected?@"zSelected":@"zSelectBtn"] forState:UIControlStateNormal];
+    
+
 }
 
 

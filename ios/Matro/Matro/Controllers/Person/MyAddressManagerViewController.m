@@ -16,6 +16,7 @@
 #import "UIView+BlankPage.h"
 #import "MLAddressListModel.h"
 #import "MJExtension.h"
+#import "MBProgressHUD+Add.h"
 
 
 @interface MyAddressManagerViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
@@ -84,8 +85,7 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定删除此记录" message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { //调接口删除
-            
-            
+            [weakself delAddress:model];
         }];
         [alert addAction:done];
         [alert addAction:cancel];
@@ -108,22 +108,6 @@
 }
 
 
-
--(void)setSelAddress:(id)sender
-{
-    
-    UIButton *btn = (UIButton*)sender;
-    btn.selected = !btn.selected;
-    lastselbtn = btn;
-    [_addressTBView reloadData];
-    selAddress = [addressAry objectAtIndex:btn.tag];
-
-    
-    [self setDefaultAddress];
-    
-    
-}
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 130;
 }
@@ -138,27 +122,58 @@
 #pragma mark 修改默认地址状态
 - (void)changeAddressStatus:(MLAddressListModel *)model{
     
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=setdef&id=%@&uid=%@",@"http://bbctest.matrojp.com",model.ID,userid];
-    [[HFSServiceClient sharedJSONClientNOT]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=setdef",@"http://bbctest.matrojp.com"];
+    NSDictionary *params = @{@"uid":@"21357",@"id":model.ID};
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
         NSDictionary *result = (NSDictionary *)responseObject;
-        if ([result[@"code"] isEqual:@0]) { //重置成功
+        if ([result[@"code"] isEqual:@0]) {
             [self loadDateAddressList];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:@"网络错误" toView:self.view];
     }];
     
+    
+
     
     
     
 }
 
+- (void)delAddress:(MLAddressListModel *)model{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    NSString *url = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=del"];
+    NSDictionary *params = @{@"id":model.ID};
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            [self loadDateAddressList];
+        }
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:@"网络错误" toView:self.view];
+    }];
+    
+}
+
+
+
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {
     
-//    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=lists&uid=21357"];
-    NSString *urlStr = [NSString stringWithFormat:@"http://192.168.21.212/addresslist.php"];
-    
+    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=lists&uid=%@",@"21357"];
     [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;
@@ -195,9 +210,4 @@
 }
 
 
-#pragma mark 设置默认地址
--(void)setDefaultAddress
-{
-
-}
 @end

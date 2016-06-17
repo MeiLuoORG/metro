@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+#define kAddTableViewCell @"AddTableViewCell"
 @interface MLAddTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *phoneLabel;

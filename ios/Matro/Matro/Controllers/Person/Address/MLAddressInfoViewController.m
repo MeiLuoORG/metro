@@ -14,6 +14,8 @@
 #import "HFSUtility.h"
 #import "MLShippingaddress.h"
 #import "MJExtension.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "MBProgressHUD+Add.h"
 
 @interface MLAddressInfoViewController ()<UIPickerViewDataSource,UIPickerViewDelegate>{
     UIControl *_blackView;
@@ -94,29 +96,30 @@ static MLShippingaddress *province,*city,*area;
     UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:_blackView];
 
+    [self getAllarea];
     
     
-    NSString *string = [[NSString alloc]initWithContentsOfFile:[self getDocumentpath] encoding:NSUTF8StringEncoding error:nil];
-    if (!string) {
-        [self getAllarea];
-    }
-    else{
-        SBJSON *sbjson = [SBJSON new];
-        NSArray *ary = [sbjson objectWithString:string error:nil];
-        
-        NSArray *modelArt = [MLShippingaddress mj_objectArrayWithKeyValuesArray:ary];
-        self.addressData = [modelArt mutableCopy];
-        
-        province = [self.addressData firstObject];
-        if (province.childAddress.count>0) {
-            city = [province.childAddress firstObject];
-            if (city.childAddress.count>0) {
-                [city.childAddress firstObject];
-            }
-        }
-        [self.addressPickerView reloadAllComponents];
-
-    }
+//    NSString *string = [[NSString alloc]initWithContentsOfFile:[self getDocumentpath] encoding:NSUTF8StringEncoding error:nil];
+//    if (!string) {
+//        [self getAllarea];
+//    }
+//    else{
+//        SBJSON *sbjson = [SBJSON new];
+//        NSArray *ary = [sbjson objectWithString:string error:nil];
+//        
+//        NSArray *modelArt = [MLShippingaddress mj_objectArrayWithKeyValuesArray:ary];
+//        self.addressData = [modelArt mutableCopy];
+//        
+//        province = [self.addressData firstObject];
+//        if (province.sub.count>0) {
+//            city = [province.sub firstObject];
+//            if (city.sub.count>0) {
+//                [city.sub firstObject];
+//            }
+//        }
+//        [self.addressPickerView reloadAllComponents];
+//
+//    }
     
 }
 -(NSString*)getDocumentpath
@@ -136,28 +139,28 @@ static MLShippingaddress *province,*city,*area;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSArray *district_info = [MLShippingaddress mj_objectArrayWithKeyValuesArray:data[@"district_info"]];
-            for (MLShippingaddress *parent in district_info) {
-                if ([parent.pid isEqualToString:@"0"]) {
-                    parent.childAddress = [self getChildAddress:district_info pid:parent.ID];
-                    [self.addressData addObject:parent];
-                }
-            }
+//            for (MLShippingaddress *parent in district_info) {
+//                if ([parent.pid isEqualToString:@"0"]) {
+//                    parent.sub = [self getsub:district_info pid:parent.ID];
+//                    [self.addressData addObject:parent];
+//                }
+//            }
             //缓存本地
-            NSArray *tmp = [MLShippingaddress mj_keyValuesArrayWithObjectArray:district_info];
-            NSLog(@"%@",tmp);
-            SBJSON *sbjson = [SBJSON new];
-            NSError *error;
-            NSString *jsonstr = [sbjson stringWithObject:tmp error:&error];
-            if (jsonstr) {
-                [jsonstr writeToFile:[self getDocumentpath] atomically:YES encoding:NSUTF8StringEncoding error:&error];
-            }
+//            NSArray *tmp = [MLShippingaddress mj_keyValuesArrayWithObjectArray:district_info];
+//            NSLog(@"%@",tmp);
+//            SBJSON *sbjson = [SBJSON new];
+//            NSError *error;
+//            NSString *jsonstr = [sbjson stringWithObject:tmp error:&error];
+//            if (jsonstr) {
+//                [jsonstr writeToFile:[self getDocumentpath] atomically:YES encoding:NSUTF8StringEncoding error:&error];
+//            }
             
-            
+            [self.addressData addObjectsFromArray:district_info];
             province = [self.addressData firstObject];
-            if (province.childAddress.count>0) {
-                city = [province.childAddress firstObject];
-                if (city.childAddress.count>0) {
-                    [city.childAddress firstObject];
+            if (province.sub.count>0) {
+                city = [province.sub firstObject];
+                if (city.sub.count>0) {
+                    [city.sub firstObject];
                 }
             }
             [self.addressPickerView reloadAllComponents];
@@ -170,16 +173,16 @@ static MLShippingaddress *province,*city,*area;
 }
 
 
-- (NSArray *)getChildAddress:(NSArray *)allAddress pid:(NSString *)pid{
-    NSMutableArray *tmp = [NSMutableArray array];
-    for (MLShippingaddress *address in allAddress) {
-        if ([address.pid isEqualToString:pid]) {
-            address.childAddress = [self getChildAddress:allAddress pid:address.ID];
-            [tmp addObject:address];
-        }
-    }
-    return [tmp copy];
-}
+//- (NSArray *)getsub:(NSArray *)allAddress pid:(NSString *)pid{
+//    NSMutableArray *tmp = [NSMutableArray array];
+//    for (MLShippingaddress *address in allAddress) {
+//        if ([address.pid isEqualToString:pid]) {
+//            address.sub = [self getsub:allAddress pid:address.ID];
+//            [tmp addObject:address];
+//        }
+//    }
+//    return [tmp copy];
+//}
 
 
 
@@ -276,36 +279,35 @@ static MLShippingaddress *province,*city,*area;
         return;
 
     }
-    NSString *loginid = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
-        
-     NSString  *urlStr = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=%@&uid=%@&name=%@&areaid=%@&area=%@&address=%@&provinceid=%@&cityid=%@&zip=%@&tel=%@&mobile=%@&default=2",@"http://bbctest.matrojp.com",_isNewAddress?@"add":@"upd",loginid,self.nameTextField.text,area.ID, self.selTextField.text,self.inputTextField.text,province.ID,city.ID,@"215000",@"65123123",self.phoneTextField.text];
-     urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [[HFSServiceClient sharedJSONClient] POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
+//    NSString *loginid = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
+    
+     NSString  *urlStr = [NSString stringWithFormat:@"%@api.php?m=member&s=admin_orderadder&do=%@",@"http://bbctest.matrojp.com/",_isNewAddress?@"add":@"upd"];
+    
+    NSDictionary *params = @{@"uid":@"21357",@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID,@"data[area]":self.selTextField.text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID,@"data[cityid]":city.ID,@"data[mobile]":self.phoneTextField.text};
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
-        if ([result[@"code"] isEqual:@0]) {
-            
-            
+        if ([result[@"code"] isEqual:@0]) { //添加成功
             if (self.addressSuccess) {
                 self.addressSuccess();
             }
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            NSString *msg = result[@"msg"];
+            
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
-        
+         [MBProgressHUD showMessag:@"网络错误!" toView:self.view];
     }];
     
-}
-
-#pragma mark 设置默认地址
--(void)setDefaultAddress:(NSDictionary*)dic
-{
+    
     
     
 }
-
-
 -(void)keyboardHide:(UITapGestureRecognizer*)tap{
     [self.view endEditing:YES];
 }
@@ -338,11 +340,11 @@ static MLShippingaddress *province,*city,*area;
             return self.addressData.count;
             break;
         case 1:
-            return province.childAddress.count;
+            return province.sub.count;
             break;
         default:
         {
-            return city.childAddress.count;;
+            return city.sub.count;;
         }
             break;
     }
@@ -359,14 +361,14 @@ static MLShippingaddress *province,*city,*area;
             break;
         case 1:
         {
-            MLShippingaddress *tt = [province.childAddress objectAtIndex:row];
+            MLShippingaddress *tt = [province.sub objectAtIndex:row];
             return tt.name;
         }
            
             break;
         default:
         {
-            MLShippingaddress *tt = [city.childAddress objectAtIndex:row];
+            MLShippingaddress *tt = [city.sub objectAtIndex:row];
             return tt.name;
         }
             break;
@@ -396,28 +398,28 @@ static MLShippingaddress *province,*city,*area;
         case 0:
             province = [self.addressData objectAtIndex:row];
             [self.addressPickerView reloadComponent:1];
-            if (province.childAddress.count>0) {
-                city = [province.childAddress firstObject];
+            if (province.sub.count>0) {
+                city = [province.sub firstObject];
                 [_addressPickerView selectRow:0 inComponent:1 animated:YES];
-                if (city.childAddress.count>0) {
+                if (city.sub.count>0) {
                     [self.addressPickerView reloadComponent:2];
-                    area = [city.childAddress firstObject];
+                    area = [city.sub firstObject];
                     [_addressPickerView selectRow:0 inComponent:2 animated:YES];
                 }
             }
               [_addressPickerView reloadComponent:2];
             break;
         case 1:
-            city = [province.childAddress objectAtIndex:row];
+            city = [province.sub objectAtIndex:row];
             [self.addressPickerView reloadComponent:2];
-            if (city.childAddress.count>0) {
-                area = [city.childAddress firstObject];
+            if (city.sub.count>0) {
+                area = [city.sub firstObject];
                 [_addressPickerView selectRow:0 inComponent:2 animated:YES];
             }
 
             break;
         case 2:
-            area = [city.childAddress objectAtIndex:row];
+            area = [city.sub objectAtIndex:row];
             break;
         default:
             

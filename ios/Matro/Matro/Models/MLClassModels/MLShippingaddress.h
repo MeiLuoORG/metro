@@ -14,7 +14,7 @@
 @property (nonatomic,copy)NSString *name;
 @property (nonatomic,copy)NSString *pid;
 
-@property (nonatomic,strong)NSArray *childAddress;
+@property (nonatomic,strong)NSArray *sub;
 
 
 

@@ -358,8 +358,10 @@ static BOOL showLogin;
 
 - (void)changeNumWith:(MLProlistModel *)prolist andCount:(NSInteger)count{
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=modify&id=%@&nums=%@",@"http://bbctest.matrojp.com",prolist.ID,[NSNumber numberWithInteger:count]];
-    [[HFSServiceClient sharedJSONClient]POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php",@"http://bbctest.matrojp.com"];
+    NSDictionary *params = @{@"m":@"product",@"s":@"cart",@"action":@"modify",@"id":prolist.ID,@"nums":[NSNumber numberWithInteger:count]};
+    
+    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
 
         if ([[result objectForKey:@"code"] isEqual:@0]) { //如果成功

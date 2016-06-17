@@ -165,9 +165,7 @@ static MLAddressListModel *selAddress;
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {
     
-    //    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=lists&uid=21357"];
-    NSString *urlStr = [NSString stringWithFormat:@"http://192.168.21.212/addresslist.php"];
-    
+    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=lists&uid=%@",@"21357"];
     [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
+#define kRPayTableViewCell  @"RPayTableViewCell"
 @interface MLRPayTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *rpayLabel;
 

@@ -18,6 +18,7 @@
 #import "MJExtension.h"
 #import "HFSServiceClient.h"
 #import "MJRefresh.h"
+#import "MLPersonOrderDetailViewController.h"
 
 
 
@@ -242,8 +243,14 @@ static NSInteger pageIndex = 0;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
+
+
+
+
 #pragma mark 获取数据
 
 - (void)getOrderList{

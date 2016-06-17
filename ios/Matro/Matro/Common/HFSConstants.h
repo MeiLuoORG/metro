@@ -16,10 +16,11 @@
 //http://app-test.matrojp.com
 //http://app.matrojp.com/P2MLinkCenter/
 #define SERVICE_BASE_URL @"http://app.matrojp.com/P2MLinkCenter/"
+//#define SERVICE_BASE_URL @"http://bbctest.matrojp.com/"
 #define SERVICE_BASEPAY_URL @"http://app.matrojp.com/PayCenter/"
 //http://www.matrojp.com/
-#define SERVICE_GETBASE_URL @"http://app-test.matrojp.com/"
-
+//#define SERVICE_GETBASE_URL @"http://app-test.matrojp.com/"
+#define SERVICE_GETBASE_URL @"http://bbctest.matrojp.com/"
 
 #define kNOTIFICATIONWXPAY   @"wxPayResult"
 

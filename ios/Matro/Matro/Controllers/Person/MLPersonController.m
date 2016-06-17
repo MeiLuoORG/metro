@@ -301,7 +301,6 @@
                     //    vc.delegate = nil;
                     self.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
-                    self.hidesBottomBarWhenPushed = NO;
                 }
              
             };

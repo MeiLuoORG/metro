@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#define kZTTableViewCell @"ZTTableViewCell"
 
 @interface MLZTTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *ztLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
