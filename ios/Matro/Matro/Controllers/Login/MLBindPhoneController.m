@@ -311,14 +311,22 @@ static BOOL isPass = NO;
         if (self.passField.text.length < 6 || self.passField.text.length >20 ) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"输入的密码格式不正确";
+            _hud.labelText = @"请使用6-20位字母或数字。";
             [_hud hide:YES afterDelay:2];
             return;
         }
+
         if (![self.passField.text isEqualToString:self.rPassField.text]) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"两次密码输入不一致";
+            _hud.labelText = @"两次密码输入不一致，请确认。";
+            [_hud hide:YES afterDelay:2];
+            return;
+        }
+        if (![ZhengZePanDuan checkPasswordMeiLuo:self.passField.text]) {
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"请使用6-20位字母或数字。";
             [_hud hide:YES afterDelay:2];
             return;
         }
@@ -402,9 +410,9 @@ static BOOL isPass = NO;
                 
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 //存储时，除NSNumber类型使用对应的类型意外，其他的都是使用setObject:forKey:
-                [userDefaults setObject:result[@"cardno"] forKey:kUSERDEFAULT_USERCARDNO ];
+                [userDefaults setObject:result[@"cardno"] forKey:kUSERDEFAULT_USERCARDNO];
                 if (userDic[@"img"] && ![@"" isEqualToString:userDic[@"img"]]) {
-                    [userDefaults setObject:userDic[@"img"] forKey:kUSERDEFAULT_USERAVATOR ];
+                    [userDefaults setObject:userDic[@"img"] forKey:kUSERDEFAULT_USERAVATOR];
                     
                 }
                 if (userDic[@"idcard"]) {
@@ -413,9 +421,20 @@ static BOOL isPass = NO;
                 else{
                     [userDefaults setObject:@"" forKey:KUSERDEFAULT_IDCARD_SHENFEN];
                 }
-                [userDefaults setObject:userDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE ];
-                [userDefaults setObject:userDic[@"nickName"] forKey:kUSERDEFAULT_USERNAME ];
-                [userDefaults setObject:userDic[@"phone"] forKey:kUSERDEFAULT_USERID ];
+                [userDefaults setObject:userDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE];
+                [userDefaults setObject:userDic[@"nickName"] forKey:kUSERDEFAULT_USERNAME];
+                if (userDic[@"nickName"]) {
+                     [userDefaults setObject:userDic[@"nickName"] forKey:kUSERDEFAULT_USERNAME];
+                }
+                else{
+                     [userDefaults setObject:userDic[@"phone"] forKey:kUSERDEFAULT_USERNAME];
+                }
+                
+                [userDefaults setObject:userDic[@"phone"] forKey:kUSERDEFAULT_USERID];
+                
+                
+                
+                
                 [userDefaults setObject:userDic[@"accessToken"] forKey:kUSERDEFAULT_ACCCESSTOKEN];
                 
                 BOOL isDefault = NO;
@@ -430,7 +449,7 @@ static BOOL isPass = NO;
                             if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
                                 NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
                                 [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
-                                if ([NSString stringWithFormat:@"%@",dics[@"cardTypeName"]]) {
+                                 if (dics[@"cardTypeName"] && ![dics[@"cardTypeName"] isEqualToString:@""] && dics[@"cardTypeName"] != nil){
                                     NSString * cardTypeName = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
                                     [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                 }
@@ -455,8 +474,14 @@ static BOOL isPass = NO;
                             if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
                                 NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
                                 [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
+                                if (dics[@"cardTypeName"] && ![dics[@"cardTypeName"] isEqualToString:@""] && dics[@"cardTypeName"] != nil){
+                                
                                 NSString * cardTypeName = [NSString stringWithFormat:@"%@",dics[@"cardTypeName"]];
                                 [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                }
+                                else{
+                                    [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                }
                                 //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
                                 isDefault = YES;
                             }
@@ -491,9 +516,18 @@ static BOOL isPass = NO;
                             //绑定会员卡
                             [weakSelf loadSettingMoCardViewWithCardARR:self.vipCardArray withPhone:self.phoneField.text withCardNo:nil withAccessToken:userDic[@"accessToken"]];
                         }
+                    }
+                    else if(vipCardARR.count < 1){
                         
-                        
-                        
+                        [weakSelf dismissViewControllerAnimated:NO completion:^{
+                            [_hud show:YES];
+                            _hud.mode = MBProgressHUDModeText;
+                            _hud.labelText = @"您还没有会员卡";
+                            [_hud hide:YES afterDelay:1];
+                            [[NSNotificationCenter defaultCenter]postNotificationName:kNOTIFICATIONBINDSUC object:nil];
+                            //weakSelf.backBlock(YES);
+                        }];
+
                     }
                     
                 }
@@ -524,7 +558,8 @@ static BOOL isPass = NO;
                 if (isDefault) {
                     //[weakSelf dismissViewControllerAnimated:NO completion:nil];
                     [weakSelf dismissViewControllerAnimated:NO completion:^{
-                        weakSelf.backBlock(YES);
+                        [[NSNotificationCenter defaultCenter]postNotificationName:kNOTIFICATIONBINDSUC object:nil];
+                        //weakSelf.backBlock(YES);
                     }];
                 }
 
@@ -647,7 +682,16 @@ static BOOL isPass = NO;
         if (self.settingMoCardView.cardNoString != nil && ![self.settingMoCardView.cardNoString isEqualToString:@""]) {
             
             NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
-            [userDefault setObject:self.settingMoCardView.cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+            
+            
+            if (self.settingMoCardView.cardTypeName && ![self.settingMoCardView.cardTypeName isEqualToString:@""]) {
+                [userDefault setObject:self.settingMoCardView.cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+            }
+            else{
+            
+                [userDefault setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+            }
+            
             [userDefault synchronize];
             
             [weakSelf loadBindCardViewwithPhone:phoneString withCardNo:self.settingMoCardView.cardNoString withAccessToken:accessTokenString];
@@ -656,7 +700,15 @@ static BOOL isPass = NO;
             VipCardModel * cardModel = (VipCardModel *)[cardARR objectAtIndex:0];
             
             NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
-            [userDefault setObject:cardModel.cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+            
+            if (cardModel.cardTypeName && ![cardModel.cardTypeName isEqualToString:@""]) {
+                [userDefault setObject:cardModel.cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+            }
+            else{
+                
+                [userDefault setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+            }
+            
             [userDefault synchronize];
             
             [weakSelf loadBindCardViewwithPhone:phoneString withCardNo:cardModel.cardNo withAccessToken:accessTokenString];
@@ -777,7 +829,7 @@ static BOOL isPass = NO;
                 }];
                 
                 [self dismissViewControllerAnimated:NO completion:nil];
-                
+                [[NSNotificationCenter defaultCenter]postNotificationName:kNOTIFICATIONBINDSUC object:nil];
             }else{
                 [_hud show:YES];
                 _hud.mode = MBProgressHUDModeText;

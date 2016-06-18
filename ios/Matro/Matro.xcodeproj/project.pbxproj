@@ -32,7 +32,6 @@
 		280F7D701CF972CC00D42FA6 /* MLPropertysubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280F7D6E1CF972CC00D42FA6 /* MLPropertysubCell.xib */; };
 		280F7D741CF981BA00D42FA6 /* MLMyPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 280F7D721CF981BA00D42FA6 /* MLMyPropertyViewController.m */; };
 		280F7D751CF981BA00D42FA6 /* MLMyPropertyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280F7D731CF981BA00D42FA6 /* MLMyPropertyViewController.xib */; };
-		28465B7F1D12C95F00FA2866 /* VIPCardHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 28465B7E1D12C95F00FA2866 /* VIPCardHistoryModel.m */; };
 		284850D01D13F41B003C2649 /* MLGoodsDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */; };
 		284850D41D13F6DE003C2649 /* MLpingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */; };
 		284850D51D13F6DE003C2649 /* MLpingjiaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284850D31D13F6DE003C2649 /* MLpingjiaViewController.xib */; };
@@ -62,13 +61,6 @@
 		28CF86151CEDC59A00E582EE /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85FE1CEDC59A00E582EE /* libSocialWechat.a */; };
 		28CF86161CEDC59A00E582EE /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85FF1CEDC59A00E582EE /* libWeChatSDK.a */; };
 		28FF03871D1124F6004978CD /* MLGoodsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FF03851D1124F6004978CD /* MLGoodsDetailsViewController.m */; };
-<<<<<<< Updated upstream
-		28FF03881D1124F6004978CD /* MLGoodsDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28FF03861D1124F6004978CD /* MLGoodsDetailsViewController.xib */; };
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 		2CBAD63D1CA399740044601B /* MLBagHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAD63C1CA399740044601B /* MLBagHeaderView.m */; };
 		2CBAD63F1CA399930044601B /* MLBagHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CBAD63E1CA399930044601B /* MLBagHeaderView.xib */; };
 		2CBAD6431CA3AD4B0044601B /* MLBagActiveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAD6411CA3AD4B0044601B /* MLBagActiveTableViewCell.m */; };
@@ -280,7 +272,6 @@
 		3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */; };
 		3C0FCEF91D0E8C170076396F /* MLSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */; };
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
-		3C57ACFC1D12D4E300CB1491 /* VIPCardHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C57ACFB1D12D4E300CB1491 /* VIPCardHistoryModel.m */; };
 		3C5B0C6E1CFC372D003FFD25 /* MessagesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */; };
 		3C5B0C6F1CFC372D003FFD25 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */; };
 		3C5B0C701CFC372D003FFD25 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C691CFC372D003FFD25 /* MessagesViewController.m */; };
@@ -293,7 +284,6 @@
 		3C5B0C881CFC4329003FFD25 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */; };
 		3C5B0C8A1CFC433E003FFD25 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */; };
 		3C5B0C8C1CFC4348003FFD25 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */; };
-		3CAE048E1D06C5FE004504EA /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE048D1D06C5FE004504EA /* VipCardModel.m */; };
 		3CAE049C1D06DDD5004504EA /* GCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04911D06DDD5004504EA /* GCD.m */; };
 		3CAE049D1D06DDD5004504EA /* GCDGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04931D06DDD5004504EA /* GCDGroup.m */; };
 		3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04961D06DDD5004504EA /* GCDQueue.m */; };
@@ -305,6 +295,7 @@
 		3CEDAD7D1D13ECFB00990DA8 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7A1D13ECFB00990DA8 /* background.png */; };
 		3CEDAD7E1D13ECFB00990DA8 /* page.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7B1D13ECFB00990DA8 /* page.png */; };
 		3CEDAD7F1D13ECFB00990DA8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */; };
+		3CEDAD821D14128C00990DA8 /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDAD811D14128C00990DA8 /* VipCardModel.m */; };
 		3CF8CF761D0E72FA00C548AC /* SettingMoCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */; };
 		3CFC2A4C1D127C5C00C43BFF /* b54504436257.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3CFC2A4B1D127C5C00C43BFF /* b54504436257.jpg */; };
 		4F634A77A9985A18C9E56D1D /* Pods_Matro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C6CE0BB33E839F3EBF5309 /* Pods_Matro.framework */; };
@@ -527,8 +518,6 @@
 		280F7D711CF981BA00D42FA6 /* MLMyPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLMyPropertyViewController.h; path = Matro/Views/TableViewCells/MLMyPropertyViewController.h; sourceTree = SOURCE_ROOT; };
 		280F7D721CF981BA00D42FA6 /* MLMyPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLMyPropertyViewController.m; path = Matro/Views/TableViewCells/MLMyPropertyViewController.m; sourceTree = SOURCE_ROOT; };
 		280F7D731CF981BA00D42FA6 /* MLMyPropertyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MLMyPropertyViewController.xib; path = Matro/Views/TableViewCells/MLMyPropertyViewController.xib; sourceTree = SOURCE_ROOT; };
-		28465B7D1D12C95F00FA2866 /* VIPCardHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIPCardHistoryModel.h; sourceTree = "<group>"; };
-		28465B7E1D12C95F00FA2866 /* VIPCardHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIPCardHistoryModel.m; sourceTree = "<group>"; };
 		284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsDetailsViewController.xib; sourceTree = "<group>"; };
 		284850D11D13F6DE003C2649 /* MLpingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLpingjiaViewController.h; sourceTree = "<group>"; };
 		284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLpingjiaViewController.m; sourceTree = "<group>"; };
@@ -591,13 +580,6 @@
 		28CF86031CEDC59A00E582EE /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		28FF03841D1124F6004978CD /* MLGoodsDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsDetailsViewController.h; sourceTree = "<group>"; };
 		28FF03851D1124F6004978CD /* MLGoodsDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsDetailsViewController.m; sourceTree = "<group>"; };
-<<<<<<< Updated upstream
-		28FF03861D1124F6004978CD /* MLGoodsDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsDetailsViewController.xib; sourceTree = "<group>"; };
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 		2CBAD63B1CA399740044601B /* MLBagHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBagHeaderView.h; sourceTree = "<group>"; };
 		2CBAD63C1CA399740044601B /* MLBagHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLBagHeaderView.m; sourceTree = "<group>"; };
 		2CBAD63E1CA399930044601B /* MLBagHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLBagHeaderView.xib; sourceTree = "<group>"; };
@@ -1035,8 +1017,6 @@
 		3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSearchViewController.xib; sourceTree = "<group>"; };
 		3C2E204C1D0ABDAF00184D48 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
-		3C57ACFA1D12D4E300CB1491 /* VIPCardHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIPCardHistoryModel.h; sourceTree = "<group>"; };
-		3C57ACFB1D12D4E300CB1491 /* VIPCardHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIPCardHistoryModel.m; sourceTree = "<group>"; };
 		3C5B0C651CFC372D003FFD25 /* MessagesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesTableViewCell.h; sourceTree = "<group>"; };
 		3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesTableViewCell.m; sourceTree = "<group>"; };
 		3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
@@ -1058,8 +1038,6 @@
 		3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		3CAE048C1D06C5FE004504EA /* VipCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipCardModel.h; sourceTree = "<group>"; };
-		3CAE048D1D06C5FE004504EA /* VipCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipCardModel.m; sourceTree = "<group>"; };
 		3CAE04901D06DDD5004504EA /* GCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCD.h; sourceTree = "<group>"; };
 		3CAE04911D06DDD5004504EA /* GCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCD.m; sourceTree = "<group>"; };
 		3CAE04921D06DDD5004504EA /* GCDGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDGroup.h; sourceTree = "<group>"; };
@@ -1079,6 +1057,8 @@
 		3CEDAD7A1D13ECFB00990DA8 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		3CEDAD7B1D13ECFB00990DA8 /* page.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page.png; sourceTree = "<group>"; };
 		3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
+		3CEDAD801D14128C00990DA8 /* VipCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipCardModel.h; sourceTree = "<group>"; };
+		3CEDAD811D14128C00990DA8 /* VipCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipCardModel.m; sourceTree = "<group>"; };
 		3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardCell.m; sourceTree = "<group>"; };
 		3CF8CF721D0E72FA00C548AC /* SettingMoCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardView.h; sourceTree = "<group>"; };
 		3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardView.m; sourceTree = "<group>"; };
@@ -2942,20 +2922,10 @@
 		3CAE048B1D06C5CE004504EA /* cardModel */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+				3CEDAD801D14128C00990DA8 /* VipCardModel.h */,
+				3CEDAD811D14128C00990DA8 /* VipCardModel.m */,
 				7A4D9DF81D1388AC006E6AB2 /* VIPCardHistoryModel.h */,
 				7A4D9DF91D1388AC006E6AB2 /* VIPCardHistoryModel.m */,
-=======
-				28465B7D1D12C95F00FA2866 /* VIPCardHistoryModel.h */,
-				28465B7E1D12C95F00FA2866 /* VIPCardHistoryModel.m */,
->>>>>>> Stashed changes
-=======
-				3C57ACFA1D12D4E300CB1491 /* VIPCardHistoryModel.h */,
-				3C57ACFB1D12D4E300CB1491 /* VIPCardHistoryModel.m */,
->>>>>>> Stashed changes
-				3CAE048C1D06C5FE004504EA /* VipCardModel.h */,
-				3CAE048D1D06C5FE004504EA /* VipCardModel.m */,
 			);
 			path = cardModel;
 			sourceTree = "<group>";
@@ -3506,7 +3476,6 @@
 				3A633B551C9EA36E00C11FD5 /* ZLCameraViewController.m in Sources */,
 				280F7CD71CF7F44800D42FA6 /* split.c in Sources */,
 				3A1AA8D11CAA7D3400AF73C2 /* MLPayresultHeader.m in Sources */,
-				3CAE048E1D06C5FE004504EA /* VipCardModel.m in Sources */,
 				3AFB0C751CA28CD100128368 /* HFSProductTableViewCell.m in Sources */,
 				7AEDD0E81CE5EDC2009B12F4 /* MLWishlistViewController.m in Sources */,
 				3A1F72D51CA3FAEC000ECE08 /* HFSOrderListViewController.m in Sources */,
@@ -3515,15 +3484,7 @@
 				3A633A5A1C9E9E2F00C11FD5 /* AppDelegate.m in Sources */,
 				3A633B4C1C9EA36E00C11FD5 /* AsyncUdpSocket.m in Sources */,
 				7A3A62461CDB872700D265F2 /* YMLeftImageField.m in Sources */,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 				7A4D9DFA1D1388AC006E6AB2 /* VIPCardHistoryModel.m in Sources */,
-=======
-				28465B7F1D12C95F00FA2866 /* VIPCardHistoryModel.m in Sources */,
->>>>>>> Stashed changes
-=======
-				3C57ACFC1D12D4E300CB1491 /* VIPCardHistoryModel.m in Sources */,
->>>>>>> Stashed changes
 				3AE02E081CAB9F430016FA75 /* MLSXView.m in Sources */,
 				3A633B641C9EA36E00C11FD5 /* ZLPhotoPickerGroupViewController.m in Sources */,
 				3A633B311C9EA36E00C11FD5 /* UIView+HeinQi.m in Sources */,
@@ -3665,6 +3626,7 @@
 				7A3A62761CDB874F00D265F2 /* MLRetrunsHeadCell.m in Sources */,
 				280F7CE51CF832C600D42FA6 /* MLYHQTableViewCell.m in Sources */,
 				3AA0E7AE1CA91E500079AA90 /* RSADataVerifier.m in Sources */,
+				3CEDAD821D14128C00990DA8 /* VipCardModel.m in Sources */,
 				3A633B3B1C9EA36E00C11FD5 /* TAPageControl.m in Sources */,
 				3AF01E5B1CBBAB94005830BD /* MLLogisticsViewController.m in Sources */,
 				3A633B511C9EA36E00C11FD5 /* UIView+ZLExtension.m in Sources */,

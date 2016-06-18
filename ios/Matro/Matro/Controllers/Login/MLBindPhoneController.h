@@ -12,6 +12,7 @@
 #import "VipCardModel.h"
 #import "SettingMoCardView.h"
 #import "LoginHistory.h"
+#import "ZhengZePanDuan.h"
 
 typedef void(^BackBlocks)(BOOL success);
 
