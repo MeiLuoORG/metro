@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface MLAddressListModel : NSObject
+
+
 @property (nonatomic,copy)NSString *ID;
 @property (nonatomic,copy)NSString *userid;
 @property (nonatomic,copy)NSString *name;

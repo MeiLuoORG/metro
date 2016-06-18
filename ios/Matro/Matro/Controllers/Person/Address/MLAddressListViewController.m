@@ -45,7 +45,6 @@ static NSInteger firstLoad = 0;
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
-    [self loadDateAddressList];
 
 }
 #pragma mark 获取收货地址清单

@@ -12,6 +12,8 @@
 #import "MLCheckBoxButton.h"
 
 
+typedef void(^ShopCartDelBlock)();
+typedef void(^ShopCartCheckBoxBlock)();
 #define kShopCartCollectionViewCell   @"shopCartCollectionViewCell"
 @interface MLShopCartCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *goodImgView;
@@ -24,5 +26,10 @@
 @property (weak, nonatomic) IBOutlet MLCheckBoxButton *checkBox;
 @property (nonatomic,strong)MLProlistModel *prolistModel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraints;
+@property (nonatomic,copy)ShopCartCheckBoxBlock shopCartCheckBoxBlock;
+@property (nonatomic,copy)ShopCartDelBlock shopCartDelBlock;
+
+
+
 
 @end

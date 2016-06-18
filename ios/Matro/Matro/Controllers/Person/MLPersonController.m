@@ -141,6 +141,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
     NSString *avatorurl = [userDefaults objectForKey:kUSERDEFAULT_USERAVATOR];
@@ -272,8 +273,6 @@
 }
 
 
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     __weak typeof(self) weakself = self;
     if (indexPath.section == 0) {
@@ -285,10 +284,9 @@
                     [weakself showError];
                 }
                 else{
-                    weakself.hidesBottomBarWhenPushed = YES;
                     MNNManagementViewController *managementVC = [[MNNManagementViewController alloc] init];
+                    managementVC.hidesBottomBarWhenPushed = YES;
                     [weakself.navigationController pushViewController:managementVC animated:YES];
-                    weakself.hidesBottomBarWhenPushed = NO;
                 }
 
             };
@@ -299,7 +297,7 @@
                 else{
                     MyAddressManagerViewController *vc = [[MyAddressManagerViewController alloc]init];
                     //    vc.delegate = nil;
-                    self.hidesBottomBarWhenPushed = YES;
+                    vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
              

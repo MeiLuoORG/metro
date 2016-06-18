@@ -33,6 +33,7 @@
     self.goodsPrice.text = [NSString stringWithFormat:@"￥%.2f",_productOrder.price];
     self.goodsCount.text = [NSString stringWithFormat:@"*%@",_productOrder.num];
     self.goodsDesc.text = @"暂无数据";
+    [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productOrder.pic]];
     
 }
 

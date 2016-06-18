@@ -17,11 +17,22 @@
 #import "MLOrderInfoHeaderTableViewCell.h"
 #import "MLMoreTableViewCell.h"
 #import "MLOrderCenterTableViewCell.h"
-
+#import "MLPersonOrderDetailFootView.h"
+#import "MLPersonOrderDetail.h"
+#import "HFSServiceClient.h"
+#import "MJExtension.h"
+#import "MLPersonOrderModel.h"
+#import "MBProgressHUD+Add.h"
 
 @interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
-@property (nonatomic,strong)UIView *footView;
+@property (nonatomic,strong)MLPersonOrderDetailFootView *footView;
+
+@property (nonatomic,strong)MLPersonOrderDetail *orderDetail;
+
+
+
+
 @end
 
 @implementation MLPersonOrderDetailViewController
@@ -30,6 +41,9 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+    
+    self.title = @"订单详情";
+    
     _tableView = ({
         UITableView *tableView =[[UITableView alloc]initWithFrame:CGRectZero];
         tableView.backgroundColor = RGBA(245, 245, 245, 1);
@@ -47,23 +61,129 @@
         [self.view addSubview:tableView];
         tableView;
     });
+    
     _footView = ({
-        UIView *footView = [[UIView alloc]initWithFrame:CGRectZero];
-        footView.backgroundColor = [UIColor whiteColor];
+        MLPersonOrderDetailFootView *footView = [MLPersonOrderDetailFootView detailFooterView];
+        footView.footerType = FooterTypeJiaoyichenggong;
+        
+        __weak typeof(self) weakself = self;
+        footView.orderDetailButtonActionBlock = ^(ButtonActionType actionType){
+            switch (actionType) {
+                case ButtonActionTypeShanchu://订单删除操作
+                {
+                    [weakself OrderActionWithButtonType:actionType];
+                }
+                    break;
+                case ButtonActionTypeFukuan://付款
+                {
+                    
+                }
+                    break;
+                case ButtonActionTypeQuxiao://订单取消
+                {
+                     [weakself OrderActionWithButtonType:actionType];
+                }
+                    break;
+                case ButtonActionTypeZhuizong://订单追踪
+                {
+                    
+                }
+                    break;
+                case ButtonActionTypeQuerenshouhuo://确认收货
+                {
+                     [weakself OrderActionWithButtonType:actionType];
+                }
+                    break;
+                case ButtonActionTypePingJia://评价
+                {
+                    
+                }
+                    break;
+                case ButtonActionTypeTuiHuo://退货
+                {
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        };
         [self.view addSubview:footView];
         footView;
     });
     
     [self.footView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(40);
     }];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self.view);
         make.bottom.mas_equalTo(self.footView.mas_top);
     }];
+ 
+    [self getOrderDetail];
+}
+
+
+- (void)getOrderDetail{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=detail&order_id=201605231036169565",@"http://bbctest.matrojp.com"];
+    [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary *data = [result objectForKey:@"data"];
+            NSDictionary *detail = data[@"detail"];
+            self.orderDetail = [MLPersonOrderDetail mj_objectWithKeyValues:detail];
+            
+            [self.tableView reloadData];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
     
 }
+
+
+/**
+ *  订单操作，删除，取消，确认收货
+ *
+ *  @param actionType
+ */
+- (void)OrderActionWithButtonType:(ButtonActionType)actionType{
+    
+    NSString *action = nil;
+    
+    if (actionType == ButtonActionTypeShanchu) {
+        action = @"delete";
+        
+    }else if (actionType == ButtonActionTypeQuxiao){
+        action = @"cancel";
+    }else if (actionType == ButtonActionTypeQuerenshouhuo)
+    {
+        action = @"confirm";
+    }else{
+        action = @"";
+    }
+    
+    NSString *url= [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@",action,self.orderDetail.order_id];
+    [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) { //操作成功
+            [MBProgressHUD showSuccess:@"操作成功" toView:self.view];
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
+    
+    
+    
+    
+}
+
+
 
 
 #pragma mark UITableView Delegate
@@ -75,7 +195,7 @@
         return 1;
     }
     else if (section == 3){
-        return 4;
+        return self.orderDetail.product.count+1;
     }
     else if (section == 4){
         return 3;
@@ -100,12 +220,12 @@
         MLZTTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kZTTableViewCell forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.titleLabel.text = @"订单编号：";
-            cell.ztLabel.text = @"12345678";
+            cell.ztLabel.text = self.orderDetail.order_id;
             
         }
         else{
             cell.titleLabel.text = @"订单状态：";
-            cell.ztLabel.text = @"待发货";
+            cell.ztLabel.text = self.orderDetail.statu_text;
             
         }
         return cell;
@@ -120,21 +240,37 @@
     }
     else if (indexPath.section == 2){
         MLAddTableViewCell   *cell = [tableView dequeueReusableCellWithIdentifier:kAddTableViewCell forIndexPath:indexPath];
+        cell.nameLabel.text = self.orderDetail.buyer_name;
+        cell.phoneLabel.text = self.orderDetail.buyer_mobile;
+        cell.addressLabel.text = self.orderDetail.buyer_addr;
         return cell;
     }else if (indexPath.section == 3){ //商品列表
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0) { //头部
             MLOrderInfoHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderInfoHeaderTableViewCell forIndexPath:indexPath];
+            cell.shopName.text = self.orderDetail.sellerinfo.company;
+            cell.statusLabel.hidden = YES;
+
             return cell;
         }
         else{
             MLOrderCenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
+            MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:indexPath.row-1];
+            cell.productOrder = model;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
             return cell;
         }
 
     }else if (indexPath.section == 4){
         MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
-        cell.titleLabel.text = @"支付方式";
-        cell.subLabel.text = @"在线支付";
+        if (indexPath.row == 0) {
+            cell.titleLabel.text = @"支付方式";
+            cell.subLabel.text = self.orderDetail.payment_name;
+        }
+        else{
+            cell.titleLabel.text = @"配送方式";
+            cell.subLabel.text = self.orderDetail.logistics_type;
+        }
         return cell;
     }else if (indexPath.section == 5){
         MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
@@ -157,14 +293,14 @@
                 case 1:
                 {
                     cell.titleLabel.text = @"优    惠：";
-                    cell.subLabel.text = @"-￥200.00";
+                    cell.subLabel.text = [NSString stringWithFormat:@"-￥%.2f",_orderDetail.discount_price];
                     cell.subLabel.textColor = [UIColor blackColor];
                 }
                     break;
                 case 2:
                 {
                     cell.titleLabel.text = @"税    费：";
-                    cell.subLabel.text = @"+￥20.00";
+                    cell.subLabel.text = [NSString stringWithFormat:@"+￥%.2f",_orderDetail.tax_price];
                     cell.subLabel.textColor = RGBA(255, 78, 37, 1);
 
                 }
@@ -172,7 +308,7 @@
                 case 3:
                 {
                     cell.titleLabel.text = @"运    费：";
-                    cell.subLabel.text = @"+￥0.00";
+                    cell.subLabel.text = [NSString stringWithFormat:@"+￥%.2f",_orderDetail.logistics_price];
                     cell.subLabel.textColor = RGBA(255, 78, 37, 1);
                 }
                     break;
@@ -183,7 +319,7 @@
             return cell;
         }
         MLRPayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRPayTableViewCell forIndexPath:indexPath];
-        cell.rpayLabel.text = @"￥12856.00";
+        cell.rpayLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderDetail.product_price];
         cell.rpayLabel.textColor = RGBA(255, 78, 37, 1);
         return cell;
     }
@@ -219,6 +355,7 @@
     }
     return 0;
 }
+
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

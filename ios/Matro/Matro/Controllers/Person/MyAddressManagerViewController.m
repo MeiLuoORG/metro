@@ -73,6 +73,9 @@
     
     cell.addressManagerEdit = ^(){//编辑记录 跳转到
         MLAddressInfoViewController *vc = [MLAddressInfoViewController new];
+        vc.addressSuccess = ^(){
+            [weakself loadDateAddressList];
+        };
         vc.addressDetail = model;
         vc.isNewAddress = NO;
         weakself.hidesBottomBarWhenPushed = YES;
@@ -91,8 +94,6 @@
         [alert addAction:cancel];
         [weakself presentViewController:alert animated:YES completion:nil];
     };
-    
-    
     
     return cell;
 }

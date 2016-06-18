@@ -8,6 +8,7 @@
 
 #import "MLBagFootView.h"
 #import "HFSUtility.h"
+#import "MLPersonOrderDetailFootView.h"
 
 @implementation MLBagFootView
 

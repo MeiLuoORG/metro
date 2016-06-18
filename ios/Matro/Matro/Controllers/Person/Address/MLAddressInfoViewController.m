@@ -96,32 +96,36 @@ static MLShippingaddress *province,*city,*area;
     UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:_blackView];
 
-    [self getAllarea];
+//    [self getAllarea];
     
     
-//    NSString *string = [[NSString alloc]initWithContentsOfFile:[self getDocumentpath] encoding:NSUTF8StringEncoding error:nil];
-//    if (!string) {
-//        [self getAllarea];
-//    }
-//    else{
-//        SBJSON *sbjson = [SBJSON new];
-//        NSArray *ary = [sbjson objectWithString:string error:nil];
-//        
-//        NSArray *modelArt = [MLShippingaddress mj_objectArrayWithKeyValuesArray:ary];
-//        self.addressData = [modelArt mutableCopy];
-//        
-//        province = [self.addressData firstObject];
-//        if (province.sub.count>0) {
-//            city = [province.sub firstObject];
-//            if (city.sub.count>0) {
-//                [city.sub firstObject];
-//            }
-//        }
-//        [self.addressPickerView reloadAllComponents];
-//
-//    }
+    NSString *string = [[NSString alloc]initWithContentsOfFile:[self getDocumentpath] encoding:NSUTF8StringEncoding error:nil];
+    if (!string) {
+        [self getAllarea];
+    }
+    else{
+        SBJSON *sbjson = [SBJSON new];
+        NSArray *ary = [sbjson objectWithString:string error:nil];
+        
+        NSArray *modelArt = [MLShippingaddress mj_objectArrayWithKeyValuesArray:ary];
+        self.addressData = [modelArt mutableCopy];
+        
+        province = [self.addressData firstObject];
+        if (province.sub.count>0) {
+            city = [province.sub firstObject];
+            if (city.sub.count>0) {
+                [city.sub firstObject];
+            }
+        }
+        [self.addressPickerView reloadAllComponents];
+        
+    }
+    
+    
     
 }
+
+
 -(NSString*)getDocumentpath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -139,21 +143,16 @@ static MLShippingaddress *province,*city,*area;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSArray *district_info = [MLShippingaddress mj_objectArrayWithKeyValuesArray:data[@"district_info"]];
-//            for (MLShippingaddress *parent in district_info) {
-//                if ([parent.pid isEqualToString:@"0"]) {
-//                    parent.sub = [self getsub:district_info pid:parent.ID];
-//                    [self.addressData addObject:parent];
-//                }
-//            }
-            //缓存本地
-//            NSArray *tmp = [MLShippingaddress mj_keyValuesArrayWithObjectArray:district_info];
-//            NSLog(@"%@",tmp);
-//            SBJSON *sbjson = [SBJSON new];
-//            NSError *error;
-//            NSString *jsonstr = [sbjson stringWithObject:tmp error:&error];
-//            if (jsonstr) {
-//                [jsonstr writeToFile:[self getDocumentpath] atomically:YES encoding:NSUTF8StringEncoding error:&error];
-//            }
+            
+//            缓存本地
+            NSArray *tmp = [MLShippingaddress mj_keyValuesArrayWithObjectArray:district_info];
+            NSLog(@"%@",tmp);
+            SBJSON *sbjson = [SBJSON new];
+            NSError *error;
+            NSString *jsonstr = [sbjson stringWithObject:tmp error:&error];
+            if (jsonstr) {
+                [jsonstr writeToFile:[self getDocumentpath] atomically:YES encoding:NSUTF8StringEncoding error:&error];
+            }
             
             [self.addressData addObjectsFromArray:district_info];
             province = [self.addressData firstObject];
@@ -255,7 +254,6 @@ static MLShippingaddress *province,*city,*area;
 
 //保存使用新地址
 - (IBAction)sureButtonAction:(id)sender {
-    self.title = @"编辑收货地址";
     if ([self.nameTextField.text isEqualToString:@""]) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
@@ -283,7 +281,14 @@ static MLShippingaddress *province,*city,*area;
     
      NSString  *urlStr = [NSString stringWithFormat:@"%@api.php?m=member&s=admin_orderadder&do=%@",@"http://bbctest.matrojp.com/",_isNewAddress?@"add":@"upd"];
     
-    NSDictionary *params = @{@"uid":@"21357",@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID,@"data[area]":self.selTextField.text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID,@"data[cityid]":city.ID,@"data[mobile]":self.phoneTextField.text};
+    
+    NSDictionary *params ;
+    if (_isNewAddress) {
+        params =@{@"uid":@"21357",@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:@"",@"data[area]":self.selTextField.text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:@"",@"data[cityid]":city.ID?:@"",@"data[mobile]":self.phoneTextField.text};
+    }
+    else{
+        params =@{@"uid":@"21357",@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:self.addressDetail.areaid,@"data[area]":self.selTextField.text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:self.addressDetail.provinceid,@"data[cityid]":city.ID?:self.addressDetail.cityid,@"data[mobile]":self.phoneTextField.text,@"id":self.addressDetail.ID?:@""};
+    }
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

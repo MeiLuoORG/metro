@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface MLShopingCartlistModel : NSObject
-@property (nonatomic,strong)NSArray *cart;
+@property (nonatomic,strong)NSMutableArray *cart;
 @property (nonatomic,assign)float sumprice;
 @property (nonatomic,assign)float reduce_price;
 @property (nonatomic,assign)float sum_prepayment_total;

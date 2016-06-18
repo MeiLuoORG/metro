@@ -34,7 +34,9 @@
 @property (nonatomic,strong)MLShopingCartlistModel *shopCart;
 @end
 
-static BOOL showLogin;
+static float allPrice = 0;
+static NSInteger goodsCount;
+
 @implementation MLShopCartViewController
 
 - (void)viewDidLoad {
@@ -101,6 +103,7 @@ static BOOL showLogin;
         make.top.mas_equalTo(self.loginView.mas_bottom).offset(8);
         make.left.right.bottom.mas_equalTo(self.view);
     }];
+    [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
     [self getDataSource];
 }
 
@@ -168,6 +171,16 @@ static BOOL showLogin;
         cell.countField.value = model.num;
         cell.countField.stepperDelegate = self;
         cell.countField.proList = model;
+        cell.shopCartCheckBoxBlock = ^(){
+            [self countAllPrice];
+        };
+        cell.shopCartDelBlock = ^(){ //购物车删除
+            [self deleteGoods:model];
+            [self.shopCart.cart removeObject:model];
+            [self.collectionView reloadData];
+            
+            
+        };
         return cell;
     }
 
@@ -177,11 +190,15 @@ static BOOL showLogin;
 
 - (void)addButtonClick:(MLProlistModel *)prolist count:(int)textCount{
     //调用接口
-    [self changeNumWith:prolist andCount:textCount];
+    prolist.num = textCount;
+    [self countAllPrice];
+    
     
 }
 - (void)subButtonClick:(MLProlistModel *)prolist count:(int)textCount{
-    [self changeNumWith:prolist andCount:textCount];
+    prolist.num = textCount;
+    [self countAllPrice];
+    
 
 }
 
@@ -201,7 +218,7 @@ static BOOL showLogin;
 //            MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
 //            MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
         
-            return CGSizeMake(MAIN_SCREEN_WIDTH, 150);//没有包邮情况
+            return CGSizeMake(MAIN_SCREEN_WIDTH, 125);//没有包邮情况
         }
 //    }
 //    return CGSizeZero;
@@ -247,7 +264,7 @@ static BOOL showLogin;
        MLCartFootCollectionReusableView *cartFoot = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:kCartFootCollectionReusableView forIndexPath:indexPath];
         [cartFoot.checkBox addTarget:self action:@selector(selectAllGoods:) forControlEvents:UIControlEventTouchUpInside];
         [cartFoot.clearingBtn addTarget:self action:@selector(clearingAction) forControlEvents:UIControlEventTouchUpInside];
-        
+        cartFoot.detailLabel.text = [NSString stringWithFormat:@"合计:￥%.2f 共%li件，不含运费",allPrice,(long)goodsCount];
         return cartFoot;
     }
     else{
@@ -256,7 +273,7 @@ static BOOL showLogin;
         cartHead.checkBox.cartSelected = model.select_All;
         cartHead.shopingCart = model;
         cartHead.cartHeadBlock = ^(BOOL isSelect){
-            [self.collectionView reloadData];
+            [self countAllPrice];
         };
         
         
@@ -274,7 +291,8 @@ static BOOL showLogin;
     for (MLShopingCartModel *model in self.shopCart.cart) {
         model.select_All = sender.cartSelected;
     }
-    [self.collectionView reloadData];
+    [self countAllPrice];
+    
 }
 
 
@@ -356,23 +374,34 @@ static BOOL showLogin;
     return _likeArray;
 }
 
-- (void)changeNumWith:(MLProlistModel *)prolist andCount:(NSInteger)count{
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php",@"http://bbctest.matrojp.com"];
-    NSDictionary *params = @{@"m":@"product",@"s":@"cart",@"action":@"modify",@"id":prolist.ID,@"nums":[NSNumber numberWithInteger:count]};
-    
-    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *result = (NSDictionary *)responseObject;
 
-        if ([[result objectForKey:@"code"] isEqual:@0]) { //如果成功
-            NSDictionary *data = [result objectForKey:@"data"];
-            prolist.num = count;
-            prolist.pro_price = [[data objectForKey:@"price"] floatValue];
-            [self.collectionView reloadData];
+
+- (void)countAllPrice{
+    goodsCount = 0;
+    allPrice = 0.f;
+    for (MLShopingCartModel *model in self.shopCart.cart) {
+        for (MLProlistModel *prolist in model.prolist) {
+            if (prolist.is_check == 1) {
+                goodsCount ++;
+                allPrice+= prolist.pro_price*prolist.num;
+            }
         }
-        else{
-            [self.collectionView reloadData];
+    }
+    
+    [self.collectionView reloadData];
+}
+
+- (void)deleteGoods:(MLProlistModel *)goods{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=delete",@"http://bbctest.matrojp.com"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:url parameters:@{@"cart_id":goods.ID} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            
+            
+            
         }
+    
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];

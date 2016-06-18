@@ -20,10 +20,10 @@
 @property (nonatomic,copy)NSString *buyer_zip;
 @property (nonatomic,assign)float product_price;
 @property (nonatomic,copy)NSString *logistics_type;
-@property (nonatomic,copy)NSString *logistics_price;
-@property (nonatomic,copy)NSString *tax_price;
+@property (nonatomic,assign)float logistics_price;
+@property (nonatomic,assign)float tax_price;
 @property (nonatomic,copy)NSString *change_price;
-@property (nonatomic,copy)NSString *discount_price;
+@property (nonatomic,assign)float discount_price;
 @property (nonatomic,copy)NSString *status;
 @property (nonatomic,copy)NSString *des;
 @property (nonatomic,copy)NSString *seller_note;
@@ -97,6 +97,5 @@
 @property (nonatomic,copy)NSString *buy_cash;
 
 @end
-
 
 
