@@ -484,6 +484,6 @@
         </view>
     </objects>
     <resources>
-        <image name="youjian" width="18" height="34"/>
+        <image name="youjian" width="9" height="17"/>
     </resources>
 </document>

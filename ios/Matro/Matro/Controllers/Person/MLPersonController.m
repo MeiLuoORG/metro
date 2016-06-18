@@ -38,6 +38,7 @@
 #import "MLAllOrdersViewController.h"
 #import "MLAddressSelectViewController.h"
 
+#import "MLCollectionViewController.h"
 
 @interface MLPersonController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -393,9 +394,16 @@
                     [self showError];
                 }
                 else{
+                    
+                    MLCollectionViewController *vc = [[MLCollectionViewController alloc]init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                    
+                    /*
                     MLWishlistViewController *vc = [[MLWishlistViewController alloc]init];
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
+                     */
                 }
 
             };

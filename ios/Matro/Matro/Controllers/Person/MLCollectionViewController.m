@@ -10,7 +10,7 @@
 #import "HFSConstants.h"
 #import "HFSServiceClient.h"
 #import "HFSUtility.h"
-#import "HFSProductTableViewCell.h"
+#import "MLgoodsCollectTableViewCell.h"
 
 #import "MJRefresh.h"
 #import "UIView+BlankPage.h"
@@ -62,6 +62,33 @@
 }
 
 - (void)loadDate {
+    /*
+     http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_product
+    【post】
+     do=sel   【操作码】
+     uid=20505 【用户id】
+
+  */
+    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_product"];
+    /*
+    [HFSServiceClient sharedJSONClientNOT] POST:urlStr parameters:nil constructingBodyWithBlock:<#^(id<AFMultipartFormData> formData)block#> success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求成功";
+        [_hud hide:YES afterDelay:2];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求成功";
+        [_hud hide:YES afterDelay:2];
+        
+    }];
+     */
+    
+    /*
     NSString *urlStr = [NSString stringWithFormat:@""];
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -75,10 +102,12 @@
         _hud.labelText = @"请求成功";
         [_hud hide:YES afterDelay:2];
     }];
+     */
 }
 #pragma mark- UITableViewDataSource And UITableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _collectionArray.count;
+    //return _collectionArray.count;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;{
@@ -87,8 +116,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;{
     
-    static NSString *CellIdentifier = @"HFSProductTableViewCell" ;
-    HFSProductTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"MLgoodsCollectTableViewCell" ;
+    MLgoodsCollectTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray *array = [[NSBundle mainBundle]loadNibNamed: CellIdentifier owner:self options:nil];
         cell = [array objectAtIndex:0];
@@ -99,11 +128,11 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return  95.0f;
+    return  110.0f;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 12;
+    return 1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -116,11 +145,7 @@
     return view;
 }
 
-//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-//    UIView * view = [[UIView alloc]init];
-//    view.backgroundColor = [UIColor clearColor];
-//    return view;
-//}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -40,6 +40,10 @@
 		285326EC1CFD3A7300FA2AB0 /* MLYHQUsedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285326EA1CFD3A7300FA2AB0 /* MLYHQUsedCell.m */; };
 		285326ED1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285326EB1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib */; };
 		285326EF1CFD6F1300FA2AB0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 285326EE1CFD6F1300FA2AB0 /* Info.plist */; };
+		285808031D14F20B0097D334 /* MLCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285808011D14F20B0097D334 /* MLCommentTableViewCell.m */; };
+		285808041D14F20B0097D334 /* MLCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808021D14F20B0097D334 /* MLCommentTableViewCell.xib */; };
+		285808081D1517AA0097D334 /* MLgoodsCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */; };
+		285808091D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */; };
 		28CEFB1A1CF99C940070E2CA /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CEFB191CF99C940070E2CA /* JSBadgeView.m */; };
 		28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85CE1CEDC59900E582EE /* UMSocialLocalizable.strings */; };
 		28CF86051CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85DC1CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a */; };
@@ -529,6 +533,12 @@
 		285326EA1CFD3A7300FA2AB0 /* MLYHQUsedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLYHQUsedCell.m; sourceTree = "<group>"; };
 		285326EB1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLYHQUsedCell.xib; sourceTree = "<group>"; };
 		285326EE1CFD6F1300FA2AB0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		285808001D14F20B0097D334 /* MLCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCommentTableViewCell.h; sourceTree = "<group>"; };
+		285808011D14F20B0097D334 /* MLCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCommentTableViewCell.m; sourceTree = "<group>"; };
+		285808021D14F20B0097D334 /* MLCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLCommentTableViewCell.xib; sourceTree = "<group>"; };
+		285808051D1517AA0097D334 /* MLgoodsCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLgoodsCollectTableViewCell.h; sourceTree = "<group>"; };
+		285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLgoodsCollectTableViewCell.m; sourceTree = "<group>"; };
+		285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLgoodsCollectTableViewCell.xib; sourceTree = "<group>"; };
 		28CEFB181CF99C940070E2CA /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
 		28CEFB191CF99C940070E2CA /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		28CF85CF1CEDC59900E582EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
@@ -2392,6 +2402,12 @@
 				7AF15B031D129BA500F8CF03 /* MLSelAddressTableViewCell.h */,
 				7AF15B041D129BA500F8CF03 /* MLSelAddressTableViewCell.m */,
 				7AF15B051D129BA500F8CF03 /* MLSelAddressTableViewCell.xib */,
+				285808001D14F20B0097D334 /* MLCommentTableViewCell.h */,
+				285808011D14F20B0097D334 /* MLCommentTableViewCell.m */,
+				285808021D14F20B0097D334 /* MLCommentTableViewCell.xib */,
+				285808051D1517AA0097D334 /* MLgoodsCollectTableViewCell.h */,
+				285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */,
+				285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -2922,10 +2938,17 @@
 		3CAE048B1D06C5CE004504EA /* cardModel */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 				3CEDAD801D14128C00990DA8 /* VipCardModel.h */,
 				3CEDAD811D14128C00990DA8 /* VipCardModel.m */,
 				7A4D9DF81D1388AC006E6AB2 /* VIPCardHistoryModel.h */,
 				7A4D9DF91D1388AC006E6AB2 /* VIPCardHistoryModel.m */,
+=======
+				7A4D9DF81D1388AC006E6AB2 /* VIPCardHistoryModel.h */,
+				7A4D9DF91D1388AC006E6AB2 /* VIPCardHistoryModel.m */,
+				3CAE048C1D06C5FE004504EA /* VipCardModel.h */,
+				3CAE048D1D06C5FE004504EA /* VipCardModel.m */,
+>>>>>>> Stashed changes
 			);
 			path = cardModel;
 			sourceTree = "<group>";
@@ -3264,6 +3287,8 @@
 				7A34865B1D0EAF97002EE211 /* MLShopCartCollectionViewCell.xib in Resources */,
 				3A1AA8C21CAA433900AF73C2 /* MLAddressListTableViewCell.xib in Resources */,
 				3A1AA8D81CAA8B7100AF73C2 /* MLPayerrTableViewCell.xib in Resources */,
+				285808091D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib in Resources */,
+				285808041D14F20B0097D334 /* MLCommentTableViewCell.xib in Resources */,
 				7ACD3A7C1CE86DA5004BAF8B /* MLReturnsHeader.xib in Resources */,
 				3A630BE41CA256CF006E67F4 /* MLClassHeader.xib in Resources */,
 				7A7672E11D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.xib in Resources */,
@@ -3548,6 +3573,7 @@
 				7AED645F1CDD9C3C008F55BD /* YMPhoneCondeButton.m in Sources */,
 				280F7CD31CF7F44800D42FA6 /* qrencode.c in Sources */,
 				7AD815FD1CDD7736001761C8 /* YMNavigationController.m in Sources */,
+				285808081D1517AA0097D334 /* MLgoodsCollectTableViewCell.m in Sources */,
 				3ACF2D0F1CA535FE003D1F67 /* MLRPayTableViewCell.m in Sources */,
 				7AEDD0EC1CE5EE9A009B12F4 /* MLWishlistTableViewCell.m in Sources */,
 				D6D803711CAE7103001C0FE0 /* MLCollectionViewController.m in Sources */,
@@ -3590,6 +3616,7 @@
 				687703D31CCEF72B0008ED46 /* HQRSA.m in Sources */,
 				3A630BE21CA256BC006E67F4 /* MLClassHeader.m in Sources */,
 				3A1F72C61CA3F8CD000ECE08 /* HFSOrderListHeaderView.m in Sources */,
+				285808031D14F20B0097D334 /* MLCommentTableViewCell.m in Sources */,
 				3AE768B01CA62BFB0097FEA2 /* MLListViewController.m in Sources */,
 				3A633A571C9E9E2F00C11FD5 /* main.m in Sources */,
 				7AF6EEB81CE40AC200ECFCAA /* MLPersonHeadView.m in Sources */,
