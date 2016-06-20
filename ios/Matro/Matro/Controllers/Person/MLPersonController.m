@@ -38,6 +38,7 @@
 #import "MLAllOrdersViewController.h"
 #import "MLAddressSelectViewController.h"
 
+#import "MLCollectionViewController.h"
 
 @interface MLPersonController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -45,6 +46,11 @@
     NSArray *imgArray;
     NSString *loginid;
     JSBadgeView *badgeView;
+    UIButton * _messageButton;
+    UIButton * _settingButton;
+    JSBadgeView * _messageBadgeView;
+    
+    UIScrollView * _backgroundScrollView;
 }
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)MLPersonHeadView *headView;
@@ -58,10 +64,55 @@
     [super viewDidLoad];
      self.navigationItem.title = @"个人中心";
     
+    //加载背景图
+    _backgroundScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-64-49)];
+    _backgroundScrollView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+    
+    [self.view addSubview:_backgroundScrollView];
+    
+    
      UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"news"] style:UIBarButtonItemStylePlain target:self action:@selector(actMessage)];
 
-    self.navigationItem.rightBarButtonItem = right;
+    //self.navigationItem.rightBarButtonItem = right;
     
+    NSMutableArray* array = [NSMutableArray array];
+    
+    for (int i =0; i<2; i++) {
+        if (i == 0) {
+            UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"news"] style:UIBarButtonItemStylePlain target:self action:@selector(actMessage)];
+            [array addObject:right];
+        }
+        if (i == 1) {
+            //Settings
+            UIBarButtonItem *right1 = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Settings"] style:UIBarButtonItemStylePlain target:self action:@selector(actSettingAction)];
+            [array addObject:right1];
+        }
+        
+
+    }
+    //消息按钮
+    _messageButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _messageButton.frame = CGRectMake(SIZE_WIDTH-42, 10, 22, 22);
+    [_messageButton setBackgroundImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
+    [_messageButton addTarget:self action:@selector(actMessage) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:_messageButton];
+    _messageBadgeView = [[JSBadgeView alloc]initWithParentView:_messageButton alignment:JSBadgeViewAlignmentTopRight];
+    _messageBadgeView.badgeText = @"●";
+    [_messageBadgeView setBadgeTextColor:[HFSUtility hexStringToColor:Main_textRedBackgroundColor]];
+    [_messageBadgeView setBadgeBackgroundColor:[UIColor clearColor]];
+    
+    
+    
+    _settingButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    _settingButton.frame = CGRectMake(SIZE_WIDTH-80, 10, 22, 22);
+    [_settingButton setBackgroundImage:[UIImage imageNamed:@"settingzl"] forState:UIControlStateNormal];
+    [_settingButton addTarget:self action:@selector(actSettingAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:_settingButton];
+    
+    //self.navigationItem.rightBarButtonItems = array;
+    
+    
+    //self.navigationController.navigationBar.hidden = YES;
     //right.badge.frame = CGRectMake(0, 0, 5, 5);
     right.badgeValue = @"●";
     right.badgeTextColor = [UIColor redColor];
@@ -76,6 +127,7 @@
      */
     
     // Do any additional setup after loading the view.
+    /*
     _tableView = ({
         UITableView *table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-64-self.tabBarController.tabBar.bounds.size.height)];
         table.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -93,7 +145,7 @@
         table;
     });
     
-    
+    */
     
     _headView = ({
         MLPersonHeadView *headView =[MLPersonHeadView personHeadView];
@@ -127,10 +179,11 @@
         
         headView;
     });
+    [_backgroundScrollView addSubview:_headView];
+    //self.tableView.tableHeaderView = self.headView;
     
-    self.tableView.tableHeaderView = self.headView;
     
-    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    _backgroundScrollView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [_tableView.header endRefreshing];
         //        page = 1;
         //        [self downLoadList];
@@ -139,6 +192,23 @@
     
 }
 
+#pragma mark 隐藏消息按钮
+- (void)hideZLMessageBtnAndSetingBtn{
+    _messageButton.hidden = YES;
+    _settingButton.hidden = YES;
+    
+}
+- (void)showZLMessageBtnAndSettingBtn{
+
+    [self performSelector:@selector(showZLView) withObject:self afterDelay:0.3f];
+}
+
+- (void)showZLView{
+    
+    _messageButton.hidden = NO;
+    _settingButton.hidden = NO;
+
+}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
@@ -148,10 +218,25 @@
     if (loginid && ![@"" isEqualToString:loginid]) {
         self.headView.loginBtn.hidden = YES;
         self.headView.regBtn.hidden = YES;
+        
+        self.headView.headBtn.hidden = NO;
+        self.headView.rightBtn.hidden = NO;
+        self.headView.renZhengLabel.hidden = NO;
+        self.headView.biaoZhiImageView.hidden = NO;
+        self.headView.nickLabel.hidden = NO;
+        self.headView.cardTypeLabel.hidden = NO;
     }
     else{
         self.headView.loginBtn.hidden = NO;
         self.headView.regBtn.hidden = NO;
+        
+        self.headView.headBtn.hidden = YES;
+        self.headView.rightBtn.hidden = YES;
+        self.headView.renZhengLabel.hidden = YES;
+        self.headView.biaoZhiImageView.hidden = YES;
+        self.headView.nickLabel.hidden = YES;
+        self.headView.cardTypeLabel.hidden = YES;
+        
     }
     NSString *nickname = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];
     NSLog(@"用户昵称为：%@",nickname);
@@ -177,6 +262,8 @@
 
     
     [self.headView.headBtn sd_setImageWithURL:[NSURL URLWithString:avatorurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+    
+    [self showZLMessageBtnAndSettingBtn];
 }
 
 
@@ -249,9 +336,7 @@
                 break;
             case 3:  //设置
             {
-                APPSettingViewController *vc = [[APPSettingViewController alloc]init];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
+
 
             }
                 break;
@@ -307,9 +392,16 @@
                     [self showError];
                 }
                 else{
+                    
+                    MLCollectionViewController *vc = [[MLCollectionViewController alloc]init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                    
+                    /*
                     MLWishlistViewController *vc = [[MLWishlistViewController alloc]init];
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
+                     */
                 }
 
             };
@@ -523,12 +615,20 @@
 
 
 -(void)actMessage{
+    [self hideZLMessageBtnAndSetingBtn];
     self.hidesBottomBarWhenPushed = YES;
     MessagesViewController * VC = [[MessagesViewController alloc]init];
     
     [self.navigationController pushViewController:VC animated:YES];
     self.hidesBottomBarWhenPushed = NO;
 
+}
+//设置
+- (void)actSettingAction{
+    [self hideZLMessageBtnAndSetingBtn];
+    APPSettingViewController *vc = [[APPSettingViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

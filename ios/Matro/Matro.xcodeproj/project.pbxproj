@@ -40,6 +40,10 @@
 		285326EC1CFD3A7300FA2AB0 /* MLYHQUsedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285326EA1CFD3A7300FA2AB0 /* MLYHQUsedCell.m */; };
 		285326ED1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285326EB1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib */; };
 		285326EF1CFD6F1300FA2AB0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 285326EE1CFD6F1300FA2AB0 /* Info.plist */; };
+		285808031D14F20B0097D334 /* MLCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285808011D14F20B0097D334 /* MLCommentTableViewCell.m */; };
+		285808041D14F20B0097D334 /* MLCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808021D14F20B0097D334 /* MLCommentTableViewCell.xib */; };
+		285808081D1517AA0097D334 /* MLgoodsCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */; };
+		285808091D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */; };
 		28CEFB1A1CF99C940070E2CA /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CEFB191CF99C940070E2CA /* JSBadgeView.m */; };
 		28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85CE1CEDC59900E582EE /* UMSocialLocalizable.strings */; };
 		28CF86051CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85DC1CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a */; };
@@ -272,7 +276,6 @@
 		3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */; };
 		3C0FCEF91D0E8C170076396F /* MLSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */; };
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
-		3C57ACFC1D12D4E300CB1491 /* VIPCardHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C57ACFB1D12D4E300CB1491 /* VIPCardHistoryModel.m */; };
 		3C5B0C6E1CFC372D003FFD25 /* MessagesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */; };
 		3C5B0C6F1CFC372D003FFD25 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */; };
 		3C5B0C701CFC372D003FFD25 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C691CFC372D003FFD25 /* MessagesViewController.m */; };
@@ -285,7 +288,6 @@
 		3C5B0C881CFC4329003FFD25 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */; };
 		3C5B0C8A1CFC433E003FFD25 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */; };
 		3C5B0C8C1CFC4348003FFD25 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */; };
-		3CAE048E1D06C5FE004504EA /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE048D1D06C5FE004504EA /* VipCardModel.m */; };
 		3CAE049C1D06DDD5004504EA /* GCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04911D06DDD5004504EA /* GCD.m */; };
 		3CAE049D1D06DDD5004504EA /* GCDGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04931D06DDD5004504EA /* GCDGroup.m */; };
 		3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04961D06DDD5004504EA /* GCDQueue.m */; };
@@ -297,6 +299,7 @@
 		3CEDAD7D1D13ECFB00990DA8 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7A1D13ECFB00990DA8 /* background.png */; };
 		3CEDAD7E1D13ECFB00990DA8 /* page.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7B1D13ECFB00990DA8 /* page.png */; };
 		3CEDAD7F1D13ECFB00990DA8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */; };
+		3CEDAD821D14128C00990DA8 /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDAD811D14128C00990DA8 /* VipCardModel.m */; };
 		3CF8CF761D0E72FA00C548AC /* SettingMoCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */; };
 		3CFC2A4C1D127C5C00C43BFF /* b54504436257.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3CFC2A4B1D127C5C00C43BFF /* b54504436257.jpg */; };
 		4F634A77A9985A18C9E56D1D /* Pods_Matro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C6CE0BB33E839F3EBF5309 /* Pods_Matro.framework */; };
@@ -392,6 +395,7 @@
 		7ACFA6151D11436200987A03 /* MLOrderInfoFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACFA6131D11436200987A03 /* MLOrderInfoFooterTableViewCell.m */; };
 		7ACFA6161D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ACFA6141D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib */; };
 		7AD815FD1CDD7736001761C8 /* YMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD815FC1CDD7736001761C8 /* YMNavigationController.m */; };
+		7ADC401C1D17863900CBD683 /* VIPCardHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADC401B1D17863900CBD683 /* VIPCardHistoryModel.m */; };
 		7AEC88C91CE4522E00B43DD4 /* MLScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC88C81CE4522E00B43DD4 /* MLScoreView.m */; };
 		7AEC88CE1CE45D1500B43DD4 /* MLGoodsComHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC88CD1CE45D1500B43DD4 /* MLGoodsComHeadView.m */; };
 		7AEC88D01CE45D2200B43DD4 /* MLGoodsComHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC88CF1CE45D2200B43DD4 /* MLGoodsComHeadView.xib */; };
@@ -532,6 +536,12 @@
 		285326EA1CFD3A7300FA2AB0 /* MLYHQUsedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLYHQUsedCell.m; sourceTree = "<group>"; };
 		285326EB1CFD3A7300FA2AB0 /* MLYHQUsedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLYHQUsedCell.xib; sourceTree = "<group>"; };
 		285326EE1CFD6F1300FA2AB0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		285808001D14F20B0097D334 /* MLCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCommentTableViewCell.h; sourceTree = "<group>"; };
+		285808011D14F20B0097D334 /* MLCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCommentTableViewCell.m; sourceTree = "<group>"; };
+		285808021D14F20B0097D334 /* MLCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLCommentTableViewCell.xib; sourceTree = "<group>"; };
+		285808051D1517AA0097D334 /* MLgoodsCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLgoodsCollectTableViewCell.h; sourceTree = "<group>"; };
+		285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLgoodsCollectTableViewCell.m; sourceTree = "<group>"; };
+		285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLgoodsCollectTableViewCell.xib; sourceTree = "<group>"; };
 		28CEFB181CF99C940070E2CA /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
 		28CEFB191CF99C940070E2CA /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		28CF85CF1CEDC59900E582EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
@@ -1020,8 +1030,6 @@
 		3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSearchViewController.xib; sourceTree = "<group>"; };
 		3C2E204C1D0ABDAF00184D48 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
-		3C57ACFA1D12D4E300CB1491 /* VIPCardHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIPCardHistoryModel.h; sourceTree = "<group>"; };
-		3C57ACFB1D12D4E300CB1491 /* VIPCardHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIPCardHistoryModel.m; sourceTree = "<group>"; };
 		3C5B0C651CFC372D003FFD25 /* MessagesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesTableViewCell.h; sourceTree = "<group>"; };
 		3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesTableViewCell.m; sourceTree = "<group>"; };
 		3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessagesTableViewCell.xib; sourceTree = "<group>"; };
@@ -1043,8 +1051,6 @@
 		3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		3CAE048C1D06C5FE004504EA /* VipCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipCardModel.h; sourceTree = "<group>"; };
-		3CAE048D1D06C5FE004504EA /* VipCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipCardModel.m; sourceTree = "<group>"; };
 		3CAE04901D06DDD5004504EA /* GCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCD.h; sourceTree = "<group>"; };
 		3CAE04911D06DDD5004504EA /* GCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCD.m; sourceTree = "<group>"; };
 		3CAE04921D06DDD5004504EA /* GCDGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDGroup.h; sourceTree = "<group>"; };
@@ -1064,6 +1070,8 @@
 		3CEDAD7A1D13ECFB00990DA8 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		3CEDAD7B1D13ECFB00990DA8 /* page.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page.png; sourceTree = "<group>"; };
 		3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
+		3CEDAD801D14128C00990DA8 /* VipCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipCardModel.h; sourceTree = "<group>"; };
+		3CEDAD811D14128C00990DA8 /* VipCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipCardModel.m; sourceTree = "<group>"; };
 		3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardCell.m; sourceTree = "<group>"; };
 		3CF8CF721D0E72FA00C548AC /* SettingMoCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardView.h; sourceTree = "<group>"; };
 		3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardView.m; sourceTree = "<group>"; };
@@ -1229,6 +1237,8 @@
 		7ACFA6141D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLOrderInfoFooterTableViewCell.xib; sourceTree = "<group>"; };
 		7AD815FB1CDD7736001761C8 /* YMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMNavigationController.h; sourceTree = "<group>"; };
 		7AD815FC1CDD7736001761C8 /* YMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMNavigationController.m; sourceTree = "<group>"; };
+		7ADC401A1D17863900CBD683 /* VIPCardHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIPCardHistoryModel.h; sourceTree = "<group>"; };
+		7ADC401B1D17863900CBD683 /* VIPCardHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIPCardHistoryModel.m; sourceTree = "<group>"; };
 		7AEC88C71CE4522E00B43DD4 /* MLScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLScoreView.h; sourceTree = "<group>"; };
 		7AEC88C81CE4522E00B43DD4 /* MLScoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLScoreView.m; sourceTree = "<group>"; };
 		7AEC88CC1CE45D1500B43DD4 /* MLGoodsComHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsComHeadView.h; sourceTree = "<group>"; };
@@ -2403,6 +2413,12 @@
 				7AF15B031D129BA500F8CF03 /* MLSelAddressTableViewCell.h */,
 				7AF15B041D129BA500F8CF03 /* MLSelAddressTableViewCell.m */,
 				7AF15B051D129BA500F8CF03 /* MLSelAddressTableViewCell.xib */,
+				285808001D14F20B0097D334 /* MLCommentTableViewCell.h */,
+				285808011D14F20B0097D334 /* MLCommentTableViewCell.m */,
+				285808021D14F20B0097D334 /* MLCommentTableViewCell.xib */,
+				285808051D1517AA0097D334 /* MLgoodsCollectTableViewCell.h */,
+				285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */,
+				285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -2933,10 +2949,10 @@
 		3CAE048B1D06C5CE004504EA /* cardModel */ = {
 			isa = PBXGroup;
 			children = (
-				3C57ACFA1D12D4E300CB1491 /* VIPCardHistoryModel.h */,
-				3C57ACFB1D12D4E300CB1491 /* VIPCardHistoryModel.m */,
-				3CAE048C1D06C5FE004504EA /* VipCardModel.h */,
-				3CAE048D1D06C5FE004504EA /* VipCardModel.m */,
+				7ADC401A1D17863900CBD683 /* VIPCardHistoryModel.h */,
+				7ADC401B1D17863900CBD683 /* VIPCardHistoryModel.m */,
+				3CEDAD801D14128C00990DA8 /* VipCardModel.h */,
+				3CEDAD811D14128C00990DA8 /* VipCardModel.m */,
 			);
 			path = cardModel;
 			sourceTree = "<group>";
@@ -3278,6 +3294,8 @@
 				7A34865B1D0EAF97002EE211 /* MLShopCartCollectionViewCell.xib in Resources */,
 				3A1AA8C21CAA433900AF73C2 /* MLAddressListTableViewCell.xib in Resources */,
 				3A1AA8D81CAA8B7100AF73C2 /* MLPayerrTableViewCell.xib in Resources */,
+				285808091D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib in Resources */,
+				285808041D14F20B0097D334 /* MLCommentTableViewCell.xib in Resources */,
 				7ACD3A7C1CE86DA5004BAF8B /* MLReturnsHeader.xib in Resources */,
 				3A630BE41CA256CF006E67F4 /* MLClassHeader.xib in Resources */,
 				7A7672E11D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.xib in Resources */,
@@ -3472,6 +3490,7 @@
 				3A633B4E1C9EA36E00C11FD5 /* SSKeychain.m in Sources */,
 				3AA0E7A21CA91E500079AA90 /* AliPayOrder.m in Sources */,
 				3AA0E7341CA916A90079AA90 /* MLPayViewController.mm in Sources */,
+				7ADC401C1D17863900CBD683 /* VIPCardHistoryModel.m in Sources */,
 				D658CBE81CAA91DD006C70F4 /* MNNModifyPasswordViewController.m in Sources */,
 				3A633A5D1C9E9E2F00C11FD5 /* ViewController.m in Sources */,
 				3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */,
@@ -3490,7 +3509,6 @@
 				3A633B551C9EA36E00C11FD5 /* ZLCameraViewController.m in Sources */,
 				280F7CD71CF7F44800D42FA6 /* split.c in Sources */,
 				3A1AA8D11CAA7D3400AF73C2 /* MLPayresultHeader.m in Sources */,
-				3CAE048E1D06C5FE004504EA /* VipCardModel.m in Sources */,
 				3AFB0C751CA28CD100128368 /* HFSProductTableViewCell.m in Sources */,
 				7AEDD0E81CE5EDC2009B12F4 /* MLWishlistViewController.m in Sources */,
 				3A1F72D51CA3FAEC000ECE08 /* HFSOrderListViewController.m in Sources */,
@@ -3499,7 +3517,6 @@
 				3A633A5A1C9E9E2F00C11FD5 /* AppDelegate.m in Sources */,
 				3A633B4C1C9EA36E00C11FD5 /* AsyncUdpSocket.m in Sources */,
 				7A3A62461CDB872700D265F2 /* YMLeftImageField.m in Sources */,
-				3C57ACFC1D12D4E300CB1491 /* VIPCardHistoryModel.m in Sources */,
 				3AE02E081CAB9F430016FA75 /* MLSXView.m in Sources */,
 				3A633B641C9EA36E00C11FD5 /* ZLPhotoPickerGroupViewController.m in Sources */,
 				3A633B311C9EA36E00C11FD5 /* UIView+HeinQi.m in Sources */,
@@ -3563,6 +3580,7 @@
 				7AED645F1CDD9C3C008F55BD /* YMPhoneCondeButton.m in Sources */,
 				280F7CD31CF7F44800D42FA6 /* qrencode.c in Sources */,
 				7AD815FD1CDD7736001761C8 /* YMNavigationController.m in Sources */,
+				285808081D1517AA0097D334 /* MLgoodsCollectTableViewCell.m in Sources */,
 				3ACF2D0F1CA535FE003D1F67 /* MLRPayTableViewCell.m in Sources */,
 				7AEDD0EC1CE5EE9A009B12F4 /* MLWishlistTableViewCell.m in Sources */,
 				D6D803711CAE7103001C0FE0 /* MLCollectionViewController.m in Sources */,
@@ -3606,6 +3624,7 @@
 				687703D31CCEF72B0008ED46 /* HQRSA.m in Sources */,
 				3A630BE21CA256BC006E67F4 /* MLClassHeader.m in Sources */,
 				3A1F72C61CA3F8CD000ECE08 /* HFSOrderListHeaderView.m in Sources */,
+				285808031D14F20B0097D334 /* MLCommentTableViewCell.m in Sources */,
 				3AE768B01CA62BFB0097FEA2 /* MLListViewController.m in Sources */,
 				3A633A571C9E9E2F00C11FD5 /* main.m in Sources */,
 				7AF6EEB81CE40AC200ECFCAA /* MLPersonHeadView.m in Sources */,
@@ -3643,6 +3662,7 @@
 				7A3A62761CDB874F00D265F2 /* MLRetrunsHeadCell.m in Sources */,
 				280F7CE51CF832C600D42FA6 /* MLYHQTableViewCell.m in Sources */,
 				3AA0E7AE1CA91E500079AA90 /* RSADataVerifier.m in Sources */,
+				3CEDAD821D14128C00990DA8 /* VipCardModel.m in Sources */,
 				3A633B3B1C9EA36E00C11FD5 /* TAPageControl.m in Sources */,
 				3AF01E5B1CBBAB94005830BD /* MLLogisticsViewController.m in Sources */,
 				3A633B511C9EA36E00C11FD5 /* UIView+ZLExtension.m in Sources */,

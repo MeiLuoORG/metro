@@ -22,6 +22,13 @@
 + (MLPersonHeadView *)personHeadView{
     return LoadNibWithSelfClassName;
 }
+- (IBAction)rightButtonAction:(UIButton *)sender {
+    
+    if (self.imageBlock) {
+        self.imageBlock();
+    }
+    
+}
 
 - (IBAction)headClick:(id)sender {
     if (self.imageBlock) {

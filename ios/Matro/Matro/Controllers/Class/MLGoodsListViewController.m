@@ -345,68 +345,82 @@ static NSInteger page = 1;
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,ppid];
     NSLog(@"str====%@",str);
     
-    [[HFSServiceClient sharedJSONClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+   
         
-        NSLog(@"responseObject ====%@",responseObject);
-        NSString *sum = responseObject[@"data"][@"sum"];
-        if (sum.floatValue == 0) {
+        [[HFSServiceClient sharedJSONClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-            self.blankView.hidden  = NO;
-            [self.tableView reloadData];
-            [self.collectionView reloadData];
-            
-        }else{
-            self.blankView.hidden = YES;
-  
-        if (page==1) {
-            
-            [_productList removeAllObjects];
-            
-        }
-        if (responseObject) {
-            NSArray *ary;
-            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSLog(@"responseObject ====%@",responseObject);
+            NSString *sum = responseObject[@"data"][@"sum"];
+            if (sum.floatValue == 0) {
                 
-                NSDictionary *resdic = responseObject[@"data"];
-                ary = (NSArray *)resdic[@"ret"];
+                [_productList removeAllObjects];
+                self.blankView.hidden  = NO;
                 
+                [self.tableView reloadData];
+                [self.collectionView reloadData];
+                self.tableView.footer.hidden = YES;
+                self.collectionView.footer.hidden = YES;
                 
-                NSNumber *count = resdic[@"retcount"];
-                NSLog(@"count====%@",count);
-                if ([count isEqualToNumber:@0] ) {
-                    MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableView.footer;
-                    MJRefreshAutoNormalFooter *footer1 = (MJRefreshAutoNormalFooter *)self.collectionView.footer;
-                    footer.stateLabel.text = @"没有更多了";
-                    footer1.stateLabel.text = @"没有更多了";
+            }else{
+                self.blankView.hidden = YES;
+                self.tableView.footer.hidden = NO;
+                self.collectionView.footer.hidden = NO;
+                
+                if (page==1) {
                     
-                    return ;
+                    [_productList removeAllObjects];
+                    
                 }
-            }
-            if ([responseObject isKindOfClass:[NSArray class]]) {
-                ary = (NSArray *)responseObject;
+                if (responseObject) {
+                    NSArray *ary;
+                    if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                        
+                        NSDictionary *resdic = responseObject[@"data"];
+                        ary = (NSArray *)resdic[@"ret"];
+                        
+                        
+                        NSNumber *count = resdic[@"retcount"];
+                        NSLog(@"count====%@",count);
+                        if ([count isEqualToNumber:@0] ) {
+                            MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableView.footer;
+                            MJRefreshAutoNormalFooter *footer1 = (MJRefreshAutoNormalFooter *)self.collectionView.footer;
+                            footer.stateLabel.text = @"没有更多了";
+                            footer1.stateLabel.text = @"没有更多了";
+                            
+                            return ;
+                        }
+                    }
+                    if ([responseObject isKindOfClass:[NSArray class]]) {
+                        ary = (NSArray *)responseObject;
+                    }
+                    
+                    if (ary && ary.count>0) {
+                        [_productList addObjectsFromArray:ary];
+                    }
+                    
+                    
+                }
+                
+                page ++;
+                
+                [_tableView reloadData];
+                [_collectionView reloadData];
+                
             }
             
-            if (ary && ary.count>0) {
-                [_productList addObjectsFromArray:ary];
-            }
-         
-            
-        }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"请求失败";
+            [_hud hide:YES afterDelay:2];
+            NSLog(@"error===%@",error);
+        }];
         
-        page ++;
         
-        [_tableView reloadData];
-        [_collectionView reloadData];
-       
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
-        NSLog(@"error===%@",error);
-    }];
+   
+    
+    
+    
     
 
 }
@@ -575,7 +589,8 @@ static NSInteger page = 1;
     if (tempdic) {
         NSString *pic = tempdic[@"pic"];
         if (![pic isKindOfClass:[NSNull class]]) {
-            [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:pic]];
+            //[cell.productImageView sd_setImageWithURL:[NSURL URLWithString:pic]];
+            [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:pic] placeholderImage:[UIImage imageNamed:@"imageloading"]];
         }else{
             cell.productImageView.image = [UIImage imageNamed:@"imageloading"];
         }
@@ -616,7 +631,8 @@ static NSInteger page = 1;
     
     NSString *pic = tempdic[@"pic"];
     if (![pic isKindOfClass:[NSNull class]]) {
-        [cell.productImgview sd_setImageWithURL:[NSURL URLWithString:pic]];
+        //[cell.productImgview sd_setImageWithURL:[NSURL URLWithString:pic]];
+        [cell.productImgview sd_setImageWithURL:[NSURL URLWithString:pic] placeholderImage:[UIImage imageNamed:@"imageloading"]];
     }else{
         cell.productImgview.image = [UIImage imageNamed:@"imageloading"];
     }

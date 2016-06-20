@@ -35,6 +35,7 @@
 #import <DWTagList/DWTagList.h>
 #import "SearchHistory.h"
 #import <MagicalRecord/MagicalRecord.h>
+#import "MLpingjiaViewController.h"
 
 @interface UIImage (SKTagView)
 
@@ -226,25 +227,29 @@
     userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
 }
 
-
+/*
 -(DWTagList *)styleTagList:(DWTagList *)tagList {
     
     tagList.font = [UIFont systemFontOfSize:14.0f];
     tagList.borderColor = [UIColor colorWithHexString:@"#EBEBEB"];
     tagList.borderWidth = 1.f;
-    tagList.textColor = [UIColor colorWithHexString:@"#260E00"];
+    //tagList.textColor = [UIColor colorWithHexString:@"#260E00"];
     tagList.labelMargin = 6.0f;
-    [tagList setTagBackgroundColor:RGBA(255, 255, 255, 1)];
+    //[tagList setTagBackgroundColor:RGBA(255, 255, 255, 1)];
     tagList.cornerRadius = 4.0f;
     tagList.horizontalPadding = 6.0f;
     tagList.verticalPadding = 6.0f;
     
     return tagList;
 }
+*/
 
 - (IBAction)actPingjia:(id)sender {
     
     NSLog(@"pingjia===");
+    MLpingjiaViewController *vc = [[MLpingjiaViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:NO];
+    
 }
 
 #pragma mark 获取商品详情数据
@@ -300,7 +305,7 @@
             [promotionArray addObject:nameStr];
         }
         NSLog(@"promotionArray===%@",promotionArray);
-        //①②③④
+        //①②③④⑤
         if (promotionArray.count == 0) {
             self.cuxiaoxinxiLabel.text = @"";
         }else if (promotionArray.count == 1){
@@ -320,6 +325,10 @@
             self.cuxiaoH.constant  = 94;
             self.cuxiaoxinxiH.constant  = 72;
             self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3]];
+        }else if (promotionArray.count == 5){
+            self.cuxiaoH.constant  = 112;
+            self.cuxiaoxinxiH.constant  = 90;
+            self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@\n⑤ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3],promotionArray[4]];
         }
         
         NSString *count = dic[@"comment_score"];
@@ -880,7 +889,7 @@
     
     NSDictionary *paramdic = [_recommendArray objectAtIndex:indexPath.row];
     cell.productNameLabel.text = paramdic[@"SPNAME"];
-    [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:paramdic[@"IMGURL"]] placeholderImage:[UIImage imageNamed:@""]];
+    [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:paramdic[@"IMGURL"]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
     NSString *priceStr = paramdic[@"XJ"];
     NSString *realStr = paramdic[@"LSDJ"];
     CGFloat xj = [priceStr floatValue];
@@ -937,8 +946,10 @@
         
         huoyuanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
         huoyuanList.tagDelegate = self;
-        huoyuanList = [self styleTagList:huoyuanList];
-        [huoyuanList setTags:huoyuanArray];
+        //huoyuanList = [self styleTagList:huoyuanList];
+        huoyuanList.horizontalPadding = 10.0f;
+        huoyuanList.verticalPadding = 6.0f;
+        [huoyuanList setTag:huoyuanArray];
         [cell.tagView addSubview:huoyuanList];
         [self.view layoutIfNeeded];
         huoyuanList.frame = CGRectMake(0, 5, cell.tagView.bounds.size.width, cell.tagView.bounds.size.height - 10);
@@ -948,8 +959,10 @@
     
         jieduanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
         jieduanList.tagDelegate = self;
-        jieduanList = [self styleTagList:jieduanList];
-        [jieduanList setTags:jieduanArray];
+        jieduanList.horizontalPadding = 10.0f;
+        jieduanList.verticalPadding = 6.0f;
+        //jieduanList = [self styleTagList:jieduanList];
+        [jieduanList setTag:jieduanArray];
         [cell.tagView addSubview:jieduanList];
         [self.view layoutIfNeeded];
         jieduanList.frame = CGRectMake(0, 5, cell.tagView.bounds.size.width, cell.tagView.bounds.size.height - 10);

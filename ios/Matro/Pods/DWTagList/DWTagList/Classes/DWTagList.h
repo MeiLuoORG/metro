@@ -42,8 +42,9 @@
 - (void)setTagHighlightColor:(UIColor *)color;
 
 - (void)setTags:(NSArray *)array;
-- (void)setTags:(NSArray *)array tagArray:(NSArray *)tagarray;
+- (void)setTag:(NSArray *)array;
 - (void)display;
+- (void)displays;
 - (CGSize)fittedSize;
 - (void)scrollToBottomAnimated:(BOOL)animated;
 

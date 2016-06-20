@@ -32,6 +32,7 @@
     
     UIButton *subButton = [UIButton buttonWithType:UIButtonTypeSystem];
     subButton.frame = CGRectMake(0, 0, 25, rect.size.height);
+    
     [subButton setTitle:@"- |" forState:UIControlStateNormal];
     subButton.titleLabel.font = [UIFont systemFontOfSize:20.0f];
     [subButton setTintColor:[UIColor colorWithHexString:@"#C9C9C9"]];

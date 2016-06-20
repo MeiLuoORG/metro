@@ -251,8 +251,8 @@
     MLClassViewController *classViewController = [[MLClassViewController alloc]init];
     classViewController.title = @"分类";
     MLNavigationController *classNavigationController = [[MLNavigationController alloc]initWithRootViewController:classViewController];
-    classNavigationController.tabBarItem.image = [UIImage imageNamed:@"Starred-List"];
-    classNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"Starred-List-1"];
+    classNavigationController.tabBarItem.image = [UIImage imageNamed:@"fenlei"];
+    classNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"fenleiSelect"];
     classNavigationController.tabBarItem.title = @"分类";
     
     MLShopCartViewController *bagViewController = [[MLShopCartViewController alloc]init];
