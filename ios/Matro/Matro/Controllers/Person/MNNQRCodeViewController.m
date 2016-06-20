@@ -61,10 +61,10 @@
             // set shadow
             self.qrcodeView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-200)/2, CGRectGetMaxY(label.frame)+20, 200, 200)];
              self.qrcodeView.image = customQrcode;
-            self.qrcodeView.layer.shadowOffset = CGSizeMake(0, 2);
-            self.qrcodeView.layer.shadowRadius = 2;
-            self.qrcodeView.layer.shadowColor = [UIColor blackColor].CGColor;
-            self.qrcodeView.layer.shadowOpacity = 0.5;
+            //self.qrcodeView.layer.shadowOffset = CGSizeMake(0, 2);
+            //self.qrcodeView.layer.shadowRadius = 2;
+            //self.qrcodeView.layer.shadowColor = [UIColor blackColor].CGColor;
+            //self.qrcodeView.layer.shadowOpacity = 0.5;
             [self.view addSubview:self.qrcodeView];
             
             UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.qrcodeView.frame)+10, self.view.frame.size.width, 20)];

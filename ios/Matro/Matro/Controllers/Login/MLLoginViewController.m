@@ -38,6 +38,9 @@
     BOOL _isReadDelegate;
     NavTopCommonImage * _navTopCommoImages;
     UIButton * _rightBtn;
+    
+    NSString * _currentCardNOs;
+    NSString * _currentCardTypeNames;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *showpasswordButton;
@@ -933,18 +936,22 @@
     [self.settingMoCardView bindButtonBlockAction:^(BOOL success) {
         if (self.settingMoCardView.cardNoString != nil && ![self.settingMoCardView.cardNoString isEqualToString:@""]) {
             
-            NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
-            [userDefault setObject:self.settingMoCardView.cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
-            [userDefault synchronize];
+            _currentCardTypeNames = self.settingMoCardView.cardTypeName;
+            _currentCardNOs = self.settingMoCardView.cardNoString;
+            
+
             [weakSelf loadBindCardViewwithPhone:phoneString withCardNo:self.settingMoCardView.cardNoString withAccessToken:accessTokenString];
         }
         else{
 
             
             VipCardModel * cardModel = (VipCardModel *)[cardARR objectAtIndex:0];
-            NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+            _currentCardNOs = cardModel.cardNo;
+            _currentCardTypeNames = cardModel.cardTypeName;
+            /*NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
             [userDefault setObject:cardModel.cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
             [userDefault synchronize];
+            */
             [weakSelf loadBindCardViewwithPhone:phoneString withCardNo:cardModel.cardNo withAccessToken:accessTokenString];
         }
         
@@ -1015,7 +1022,10 @@
                     
                     
                 } completion:^(BOOL finished) {
-                    
+                    NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+                    [userDefault setObject:_currentCardTypeNames forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                    [userDefault setObject:_currentCardNOs forKey:kUSERDEFAULT_USERCARDNO];
+                    [userDefault synchronize];
                 }];
             
                 [self dismissViewControllerAnimated:NO completion:nil];
