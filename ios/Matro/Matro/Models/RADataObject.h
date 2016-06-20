@@ -31,10 +31,13 @@
 @property (nonatomic) BOOL selected;
 @property (strong, nonatomic) NSNumber *level;
 
+- (id)initWithName:(NSString *)name children:(NSArray *)children;
 - (id)initWithId:(NSNumber *)dataId name:(NSString *)name children:(NSArray *)children;
 
 + (id)dataObjectWithId:(NSNumber *)dataId name:(NSString *)name children:(NSArray *)children;
 +(id)dataObjectWithIdstr:(NSString *)dataId name:(NSString *)name children:(NSArray *)children;
++ (id)dataObjectWithName:(NSString *)name children:(NSArray *)children;
+
 - (void)addChild:(id)child;
 - (void)removeChild:(id)child;
 

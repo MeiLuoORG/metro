@@ -86,7 +86,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <state key="normal" image="liebiao">
+                            <state key="normal" image="liebiao1">
                                 <color key="titleColor" red="0.054901960780000002" green="0.054901960780000002" blue="0.054901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <variation key="default">
@@ -207,7 +207,7 @@
         </view>
     </objects>
     <resources>
-        <image name="liebiao" width="18" height="18"/>
+        <image name="liebiao1" width="18" height="18"/>
         <image name="shaixuan-1" width="10" height="10"/>
         <image name="wufaxianshi" width="101" height="105"/>
         <image name="xiajian" width="10" height="5"/>

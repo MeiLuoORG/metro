@@ -223,6 +223,44 @@
     sizeFit = CGSizeMake(self.frame.size.width, previousFrame.origin.y + previousFrame.size.height + self.bottomMargin + 1.0f);
     self.contentSize = sizeFit;
 }
+- (void)selectedTag:(NSString *)tagName{
+    NSLog(@"点击了====1111%@",tagName);
+    NSLog(@"array====%@",textArray);
+    
+    NSString *price;
+    NSString *market_price;
+    NSString *stock;
+    NSString *safe_stock;
+    
+    for (NSDictionary *searchDic in textArray) {
+        
+        NSArray *setmealArr = searchDic[@"setmeal"];
+        NSDictionary *guigeDic1 = setmealArr[0];
+        NSDictionary *guigeDic2 = setmealArr[1];
+        NSString *guigestr1 = guigeDic1[@"name"];
+        NSString *guigestr2 = guigeDic2[@"name"];
+        NSMutableArray *guige = [[NSMutableArray alloc] init];
+        [guige addObject:guigestr1];
+        [guige addObject:guigestr2];
+        
+        NSLog(@"guige===%@",guige);
+        
+        for (NSString *searchStr in guige) {
+            if ([searchStr isEqualToString:tagName]) {
+                
+                price = searchDic[@"price"];
+                market_price = searchDic[@"market_price"];
+                stock = searchDic[@"stock"];
+                safe_stock = searchDic[@"safe_stock"];
+                
+            }
+        }
+        
+        
+    }
+
+}
+
 
 - (void)displays
 {

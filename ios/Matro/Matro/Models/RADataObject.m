@@ -22,6 +22,16 @@
 
 @implementation RADataObject
 
+- (id)initWithName:(NSString *)name children:(NSArray *)children
+{
+    self = [super init];
+    if (self) {
+        self.children = [NSArray arrayWithArray:children];
+        self.name = name;
+    }
+    return self;
+}
+
 -(id)initWithId:(NSNumber *)dataId name:(NSString *)name children:(NSArray *)children
 {
   self = [super init];
@@ -52,6 +62,10 @@
 +(id)dataObjectWithIdstr:(NSString *)dataId name:(NSString *)name children:(NSArray *)children
 {
     return [[self alloc] initWithIdstr:dataId name:name children:children];
+}
++ (id)dataObjectWithName:(NSString *)name children:(NSArray *)children
+{
+    return [[self alloc] initWithName:name children:children];
 }
 
 - (void)addChild:(id)child

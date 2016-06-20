@@ -2949,10 +2949,19 @@
 		3CAE048B1D06C5CE004504EA /* cardModel */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 				7ADC401A1D17863900CBD683 /* VIPCardHistoryModel.h */,
 				7ADC401B1D17863900CBD683 /* VIPCardHistoryModel.m */,
 				3CEDAD801D14128C00990DA8 /* VipCardModel.h */,
 				3CEDAD811D14128C00990DA8 /* VipCardModel.m */,
+=======
+
+				3CEDAD801D14128C00990DA8 /* VipCardModel.h */,
+				3CEDAD811D14128C00990DA8 /* VipCardModel.m */,
+				7A4D9DF81D1388AC006E6AB2 /* VIPCardHistoryModel.h */,
+				7A4D9DF91D1388AC006E6AB2 /* VIPCardHistoryModel.m */,
+
+>>>>>>> Stashed changes
 			);
 			path = cardModel;
 			sourceTree = "<group>";
