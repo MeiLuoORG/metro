@@ -37,4 +37,18 @@
 }
 
 
+- (void)setAddSelected:(BOOL)addSelected{
+    if (_addSelected != addSelected) {
+        _addSelected = addSelected;
+        if (_addSelected) {
+            [self setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+        }
+        else{
+            [self setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        }
+        
+        
+    }
+}
+
 @end

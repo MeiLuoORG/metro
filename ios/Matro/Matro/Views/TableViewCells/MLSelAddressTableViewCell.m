@@ -44,9 +44,9 @@
 
 - (IBAction)checkBoxAction:(id)sender {
     MLCheckBoxButton *btn = (MLCheckBoxButton *)sender;
-    btn.cartSelected = !btn.cartSelected;
+    btn.addSelected = !btn.addSelected;
     if (self.checkBoxBlock) {
-        self.checkBoxBlock(btn.cartSelected);
+        self.checkBoxBlock(btn.addSelected);
     }
 }
 

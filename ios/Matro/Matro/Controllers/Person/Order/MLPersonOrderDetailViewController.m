@@ -23,6 +23,7 @@
 #import "MJExtension.h"
 #import "MLPersonOrderModel.h"
 #import "MBProgressHUD+Add.h"
+#import "MLOrderComViewController.h"
 
 @interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
@@ -43,6 +44,10 @@
     // Do any additional setup after loading the view.
     
     self.title = @"订单详情";
+    self.view.backgroundColor = RGBA(245, 245, 245, 1);
+    
+
+    
     
     _tableView = ({
         UITableView *tableView =[[UITableView alloc]initWithFrame:CGRectZero];
@@ -64,7 +69,6 @@
     
     _footView = ({
         MLPersonOrderDetailFootView *footView = [MLPersonOrderDetailFootView detailFooterView];
-        footView.footerType = FooterTypeJiaoyichenggong;
         
         __weak typeof(self) weakself = self;
         footView.orderDetailButtonActionBlock = ^(ButtonActionType actionType){
@@ -74,7 +78,7 @@
                     [weakself OrderActionWithButtonType:actionType];
                 }
                     break;
-                case ButtonActionTypeFukuan://付款
+                case ButtonActionTypeFukuan://付款  去付款操作
                 {
                     
                 }
@@ -96,6 +100,9 @@
                     break;
                 case ButtonActionTypePingJia://评价
                 {
+                    MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
+                    weakself.hidesBottomBarWhenPushed = YES;
+                    [weakself.navigationController pushViewController:vc animated:YES];
                     
                 }
                     break;
@@ -126,7 +133,6 @@
     [self getOrderDetail];
 }
 
-
 - (void)getOrderDetail{
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=detail&order_id=201605231036169565",@"http://bbctest.matrojp.com"];
     [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -136,6 +142,50 @@
             NSDictionary *detail = data[@"detail"];
             self.orderDetail = [MLPersonOrderDetail mj_objectWithKeyValues:detail];
             
+            switch (self.orderDetail.status) {
+                case OrderStatusYishanchu:
+                {
+                    self.footView.footerType = FooterTypeJiaoyiguanbi;
+                }
+                    break;
+
+                case OrderStatusDaifukuan:
+                {
+                    self.footView.footerType = FooterTypeDaifukuan;
+                }
+                    break;
+                case OrderStatusDaifahuo:
+                {
+                    self.footView.footerType = FooterTypeDaifahuo;
+                }
+                    break;
+//                case OrderStatusDaiqueren:
+//                {
+//                    
+//                }
+//                    break;
+                case OrderStatusWancheng:
+                {
+                    self.footView.footerType = FooterTypeJiaoyichenggong;
+                }
+                    break;
+//                case OrderStatusTuihuozhong:
+//                {
+//                    
+//                }
+//                    break;
+//                case OrderStatusTuihuochenggong:
+//                {
+//                    
+//                }
+//                    break;
+//                    
+                    
+                default:
+                    self.footView.footerType = FooterTypeQitazhuangtai;
+                    break;
+            }
+            _footView.footerType = FooterTypeJiaoyichenggong;
             [self.tableView reloadData];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -364,6 +414,12 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     return [[UIView alloc]init];
 }
+
+
+
+
+
+
 
 
 

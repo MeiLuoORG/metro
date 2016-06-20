@@ -7,6 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
+
+/*
+ 定单状态 '-1'=>'已删除','0'=>'取消的订单','1'=>'等待买家付款','2'=>'等待卖家发货','3'=>'等待买家确认收货','4'=>'订单完成','5'=>'退货中的订单','6'=>'退货成功'
+ */
+typedef NS_ENUM(NSInteger,OrderStatus){
+    OrderStatusYishanchu = -1,
+    OrderStatusQuxiao = 0,
+    OrderStatusDaifukuan,
+    OrderStatusDaifahuo,
+    OrderStatusDaiqueren,
+    OrderStatusWancheng,
+    OrderStatusTuihuozhong,
+    OrderStatusTuihuochenggong,
+};
+
+
+
+
+
+
+
 @interface MLPersonOrderModel : NSObject
 @property (nonatomic,copy)NSString *ID;
 @property (nonatomic,copy)NSString *userid;
@@ -24,7 +45,7 @@
 @property (nonatomic,assign)float tax_price;
 @property (nonatomic,copy)NSString *change_price;
 @property (nonatomic,assign)float discount_price;
-@property (nonatomic,copy)NSString *status;
+@property (nonatomic,assign)OrderStatus status;
 @property (nonatomic,copy)NSString *des;
 @property (nonatomic,copy)NSString *seller_note;
 @property (nonatomic,copy)NSString *creat_time;

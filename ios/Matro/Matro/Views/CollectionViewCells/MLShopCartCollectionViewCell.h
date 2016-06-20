@@ -29,7 +29,16 @@ typedef void(^ShopCartCheckBoxBlock)();
 @property (nonatomic,copy)ShopCartCheckBoxBlock shopCartCheckBoxBlock;
 @property (nonatomic,copy)ShopCartDelBlock shopCartDelBlock;
 
+@property (weak, nonatomic) IBOutlet UIButton *delBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *checkBoxL;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *goodImgL;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *actL;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *actDL;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *goodNameL;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *goodDescL;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *delL;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *countL;
 
 @end

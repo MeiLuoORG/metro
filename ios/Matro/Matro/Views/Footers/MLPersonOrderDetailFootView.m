@@ -82,6 +82,7 @@
         }
             break;
         default:
+            self.hidden = YES;
             break;
     }
 }

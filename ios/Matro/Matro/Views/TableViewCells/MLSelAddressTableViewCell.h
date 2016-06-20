@@ -15,7 +15,7 @@ typedef void(^CheckBoxBlock)(BOOL isSelected);
 
 @interface MLSelAddressTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet MLCheckBoxButton *checkBox;
-@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UITextView *addressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *defaultLabel;

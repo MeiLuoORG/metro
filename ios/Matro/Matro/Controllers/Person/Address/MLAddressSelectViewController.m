@@ -121,7 +121,7 @@ static MLAddressListModel *selAddress;
     MLAddressListModel *model = [self.addressList objectAtIndex:indexPath.row];
     cell.addressModel = model;
     
-    cell.checkBox.cartSelected = (selAddress == model);
+    cell.checkBox.addSelected = (selAddress == model);
     __weak typeof(self) weakself = self;
     cell.selAddressEditBlock = ^(){
         MLAddressInfoViewController *vc = [MLAddressInfoViewController new];
@@ -151,16 +151,33 @@ static MLAddressListModel *selAddress;
 
 - (void)checkBoxClick:(MLCheckBoxButton *)sender{
     NSInteger index = sender.tag - 100;
-    sender.cartSelected = !sender.cartSelected;
+    sender.addSelected = !sender.addSelected;
     MLAddressListModel *address = [self.addressList objectAtIndex:index];
-    selAddress = sender.cartSelected?address:nil;
+    selAddress = sender.addSelected?address:nil;
     [self.tableView reloadData];
     
 }
 
 
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    MLAddressListModel *address = [self.addressList objectAtIndex:indexPath.row];
+    MLSelAddressTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    selAddress = cell.checkBox.addSelected?nil:address;
+    [self.tableView reloadData];
+    
+    if (!selAddress) {
+        [MBProgressHUD showMessag:@"请选择联系人" toView:self.view];
+        return;
+    }
+    if (self.addressSelectBlock) {
+        self.addressSelectBlock(selAddress);
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {

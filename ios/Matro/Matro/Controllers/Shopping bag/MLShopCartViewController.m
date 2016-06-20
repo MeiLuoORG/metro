@@ -25,6 +25,8 @@
 //#import "MBProgressHUD+Add.h"
 #import "UIView+BlankPage.h"
 #import "MLLoginViewController.h"
+#import "NSString+GONMarkup.h"
+#import "MBProgressHUD+Add.h"
 
 @interface MLShopCartViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CPStepperDelegate>
 
@@ -179,7 +181,6 @@ static NSInteger goodsCount;
             [self.shopCart.cart removeObject:model];
             [self.collectionView reloadData];
             
-            
         };
         return cell;
     }
@@ -189,17 +190,14 @@ static NSInteger goodsCount;
 
 
 - (void)addButtonClick:(MLProlistModel *)prolist count:(int)textCount{
-    //调用接口
-    prolist.num = textCount;
-    [self countAllPrice];
+
+    [self changeNum:prolist AndCount:textCount];
+    
     
     
 }
 - (void)subButtonClick:(MLProlistModel *)prolist count:(int)textCount{
-    prolist.num = textCount;
-    [self countAllPrice];
-    
-
+    [self changeNum:prolist AndCount:textCount];
 }
 
 
@@ -215,13 +213,8 @@ static NSInteger goodsCount;
             return CGSizeMake(cellW,cellW*1.4);
         }
         else{
-//            MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
-//            MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
-        
             return CGSizeMake(MAIN_SCREEN_WIDTH, 125);//没有包邮情况
         }
-//    }
-//    return CGSizeZero;
     
 }
 //定义每个UICollectionView 的间距
@@ -264,7 +257,8 @@ static NSInteger goodsCount;
        MLCartFootCollectionReusableView *cartFoot = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:kCartFootCollectionReusableView forIndexPath:indexPath];
         [cartFoot.checkBox addTarget:self action:@selector(selectAllGoods:) forControlEvents:UIControlEventTouchUpInside];
         [cartFoot.clearingBtn addTarget:self action:@selector(clearingAction) forControlEvents:UIControlEventTouchUpInside];
-        cartFoot.detailLabel.text = [NSString stringWithFormat:@"合计:￥%.2f 共%li件，不含运费",allPrice,(long)goodsCount];
+        NSString *attr = [NSString stringWithFormat:@"<font  size = \"13\">合计：<color value = \"#FF4E26\">￥%.2f</><font  size = \"11\"><color value = \"#999999\"> 共%li件，不含运费</></></>",allPrice,(long)goodsCount];
+        cartFoot.detailLabel.attributedText = [attr createAttributedString];
         return cartFoot;
     }
     else{
@@ -299,25 +293,38 @@ static NSInteger goodsCount;
 
 - (void)clearingAction{//结算操作
     
-    
     NSMutableArray *temp = [NSMutableArray array];
     for (MLShopingCartModel *model in self.shopCart.cart) {
         for (MLProlistModel *prolist in model.prolist) {
             if (prolist.is_check == 1) {
-                [temp addObject:model];
+                NSDictionary *dic = @{@"product_id[]":prolist.ID};
+                [temp addObject:dic];
             }
         }
     }
     if (temp.count == 0) {
         NSLog(@"还没有商品加入购物车");
+        [MBProgressHUD showMessag:@"您还没有选择商品" toView:self.view];
     }
     else{ //发送下单请求
-        
+        [self confirmOrderWithProducts:[temp copy]];
     }
-    
-    
 }
 
+
+- (void)confirmOrderWithProducts:(NSArray *)products{//创建订单
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:@"http://bbctest.matrojp.com/api.php?m=product&s=confirm_order" parameters:products success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            //订单提交成功   后续操作
+            [MBProgressHUD showSuccess:@"订单提交成功，后续操作" toView:self.view];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
+}
 
 
 
@@ -383,7 +390,7 @@ static NSInteger goodsCount;
         for (MLProlistModel *prolist in model.prolist) {
             if (prolist.is_check == 1) {
                 goodsCount ++;
-                allPrice+= prolist.pro_price*prolist.num;
+                allPrice+= prolist.pro_price;
             }
         }
     }
@@ -398,14 +405,40 @@ static NSInteger goodsCount;
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             
-            
-            
+            [self getDataSource];
         }
     
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
 }
+
+
+
+- (void)changeNum:(MLProlistModel *)prolist AndCount:(NSInteger)count{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:@"http://bbctest.matrojp.com/api.php?m=product&s=cart&action=modify" parameters:@{@"id":prolist.ID,@"nums":[NSNumber numberWithInteger:count]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) { //修改成功
+            NSDictionary *data = result[@"data"];
+            NSString *price = data[@"price"];
+            prolist.pro_price = [price floatValue];
+            //调用接口
+            prolist.num = count;
+            [self.collectionView reloadData];
+            [self countAllPrice];
+        }
+        else
+        {
+            [self getDataSource];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD showMessag:@"" toView:self.view];
+    }];
+}
+
+
 
 
 

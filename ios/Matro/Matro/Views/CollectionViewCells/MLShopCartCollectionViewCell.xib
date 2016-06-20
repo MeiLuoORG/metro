@@ -19,22 +19,11 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="YBX-f3-0qU"/>
                         </constraints>
-                        <state key="normal" title="删除"/>
-                        <connections>
-                            <action selector="delAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="zPQ-EP-2Zf"/>
-                        </connections>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUW-WP-Am4" customClass="MLCheckBoxButton">
-                        <rect key="frame" x="16" y="64" width="15" height="15"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="15" id="cnK-GX-WFB"/>
-                            <constraint firstAttribute="height" constant="15" id="tKl-jg-oAJ"/>
-                        </constraints>
-                        <state key="normal" image="zSelectBtn">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="删除">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </state>
                         <connections>
-                            <action selector="changeCheckBox:" destination="gTV-IL-0wX" eventType="touchUpInside" id="rkc-Sp-3dy"/>
+                            <action selector="delAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="zPQ-EP-2Zf"/>
                         </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5CD-Ft-ztc">
@@ -95,6 +84,19 @@
                         <color key="textColor" red="0.062745098039215685" green="0.062745098039215685" blue="0.062745098039215685" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUW-WP-Am4" customClass="MLCheckBoxButton">
+                        <rect key="frame" x="16" y="64" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="cnK-GX-WFB"/>
+                            <constraint firstAttribute="height" constant="15" id="tKl-jg-oAJ"/>
+                        </constraints>
+                        <state key="normal" image="zSelectBtn">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="changeCheckBox:" destination="gTV-IL-0wX" eventType="touchUpInside" id="rkc-Sp-3dy"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -126,13 +128,22 @@
             </constraints>
             <size key="customSize" width="400" height="125"/>
             <connections>
+                <outlet property="actDL" destination="k0m-YH-cT1" id="QhP-Oh-pUB"/>
                 <outlet property="actDesc" destination="xnB-6m-fw9" id="G4S-eo-RVp"/>
+                <outlet property="actL" destination="CAG-LW-1af" id="MhF-FE-Hwl"/>
                 <outlet property="actlabel" destination="zJ3-XM-WDd" id="JNq-xt-Hj3"/>
                 <outlet property="checkBox" destination="VUW-WP-Am4" id="DW3-v1-O2V"/>
+                <outlet property="checkBoxL" destination="Vdi-xK-ft4" id="gYR-8G-L9q"/>
                 <outlet property="countField" destination="6ac-bb-ecS" id="UGT-Fn-3qh"/>
+                <outlet property="countL" destination="AHE-Rn-1ZA" id="RkC-df-3FF"/>
+                <outlet property="delBtn" destination="bfu-C2-2bj" id="h4D-m7-3cw"/>
+                <outlet property="delL" destination="KaP-G7-mpj" id="Kjy-Pa-BPe"/>
                 <outlet property="goodDesc" destination="ufw-wa-9Z6" id="nNM-H4-MuY"/>
+                <outlet property="goodDescL" destination="7ur-Q1-bPI" id="HpS-6j-4f4"/>
+                <outlet property="goodImgL" destination="0OT-gf-faw" id="3p3-5a-gfh"/>
                 <outlet property="goodImgView" destination="5CD-Ft-ztc" id="JrD-1b-TkL"/>
                 <outlet property="goodName" destination="rzk-AC-58K" id="rD1-kQ-9sJ"/>
+                <outlet property="goodNameL" destination="rJ4-tl-smr" id="Eqc-OR-NK4"/>
                 <outlet property="goodPrice" destination="rxB-5i-qHX" id="Z7r-iZ-vBZ"/>
             </connections>
             <point key="canvasLocation" x="294" y="312.5"/>

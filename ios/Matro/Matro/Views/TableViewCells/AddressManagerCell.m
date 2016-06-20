@@ -28,14 +28,6 @@
     // Configure the view for the selected state
 }
 
-//@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
-//@property (weak, nonatomic) IBOutlet UIButton *checkBtn;
-//
-//@property (weak, nonatomic) IBOutlet UIButton *editBtn;
-//@property (weak, nonatomic) IBOutlet UIButton *delBtn;
-
 
 
 - (void)setAddress:(MLAddressListModel *)address{
@@ -69,11 +61,17 @@
 
 @end
 
-@implementation AddressCheckBox
+@implementation AddressCheckBoxButton
 
 - (void)setIsSelected:(BOOL)isSelected{
     _isSelected = isSelected;
-    [self setImage:[UIImage imageNamed:_isSelected?@"zSelected":@"zSelectBtn"] forState:UIControlStateNormal];
+    if (_isSelected) {
+     [self setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+    }
+    else{
+    [self setImage:[UIImage imageNamed:@"zSelectBtn"] forState:UIControlStateNormal];
+    }
+
     
 
 }

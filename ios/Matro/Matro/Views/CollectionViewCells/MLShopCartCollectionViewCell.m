@@ -41,12 +41,15 @@
 }
 
 
+
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)gestureRecognizer{
     if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         if (!_showDel) {
             [UIView animateWithDuration:0.2 animations:^{
-                CGPoint center = self.contentView.center;
-                self.contentView.center = CGPointMake(center.x - 80, center.y);
+                self.countL.constant = 8 + 80;
+                self.checkBoxL.constant = 16 - 80;
+                self.actL.constant = 39 - 80;
+
             } completion:^(BOOL finished) {
                 _showDel = YES;
             }];
@@ -54,15 +57,13 @@
 
     }
     else{//收齐
-        if (_showDel) {
-            [UIView animateWithDuration:0.2 animations:^{
-                CGPoint center = self.contentView.center;
-                self.contentView.center = CGPointMake(center.x + 80, center.y);
-            } completion:^(BOOL finished) {
-                _showDel = NO;
-            }];
-        }
-
+        [UIView animateWithDuration:0.2 animations:^{
+            self.countL.constant = 8;
+            self.checkBoxL.constant = 16;
+            self.actL.constant = 39;
+        } completion:^(BOOL finished) {
+            _showDel = NO;
+        }];
     }
 }
 
@@ -95,10 +96,6 @@
 
 
 - (IBAction)delAction:(id)sender {
-    
-    NSLog(@"测试一下电机时间");
-    
-    
     
     if (self.shopCartDelBlock) {
         self.shopCartDelBlock();

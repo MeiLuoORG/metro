@@ -19,6 +19,10 @@
 #import "MLFootMarkViewController.h"
 #import "MLWishlistViewController.h"
 #import "MLYHQViewController.h"
+#import "MyAddressManagerViewController.h"
+#import "MLAddressSelectViewController.h"
+#import "MLPersonOrderDetailViewController.h"
+
 @interface MLHYHTableViewController ()
 
 @end
@@ -49,7 +53,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 11;
+    return 14;
 }
 
 
@@ -85,8 +89,15 @@
     else if (indexPath.row == 9){
         cell.textLabel.text = @"足迹列表";
     }
-    else {
+    else if(indexPath.row == 10){
         cell.textLabel.text = @"商品收藏";
+    }
+    else if(indexPath.row == 11){
+        cell.textLabel.text = @"收货地址";
+    }else if(indexPath.row == 12){
+        cell.textLabel.text = @"地址选择";
+    }else{
+        cell.textLabel.text = @"订单详情";
     }
     // Configure the cell...
     
@@ -188,12 +199,27 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else {
+   else if(indexPath.row == 10){
         MLWishlistViewController *vc = [[MLWishlistViewController alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
 
-    }
+   }else if(indexPath.row == 11){
+       MyAddressManagerViewController *vc = [[MyAddressManagerViewController alloc]init];
+       vc.hidesBottomBarWhenPushed = YES;
+       [self.navigationController pushViewController:vc animated:YES];
+   }
+   else if(indexPath.row == 12){
+       MLAddressSelectViewController *vc = [[MLAddressSelectViewController alloc]init];
+       vc.hidesBottomBarWhenPushed = YES;
+       [self.navigationController pushViewController:vc animated:YES];
+   }
+   else{
+       MLPersonOrderDetailViewController *vc= [[MLPersonOrderDetailViewController alloc]init];
+       vc.hidesBottomBarWhenPushed = YES;
+       
+       [self.navigationController pushViewController:vc animated:YES];
+   }
 }
 
 

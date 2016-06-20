@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MLTuiHuoFukuanTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退款方式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3n-01-Wl1">
+                        <rect key="frame" x="16" y="16" width="80" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="FkY-VE-Hl7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发票" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ScX-gX-7Us">
+                        <rect key="frame" x="16" y="53" width="80" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="xnp-Te-JIH"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbI-n4-qlg" customClass="MLCheckBoxButton">
+                        <rect key="frame" x="104" y="15" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="37j-Gs-FgX"/>
+                            <constraint firstAttribute="width" constant="20" id="JQg-v5-iWU"/>
+                        </constraints>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDs-TW-ant">
+                        <rect key="frame" x="132" y="53" width="15" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXg-mg-8YV" customClass="MLCheckBoxButton">
+                        <rect key="frame" x="177" y="52" width="20" height="20"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="无" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2q-lj-XQP">
+                        <rect key="frame" x="205" y="53" width="15" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="原支付方式退款" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9o-d7-M7q">
+                        <rect key="frame" x="132" y="16" width="105" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWO-PG-R0u" customClass="MLCheckBoxButton">
+                        <rect key="frame" x="104" y="52" width="20" height="20"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="fWO-PG-R0u" firstAttribute="centerY" secondItem="ScX-gX-7Us" secondAttribute="centerY" id="3qI-qf-v7S"/>
+                    <constraint firstItem="fWO-PG-R0u" firstAttribute="height" secondItem="TbI-n4-qlg" secondAttribute="height" id="3r5-fl-bAI"/>
+                    <constraint firstItem="k2q-lj-XQP" firstAttribute="centerY" secondItem="ScX-gX-7Us" secondAttribute="centerY" id="4CO-LX-dzp"/>
+                    <constraint firstAttribute="bottom" secondItem="ScX-gX-7Us" secondAttribute="bottom" constant="16" id="9IK-lJ-Rks"/>
+                    <constraint firstItem="a3n-01-Wl1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="CQX-Rc-LvU"/>
+                    <constraint firstItem="fWO-PG-R0u" firstAttribute="width" secondItem="TbI-n4-qlg" secondAttribute="width" id="FqU-Z3-cxx"/>
+                    <constraint firstItem="TbI-n4-qlg" firstAttribute="leading" secondItem="a3n-01-Wl1" secondAttribute="trailing" constant="8" id="G1F-nC-hOT"/>
+                    <constraint firstItem="fWO-PG-R0u" firstAttribute="centerY" secondItem="ScX-gX-7Us" secondAttribute="centerY" id="GtV-wx-gPI"/>
+                    <constraint firstItem="a3n-01-Wl1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="Le2-U6-uzx"/>
+                    <constraint firstItem="KXg-mg-8YV" firstAttribute="leading" secondItem="YDs-TW-ant" secondAttribute="trailing" constant="30" id="Rnw-1Q-FLW"/>
+                    <constraint firstItem="KXg-mg-8YV" firstAttribute="centerY" secondItem="ScX-gX-7Us" secondAttribute="centerY" id="Yy0-xM-ktt"/>
+                    <constraint firstItem="TbI-n4-qlg" firstAttribute="centerY" secondItem="a3n-01-Wl1" secondAttribute="centerY" id="aBl-hv-crh"/>
+                    <constraint firstItem="a3n-01-Wl1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="aS9-qp-9Tf"/>
+                    <constraint firstItem="k2q-lj-XQP" firstAttribute="leading" secondItem="KXg-mg-8YV" secondAttribute="trailing" constant="8" id="cSs-Fr-tSk"/>
+                    <constraint firstItem="YDs-TW-ant" firstAttribute="centerY" secondItem="ScX-gX-7Us" secondAttribute="centerY" id="czK-CV-muu"/>
+                    <constraint firstAttribute="bottom" secondItem="ScX-gX-7Us" secondAttribute="bottom" constant="8" id="dvF-w3-7Ur"/>
+                    <constraint firstItem="KXg-mg-8YV" firstAttribute="width" secondItem="TbI-n4-qlg" secondAttribute="width" id="fHU-hT-lql"/>
+                    <constraint firstItem="k2q-lj-XQP" firstAttribute="centerY" secondItem="ScX-gX-7Us" secondAttribute="centerY" id="iqE-SO-cfF"/>
+                    <constraint firstItem="YDs-TW-ant" firstAttribute="leading" secondItem="fWO-PG-R0u" secondAttribute="trailing" constant="8" id="jKq-2k-597"/>
+                    <constraint firstItem="ScX-gX-7Us" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="nlN-lI-Ek1"/>
+                    <constraint firstItem="r9o-d7-M7q" firstAttribute="centerY" secondItem="a3n-01-Wl1" secondAttribute="centerY" id="oD2-5T-A7K"/>
+                    <constraint firstItem="fWO-PG-R0u" firstAttribute="leading" secondItem="ScX-gX-7Us" secondAttribute="trailing" constant="8" id="ozy-Qg-xgb"/>
+                    <constraint firstItem="KXg-mg-8YV" firstAttribute="centerY" secondItem="ScX-gX-7Us" secondAttribute="centerY" id="tM7-31-EH1"/>
+                    <constraint firstItem="KXg-mg-8YV" firstAttribute="height" secondItem="TbI-n4-qlg" secondAttribute="height" id="xHE-bL-e5G"/>
+                    <constraint firstItem="YDs-TW-ant" firstAttribute="centerY" secondItem="ScX-gX-7Us" secondAttribute="centerY" id="yVK-3v-gJF"/>
+                    <constraint firstItem="r9o-d7-M7q" firstAttribute="leading" secondItem="TbI-n4-qlg" secondAttribute="trailing" constant="8" id="ych-zd-Tqq"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="CQX-Rc-LvU"/>
+                        <exclude reference="dvF-w3-7Ur"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+        </tableViewCell>
+    </objects>
+</document>

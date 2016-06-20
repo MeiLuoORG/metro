@@ -21,7 +21,7 @@
                             <constraint firstAttribute="height" constant="21" id="K9C-cG-vvQ"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgN-6X-0eQ">
@@ -81,7 +81,7 @@
                                     <action selector="delAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DRa-Ik-g7f"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJy-GJ-fgf" customClass="AddressCheckBox">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJy-GJ-fgf" customClass="AddressCheckBoxButton">
                                 <rect key="frame" x="13" y="16" width="120" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="FnF-XC-ekx"/>
@@ -114,7 +114,7 @@
                             <constraint firstAttribute="height" constant="21" id="LcC-fJ-Vi8"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
