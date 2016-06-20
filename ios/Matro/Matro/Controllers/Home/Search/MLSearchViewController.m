@@ -126,7 +126,7 @@ static CGFloat kHeight = 0;
         
         
         if (hotSearchplaceholderArray.count == 0) {
-            _searchBar.placeholder  = @"寻找你想要的商品";
+            _searchBar.placeholder  = @"默认搜索内容";
         }else{
             _searchBar.placeholder = hotSearchplaceholderArray[0];
         }
@@ -279,7 +279,7 @@ static CGFloat kHeight = 0;
 //点击搜索框时调用
 - (void) searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    if ([_searchBar.placeholder isEqualToString:@"寻找你想要的商品"]) {
+    if ([_searchBar.placeholder isEqualToString:@"默认搜索内容"]) {
         
     }else{
         _searchBar.text  = _searchBar.placeholder;

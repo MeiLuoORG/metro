@@ -21,12 +21,16 @@
 @interface MLSXView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>{
     
     //品牌分类相关数组，用treeview显示
-//    NSMutableArray *_dataArray;
+//
     RADataObject *_selectedItem;
     RADataObject *_selectedPP;
     
+    RADataObject *secondName;
+    
     NSMutableArray *ppArray;
     NSMutableArray *spArray;
+    NSMutableArray *secondArray;
+    
     NSString *maxprice;
     
     
@@ -305,55 +309,30 @@ static BOOL selectPP = NO;
         NSMutableArray *array = [[NSMutableArray alloc]init];
         
         if ([maxprice floatValue] <= 100) {            
-//            startprice = @"0";
-//            endprice = @"100";
-//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
-//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
-//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
-//            [_priceArray insertObject:tempPriceDataObject.description atIndex:1];
+
             [array addObject:priceDic1];
     
         }else if ([maxprice floatValue] > 100 && [maxprice floatValue] <= 500){
-//            startprice = @"101";
-//            endprice = @"500";
-//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
-//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
-//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
-//            [_priceArray insertObject:tempPriceDataObject.description atIndex:2];
+
             [array addObject:priceDic1];
             [array addObject:priceDic2];
 
             
         }else if ([maxprice floatValue] > 500 && [maxprice floatValue] <= 1000){
-//            startprice = @"501";
-//            endprice = @"1000";
-//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
-//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
-//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
-//            [_priceArray insertObject:tempPriceDataObject.description atIndex:3];
+
             [array addObject:priceDic1];
             [array addObject:priceDic2];
             [array addObject:priceDic3];
             
         }else if ([maxprice floatValue] > 1000 && [maxprice floatValue] <= 2000){
-//            startprice = @"1001";
-//            endprice = @"2000";
-//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
-//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
-//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
-//            [_priceArray insertObject:tempPriceDataObject.description atIndex:4];
+
             [array addObject:priceDic1];
             [array addObject:priceDic2];
             [array addObject:priceDic3];
             [array addObject:priceDic4];
             
         }else if ([maxprice floatValue] > 2000 && [maxprice floatValue] <= 5000){
-//            startprice = @"2001";
-//            endprice = @"5000";
-//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
-//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
-//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
-//            [_priceArray insertObject:tempPriceDataObject.description atIndex:5];
+
             [array addObject:priceDic1];
             [array addObject:priceDic2];
             [array addObject:priceDic3];
@@ -361,12 +340,7 @@ static BOOL selectPP = NO;
             [array addObject:priceDic5];
             
         }else if ([maxprice floatValue] > 5000 && [maxprice floatValue] <= 10000){
-//            startprice = @"5001";
-//            endprice = @"10000";
-//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
-//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
-//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
-//            [_priceArray insertObject:tempPriceDataObject.description atIndex:6];
+
             [array addObject:priceDic1];
             [array addObject:priceDic2];
             [array addObject:priceDic3];
@@ -375,12 +349,7 @@ static BOOL selectPP = NO;
             [array addObject:priceDic6];
             
         }else {
-//            startprice = @"10001";
-//            endprice = @"20000";
-//            NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
-//            NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
-//            HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
-//            [_priceArray insertObject:tempPriceDataObject.description atIndex:7];
+
             [array addObject:priceDic1];
             [array addObject:priceDic2];
             [array addObject:priceDic3];
@@ -485,13 +454,24 @@ static BOOL selectPP = NO;
         if (result) {
             int i=0;
             for (NSDictionary *temp in result) {
-               
-                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:temp[@"catid"] name:temp[@"cat"] children:nil];
+                NSDictionary *toptemp = temp[@"top"];
+                NSArray *secondArr = temp[@"second"];
+    
+                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:toptemp[@"catid"] name:toptemp[@"cat"] children:nil];
+                
+                    for (NSDictionary *secondDic in secondArr) {
+                        
+                        secondName = [RADataObject dataObjectWithIdstr:secondDic[@"catid"] name:secondDic[@"cat"] children:nil];
+                        [itemAll addChild:secondName];
+                    }
+                
                 itemAll.level = @0;
                 itemAll.dataId = [NSNumber numberWithInt:0];
                 itemAll.selected = NO;
                 [spArray addObject:itemAll];
+                
                 i++;
+                
             }
             [_treeView reloadData];
         }
@@ -599,9 +579,9 @@ static BOOL selectPP = NO;
     _shaixuanNextView.hidden = YES;
     _youhuoButton.selected = _quanqiugouButton.selected = _cuxiaoButton.selected = NO;
     
-    _fenlei.text = @"";
-    _pinpai.text = @"";
-    _jiage.text  = @"";
+    _fenlei.text = @"不限";
+    _pinpai.text = @"不限";
+    _jiage.text  = @"不限";
     
     for (id view in _titleButtonBgView.subviews) {
         if([view isKindOfClass:[UIButton class]]){
@@ -731,35 +711,10 @@ static BOOL selectPP = NO;
                 [self loadretCat];
             }
             
-            
-            
-            /*
-            _titleLabel.text = @"商品分类";
-            _shaixuanNextView.hidden = NO;
-            _treeView.hidden = NO;
-            _tableView.hidden = YES;
-//            _dataArray = [NSMutableArray array];
-//            RADataObject *itemAll = [RADataObject dataObjectWithId:@0 name:@"全部" children:nil];
-//            itemAll.level = @0;
-//            itemAll.selected = YES;
-//            _selectedItem = itemAll;
-//            [_dataArray addObject:itemAll];
-             selectPP = NO;
-             [self.treeView reloadData];
-            if (spArray.count > 1) {
-                
-                [self.treeView reloadData];
-                
-            }
-            else{
-                [self loadDateClass];
-            }
-          */
         }
             break;
 #pragma mark- 品牌
         case 101:{
-            
             
             _titleLabel.text = @"品牌";
             _shaixuanNextView.hidden = NO;
@@ -777,52 +732,6 @@ static BOOL selectPP = NO;
             
             
             
-            /*
-            _titleLabel.text = @"品牌";
-            _shaixuanNextView.hidden = NO;
-            _treeView.hidden = NO;
-            _tableView.hidden = YES;
-//            _dataArray = [NSMutableArray array];
-//            
-//            RADataObject *itemAll = [RADataObject dataObjectWithId:@0 name:@"全部" children:nil];
-//            itemAll.level = @0;
-//            itemAll.selected = YES;
-//            [_dataArray addObject:itemAll];
-//            _selectedItem = itemAll;
-            
-    
-            NSString *urlStr = nil;
-            
-            
-            if (self.keywords) {
-                NSString *key = [self.keywords stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-                urlStr = [NSString stringWithFormat:@"%@Ajax/search/search.ashx?op=getpp&spflcode=&ppcode=&key=%@",SERVICE_GETBASE_URL,key];
-            }
-            
-            if (self.spflCode) {
-                urlStr = [NSString stringWithFormat:@"%@Ajax/search/search.ashx?op=getpp&spflcode=%@&ppcode=&key=",SERVICE_GETBASE_URL,self.spflCode];
-            }
-
-//            if (self.keywords) {
-////                self.keywords =@"奶粉"; // 以后要删掉
-//                NSString *keystr = [self.keywords stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-//                urlStr = [NSString stringWithFormat:@"%@%@",urlStr,keystr];
-//            }
-            
-//            if (_dataArray.count>0) {
-//                [self loadBrand:urlStr];
-//            }
-            
-            selectPP = YES;
-            [self.treeView reloadData];
-            if (ppArray.count > 1) {
-                [self.treeView reloadData];
-            }
-            else{
-                [self loadBrand:urlStr];
-            }
-             */
-            
         }
             break;
 #pragma mark- 价格
@@ -834,7 +743,6 @@ static BOOL selectPP = NO;
             
             [self loadmaxPrice];
             
-            //[self loadDatePrice];
             
         }
             break;
@@ -852,17 +760,17 @@ static BOOL selectPP = NO;
     
     if (data.children.count > 0) {
         cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Left_Arrow_yuan2"]];
-        cell.tintColor = [UIColor colorWithHexString:@"#323232"];
-        cell.textLabel.textColor = [UIColor colorWithHexString:@"#323232"];
+        cell.tintColor = [UIColor colorWithHexString:@"#260E00"];
+        cell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];
     } else {
         
         if (data.selected) {
-            cell.tintColor = [UIColor colorWithHexString:@"#E60000"];
-            cell.textLabel.textColor = [UIColor colorWithHexString:@"#E60000"];
+            cell.tintColor = [UIColor colorWithHexString:@"#260E00"];
+            cell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];
             cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"choice_icon"]];
         } else {
-            cell.tintColor = [UIColor colorWithHexString:@"#323232"];
-            cell.textLabel.textColor = [UIColor colorWithHexString:@"#323232"];
+            cell.tintColor = [UIColor colorWithHexString:@"#260E00"];
+            cell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];
             cell.accessoryView = nil;
         }
     }
@@ -905,7 +813,7 @@ static BOOL selectPP = NO;
     
     if (data.children.count > 0) {
         UITableViewCell *cell = [treeView cellForItem:item];
-        cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xiajian.psb"]];
+        cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xiajian"]];
     }
 }
 
@@ -921,8 +829,8 @@ static BOOL selectPP = NO;
             if (data.children.count == 0) {
                 if (!data.selected) {
                     
-                    cell.tintColor = [UIColor colorWithHexString:@"#E60000"];
-                    cell.textLabel.textColor = [UIColor colorWithHexString:@"#E60000"];
+                    cell.tintColor = [UIColor colorWithHexString:@"#260E00"];
+                    cell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];
                     cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"check"]];
                     data.selected = YES;
                 }
@@ -933,19 +841,19 @@ static BOOL selectPP = NO;
             if (data.children.count == 0 ) {
                 
                 UITableViewCell *selectedCell = [treeView cellForItem:_selectedItem];
-                selectedCell.tintColor = [UIColor colorWithHexString:@"#323232"];
-                selectedCell.textLabel.textColor = [UIColor colorWithHexString:@"#323232"];
+                selectedCell.tintColor = [UIColor colorWithHexString:@"#260E00"];
+                selectedCell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];
                 selectedCell.accessoryView = nil;
-//                if (selectPP) {
-//                    _selectedPP.selected = NO;
-//                }
-//                else{
+                if (selectPP) {
+                    _selectedPP.selected = NO;
+                }
+                else{
                     _selectedItem.selected = NO;
-//                }
+              }
                 
                 UITableViewCell *cell = [treeView cellForItem:item];
-                cell.tintColor = [UIColor colorWithHexString:@"#E60000"];
-                cell.textLabel.textColor = [UIColor colorWithHexString:@"#E60000"];
+                cell.tintColor = [UIColor colorWithHexString:@"#260E00"];
+                cell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];
                 cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"choice_icon"]];
                 data.selected = YES;
                 if (data.idstr) {
@@ -959,12 +867,12 @@ static BOOL selectPP = NO;
                         [paramfilterDic setObject:[NSString stringWithFormat:@"%@",spflcode] forKey:@"brandid"];
                     }
                 }
-//                if (selectPP) {
-//                    _selectedPP = item;
-//                }
-//                else{
+                if (selectPP) {
+                    _selectedPP = item;
+                }
+                else{
                     _selectedItem = item;
-//                }
+                }
                 
             }
         }
@@ -980,8 +888,8 @@ static BOOL selectPP = NO;
             if (data.children.count == 0) {
                 if (!data.selected) {
                     
-                    cell.tintColor = [UIColor colorWithHexString:@"#E60000"];
-                    cell.textLabel.textColor = [UIColor colorWithHexString:@"#E60000"];
+                    cell.tintColor = [UIColor colorWithHexString:@"#260E00"];
+                    cell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];
                     cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"choice_icon"]];
                     data.selected = YES;
                 }
@@ -992,8 +900,8 @@ static BOOL selectPP = NO;
             if (data.children.count == 0 ) {
                 
                 UITableViewCell *selectedCell = [treeView cellForItem:_selectedPP];
-                selectedCell.tintColor = [UIColor colorWithHexString:@"#323232"];
-                selectedCell.textLabel.textColor = [UIColor colorWithHexString:@"#323232"];
+                selectedCell.tintColor = [UIColor colorWithHexString:@"#260E00"];
+                selectedCell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];
                 selectedCell.accessoryView = nil;
 //                if (selectPP) {
                     _selectedPP.selected = NO;
@@ -1003,8 +911,8 @@ static BOOL selectPP = NO;
 //                }
                 
                 UITableViewCell *cell = [treeView cellForItem:item];
-                cell.tintColor = [UIColor colorWithHexString:@"#E60000"];
-                cell.textLabel.textColor = [UIColor colorWithHexString:@"#E60000"];
+                cell.tintColor = [UIColor colorWithHexString:@"#260E00"];
+                cell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];
                 cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"choice_icon"]];
                 data.selected = YES;
                 if (data.idstr) {
@@ -1087,12 +995,12 @@ static BOOL selectPP = NO;
 }
 
 -(void)selectCell:(UITableViewCell *)cell {
-    cell.textLabel.textColor = [UIColor colorWithHexString:@"#e60000"];
+    cell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];
     cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"choice_icon"]];
 }
 
 -(void)unselectCell:(UITableViewCell *)cell {
-    cell.textLabel.textColor = [UIColor colorWithHexString:@"#323232"];
+    cell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];
     cell.accessoryView = nil;
 }
 

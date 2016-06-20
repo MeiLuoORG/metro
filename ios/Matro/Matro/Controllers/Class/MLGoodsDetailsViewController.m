@@ -44,6 +44,8 @@
 
 @interface MLGoodsDetailsViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIAlertViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,YAScrollSegmentControlDelegate,DWTagListDelegate>{
     
+    NSDictionary *pDic;//商品详情信息
+    
     NSMutableArray *_imageArray;//轮播图数组
     
     NSMutableArray *_recommendArray;
@@ -67,6 +69,7 @@
     
     NSMutableArray *promotionArray;//优惠券
     
+    NSDictionary *Searchdic;//根据选的规格遍历出来的商品信息
     
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;//最底层的SV
@@ -140,18 +143,19 @@
     titleView.buttons = @[@"商    品",@"图文详情"];
     
     [titleView setTitleColor:[UIColor colorWithHexString:@"AE8E5D"] forState:UIControlStateSelected];
-    [titleView setTitleColor:[UIColor colorWithHexString:@"0E0E0E"] forState:UIControlStateNormal];
+    [titleView setTitleColor:[UIColor colorWithHexString:@"A9A9A9"] forState:UIControlStateNormal];
     [titleView setBackgroundImage:[UIImage imageNamed:@"sel_type_g"] forState:UIControlStateSelected];
     [titleView setBackgroundImage:[UIImage imageNamed:@"TM.jpg"] forState:UIControlStateNormal];
     titleView.delegate = self;
     self.navigationItem.titleView = titleView;
+    pDic = [[NSDictionary alloc] init];
     _recommendArray = [[NSMutableArray alloc] init];
     _titleArray = [[NSArray alloc] init];
     huoyuanArray = [[NSMutableArray alloc]init];
     jieduanArray = [[NSMutableArray alloc] init];
     promotionArray = [[NSMutableArray alloc] init];
     porpertyArray = [[NSMutableArray alloc] init];
-    
+    Searchdic = [[NSDictionary alloc] init];
     
     imgUrlArray = [NSMutableArray array];
     // 一期隐藏
@@ -260,16 +264,27 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@",@"http://bbctest.matrojp.com",_paramDic[@"id"]];
+    //测试链接
     //NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
     
     [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *dic = responseObject[@"data"];
-        
+        pDic = responseObject[@"data"];
         
         _titleArray = dic[@"pinfo"][@"porperty_name"];
         
+        NSString *is_collect = dic[@"pinfo"][@"is_collect"];
+        
+        if ([is_collect isEqual:@0]) {
+            self.shoucangButton.selected = NO;
+            [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
+        }else{
+            
+            self.shoucangButton.selected = YES;
+            [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
+        }
         
         if (_titleArray && _titleArray.count >0) {
             NSArray *porpertyArr = dic[@"pinfo"][@"porperty"];
@@ -278,6 +293,7 @@
             NSLog(@"porpertyArr===%@",porpertyArr);
             for (NSDictionary *tempdic in porpertyArr) {
                 NSLog(@"tempdic==%@",tempdic);
+                
                 NSArray *setmealArr = tempdic[@"setmeal"];
                 NSLog(@"setmealArr==%@",setmealArr);
                 NSDictionary *guigeDic1 = setmealArr[0];
@@ -524,7 +540,7 @@
         
         for (NSString *searchStr in guige) {
             if ([searchStr isEqualToString:tagName]) {
-                
+                Searchdic = searchDic;
                 price = searchDic[@"price"];
                 market_price = searchDic[@"market_price"];
                 stock = searchDic[@"stock"];
@@ -635,7 +651,22 @@
 }
 #pragma mark 加入购物袋
 - (IBAction)addShoppingBag:(id)sender {
-/*
+    /*
+     http://localbbc.matrojp.com/api.php?m=product&s=cart&action=add_cart
+     
+     POST
+     
+     id=12301 商品id    商品详情接口里的   pinfo  下的id
+     
+     nums=1 商品数量
+     
+     sid=12311 商品规格ID    没有规格的填0 有规格填 商品详情接口里的   pinfo  下的 property  下的 id 字段
+     
+     sku=0  商品货号   没有规格的时候填商品详情接口里的   pinfo  下的code,如果是带规格的那么填pinfo  下的 property  下的 sku字段
+     
+     
+    */
+    
     if ([self.kuncuntisLabel.text isEqualToString:@"售罄"]) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
@@ -643,8 +674,62 @@
         [_hud hide:YES afterDelay:1];
         return;
     }
-   */
     
+    
+    if (userid) {
+        
+    NSLog(@"pDic===5555 %@",pDic);
+    NSLog(@"Searchdic===6666%@",Searchdic);
+        
+    NSString *pid = pDic[@"pinfo"][@"id"];
+    NSString *sid ;
+    NSString *sku;
+    if (_titleArray && _titleArray.count ==0) {
+        sid = @"0";
+        sku = pDic[@"pinfo"][@"code"];
+        
+    }else{
+        sid = Searchdic[@"id"];
+        sku= Searchdic[@"sku"];
+    }
+    
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=add_cart",@"http://bbctest.matrojp.com"];
+    NSDictionary *params = @{@"id":pid,@"nums":[NSNumber numberWithInteger:_shuliangStepper.value],@"sid":sid,@"sku":sku};
+    
+    
+    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+        
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         
+         NSDictionary *result = (NSDictionary *)responseObject;
+         NSString *code = result[@"code"];
+         if ([code isEqual:@0]) {
+             [_hud show:YES];
+             _hud.mode = MBProgressHUDModeText;
+             _hud.labelText = @"加入购物车成功";
+             [_hud hide:YES afterDelay:2];
+         }
+         NSLog(@"请求成功 result====%@",result);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"请求失败 error===%@",error);
+         [_hud show:YES];
+         _hud.mode = MBProgressHUDModeText;
+         _hud.labelText = @"加入购物车失败";
+         [_hud hide:YES afterDelay:2];
+     }];
+    
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [alert show];
+    }
+    
+    
+    /*
     if (userid) {
         NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/products.ashx?op=addcart&jmsp_id=%@&spsl=%ld&userid=%@",SERVICE_GETBASE_URL,spid,(unsigned long)_shuliangStepper.value, userid];
         
@@ -673,7 +758,7 @@
         
         [alert show];
     }
-   
+   */
    
 }
 
@@ -765,7 +850,7 @@
         imageview.tag = i;
         imageview.userInteractionEnabled = YES;
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapped:)];
-        [imageview addGestureRecognizer:singleTap];
+        //[imageview addGestureRecognizer:singleTap];
         [_imageScrollView addSubview:imageview];
     }
     
@@ -986,33 +1071,119 @@
 
 #pragma Mark 收藏
 - (IBAction)shouCangClick:(id)sender {
+  /*
+    http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_product
+   do = add 【操作码】
+  
+   pid= 13911 【商品id】
+   
+   uname = ml_13771961207【会员名】
+  */
     
+    NSLog(@"pDic===%@",pDic);
+    NSString *pid = pDic[@"pinfo"][@"id"];
+    NSString *uname = pDic[@"pinfo"][@"user"];
     if (userid) {
+        if (!self.shoucangButton.selected) {
         
-        NSString *url = [NSString stringWithFormat:@"%@Ajax/products.ashx?op=sc&jmsp_id=%@&userid=%@",SERVICE_GETBASE_URL,_paramDic[@"JMSP_ID"]?:@"",userid];
-        
-        [[HFSServiceClient sharedClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%@",responseObject);
-            NSString *result = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-            NSLog(@"%@",result);
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = result;
-            [_hud hide:YES afterDelay:2];
+        self.shoucangButton.selected = YES;
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
+        [self.shoucangButton setTitleColor:RGBA(174, 142, 93, 1) forState:UIControlStateNormal];
+  
+        NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com"];
+        NSDictionary *params = @{@"do":@"add",@"pid":pid,@"uname":uname};
+    
+    
+      [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+       } success:^(AFHTTPRequestOperation *operation, id responseObject){
+           
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSString *share_add = result[@"data"][@"share_add"];
+        if (share_add) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"请求失败";
+            _hud.labelText = @"收藏成功";
             [_hud hide:YES afterDelay:2];
+        }else{
+            
+        }
+        NSLog(@"请求成功 result====%@",result);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求失败 error===%@",error);
+        
         }];
-
- 
-    }
-    else{
+    }else{
+        self.shoucangButton.selected = NO;
+        [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
+        [self.shoucangButton setTitleColor:RGBA(38, 14, 0, 1) forState:UIControlStateNormal];
+        [self deleteClick:pid];
+        [MBProgressHUD showMessag:@"已收藏" toView:self.view];
+        return;
+        }
+    }else{
         [MBProgressHUD showMessag:@"请先登录" toView:self.view];
         return;
     }
+    
+}
+
+- (void) deleteClick:(NSString*)sender{
+    /*
+     http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_product
+     
+     【post】
+     
+     do=del 【操作码】
+     
+     id=2281 【收藏商品id】
+    */
+    NSLog(@"pDic===%@",pDic);
+    if (userid) {
+        if (self.shoucangButton.selected) {
+ 
+            NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com"];
+            NSDictionary *params = @{@"do":@"add",@"pid":sender};
+            self.shoucangButton.selected = NO;
+            [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
+            [self.shoucangButton setTitleColor:RGBA(38, 14, 0, 1) forState:UIControlStateNormal];
+            
+            [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+                
+                
+            } success:^(AFHTTPRequestOperation *operation, id responseObject)
+             {
+                 NSDictionary *result = (NSDictionary *)responseObject;
+                 NSString *share_add = result[@"data"][@"ads_del"];
+                 if (share_add) {
+                     [_hud show:YES];
+                     _hud.mode = MBProgressHUDModeText;
+                     _hud.labelText = @"取消收藏成功";
+                     [_hud hide:YES afterDelay:2];
+                 }else{
+                     [_hud show:YES];
+                     _hud.mode = MBProgressHUDModeText;
+                     _hud.labelText = @"已取消收藏";
+                     [_hud hide:YES afterDelay:2];
+                 }
+                 NSLog(@"请求成功 result====%@",result);
+                 
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 NSLog(@"请求失败 error===%@",error);
+                 
+             }];
+        }else{
+            self.shoucangButton.selected = NO;
+            
+            [MBProgressHUD showMessag:@"已取消收藏" toView:self.view];
+            return;
+        }
+    }else{
+        [MBProgressHUD showMessag:@"请先登录" toView:self.view];
+        return;
+    }
+
 }
 
 @end

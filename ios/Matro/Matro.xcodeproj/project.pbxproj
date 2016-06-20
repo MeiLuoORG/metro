@@ -287,6 +287,8 @@
 		3C5B0C881CFC4329003FFD25 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */; };
 		3C5B0C8A1CFC433E003FFD25 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */; };
 		3C5B0C8C1CFC4348003FFD25 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */; };
+		3C5F123D1D17A075001F66E1 /* SecondBtnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */; };
+		3C5F123F1D17A09F001F66E1 /* SecondBtnsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */; };
 		3CAE049C1D06DDD5004504EA /* GCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04911D06DDD5004504EA /* GCD.m */; };
 		3CAE049D1D06DDD5004504EA /* GCDGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04931D06DDD5004504EA /* GCDGroup.m */; };
 		3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04961D06DDD5004504EA /* GCDQueue.m */; };
@@ -1061,6 +1063,9 @@
 		3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		3C5F123B1D17A075001F66E1 /* SecondBtnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondBtnsView.h; sourceTree = "<group>"; };
+		3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondBtnsView.m; sourceTree = "<group>"; };
+		3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondBtnsView.xib; sourceTree = "<group>"; };
 		3CAE04901D06DDD5004504EA /* GCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCD.h; sourceTree = "<group>"; };
 		3CAE04911D06DDD5004504EA /* GCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCD.m; sourceTree = "<group>"; };
 		3CAE04921D06DDD5004504EA /* GCDGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDGroup.h; sourceTree = "<group>"; };
@@ -1866,6 +1871,7 @@
 		3A633AA51C9EA36E00C11FD5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3C5F123A1D17A03B001F66E1 /* zlPersonView */,
 				7AED645D1CDD9C3C008F55BD /* YMPhoneCondeButton.h */,
 				7AED645E1CDD9C3C008F55BD /* YMPhoneCondeButton.m */,
 				7A3A62441CDB872700D265F2 /* YMLeftImageField.h */,
@@ -2983,6 +2989,16 @@
 			path = ZhengZe;
 			sourceTree = "<group>";
 		};
+		3C5F123A1D17A03B001F66E1 /* zlPersonView */ = {
+			isa = PBXGroup;
+			children = (
+				3C5F123B1D17A075001F66E1 /* SecondBtnsView.h */,
+				3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */,
+				3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */,
+			);
+			path = zlPersonView;
+			sourceTree = "<group>";
+		};
 		3CAE048A1D06C5CE004504EA /* PersonModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3341,6 +3357,7 @@
 				3A630BE91CA25C5B006E67F4 /* MLClassCollectionViewCell.xib in Resources */,
 				7A0720371D17D5D300E0B58E /* MLTuiHuoFooterView.xib in Resources */,
 				7A34865B1D0EAF97002EE211 /* MLShopCartCollectionViewCell.xib in Resources */,
+				3C5F123F1D17A09F001F66E1 /* SecondBtnsView.xib in Resources */,
 				3A1AA8C21CAA433900AF73C2 /* MLAddressListTableViewCell.xib in Resources */,
 				3A1AA8D81CAA8B7100AF73C2 /* MLPayerrTableViewCell.xib in Resources */,
 				7A07202A1D17D2E300E0B58E /* MLTuiHuoMiaoshuTableViewCell.xib in Resources */,
@@ -3602,6 +3619,7 @@
 				7ACD3A7A1CE86D97004BAF8B /* MLReturnsHeader.m in Sources */,
 				7AF0D7D61CE5957E00A8F913 /* MLSaleServiceViewController.m in Sources */,
 				3AA0E7AD1CA91E500079AA90 /* RSADataSigner.m in Sources */,
+				3C5F123D1D17A075001F66E1 /* SecondBtnsView.m in Sources */,
 				3A633B651C9EA36E00C11FD5 /* ZLPhotoPickerViewController.m in Sources */,
 				280F7CD21CF7F44800D42FA6 /* QRCodeGenerator.m in Sources */,
 				7AEC88C91CE4522E00B43DD4 /* MLScoreView.m in Sources */,

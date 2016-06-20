@@ -58,6 +58,7 @@
     
     [self.tableView.header beginRefreshing];
 
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -70,6 +71,15 @@
 
   */
     NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_product"];
+    
+    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"result===%@",result);
+        
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
     /*
     [HFSServiceClient sharedJSONClientNOT] POST:urlStr parameters:nil constructingBodyWithBlock:<#^(id<AFMultipartFormData> formData)block#> success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

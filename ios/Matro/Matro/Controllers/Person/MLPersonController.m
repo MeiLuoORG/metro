@@ -51,10 +51,20 @@
     JSBadgeView * _messageBadgeView;
     
     UIScrollView * _backgroundScrollView;
+    UIView * _fourButtonsBackView;
+    UIView * _thirdButtonBackView;
+
+    UILabel * _xingYunXingValueLabel;
+    UILabel * _jiFenValueLabel;
+    UILabel * _youhuiValueLabel;
+    UILabel * _yuEValueLabel;
+    
+    float _thirderHeight;
+    float _zongViewHeight;
 }
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)MLPersonHeadView *headView;
-
+@property (strong, nonatomic) SecondBtnsView * secondBtnsView;
 
 @end
 
@@ -62,6 +72,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
      self.navigationItem.title = @"个人中心";
     
     //加载背景图
@@ -151,6 +163,7 @@
         MLPersonHeadView *headView =[MLPersonHeadView personHeadView];
         __weak typeof(self)weakself = self;
         headView.loginBlock = ^(){
+            [self hideZLMessageBtnAndSetingBtn];
             MLLoginViewController *vc = [[MLLoginViewController alloc]init];
             vc.isLogin = YES;
             //YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
@@ -159,6 +172,7 @@
             
         };
         headView.regBlock = ^(){
+            [self hideZLMessageBtnAndSetingBtn];
             MLLoginViewController *vc = [[MLLoginViewController alloc]init];
             vc.isLogin = NO;
             //YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
@@ -169,6 +183,7 @@
                 [weakself showError];
             }
             else{
+                [self hideZLMessageBtnAndSetingBtn];
                 MNNManagementViewController *managementVC = [[MNNManagementViewController alloc] init];
                 managementVC.hidesBottomBarWhenPushed = YES;
 
@@ -190,7 +205,437 @@
         badgeView.hidden = NO;
     }];
     
+    [self loadSecondButtonsView];
+    [self loadThirdButtonsView];
+    [self loadFourButtonsView];
+    
 }
+
+#pragma mark zhoulu 第二栏按钮组
+- (void)loadSecondButtonsView{
+/*
+    
+    for (int i = 0; i<5; i++) {
+        
+        UIButton * btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [btn setFrame:CGRectMake(32, 20, 27, 60)];
+        btn.tag = 1000+i;
+        
+        [_backgroundScrollView addSubview:btn];
+    }
+*/
+    self.secondBtnsView = ({
+        SecondBtnsView *headView =[SecondBtnsView personHeadView];
+         __weak typeof(self)weakself = self;
+        headView.frame = CGRectMake(0, 110, SIZE_WIDTH, 67);
+        headView.view2CenterX.constant = -((SIZE_WIDTH/2)-62)/2;
+        headView.view4CenterX.constant = ((SIZE_WIDTH/2)-62)/2;
+        
+        headView.daiFuBLock = ^(BOOL success){
+            //待付款
+            NSLog(@"待付款");
+            if (!loginid) {
+                [self showError];
+                return;
+            }
+            
+        };
+        headView.daiFaHuoBLock = ^(BOOL success){
+            //代发货
+            NSLog(@"代发货");
+            if (!loginid) {
+                [self showError];
+                return;
+            }
+        };
+        headView.daiPingBLock = ^(BOOL success){
+            //待评价
+            NSLog(@"待评价");
+            if (!loginid) {
+                [self showError];
+                return;
+            }
+        };
+        headView.tuiHuoBLock = ^(BOOL success){
+            //带退货
+            NSLog(@"带退货");
+            if (!loginid) {
+                [self showError];
+                return;
+            }
+        };
+        
+        headView.quanBuBLock = ^(BOOL success){
+            //全部订单
+            NSLog(@"全部订单");
+            if (!loginid) {
+                [self showError];
+                return;
+            }
+        };
+        
+        
+        
+        headView;
+    });
+    [_backgroundScrollView addSubview:self.secondBtnsView];
+
+}
+
+
+
+#pragma end mark 第二按钮组结束
+
+#pragma mark 第三按钮组
+
+- (void)loadThirdButtonsView{
+
+    _thirdButtonBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 182, SIZE_WIDTH, (310.0f/750.0f)*SIZE_WIDTH)];
+    _thirdButtonBackView.backgroundColor = [UIColor whiteColor];
+    [_backgroundScrollView addSubview:_thirdButtonBackView];
+    
+    UILabel * labels = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 80, 15)];
+    labels.text = @"我的资产";
+    labels.font = [UIFont systemFontOfSize:14.0f];
+    labels.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
+    [_thirdButtonBackView addSubview:labels];
+    
+    UIView * spLiner = [[UIView alloc]initWithFrame:CGRectMake(0, 39, SIZE_WIDTH, 1)];
+    spLiner.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+    [_thirdButtonBackView addSubview:spLiner];
+    
+
+    
+    _xingYunXingValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(44, 55, 50, 18)];
+    _xingYunXingValueLabel.text = @"20000";
+     _xingYunXingValueLabel.font = [UIFont systemFontOfSize:11.0f];
+    _xingYunXingValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
+    _xingYunXingValueLabel.textAlignment = NSTextAlignmentCenter;
+    _xingYunXingValueLabel.adjustsFontSizeToFitWidth = YES;
+    _xingYunXingValueLabel.minimumScaleFactor = 0.5f;
+    
+    
+    
+     UILabel * xingYunLabel = [[UILabel alloc]initWithFrame:CGRectMake(44, 70, 50, 18)];
+    xingYunLabel.text = @"幸运星";
+    xingYunLabel.font = [UIFont systemFontOfSize:11.0f];
+    xingYunLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
+    xingYunLabel.textAlignment = NSTextAlignmentCenter;
+    xingYunLabel.adjustsFontSizeToFitWidth = YES;
+    xingYunLabel.minimumScaleFactor = 0.5f;
+
+    
+    _jiFenValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3+94), 55, 50, 18)];
+    _jiFenValueLabel.text = @"20000";
+    _jiFenValueLabel.font = [UIFont systemFontOfSize:11.0f];
+    _jiFenValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
+    _jiFenValueLabel.textAlignment = NSTextAlignmentCenter;
+    _jiFenValueLabel.adjustsFontSizeToFitWidth = YES;
+    _jiFenValueLabel.minimumScaleFactor = 0.5f;
+    
+    UILabel * jiFenLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f+94), 70, 50, 18)];
+    jiFenLabel.text = @"积分";
+    jiFenLabel.font = [UIFont systemFontOfSize:11.0f];
+    jiFenLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
+    jiFenLabel.textAlignment = NSTextAlignmentCenter;
+    jiFenLabel.adjustsFontSizeToFitWidth = YES;
+    jiFenLabel.minimumScaleFactor = 0.5f;
+    
+    _youhuiValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f*2.0f+144), 55, 50, 18)];
+    _youhuiValueLabel.text = @"4";
+    _youhuiValueLabel.font = [UIFont systemFontOfSize:11.0f];
+    _youhuiValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
+    _youhuiValueLabel.textAlignment = NSTextAlignmentCenter;
+    _youhuiValueLabel.adjustsFontSizeToFitWidth = YES;
+    _youhuiValueLabel.minimumScaleFactor = 0.5f;
+    
+    
+    
+    UILabel * youhuiLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f*2.0f+144), 70, 50, 18)];
+    youhuiLabel.text = @"优惠券";
+    youhuiLabel.font = [UIFont systemFontOfSize:11.0f];
+    youhuiLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
+    youhuiLabel.textAlignment = NSTextAlignmentCenter;
+    youhuiLabel.adjustsFontSizeToFitWidth = YES;
+    youhuiLabel.minimumScaleFactor = 0.5f;
+    
+    
+    _yuEValueLabel = [[UILabel alloc]initWithFrame:CGRectMake((SIZE_WIDTH-44-50), 55, 50, 18)];
+    _yuEValueLabel.text = @"34588";
+    _yuEValueLabel.font = [UIFont systemFontOfSize:11.0f];
+    _yuEValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
+    _yuEValueLabel.textAlignment = NSTextAlignmentCenter;
+    _yuEValueLabel.adjustsFontSizeToFitWidth = YES;
+    _yuEValueLabel.minimumScaleFactor = 0.5f;
+    
+    UILabel * yuElabel = [[UILabel alloc]initWithFrame:CGRectMake((SIZE_WIDTH-44-50), 70, 50, 18)];
+    yuElabel.text = @"余额";
+    yuElabel.font = [UIFont systemFontOfSize:11.0f];
+    yuElabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
+    yuElabel.textAlignment = NSTextAlignmentCenter;
+    yuElabel.adjustsFontSizeToFitWidth = YES;
+    yuElabel.minimumScaleFactor = 0.5f;
+    
+    [_thirdButtonBackView addSubview:xingYunLabel];
+    [_thirdButtonBackView addSubview:_xingYunXingValueLabel];
+    [_thirdButtonBackView addSubview:jiFenLabel];
+    [_thirdButtonBackView addSubview:_jiFenValueLabel];
+    [_thirdButtonBackView addSubview:youhuiLabel];
+    [_thirdButtonBackView addSubview:_youhuiValueLabel];
+    [_thirdButtonBackView addSubview:yuElabel];
+    [_thirdButtonBackView addSubview:_yuEValueLabel];
+    
+    UIButton * dianWOButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [dianWOButton setFrame:CGRectMake(0, (310.0f/750.0f)*SIZE_WIDTH-(100.0f/750.0f)*SIZE_WIDTH, SIZE_WIDTH, (100.0f/750.0f)*SIZE_WIDTH)];
+    [dianWOButton setBackgroundImage:[UIImage imageNamed:@"bannarzl"] forState:UIControlStateNormal];
+    //[dianWOButton setTitle:@"领取优惠券，请戳这里" forState:UIControlStateNormal];
+    [dianWOButton setBackgroundColor:[UIColor blueColor]];
+    [dianWOButton addTarget:self action:@selector(bannarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_thirdButtonBackView addSubview:dianWOButton];
+ 
+    _thirderHeight = 182.0f+(310.0f/750.0f)*SIZE_WIDTH;
+}
+
+- (void)bannarButtonAction:(UIButton *)sender{
+    
+    NSLog(@"离去优惠券");
+}
+
+#pragma end mark 第三按钮组
+
+
+#pragma mark 第四按钮组
+- (void)loadFourButtonsView{
+
+    _fourButtonsBackView = [[UIView alloc]initWithFrame:CGRectMake(0, _thirderHeight, SIZE_WIDTH, 250)];
+    _fourButtonsBackView.backgroundColor = [UIColor whiteColor];
+    [_backgroundScrollView addSubview:_fourButtonsBackView];
+    
+    float btnHW = SIZE_WIDTH/3;
+    
+    static int k = 0;
+    for (int i = 0; i<2; i++) {
+        for (int j = 0; j<3; j++) {
+            
+            UIImageView * imageview = [[UIImageView alloc]init];
+            
+            UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setBackgroundColor:[UIColor whiteColor]];
+            
+            UILabel * label = [UILabel new];
+            label.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
+            label.textAlignment = NSTextAlignmentCenter;
+            [label setFrame:CGRectMake(0, 0, 70, 20)];
+            label.font = [UIFont systemFontOfSize:11.0f];
+            [btn addTarget:self action:@selector(foursButtonsAction:) forControlEvents:UIControlEventTouchUpInside];
+            [btn addSubview:imageview];
+            [btn addSubview:label];
+            
+            [_fourButtonsBackView addSubview:btn];
+            
+            if (k == 0) {
+                imageview.image = [UIImage imageNamed:@"shoucangzl"];
+                label.text = @"商品收藏";
+                [btn setFrame:CGRectMake(0, 0, btnHW ,btnHW)];
+                btn.tag = 101;
+                [btn addSubview:imageview];
+                [btn addSubview:label];
+                
+                [imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.size.width.height.mas_equalTo(24);
+                    make.centerX.equalTo(btn);
+                    make.centerY.equalTo(btn).offset(-5);
+                    
+                    
+                }];
+                [label mas_makeConstraints:^(MASConstraintMaker *make) {
+
+                    make.centerX.equalTo(btn);
+                    
+                    make.top.equalTo(imageview.mas_bottom).offset(5);
+                }];
+                
+            }
+            
+            if (k == 1) {
+                imageview.image = [UIImage imageNamed:@"dianpuzl"];
+                label.text = @"店铺收藏";
+                [btn setFrame:CGRectMake(btnHW, 0, btnHW ,btnHW)];
+                [btn addSubview:imageview];
+                [btn addSubview:label];
+                btn.tag = 102;
+                [imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.size.width.height.mas_equalTo(24);
+                    make.centerX.equalTo(btn);
+                    make.centerY.equalTo(btn).offset(-5);
+                    
+                    
+                }];
+                [label mas_makeConstraints:^(MASConstraintMaker *make) {
+
+                    make.centerX.equalTo(btn);
+                    make.top.equalTo(imageview.mas_bottom).offset(5);
+                }];
+            }
+            if (k == 2) {
+                imageview.image = [UIImage imageNamed:@"huiyuankazl"];
+                label.text = @"会员卡";
+                [btn setFrame:CGRectMake(btnHW*2, 0, btnHW ,btnHW)];
+                [btn addSubview:imageview];
+                [btn addSubview:label];
+                btn.tag = 103;
+                [imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.size.width.height.mas_equalTo(24);
+                    make.centerX.equalTo(btn);
+                    make.centerY.equalTo(btn).offset(-5);
+                    
+                    
+                }];
+                [label mas_makeConstraints:^(MASConstraintMaker *make) {
+
+                    make.centerX.equalTo(btn);
+                    make.top.equalTo(imageview.mas_bottom).offset(5);
+                }];
+            }
+            
+            if (k == 3) {
+                imageview.image = [UIImage imageNamed:@"kefuzl"];
+                label.text = @"客服";
+                [btn setFrame:CGRectMake(0, btnHW, btnHW ,btnHW)];
+                [btn addSubview:imageview];
+                [btn addSubview:label];
+                btn.tag = 104;
+                [imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.size.width.height.mas_equalTo(24);
+                    make.centerX.equalTo(btn);
+                    make.centerY.equalTo(btn).offset(-5);
+                    
+                    
+                }];
+                [label mas_makeConstraints:^(MASConstraintMaker *make) {
+
+                    make.centerX.equalTo(btn);
+                    make.top.equalTo(imageview.mas_bottom).offset(5);
+                }];
+            }
+            if (k == 4) {
+                imageview.image = [UIImage imageNamed:@"zujizl"];
+                label.text = @"足迹";
+                [btn setFrame:CGRectMake(btnHW, btnHW, btnHW ,btnHW)];
+                [btn addSubview:imageview];
+                [btn addSubview:label];
+                btn.tag = 105;
+                [imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.size.width.height.mas_equalTo(24);
+                    make.centerX.equalTo(btn);
+                    make.centerY.equalTo(btn).offset(-5);
+                    
+                    
+                }];
+                [label mas_makeConstraints:^(MASConstraintMaker *make) {
+
+                    make.centerX.equalTo(btn);
+                    make.top.equalTo(imageview.mas_bottom).offset(5);
+                }];
+            }
+            if (k == 5) {
+                imageview.image = [UIImage imageNamed:@"renzhengzl"];
+                label.text = @"实名认证";
+                [btn setFrame:CGRectMake(btnHW*2, btnHW, btnHW ,btnHW)];
+                [btn addSubview:imageview];
+                [btn addSubview:label];
+                btn.tag = 106;
+                [imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.size.width.height.mas_equalTo(24);
+                    make.centerX.equalTo(btn);
+                    make.centerY.equalTo(btn).offset(-5);
+                    
+                    
+                }];
+                [label mas_makeConstraints:^(MASConstraintMaker *make) {
+
+                    make.centerX.equalTo(btn);
+                    make.top.equalTo(imageview.mas_bottom).offset(5);
+                }];
+            }
+
+            
+            k++;
+        }
+    }
+    UIView * hSplinerView = [[UIView alloc]initWithFrame:CGRectMake(0, btnHW, SIZE_WIDTH, 1)];
+    hSplinerView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+    [_fourButtonsBackView addSubview:hSplinerView];
+    
+    UIView * VSplinerView1 = [[UIView alloc]initWithFrame:CGRectMake(btnHW, 0, 1, btnHW*2)];
+    VSplinerView1.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+    [_fourButtonsBackView addSubview:VSplinerView1];
+    UIView * VSplinerView2 = [[UIView alloc]initWithFrame:CGRectMake(btnHW*2, 0, 1, btnHW*2)];
+    VSplinerView2.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+    [_fourButtonsBackView addSubview:VSplinerView2];
+    
+    _zongViewHeight = _thirderHeight + SIZE_WIDTH/3*2;
+    
+    
+
+}
+
+- (void)foursButtonsAction:(UIButton * )sender{
+
+    if (sender.tag == 101) {
+        NSLog(@"0商品收藏");
+        if (!loginid) {
+            [self showError];
+            return;
+        }
+    }
+    if (sender.tag == 102) {
+         NSLog(@"1店铺收藏");
+        if (!loginid) {
+            [self showError];
+            return;
+        }
+    }
+    if (sender.tag == 103) {
+         NSLog(@"2会员卡");
+        if (!loginid) {
+            [self showError];
+            return;
+        }
+        [self hideZLMessageBtnAndSetingBtn];
+        NSUserDefaults * userdefault = [NSUserDefaults standardUserDefaults];
+        NSString * str = [userdefault objectForKey:kUSERDEFAULT_USERCARDNO];
+        if(![str isEqualToString:@""] && str ) {
+            MNNMemberViewController *memberVC = [MNNMemberViewController new];
+            memberVC.hidesBottomBarWhenPushed = YES;
+            //[memberVC loadData];
+            [self.navigationController pushViewController:memberVC animated:YES];
+        }
+
+    }
+    if (sender.tag == 104) {
+         NSLog(@"3客服");
+    }
+    if (sender.tag == 105) {
+         NSLog(@"4足迹");
+        if (!loginid) {
+            [self showError];
+            return;
+        }
+    }
+    if (sender.tag == 106) {
+        if (!loginid) {
+            [self showError];
+            return;
+        }
+         NSLog(@"5实名认证");
+    }
+    
+    
+
+}
+
 
 #pragma mark 隐藏消息按钮
 - (void)hideZLMessageBtnAndSetingBtn{
@@ -200,10 +645,10 @@
 }
 - (void)showZLMessageBtnAndSettingBtn{
 
-    [self performSelector:@selector(showZLView) withObject:self afterDelay:0.3f];
+    [self performSelector:@selector(howZLView) withObject:self afterDelay:0.3f];
 }
 
-- (void)showZLView{
+- (void)howZLView{
     
     _messageButton.hidden = NO;
     _settingButton.hidden = NO;
@@ -225,6 +670,21 @@
         self.headView.biaoZhiImageView.hidden = NO;
         self.headView.nickLabel.hidden = NO;
         self.headView.cardTypeLabel.hidden = NO;
+        
+        _thirdButtonBackView.hidden = NO;
+        
+        [_fourButtonsBackView setFrame:CGRectMake(0, _thirderHeight, SIZE_WIDTH, SIZE_WIDTH/3.0*2.0)];
+        
+        _zongViewHeight = _thirderHeight + SIZE_WIDTH/3.0*2.0;
+        
+        if (_zongViewHeight > SIZE_HEIGHT-49.0-64.0) {
+        
+            _backgroundScrollView.contentSize = CGSizeMake(SIZE_WIDTH, _zongViewHeight);
+        }
+        else{
+            _backgroundScrollView.contentSize = CGSizeMake(SIZE_WIDTH, SIZE_HEIGHT-49.0-64.0);
+        }
+        
     }
     else{
         self.headView.loginBtn.hidden = NO;
@@ -236,6 +696,20 @@
         self.headView.biaoZhiImageView.hidden = YES;
         self.headView.nickLabel.hidden = YES;
         self.headView.cardTypeLabel.hidden = YES;
+        
+        _thirdButtonBackView.hidden = YES;
+        
+        [_fourButtonsBackView setFrame:CGRectMake(0, 182, SIZE_WIDTH, SIZE_WIDTH/3.0*2.0)];
+        
+        _zongViewHeight = 182 + SIZE_WIDTH/3.0*2.0;
+        
+        if (_zongViewHeight > SIZE_HEIGHT-49.0-64.0) {
+            
+            _backgroundScrollView.contentSize = CGSizeMake(SIZE_WIDTH, _zongViewHeight);
+        }
+        else{
+            _backgroundScrollView.contentSize = CGSizeMake(SIZE_WIDTH, SIZE_HEIGHT-49.0-64.0);
+        }
         
     }
     NSString *nickname = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];

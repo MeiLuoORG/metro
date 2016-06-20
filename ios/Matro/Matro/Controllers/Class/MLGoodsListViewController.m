@@ -146,8 +146,8 @@ static NSInteger page = 1;
     
     //添加边框和提示
     UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)] ;
-    frameView.layer.borderWidth = 1;
-    frameView.layer.borderColor = RGBA(38, 14, 0, 0.5).CGColor;
+//    frameView.layer.borderWidth = 1;
+//    frameView.layer.borderColor = RGBA(38, 14, 0, 0.5).CGColor;
     frameView.layer.cornerRadius = 4.f;
     frameView.layer.masksToBounds = YES;
     frameView.backgroundColor = [UIColor whiteColor];
@@ -188,7 +188,7 @@ static NSInteger page = 1;
     
     [_shaixuanButton changeImageAndTitle];
     
-    [_changeButton setImage:[UIImage imageNamed:@"liebiao"] forState:UIControlStateNormal];
+    [_changeButton setImage:[UIImage imageNamed:@"liebiao1"] forState:UIControlStateNormal];
     [_changeButton setImage:[UIImage imageNamed:@"list"] forState:UIControlStateSelected];
     
     
@@ -478,6 +478,7 @@ static NSInteger page = 1;
         if (button.selected) {
             [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
             [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateNormal];
             [filterparamDic setValue:@"amount" forKey:@"orderby"];
         }
         
@@ -502,6 +503,7 @@ static NSInteger page = 1;
         button.selected = !button.selected;
         if (button.selected) {
             [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
             [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [filterparamDic setValue:@"price" forKey:@"orderby"];
 

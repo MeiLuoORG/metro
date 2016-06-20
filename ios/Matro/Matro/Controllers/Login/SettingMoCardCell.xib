@@ -19,7 +19,7 @@
                         <rect key="frame" x="17" y="0.0" width="340" height="136"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="98J-Tx-d2d" secondAttribute="height" multiplier="5:2" id="alE-83-jnX"/>
+                            <constraint firstAttribute="width" secondItem="98J-Tx-d2d" secondAttribute="height" multiplier="1.7" id="alE-83-jnX"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGU-oF-1Z4">
@@ -37,12 +37,12 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="rGU-oF-1Z4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="23" id="5Ua-O8-HAv"/>
+                    <constraint firstItem="rGU-oF-1Z4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="55" id="5Ua-O8-HAv"/>
                     <constraint firstItem="98J-Tx-d2d" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="CbN-KD-8i6"/>
                     <constraint firstAttribute="bottom" secondItem="rGU-oF-1Z4" secondAttribute="bottom" constant="19" id="Db7-cL-MzI"/>
                     <constraint firstItem="D8Q-yX-uMf" firstAttribute="leading" secondItem="rGU-oF-1Z4" secondAttribute="trailing" constant="15" id="Hth-7T-8Dp"/>
-                    <constraint firstItem="98J-Tx-d2d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="22" id="JyW-gn-bk6"/>
-                    <constraint firstAttribute="trailing" secondItem="98J-Tx-d2d" secondAttribute="trailing" constant="22" id="VIA-TN-63y"/>
+                    <constraint firstItem="98J-Tx-d2d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="55" id="JyW-gn-bk6"/>
+                    <constraint firstAttribute="trailing" secondItem="98J-Tx-d2d" secondAttribute="trailing" constant="55" id="VIA-TN-63y"/>
                     <constraint firstItem="98J-Tx-d2d" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="c4X-ow-3JU"/>
                     <constraint firstAttribute="bottom" secondItem="D8Q-yX-uMf" secondAttribute="bottom" constant="19" id="i6j-yC-7Zz"/>
                 </constraints>

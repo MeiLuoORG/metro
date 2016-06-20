@@ -148,7 +148,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h2f-wn-uro">
-                                                                    <rect key="frame" x="300" y="64" width="65" height="20"/>
+                                                                    <rect key="frame" x="285" y="64" width="80" height="20"/>
                                                                     <subviews>
                                                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DaH-8M-28O">
                                                                             <rect key="frame" x="15" y="0.0" width="50" height="20"/>
@@ -174,7 +174,7 @@
                                                                     </subviews>
                                                                     <constraints>
                                                                         <constraint firstItem="DaH-8M-28O" firstAttribute="leading" secondItem="h2f-wn-uro" secondAttribute="leading" constant="15" id="IE4-Bq-poG"/>
-                                                                        <constraint firstAttribute="width" constant="65" id="T1f-jV-UVy"/>
+                                                                        <constraint firstAttribute="width" constant="80" id="T1f-jV-UVy"/>
                                                                         <constraint firstItem="yOg-Ox-WxI" firstAttribute="leading" secondItem="DaH-8M-28O" secondAttribute="leading" constant="9" id="kGZ-8z-eNF"/>
                                                                         <constraint firstItem="yOg-Ox-WxI" firstAttribute="leading" secondItem="h2f-wn-uro" secondAttribute="leading" constant="5" id="r6V-mv-tIi"/>
                                                                         <constraint firstAttribute="height" constant="20" id="xhZ-AP-8sL"/>
@@ -302,7 +302,7 @@
                                                                                 <constraint firstAttribute="height" constant="1" id="YFa-ga-18W"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="德国" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOz-mt-HDK">
@@ -1062,7 +1062,7 @@
                                         <constraint firstAttribute="height" constant="1" id="Xdf-lk-7aI"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z6u-9S-gnF">

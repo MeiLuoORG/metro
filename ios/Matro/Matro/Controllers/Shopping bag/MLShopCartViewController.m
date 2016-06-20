@@ -381,6 +381,16 @@ static NSInteger goodsCount;
     return _likeArray;
 }
 
+//<<<<<<< Updated upstream
+//=======
+//- (void)changeNumWith:(MLProlistModel *)prolist andCount:(NSInteger)count{
+//    
+//    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php",@"http://bbctest.matrojp.com"];
+//    NSDictionary *params = @{@"m":@"product",@"s":@"cart",@"action":@"modify",@"id":prolist.ID,@"nums":[NSNumber numberWithInteger:count]};
+//    
+//    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSDictionary *result = (NSDictionary *)responseObject;
+//>>>>>>> Stashed changes
 
 
 - (void)countAllPrice{
