@@ -1,12 +1,12 @@
 //
-//  MLReturnsViewController.m
+//  MLReturnsRecordViewController.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/5/5.
+//  Created by 黄裕华 on 16/6/21.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
-#import "MLReturnsViewController.h"
+#import "MLReturnsRecordViewController.h"
 #import "MLAfterSaleProductCell.h"
 #import "MLRetrunsHeadCell.h"
 #import "MJRefresh.h"
@@ -23,9 +23,9 @@
 #import "HFSUtility.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "MLMoreTableViewCell.h"
+#import "MLAfterSaleHeadCell.h"
 
-
-@interface MLReturnsViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MLReturnsRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *orderList;
 
@@ -33,8 +33,7 @@
 
 static NSInteger pageIndex = 0;
 
-
-@implementation MLReturnsViewController
+@implementation MLReturnsRecordViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,7 +45,7 @@ static NSInteger pageIndex = 0;
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.backgroundColor = RGBA(245, 245, 245, 1);
-        [tableView registerNib:[UINib nibWithNibName:@"MLRetrunsHeadCell" bundle:nil] forCellReuseIdentifier:kMLRetrunsHeadCell];
+        [tableView registerNib:[UINib nibWithNibName:@"MLAfterSaleHeadCell" bundle:nil] forCellReuseIdentifier:kMLAfterSaleHeadCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLAfterSaleProductCell" bundle:nil] forCellReuseIdentifier:kMLAfterSaleProductCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderCenterTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderCenterTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderInfoHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderInfoHeaderTableViewCell];
@@ -67,7 +66,7 @@ static NSInteger pageIndex = 0;
         [self getOrderDataSource];
     }];
     
-//    [self.tableView.header beginRefreshing];
+    //    [self.tableView.header beginRefreshing];
     
     
     // Do any additional setup after loading the view.
@@ -94,14 +93,8 @@ static NSInteger pageIndex = 0;
     
     __weak typeof(self) weakself = self;
     if (indexPath.row == 0 ) {
-        MLRetrunsHeadCell *cell =[tableView dequeueReusableCellWithIdentifier:kMLRetrunsHeadCell forIndexPath:indexPath];
-        cell.tuihuoBlock = ^(){
-            MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
-            vc.tuihuoOrder = model;
-            vc.hidesBottomBarWhenPushed = YES;
-            [weakself.navigationController pushViewController:vc animated:YES];
-        };
-        cell.tuihuoModel = model;
+        MLAfterSaleHeadCell *cell =[tableView dequeueReusableCellWithIdentifier:kMLAfterSaleHeadCell forIndexPath:indexPath];
+        cell.tuiHuoModel = model;
         return cell;
     }else if (indexPath.row==1){
         MLOrderInfoHeaderTableViewCell *cell= [tableView dequeueReusableCellWithIdentifier:kOrderInfoHeaderTableViewCell forIndexPath:indexPath];
@@ -126,10 +119,18 @@ static NSInteger pageIndex = 0;
 }
 
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 0 ) {
+        NSLog(@"进入订单详情页");
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MLTuiHuoModel *model = [self.orderList objectAtIndex:indexPath.section];
     if (indexPath.row == 0) {
-        return 80.f;
+        return 110.f;
     }
     else if (indexPath.row == 1 ||(model.isMore && !model.isOpen && indexPath.row == 4) ){
         return 40;
@@ -139,10 +140,7 @@ static NSInteger pageIndex = 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *foot = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 10.F)];
-    foot.backgroundColor = RGBA(245, 245, 245, 1);
-    
-    return foot;
+    return [[UIView alloc]init];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -194,26 +192,26 @@ static NSInteger pageIndex = 0;
 }
 
 - (void)getOrderDataSource{
-//    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-//    NSTimeInterval time = [[NSDate new] timeIntervalSince1970];
-//    NSString *sign = [token substringToIndex:12];
-//    
-//    NSString *signStr = [NSString stringWithFormat:@"%@%@%.f%@",sign,@"return",time,@"order_list"];
-//    
-//    NSString *md5 = [self md5:signStr];
+    //    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    //    NSTimeInterval time = [[NSDate new] timeIntervalSince1970];
+    //    NSString *sign = [token substringToIndex:12];
+    //
+    //    NSString *signStr = [NSString stringWithFormat:@"%@%@%.f%@",sign,@"return",time,@"order_list"];
+    //
+    //    NSString *md5 = [self md5:signStr];
     
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_list&cur_page=%li&page_size=10&test_phone=%@",@"http://bbctest.matrojp.com",pageIndex,@"13771961207"];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=return_list&cur_page=%li&page_size=3&test_phone=%@",@"http://bbctest.matrojp.com",pageIndex,@"13771961207"];
     [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         [self.tableView.header endRefreshing];
         [self.tableView.footer endRefreshing];
-    
+        
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             if (pageIndex == 0) {
                 [self.orderList removeAllObjects];
             }
-            [self.orderList addObjectsFromArray:[MLTuiHuoModel mj_objectArrayWithKeyValuesArray:data[@"order_list"]]];
+            [self.orderList addObjectsFromArray:[MLTuiHuoModel mj_objectArrayWithKeyValuesArray:data[@"return_list"]]];
             pageIndex ++;
             [self.tableView reloadData];
         }else{
@@ -221,7 +219,7 @@ static NSInteger pageIndex = 0;
             
             [MBProgressHUD showMessag:str toView:self.view];
         }
-       [self.view configBlankPage:EaseBlankPageTypeTuihuo hasData:(self.orderList.count>0)];
+        [self.view configBlankPage:EaseBlankPageTypeTuihuo hasData:(self.orderList.count>0)];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.tableView.header endRefreshing];
         [self.tableView.footer endRefreshing];
@@ -229,19 +227,7 @@ static NSInteger pageIndex = 0;
     
 }
 
-- (NSString *)md5:(NSString *)str
-{
-    const char *cStr = [str UTF8String];
-    unsigned char result[16];
-    CC_MD5(cStr, strlen(cStr), result); // This is the md5 call
-    return [NSString stringWithFormat:
-            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-            result[0], result[1], result[2], result[3],
-            result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11],
-            result[12], result[13], result[14], result[15]
-            ];
-}
+
 
 
 

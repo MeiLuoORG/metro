@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MLTuiHuoChengGongViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="客服人员将在24小时内进行审核，审核结果会以短信形式告知您。您也可在-&gt;退货记录中查询退货进度。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMA-Lh-BTf">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6k9-B5-Z1l">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <color key="backgroundColor" red="0.68235294120000001" green="0.5568627451" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="BLj-Ww-rpE"/>
+                    </constraints>
+                    <state key="normal" title="查看退货订单">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="BLj-Ww-rpE"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="BLj-Ww-rpE"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="btnAction:" destination="-1" eventType="touchUpInside" id="eHS-dO-dd7"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mn6-lD-yiR">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <state key="normal" title="提交成功！">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <variation key="widthClass=compact" misplaced="YES">
+                        <rect key="frame" x="170" y="50" width="60" height="30"/>
+                    </variation>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="bMA-Lh-BTf" firstAttribute="top" secondItem="mn6-lD-yiR" secondAttribute="bottom" constant="20" id="EJs-8p-7lw"/>
+                <constraint firstItem="6k9-B5-Z1l" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="YMe-3I-m0W"/>
+                <constraint firstAttribute="trailing" secondItem="bMA-Lh-BTf" secondAttribute="trailing" constant="28" id="a9v-eY-AKy"/>
+                <constraint firstItem="bMA-Lh-BTf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="28" id="bWc-Ba-doG"/>
+                <constraint firstItem="6k9-B5-Z1l" firstAttribute="top" secondItem="bMA-Lh-BTf" secondAttribute="bottom" constant="50" id="esa-qM-84T"/>
+                <constraint firstItem="mn6-lD-yiR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lWE-4A-yob"/>
+                <constraint firstItem="mn6-lD-yiR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="t4l-yV-UYn"/>
+                <constraint firstAttribute="trailing" secondItem="6k9-B5-Z1l" secondAttribute="trailing" constant="40" id="w5q-Jf-bjL"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="bMA-Lh-BTf"/>
+                    <exclude reference="6k9-B5-Z1l"/>
+                    <exclude reference="mn6-lD-yiR"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="EJs-8p-7lw"/>
+                    <exclude reference="a9v-eY-AKy"/>
+                    <exclude reference="bWc-Ba-doG"/>
+                    <exclude reference="lWE-4A-yob"/>
+                    <exclude reference="t4l-yV-UYn"/>
+                    <exclude reference="YMe-3I-m0W"/>
+                    <exclude reference="esa-qM-84T"/>
+                    <exclude reference="w5q-Jf-bjL"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="subviews">
+                    <include reference="bMA-Lh-BTf"/>
+                    <include reference="6k9-B5-Z1l"/>
+                    <include reference="mn6-lD-yiR"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="EJs-8p-7lw"/>
+                    <include reference="a9v-eY-AKy"/>
+                    <include reference="bWc-Ba-doG"/>
+                    <include reference="lWE-4A-yob"/>
+                    <include reference="t4l-yV-UYn"/>
+                    <include reference="YMe-3I-m0W"/>
+                    <include reference="esa-qM-84T"/>
+                    <include reference="w5q-Jf-bjL"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="274" y="-30"/>
+        </view>
+    </objects>
+</document>

@@ -32,21 +32,20 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbI-n4-qlg" customClass="MLCheckBoxButton">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbI-n4-qlg">
                         <rect key="frame" x="104" y="15" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="37j-Gs-FgX"/>
                             <constraint firstAttribute="width" constant="20" id="JQg-v5-iWU"/>
                         </constraints>
+                        <state key="normal" image="选中"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDs-TW-ant">
-                        <rect key="frame" x="132" y="53" width="15" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXg-mg-8YV" customClass="MLCheckBoxButton">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXg-mg-8YV">
                         <rect key="frame" x="177" y="52" width="20" height="20"/>
+                        <state key="normal" image="选中"/>
+                        <connections>
+                            <action selector="notAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Xh8-DL-SAr"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="无" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k2q-lj-XQP">
                         <rect key="frame" x="205" y="53" width="15" height="18"/>
@@ -60,9 +59,18 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWO-PG-R0u" customClass="MLCheckBoxButton">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWO-PG-R0u">
                         <rect key="frame" x="104" y="52" width="20" height="20"/>
+                        <connections>
+                            <action selector="haveAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5Pn-OW-BmW"/>
+                        </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDs-TW-ant">
+                        <rect key="frame" x="132" y="53" width="15" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="fWO-PG-R0u" firstAttribute="centerY" secondItem="ScX-gX-7Us" secondAttribute="centerY" id="3qI-qf-v7S"/>
@@ -99,6 +107,13 @@
                     </mask>
                 </variation>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="haveBtn" destination="fWO-PG-R0u" id="y4K-vL-z3F"/>
+                <outlet property="notBtn" destination="KXg-mg-8YV" id="BGY-N6-PaD"/>
+            </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="选中" width="39" height="36"/>
+    </resources>
 </document>

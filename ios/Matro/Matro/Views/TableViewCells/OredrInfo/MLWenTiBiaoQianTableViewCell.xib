@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,25 +15,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="127"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="问题类型" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdw-6q-GgB">
-                        <rect key="frame" x="8" y="8" width="61" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="问题类型" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdw-6q-GgB">
+                        <rect key="frame" x="8" y="8" width="60" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="kyX-d3-2Lh">
-                        <rect key="frame" x="0.0" y="30" width="320" height="98"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="po0-Wa-ovc">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                    </collectionView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="10c-bX-wmK">
+                        <rect key="frame" x="8" y="34" width="304" height="90"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="90" id="bIX-vI-ivR"/>
+                        </constraints>
+                    </view>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="10c-bX-wmK" firstAttribute="top" secondItem="Tdw-6q-GgB" secondAttribute="bottom" constant="8" id="9nf-He-5cZ"/>
+                    <constraint firstItem="10c-bX-wmK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="A8p-fE-m9y"/>
+                    <constraint firstItem="Tdw-6q-GgB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Uem-jI-knP"/>
+                    <constraint firstItem="Tdw-6q-GgB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="aiY-BR-hMF"/>
+                    <constraint firstItem="10c-bX-wmK" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="gtk-Uj-W7d"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="collectionView" destination="kyX-d3-2Lh" id="6ox-9o-Ysz"/>
+                <outlet property="tagView" destination="10c-bX-wmK" id="tQM-Kc-6uQ"/>
+                <outlet property="tagViewHeight" destination="bIX-vI-ivR" id="UV7-hq-FfJ"/>
             </connections>
             <point key="canvasLocation" x="333" y="392"/>
         </tableViewCell>

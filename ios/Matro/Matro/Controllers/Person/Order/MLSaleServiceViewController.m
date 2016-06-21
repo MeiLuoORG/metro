@@ -71,7 +71,7 @@
         if (indexPath.row == 0) {//退款头部
             MLAfterSaleHeadCell *cell =[tableView dequeueReusableCellWithIdentifier:kMLAfterSaleHeadCell forIndexPath:indexPath];
             cell.arrow.hidden = YES;
-            cell.tuikuanBtn.hidden = NO;
+//            cell.tuikuanBtn.hidden = NO;
             return cell;
         }
         MLSaleServiceProductCell *cell = [tableView dequeueReusableCellWithIdentifier:kMLSaleServiceProductCell forIndexPath:indexPath];

@@ -8,7 +8,7 @@
 
 #import "MLServiceMainController.h"
 #import "MLReturnsViewController.h"
-#import "MLAfterSaleViewController.h"
+#import "MLReturnsRecordViewController.h"
 
 @interface MLServiceMainController ()
 
@@ -24,10 +24,10 @@
         self.titleColorSelected              = RGBA(174, 142, 93, 1);
         self.titleColorNormal                = RGBA(14, 14, 14, 1);
         self.progressColor                   = RGBA(174, 142, 93, 1);
-        self.titleSizeSelected               = 16;
+        self.titleSizeSelected               = 15;
         self.pageAnimatable                  = YES;
-        self.titleSizeNormal                 = 16;
-        self.menuHeight                      = 37;
+        self.titleSizeNormal                 = 15;
+        self.menuHeight                      = 40;
         self.menuItemWidth                   = MAIN_SCREEN_WIDTH/2;
         self.postNotification                = YES;
         self.itemMargin                      = 0.f;
@@ -44,8 +44,8 @@
                     title = @"申请退货";
                     break;
                 case 1:
-                    vcClass = [MLAfterSaleViewController class];
-                    title = @"售后记录";
+                    vcClass = [MLReturnsRecordViewController class];
+                    title = @"退货记录";
                     break;
                 default:
                     break;
@@ -65,9 +65,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"售后服务";
+    self.title = @"退货";
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
-    self.viewFrame = CGRectMake(0, 8, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-10);
+//    self.viewFrame = CGRectMake(0, 8, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-10);
     // Do any additional setup after loading the view.
 }
 

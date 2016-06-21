@@ -7,7 +7,9 @@
 //
 
 #import "MLBaseViewController.h"
+#import "MLTuiHuoModel.h"
 
 @interface MLReturnRequestViewController : MLBaseViewController
+@property (nonatomic,retain)MLTuiHuoModel *tuihuoOrder;
 
 @end

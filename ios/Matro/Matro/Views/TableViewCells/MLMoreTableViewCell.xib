@@ -22,6 +22,9 @@
                         <state key="normal" title="还有-件" image="jiage_arrow">
                             <color key="titleColor" red="0.45098039215686275" green="0.45098039215686275" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="moreAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="aXo-vK-kfY"/>
+                        </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lg9-cI-lW1">
                         <rect key="frame" x="0.0" y="42" width="320" height="1"/>

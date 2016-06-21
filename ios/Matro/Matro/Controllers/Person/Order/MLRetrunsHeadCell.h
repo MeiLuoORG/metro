@@ -7,8 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLTuiHuoModel.h"
+
+
+typedef void(^TuihuoActionBlock)();
+
 #define kMLRetrunsHeadCell @"MLRetrunsHeadCell"
 @interface MLRetrunsHeadCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *orderNum;
+@property (weak, nonatomic) IBOutlet UILabel *orderTime;
+@property (weak, nonatomic) IBOutlet UILabel *orderStatus;
+@property (weak, nonatomic) IBOutlet UIButton *returnBtn;
+
+@property (nonatomic,strong)MLTuiHuoModel *tuihuoModel;
+
+@property (nonatomic,copy)TuihuoActionBlock tuihuoBlock;
 
 
 @end

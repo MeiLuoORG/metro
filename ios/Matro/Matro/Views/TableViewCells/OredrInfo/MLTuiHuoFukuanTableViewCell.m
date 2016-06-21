@@ -22,5 +22,21 @@
 
     // Configure the view for the selected state
 }
+- (IBAction)haveAction:(id)sender {
+    [self.haveBtn setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+    [self.notBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    if (self.tuiHuoFukuanFaPiaoBlock) {
+        self.tuiHuoFukuanFaPiaoBlock(YES);
+    }
+    
+}
+- (IBAction)notAction:(id)sender {
+    [self.haveBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [self.notBtn setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+    if (self.tuiHuoFukuanFaPiaoBlock) {
+        self.tuiHuoFukuanFaPiaoBlock(NO);
+    }
+    
+}
 
 @end

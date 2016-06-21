@@ -25,6 +25,7 @@
     // Initialization code
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.collectionView registerNib:[UINib nibWithNibName:@"MLAddImgCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:kAddImgCollectionViewCell];
 }
 

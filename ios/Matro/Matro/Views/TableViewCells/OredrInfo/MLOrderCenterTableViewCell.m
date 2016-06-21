@@ -38,4 +38,17 @@
 }
 
 
+- (void)setTuiHuoProduct:(MLTuiHuoProductModel *)tuiHuoProduct{
+    _tuiHuoProduct = tuiHuoProduct;
+    self.goodsName.text = _tuiHuoProduct.name;
+    self.goodsPrice.text = [NSString stringWithFormat:@"￥%.2f",_tuiHuoProduct.price];
+    self.goodsDesc.text = @"暂无数据";
+    [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_tuiHuoProduct.pic] placeholderImage:[UIImage imageNamed:@""]];
+    self.goodsCount.text = [NSString stringWithFormat:@"*%@",_tuiHuoProduct.num];
+    
+}
+
+
+
+
 @end

@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneField;
 
 @property (weak, nonatomic) IBOutlet UIButton *submitBtn;
+
+
 + (MLTuiHuoFooterView *)footView;
 
 

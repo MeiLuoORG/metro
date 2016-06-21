@@ -26,5 +26,11 @@
 
     // Configure the view for the selected state
 }
+- (IBAction)moreAction:(id)sender {
+    if (self.moreActionBlock) {
+        self.moreActionBlock();
+        
+    }
+}
 
 @end

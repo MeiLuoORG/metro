@@ -7,12 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IMJIETagView.h"
 
-@interface MLWenTiBiaoQianTableViewCell : UITableViewCell <UICollectionViewDelegate,UICollectionViewDataSource>
+
+#define kWenTiBiaoQianTableViewCell  @"wenTiBiaoQianTableViewCell"
+
+typedef void(^WenTiBiaoQianSelBlock)(NSArray *);
+
+@interface MLWenTiBiaoQianTableViewCell : UITableViewCell<IMJIETagViewDelegate>
 
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic,strong)NSArray *tags;
+@property (weak, nonatomic) IBOutlet UIView *tagView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tagViewHeight;
+
+@property (nonatomic,copy)WenTiBiaoQianSelBlock  wenTiBiaoQianSelBlock;
 
 
 @end

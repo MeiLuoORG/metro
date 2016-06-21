@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLTuiHuoModel.h"
+
 #define kMLAfterSaleHeadCell  @"ml_afterSaleHeadCell"
 @interface MLAfterSaleHeadCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIButton *tuikuanBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *arrow;
 @property (weak, nonatomic) IBOutlet UIButton *kefuBtn;
 @property (weak, nonatomic) IBOutlet UILabel *shouHouLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tuiHuoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *orderIdLabel;
+@property (nonatomic,strong)MLTuiHuoModel *tuiHuoModel;
 
 @end

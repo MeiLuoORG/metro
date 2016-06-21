@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MLPersonOrderModel.h"
+#import "MLTuiHuoModel.h"
 
 #define kOrderCenterTableViewCell  @"orderCenterTableViewCell"
 @interface MLOrderCenterTableViewCell : UITableViewCell
@@ -18,5 +19,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *goodsPrice;
 
 @property (nonatomic,strong)MLPersonOrderProduct *productOrder;
-
+@property (nonatomic,strong)MLTuiHuoProductModel *tuiHuoProduct;
 @end

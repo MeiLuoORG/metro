@@ -33,12 +33,13 @@
 #import "JSBadgeView.h"
 #import "MJRefresh.h"
 #import "MLPersonOrderListViewController.h"
-
-
 #import "MLAllOrdersViewController.h"
 #import "MLAddressSelectViewController.h"
-
 #import "MLCollectionViewController.h"
+
+#import "MLServiceMainController.h"
+
+
 
 @interface MLPersonController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -235,33 +236,50 @@
             //待付款
             NSLog(@"待付款");
             if (!loginid) {
-                [self showError];
+                [weakself showError];
                 return;
+            }else{
+                MLPersonOrderListViewController *vc = [[MLPersonOrderListViewController alloc]initWithOrderType:OrderType_Fukuan];
+                vc.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:vc animated:YES];
+                
+                
             }
             
         };
         headView.daiFaHuoBLock = ^(BOOL success){
             //代发货
-            NSLog(@"代发货");
+            NSLog(@"代发货,暂无接口");
             if (!loginid) {
-                [self showError];
+                [weakself showError];
                 return;
+            }else{
+
             }
         };
         headView.daiPingBLock = ^(BOOL success){
             //待评价
             NSLog(@"待评价");
             if (!loginid) {
-                [self showError];
+                [weakself showError];
                 return;
+            }else{
+                MLPersonOrderListViewController *vc = [[MLPersonOrderListViewController alloc]initWithOrderType:OrderType_Pingjia];
+                vc.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:vc animated:YES];
             }
         };
         headView.tuiHuoBLock = ^(BOOL success){
-            //带退货
-            NSLog(@"带退货");
+            //退货订单
             if (!loginid) {
-                [self showError];
+                [weakself showError];
                 return;
+            }else{
+                MLServiceMainController *vc = [[MLServiceMainController alloc]init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:vc animated:YES];
+                
+                
             }
         };
         
@@ -269,8 +287,12 @@
             //全部订单
             NSLog(@"全部订单");
             if (!loginid) {
-                [self showError];
+                [weakself showError];
                 return;
+            }else{
+                MLAllOrdersViewController *vc = [[MLAllOrdersViewController alloc]init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:vc animated:YES];
             }
         };
         

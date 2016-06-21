@@ -717,6 +717,11 @@
      }];
      */
     
+    
+    
+
+    
+    
     //@"vip/AuthUserInfo"
     [[HFSServiceClient sharedClient] POST:Regist_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -1181,6 +1186,9 @@
     
     NSData *data2 = [HFSUtility RSADicToData:dic2];
     NSString *ret2 = base64_encode_data(data2);
+    
+    
+
     //@"vip/AuthUserInfo"
     [[HFSServiceClient sharedClient] POST:Login_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -1246,6 +1254,7 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
+ 
 
 }
 #pragma end mark
@@ -1358,12 +1367,12 @@
     _hud.labelText = @"正在登录...";
     
     __weak typeof(self) weakSelf = self;
-    
-    NSDictionary *dic = @{@"appId":APP_ID,
-                          @"nonceStr":NONCE_STR,
-                          @"account":[self textField:_accountView].text,
-                          @"pwd":[self textField:_passwordView].text
-                          };
+//
+//    NSDictionary *dic = @{@"appId":APP_ID,
+//                          @"nonceStr":NONCE_STR,
+//                          @"account":[self textField:_accountView].text,
+//                          @"pwd":[self textField:_passwordView].text
+//                          };
     
    // NSData *data = [HFSUtility RSADicToData:dic];
     
@@ -1398,6 +1407,44 @@
         NSLog(@"登录失败：%@",error);
     }];
     */
+    
+//    NSString *urlStr = [NSString stringWithFormat:@"%@",Login_URLString];
+//    NSURL * URL = [NSURL URLWithString:urlStr];
+//    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+//    [request setHTTPMethod:@"post"]; //指定请求方式
+//    NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+//    [request setHTTPBody:data3];
+//    [request setURL:URL]; //设置请求的地址
+//    NSURLSession *session = [NSURLSession sharedSession];
+//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+//                                            completionHandler:
+//                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+//                                      //NSData 转NSString
+//                                      if (data && data.length>0) {
+//                                          NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//                                          NSLog(@"error %@",result);
+//                                          if ([@"true" isEqualToString:result]) {
+//                                              
+//                                              
+//                                          }
+//                                          else
+//                                          {
+//                                              dispatch_async(dispatch_get_main_queue(), ^{
+//                                                  
+//                                                  [_hud show:YES];
+//                                                  _hud.mode = MBProgressHUDModeText;
+//                                                  _hud.labelText = result;
+//                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
+//                                                  [_hud hide:YES afterDelay:2];
+//                                              });
+//                                              
+//                                          }
+//                                      }
+//                                      
+//                                  }];
+//    
+//    [task resume];
+
     
     //@"vip/AuthUserInfo"
     [[HFSServiceClient sharedClient] POST:Login_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1532,7 +1579,6 @@
         [_hud hide:YES afterDelay:2];
     }];
 
-    
     
     
 }
