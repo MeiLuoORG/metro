@@ -33,9 +33,16 @@
 #import "JSBadgeView.h"
 #import "MJRefresh.h"
 #import "MLPersonOrderListViewController.h"
+<<<<<<< Updated upstream
+=======
+#import "MLCollectionViewController.h"
+
+
+>>>>>>> Stashed changes
 #import "MLAllOrdersViewController.h"
 #import "MLAddressSelectViewController.h"
 #import "MLCollectionViewController.h"
+#import "MLStoreCollectViewController.h"
 
 #import "MLServiceMainController.h"
 
@@ -611,6 +618,14 @@
             [self showError];
             return;
         }
+       
+        [self hideZLMessageBtnAndSetingBtn];
+        MLCollectionViewController *vc = [[MLCollectionViewController alloc] init];
+         vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:NO];
+        
+        
+        
     }
     if (sender.tag == 102) {
          NSLog(@"1店铺收藏");
@@ -618,6 +633,10 @@
             [self showError];
             return;
         }
+        [self hideZLMessageBtnAndSetingBtn];
+        MLStoreCollectViewController *vc = [[MLStoreCollectViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:NO];
     }
     if (sender.tag == 103) {
          NSLog(@"2会员卡");

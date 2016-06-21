@@ -10,12 +10,11 @@
 
 @interface MLWishlistViewController : MLBaseViewController
 @property (weak, nonatomic) IBOutlet UITableView *goodsTableView;
-@property (weak, nonatomic) IBOutlet UITableView *storesTableView;
-@property (weak, nonatomic) IBOutlet UIButton *btnGoods;
-- (IBAction)actGoods:(id)sender;
-@property (weak, nonatomic) IBOutlet UIView *goodsView;
-@property (weak, nonatomic) IBOutlet UIButton *btnStores;
-- (IBAction)actStores:(id)sender;
-@property (weak, nonatomic) IBOutlet UIView *storesView;
+
+
+
+
+
+
 
 @end

@@ -259,11 +259,12 @@
 #pragma mark 获取商品详情数据
 - (void)loadDateProDetail {
     //http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233
-    
+    //测试用的  以后要删除
+    //&test_phone=13771961207
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@",@"http://bbctest.matrojp.com",_paramDic[@"id"]];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&test_phone=13771961207",@"http://bbctest.matrojp.com",_paramDic[@"id"]];
     //测试链接
     //NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
     
@@ -280,10 +281,12 @@
         if ([is_collect isEqual:@0]) {
             self.shoucangButton.selected = NO;
             [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
+            [self.shoucangButton setTitleColor:RGBA(38, 14, 0, 1) forState:UIControlStateNormal];
         }else{
             
             self.shoucangButton.selected = YES;
             [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
+            [self.shoucangButton setTitleColor:RGBA(174, 142, 93, 1) forState:UIControlStateNormal];
         }
         
         if (_titleArray && _titleArray.count >0) {
@@ -694,7 +697,7 @@
     }
     
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=add_cart",@"http://bbctest.matrojp.com"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=add_cart&test_phone=13771961207",@"http://bbctest.matrojp.com"];
     NSDictionary *params = @{@"id":pid,@"nums":[NSNumber numberWithInteger:_shuliangStepper.value],@"sid":sid,@"sku":sku};
     
     
@@ -1078,6 +1081,9 @@
    pid= 13911 【商品id】
    
    uname = ml_13771961207【会员名】
+   
+   //模拟用的
+   &test_phone=用户电话号码
   */
     
     NSLog(@"pDic===%@",pDic);
@@ -1091,7 +1097,7 @@
         [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
         [self.shoucangButton setTitleColor:RGBA(174, 142, 93, 1) forState:UIControlStateNormal];
   
-        NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com"];
+        NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product&test_phone=13771961207",@"http://bbctest.matrojp.com"];
         NSDictionary *params = @{@"do":@"add",@"pid":pid,@"uname":uname};
     
     
@@ -1105,8 +1111,6 @@
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"收藏成功";
             [_hud hide:YES afterDelay:2];
-        }else{
-            
         }
         NSLog(@"请求成功 result====%@",result);
         
@@ -1119,7 +1123,7 @@
         [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
         [self.shoucangButton setTitleColor:RGBA(38, 14, 0, 1) forState:UIControlStateNormal];
         [self deleteClick:pid];
-        [MBProgressHUD showMessag:@"已收藏" toView:self.view];
+        
         return;
         }
     }else{
@@ -1129,6 +1133,7 @@
     
 }
 
+#pragma Mark 取消收藏
 - (void) deleteClick:(NSString*)sender{
     /*
      http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_product
@@ -1141,10 +1146,10 @@
     */
     NSLog(@"pDic===%@",pDic);
     if (userid) {
-        if (self.shoucangButton.selected) {
+        if (!self.shoucangButton.selected) {
  
             NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com"];
-            NSDictionary *params = @{@"do":@"add",@"pid":sender};
+            NSDictionary *params = @{@"do":@"del",@"id":sender};
             self.shoucangButton.selected = NO;
             [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
             [self.shoucangButton setTitleColor:RGBA(38, 14, 0, 1) forState:UIControlStateNormal];
@@ -1162,10 +1167,7 @@
                      _hud.labelText = @"取消收藏成功";
                      [_hud hide:YES afterDelay:2];
                  }else{
-                     [_hud show:YES];
-                     _hud.mode = MBProgressHUDModeText;
-                     _hud.labelText = @"已取消收藏";
-                     [_hud hide:YES afterDelay:2];
+                     
                  }
                  NSLog(@"请求成功 result====%@",result);
                  
@@ -1175,8 +1177,9 @@
              }];
         }else{
             self.shoucangButton.selected = NO;
+            [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
+            [self.shoucangButton setTitleColor:RGBA(174, 142, 93, 1) forState:UIControlStateNormal];
             
-            [MBProgressHUD showMessag:@"已取消收藏" toView:self.view];
             return;
         }
     }else{

@@ -7,6 +7,7 @@
 //
 
 #import "MLBaseViewController.h"
+#import "CommonHeader.h"
 
 @interface MLCollectionViewController : MLBaseViewController
 

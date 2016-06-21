@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -15,20 +15,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kEb-7X-SpD">
-                        <rect key="frame" x="36" y="2" width="128" height="128"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="kEb-7X-SpD">
+                        <rect key="frame" x="36" y="26" width="80" height="80"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="128" id="MtI-pz-dlw"/>
-                            <constraint firstAttribute="width" constant="128" id="grs-cR-ynR"/>
+                            <constraint firstAttribute="height" constant="80" id="MtI-pz-dlw"/>
+                            <constraint firstAttribute="width" constant="80" id="grs-cR-ynR"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2P-Fg-vP1">
-                        <rect key="frame" x="172" y="21" width="140" height="50"/>
+                        <rect key="frame" x="124" y="21" width="188" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="tNJ-oe-iOT"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.12549019607843137" green="0.14509803921568626" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MB2-hP-zQG" customClass="MLCheckBoxButton">
@@ -124,6 +124,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="0.JPG" width="194" height="145"/>
         <image name="bnt_xuanze01" width="17" height="17"/>
         <image name="golden_button" width="73" height="33"/>
     </resources>

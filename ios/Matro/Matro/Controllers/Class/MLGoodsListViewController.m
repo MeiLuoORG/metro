@@ -183,14 +183,15 @@ static NSInteger page = 1;
     self.navigationItem.rightBarButtonItem = button;
     
     [_jiageButtton changeImageAndTitle];
+    /*
     [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateNormal];
     [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
-    
+    */
     [_shaixuanButton changeImageAndTitle];
-    
+    /*
     [_changeButton setImage:[UIImage imageNamed:@"liebiao1"] forState:UIControlStateNormal];
     [_changeButton setImage:[UIImage imageNamed:@"list"] forState:UIControlStateSelected];
-    
+    */
     
     _blackControl = [[UIControl alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH ,MAIN_SCREEN_HEIGHT)];
     _blackControl.backgroundColor = [UIColor blackColor];
@@ -407,6 +408,8 @@ static NSInteger page = 1;
                 [_collectionView reloadData];
                 
             }
+           [_hud show:YES];
+           [_hud hide:YES afterDelay:1];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [_hud show:YES];
@@ -480,6 +483,9 @@ static NSInteger page = 1;
             [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateNormal];
             [filterparamDic setValue:@"amount" forKey:@"orderby"];
+        }else{
+            
+         [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
         
         page = 1;
@@ -507,6 +513,10 @@ static NSInteger page = 1;
             [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [filterparamDic setValue:@"price" forKey:@"orderby"];
 
+        }else{
+        
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateSelected];
         }
         page = 1;
         [self getGoodsList];

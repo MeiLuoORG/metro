@@ -25,6 +25,19 @@
 @property (nonatomic,copy)NSString *NAMELIST;
 
 
+
+
+@property(nonatomic,copy)NSString *ID;
+@property(nonatomic,copy)NSString *PID;
+@property(nonatomic,copy)NSString *Pname;
+@property(nonatomic,copy)NSString *Pimage;
+@property(nonatomic,copy)NSString *Pprice;
+
+@property(nonatomic,copy)NSString *Shopid;
+@property(nonatomic,copy)NSString *Sscore;
+@property(nonatomic,copy)NSString *Shopname;
+@property(nonatomic,copy)NSString *Slogo;
+
 @property (nonatomic,assign)BOOL isSelect;
 
 

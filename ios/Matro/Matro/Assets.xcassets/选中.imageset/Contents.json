@@ -2,6 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "选中@1x.png",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {

@@ -15,10 +15,10 @@
     if (_isSelected != isSelected) {
         _isSelected = isSelected;
         if (_isSelected) {
-            [self setImage:[UIImage imageNamed:@"bnt_xuanze02"] forState:UIControlStateNormal];
+            [self setImage:[UIImage imageNamed:@"zSelected"] forState:UIControlStateNormal];
         }
         else{
-            [self setImage:[UIImage imageNamed:@"bnt_xuanze01"] forState:UIControlStateNormal];
+            [self setImage:[UIImage imageNamed:@"zSelectBtn"] forState:UIControlStateNormal];
         }
     }
 }

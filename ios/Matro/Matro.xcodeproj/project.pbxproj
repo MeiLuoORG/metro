@@ -32,6 +32,14 @@
 		280F7D701CF972CC00D42FA6 /* MLPropertysubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280F7D6E1CF972CC00D42FA6 /* MLPropertysubCell.xib */; };
 		280F7D741CF981BA00D42FA6 /* MLMyPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 280F7D721CF981BA00D42FA6 /* MLMyPropertyViewController.m */; };
 		280F7D751CF981BA00D42FA6 /* MLMyPropertyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280F7D731CF981BA00D42FA6 /* MLMyPropertyViewController.xib */; };
+		283261941D18EFC700C9EE4E /* MLCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 283261921D18EFC700C9EE4E /* MLCollectionTableViewCell.m */; };
+		283261951D18EFC700C9EE4E /* MLCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283261931D18EFC700C9EE4E /* MLCollectionTableViewCell.xib */; };
+		283261991D192D6E00C9EE4E /* MLStoreCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283261971D192D6E00C9EE4E /* MLStoreCollectViewController.m */; };
+		2832619A1D192D6E00C9EE4E /* MLStoreCollectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283261981D192D6E00C9EE4E /* MLStoreCollectViewController.xib */; };
+		2832619E1D192E4800C9EE4E /* MLstoreCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2832619C1D192E4800C9EE4E /* MLstoreCollectTableViewCell.m */; };
+		2832619F1D192E4800C9EE4E /* MLstoreCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2832619D1D192E4800C9EE4E /* MLstoreCollectTableViewCell.xib */; };
+		283261A51D19361C00C9EE4E /* MLStoreFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 283261A41D19361C00C9EE4E /* MLStoreFootView.m */; };
+		283261A71D19364E00C9EE4E /* MLStoreFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283261A61D19364E00C9EE4E /* MLStoreFootView.xib */; };
 		284850D01D13F41B003C2649 /* MLGoodsDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */; };
 		284850D41D13F6DE003C2649 /* MLpingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */; };
 		284850D51D13F6DE003C2649 /* MLpingjiaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284850D31D13F6DE003C2649 /* MLpingjiaViewController.xib */; };
@@ -545,6 +553,18 @@
 		280F7D711CF981BA00D42FA6 /* MLMyPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLMyPropertyViewController.h; path = Matro/Views/TableViewCells/MLMyPropertyViewController.h; sourceTree = SOURCE_ROOT; };
 		280F7D721CF981BA00D42FA6 /* MLMyPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLMyPropertyViewController.m; path = Matro/Views/TableViewCells/MLMyPropertyViewController.m; sourceTree = SOURCE_ROOT; };
 		280F7D731CF981BA00D42FA6 /* MLMyPropertyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MLMyPropertyViewController.xib; path = Matro/Views/TableViewCells/MLMyPropertyViewController.xib; sourceTree = SOURCE_ROOT; };
+		283261911D18EFC700C9EE4E /* MLCollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionTableViewCell.h; sourceTree = "<group>"; };
+		283261921D18EFC700C9EE4E /* MLCollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionTableViewCell.m; sourceTree = "<group>"; };
+		283261931D18EFC700C9EE4E /* MLCollectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLCollectionTableViewCell.xib; sourceTree = "<group>"; };
+		283261961D192D6E00C9EE4E /* MLStoreCollectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLStoreCollectViewController.h; path = Order/MLStoreCollectViewController.h; sourceTree = "<group>"; };
+		283261971D192D6E00C9EE4E /* MLStoreCollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLStoreCollectViewController.m; path = Order/MLStoreCollectViewController.m; sourceTree = "<group>"; };
+		283261981D192D6E00C9EE4E /* MLStoreCollectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MLStoreCollectViewController.xib; path = Order/MLStoreCollectViewController.xib; sourceTree = "<group>"; };
+		2832619B1D192E4800C9EE4E /* MLstoreCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLstoreCollectTableViewCell.h; sourceTree = "<group>"; };
+		2832619C1D192E4800C9EE4E /* MLstoreCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLstoreCollectTableViewCell.m; sourceTree = "<group>"; };
+		2832619D1D192E4800C9EE4E /* MLstoreCollectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLstoreCollectTableViewCell.xib; sourceTree = "<group>"; };
+		283261A31D19361C00C9EE4E /* MLStoreFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLStoreFootView.h; path = CollectionViewCells/MLStoreFootView.h; sourceTree = "<group>"; };
+		283261A41D19361C00C9EE4E /* MLStoreFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLStoreFootView.m; path = CollectionViewCells/MLStoreFootView.m; sourceTree = "<group>"; };
+		283261A61D19364E00C9EE4E /* MLStoreFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLStoreFootView.xib; sourceTree = "<group>"; };
 		284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsDetailsViewController.xib; sourceTree = "<group>"; };
 		284850D11D13F6DE003C2649 /* MLpingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLpingjiaViewController.h; sourceTree = "<group>"; };
 		284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLpingjiaViewController.m; sourceTree = "<group>"; };
@@ -1937,6 +1957,9 @@
 				7ACD3A731CE842A9004BAF8B /* MLWishlistFootView.h */,
 				7ACD3A741CE842A9004BAF8B /* MLWishlistFootView.m */,
 				7ACD3A761CE842D8004BAF8B /* MLWishlistFootView.xib */,
+				283261A31D19361C00C9EE4E /* MLStoreFootView.h */,
+				283261A41D19361C00C9EE4E /* MLStoreFootView.m */,
+				283261A61D19364E00C9EE4E /* MLStoreFootView.xib */,
 				280F7CE21CF832C600D42FA6 /* MLYHQTableViewCell.h */,
 				280F7CE31CF832C600D42FA6 /* MLYHQTableViewCell.m */,
 				280F7CE41CF832C600D42FA6 /* MLYHQTableViewCell.xib */,
@@ -2481,6 +2504,12 @@
 				285808051D1517AA0097D334 /* MLgoodsCollectTableViewCell.h */,
 				285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */,
 				285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */,
+				283261911D18EFC700C9EE4E /* MLCollectionTableViewCell.h */,
+				283261921D18EFC700C9EE4E /* MLCollectionTableViewCell.m */,
+				283261931D18EFC700C9EE4E /* MLCollectionTableViewCell.xib */,
+				2832619B1D192E4800C9EE4E /* MLstoreCollectTableViewCell.h */,
+				2832619C1D192E4800C9EE4E /* MLstoreCollectTableViewCell.m */,
+				2832619D1D192E4800C9EE4E /* MLstoreCollectTableViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -2551,6 +2580,9 @@
 				D6D8036E1CAE7102001C0FE0 /* MLCollectionViewController.h */,
 				D6D8036F1CAE7102001C0FE0 /* MLCollectionViewController.m */,
 				D6D803701CAE7102001C0FE0 /* MLCollectionViewController.xib */,
+				283261961D192D6E00C9EE4E /* MLStoreCollectViewController.h */,
+				283261971D192D6E00C9EE4E /* MLStoreCollectViewController.m */,
+				283261981D192D6E00C9EE4E /* MLStoreCollectViewController.xib */,
 				3A1AA8B81CAA2F6E00AF73C2 /* Address */,
 				3A1F72BD1CA3F7A1000ECE08 /* Product */,
 				6839EF101CD5A8FC00638B3D /* MyAddressManagerViewController.h */,
@@ -3339,6 +3371,7 @@
 				7AEDD0ED1CE5EE9A009B12F4 /* MLWishlistTableViewCell.xib in Resources */,
 				3CEDAD7D1D13ECFB00990DA8 /* background.png in Resources */,
 				7AF6EEBA1CE40AD100ECFCAA /* MLPersonHeadView.xib in Resources */,
+				2832619F1D192E4800C9EE4E /* MLstoreCollectTableViewCell.xib in Resources */,
 				7AF141641CE1FD50005DDE70 /* MLProductOrderCell.xib in Resources */,
 				7A3486651D0EBFC4002EE211 /* MLLikeHeadCollectionReusableView.xib in Resources */,
 				285326E81CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib in Resources */,
@@ -3370,6 +3403,7 @@
 				3A16DC401CA0EA69007AE4A2 /* RecommendCollectionViewCell.xib in Resources */,
 				3A1AA8C71CAA58F200AF73C2 /* MLAddressInfoViewController.xib in Resources */,
 				7A07203C1D17E76100E0B58E /* MLWenTiBiaoQianTableViewCell.xib in Resources */,
+				2832619A1D192D6E00C9EE4E /* MLStoreCollectViewController.xib in Resources */,
 				280AADB41CFEDC7500E7A2FA /* 3.JPG in Resources */,
 				3A16DC481CA0EB63007AE4A2 /* CPPhotoInfoViewController.xib in Resources */,
 				3ACF2CD41CA4D9DF003D1F67 /* WebViewJavascriptBridge.js.txt in Resources */,
@@ -3395,8 +3429,10 @@
 				2CBAD63F1CA399930044601B /* MLBagHeaderView.xib in Resources */,
 				7AED646C1CDDAECE008F55BD /* MLCusServiceCell.xib in Resources */,
 				3A16DC241C9FF423007AE4A2 /* MLVIPCardViewController.xib in Resources */,
+				283261A71D19364E00C9EE4E /* MLStoreFootView.xib in Resources */,
 				3A630BE91CA25C5B006E67F4 /* MLClassCollectionViewCell.xib in Resources */,
 				7A0720371D17D5D300E0B58E /* MLTuiHuoFooterView.xib in Resources */,
+				283261951D18EFC700C9EE4E /* MLCollectionTableViewCell.xib in Resources */,
 				7A34865B1D0EAF97002EE211 /* MLShopCartCollectionViewCell.xib in Resources */,
 				3C5F123F1D17A09F001F66E1 /* SecondBtnsView.xib in Resources */,
 				3A1AA8C21CAA433900AF73C2 /* MLAddressListTableViewCell.xib in Resources */,
@@ -3542,6 +3578,7 @@
 				7AF15B061D129BA500F8CF03 /* MLSelAddressTableViewCell.m in Sources */,
 				3A633B5E1C9EA36E00C11FD5 /* ZLPhotoAssets.m in Sources */,
 				7ACFA6011D112DE200987A03 /* MLOrderCenterTableViewCell.m in Sources */,
+				283261A51D19361C00C9EE4E /* MLStoreFootView.m in Sources */,
 				7AF0D7CD1CE581E400A8F913 /* UIView+BlankPage.m in Sources */,
 				3A633B8B1C9EA82200C11FD5 /* MLClassViewController.m in Sources */,
 				7ACFA6151D11436200987A03 /* MLOrderInfoFooterTableViewCell.m in Sources */,
@@ -3651,6 +3688,7 @@
 				3A633B501C9EA36E00C11FD5 /* UIImage+ZLPhotoLib.m in Sources */,
 				3A633B3A1C9EA36E00C11FD5 /* TADotView.m in Sources */,
 				3AA0E7C11CA920D20079AA90 /* MLPayTableViewCell.m in Sources */,
+				283261991D192D6E00C9EE4E /* MLStoreCollectViewController.m in Sources */,
 				280F7CE01CF829D600D42FA6 /* MLYHQViewController.m in Sources */,
 				3A633B611C9EA36E00C11FD5 /* UIViewController+Alert.m in Sources */,
 				3A633B671C9EA36E00C11FD5 /* ZLPhotoPickerCollectionViewCell.m in Sources */,
@@ -3683,6 +3721,7 @@
 				3A633B6F1C9EA42E00C11FD5 /* SkyRadiusView.m in Sources */,
 				3A633B691C9EA36E00C11FD5 /* ZLPhotoPickerGroupTableViewCell.m in Sources */,
 				3ACB8D841CC089EF00C7398B /* MLSecondClass.m in Sources */,
+				2832619E1D192E4800C9EE4E /* MLstoreCollectTableViewCell.m in Sources */,
 				280F7D551CF93E3200D42FA6 /* NSDictionary+HYBUnicodeReadable.m in Sources */,
 				3A1AA8BC1CAA2F8B00AF73C2 /* MLAddressListViewController.m in Sources */,
 				7A813ED11CD850E300FAB6B2 /* MLOrderListModel.m in Sources */,
@@ -3780,6 +3819,7 @@
 				3ABF64571C9EAC0600C10056 /* HFSUtility.m in Sources */,
 				D6D8036C1CAE6B62001C0FE0 /* MLFootprintViewController.m in Sources */,
 				3AE02DB71CAB60920016FA75 /* SearchHistory.m in Sources */,
+				283261941D18EFC700C9EE4E /* MLCollectionTableViewCell.m in Sources */,
 				7A3A62761CDB874F00D265F2 /* MLRetrunsHeadCell.m in Sources */,
 				280F7CE51CF832C600D42FA6 /* MLYHQTableViewCell.m in Sources */,
 				3AA0E7AE1CA91E500079AA90 /* RSADataVerifier.m in Sources */,

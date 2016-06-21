@@ -44,7 +44,7 @@ static NSInteger page = 1;
     // Do any additional setup after loading the view.
     self.title = @"我的收藏";
     isSelect = YES;
-    self.storesTableView.hidden = YES;
+  
     
     //self.view.backgroundColor = [UIColor whiteColor];
     /*
@@ -310,26 +310,5 @@ static NSInteger page = 1;
 }
 
 
-- (IBAction)actGoods:(id)sender {
-    
-    self.goodsTableView.hidden = NO;
-    [self.btnStores setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    self.storesView.backgroundColor = [UIColor whiteColor];
-    [self.btnGoods setTitleColor:MS_RGB(166,136,89) forState:UIControlStateNormal];
-    self.goodsView.backgroundColor = MS_RGB(166,136,89);
-    self.storesTableView.hidden = YES;
-    [self.goodsTableView reloadData];
-    
-}
-- (IBAction)actStores:(id)sender {
-    
-    self.storesTableView.hidden = NO;
-    [self.btnGoods setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    self.goodsView.backgroundColor = [UIColor whiteColor];
-    [self.btnStores setTitleColor:MS_RGB(166,136,89) forState:UIControlStateNormal];
-    self.storesView.backgroundColor = MS_RGB(166,136,89);
-    self.goodsTableView.hidden = YES;
-    [self.storesTableView reloadData];
-    
-}
+
 @end

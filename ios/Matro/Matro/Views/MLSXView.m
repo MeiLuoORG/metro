@@ -170,7 +170,9 @@ static BOOL selectPP = NO;
     self.subsureButton.layer.cornerRadius = 4.f;
     self.subsureButton.layer.masksToBounds = YES;
     
-    
+    _fenlei.text = @"不限";
+    _pinpai.text = @"不限";
+    _jiage.text  = @"不限";
     
 
     return self;
@@ -605,27 +607,13 @@ static BOOL selectPP = NO;
 //    _selectedIndexPath = nil;
 }
 #pragma mark- 顶部按钮
-//    1. op：操作码
-//    2. spflcode：商品分类代码
-//    3. tpgg：图片规格
-//    4. sort：排序
-//    XSSL&false（销量）
-//    XJ&true（价格正序）
-//    XJ&false（价格倒序）
-//            5. spsb：商品商标代码
-//    6. pagesize：每页显示记录数，默认为：20
-//            7. pageindex：页码
-//    8. key：搜索关键字
-//    9. jgs：开始价格
-//    10. jge：结束价格
-//    11. iskc：是否仅显示有货（true表示显示有货，false则表示忽略）
-//    12. zcsp：是否跨境购（true表示跨境购，false则表示忽略）
+
 //顶部的三个大分类按钮事件
 - (IBAction)sxTitleButtonAction:(id)sender {
     UIButton * button = ((UIButton *)sender);
     
     button.selected = !button.selected;
-    
+    /*
     if ([button isEqual:_quanqiugouButton]) {
         _youhuoButton.selected = _cuxiaoButton.selected = NO;
     }else if ([button isEqual:_youhuoButton]){
@@ -633,6 +621,7 @@ static BOOL selectPP = NO;
     }else{
         _quanqiugouButton.selected = _youhuoButton.selected = NO;
     }
+    */
     
     for (id view in _titleButtonBgView.subviews) {
         if([view isKindOfClass:[UIButton class]]){
@@ -644,38 +633,34 @@ static BOOL selectPP = NO;
         }
     }
     
-    if (_youhuoButton.selected) {
+    if (_youhuoButton.selected && !_cuxiaoButton.selected && !_quanqiugouButton.selected) {
         [paramfilterDic setObject:@"1" forKey:@"listtype"];
     }
-    else if (_cuxiaoButton.selected){
+    else if (_cuxiaoButton.selected && !_youhuoButton.selected && !_quanqiugouButton.selected){
         [paramfilterDic setObject:@"2" forKey:@"listtype"];
         
     }
-    else if(_quanqiugouButton.selected){
+    else if(_quanqiugouButton.selected && !_cuxiaoButton.selected && !_youhuoButton.selected){
         [paramfilterDic setObject:@"3" forKey:@"listtype"];
         
+    }else if(_youhuoButton.selected && _cuxiaoButton.selected && !_quanqiugouButton.selected){
+    
+        [paramfilterDic setObject:@"102" forKey:@"listtype"];
+    }else if(_youhuoButton.selected && _quanqiugouButton.selected && !_cuxiaoButton.selected){
+        
+        [paramfilterDic setObject:@"103" forKey:@"listtype"];
+    }else if(_cuxiaoButton.selected && _quanqiugouButton.selected && !_youhuoButton.selected){
+        
+        [paramfilterDic setObject:@"203" forKey:@"listtype"];
+    }else if(_youhuoButton.selected && _cuxiaoButton.selected && _quanqiugouButton.selected){
+        
+        [paramfilterDic setObject:@"10203" forKey:@"listtype"];
     }else{
     
         [paramfilterDic setObject:@"" forKey:@"listtype"];
     }
     
-    /*
-    if (_youhuoButton.selected) {
-        [paramfilterDic setObject:@"true" forKey:@"iskc"];
-    }
-    else{
-        [paramfilterDic setObject:@"false" forKey:@"iskc"];
-
-    }
-    if (_quanqiugouButton.selected) {
-        [paramfilterDic setObject:@"true" forKey:@"zcsp"];
-
-    }
-    else{
-        [paramfilterDic setObject:@"false" forKey:@"zcsp"];
-
-    }
-     */
+    
 }
 
 #pragma mark- 分类，品牌，价格选项
@@ -1007,29 +992,7 @@ static BOOL selectPP = NO;
 #pragma mark - UITableViewDataSource
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    /*
-    if ([maxprice floatValue] <= 100) {
-        return 3;
-    }else if ([maxprice floatValue] > 100 && [maxprice floatValue] <= 500){
-    
-        return 4;
-    }else if ([maxprice floatValue] > 500 && [maxprice floatValue] <= 1000){
-        
-        return 5;
-    }else if ([maxprice floatValue] > 1000 && [maxprice floatValue] <= 2000){
-        
-        return 6;
-    }else if ([maxprice floatValue] > 2000 && [maxprice floatValue] <= 5000){
-        
-        return 7;
-    }else if ([maxprice floatValue] > 5000 && [maxprice floatValue] <= 10000){
-        
-        return 8;
-    }
-    return 9;
-    */ 
-//    NSLog(@"_priceArray.count===%ld",_priceArray.count);
+ 
     return _priceArray.count;
    
 }
@@ -1113,9 +1076,6 @@ static BOOL selectPP = NO;
 #pragma mark - UITextFieldDelegate
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    
-    
-//    [_tableView selectRowAtIndexPath:_customIndexPath animated:NO scrollPosition:UITableViewScrollPositionBottom];
     
     UITableViewCell *orginalCell = [_tableView cellForRowAtIndexPath:_selectedIndexPath];
     [self unselectCell:orginalCell];
