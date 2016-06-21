@@ -13,6 +13,8 @@
 #import "VipCardModel.h"
 #import "HYGCD.h"
 #import "ZhengZePanDuan.h"
+#import "NSDatezlModel.h"
+#import "NSString+URLZL.h"
 
 @interface MLLoginViewController : MLBaseViewController<UICollectionViewDelegate,UICollectionViewDataSource>
 

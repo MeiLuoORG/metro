@@ -21,6 +21,7 @@
 
 #import "AFURLRequestSerialization.h"
 
+
 #if __IPHONE_OS_VERSION_MIN_REQUIRED
 #import <MobileCoreServices/MobileCoreServices.h>
 #else
@@ -503,7 +504,8 @@ forHTTPHeaderField:(NSString *)field
             switch (self.queryStringSerializationStyle) {
                 case AFHTTPRequestQueryStringDefaultStyle:
                     query = AFQueryStringFromParametersWithEncoding(parameters, self.stringEncoding);
-//                    query = (NSString*)parameters;
+                    
+                    //query = (NSString*)parameters;
                     break;
             }
         }

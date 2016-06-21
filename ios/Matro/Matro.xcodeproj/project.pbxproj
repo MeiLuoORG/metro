@@ -297,6 +297,8 @@
 		3C5B0C8C1CFC4348003FFD25 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */; };
 		3C5F123D1D17A075001F66E1 /* SecondBtnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */; };
 		3C5F123F1D17A09F001F66E1 /* SecondBtnsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */; };
+		3C8D93C61D1920D80015CC66 /* NSDatezlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8D93C51D1920D80015CC66 /* NSDatezlModel.m */; };
+		3C8D93CA1D1944240015CC66 /* NSString+URLZL.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8D93C91D1944240015CC66 /* NSString+URLZL.m */; };
 		3CAE049C1D06DDD5004504EA /* GCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04911D06DDD5004504EA /* GCD.m */; };
 		3CAE049D1D06DDD5004504EA /* GCDGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04931D06DDD5004504EA /* GCDGroup.m */; };
 		3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04961D06DDD5004504EA /* GCDQueue.m */; };
@@ -1093,6 +1095,10 @@
 		3C5F123B1D17A075001F66E1 /* SecondBtnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondBtnsView.h; sourceTree = "<group>"; };
 		3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondBtnsView.m; sourceTree = "<group>"; };
 		3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondBtnsView.xib; sourceTree = "<group>"; };
+		3C8D93C41D1920D80015CC66 /* NSDatezlModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDatezlModel.h; sourceTree = "<group>"; };
+		3C8D93C51D1920D80015CC66 /* NSDatezlModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDatezlModel.m; sourceTree = "<group>"; };
+		3C8D93C81D1944240015CC66 /* NSString+URLZL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLZL.h"; sourceTree = "<group>"; };
+		3C8D93C91D1944240015CC66 /* NSString+URLZL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLZL.m"; sourceTree = "<group>"; };
 		3CAE04901D06DDD5004504EA /* GCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCD.h; sourceTree = "<group>"; };
 		3CAE04911D06DDD5004504EA /* GCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCD.m; sourceTree = "<group>"; };
 		3CAE04921D06DDD5004504EA /* GCDGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDGroup.h; sourceTree = "<group>"; };
@@ -3054,9 +3060,19 @@
 			path = zlPersonView;
 			sourceTree = "<group>";
 		};
+		3C8D93C31D1920A70015CC66 /* NSDateModels */ = {
+			isa = PBXGroup;
+			children = (
+				3C8D93C41D1920D80015CC66 /* NSDatezlModel.h */,
+				3C8D93C51D1920D80015CC66 /* NSDatezlModel.m */,
+			);
+			path = NSDateModels;
+			sourceTree = "<group>";
+		};
 		3CAE048A1D06C5CE004504EA /* PersonModel */ = {
 			isa = PBXGroup;
 			children = (
+				3C8D93C31D1920A70015CC66 /* NSDateModels */,
 				3CAE048B1D06C5CE004504EA /* cardModel */,
 			);
 			path = PersonModel;
@@ -3069,6 +3085,8 @@
 				7ADC401B1D17863900CBD683 /* VIPCardHistoryModel.m */,
 				3CEDAD801D14128C00990DA8 /* VipCardModel.h */,
 				3CEDAD811D14128C00990DA8 /* VipCardModel.m */,
+				3C8D93C81D1944240015CC66 /* NSString+URLZL.h */,
+				3C8D93C91D1944240015CC66 /* NSString+URLZL.m */,
 			);
 			path = cardModel;
 			sourceTree = "<group>";
@@ -3719,6 +3737,7 @@
 				3A633B521C9EA36E00C11FD5 /* ZLCamera.m in Sources */,
 				3ACF2CD61CA4D9DF003D1F67 /* WebViewJavascriptBridgeBase.m in Sources */,
 				3A633B6F1C9EA42E00C11FD5 /* SkyRadiusView.m in Sources */,
+				3C8D93C61D1920D80015CC66 /* NSDatezlModel.m in Sources */,
 				3A633B691C9EA36E00C11FD5 /* ZLPhotoPickerGroupTableViewCell.m in Sources */,
 				3ACB8D841CC089EF00C7398B /* MLSecondClass.m in Sources */,
 				2832619E1D192E4800C9EE4E /* MLstoreCollectTableViewCell.m in Sources */,
@@ -3736,6 +3755,7 @@
 				280F7CD31CF7F44800D42FA6 /* qrencode.c in Sources */,
 				7AD815FD1CDD7736001761C8 /* YMNavigationController.m in Sources */,
 				285808081D1517AA0097D334 /* MLgoodsCollectTableViewCell.m in Sources */,
+				3C8D93CA1D1944240015CC66 /* NSString+URLZL.m in Sources */,
 				3ACF2D0F1CA535FE003D1F67 /* MLRPayTableViewCell.m in Sources */,
 				7AEDD0EC1CE5EE9A009B12F4 /* MLWishlistTableViewCell.m in Sources */,
 				D6D803711CAE7103001C0FE0 /* MLCollectionViewController.m in Sources */,

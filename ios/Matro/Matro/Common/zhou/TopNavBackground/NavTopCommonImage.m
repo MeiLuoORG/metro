@@ -43,7 +43,7 @@
         [self addSubview:self.tittleLabel];
         
         UIView * spView = [[UIView alloc]initWithFrame:CGRectMake(0, 62, SIZE_WIDTH, 1.3)];
-        spView.backgroundColor = [HFSUtility hexStringToColor:Main_spelBackgroundColor];
+        spView.backgroundColor = [HFSUtility hexStringToColor:@"f1f1f1"];
         [self addSubview:spView];
         //[self addSubview:navBackImage];
 

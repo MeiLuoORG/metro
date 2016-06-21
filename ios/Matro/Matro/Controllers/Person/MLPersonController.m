@@ -205,14 +205,14 @@
     [_backgroundScrollView addSubview:_headView];
     //self.tableView.tableHeaderView = self.headView;
     
-    
+    /*
     _backgroundScrollView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [_tableView.header endRefreshing];
         //        page = 1;
         //        [self downLoadList];
         badgeView.hidden = NO;
     }];
-    
+    */
     [self loadSecondButtonsView];
     [self loadThirdButtonsView];
     [self loadFourButtonsView];
@@ -670,10 +670,11 @@
             [self showError];
             return;
         }
+        NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
+        NSLog(@"model2地址为：%p",model1);
+        [model1 currentTimeDate];
          NSLog(@"5实名认证");
     }
-    
-    
 
 }
 
@@ -697,6 +698,8 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];

@@ -363,67 +363,13 @@
 
     NSData *data2 = [HFSUtility RSADicToData:dic2];
     NSString *ret2 = base64_encode_data(data2);
+    
+    [self yuanShengHuiYuanKaWithRet2:ret2];
+    /*
     //@"vip/AuthUserInfo"
     [[HFSServiceClient sharedClient] POST:VIPInfo_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;
-        NSDictionary * userDataDic = result[@"data"];
-        NSLog(@"获取会员卡信息%@",result);
-        if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-            //vipCard
-            NSArray * vipCardARR = userDataDic[@"vipCard"];
-            if (vipCardARR.count > 0) {
-                
-                for (NSDictionary * dics  in vipCardARR) {
-                    
-                    if ([[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@"1"]) {
-                        VipCardModel * cardModel = [[VipCardModel alloc]init];
-                        cardModel.cardNo = dics[@"cardNo"];
-                        cardModel.cardTypeIdString = dics[@"cardTypeId"];
-                        cardModel.isDefault = [dics[@"isDefault"] intValue];
-                        cardModel.cardImg = dics[@"cardImg"];
-                        cardModel.cardRule = dics[@"cardRule"];
-                        cardModel.cardTypeName = dics[@"cardTypeName"];
-                        [self.cardARR addObject:cardModel];
-                        //请求默认卡的信息
-                        [self getCardInfowithcardNo:cardModel.cardNo];
-                    }
-                    
-                }
-                for (NSDictionary * dics  in vipCardARR) {
-                    
-                    if ([[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@"0"] || [[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@""] || ![NSString stringWithFormat:@"%@",dics[@"isDefault"]]) {
-                        VipCardModel * cardModel = [[VipCardModel alloc]init];
-                        cardModel.cardNo = dics[@"cardNo"];
-                        cardModel.cardTypeIdString = dics[@"cardTypeId"];
-                        cardModel.isDefault = [dics[@"isDefault"] intValue];
-                        cardModel.cardImg = dics[@"cardImg"];
-                        cardModel.cardRule = dics[@"cardRule"];
-                        cardModel.cardTypeName = dics[@"cardTypeName"];
-                        [self.cardARR addObject:cardModel];
-                    }
-                    
-                }
-                //[self updataCardScrollView];
-                [self setUp];
-            }
-            else{
-            
-            
-            }
-            
-            
-            
-        }else{
-            /*
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = result[@"errMsg"];
-            [_hud hide:YES afterDelay:2];
-            */
-            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
-            [alert show];
-        }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
@@ -431,7 +377,7 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
-
+*/
 
 }
 
@@ -452,37 +398,12 @@
     NSData *data2 = [HFSUtility RSADicToData:dic2];
     NSString *ret2 = base64_encode_data(data2);
     //@"vip/AuthUserInfo"
+    [self yuanShengXiangXiKaWithRet2:ret2];
+    /*
     [[HFSServiceClient sharedClient] POST:VIPCardJiFen_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;
-        NSDictionary * userDataDic = result[@"data"];
-        NSLog(@"获取单个会员卡详细信息%@",result);
-        if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-            //vipCard
-            //ValidCent
-            //_ValidCentString = userDataDic[@"ValidCent"];
-            _ValidCentSLabel.text = userDataDic[@"ValidCent"];
-            
-            self.currentCardModel = [VipCardModel new];
-            self.currentCardModel.cardID = userDataDic[@"CardId"];
-            self.currentCardModel.qrCode = userDataDic[@"QRCODE"];
-            self.currentCardModel.validCent = userDataDic[@"ValidCent"];
-            //[_tableView reloadData];
-            //[self.view layoutIfNeeded];
-            //[self.view setNeedsLayout];
-            //[self.view setNeedsDisplay];
-        }else{
-            
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = result[@"errMsg"];
-            [_hud hide:YES afterDelay:2];
-            
-            /*
-             UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
-             [alert show];
-             */
-        }
+       
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
@@ -490,10 +411,90 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
-    
+    */
     
 
 }
+#pragma mark 获取详细信息
+- (void) yuanShengXiangXiKaWithRet2:(NSString *)ret2{
+    VipCardModel * moCard = [self.cardARR objectAtIndex:self.moRenIndex];
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+    NSString *urlStr = [NSString stringWithFormat:@"%@",VIPCardJiFen_URLString];
+    NSURL * URL = [NSURL URLWithString:urlStr];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+    [request setHTTPMethod:@"post"]; //指定请求方式
+    NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:data3];
+    [request setURL:URL]; //设置请求的地址
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      NSLog(@"原生错误error:%@",error);
+                                      
+                                      //请求没有错误
+                                      if (!error) {
+                                          if (data && data.length > 0) {
+                                              //JSON解析
+                                              // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                              NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                              //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                              NSLog(@"设置默认卡%@",result);
+                                              NSDictionary * userDataDic = result[@"data"];
+                                              NSLog(@"获取单个会员卡详细信息%@",result);
+                                              if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+                                                  //vipCard
+                                                  //ValidCent
+                                                  //_ValidCentString = userDataDic[@"ValidCent"];
+                                                  _ValidCentSLabel.text = userDataDic[@"ValidCent"];
+                                                  
+                                                  self.currentCardModel = [VipCardModel new];
+                                                  self.currentCardModel.cardID = userDataDic[@"CardId"];
+                                                  self.currentCardModel.qrCode = userDataDic[@"QRCODE"];
+                                                  self.currentCardModel.validCent = userDataDic[@"ValidCent"];
+                                                  //[_tableView reloadData];
+                                                  //[self.view layoutIfNeeded];
+                                                  //[self.view setNeedsLayout];
+                                                  //[self.view setNeedsDisplay];
+                                              }else{
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [_hud show:YES];
+                                                  _hud.mode = MBProgressHUDModeText;
+                                                  _hud.labelText = result[@"errMsg"];
+                                                  [_hud hide:YES afterDelay:2];
+                                                  });
+                                                  /*
+                                                   UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
+                                                   [alert show];
+                                                   */
+                                              }
+                                          }
+                                      }
+                                      else{
+                                          //请求有错误
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              
+                                              [_hud show:YES];
+                                              _hud.mode = MBProgressHUDModeText;
+                                              _hud.labelText = REQUEST_ERROR_ZL;
+                                              _hud.labelFont = [UIFont systemFontOfSize:13];
+                                              [_hud hide:YES afterDelay:1];
+                                          });
+                                          
+                                      }
+                                      
+                                  }];
+    
+    [task resume];
+    //});
+}
+
+
+
+#pragma end mark 获取详细信息
+
 
 //更新会员卡图片
 - (void)updataCardScrollView{
@@ -803,28 +804,14 @@
             
             NSData *data2 = [HFSUtility RSADicToData:dic2];
             NSString *ret2 = base64_encode_data(data2);
+            
+            [self yuanShengMoRenKaWithRet2:ret2];
+            /*
             //@"vip/AuthUserInfo"
             [[HFSServiceClient sharedClient] POST:BindCard_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 NSDictionary *result = (NSDictionary *)responseObject;
-                NSLog(@"设置默认卡%@",result);
-                if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-                    [_hud show:YES];
-                    _hud.mode = MBProgressHUDModeText;
-                    _hud.labelText = @"默认卡设置成功！";
-                    [_hud hide:YES afterDelay:1.0f];
-                    
-                    NSString * cardTypeStr = [NSString stringWithFormat:@"%@",moCard.cardTypeIdString];
-                    NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
-                    [userDefault setObject:cardTypeStr forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
-                    [userDefault synchronize];
-                    
-                }else{
-                    [_hud show:YES];
-                    _hud.mode = MBProgressHUDModeText;
-                    _hud.labelText = result[@"errMsg"];
-                    [_hud hide:YES afterDelay:2];
-                }
+                
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [_hud show:YES];
@@ -832,12 +819,86 @@
                 _hud.labelText = @"请求失败";
                 [_hud hide:YES afterDelay:2];
             }];
+             */
         }
     
         
     }
 
 }
+#pragma mark 设置默认卡
+
+- (void) yuanShengMoRenKaWithRet2:(NSString *)ret2{
+     VipCardModel * moCard = [self.cardARR objectAtIndex:self.moRenIndex];
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+    NSString *urlStr = [NSString stringWithFormat:@"%@",BindCard_URLString];
+    NSURL * URL = [NSURL URLWithString:urlStr];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+    [request setHTTPMethod:@"post"]; //指定请求方式
+    NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:data3];
+    [request setURL:URL]; //设置请求的地址
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      NSLog(@"原生错误error:%@",error);
+                                      
+                                      //请求没有错误
+                                      if (!error) {
+                                          if (data && data.length > 0) {
+                                              //JSON解析
+                                              // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                              NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                              //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                              NSLog(@"设置默认卡%@",result);
+                                              if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [_hud show:YES];
+                                                  _hud.mode = MBProgressHUDModeText;
+                                                  _hud.labelText = @"默认卡设置成功！";
+                                                  [_hud hide:YES afterDelay:1.0f];
+                                                  });
+                                                  NSString * cardTypeStr = [NSString stringWithFormat:@"%@",moCard.cardTypeIdString];
+                                                  NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+                                                  [userDefault setObject:cardTypeStr forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                  [userDefault synchronize];
+                                                  
+                                              }else{
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [_hud show:YES];
+                                                  _hud.mode = MBProgressHUDModeText;
+                                                  _hud.labelText = result[@"errMsg"];
+                                                  [_hud hide:YES afterDelay:2];
+                                                  });
+                                              }
+                                              
+                                          }
+                                      }
+                                      else{
+                                          //请求有错误
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              
+                                              [_hud show:YES];
+                                              _hud.mode = MBProgressHUDModeText;
+                                              _hud.labelText = REQUEST_ERROR_ZL;
+                                              _hud.labelFont = [UIFont systemFontOfSize:13];
+                                              [_hud hide:YES afterDelay:1];
+                                          });
+                                          
+                                      }
+                                      
+                                  }];
+    
+    [task resume];
+    //});
+}
+
+
+#pragma end 设置默认卡 结束
+
 #pragma mark -
 #pragma mark UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -924,6 +985,172 @@
         
     }
 }
+
+#pragma mark 原生会员卡信息
+- (void) yuanShengHuiYuanKaWithRet2:(NSString *)ret2{
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+    NSString *urlStr = [NSString stringWithFormat:@"%@",VIPInfo_URLString];
+    NSURL * URL = [NSURL URLWithString:urlStr];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+    [request setHTTPMethod:@"post"]; //指定请求方式
+    NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:data3];
+    [request setURL:URL]; //设置请求的地址
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      NSLog(@"原生错误error:%@",error);
+                                      
+                                      //请求没有错误
+                                      if (!error) {
+                                          if (data && data.length > 0) {
+                                              //JSON解析
+                                              // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                              NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                              //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                              NSDictionary * userDataDic = result[@"data"];
+                                              NSLog(@"获取会员卡信息%@",result);
+                                              if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+                                                  //vipCard
+                                                  NSArray * vipCardARR = userDataDic[@"vipCard"];
+                                                  if (vipCardARR.count > 0) {
+                                                      
+                                                      for (NSDictionary * dics  in vipCardARR) {
+                                                          
+                                                          if ([[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@"1"]) {
+                                                              VipCardModel * cardModel = [[VipCardModel alloc]init];
+                                                              cardModel.cardNo = dics[@"cardNo"];
+                                                              cardModel.cardTypeIdString = dics[@"cardTypeId"];
+                                                              cardModel.isDefault = [dics[@"isDefault"] intValue];
+                                                              cardModel.cardImg = dics[@"cardImg"];
+                                                              cardModel.cardRule = dics[@"cardRule"];
+                                                              cardModel.cardTypeName = dics[@"cardTypeName"];
+                                                              [self.cardARR addObject:cardModel];
+                                                              //请求默认卡的信息
+                                                              [self getCardInfowithcardNo:cardModel.cardNo];
+                                                          }
+                                                          
+                                                      }
+                                                      for (NSDictionary * dics  in vipCardARR) {
+                                                          
+                                                          if ([[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@"0"] || [[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@""] || ![NSString stringWithFormat:@"%@",dics[@"isDefault"]]) {
+                                                              VipCardModel * cardModel = [[VipCardModel alloc]init];
+                                                              cardModel.cardNo = dics[@"cardNo"];
+                                                              cardModel.cardTypeIdString = dics[@"cardTypeId"];
+                                                              cardModel.isDefault = [dics[@"isDefault"] intValue];
+                                                              cardModel.cardImg = dics[@"cardImg"];
+                                                              cardModel.cardRule = dics[@"cardRule"];
+                                                              cardModel.cardTypeName = dics[@"cardTypeName"];
+                                                              [self.cardARR addObject:cardModel];
+                                                          }
+                                                          
+                                                      }
+                                                      //[self updataCardScrollView];
+                                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                                           [self setUp];
+                                                       });
+                                                  }
+                                                  else{
+                                                      
+                                                      
+                                                  }
+                                                  
+                                                  
+                                                  
+                                              }else{
+                                                  /*
+                                                   [_hud show:YES];
+                                                   _hud.mode = MBProgressHUDModeText;
+                                                   _hud.labelText = result[@"errMsg"];
+                                                   [_hud hide:YES afterDelay:2];
+                                                   */
+                                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                                  UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
+                                                  [alert show];
+                                                   });
+                                              }
+
+                                              
+                                          }
+                                      }
+                                      else{
+                                          //请求有错误
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              
+                                              [_hud show:YES];
+                                              _hud.mode = MBProgressHUDModeText;
+                                              _hud.labelText = REQUEST_ERROR_ZL;
+                                              _hud.labelFont = [UIFont systemFontOfSize:13];
+                                              [_hud hide:YES afterDelay:1];
+                                          });
+                                          
+                                      }
+                                      
+                                  }];
+    
+    [task resume];
+    //});
+}
+#pragma end mark 原生注册方法  结束
+
+
+#pragma end mark
+/*
+#pragma mark 原生注册方法 开始
+
+- (void) yuanShengRegisterAcrionWithRet2:(NSString *)ret2{
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+        NSString *urlStr = [NSString stringWithFormat:@"%@",Login_URLString];
+        NSURL * URL = [NSURL URLWithString:urlStr];
+        NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+        [request setHTTPMethod:@"post"]; //指定请求方式
+        NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+        [request setHTTPBody:data3];
+        [request setURL:URL]; //设置请求的地址
+        NSURLSession *session = [NSURLSession sharedSession];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                                completionHandler:
+                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                          NSLog(@"原生错误error:%@",error);
+                                          
+                                          //请求没有错误
+                                          if (!error) {
+                                              if (data && data.length > 0) {
+                                                  //JSON解析
+                                                  // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                                  NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                                  
+                                                  
+                                              }
+                                          }
+                                          else{
+                                              //请求有错误
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  
+                                                  [_hud show:YES];
+                                                  _hud.mode = MBProgressHUDModeText;
+                                                  _hud.labelText = REQUEST_ERROR_ZL;
+                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
+                                                  [_hud hide:YES afterDelay:1];
+                                              });
+                                              
+                                          }
+                                          
+                                      }];
+        
+        [task resume];
+    //});
+}
+#pragma end mark 原生注册方法  结束
+*/
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
