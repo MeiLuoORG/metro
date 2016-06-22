@@ -19,16 +19,28 @@
     
     self.quxiaoBtn.layer.borderColor = RGBA(174, 142, 93, 1).CGColor;
     self.quxiaoBtn.layer.borderWidth = 1.f;
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
 }
+
+
 - (IBAction)tuiHuoAction:(id)sender {
-    
+    if (self.returnsDetailQuxiaoAction) {
+        self.returnsDetailQuxiaoAction();
+    }
 }
 
 - (IBAction)bianjiAction:(id)sender {
+    if (self.returnsDetailBianjiAction) {
+        self.returnsDetailBianjiAction();
+    }
 }
 
+- (IBAction)kefuAction:(id)sender {
+    if (self.returnsDetailKeFuAction) {
+        self.returnsDetailKeFuAction();
+    }
+}
 
 
 

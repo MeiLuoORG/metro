@@ -24,5 +24,6 @@ typedef void(^WenTiBiaoQianSelBlock)(NSArray *);
 
 @property (nonatomic,copy)WenTiBiaoQianSelBlock  wenTiBiaoQianSelBlock;
 
+@property (nonatomic,copy)NSString *clickStr;
 
 @end

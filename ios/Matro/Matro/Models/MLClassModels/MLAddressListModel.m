@@ -11,7 +11,7 @@
 @implementation MLAddressListModel
 + (NSDictionary *)replacedKeyFromPropertyName
 {
-    return @{@"ID":@"id",@"DEFAULT":@"default"};
+    return @{@"ID":@"id"};
 }
 
 

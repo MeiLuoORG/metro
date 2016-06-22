@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MLReturnsDetailPhototCell : UITableViewCell
+#define kReturnsDetailPhototCell  @"returnsDetailPhototCell"
+@interface MLReturnsDetailPhototCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
+
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (nonatomic,strong)NSMutableArray *imgsArray;
+@property (nonatomic,strong)NSArray *imgsArray;
 
 @end

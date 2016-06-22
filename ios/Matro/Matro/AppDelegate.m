@@ -33,6 +33,8 @@
 
 
 #import "MLHYHTableViewController.h"
+#import "HFSUtility.h"
+#import "NSString+URLZL.h"
 
 
 @interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>{
@@ -115,10 +117,121 @@
     manager.enableAutoToolbar = NO;
     
     
+    [self autoLogin];
+    
+    
     self.window.rootViewController = _tabBarController;
     
     return YES;
 }
+
+- (void)autoLogin{
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID] &&[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN] ) {
+        [self renZhengLiJiaWithPhone:[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID] withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN]];
+    }
+}
+
+
+//调用 李佳重新认证接口
+- (void)renZhengLiJiaWithPhone:(NSString *)phoneString withAccessToken:(NSString *) accessTokenStr{
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+    NSLog(@"accessToken编码前为：%@",accessTokenStr);
+    NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
+    NSString * urlPinJie = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=check_token&phone=%@&accessToken=%@",phoneString,accessTokenEncodeStr];
+    //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString * urlStr = urlPinJie;
+    NSLog(@"李佳的认证接口：%@",urlStr);
+    NSURL * URL = [NSURL URLWithString:urlStr];
+    
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+    [request setHTTPMethod:@"get"]; //指定请求方式
+    //NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+    //[request setHTTPBody:data3];
+    [request setURL:URL]; //设置请求的地址
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      NSString *resultString  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                      NSLog(@"李佳认证:%@,错误信息：%@",resultString,error);
+                                      
+                                      
+                                      //NSString * timeStr = @"1334322098";
+                                      
+                                      //                                          NSDate * date1 = [NSDate dateWithTimeIntervalSinceReferenceDate:1334322098];
+                                      //                                          NSDate * date3 = [NSDate dateWithTimeIntervalSinceNow:1334322098];
+                                      //                                          NSDate * date4 = [NSDate dateWithTimeIntervalSince1970:1334322098];
+                                      //                                          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+                                      //                                          [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+                                      //                                          NSString * fuWuStirng1 = [dateFormatter stringFromDate:date1];
+                                      //                                          NSString * fuWuStirng3 = [dateFormatter stringFromDate:date3];
+                                      //                                          NSString * fuWuStirng4 = [dateFormatter stringFromDate:date4];
+                                      //                                          NSLog(@"服务器的时间为;1---%@,3---%@,4----%@",fuWuStirng1,fuWuStirng3,fuWuStirng4);
+                                      //
+                                      //
+                                      //                                          //NSDate * date2 = [[NSDate alloc]initWithTimeInterval:0 sinceDate:date1];
+                                      //
+                                      //                                          NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
+                                      //                                          NSLog(@"model1地址：%p",model1);
+                                      //                                          model1.timeInterval =1334322098;
+                                      //                                          model1.firstDate = [NSDate date];
+                                      
+                                      
+                                      
+                                      //请求没有错误
+                                      if (!error) {
+                                          if (data && data.length > 0) {
+                                              //JSON解析
+                                              // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                              NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                              
+                                              if (result && [result isKindOfClass:[NSDictionary class]]) {
+                                                  if ([result[@"code"] isEqual:@0]) {
+                                                      NSDictionary *data = result[@"data"];
+                                                      
+                                                      NSString *bbc_token = [data objectForKey:@"bbc_token"];
+                                                      NSString *timestamp = data[@"timestamp"];
+                                                      
+                                                      NSDatezlModel * model1 = [NSDatezlModel shareDate];
+                                                      model1.timeInterval =[timestamp integerValue];
+                                                      model1.firstDate = [NSDate date];
+                                                      [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
+                                                      
+                                                  }
+                                              }
+                                              NSLog(@"%@",result);
+                                              
+                                              
+                                              //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                              
+                                              
+                                          }
+                                      }
+                                      else{
+                                          //请求有错误
+                                          //dispatch_async(dispatch_get_main_queue(), ^{
+                                          
+//                                          [_hud show:YES];
+//                                          _hud.mode = MBProgressHUDModeText;
+//                                          _hud.labelText = REQUEST_ERROR_ZL;
+//                                          _hud.labelFont = [UIFont systemFontOfSize:13];
+//                                          [_hud hide:YES afterDelay:1];
+                                          //});
+                                          
+                                      }
+                                      
+                                  }];
+    
+    [task resume];
+    //});
+    
+    
+    
+}
+
+
 
 -(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
 {

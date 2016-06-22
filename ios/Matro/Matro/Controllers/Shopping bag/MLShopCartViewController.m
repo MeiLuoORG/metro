@@ -29,6 +29,9 @@
 #import "MBProgressHUD+Add.h"
 #import "MLShopCartMoreCell.h"
 
+#import "MLHttpManager.h"
+
+
 @interface MLShopCartViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CPStepperDelegate>
 
 @property (nonatomic,strong)UICollectionView *collectionView;
@@ -108,12 +111,31 @@ static NSInteger goodsCount;
         make.left.right.bottom.mas_equalTo(self.view);
     }];
     [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
-    [self getDataSource];
+    
 }
 
 
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self getDataSource];
+    
+}
+
 - (void)getDataSource{
+    
+    
+    
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index&test_phone=13771961207",@"http://bbctest.matrojp.com"];
+//
+//    [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
+//        
+//    } failure:^(NSError *error) {
+//        
+//        
+//    }];
+    
+    
     [[HFSServiceClient sharedJSONClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         
@@ -392,16 +414,6 @@ static NSInteger goodsCount;
     return _likeArray;
 }
 
-//<<<<<<< Updated upstream
-//=======
-//- (void)changeNumWith:(MLProlistModel *)prolist andCount:(NSInteger)count{
-//    
-//    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php",@"http://bbctest.matrojp.com"];
-//    NSDictionary *params = @{@"m":@"product",@"s":@"cart",@"action":@"modify",@"id":prolist.ID,@"nums":[NSNumber numberWithInteger:count]};
-//    
-//    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSDictionary *result = (NSDictionary *)responseObject;
-//>>>>>>> Stashed changes
 
 
 - (void)countAllPrice{
@@ -411,7 +423,7 @@ static NSInteger goodsCount;
         for (MLProlistModel *prolist in model.prolist) {
             if (prolist.is_check == 1) {
                 goodsCount ++;
-                allPrice+= prolist.pro_price;
+                allPrice+= prolist.pro_price * prolist.num;
             }
         }
     }
@@ -441,9 +453,6 @@ static NSInteger goodsCount;
     [manager POST:@"http://bbctest.matrojp.com/api.php?m=product&s=cart&action=modify&test_phone=13771961207" parameters:@{@"id":prolist.ID,@"nums":[NSNumber numberWithInteger:count]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //修改成功
-            NSDictionary *data = result[@"data"];
-            NSString *price = data[@"price"];
-            prolist.pro_price = [price floatValue];
             //调用接口
             prolist.num = count;
             [self.collectionView reloadData];

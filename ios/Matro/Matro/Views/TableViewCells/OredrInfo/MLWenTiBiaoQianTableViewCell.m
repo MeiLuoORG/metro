@@ -30,29 +30,27 @@
 
 
 - (void)setTags:(NSArray *)tags{
-    _tags = tags;
-    
-    IMJIETagFrame *frame = [[IMJIETagFrame alloc] init];
-    frame.tagsMinPadding = 10;
-    frame.tagsMargin = 10;
-    frame.tagsLineSpacing = 10;
-    frame.tagsArray = _tags;
-    
-    IMJIETagView *tagView = [[IMJIETagView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, frame.tagsHeight)];
-    tagView.clickbool = YES;
-    tagView.borderSize = 0.5;
-    tagView.clickborderSize = 0.5;
-    tagView.tagsFrame = frame;
-    tagView.clickBackgroundColor =RGBA(255, 78, 37, 1) ;
-    tagView.clickTitleColor = [UIColor whiteColor] ;
-    tagView.clickStart = 0;
-    tagView.delegate = self;
-    self.tagViewHeight.constant = frame.tagsHeight;
-    
-    [self.tagView addSubview:tagView];
-    
-    
-    
+    if (_tags != tags) {
+        _tags = tags;
+        IMJIETagFrame *frame = [[IMJIETagFrame alloc] init];
+        frame.tagsMinPadding = 10;
+        frame.tagsMargin = 10;
+        frame.tagsLineSpacing = 10;
+        frame.tagsArray = _tags;
+        
+        IMJIETagView *tagView = [[IMJIETagView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, frame.tagsHeight)];
+        tagView.clickbool = YES;
+        tagView.borderSize = 0.5;
+        tagView.clickborderSize = 0.5;
+        tagView.tagsFrame = frame;
+        tagView.clickBackgroundColor =RGBA(255, 78, 37, 1) ;
+        tagView.clickTitleColor = [UIColor whiteColor] ;
+        tagView.clickStart = 0;
+        tagView.delegate = self;
+        tagView.clickString = self.clickStr;
+        self.tagViewHeight.constant = frame.tagsHeight;
+        [self.tagView addSubview:tagView];
+    }
 }
 
 #pragma mark 选中

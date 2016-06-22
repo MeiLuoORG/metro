@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MLReturnsDetailViewController : UIViewController
+@property (nonatomic,copy)NSString *order_id;
 
 @end

@@ -8,6 +8,8 @@
 
 #import "MLReturnsDetailPhototCell.h"
 #import "MLAddImgCollectionViewCell.h"
+#import "HFSConstants.h"
+#import "UIImageView+WebCache.h"
 
 @implementation MLReturnsDetailPhototCell
 
@@ -32,13 +34,9 @@
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MLAddImgCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kAddImgCollectionViewCell forIndexPath:indexPath];
-    cell.imgView.image = [self.imgsArray objectAtIndex:indexPath.row];
-    cell.delBtn.hidden = (indexPath.row == self.imgsArray.count-1);
-    __weak typeof(self) weakself = self;
-    cell.addImgCollectionDelBlock = ^(){
-        [weakself.imgsArray removeObjectAtIndex:indexPath.row];
-        [weakself.collectionView reloadData];
-    };
+    NSString *url = [self.imgsArray objectAtIndex:indexPath.row];
+    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:url]];
+    cell.delBtn.hidden = YES;
     return cell;
 }
 
@@ -46,7 +44,7 @@
 #pragma mark --UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat cellW = 65;
+    CGFloat cellW = (MAIN_SCREEN_WIDTH - 3*10-32)/4;
     return CGSizeMake(cellW,cellW);
 }
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -62,14 +60,6 @@
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
 }
 
-
-- (NSMutableArray *)imgsArray{
-    if (!_imgsArray) {
-        _imgsArray = [NSMutableArray array];
-        
-    }
-    return _imgsArray;
-}
 
 
 @end

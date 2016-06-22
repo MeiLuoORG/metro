@@ -17,12 +17,20 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传的图片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZx-9r-r7I">
                         <rect key="frame" x="16" y="12" width="75" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="16A-xT-bxH">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qhP-em-vw5">
+                        <rect key="frame" x="0.0" y="118" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="DfC-Ub-VFh"/>
+                        </constraints>
+                    </view>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="16A-xT-bxH">
                         <rect key="frame" x="16" y="38" width="296" height="73"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="136-Cg-Zcr">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="136-Cg-Zcr">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -34,9 +42,12 @@
                     <constraint firstItem="16A-xT-bxH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="0HE-j2-hhr"/>
                     <constraint firstAttribute="trailing" secondItem="16A-xT-bxH" secondAttribute="trailing" constant="8" id="3nU-Ff-nld"/>
                     <constraint firstAttribute="bottom" secondItem="16A-xT-bxH" secondAttribute="bottom" constant="8" id="Cjz-4g-Zvy"/>
+                    <constraint firstItem="qhP-em-vw5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ob5-pV-nqt"/>
+                    <constraint firstAttribute="trailing" secondItem="qhP-em-vw5" secondAttribute="trailing" id="Q2D-46-zOU"/>
                     <constraint firstItem="dZx-9r-r7I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="QD2-qL-3wn"/>
                     <constraint firstItem="16A-xT-bxH" firstAttribute="top" secondItem="dZx-9r-r7I" secondAttribute="bottom" constant="8" id="VXZ-IC-WTZ"/>
                     <constraint firstItem="dZx-9r-r7I" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="iLd-1D-78F"/>
+                    <constraint firstAttribute="bottom" secondItem="qhP-em-vw5" secondAttribute="bottom" id="soY-Oy-vCL"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

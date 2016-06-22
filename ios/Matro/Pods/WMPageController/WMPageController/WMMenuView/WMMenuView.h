@@ -36,6 +36,8 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 @property (nonatomic, assign) CGFloat progressHeight;
 @property (nonatomic, assign) WMMenuViewStyle style;
 @property (nonatomic, strong) UIColor *lineColor;
+@property (nonatomic,strong)UIColor *lineBackgroundColor;
+
 @property (nonatomic, weak) id<WMMenuViewDelegate> delegate;
 @property (nonatomic, weak) id<WMMenuViewDataSource> dataSource;
 @property (nonatomic, weak) UIView *leftView;
@@ -46,6 +48,9 @@ typedef NS_ENUM(NSUInteger, WMMenuViewStyle) {
 @property (nonatomic, readonly) CGFloat normalSize;
 @property (nonatomic, readonly) UIColor *selectedColor;
 @property (nonatomic, readonly) UIColor *normalColor;
+
+
+
 
 - (void)slideMenuAtProgress:(CGFloat)progress;
 - (void)selectItemAtIndex:(NSInteger)index;

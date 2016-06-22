@@ -19,6 +19,7 @@
 #import "MLTuiHuoFukuanTableViewCell.h"
 #import "MLXuanZeTuPianTableViewCell.h"
 #import "MBProgressHUD+Add.h"
+#import "MJExtension.h"
 
 #import "NSString+GONMarkup.h"
 #import "MLWenTiBiaoQianTableViewCell.h"
@@ -28,6 +29,7 @@
 #import "HFSServiceClient.h"
 
 #import "MLTuiHuoChengGongViewController.h"
+#import "MLReturnsDetailModel.h"
 
 
 @interface MLReturnRequestViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -37,12 +39,14 @@
     UITextField *usernameField;
     UITextField *userphoneField;
     NSArray *selTag;
+    NSArray *tagsArray;
 }
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)MLTuiHuoFooterView *footerView;
-@property (nonatomic,strong)NSArray *tagsArray;
 @property (nonatomic,assign)BOOL fapiao;
 @property (nonatomic,strong)NSMutableArray *imgsUrlArray;
+
+@property (nonatomic,strong)MLReturnsDetailModel *returnsDetail;
 
 
 @end
@@ -59,7 +63,6 @@
     _tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
         tableView.backgroundColor = RGBA(245, 245, 245, 1);
-        
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderInfoHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderInfoHeaderTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLZTextTableViewCell" bundle:nil] forCellReuseIdentifier:kZTextTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderCenterTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderCenterTableViewCell];
@@ -88,6 +91,8 @@
     }];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"success" style:UIBarButtonItemStylePlain target:self action:@selector(pushToSuccess:)];
+    [self getOrderDetail];
+
 }
 
 - (void)pushToSuccess:(id)sender{
@@ -104,13 +109,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        if (self.tuihuoOrder.isMore ) { //有更多
-            if (isOpen) { //如果已经在展开
-               return  self.tuihuoOrder.products.count+2;
+        if (self.returnsDetail.isMore ) { //有更多
+            if (self.returnsDetail.isOpen) { //如果已经在展开
+               return  self.returnsDetail.products.count+2;
             }
             return 5; //有更多 未展开
         }
-        return self.tuihuoOrder.products.count+2;
+        return self.returnsDetail.products.count+2;
     }
     return 1;
 }
@@ -122,9 +127,9 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) { //订单号
             MLZTextTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
-            NSString *attStr = [NSString stringWithFormat:@"订单单号：<color value=\"#999999\">%@</>",self.tuihuoOrder.order_id];
+            NSString *attStr = [NSString stringWithFormat:@"订单单号：<color value=\"#999999\">%@</>",self.returnsDetail.order_id];
             cell.titleLabel.attributedText =[attStr createAttributedString];
-            cell.subLabel.text = [NSString stringWithFormat:@"￥%.2f",self.tuihuoOrder.product_price];
+            cell.subLabel.text = [NSString stringWithFormat:@"￥%.2f",self.returnsDetail.product_price];
             cell.subLabel.textColor = RGBA(255, 78, 37, 1);
             UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 43, SCREENWIDTH, 1)];
             line.backgroundColor = RGBA(245, 245, 245, 1);
@@ -134,27 +139,31 @@
         }else if (indexPath.row == 1){//商铺头
             MLOrderInfoHeaderTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kOrderInfoHeaderTableViewCell forIndexPath:indexPath];
             cell.contentView.backgroundColor = [UIColor whiteColor];
-            cell.shopName.text = self.tuihuoOrder.company;
+            cell.shopName.text = self.returnsDetail.company;
             cell.statusLabel.hidden = YES;
             return cell;
         }else { //
-            if (self.tuihuoOrder.isMore && !isOpen && indexPath.row==4) {//有更多
+            if (self.returnsDetail.isMore && !self.returnsDetail.isOpen && indexPath.row==4) {//有更多
                 MLMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MoreCell" forIndexPath:indexPath];
                 [cell.moreButton addTarget:self action:@selector(showMore:) forControlEvents:UIControlEventTouchUpInside];
-                [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%li件",self.tuihuoOrder.products.count-2] forState:UIControlStateNormal];
+                [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%li件",self.returnsDetail.products.count-2] forState:UIControlStateNormal];
                 return cell;
             }
             MLOrderCenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.tuiHuoProduct = [self.tuihuoOrder.products objectAtIndex:indexPath.row-2];
+            cell.tuiHuoProduct = [self.returnsDetail.products objectAtIndex:indexPath.row-2];
             return cell;
             
         }
     }else if (indexPath.section == 1){
         MLWenTiBiaoQianTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kWenTiBiaoQianTableViewCell forIndexPath:indexPath];
-        cell.tags = self.tagsArray;
+        cell.clickStr = self.returnsDetail.returnInfo.question_type.content;
+        cell.tags = tagsArray;
         cell.wenTiBiaoQianSelBlock = ^(NSArray *tagsIndex){
-            selTag = tagsIndex;
+            NSString *indexStr = [tagsArray firstObject];
+            NSInteger index = [indexStr integerValue];
+            MLReturnsQuestiontype *t = [weakself.returnsDetail.question_type objectAtIndex:index];
+            weakself.returnsDetail.returnInfo.question_type = t;
         };
         return cell;
     }else if (indexPath.section == 2){
@@ -171,7 +180,6 @@
                 [cell.collectionView reloadData];
             } showIn:weakself AndActionTitle:@"请选择照片"];
         };
-        
         return cell;
     }else if(indexPath.section == 4){
         MLTuiHuoFukuanTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTuiHuoFukuanTableViewCell forIndexPath:indexPath];
@@ -203,7 +211,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        if (indexPath.row < 2 ||(self.tuihuoOrder.isMore && !isOpen && indexPath.row==4) ) {
+        if (indexPath.row < 2 ||(self.returnsDetail.isMore && !self.returnsDetail.isOpen && indexPath.row==4) ) {
             return 44;
         }
         return 134;
@@ -213,7 +221,7 @@
         frame.tagsMinPadding = 4;
         frame.tagsMargin = 10;
         frame.tagsLineSpacing = 10;
-        frame.tagsArray = self.tagsArray;
+        frame.tagsArray = tagsArray;
         return frame.tagsHeight + 35;
     }
     else if (indexPath.section == 2){
@@ -224,13 +232,6 @@
     return 88;
 }
 
-- (NSArray *)tagsArray{
-    if (!_tagsArray) {
-        _tagsArray = @[@"质量问题",@"与描述不符",@"商家发错货",@"包装破损",@"发票",@"其他"];
-    }
-    return _tagsArray;
-    
-}
 
 #pragma mark 提交操作
 
@@ -248,7 +249,7 @@
                 UIImage *img = (UIImage *)obj;
                 AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
                 NSData *imgData = UIImageJPEGRepresentation(img, 0.3);
-                NSDictionary *params = @{@"method":@"refund_img",@"order_id":self.tuihuoOrder.order_id};
+                NSDictionary *params = @{@"method":@"refund_img",@"order_id":self.returnsDetail.order_id};
                 [manager POST:@"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                     [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
                 } success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -280,10 +281,7 @@
 
 - (void)submitTuihuoAction{
     NSString *url = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=return&s=save_return&test_phone=%@",@"13771961207"];
-    
-    
-    
-    NSDictionary *params = @{@"order_id":self.tuihuoOrder.order_id,@"question_type":@"1",@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"username":usernameField.text.length>0?usernameField.text:@"",@"userphone":userphoneField.text.length>0?userphoneField.text:@"",@"pic":self.imgsUrlArray.description};
+    NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":@"1",@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"username":usernameField.text.length>0?usernameField.text:@"",@"userphone":userphoneField.text.length>0?userphoneField.text:@"",@"pic":self.imgsUrlArray.description};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@",responseObject);
@@ -294,9 +292,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
-    
-    
-    
 }
 
 
@@ -305,6 +300,35 @@
         _imgsUrlArray = [NSMutableArray array];
     }
     return _imgsUrlArray;
+}
+
+
+- (void)getOrderDetail{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_detail&test_phone=13771961207&order_id=%@",@"http://bbctest.matrojp.com",self.order_id];
+    NSDictionary *params = @{@"order_id":self.order_id?:@""};
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary *data = result[@"data"];
+            NSDictionary *order_detail = data[@"order_detail"];
+            self.returnsDetail = [MLReturnsDetailModel mj_objectWithKeyValues:order_detail];
+            NSMutableArray *tmp = [NSMutableArray array];
+            for (int i = 0; i<self.returnsDetail.question_type.count; i++) {
+                MLReturnsQuestiontype *q = self.returnsDetail.question_type[i];
+                [tmp addObject:q.content];
+            }
+            tagsArray = [tmp copy];
+            
+            [self.tableView reloadData];
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+     
+    
+    
 }
 
 

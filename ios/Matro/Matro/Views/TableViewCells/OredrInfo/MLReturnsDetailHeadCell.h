@@ -10,8 +10,9 @@
 #import "MLTuiHuoModel.h"
 
 
-typedef void(^ReturnsDetailAction)();
-
+typedef void(^ReturnsDetailKeFuAction)();
+typedef void(^ReturnsDetailQuxiaoAction)();
+typedef void(^ReturnsDetailBianjiAction)();
 
 #define kReturnsDetailHeadCell  @"returnsDetailHeadCell"
 @interface MLReturnsDetailHeadCell : UITableViewCell
@@ -25,7 +26,8 @@ typedef void(^ReturnsDetailAction)();
 @property (weak, nonatomic) IBOutlet UILabel *orderIdLabel;
 @property (nonatomic,strong)MLTuiHuoModel *tuiHuoModel;
 
-
-
+@property (nonatomic,copy)ReturnsDetailKeFuAction returnsDetailKeFuAction;
+@property (nonatomic,copy)ReturnsDetailQuxiaoAction returnsDetailQuxiaoAction;
+@property (nonatomic,copy)ReturnsDetailBianjiAction returnsDetailBianjiAction;
 
 @end

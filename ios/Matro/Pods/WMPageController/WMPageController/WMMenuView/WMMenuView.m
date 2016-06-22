@@ -76,6 +76,8 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     return _lineColor;
 }
 
+
+
 - (NSMutableArray *)frames {
     if (_frames == nil) {
         _frames = [NSMutableArray array];
@@ -348,7 +350,7 @@ static NSInteger const WMMenuItemTagOffset = 6250;
     WMProgressView *pView = [[WMProgressView alloc] initWithFrame:CGRectMake(0, self.frame.size.height - self.progressHeight, self.scrollView.contentSize.width, self.progressHeight)];
     pView.itemFrames = self.frames;
     pView.color = self.lineColor.CGColor;
-    pView.backgroundColor = [UIColor clearColor];
+    pView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1];
     self.progressView = pView;
     [self.scrollView addSubview:pView];
 }

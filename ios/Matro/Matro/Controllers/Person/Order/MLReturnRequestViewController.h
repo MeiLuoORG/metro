@@ -10,6 +10,7 @@
 #import "MLTuiHuoModel.h"
 
 @interface MLReturnRequestViewController : MLBaseViewController
-@property (nonatomic,retain)MLTuiHuoModel *tuihuoOrder;
+
+@property (nonatomic,copy)NSString *order_id;
 
 @end

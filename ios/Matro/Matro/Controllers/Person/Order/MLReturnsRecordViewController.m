@@ -125,7 +125,9 @@ static NSInteger pageIndex = 0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0 ) {
+        MLTuiHuoModel *model = [self.orderList objectAtIndex:indexPath.section];
         MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
+        vc.order_id = model.order_id;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

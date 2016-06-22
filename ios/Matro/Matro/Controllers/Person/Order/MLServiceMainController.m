@@ -28,7 +28,7 @@
         self.pageAnimatable                  = YES;
         self.titleSizeNormal                 = 15;
         self.menuHeight                      = 40;
-        self.menuItemWidth                   = MAIN_SCREEN_WIDTH/2;
+        self.menuItemWidth                   = MAIN_SCREEN_WIDTH/4;
         self.postNotification                = YES;
         self.itemMargin                      = 0.f;
         self.bounces                         = NO;

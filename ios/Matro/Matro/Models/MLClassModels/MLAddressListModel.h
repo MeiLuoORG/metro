@@ -22,7 +22,7 @@
 @property (nonatomic,copy)NSString *zip;
 @property (nonatomic,copy)NSString *tel;
 @property (nonatomic,copy)NSString *mobile;
-@property (nonatomic,copy)NSString *DEFAULT;
+@property (nonatomic,copy)NSString *default_set;
 @property (nonatomic,copy)NSString *address;
 
 

@@ -21,7 +21,7 @@
 #import "MLReturnRequestViewController.h"
 #import "MBProgressHUD+Add.h"
 #import "HFSUtility.h"
-#import <CommonCrypto/CommonDigest.h>
+
 #import "MLMoreTableViewCell.h"
 
 
@@ -67,7 +67,7 @@ static NSInteger pageIndex = 0;
         [self getOrderDataSource];
     }];
     
-//    [self.tableView.header beginRefreshing];
+    [self.tableView.header beginRefreshing];
     
     
     // Do any additional setup after loading the view.
@@ -97,7 +97,7 @@ static NSInteger pageIndex = 0;
         MLRetrunsHeadCell *cell =[tableView dequeueReusableCellWithIdentifier:kMLRetrunsHeadCell forIndexPath:indexPath];
         cell.tuihuoBlock = ^(){
             MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
-            vc.tuihuoOrder = model;
+            vc.order_id = model.order_id;
             vc.hidesBottomBarWhenPushed = YES;
             [weakself.navigationController pushViewController:vc animated:YES];
         };
@@ -139,10 +139,8 @@ static NSInteger pageIndex = 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *foot = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 10.F)];
-    foot.backgroundColor = RGBA(245, 245, 245, 1);
     
-    return foot;
+    return [[UIView alloc]init];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -155,40 +153,6 @@ static NSInteger pageIndex = 0;
 - (NSMutableArray *)orderList{
     if (!_orderList) {
         _orderList = [NSMutableArray array];
-        MLTuiHuoModel *testModel = [[MLTuiHuoModel alloc]init];
-        testModel.order_id = @"201606211337";
-        testModel.company = @"测试店铺";
-        testModel.status = @"已完成";
-        testModel.product_price = 25.31;
-        testModel.create_time = @"2016 06-21 13:23";
-        
-        MLTuiHuoProductModel *test1 = [[MLTuiHuoProductModel alloc]init];
-        test1.name = @"手表";
-        test1.pic = @"http://img3.douban.com/view/commodity_story/medium/public/p21316.jpg";
-        test1.num = @"2";
-        test1.setmeal = @[@"颜色",@"标签"];
-        test1.pid = @"132123";
-        MLTuiHuoProductModel *test2 = [[MLTuiHuoProductModel alloc]init];
-        test2.name = @"手机";
-        test2.pic = @"http://www.sinokin.com/imgit/P4f279422856f8.gif";
-        test2.num = @"2";
-        test2.setmeal = @[@"颜色",@"标签"];
-        test2.pid = @"132123";
-        MLTuiHuoProductModel *test3 = [[MLTuiHuoProductModel alloc]init];
-        test3.name = @"鞋子";
-        test3.pic = @"http://www.wangjiasong.com/upload/productpic/917/Big/2014102210184148.jpg";
-        test3.num = @"2";
-        test3.setmeal = @[@"颜色",@"标签"];
-        test3.pid = @"132123";
-        MLTuiHuoProductModel *test4 = [[MLTuiHuoProductModel alloc]init];
-        test4.name = @"洗衣液";
-        test4.pic = @"http://www.sinokin.com/imgit/P4ea7d043baf02.gif";
-        test4.num = @"1";
-        test4.setmeal = @[@"颜色",@"标签"];
-        test4.pid = @"132123";
-        testModel.products = @[test1,test2,test3,test4];
-        [_orderList addObject:testModel];
-        
     }
     return _orderList;
 }
@@ -229,19 +193,6 @@ static NSInteger pageIndex = 0;
     
 }
 
-- (NSString *)md5:(NSString *)str
-{
-    const char *cStr = [str UTF8String];
-    unsigned char result[16];
-    CC_MD5(cStr, strlen(cStr), result); // This is the md5 call
-    return [NSString stringWithFormat:
-            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-            result[0], result[1], result[2], result[3],
-            result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11],
-            result[12], result[13], result[14], result[15]
-            ];
-}
 
 
 

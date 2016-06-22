@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SkyRadiusView.h"
 
-@class SkyRadiusView;
-
+#define kLogisticsTableViewCell  @"logisticsTableViewCell"
 @interface MLLogisticsTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIView *topLine;
 @property (strong, nonatomic) IBOutlet UIView *bottomLine;

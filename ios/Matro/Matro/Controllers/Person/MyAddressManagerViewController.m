@@ -126,7 +126,7 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=setdef&test_phone=13771961207",@"http://bbctest.matrojp.com"];
-    NSDictionary *params = @{@"uid":@"21357",@"id":model.ID};
+    NSDictionary *params = @{@"id":model.ID};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

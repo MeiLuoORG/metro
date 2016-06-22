@@ -1699,23 +1699,23 @@
                                           
                                           //NSString * timeStr = @"1334322098";
                                           
-                                          NSDate * date1 = [NSDate dateWithTimeIntervalSinceReferenceDate:1334322098];
-                                          NSDate * date3 = [NSDate dateWithTimeIntervalSinceNow:1334322098];
-                                          NSDate * date4 = [NSDate dateWithTimeIntervalSince1970:1334322098];
-                                          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-                                          [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-                                          NSString * fuWuStirng1 = [dateFormatter stringFromDate:date1];
-                                          NSString * fuWuStirng3 = [dateFormatter stringFromDate:date3];
-                                          NSString * fuWuStirng4 = [dateFormatter stringFromDate:date4];
-                                          NSLog(@"服务器的时间为;1---%@,3---%@,4----%@",fuWuStirng1,fuWuStirng3,fuWuStirng4);
-                                          
-                                          
-                                          //NSDate * date2 = [[NSDate alloc]initWithTimeInterval:0 sinceDate:date1];
-                                          
-                                          NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
-                                          NSLog(@"model1地址：%p",model1);
-                                          model1.timeInterval =1334322098;
-                                          model1.firstDate = [NSDate date];
+//                                          NSDate * date1 = [NSDate dateWithTimeIntervalSinceReferenceDate:1334322098];
+//                                          NSDate * date3 = [NSDate dateWithTimeIntervalSinceNow:1334322098];
+//                                          NSDate * date4 = [NSDate dateWithTimeIntervalSince1970:1334322098];
+//                                          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+//                                          [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+//                                          NSString * fuWuStirng1 = [dateFormatter stringFromDate:date1];
+//                                          NSString * fuWuStirng3 = [dateFormatter stringFromDate:date3];
+//                                          NSString * fuWuStirng4 = [dateFormatter stringFromDate:date4];
+//                                          NSLog(@"服务器的时间为;1---%@,3---%@,4----%@",fuWuStirng1,fuWuStirng3,fuWuStirng4);
+//                                          
+//                                          
+//                                          //NSDate * date2 = [[NSDate alloc]initWithTimeInterval:0 sinceDate:date1];
+//                                          
+//                                          NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
+//                                          NSLog(@"model1地址：%p",model1);
+//                                          model1.timeInterval =1334322098;
+//                                          model1.firstDate = [NSDate date];
 
                                           
                                           
@@ -1725,6 +1725,24 @@
                                                   //JSON解析
                                                   // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                                   NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                                  
+                                                  if (result && [result isKindOfClass:[NSDictionary class]]) {
+                                                      if ([result[@"code"] isEqual:@0]) {
+                                                          NSDictionary *data = result[@"data"];
+                                                          
+                                                          NSString *bbc_token = [data objectForKey:@"bbc_token"];
+                                                          NSString *timestamp = data[@"timestamp"];
+                                                          
+                                                          NSDatezlModel * model1 = [NSDatezlModel shareDate];
+                                                          model1.timeInterval =[timestamp integerValue];
+                                                          model1.firstDate = [NSDate date];
+                                                          [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
+                                                          
+                                                      }
+                                                  }
+                                                  NSLog(@"%@",result);
+                                                  
+                                                  
                                                   //NSLog(@"error原生数据登录：++： %@",yuanDic);
                                                   
                                                   

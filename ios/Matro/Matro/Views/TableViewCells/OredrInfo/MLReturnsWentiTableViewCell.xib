@@ -16,24 +16,34 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="问题类型" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMi-Ed-bX6">
                         <rect key="frame" x="16" y="12" width="60" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="fI6-CC-Xc8"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="质量问题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1D-ZC-Noi">
-                        <rect key="frame" x="16" y="34" width="60" height="19"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="问题描述" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51c-E3-ayd">
+                        <rect key="frame" x="16" y="70" width="60" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这件衣服穿着不合适，偏大，颜色页不喜欢，只能退货，有点失望" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6T-We-zfb">
+                        <rect key="frame" x="18" y="92" width="294" height="35"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="问题描述" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51c-E3-ayd">
-                        <rect key="frame" x="16" y="69" width="60" height="20"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这件衣服穿着不合适，偏大，颜色页不喜欢，只能退货，有点失望" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6T-We-zfb">
-                        <rect key="frame" x="18" y="91" width="294" height="36"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KOC-bs-5Vr">
+                        <rect key="frame" x="0.0" y="138" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="1ef-OV-ZxB"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="质量问题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1D-ZC-Noi">
+                        <rect key="frame" x="16" y="34" width="60" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -42,10 +52,13 @@
                 <constraints>
                     <constraint firstItem="51c-E3-ayd" firstAttribute="centerX" secondItem="cMi-Ed-bX6" secondAttribute="centerX" id="29g-hn-8Dv"/>
                     <constraint firstItem="m1D-ZC-Noi" firstAttribute="height" secondItem="cMi-Ed-bX6" secondAttribute="height" id="AhY-oV-zba"/>
+                    <constraint firstAttribute="bottom" secondItem="KOC-bs-5Vr" secondAttribute="bottom" id="By0-B7-cAb"/>
                     <constraint firstItem="a6T-We-zfb" firstAttribute="top" secondItem="51c-E3-ayd" secondAttribute="bottom" constant="2" id="D0k-jd-nEg"/>
                     <constraint firstItem="m1D-ZC-Noi" firstAttribute="width" secondItem="cMi-Ed-bX6" secondAttribute="width" id="Egm-oV-kDX"/>
                     <constraint firstAttribute="bottom" secondItem="a6T-We-zfb" secondAttribute="bottom" constant="12" id="Q4f-02-kdA"/>
                     <constraint firstItem="51c-E3-ayd" firstAttribute="height" secondItem="cMi-Ed-bX6" secondAttribute="height" id="Rjq-vZ-v2a"/>
+                    <constraint firstAttribute="trailing" secondItem="KOC-bs-5Vr" secondAttribute="trailing" id="WTe-QP-c36"/>
+                    <constraint firstItem="KOC-bs-5Vr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Z8M-3Y-heP"/>
                     <constraint firstAttribute="trailing" secondItem="a6T-We-zfb" secondAttribute="trailing" constant="8" id="ZHE-Ya-CLU"/>
                     <constraint firstItem="cMi-Ed-bX6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="axC-lC-tzZ"/>
                     <constraint firstItem="m1D-ZC-Noi" firstAttribute="top" secondItem="cMi-Ed-bX6" secondAttribute="bottom" constant="2" id="dhw-fJ-kbe"/>

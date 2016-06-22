@@ -34,7 +34,7 @@
     self.addressLabel.text = [NSString stringWithFormat:@"%@%@",_addressModel.area,_addressModel.address];
     self.phoneLabel.text = _addressModel.mobile;
     self.nameLabel.text = _addressModel.name;
-    if (![_addressModel.DEFAULT isEqualToString:@"2"]) { //不是默认的时候
+    if (![_addressModel.default_set isEqualToString:@"2"]) { //不是默认的时候
         self.defaultLabel.hidden = YES;
         self.nameLeftConstraint.constant = -30;
     }
