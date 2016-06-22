@@ -7,7 +7,6 @@
 //
 
 #import "MLWishlistModel.h"
-
 @implementation MLWishlistModel
 
 @end

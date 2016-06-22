@@ -14,7 +14,7 @@
 #import "MJRefresh.h"
 #import "UIView+BlankPage.h"
 #import "UIImageView+WebCache.h"
-#import "MLWishlistModel.h"
+#import "MLCollectstoresModel.h"
 #import "MLCheckBoxButton.h"
 #import "MLStoreFootView.h"
 #import "CommonHeader.h"
@@ -28,7 +28,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *_tableView;
 @property (nonatomic,strong)NSMutableArray *dataSource;
-@property (nonatomic,strong)NSMutableArray *wishlistArray;
+@property (nonatomic,strong)NSMutableArray *storeslistArray;
 @property (nonatomic,strong)MLStoreFootView *footView;
 
 @end
@@ -68,7 +68,7 @@ static NSInteger page = 1;
         footView.cancelBlock = ^(){
             
              NSMutableString *str= [[NSMutableString alloc]init];
-             for (MLWishlistModel *model in self.wishlistArray) {
+             for (MLCollectstoresModel *model in self.storeslistArray) {
              
              str = [[str stringByAppendingFormat:@"%@,",model.Shopid] mutableCopy];
              }
@@ -79,15 +79,15 @@ static NSInteger page = 1;
         
         footView.selectAllBlock = ^(BOOL isSelected){
             
-             [self.wishlistArray removeAllObjects];
+             [self.storeslistArray removeAllObjects];
              if (isSelected) {
-             [self.wishlistArray addObjectsFromArray:self.dataSource];
-             for (MLWishlistModel *model in self.wishlistArray) {
+             [self.storeslistArray addObjectsFromArray:self.dataSource];
+             for (MLCollectstoresModel *model in self.storeslistArray) {
              model.isSelect = YES;
              }
              }
              else{
-             for (MLWishlistModel *model in self.dataSource) {
+             for (MLCollectstoresModel *model in self.dataSource) {
              model.isSelect = NO;
              }
              }
@@ -144,7 +144,7 @@ static NSInteger page = 1;
             if (page == 1) {
                 [self.dataSource removeAllObjects];
             }
-            [self.dataSource addObjectsFromArray:[MLWishlistModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
+            [self.dataSource addObjectsFromArray:[MLCollectstoresModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
             [self._tableView reloadData];
             
             [self.view configBlankPage:EaseBlankPageTypeShouCang hasData:(self.dataSource.count>0)];
@@ -214,17 +214,17 @@ static NSInteger page = 1;
         cell.sImage.image = [UIImage imageNamed:@"imageloading"];
     }
  
-     MLWishlistModel *model = [self.dataSource objectAtIndex:indexPath.row];
-     cell.wishlistModel = model;
+     MLCollectstoresModel *model = [self.dataSource objectAtIndex:indexPath.row];
+     cell.storeslistModel = model;
      cell.checkBoxbtn.isSelected = model.isSelect;
      __weak typeof(self) weakself = self;
-     cell.wishlistCheckBlock = ^(BOOL isSelected){
+     cell.storeslistCheckBlock = ^(BOOL isSelected){
      model.isSelect = isSelected;
      if (isSelected) {
-     [weakself.wishlistArray addObject:model];
+     [weakself.storeslistArray addObject:model];
      }
      else{
-     [weakself.wishlistArray removeObject:model];
+     [weakself.storeslistArray removeObject:model];
      }
      };
     
@@ -338,11 +338,11 @@ static NSInteger page = 1;
 }
 
 
-- (NSMutableArray *)wishlistArray{
-    if(!_wishlistArray){
-        _wishlistArray = [NSMutableArray array];
+- (NSMutableArray *)storeslistArray{
+    if(!_storeslistArray){
+        _storeslistArray = [NSMutableArray array];
     }
-    return _wishlistArray;
+    return _storeslistArray;
 }
 
 - (void)didReceiveMemoryWarning {

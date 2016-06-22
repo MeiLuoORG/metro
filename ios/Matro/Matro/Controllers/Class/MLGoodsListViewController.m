@@ -339,9 +339,17 @@ static NSInteger page = 1;
         }
         
     }
+    NSString *keystr;
+    
+    if (self.filterParam) {
+        NSString *keyword = self.filterParam[@"keyword"];
+        keystr = [keyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+    }else{
+        keystr = [_searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    }
     
     
-    NSString *keystr = [_searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,ppid];
     NSLog(@"str====%@",str);

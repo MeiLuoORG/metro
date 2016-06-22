@@ -52,6 +52,8 @@
 		285808041D14F20B0097D334 /* MLCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808021D14F20B0097D334 /* MLCommentTableViewCell.xib */; };
 		285808081D1517AA0097D334 /* MLgoodsCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */; };
 		285808091D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */; };
+		287C86C91D1A35DA0002E5E2 /* MLCollectgoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C86C81D1A35DA0002E5E2 /* MLCollectgoodsModel.m */; };
+		287C86CC1D1A35F30002E5E2 /* MLCollectstoresModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C86CB1D1A35F30002E5E2 /* MLCollectstoresModel.m */; };
 		28CEFB1A1CF99C940070E2CA /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CEFB191CF99C940070E2CA /* JSBadgeView.m */; };
 		28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85CE1CEDC59900E582EE /* UMSocialLocalizable.strings */; };
 		28CF86051CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85DC1CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a */; };
@@ -595,6 +597,10 @@
 		285808051D1517AA0097D334 /* MLgoodsCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLgoodsCollectTableViewCell.h; sourceTree = "<group>"; };
 		285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLgoodsCollectTableViewCell.m; sourceTree = "<group>"; };
 		285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLgoodsCollectTableViewCell.xib; sourceTree = "<group>"; };
+		287C86C71D1A35DA0002E5E2 /* MLCollectgoodsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLCollectgoodsModel.h; path = MLClassModels/MLCollectgoodsModel.h; sourceTree = "<group>"; };
+		287C86C81D1A35DA0002E5E2 /* MLCollectgoodsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLCollectgoodsModel.m; path = MLClassModels/MLCollectgoodsModel.m; sourceTree = "<group>"; };
+		287C86CA1D1A35F30002E5E2 /* MLCollectstoresModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLCollectstoresModel.h; path = MLClassModels/MLCollectstoresModel.h; sourceTree = "<group>"; };
+		287C86CB1D1A35F30002E5E2 /* MLCollectstoresModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLCollectstoresModel.m; path = MLClassModels/MLCollectstoresModel.m; sourceTree = "<group>"; };
 		28CEFB181CF99C940070E2CA /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
 		28CEFB191CF99C940070E2CA /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		28CF85CF1CEDC59900E582EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
@@ -1943,6 +1949,10 @@
 				7ACD3A7E1CE9669A004BAF8B /* MLWishlistModel.m */,
 				7A4869C61D0F9C73001FDE5C /* MLShopingCartlistModel.h */,
 				7A4869C71D0F9C73001FDE5C /* MLShopingCartlistModel.m */,
+				287C86C71D1A35DA0002E5E2 /* MLCollectgoodsModel.h */,
+				287C86C81D1A35DA0002E5E2 /* MLCollectgoodsModel.m */,
+				287C86CA1D1A35F30002E5E2 /* MLCollectstoresModel.h */,
+				287C86CB1D1A35F30002E5E2 /* MLCollectstoresModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3613,6 +3623,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D642D85B1CAD00F000317AB6 /* MNNPurchaseHistoryTableViewCell.m in Sources */,
+				287C86CC1D1A35F30002E5E2 /* MLCollectstoresModel.m in Sources */,
 				7A07203B1D17E76100E0B58E /* MLWenTiBiaoQianTableViewCell.m in Sources */,
 				D642D85A1CAD00D800317AB6 /* MNNQRCodeViewController.m in Sources */,
 				D642D8591CAD00CE00317AB6 /* MNNPurchaseHistoryViewController.m in Sources */,
@@ -3848,6 +3859,7 @@
 				7AEDD0D81CE5C498009B12F4 /* MLReturnRequestViewController.m in Sources */,
 				2CBAD6481CA3B0650044601B /* MLBagGoodsTableViewCell.m in Sources */,
 				7A3A62671CDB874F00D265F2 /* MLAfterSaleHeadCell.m in Sources */,
+				287C86C91D1A35DA0002E5E2 /* MLCollectgoodsModel.m in Sources */,
 				3A633B341C9EA36E00C11FD5 /* HFSServiceClient.m in Sources */,
 				687703671CC82FF90008ED46 /* RSAEncryptor.m in Sources */,
 				7A083FC51D194299001F0256 /* MLReturnsRecordViewController.m in Sources */,

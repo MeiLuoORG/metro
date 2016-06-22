@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MLClassViewController">
             <connections>
                 <outlet property="tableView" destination="dCM-8R-0ca" id="kym-LF-xK7"/>
+                <outlet property="titleImageView" destination="Hpn-mr-jLX" id="wif-4j-57v"/>
                 <outlet property="topScrollSegmentControl" destination="2pd-op-G2B" id="r00-pq-dSi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,19 +25,29 @@
                         <constraint firstAttribute="height" constant="40" id="5EK-Id-Xj8"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="dCM-8R-0ca">
-                    <rect key="frame" x="0.0" y="40" width="375" height="627"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="dCM-8R-0ca">
+                    <rect key="frame" x="0.0" y="272" width="375" height="440"/>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="Gpb-Io-rhh"/>
                         <outlet property="delegate" destination="-1" id="sZL-OH-vSS"/>
                     </connections>
                 </tableView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hpn-mr-jLX">
+                    <rect key="frame" x="0.0" y="40" width="375" height="232"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="232" id="mR9-iE-5rO"/>
+                        <constraint firstAttribute="width" constant="375" id="mlb-e8-AvX"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="dCM-8R-0ca" secondAttribute="bottom" id="2LH-b7-pSk"/>
-                <constraint firstItem="dCM-8R-0ca" firstAttribute="top" secondItem="2pd-op-G2B" secondAttribute="bottom" id="LNm-LR-ozk"/>
+                <constraint firstItem="Hpn-mr-jLX" firstAttribute="top" secondItem="2pd-op-G2B" secondAttribute="bottom" id="9u2-zT-AAK"/>
+                <constraint firstItem="Hpn-mr-jLX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="G4P-5h-SUO"/>
+                <constraint firstItem="dCM-8R-0ca" firstAttribute="top" secondItem="Hpn-mr-jLX" secondAttribute="bottom" constant="10" id="Jvp-1n-gIE"/>
+                <constraint firstAttribute="trailing" secondItem="Hpn-mr-jLX" secondAttribute="trailing" id="L8p-0a-s16"/>
                 <constraint firstItem="2pd-op-G2B" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="WBq-Vi-v58"/>
                 <constraint firstAttribute="trailing" secondItem="2pd-op-G2B" secondAttribute="trailing" id="WPr-1g-Aua"/>
                 <constraint firstAttribute="trailing" secondItem="dCM-8R-0ca" secondAttribute="trailing" id="ZvF-cU-Od3"/>

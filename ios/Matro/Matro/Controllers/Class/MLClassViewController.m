@@ -48,6 +48,7 @@
 
 @property (strong, nonatomic) IBOutlet YAScrollSegmentControl *topScrollSegmentControl;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
 
 @end
 
@@ -58,11 +59,14 @@
     // Do any additional setup after loading the view from its nib.
 //    _tableView.estimatedRowHeight = 44.0;
 //    _tableView.rowHeight = UITableViewAutomaticDimension;
-    
-    
+    self.navigationItem.title = @"分类";
+    /*
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"shouyesaoyisao"] style:UIBarButtonItemStylePlain target:self action:@selector(scanning)];
+     */
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"search"] style:UIBarButtonItemStylePlain target:self action:@selector(handleSingleTap:)];
     
     //添加边框和提示
+    /*
     UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)] ;
     frameView.layer.borderWidth = 1;
     frameView.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
@@ -92,21 +96,22 @@
     
     UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     [frameView addGestureRecognizer:singleTap];
-
+     */
     
     [_tableView registerNib:[UINib nibWithNibName:@"MLClassHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:HEADER_IDENTIFIER];
     
     //头部类别设置
     _topScrollSegmentControl.backgroundColor = [UIColor whiteColor];
     _topScrollSegmentControl.tintColor = [UIColor whiteColor];
-    [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"FFFFFF"] forState:UIControlStateSelected];
-    [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"0E0E0E"] forState:UIControlStateNormal];
-    [_topScrollSegmentControl setBackgroundImage:[UIImage imageWithColor:[UIColor blackColor] size:self.view.frame.size] forState:UIControlStateSelected];
+    [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateSelected];
+    [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"C29F8C"] forState:UIControlStateNormal];
+    [_topScrollSegmentControl setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:self.view.frame.size] forState:UIControlStateSelected];
     [_topScrollSegmentControl setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:self.view.frame.size] forState:UIControlStateNormal];
     _topScrollSegmentControl.delegate = self;
-    [_topScrollSegmentControl setFont:[UIFont fontWithName:@"Helvetica" size:15.0f]];
-//    _topScrollSegmentControl.buttons = @[@"推荐",@"母婴",@"食品保健",@"家居厨具",@"玩具"];
+    [_topScrollSegmentControl setFont:[UIFont fontWithName:@"Helvetica" size:18.0f]];
     _topScrollSegmentControl.selectedIndex = 0;
+    
+   
     
     [self loadAllClass];
 }
@@ -120,34 +125,17 @@
 
 //分类点击事件（大图片）
 -(void)headerAction:(UITapGestureRecognizer *)tap{
+    
+    
     MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
-    
-    
+  
     MLSecondClass *headerClass = _classSecondArray[tap.view.tag];
-    
-    //取到当前点击的title  作为keywords
-    NSArray *titlearray = [headerClass.SecondaryClassification_Ggw.TITLE componentsSeparatedByString:@"|"];
-    NSLog(@"titlearray=====%@",titlearray);
-    if (titlearray.count >0) {
-        vc.searchString = titlearray[0] ? titlearray[0] : @" ";
-        [vc.filterParam  setValue:vc.searchString forKey:@"SearchWord"];
-    }
-    
-    //取到spflcode
-    /*
-    NSArray *array = [headerClass.SecondaryClassification_Ggw.MC componentsSeparatedByString:@"="];
-    
-    if(array.count>0){
-        NSString *result = [array lastObject];
-        result = [result stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        vc.filterParam = @{@"spflcode":result};
-     
-    }
-    */
+    NSString *keyword = headerClass.SecondaryClassification_Ggw.mc;
+    vc.filterParam = @{@"keyword":keyword};
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
+  
 }
 
 //搜索器的UIView的点击事件
@@ -171,15 +159,24 @@
 #pragma mark- 获取一级分类
 - (void)loadAllClass {
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@ajax/app/index.ashx?op=allfirst&webframecode=0303",SERVICE_GETBASE_URL];
+   // NSString *urlStr = [NSString stringWithFormat:@"%@ajax/app/index.ashx?op=allfirst&webframecode=0303",SERVICE_GETBASE_URL];
+    //http://bbctest.matrojp.com/api.php?m=category&s=list&method=top
+    
+    NSString *urlStr =@"http://bbctest.matrojp.com/api.php?m=category&s=list&method=top" ;
+    
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *arr = (NSArray *)responseObject;
+        NSLog(@"responseObject===%@",responseObject);
+        
+        NSArray *arr = responseObject[@"data"][@"ret"];
+        
         _classTitleArray = [MTLJSONAdapter modelsOfClass:[MLClass class] fromJSONArray:arr error:nil];
         NSMutableArray *tempTitleArr = [NSMutableArray array];
         for (MLClass *title in _classTitleArray) {
             [tempTitleArr addObject:title.MC];
         }
+        
         //标题按钮的使用的仅仅是大类里面的标题，在点击事件里面还是要用 MLClass 的
+        
         _topScrollSegmentControl.buttons = tempTitleArr;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -195,45 +192,38 @@
 #pragma mark- 获取二级、三级分类
 - (void)loadDateSubClass:(NSInteger)index{
     
-    MLClass *title = _classTitleArray[index];
+//    NSString *urlStr = [NSString stringWithFormat:@"%@ajax/app/index.ashx?op=child&webframecode=%@",SERVICE_GETBASE_URL,title.CODE];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@ajax/app/index.ashx?op=child&webframecode=%@",SERVICE_GETBASE_URL,title.CODE];
+    //http://bbctest.matrojp.com/api.php?m=category&s=list&method=next&code=1010201
     
-   HFSServiceClient  *_client = [[HFSServiceClient alloc]initWithBaseURL:[NSURL URLWithString:SERVICE_BASE_URL]];
+     MLClass *title = _classTitleArray[index];
     
-    _client.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json", @"text/javascript",  @"text/plain",nil];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *accessToken = [userDefaults stringForKey:kUSERDEFAULT_ACCCESSTOKEN];
-    if (!accessToken) {
-        accessToken = @"";
-    }
-    [_client.requestSerializer setValue:@"text/json" forHTTPHeaderField:@"Content-Type"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=next&code=%@",@"http://bbctest.matrojp.com",title.CODE];
     
-    
-    [_client GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"%@",responseObject);
-        
+    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"responseObject===%@",responseObject);
         [_classSecondArray removeAllObjects];
-        
-//        _classSecondArray = [[MTLJSONAdapter modelsOfClass:[MLSecondClass class] fromJSONArray:arr error:nil] mutableCopy];
+        NSArray *arr = responseObject[@"data"][@"ret"];
+         _classSecondArray = [[MTLJSONAdapter modelsOfClass:[MLSecondClass class] fromJSONArray:arr error:nil] mutableCopy];
+        NSLog(@"9999%@",_classSecondArray);
         
         [MLSecondClass mj_setupObjectClassInArray:^NSDictionary *{
             return @{@"SecondaryClassification_Ggw":[MLClassInfo class]};
         }];
         
-        _classSecondArray = [MLSecondClass mj_objectArrayWithKeyValuesArray:responseObject];
         [_classSecondArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             MLSecondClass *model = (MLSecondClass*)obj;
-           
+            
             if (!model.SecondaryClassification_Ggw || [model.SecondaryClassification_Ggw isKindOfClass:[NSNull class]]) {
                 [_classSecondArray removeObject:model];
             }
         }];
         
         
-            
+        
         [_tableView reloadData];
+        
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
@@ -241,6 +231,7 @@
         [_hud hide:YES afterDelay:2];
     }];
     
+  
 }
 
 
@@ -277,8 +268,9 @@
     return cell;
 }
 
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 200;
+    return 44;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -299,11 +291,9 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerAction:)];
     tap.cancelsTouchesInView = NO;
     tap.delegate = self;
-    headerView.headerImageView.tag = section;
-    [headerView.headerImageView addGestureRecognizer:tap];
-    
-    
-    [headerView.headerImageView sd_setImageWithURL:headerinfo.SRC placeholderImage:PLACEHOLDER_IMAGE];
+    headerView.secondTitle.tag = section;
+    [headerView.secondTitle addGestureRecognizer:tap];
+    headerView.secondTitle.text = headerinfo.mc;
     return headerView;
 }
 
@@ -331,18 +321,17 @@
     
     MLSecondClass * secondClass = _classSecondArray[collectionView.tag];
     NSDictionary *dic = secondClass.ThreeClassificationList[indexPath.row];
-    MLClassInfo *iteminfo = [MTLJSONAdapter modelOfClass:[MLClassInfo class] fromJSONDictionary:[dic[@"Ggw"] firstObject] error:nil];
-    //名字有间隔，用@"|"来分隔了中文名和英文名
-    NSArray *nameArray = [iteminfo.TITLE componentsSeparatedByString:@"|"];
-    NSLog(@"%@",nameArray);
-    cell.CNameLabel.text = nameArray[0] ? nameArray[0] : @" ";
-    if (nameArray.count>1) {
-        cell.ENameLabel.text = nameArray[1] ? nameArray[1] : @" ";
-
+    MLClassInfo *iteminfo = [MTLJSONAdapter modelOfClass:[MLClassInfo class] fromJSONDictionary:dic error:nil];
+    
+    
+    cell.CNameLabel.text = iteminfo.mc;
+    if (![iteminfo.imgurl isKindOfClass:[NSNull class]]) {
+        [cell.classImageView sd_setImageWithURL:[NSURL URLWithString:iteminfo.imgurl] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        
     }
-    [cell.classImageView sd_setImageWithURL:iteminfo.SRC placeholderImage:PLACEHOLDER_IMAGE];
     
     return cell;
+     
 }
 
 
@@ -351,36 +340,17 @@
 #pragma mark - UICollectionViewDelegate
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
     MLSecondClass * secondClass = _classSecondArray[collectionView.tag];
     NSDictionary *dic = secondClass.ThreeClassificationList[indexPath.row];
-    NSArray *array = [dic objectForKey:@"Ggw"];
-    NSDictionary *resultDic = [array firstObject];
+    NSString  *selectTitle = dic[@"mc"];
+    vc.filterParam = @{@"keyword":selectTitle};
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
     
     
-    NSString *spfl = [resultDic objectForKey:@"MC"];
-   
-    //取到当前点击的title 作为keywords
-    NSString *selectTitle = [resultDic objectForKey:@"TITLE"];
-    NSArray *selectTitleArr = [selectTitle componentsSeparatedByString:@"|"];
-    if (selectTitleArr.count >0) {
-        vc.searchString = selectTitleArr[0] ? selectTitleArr[0] : @" ";
-    }
-    
-    
-    NSArray *strArr = [spfl componentsSeparatedByString:@"="];
-    if(strArr.count>0){
-        NSString *result = [strArr lastObject];
-        result = [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        
-        vc.filterParam = @{@"spflcode":result?:@""};
-        NSLog(@"%@",vc.filterParam);
-        self.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
-        
-    }
-
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
@@ -392,7 +362,7 @@
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(CollectionViewCellMargin, CollectionViewCellMargin, CollectionViewCellMargin, 0);
+    return UIEdgeInsetsMake(CollectionViewCellMargin, CollectionViewCellMargin, CollectionViewCellMargin, CollectionViewCellMargin);
 }
 
 
@@ -400,6 +370,12 @@
 - (void)didSelectItemAtIndex:(NSInteger)index;{
 
     NSLog(@"%@",_topScrollSegmentControl.buttons[index]);
+    for (MLClass *title in _classTitleArray) {
+        if ([_topScrollSegmentControl.buttons[index] isEqualToString:title.MC]) {
+            [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:title.imgurl] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+            
+        }
+    }
     
     //根据所选的一级大类来刷新二三级大类
     [self loadDateSubClass:index];

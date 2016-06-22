@@ -781,10 +781,11 @@
     if (!self.shareDic) {
         return;
     }
-    NSLog(@"self.paramDic===%@",self.paramDic);
+    NSLog(@"self.paramDic===%@",self.shareDic);
     
     MLShareGoodsViewController *vc = [[MLShareGoodsViewController alloc]init];
-    vc.paramDic = self.paramDic;
+    // vc.paramDic= self.paramDic;
+    vc.paramDic = self.shareDic;
     
     if (self.imageScrollView.subviews.count>0) {
          UIImageView *imgView = [self.imageScrollView.subviews firstObject];
@@ -795,7 +796,8 @@
     vc.erweimaBlock = ^(){
         MLGoodsSharePhotoViewController *vc = [[MLGoodsSharePhotoViewController alloc]init];
         vc.goodsDetail = weakself.shareDic;
-        vc.paramDic = weakself.paramDic;
+        //vc.paramDic = weakself.paramDic;
+        vc.paramDic = weakself.shareDic;
         vc.img_url = imgUrlArray.count>0?[imgUrlArray firstObject]:@"";
         vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
         if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {

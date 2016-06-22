@@ -12,7 +12,7 @@
 @interface MLSecondClass : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, strong,readonly) MLClassInfo *SecondaryClassification_Ggw;
-@property (nonatomic, copy, readonly) NSString *SecondaryClassification_WebrameCode;
+//@property (nonatomic, copy, readonly) NSString *SecondaryClassification_WebrameCode;
 @property (nonatomic, strong, readonly) NSArray *ThreeClassificationList;
 
 @end

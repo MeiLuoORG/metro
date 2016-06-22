@@ -31,10 +31,10 @@
     self.quxiaoBtn.layer.masksToBounds = YES;
     
     if ([_paramDic[@"way"] isEqualToString:@"5"]) {
-        share_Url = [NSString stringWithFormat:@"http://m.matrojp.com/products/products_hwg.aspx?JMSP_ID=%@",_paramDic[@"JMSP_ID"]];
+        share_Url = [NSString stringWithFormat:@"http://m.matrojp.com/products/products_hwg.aspx?JMSP_ID=%@",_paramDic[@"jmsp_id"]];
     }
     else{
-        share_Url = [NSString stringWithFormat:@"http://m.matrojp.com/products/products_cs.aspx?JMSP_ID=%@",_paramDic[@"JMSP_ID"]];
+        share_Url = [NSString stringWithFormat:@"http://m.matrojp.com/products/products_cs.aspx?JMSP_ID=%@",_paramDic[@"jmsp_id"]];
     }
     
     

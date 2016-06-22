@@ -32,7 +32,8 @@
         self = arrayOfViews[0];
         
     }
-    _headerImageView.userInteractionEnabled = YES;
+    
+    //_headerImageView.userInteractionEnabled = YES;
     //原图或拉伸图片
 //    _headerImageView.contentMode = UIViewContentModeScaleAspectFit;
     return self;

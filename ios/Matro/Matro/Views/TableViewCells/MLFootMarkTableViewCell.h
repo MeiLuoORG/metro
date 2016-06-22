@@ -17,6 +17,9 @@ typedef void(^FootMarkDeleteBlock)();
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sideLeft;
 
 @property (weak, nonatomic) IBOutlet UIImageView *myImageView;
+@property (weak, nonatomic) IBOutlet UILabel *isHotLab;
+@property (weak, nonatomic) IBOutlet UILabel *Pname;
+@property (weak, nonatomic) IBOutlet UILabel *Pprice;
 
 @property (nonatomic,copy)FootMarkAddCartBlock footMarkAddCartBlock;
 @property (nonatomic,copy)FootMarkDeleteBlock  footMarkDeleteBlock;

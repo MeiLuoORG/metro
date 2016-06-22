@@ -24,24 +24,12 @@
 @property (nonatomic,copy)NSString *TJ;
 @property (nonatomic,copy)NSString *NAMELIST;
 
-
-
-
-@property(nonatomic,copy)NSString *ID;
-@property(nonatomic,copy)NSString *PID;
-@property(nonatomic,copy)NSString *Pname;
-@property(nonatomic,copy)NSString *Pimage;
-@property(nonatomic,copy)NSString *Pprice;
-
-@property(nonatomic,copy)NSString *Shopid;
-@property(nonatomic,copy)NSString *Sscore;
-@property(nonatomic,copy)NSString *Shopname;
-@property(nonatomic,copy)NSString *Slogo;
-
 @property (nonatomic,assign)BOOL isSelect;
 
-
 @end
+
+
+
 //"JMSP_ID": "CE92534654FB184F18F9D98DDAFA546A",
 //"ZCSP": "0",
 //"IMGURL": "http://61.155.212.169/img/SPXSM/o_1a6n6851ce5c4h6ei1tuq1fud5_M.jpg",

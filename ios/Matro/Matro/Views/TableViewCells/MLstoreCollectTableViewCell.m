@@ -20,10 +20,11 @@
     
     MLCheckBoxButton *btn = (MLCheckBoxButton *)sender;
     btn.isSelected = !btn.isSelected;
-    if (self.wishlistCheckBlock) {
-        self.wishlistCheckBlock(btn.isSelected);
+    if (self.storeslistCheckBlock) {
+        self.storeslistCheckBlock(btn.isSelected);
     }
 }
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

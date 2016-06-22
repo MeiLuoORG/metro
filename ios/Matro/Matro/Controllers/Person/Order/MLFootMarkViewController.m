@@ -12,8 +12,8 @@
 #import "MJRefresh.h"
 #import "UIView+BlankPage.h"
 #import "MLWishlistModel.h"
-
-
+#import "HFSServiceClient.h"
+#import "UIImageView+WebCache.h"
 @interface MLFootMarkViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *tableView;
@@ -27,6 +27,9 @@
     [super viewDidLoad];
     self.title = @"浏览足迹";
     // Do any additional setup after loading the view.
+    
+    [self loadData];
+    
     _tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -47,7 +50,7 @@
     
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self.tableView.header endRefreshing];
-        [self.dataSource removeAllObjects];
+        //[self.dataSource removeAllObjects];
         [self.tableView reloadData];
         [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
         self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
@@ -58,7 +61,7 @@
     
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self.tableView.footer endRefreshing];
-        [self.dataSource addObjectsFromArray:@[@"",@"",@"",@""]];
+        //[self.dataSource addObjectsFromArray:@[@"",@"",@"",@""]];
         [self.tableView reloadData];
         [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
         self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
@@ -73,6 +76,22 @@
 }
 
 
+
+-(void)loadData{
+
+    //http://bbctest.matrojp.com/api.php?m=product&s=detail_footprint&test_test_phone=13771961207&action=sel_footprint
+    
+    
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail_footprint&test_phone=13771961207&action=sel_footprint",@"http://bbctest.matrojp.com"];
+    [[HFSServiceClient sharedJSONClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"请求成功 ==== %@",responseObject);
+        self.dataSource = responseObject[@"data"][@"footprint_info"];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"网络错误");
+    }];
+}
 
 
 
@@ -91,6 +110,19 @@
     cell.footMarkDeleteBlock = ^(){
         NSLog(@"删除足迹操作");
     };
+    NSDictionary *tempDic = self.dataSource[indexPath.row];
+    cell.Pname.text = tempDic[@"panme"];
+    cell.Pprice.text = [NSString stringWithFormat:@"￥%@",tempDic[@"price"]];
+    NSString *imageStr = tempDic[@"pic"];
+    
+    if (![imageStr isKindOfClass:[NSNull class]]) {
+        
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        
+    }else{
+        cell.imageView.image = [UIImage imageNamed:@"imageloading"];
+    }
+    
     return cell;
 }
 

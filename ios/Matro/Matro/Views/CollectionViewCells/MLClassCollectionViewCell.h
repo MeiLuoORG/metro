@@ -11,6 +11,6 @@
 @interface MLClassCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *classImageView;
 @property (strong, nonatomic) IBOutlet UILabel *CNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *ENameLabel;
+
 
 @end

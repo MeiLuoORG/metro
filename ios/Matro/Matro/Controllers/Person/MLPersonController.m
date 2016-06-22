@@ -40,7 +40,7 @@
 #import "MLStoreCollectViewController.h"
 
 #import "MLServiceMainController.h"
-
+#import "MLFootMarkViewController.h"
 
 
 @interface MLPersonController ()<UITableViewDelegate,UITableViewDataSource>
@@ -659,6 +659,10 @@
             [self showError];
             return;
         }
+        [self hideZLMessageBtnAndSetingBtn];
+        MLFootMarkViewController *vc = [[MLFootMarkViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:NO];
     }
     if (sender.tag == 106) {
         if (!loginid) {

@@ -85,7 +85,7 @@ static NSInteger page = 1;
     
     [self.goodsTableView.header beginRefreshing];
     
-    
+    /*
     _footView = ({
        MLWishlistFootView *footView = [MLWishlistFootView WishlistFootView];
         footView.addCartBlock = ^(){
@@ -124,7 +124,7 @@ static NSInteger page = 1;
         [self.view addSubview:footView];
         footView;
     });
-    
+    */
     [self.footView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.height.mas_equalTo(50);

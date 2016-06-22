@@ -12,9 +12,9 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-             @"SecondaryClassification_Ggw" : @"SecondaryClassification_Ggw",
-             @"SecondaryClassification_WebrameCode" : @"SecondaryClassification_WebrameCode",
-             @"ThreeClassificationList" : @"ThreeClassificationList",
+             @"SecondaryClassification_Ggw" : @"Second_Category",
+            // @"SecondaryClassification_WebrameCode" : @"SecondaryClassification_WebrameCode",
+             @"ThreeClassificationList" : @"Third_Category",
              };
 }
 

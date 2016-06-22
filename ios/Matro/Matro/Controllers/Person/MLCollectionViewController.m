@@ -17,7 +17,7 @@
 #import "MLWishlistTableViewCell.h"
 #import "MLCollectionTableViewCell.h"
 #import "UIImageView+WebCache.h"
-#import "MLWishlistModel.h"
+#import "MLCollectgoodsModel.h"
 #import "MLCheckBoxButton.h"
 #import "MJExtension.h"
 
@@ -32,7 +32,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)MLWishlistFootView *footView;
 @property (nonatomic,strong)NSMutableArray *dataSource;
-@property (nonatomic,strong)NSMutableArray *wishlistArray;
+@property (nonatomic,strong)NSMutableArray *goodslistArray;
+@property (nonatomic,strong)MLCollectgoodsModel *goods;
 @end
 
 static BOOL isEditing = NO;
@@ -48,7 +49,8 @@ static NSInteger page = 1;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     userid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
     _collectionArray = [NSMutableArray array];
-    
+    _goodslistArray = [NSMutableArray array];
+    _dataSource = [NSMutableArray array];
     
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self.tableView.header endRefreshing];
@@ -66,8 +68,8 @@ static NSInteger page = 1;
         MLWishlistFootView *footView = [MLWishlistFootView WishlistFootView];
         footView.addCartBlock = ^(){
             NSLog(@"收藏商品加入购物车");
-            for (MLWishlistModel *model in self.wishlistArray) {
-                [self addToCartWithPID:model.PID];
+            for (MLCollectgoodsModel *model in self.goodslistArray) {
+                [self addToCartWithPID:model.PID array: model.Psetmeal];
             }
              
             
@@ -75,7 +77,7 @@ static NSInteger page = 1;
         footView.deleteBlock = ^(){
             NSLog(@"收藏商品取消");
             NSMutableString *str= [[NSMutableString alloc]init];
-            for (MLWishlistModel *model in self.wishlistArray) {
+            for (MLCollectgoodsModel *model in self.goodslistArray) {
                 
                 str = [[str stringByAppendingFormat:@"%@,",model.ID] mutableCopy];
             }
@@ -87,16 +89,16 @@ static NSInteger page = 1;
         footView.selectAllBlock = ^(BOOL isSelected){
             NSLog(@"收藏商品全选择");
             
-            [self.wishlistArray removeAllObjects];
+            [self.goodslistArray removeAllObjects];
             if (isSelected) {
                 
-                [self.wishlistArray addObjectsFromArray:self.dataSource];
-                for (MLWishlistModel *model in self.wishlistArray) {
+                [self.goodslistArray addObjectsFromArray:self.dataSource];
+                for (MLCollectgoodsModel *model in self.goodslistArray) {
                     model.isSelect = YES;
                 }
             }
             else{
-                for (MLWishlistModel *model in self.dataSource) {
+                for (MLCollectgoodsModel *model in self.dataSource) {
                     model.isSelect = NO;
                 }
             }
@@ -142,21 +144,29 @@ static NSInteger page = 1;
     NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_product&test_phone=13771961207"];
      NSDictionary *params = @{@"do":@"sel"};
     
-
+    [_hud show:YES];
+    [_hud hide:YES afterDelay:1];
     [[HFSServiceClient sharedJSONClientNOT] POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData){
     
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"responseObject===%@",responseObject);
+        
         _collectionArray = responseObject[@"data"][@"share_list"];
         
         __weak typeof(self) weakself = self;
         
         if (_collectionArray.count>0) {
+            
             if (page == 1) {
                 [self.dataSource removeAllObjects];
             }
-            [self.dataSource addObjectsFromArray:[MLWishlistModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
+            
+            
+            [self.dataSource addObjectsFromArray:[MLCollectgoodsModel mj_keyValuesArrayWithObjectArray:_collectionArray]];
+            
+            NSLog(@"self.goods===%@",self.dataSource);
+            
             [self.tableView reloadData];
             
             [self.view configBlankPage:EaseBlankPageTypeShouCang hasData:(self.dataSource.count>0)];
@@ -185,7 +195,7 @@ static NSInteger page = 1;
 }
 #pragma mark- UITableViewDataSource And UITableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _collectionArray.count;
+    return self.dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;{
@@ -208,7 +218,7 @@ static NSInteger page = 1;
         cell.selectW.constant  = 20;
     }
     
-    NSDictionary *tempDic = _collectionArray[indexPath.section];
+    NSDictionary *tempDic = self.dataSource[indexPath.section];
     
     cell.pName.text = tempDic[@"pname"];
     cell.pPrice.text = [NSString stringWithFormat:@"￥%@",tempDic[@"price"]];
@@ -220,24 +230,23 @@ static NSInteger page = 1;
     }else{
         cell.pImage.image = [UIImage imageNamed:@"imageloading"];
     }
+
+    /*
+    MLCollectgoodsModel *model = [self.dataSource objectAtIndex:indexPath.row];
     
-    
-    
-    
-    MLWishlistModel *model = [self.dataSource objectAtIndex:indexPath.row];
-    cell.wishlistModel = model;
+    cell.goodslistModel = model;
     cell.checkBoxbtn.isSelected = model.isSelect;
     __weak typeof(self) weakself = self;
-    cell.wishlistCheckBlock = ^(BOOL isSelected){
+    cell.goodslistCheckBlock = ^(BOOL isSelected){
         model.isSelect = isSelected;
         if (isSelected) {
-            [weakself.wishlistArray addObject:model];
+            [weakself.goodslistArray addObject:model];
         }
         else{
-            [weakself.wishlistArray removeObject:model];
+            [weakself.goodslistArray removeObject:model];
         }
     };
-    
+    */
     
     return cell;
 }
@@ -268,10 +277,11 @@ static NSInteger page = 1;
 }
 
 //收藏商品 加入购物车
-- (void)addToCartWithPID:(NSString *)PID{
-    /*
+- (void)addToCartWithPID:(NSString *)PID array:(NSArray*)array{
+    /*//单个加入购物车
      http://localbbc.matrojp.com/api.php?m=product&s=cart&action=add_cart
-     
+     //批量加入购物车
+     http://bbctest.matrojp.com/api.php?m=product&s=cart&action=mul_add_cart
      POST
      
      id=12301 商品id    商品详情接口里的   pinfo  下的id
@@ -285,9 +295,10 @@ static NSInteger page = 1;
      
      */
     
+        NSLog(@"PID===%@222===%@",PID,array);
         NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=add_cart",@"http://bbctest.matrojp.com"];
         NSDictionary *params = @{@"id":PID,@"nums":@1,@"sid":@"0",@"sku":@"0"};
-        
+    
         
         [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
             
@@ -389,11 +400,11 @@ static NSInteger page = 1;
 }
 
 
-- (NSMutableArray *)wishlistArray{
-    if(!_wishlistArray){
-        _wishlistArray = [NSMutableArray array];
+- (NSMutableArray *)goodslistArray{
+    if(!_goodslistArray){
+        _goodslistArray = [NSMutableArray array];
     }
-    return _wishlistArray;
+    return _goodslistArray;
 }
 
 

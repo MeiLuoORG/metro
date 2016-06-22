@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MLCheckBoxButton.h"
-#import "MLWishlistModel.h"
-typedef void(^WishlistCheckBlock)(BOOL isSelected);
+#import "MLCollectgoodsModel.h"
+
+typedef void(^goodslistCheckBlock)(BOOL isSelected);
 
 
 @interface MLCollectionTableViewCell : UITableViewCell
@@ -18,7 +19,9 @@ typedef void(^WishlistCheckBlock)(BOOL isSelected);
 @property (weak, nonatomic) IBOutlet UILabel *pName;
 @property (weak, nonatomic) IBOutlet UILabel *pguige;
 @property (weak, nonatomic) IBOutlet UILabel *pPrice;
+
 @property (weak, nonatomic) IBOutlet MLCheckBoxButton *checkBoxbtn;
-@property (nonatomic,copy)WishlistCheckBlock wishlistCheckBlock;
-@property (nonatomic,strong)MLWishlistModel *wishlistModel;
+@property (nonatomic,copy)goodslistCheckBlock goodslistCheckBlock;
+
+@property (nonatomic,strong)MLCollectgoodsModel *goodslistModel;
 @end

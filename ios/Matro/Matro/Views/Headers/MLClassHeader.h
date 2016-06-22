@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MLClassHeader : UITableViewHeaderFooterView
-@property (strong, nonatomic) IBOutlet UIImageView *headerImageView;
+//@property (strong, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UILabel *secondTitle;
 
 @end
