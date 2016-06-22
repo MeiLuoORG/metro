@@ -138,7 +138,7 @@ static MLShippingaddress *province,*city,*area;
 
 -(void)getAllarea
 {
-    [[HFSServiceClient sharedJSONClientNOT] GET:[NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=dis",@"http://bbctest.matrojp.com"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[HFSServiceClient sharedJSONClientNOT] GET:[NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=dis&test_phone=13771961207",@"http://bbctest.matrojp.com"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
@@ -279,7 +279,7 @@ static MLShippingaddress *province,*city,*area;
     }
 //    NSString *loginid = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
     
-     NSString  *urlStr = [NSString stringWithFormat:@"%@api.php?m=member&s=admin_orderadder&do=%@",@"http://bbctest.matrojp.com/",_isNewAddress?@"add":@"upd"];
+     NSString  *urlStr = [NSString stringWithFormat:@"%@api.php?m=member&s=admin_orderadder&do=%@&test_phone=13771961207",@"http://bbctest.matrojp.com/",_isNewAddress?@"add":@"upd"];
     
     
     NSDictionary *params ;

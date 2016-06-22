@@ -33,12 +33,7 @@
 #import "JSBadgeView.h"
 #import "MJRefresh.h"
 #import "MLPersonOrderListViewController.h"
-<<<<<<< Updated upstream
-=======
 #import "MLCollectionViewController.h"
-
-
->>>>>>> Stashed changes
 #import "MLAllOrdersViewController.h"
 #import "MLAddressSelectViewController.h"
 #import "MLCollectionViewController.h"

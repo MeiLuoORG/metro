@@ -41,6 +41,7 @@
     [self.addBtn addTarget:self action:@selector(addAddress:) forControlEvents:UIControlEventTouchUpInside];
     _hud = [[MBProgressHUD alloc]initWithView:self.view];
     [self.view addSubview:_hud];
+        self.view.backgroundColor = RGBA(245, 245, 245, 1);
     [self loadDateAddressList];
 
 }
@@ -124,7 +125,7 @@
 - (void)changeAddressStatus:(MLAddressListModel *)model{
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=setdef",@"http://bbctest.matrojp.com"];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=setdef&test_phone=13771961207",@"http://bbctest.matrojp.com"];
     NSDictionary *params = @{@"uid":@"21357",@"id":model.ID};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -150,7 +151,7 @@
 - (void)delAddress:(MLAddressListModel *)model{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString *url = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=del"];
+    NSString *url = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=del&test_phone=13771961207"];
     NSDictionary *params = @{@"id":model.ID};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -174,7 +175,7 @@
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {
     
-    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=lists&uid=%@",@"21357"];
+    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=lists&uid=%@&test_phone=13771961207",@"21357"];
     [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;
@@ -206,7 +207,7 @@
         vc.isNewAddress = YES;
         [weakself.navigationController pushViewController:vc animated:YES];
     };
-    self.view.backgroundColor = (addressAry.count>0)?[UIColor whiteColor]:RGBA(245, 245, 245, 1);
+
     self.addBtn.hidden = !(addressAry.count>0);
 }
 

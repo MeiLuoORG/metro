@@ -127,16 +127,16 @@
         if ([obj isKindOfClass:[UIButton class]]) {
             btn = (UIButton *)obj;
             if (btn.tag == index){
-                
-                btn.backgroundColor = [UIColor whiteColor];
-                [btn setTitleColor:_clickTitleColor forState:UIControlStateNormal];
+                btn.backgroundColor =  UIColorRGBA(255,78,37,1);
+                [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [self makeCorner:_clickborderSize view:btn color:_clickTitleColor];
                 [_delegate IMJIETagView:@[[NSString stringWithFormat:@"%ld",(long)index]]];
                 
             }else{
                 
-                btn.backgroundColor = [UIColor whiteColor];
-                [btn setTitleColor:TextColor forState:UIControlStateNormal];
+
+                btn.backgroundColor = UIColorRGBA(245, 245, 245, 1);
+                [btn setTitleColor:UIColorRGBA(68, 68, 68, 1) forState:UIControlStateNormal];
                 [self makeCorner:_borderSize view:btn color:UIColorRGBA(221, 221, 221, 1)];
                 
             }

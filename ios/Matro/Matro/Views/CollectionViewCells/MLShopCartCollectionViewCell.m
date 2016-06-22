@@ -78,13 +78,18 @@
         self.goodDesc.text = @"暂无数据";
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.pro_price];
         self.checkBox.cartSelected = (_prolistModel.is_check == 1);
-//        if (_prolistModel.shipfree_val > 0) { //说明是有包邮情况的
-            self.topConstraints.constant = 25;
+        if (_prolistModel.shipfree_val > 0) { //说明是有包邮情况的
+            self.imgTop.constant = 0;
             self.actDesc.text = [NSString stringWithFormat:@"满%lu包邮",(long)_prolistModel.shipfree_val];
-//        }
-//        else{
-//            self.topConstraints.constant = 0;
-//        }
+            self.actDesc.hidden = NO;
+            self.actlabel.hidden = NO;
+        }
+        else{
+            self.imgTop.constant =-25;
+            self.actDesc.hidden = YES;
+            self.actlabel.hidden = YES;
+            
+        }
         self.giftDesc.text = @"暂无数据";
         
         [self.countField setTextValue:_prolistModel.num];

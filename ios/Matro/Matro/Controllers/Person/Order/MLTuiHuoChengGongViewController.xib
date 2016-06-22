@@ -55,9 +55,6 @@
                     <state key="normal" title="提交成功！">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="170" y="50" width="60" height="30"/>
-                    </variation>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -78,14 +75,14 @@
                     <exclude reference="mn6-lD-yiR"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="EJs-8p-7lw"/>
-                    <exclude reference="a9v-eY-AKy"/>
-                    <exclude reference="bWc-Ba-doG"/>
-                    <exclude reference="lWE-4A-yob"/>
-                    <exclude reference="t4l-yV-UYn"/>
                     <exclude reference="YMe-3I-m0W"/>
                     <exclude reference="esa-qM-84T"/>
                     <exclude reference="w5q-Jf-bjL"/>
+                    <exclude reference="lWE-4A-yob"/>
+                    <exclude reference="t4l-yV-UYn"/>
+                    <exclude reference="EJs-8p-7lw"/>
+                    <exclude reference="a9v-eY-AKy"/>
+                    <exclude reference="bWc-Ba-doG"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -95,14 +92,14 @@
                     <include reference="mn6-lD-yiR"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="EJs-8p-7lw"/>
-                    <include reference="a9v-eY-AKy"/>
-                    <include reference="bWc-Ba-doG"/>
-                    <include reference="lWE-4A-yob"/>
-                    <include reference="t4l-yV-UYn"/>
                     <include reference="YMe-3I-m0W"/>
                     <include reference="esa-qM-84T"/>
                     <include reference="w5q-Jf-bjL"/>
+                    <include reference="lWE-4A-yob"/>
+                    <include reference="t4l-yV-UYn"/>
+                    <include reference="EJs-8p-7lw"/>
+                    <include reference="a9v-eY-AKy"/>
+                    <include reference="bWc-Ba-doG"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="274" y="-30"/>

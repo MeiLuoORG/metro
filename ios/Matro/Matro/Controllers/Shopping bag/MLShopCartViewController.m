@@ -27,6 +27,7 @@
 #import "MLLoginViewController.h"
 #import "NSString+GONMarkup.h"
 #import "MBProgressHUD+Add.h"
+#import "MLShopCartMoreCell.h"
 
 @interface MLShopCartViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CPStepperDelegate>
 
@@ -91,7 +92,8 @@ static NSInteger goodsCount;
         [collectionView registerNib:[UINib nibWithNibName:@"MLLikeHeadCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kLikeHeadCollectionReusableView];
         [collectionView registerNib:[UINib nibWithNibName:@"MLCartHeadCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kCartHeadCollectionReusableView];
         [collectionView registerNib:[UINib nibWithNibName:@"MLCartFootCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:kCartFootCollectionReusableView];
-
+        [collectionView registerNib:[UINib nibWithNibName:@"MLShopCartMoreCell" bundle:nil] forCellWithReuseIdentifier:@"MoreCell"];
+        
         collectionView;
     });
 
@@ -111,7 +113,7 @@ static NSInteger goodsCount;
 
 
 - (void)getDataSource{
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index&test_phone=13771961207",@"http://bbctest.matrojp.com"];
     [[HFSServiceClient sharedJSONClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         
@@ -147,6 +149,9 @@ static NSInteger goodsCount;
     else{
         
         MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:section];
+        if (cart.isMore && !cart.isOpen) {
+            return 3;
+        }
         return cart.prolist.count;
     }
     
@@ -165,8 +170,19 @@ static NSInteger goodsCount;
         return cell;
     }
     else{
+         MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
+        if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
+            MLShopCartMoreCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MoreCell" forIndexPath:indexPath];
+            [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%li件",cart.prolist.count-2] forState:UIControlStateNormal];
+            cell.moreActionBlock = ^(){
+                cart.isOpen = YES;
+                [self.collectionView reloadData];
+            };
+            
+            return cell;
+            
+        }
         MLShopCartCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kShopCartCollectionViewCell forIndexPath:indexPath];
-        MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
         MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
         cell.prolistModel = model;
         cell.checkBox.cartSelected = (model.is_check == 1);
@@ -213,7 +229,15 @@ static NSInteger goodsCount;
             return CGSizeMake(cellW,cellW*1.4);
         }
         else{
-            return CGSizeMake(MAIN_SCREEN_WIDTH, 125);//没有包邮情况
+            MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
+            if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
+                return CGSizeMake(MAIN_SCREEN_WIDTH, 40);
+            }
+            MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
+            if (model.shipfree_val > 0) {
+                return CGSizeMake(MAIN_SCREEN_WIDTH, 125);//没有包邮情况
+            }
+            return CGSizeMake(MAIN_SCREEN_WIDTH, 104);
         }
     
 }
@@ -312,19 +336,6 @@ static NSInteger goodsCount;
 }
 
 
-- (void)confirmOrderWithProducts:(NSArray *)products{//创建订单
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"http://bbctest.matrojp.com/api.php?m=product&s=confirm_order" parameters:products success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *result = (NSDictionary *)responseObject;
-        if ([result[@"code"] isEqual:@0]) {
-            //订单提交成功   后续操作
-            [MBProgressHUD showSuccess:@"订单提交成功，后续操作" toView:self.view];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
-    
-}
 
 
 
@@ -409,7 +420,7 @@ static NSInteger goodsCount;
 }
 
 - (void)deleteGoods:(MLProlistModel *)goods{
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=delete",@"http://bbctest.matrojp.com"];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=delete&test_phone=13771961207",@"http://bbctest.matrojp.com"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:url parameters:@{@"cart_id":goods.ID} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
@@ -427,7 +438,7 @@ static NSInteger goodsCount;
 
 - (void)changeNum:(MLProlistModel *)prolist AndCount:(NSInteger)count{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"http://bbctest.matrojp.com/api.php?m=product&s=cart&action=modify" parameters:@{@"id":prolist.ID,@"nums":[NSNumber numberWithInteger:count]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:@"http://bbctest.matrojp.com/api.php?m=product&s=cart&action=modify&test_phone=13771961207" parameters:@{@"id":prolist.ID,@"nums":[NSNumber numberWithInteger:count]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //修改成功
             NSDictionary *data = result[@"data"];
@@ -448,6 +459,19 @@ static NSInteger goodsCount;
     }];
 }
 
+- (void)confirmOrderWithProducts:(NSArray *)products{//创建订单
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:@"http://bbctest.matrojp.com/api.php?m=product&s=confirm_order&test_phone=13771961207" parameters:products success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            //订单提交成功   后续操作
+            [MBProgressHUD showSuccess:@"订单提交成功，后续操作" toView:self.view];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
+}
 
 
 

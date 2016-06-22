@@ -42,6 +42,16 @@
 }
 
 
+- (void)setProlist:(NSArray *)prolist{
+    if (_prolist != prolist) {
+        _prolist = prolist;
+        _isMore = (_prolist.count>2);
+    }
+   
+}
+
+
+
 @end
 
 @implementation MLProlistModel

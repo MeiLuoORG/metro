@@ -80,8 +80,6 @@ static MLAddressListModel *selAddress;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"确认选择" style:UIBarButtonItemStylePlain target:self action:@selector(doneAction:)];
     
-    
-    
     [self loadDateAddressList];
 }
 
@@ -182,7 +180,7 @@ static MLAddressListModel *selAddress;
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {
     
-    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=lists&uid=%@",@"21357"];
+    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=lists&uid=%@&test_phone=13771961207",@"21357"];
     [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;

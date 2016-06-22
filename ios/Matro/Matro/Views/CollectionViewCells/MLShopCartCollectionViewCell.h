@@ -25,7 +25,6 @@ typedef void(^ShopCartCheckBoxBlock)();
 @property (weak, nonatomic) IBOutlet UILabel *giftDesc;
 @property (weak, nonatomic) IBOutlet MLCheckBoxButton *checkBox;
 @property (nonatomic,strong)MLProlistModel *prolistModel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraints;
 @property (nonatomic,copy)ShopCartCheckBoxBlock shopCartCheckBoxBlock;
 @property (nonatomic,copy)ShopCartDelBlock shopCartDelBlock;
 
@@ -40,5 +39,6 @@ typedef void(^ShopCartCheckBoxBlock)();
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *delL;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *countL;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imgTop;
 
 @end

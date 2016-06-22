@@ -51,35 +51,11 @@
 
 @property (nonatomic,assign)BOOL select_All;
 
-//"shipping": null,
-//"prepayment_total": null,
-//"sublimit": 0,
-//"discount": [],
-//"warehouse_nickname": null
-//"id": "39222",
-//"sell_userid": "21359",
-//"pid": "12328",
-//"setmeal": "0",
-//"from_module": "product",
-//"num": "1",
-//"package_id": null,
-//"company": "测试店铺",
-//"logo": "http://bbctest.matrojp.com/uploadfile/shop/21359/1462845104_8816.jpg",
-//"tel": "13818672196",
-//"way": "3",
-//"supplier": "0",
-//"shipfree": "0",
-//"warehousecode": "",
-//"title": null,
-//"start_time": null,
-//"end_time": null,
-//"is_show": null,
-//"sumpackage_price": 0,
-//"summacth_price": 0,
-//"sumpromotion_reduce_price": 0,
-//"sumprice": 0.01,
-//"reduce_price": "0",
-//"sumtax": 0,
+
+@property (nonatomic,assign)BOOL isMore;
+@property (nonatomic,assign)BOOL isOpen;
+
+
 
 
 @end

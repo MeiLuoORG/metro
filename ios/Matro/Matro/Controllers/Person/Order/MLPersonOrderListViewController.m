@@ -259,22 +259,22 @@ static NSInteger pageIndex = 0;
     switch (self.type) {
         case OrderType_All:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&test_phone=13771961207",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
         }
             break;
         case OrderType_Fukuan:
         {
-             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=1",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
+             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=1&test_phone=13771961207",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
         }
             break;
         case OrderType_Pingjia:
         {
-             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=4&buyer_comment=0",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
+             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=4&buyer_comment=0&test_phone=13771961207",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
         }
             break;
         case OrderType_Shouhuo:
         {
-             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=3",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
+             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=3&test_phone=13771961207",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
         }
             break;
         default:
@@ -287,15 +287,20 @@ static NSInteger pageIndex = 0;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSDictionary *order_list = data[@"order_list"];
-            NSArray *list = order_list[@"list"];
-            if (pageIndex == 0) {
-                [self.orderList removeAllObjects];
+            
+            if (order_list &&[order_list isKindOfClass:[NSDictionary class]])
+            {
+                NSArray *list = order_list[@"list"];
+                if (pageIndex == 0) {
+                    [self.orderList removeAllObjects];
+                }
+                if (list.count>0) {
+                    [self.orderList addObjectsFromArray:[MLPersonOrderModel mj_objectArrayWithKeyValuesArray:list]];
+                    pageIndex ++;
+                }
+                [self.tableView reloadData];
             }
-            if (list.count>0) {
-              [self.orderList addObjectsFromArray:[MLPersonOrderModel mj_objectArrayWithKeyValuesArray:list]];
-                pageIndex ++;
-            }
-            [self.tableView reloadData];
+            
         }
         
         [self.view configBlankPage:EaseBlankPageTypeDingdan hasData:(self.orderList.count>0)];
@@ -323,7 +328,7 @@ static NSInteger pageIndex = 0;
         default:
             break;
     }
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@",@"http://localbbc.matrojp.com",action,orderId];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@&test_phone=13771961207",@"http://localbbc.matrojp.com",action,orderId];
     [[HFSServiceClient sharedJSONClientNOT]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //操作成功

@@ -24,6 +24,8 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "MLMoreTableViewCell.h"
 #import "MLAfterSaleHeadCell.h"
+#import "MLReturnsDetailViewController.h"
+
 
 @interface MLReturnsRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
@@ -123,7 +125,9 @@ static NSInteger pageIndex = 0;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0 ) {
-        NSLog(@"进入订单详情页");
+        MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

@@ -361,6 +361,15 @@
 		7A083FC21D193E67001F0256 /* MLTuiHuoChengGongViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A083FC01D193E67001F0256 /* MLTuiHuoChengGongViewController.xib */; };
 		7A083FC51D194299001F0256 /* MLReturnsRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A083FC41D194299001F0256 /* MLReturnsRecordViewController.m */; };
 		7A0EEF541D14F48E004FA091 /* MLPersonOrderDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0EEF531D14F48E004FA091 /* MLPersonOrderDetail.m */; };
+		7A272EB61D1A262100242F24 /* MLReturnsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A272EB51D1A262100242F24 /* MLReturnsDetailViewController.m */; };
+		7A272EBA1D1A265500242F24 /* MLReturnsDetailHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A272EB81D1A265500242F24 /* MLReturnsDetailHeadCell.m */; };
+		7A272EBB1D1A265500242F24 /* MLReturnsDetailHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A272EB91D1A265500242F24 /* MLReturnsDetailHeadCell.xib */; };
+		7A272EBF1D1A2EFC00242F24 /* MLShopCartMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A272EBD1D1A2EFC00242F24 /* MLShopCartMoreCell.m */; };
+		7A272EC01D1A2EFC00242F24 /* MLShopCartMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A272EBE1D1A2EFC00242F24 /* MLShopCartMoreCell.xib */; };
+		7A272EC41D1A405500242F24 /* MLReturnsWentiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A272EC21D1A405500242F24 /* MLReturnsWentiTableViewCell.m */; };
+		7A272EC51D1A405500242F24 /* MLReturnsWentiTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A272EC31D1A405500242F24 /* MLReturnsWentiTableViewCell.xib */; };
+		7A272EC91D1A437C00242F24 /* MLReturnsDetailPhototCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A272EC71D1A437C00242F24 /* MLReturnsDetailPhototCell.m */; };
+		7A272ECA1D1A437C00242F24 /* MLReturnsDetailPhototCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A272EC81D1A437C00242F24 /* MLReturnsDetailPhototCell.xib */; };
 		7A3486561D0EAD50002EE211 /* MLShopCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3486551D0EAD50002EE211 /* MLShopCartViewController.m */; };
 		7A34865A1D0EAF97002EE211 /* MLShopCartCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3486581D0EAF97002EE211 /* MLShopCartCollectionViewCell.m */; };
 		7A34865B1D0EAF97002EE211 /* MLShopCartCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A3486591D0EAF97002EE211 /* MLShopCartCollectionViewCell.xib */; };
@@ -1206,6 +1215,20 @@
 		7A083FC41D194299001F0256 /* MLReturnsRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLReturnsRecordViewController.m; sourceTree = "<group>"; };
 		7A0EEF521D14F48E004FA091 /* MLPersonOrderDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPersonOrderDetail.h; sourceTree = "<group>"; };
 		7A0EEF531D14F48E004FA091 /* MLPersonOrderDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPersonOrderDetail.m; sourceTree = "<group>"; };
+		7A272EB41D1A262100242F24 /* MLReturnsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLReturnsDetailViewController.h; sourceTree = "<group>"; };
+		7A272EB51D1A262100242F24 /* MLReturnsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLReturnsDetailViewController.m; sourceTree = "<group>"; };
+		7A272EB71D1A265500242F24 /* MLReturnsDetailHeadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLReturnsDetailHeadCell.h; sourceTree = "<group>"; };
+		7A272EB81D1A265500242F24 /* MLReturnsDetailHeadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLReturnsDetailHeadCell.m; sourceTree = "<group>"; };
+		7A272EB91D1A265500242F24 /* MLReturnsDetailHeadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLReturnsDetailHeadCell.xib; sourceTree = "<group>"; };
+		7A272EBC1D1A2EFC00242F24 /* MLShopCartMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLShopCartMoreCell.h; sourceTree = "<group>"; };
+		7A272EBD1D1A2EFC00242F24 /* MLShopCartMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLShopCartMoreCell.m; sourceTree = "<group>"; };
+		7A272EBE1D1A2EFC00242F24 /* MLShopCartMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLShopCartMoreCell.xib; sourceTree = "<group>"; };
+		7A272EC11D1A405500242F24 /* MLReturnsWentiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLReturnsWentiTableViewCell.h; sourceTree = "<group>"; };
+		7A272EC21D1A405500242F24 /* MLReturnsWentiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLReturnsWentiTableViewCell.m; sourceTree = "<group>"; };
+		7A272EC31D1A405500242F24 /* MLReturnsWentiTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLReturnsWentiTableViewCell.xib; sourceTree = "<group>"; };
+		7A272EC61D1A437C00242F24 /* MLReturnsDetailPhototCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLReturnsDetailPhototCell.h; sourceTree = "<group>"; };
+		7A272EC71D1A437C00242F24 /* MLReturnsDetailPhototCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLReturnsDetailPhototCell.m; sourceTree = "<group>"; };
+		7A272EC81D1A437C00242F24 /* MLReturnsDetailPhototCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLReturnsDetailPhototCell.xib; sourceTree = "<group>"; };
 		7A3486541D0EAD50002EE211 /* MLShopCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLShopCartViewController.h; sourceTree = "<group>"; };
 		7A3486551D0EAD50002EE211 /* MLShopCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLShopCartViewController.m; sourceTree = "<group>"; };
 		7A3486571D0EAF97002EE211 /* MLShopCartCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLShopCartCollectionViewCell.h; sourceTree = "<group>"; };
@@ -2344,6 +2367,9 @@
 				7A0720421D17EDC300E0B58E /* MLAddImgCollectionViewCell.h */,
 				7A0720431D17EDC300E0B58E /* MLAddImgCollectionViewCell.m */,
 				7A0720441D17EDC300E0B58E /* MLAddImgCollectionViewCell.xib */,
+				7A272EBC1D1A2EFC00242F24 /* MLShopCartMoreCell.h */,
+				7A272EBD1D1A2EFC00242F24 /* MLShopCartMoreCell.m */,
+				7A272EBE1D1A2EFC00242F24 /* MLShopCartMoreCell.xib */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -2928,6 +2954,15 @@
 				7A07203D1D17E98400E0B58E /* MLXuanZeTuPianTableViewCell.h */,
 				7A07203E1D17E98400E0B58E /* MLXuanZeTuPianTableViewCell.m */,
 				7A07203F1D17E98400E0B58E /* MLXuanZeTuPianTableViewCell.xib */,
+				7A272EB71D1A265500242F24 /* MLReturnsDetailHeadCell.h */,
+				7A272EB81D1A265500242F24 /* MLReturnsDetailHeadCell.m */,
+				7A272EB91D1A265500242F24 /* MLReturnsDetailHeadCell.xib */,
+				7A272EC11D1A405500242F24 /* MLReturnsWentiTableViewCell.h */,
+				7A272EC21D1A405500242F24 /* MLReturnsWentiTableViewCell.m */,
+				7A272EC31D1A405500242F24 /* MLReturnsWentiTableViewCell.xib */,
+				7A272EC61D1A437C00242F24 /* MLReturnsDetailPhototCell.h */,
+				7A272EC71D1A437C00242F24 /* MLReturnsDetailPhototCell.m */,
+				7A272EC81D1A437C00242F24 /* MLReturnsDetailPhototCell.xib */,
 			);
 			path = OredrInfo;
 			sourceTree = "<group>";
@@ -3235,6 +3270,8 @@
 				7A083FC01D193E67001F0256 /* MLTuiHuoChengGongViewController.xib */,
 				7A083FC31D194299001F0256 /* MLReturnsRecordViewController.h */,
 				7A083FC41D194299001F0256 /* MLReturnsRecordViewController.m */,
+				7A272EB41D1A262100242F24 /* MLReturnsDetailViewController.h */,
+				7A272EB51D1A262100242F24 /* MLReturnsDetailViewController.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -3349,6 +3386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A633B961C9EA85800C11FD5 /* MLPersonViewController.xib in Resources */,
+				7A272EBB1D1A265500242F24 /* MLReturnsDetailHeadCell.xib in Resources */,
 				7A0720321D17D43C00E0B58E /* MLTuiHuoFukuanTableViewCell.xib in Resources */,
 				7AF15B071D129BA500F8CF03 /* MLSelAddressTableViewCell.xib in Resources */,
 				7AED64641CDDAB13008F55BD /* MLTermViewController.xib in Resources */,
@@ -3370,6 +3408,7 @@
 				3A633B911C9EA83D00C11FD5 /* MLBagViewController.xib in Resources */,
 				7A3A62771CDB874F00D265F2 /* MLRetrunsHeadCell.xib in Resources */,
 				3AA0E7A31CA91E500079AA90 /* AlipaySDK.bundle in Resources */,
+				7A272EC01D1A2EFC00242F24 /* MLShopCartMoreCell.xib in Resources */,
 				3ACF2CDC1CA4E702003D1F67 /* MLMoreTableViewCell.xib in Resources */,
 				280F7CE11CF829D600D42FA6 /* MLYHQViewController.xib in Resources */,
 				28CF86141CEDC59A00E582EE /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -3428,6 +3467,7 @@
 				7AEDD0D01CE5A913009B12F4 /* MLServiceTracksTableViewCell.xib in Resources */,
 				7AEC88D81CE462EF00B43DD4 /* MLGoodsComFootView.xib in Resources */,
 				7A3A626A1CDB874F00D265F2 /* MLAfterSaleProductCell.xib in Resources */,
+				7A272EC51D1A405500242F24 /* MLReturnsWentiTableViewCell.xib in Resources */,
 				3AF01E5C1CBBAB94005830BD /* MLLogisticsViewController.xib in Resources */,
 				7ACFA5F71D11233B00987A03 /* MLPersonAlertViewController.xib in Resources */,
 				7A3A62731CDB874F00D265F2 /* MLOrderSubHeadCell.xib in Resources */,
@@ -3490,6 +3530,7 @@
 				6839EF231CD6C4B600638B3D /* APPSettingCell.xib in Resources */,
 				28CF86091CEDC59A00E582EE /* UMShareEditViewController.xib in Resources */,
 				3CEA04CF1D0E879600E5C4B6 /* SettingMoCardCell.xib in Resources */,
+				7A272ECA1D1A437C00242F24 /* MLReturnsDetailPhototCell.xib in Resources */,
 				2CBAD64E1CA3B3AC0044601B /* MLBagZengpinTableViewCell.xib in Resources */,
 				2CBAD6441CA3AD4B0044601B /* MLBagActiveTableViewCell.xib in Resources */,
 				7A083FC21D193E67001F0256 /* MLTuiHuoChengGongViewController.xib in Resources */,
@@ -3583,6 +3624,7 @@
 				3A633B2C1C9EA36E00C11FD5 /* UIBarButtonItem+Badge.m in Sources */,
 				7AEC88CE1CE45D1500B43DD4 /* MLGoodsComHeadView.m in Sources */,
 				3A633B3C1C9EA36E00C11FD5 /* SDCollectionViewCell.m in Sources */,
+				7A272EC91D1A437C00242F24 /* MLReturnsDetailPhototCell.m in Sources */,
 				7A3A62721CDB874F00D265F2 /* MLOrderSubHeadCell.m in Sources */,
 				285326E71CFD3A5800FA2AB0 /* MLYHQOutdateCell.m in Sources */,
 				3A21486A1CB3A5CC007DF97D /* LoginHistory.m in Sources */,
@@ -3634,7 +3676,9 @@
 				7AEC88DC1CE464EC00B43DD4 /* MLGoodsComPhotoCell.m in Sources */,
 				D6C6F5861CC0C8DF00809AC5 /* MLBagViewController.m in Sources */,
 				3ACF2CD51CA4D9DF003D1F67 /* WebViewJavascriptBridge.m in Sources */,
+				7A272EB61D1A262100242F24 /* MLReturnsDetailViewController.m in Sources */,
 				7A813ED41CD8652400FAB6B2 /* MLProductModel.m in Sources */,
+				7A272EBF1D1A2EFC00242F24 /* MLShopCartMoreCell.m in Sources */,
 				D6C6F5B51CC0D11900809AC5 /* MLLikeModel.m in Sources */,
 				3AA0E7AA1CA91E500079AA90 /* MD5DataSigner.m in Sources */,
 				7A028D851CEAC294005D14BC /* MBProgressHUD+Add.m in Sources */,
@@ -3653,6 +3697,7 @@
 				3A633B5C1C9EA36E00C11FD5 /* ZLPhotoPickerBrowserPhotoView.m in Sources */,
 				7ACFA5FD1D1125AF00987A03 /* MLPersonOrderListViewController.m in Sources */,
 				2CBAD64D1CA3B3AC0044601B /* MLBagZengpinTableViewCell.m in Sources */,
+				7A272EBA1D1A265500242F24 /* MLReturnsDetailHeadCell.m in Sources */,
 				687704241CD34E4A0008ED46 /* SBJsonParser.m in Sources */,
 				3A633B4E1C9EA36E00C11FD5 /* SSKeychain.m in Sources */,
 				3AA0E7A21CA91E500079AA90 /* AliPayOrder.m in Sources */,
@@ -3832,6 +3877,7 @@
 				3CAE049C1D06DDD5004504EA /* GCD.m in Sources */,
 				7A0720291D17D2E300E0B58E /* MLTuiHuoMiaoshuTableViewCell.m in Sources */,
 				3AA0E7AB1CA91E500079AA90 /* NSDataEx.m in Sources */,
+				7A272EC41D1A405500242F24 /* MLReturnsWentiTableViewCell.m in Sources */,
 				687704211CD34E4A0008ED46 /* NSString+SBJSON.m in Sources */,
 				3ACF2CEE1CA5070E003D1F67 /* mztools.c in Sources */,
 				7A3A626F1CDB874F00D265F2 /* MLOrderComViewController.m in Sources */,

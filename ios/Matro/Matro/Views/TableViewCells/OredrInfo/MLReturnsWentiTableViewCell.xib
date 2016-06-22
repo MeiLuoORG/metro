@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MLReturnsWentiTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="139"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="问题类型" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cMi-Ed-bX6">
+                        <rect key="frame" x="16" y="12" width="60" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="质量问题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1D-ZC-Noi">
+                        <rect key="frame" x="16" y="34" width="60" height="19"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="问题描述" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51c-E3-ayd">
+                        <rect key="frame" x="16" y="69" width="60" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="这件衣服穿着不合适，偏大，颜色页不喜欢，只能退货，有点失望" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6T-We-zfb">
+                        <rect key="frame" x="18" y="91" width="294" height="36"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="51c-E3-ayd" firstAttribute="centerX" secondItem="cMi-Ed-bX6" secondAttribute="centerX" id="29g-hn-8Dv"/>
+                    <constraint firstItem="m1D-ZC-Noi" firstAttribute="height" secondItem="cMi-Ed-bX6" secondAttribute="height" id="AhY-oV-zba"/>
+                    <constraint firstItem="a6T-We-zfb" firstAttribute="top" secondItem="51c-E3-ayd" secondAttribute="bottom" constant="2" id="D0k-jd-nEg"/>
+                    <constraint firstItem="m1D-ZC-Noi" firstAttribute="width" secondItem="cMi-Ed-bX6" secondAttribute="width" id="Egm-oV-kDX"/>
+                    <constraint firstAttribute="bottom" secondItem="a6T-We-zfb" secondAttribute="bottom" constant="12" id="Q4f-02-kdA"/>
+                    <constraint firstItem="51c-E3-ayd" firstAttribute="height" secondItem="cMi-Ed-bX6" secondAttribute="height" id="Rjq-vZ-v2a"/>
+                    <constraint firstAttribute="trailing" secondItem="a6T-We-zfb" secondAttribute="trailing" constant="8" id="ZHE-Ya-CLU"/>
+                    <constraint firstItem="cMi-Ed-bX6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="axC-lC-tzZ"/>
+                    <constraint firstItem="m1D-ZC-Noi" firstAttribute="top" secondItem="cMi-Ed-bX6" secondAttribute="bottom" constant="2" id="dhw-fJ-kbe"/>
+                    <constraint firstItem="a6T-We-zfb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="fnF-4i-hC9"/>
+                    <constraint firstItem="51c-E3-ayd" firstAttribute="top" secondItem="m1D-ZC-Noi" secondAttribute="bottom" constant="16" id="kNk-Kt-ZZp"/>
+                    <constraint firstItem="51c-E3-ayd" firstAttribute="width" secondItem="cMi-Ed-bX6" secondAttribute="width" id="s2Z-mB-ZAU"/>
+                    <constraint firstItem="m1D-ZC-Noi" firstAttribute="centerX" secondItem="cMi-Ed-bX6" secondAttribute="centerX" id="tcz-4J-XJg"/>
+                    <constraint firstItem="51c-E3-ayd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="u4T-mN-6C9"/>
+                    <constraint firstItem="cMi-Ed-bX6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="wF2-n7-jAJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="wentiDesc" destination="m1D-ZC-Noi" id="kda-hH-2KT"/>
+                <outlet property="wentiText" destination="a6T-We-zfb" id="COl-K5-Ism"/>
+            </connections>
+            <point key="canvasLocation" x="272" y="350"/>
+        </tableViewCell>
+    </objects>
+</document>
