@@ -319,7 +319,7 @@
                                                       [self.view addSubview:_hud];
                                                       [_hud show:YES];
                                                       _hud.mode = MBProgressHUDModeText;
-                                                      _hud.labelText = @"修改成功";
+                                                      _hud.labelText = @"重置成功";
                                                       [_hud hide:YES afterDelay:1];
                                                       });
                                                       [weakSelf dismissViewControllerAnimated:NO completion:^{
@@ -397,7 +397,7 @@
                                                       [self.view addSubview:_hud];
                                                       [_hud show:YES];
                                                       _hud.mode = MBProgressHUDModeText;
-                                                      _hud.labelText = @"修改成功";
+                                                      _hud.labelText = @"找回成功";
                                                       [_hud hide:YES afterDelay:2];
                                                       });
                                                       

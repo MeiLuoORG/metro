@@ -68,7 +68,7 @@
         //[backBtn setBackgroundColor:[UIColor redColor]];
         [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         //[backBtn setBackgroundImage:[UIImage imageNamed:@"Left_Arrow"] forState:UIControlStateNormal];
-        [backBtn setImage:[UIImage imageNamed:@"zlBackBtn"] forState:UIControlStateNormal];
+        [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         backBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
         [self addSubview:backBtn];
     }

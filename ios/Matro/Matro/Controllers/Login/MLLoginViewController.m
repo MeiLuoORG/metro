@@ -570,8 +570,8 @@
         [_accountArray addObject:loginhHistory.loginkeyword];
         
     }
-    [_tableView reloadData];
-    _tableViewH.constant = _accountArray.count > 3 ? 3 * 40 : _accountArray.count * 40;
+    //[_tableView reloadData];
+    //_tableViewH.constant = _accountArray.count > 3 ? 3 * 40 : _accountArray.count * 40;
 }
 
 //倒计时
@@ -622,10 +622,10 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置界面的按钮显示 根据自己需求设置
                 _codeButton.enabled=NO;
+                [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonGray_backgroundColor]];
                 _isFaSonging = YES;
                 [_codeButton setTitle:strTime forState:UIControlStateNormal];
                 
-                [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonGray_backgroundColor]];
                 //_codeButton setbac
                 /*
                 [_codeButton setBackgroundImage:[UIImage imageNamed:@"TM.jpg"] forState:UIControlStateNormal];
@@ -733,7 +733,7 @@
     }else if([button isEqual:_showmoreaccoutButton]){
         if (button.selected) {
             NSLog(@"展开");
-            _tableView.hidden = NO;
+            _tableView.hidden = YES;
         }else{
             NSLog(@"收回");
             _tableView.hidden = YES;
@@ -2299,6 +2299,8 @@
     _hud.mode = MBProgressHUDModeIndeterminate;
     _hud.labelText = @"";
     */
+    _codeButton.enabled=NO;
+    [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonGray_backgroundColor]];
     if ([HFSUtility validateMobile:[self textField:_rphoneView].text]) {
         
         NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,
@@ -2397,7 +2399,8 @@
                                                       [self getValidateCode];//发验证码
                                                   }else{
                                                       dispatch_async(dispatch_get_main_queue(), ^{
-
+                                                          _codeButton.enabled=YES;
+                                                          [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonNormel_backgroundColor]];
                                                       [_hud show:YES];
                                                       _hud.mode = MBProgressHUDModeText;
                                                       _hud.labelText = @"您的手机号已注册，请登录。";
@@ -2411,7 +2414,8 @@
                                           else{
                                               //请求有错误
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  
+                                                  _codeButton.enabled=YES;
+                                                  [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonNormel_backgroundColor]];
                                                   [_hud show:YES];
                                                   _hud.mode = MBProgressHUDModeText;
                                                   _hud.labelText = REQUEST_ERROR_ZL;
@@ -2436,7 +2440,7 @@
     }
     
     if ([textField isEqual:[self textField:_accountView]]) {
-        _tableView.hidden = NO;
+        _tableView.hidden = YES;
         _showmoreaccoutButton.selected = YES;
     }
     
@@ -2492,7 +2496,7 @@
         [_context MR_deleteObjects:@[loginHistory]];
         [self loadLoginHistory];
     };
-    cell.logininfoLabel.text = _accountArray[indexPath.row];
+    cell.logininfoLabel.text = _accountArray[(_accountArray.count-1-indexPath.row)];
     
     return cell;
 }
@@ -2504,8 +2508,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [self textField:_accountView].text = _accountArray[indexPath.row];
-    NSLog(@"点击了选择手机号单元格%@",_accountArray[indexPath.row]);
+    [self textField:_accountView].text = _accountArray[(_accountArray.count-1-indexPath.row)];
+    NSLog(@"点击了选择手机号单元格%@",_accountArray[(_accountArray.count-1-indexPath.row)]);
     [[self textField:_accountView] resignFirstResponder];
     [self textField:_passwordView].text = @"";
     _tableView.hidden = YES;

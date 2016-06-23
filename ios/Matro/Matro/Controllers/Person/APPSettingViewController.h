@@ -26,6 +26,8 @@
 
 #import "HFSServiceClient.h"
 
+#import "CommonHeader.h"
+
 @interface APPSettingViewController : MLBaseViewController<BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *settingTable;
 @property (weak, nonatomic) IBOutlet UIButton *logoutBtn;

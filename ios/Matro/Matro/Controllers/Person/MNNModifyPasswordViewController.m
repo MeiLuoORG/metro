@@ -425,6 +425,9 @@ static NSString *phoneNum = @"";
             [_hud hide:YES afterDelay:2];
             return;
         }
+        _getVerificationCode.enabled = NO;
+        [_getVerificationCode setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+        
         [[HFSServiceClient sharedJSONClientwithurl:SERVICE_BASE_URL]POST:@"common/sendsms" parameters:@{@"mphone":phoneNum,@"content":@"",@"vcode":@""} success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary *result = (NSDictionary *)responseObject;
             NSLog(@"发送验证码：%@",result);
@@ -446,6 +449,8 @@ static NSString *phoneNum = @"";
                 [self codeTimeCountdown];
                 
             }else{
+                _getVerificationCode.enabled = YES;
+                [_getVerificationCode setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
                 _hud = [[MBProgressHUD alloc]initWithView:self.view];
                 [self.view addSubview:_hud];
                 [_hud show:YES];
@@ -455,6 +460,8 @@ static NSString *phoneNum = @"";
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            _getVerificationCode.enabled = YES;
+            [_getVerificationCode setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
             _hud = [[MBProgressHUD alloc]initWithView:self.view];
             [self.view addSubview:_hud];
             [_hud show:YES];

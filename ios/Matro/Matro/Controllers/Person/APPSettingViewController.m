@@ -26,14 +26,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self startsLocation];
+    //[self startsLocation];
     self.title = @"应用设置";
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if (![userDefaults objectForKey:kUSERDEFAULT_USERID]) {
         self.logoutBtn.hidden = YES;
     }
     
-    self.logoutBtn.backgroundColor = [HFSUtility hexStringToColor:@"AE8E5D"];
+    self.logoutBtn.layer.cornerRadius = 4.0f;
+    self.logoutBtn.layer.masksToBounds = YES;
+    self.logoutBtn.backgroundColor = [HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor];
     [self.logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view from its nib.
     
@@ -241,7 +243,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
     }];
 
@@ -252,7 +254,7 @@
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;{
-    return 5;
+    return 4;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -284,7 +286,7 @@
         [alertVc addAction:cancel];
         [self presentViewController:alertVc animated:YES completion:nil];
     }
-    else if (indexPath.row == 4){//关于我们
+    else if (indexPath.row == 3){//关于我们
         MNNAboutUsViewController *vc = [[MNNAboutUsViewController alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
@@ -312,7 +314,7 @@
     switch (indexPath.row) {
         case 0:
             cell.lbname.text = @"版本";
-            cell.valueLB.text = @"1.0.0";
+            cell.valueLB.text = @"2.0.0";
             cell.descLB.hidden = YES;
             break;
         case 1:
@@ -339,6 +341,7 @@
             
             break;
         case 3:
+            /*
             cell.lbname.text = @"地理位置";
             if (self.currentCityNameStr) {
                 cell.valueLB.text = self.currentCityNameStr;
@@ -347,35 +350,24 @@
                 cell.valueLB.text = @"请打开定位";
             }
             
-            /*
-             cell.valueLB.text = [NSString stringWithFormat:@"%.1fM",[[SDImageCache sharedImageCache]getSize]/1024.0/1024.0];
-             cell.valueLB.hidden = !([[SDImageCache sharedImageCache]getSize]>0);
-             */
             cell.descLB.hidden = YES;
-            
-            break;
-        case 4:
-        {
+            */
+            {
             cell.lbname.text = @"关于我们";
             cell.descLB.hidden = YES;
             cell.valueLB.hidden = YES;
             UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xiayiye_arrow"]];
             imgView.frame = CGRectMake(MAIN_SCREEN_WIDTH-28,15, 7, 15);
-            
             [cell addSubview:imgView];
-        }
-            
-            
+            }
+            /*
+             cell.valueLB.text = [NSString stringWithFormat:@"%.1fM",[[SDImageCache sharedImageCache]getSize]/1024.0/1024.0];
+             cell.valueLB.hidden = !([[SDImageCache sharedImageCache]getSize]>0);
+             */
             break;
-            //        case 1:
-            //            cell.lbname.text = @"接收通知";
-            //            cell.valueLB.text = @"已开启";
-            //            cell.valueLB.textColor = [HFSUtility hexStringToColor:@"AE8E5D"];
-            //            cell.descLB.hidden = NO;
-            
-            //            break;
         default:
-            break;
+                break;
+        
     }
     
     return cell;

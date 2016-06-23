@@ -22,7 +22,7 @@
                     <rect key="frame" x="0.0" y="10" width="600" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="240" id="pJN-OF-1EU"/>
+                        <constraint firstAttribute="height" constant="200" id="pJN-OF-1EU"/>
                     </constraints>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="o2T-Cr-XTK"/>
@@ -45,7 +45,7 @@
                 <constraint firstAttribute="trailing" secondItem="Ew2-5g-Trs" secondAttribute="trailing" constant="16" id="AW1-GP-Qgs"/>
                 <constraint firstItem="Ew2-5g-Trs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="GdX-72-zde"/>
                 <constraint firstItem="4Wh-bj-jJq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="P0S-zq-miT"/>
-                <constraint firstItem="Ew2-5g-Trs" firstAttribute="top" secondItem="4Wh-bj-jJq" secondAttribute="bottom" constant="16" id="arg-W2-G90"/>
+                <constraint firstItem="Ew2-5g-Trs" firstAttribute="top" secondItem="4Wh-bj-jJq" secondAttribute="bottom" constant="49" id="arg-W2-G90"/>
                 <constraint firstAttribute="bottom" secondItem="4Wh-bj-jJq" secondAttribute="bottom" id="d07-06-9bn"/>
                 <constraint firstItem="4Wh-bj-jJq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="fzo-qC-SUK"/>
                 <constraint firstAttribute="trailing" secondItem="4Wh-bj-jJq" secondAttribute="trailing" id="uNz-M6-MDy"/>

@@ -8,6 +8,7 @@
 
 #import "MLPersonHeadView.h"
 #import "HFSConstants.h"
+#import "CommonHeader.h"
 
 @implementation MLPersonHeadView
 
@@ -17,6 +18,11 @@
     self.headBtn.layer.cornerRadius = 32.f;
     self.headBtn.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
     self.headBtn.layer.masksToBounds = YES;
+    self.loginBtn.layer.cornerRadius = 4.0f;
+    self.regBtn.layer.cornerRadius = 4.0f;
+    
+    [self setFrame:CGRectMake(0, 0, SIZE_WIDTH, 125.0f)];
+    
 }
 
 + (MLPersonHeadView *)personHeadView{

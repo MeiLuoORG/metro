@@ -352,6 +352,10 @@ static BOOL isPass = NO;
 }
 
 - (void)subCodeClick:(UIButton *)sender {
+    self.subCodeBtn.enabled=NO;
+    [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+    [self.subCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [self.subCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     [[HFSServiceClient sharedJSONClientwithurl:SERVICE_BASE_URL]POST:@"common/sendsms" parameters:@{@"mphone":_phoneField.text?:@"",@"content":@"",@"vcode":@""} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
@@ -378,6 +382,8 @@ static BOOL isPass = NO;
             //[btn startUpTimer];
             
         }else{
+            self.subCodeBtn.enabled=YES;
+            [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = result[@"msg"];
@@ -385,6 +391,8 @@ static BOOL isPass = NO;
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        self.subCodeBtn.enabled=YES;
+        [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         
