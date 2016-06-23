@@ -780,79 +780,7 @@
     //NSLog(@"加密后：%@",ret2);
     //调用原生注册方法
     [self yuanShengRegisterAcrionWithRet2:ret2];
-    /*
 
-     [[HFSServiceClient sharedClient] POST:Login_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-     NSDictionary *result = (NSDictionary *)responseObject;
-     NSLog(@"%@",responseObject);
-     
-     NSLog(@"登录成功");
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-     NSLog(@"登录失败:%@",error);
-     }];
-     */
-    /*
-     [[HFSServiceClient sharedJSONClient] POST:@"http://app-test.matrojp.com/member/ajax/app/login" parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-     NSLog(@"登录成功:%@",responseObject);
-     
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-     NSLog(@"登录失败：%@",error);
-     }];
-     */
-<<<<<<< Updated upstream
-    
-    
-    
-
-    
-    
-<<<<<<< Updated upstream
-    //@"vip/AuthUserInfo"
-//    [[HFSServiceClient sharedClient] POST:Regist_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        
-//        NSDictionary *result = (NSDictionary *)responseObject;
-//        NSLog(@"注册信息：%@",result);
-//        
-//        
-//        
-//
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [_hud show:YES];
-//        _hud.mode = MBProgressHUDModeText;
-//        _hud.labelText = @"请求失败";
-//        [_hud hide:YES afterDelay:2];
-//    }];
-//    */
-=======
-
-    //@"vip/AuthUserInfo"
-=======
-/*
-    //@"vip/AuthUserInfo"
->>>>>>> Stashed changes
-    [[HFSServiceClient sharedClient] POST:Regist_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSDictionary *result = (NSDictionary *)responseObject;
-        NSLog(@"注册信息：%@",result);
-        
-        
-        
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-<<<<<<< Updated upstream
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
-    }];
-    
->>>>>>> Stashed changes
-=======
-        _hud.labelText = REQUEST_ERROR_ZL;
-        [_hud hide:YES afterDelay:2];
-    }];
-    */
->>>>>>> Stashed changes
     ///////////---------------////////////注册END
 }
 #pragma mark 原生注册方法 开始
@@ -1324,10 +1252,6 @@
 - (void)bindCardAction{
 }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 //注册后  直接登录
 #pragma mark 注册后直接登录
 - (void)loginAfterRegisterActionwithPhone:(NSString *)phoneString withPassword:(NSString *)passWordString{
@@ -1413,16 +1337,7 @@
 
 }
 #pragma end mark
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
 
-
->>>>>>> Stashed changes
-=======
-
-
->>>>>>> Stashed changes
 -(void)requestPostHttp:(NSString*)url params:(NSData*)params{
     NSURL * URL = [NSURL URLWithString:url];
     
@@ -1529,15 +1444,6 @@
     [_hud show:YES];
     _hud.mode = MBProgressHUDModeText;
     _hud.labelText = @"正在登录...";
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-//<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
-=======
-
->>>>>>> Stashed changes
     
     __weak typeof(self) weakSelf = self;
 //
@@ -1552,16 +1458,7 @@
     //NSString *ret = base64_encode_data(data);
     //http://app-test.matrojp.com/member/ajax/app/login
     //{"appId": "test0002","userId":"00007906","password":"123456","sign":$sign}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-//=======
-//>>>>>>> Stashed changes
-=======
 
->>>>>>> Stashed changes
-=======
-
->>>>>>> Stashed changes
 
     NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"userId":[self textField:_accountView].text,@"password":[self textField:_passwordView].text}];
     NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
@@ -1742,17 +1639,7 @@
                                           }
                                           
                                       }];
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    
-=======
-        
 
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"登录失败：%@",error);
-//    }];
-
->>>>>>> Stashed changes
     
 //    NSString *urlStr = [NSString stringWithFormat:@"%@",Login_URLString];
 //    NSURL * URL = [NSURL URLWithString:urlStr];
@@ -1794,16 +1681,9 @@
     
     //@"vip/AuthUserInfo"
 //    [[HFSServiceClient sharedClient] POST:Login_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-<<<<<<< Updated upstream
-//=======
-=======
 
->>>>>>> Stashed changes
         [task resume];
-=======
-//
-//        [task resume];
->>>>>>> Stashed changes
+
     //});
 }
 //调用 李佳重新认证接口
@@ -1830,29 +1710,7 @@
                                       ^(NSData *data, NSURLResponse *response, NSError *error) {
                                           NSString *resultString  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                           NSLog(@"李佳认证:%@,错误信息：%@",resultString,error);
-                                          
-                                          
-                                          //NSString * timeStr = @"1334322098";
-                                          
-<<<<<<< Updated upstream
-//                                          NSDate * date1 = [NSDate dateWithTimeIntervalSinceReferenceDate:1334322098];
-//                                          NSDate * date3 = [NSDate dateWithTimeIntervalSinceNow:1334322098];
-//                                          NSDate * date4 = [NSDate dateWithTimeIntervalSince1970:1334322098];
-//                                          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-//                                          [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-//                                          NSString * fuWuStirng1 = [dateFormatter stringFromDate:date1];
-//                                          NSString * fuWuStirng3 = [dateFormatter stringFromDate:date3];
-//                                          NSString * fuWuStirng4 = [dateFormatter stringFromDate:date4];
-//                                          NSLog(@"服务器的时间为;1---%@,3---%@,4----%@",fuWuStirng1,fuWuStirng3,fuWuStirng4);
-//                                          
-//                                          
-//                                          //NSDate * date2 = [[NSDate alloc]initWithTimeInterval:0 sinceDate:date1];
-//                                          
-//                                          NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
-//                                          NSLog(@"model1地址：%p",model1);
-//                                          model1.timeInterval =1334322098;
-//                                          model1.firstDate = [NSDate date];
-=======
+
                                           NSDate * date1 = [NSDate dateWithTimeIntervalSinceReferenceDate:1334322098];
                                           NSDate * date3 = [NSDate dateWithTimeIntervalSinceNow:1334322098];
                                           NSDate * date4 = [NSDate dateWithTimeIntervalSince1970:1334322098];
@@ -1864,12 +1722,6 @@
                                           NSLog(@"服务器的时间为;1---%@,3---%@,4----%@",fuWuStirng1,fuWuStirng3,fuWuStirng4);
                                           
                                           
-                                          //NSDate * date2 = [[NSDate alloc]initWithTimeInterval:0 sinceDate:date1];
-                                          
-                                          
->>>>>>> Stashed changes
-
-                                          
                                           
                                           //请求没有错误
                                           if (!error) {
@@ -1877,7 +1729,6 @@
                                                   //JSON解析
                                                   // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                                   NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-<<<<<<< Updated upstream
                                                   
                                                   if (result && [result isKindOfClass:[NSDictionary class]]) {
                                                       if ([result[@"code"] isEqual:@0]) {
@@ -1897,7 +1748,7 @@
                                                   
                                                   
                                                   //NSLog(@"error原生数据登录：++： %@",yuanDic);
-=======
+
                                                   NSLog(@"李佳原生数据登录：++： %@",result);
                                                   NSDictionary * dataDic = result[@"data"];
                                                   
@@ -1917,7 +1768,7 @@
                                                       model1.firstDate = [NSDate date];
                                                       [userDefaults setObject:dataDic[@"timestamp"] forKey:KUSERDEFAULT_TIMEINTERVAR_LIJIA];
                                                   }
->>>>>>> Stashed changes
+
                                                   
                                                   
                                               }
@@ -1936,30 +1787,9 @@
                                           }
                                           
                                       }];
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    
-=======
-
-        
->>>>>>> Stashed changes
         [task resume];
     //});
 
-
-
-<<<<<<< Updated upstream
-=======
-    
-
->>>>>>> Stashed changes
-=======
-
-        
-        [task resume];
-    //});
-
->>>>>>> Stashed changes
 }
 
 
