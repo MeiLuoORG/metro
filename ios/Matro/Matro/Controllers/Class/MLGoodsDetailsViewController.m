@@ -1116,6 +1116,7 @@
         }
         NSLog(@"请求成功 result====%@",result);
         
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败 error===%@",error);
         
@@ -1150,7 +1151,7 @@
     if (userid) {
         if (!self.shoucangButton.selected) {
  
-            NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com"];
+            NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product&test_phone=13771961207",@"http://bbctest.matrojp.com"];
             NSDictionary *params = @{@"do":@"del",@"id":sender};
             self.shoucangButton.selected = NO;
             [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
@@ -1172,6 +1173,7 @@
                      
                  }
                  NSLog(@"请求成功 result====%@",result);
+                
                  
              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  NSLog(@"请求失败 error===%@",error);

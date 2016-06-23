@@ -109,7 +109,7 @@
         cell.selectButton.selected  = YES;
     }
     
-    
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //[self.selectedBtnARR addObject:cell.selectButton];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     

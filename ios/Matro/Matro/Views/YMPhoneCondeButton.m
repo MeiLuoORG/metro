@@ -54,13 +54,15 @@
     if (self.isEnabled) {
         self.enabled = NO;
     }
-    [self setTitle:[NSString stringWithFormat:@"%.0f 秒", _durationToValidity] forState:UIControlStateNormal];
+    [self setTitle:[NSString stringWithFormat:@"%.0fs重新发送", _durationToValidity] forState:UIControlStateNormal];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1
                                                   target:self
                                                 selector:@selector(redrawTimer:)
                                                 userInfo:nil
                                                  repeats:YES];
 }
+
+
 
 - (void)invalidateTimer{
     if (!self.isEnabled) {

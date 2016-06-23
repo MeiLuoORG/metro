@@ -154,7 +154,7 @@ static NSInteger page = 1;
     
     CGFloat H = frameView.bounds.size.height - 8;
     CGFloat imgW = H;
-    CGFloat textW = frameView.bounds.size.width - imgW - 6;
+    CGFloat textW = frameView.bounds.size.width - imgW -20;
     
     
     UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuo"]];
@@ -166,7 +166,7 @@ static NSInteger page = 1;
     
     
     
-    searchImg.frame = CGRectMake(textW - 108 , 4, imgW, imgW);
+    searchImg.frame = CGRectMake(textW - 58 , 4, imgW, imgW);
     searchText.textColor = [UIColor grayColor];
     searchText.placeholder = @"寻找你想要的商品";
     searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
@@ -178,9 +178,9 @@ static NSInteger page = 1;
     self.navigationItem.titleView = frameView;
     
     
-    UIBarButtonItem *button =[[UIBarButtonItem alloc]initWithTitle:@"  " style: UIBarButtonItemStylePlain target:self action:@selector(nothingAction)];
-    
-    self.navigationItem.rightBarButtonItem = button;
+//    UIBarButtonItem *button =[[UIBarButtonItem alloc]initWithTitle:@"  " style: UIBarButtonItemStylePlain target:self action:@selector(nothingAction)];
+//    
+//    self.navigationItem.rightBarButtonItem = button;
     
     [_jiageButtton changeImageAndTitle];
     /*
@@ -188,6 +188,7 @@ static NSInteger page = 1;
     [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
     */
     [_shaixuanButton changeImageAndTitle];
+    
     /*
     [_changeButton setImage:[UIImage imageNamed:@"liebiao1"] forState:UIControlStateNormal];
     [_changeButton setImage:[UIImage imageNamed:@"list"] forState:UIControlStateSelected];
@@ -487,10 +488,12 @@ static NSInteger page = 1;
     if ([typeStr isEqualToString:@"销量"]) {
         button.selected = !button.selected;
         if (button.selected) {
-            [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateNormal];
+            
+            [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+            [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateSelected];
             [filterparamDic setValue:@"amount" forKey:@"orderby"];
+            
         }else{
             
          [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -516,15 +519,17 @@ static NSInteger page = 1;
     {
         button.selected = !button.selected;
         if (button.selected) {
-            [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+           
+            [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
             [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
-            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
             [filterparamDic setValue:@"price" forKey:@"orderby"];
+            
 
         }else{
         
             [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateSelected];
+            [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateNormal];
         }
         page = 1;
         [self getGoodsList];
@@ -572,7 +577,7 @@ static NSInteger page = 1;
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 168.0f;
+    return 132.0f;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -581,6 +586,15 @@ static NSInteger page = 1;
     return view;
 }
 
+//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    return 1.0f;
+//}
+//
+//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    UIView * view = [[UIView alloc]init];
+//    view.backgroundColor = RGBA(245, 245, 245, 1);
+//    return view;
+//}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MLGoodsDetailsViewController * vc = [[MLGoodsDetailsViewController alloc]init];
@@ -630,8 +644,12 @@ static NSInteger page = 1;
         
         float price = [tempdic[@"price"] floatValue];
         
-        cell.currentPriceLabel.text =[NSString stringWithFormat:@"￥%.2f",price];
+        NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
         
+        [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 1)];
+        [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(pricestr.length - 2, 2)];
+        
+        cell.currentPriceLabel.attributedText = pricestr;
         
     }
     
@@ -651,8 +669,9 @@ static NSInteger page = 1;
     
     NSString *pic = tempdic[@"pic"];
     if (![pic isKindOfClass:[NSNull class]]) {
-        //[cell.productImgview sd_setImageWithURL:[NSURL URLWithString:pic]];
+        
         [cell.productImgview sd_setImageWithURL:[NSURL URLWithString:pic] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        
     }else{
         cell.productImgview.image = [UIImage imageNamed:@"imageloading"];
     }
@@ -688,13 +707,27 @@ static NSInteger page = 1;
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    float width = (collectionView.bounds.size.width - 2*CollectionViewCellMargin) / 2;
+    float width = (collectionView.bounds.size.width - CollectionViewCellMargin) / 2;
     float height = width / 290 * 408;
     return CGSizeMake(width, height);
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(0, 0, CollectionViewCellMargin, 0);
+}
+
+- (CGFloat) collectionView:(UICollectionView *)collectionView
+                    layout:(UICollectionViewLayout *)collectionViewLayout
+minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 5.0f;
+}
+
+- (CGFloat) collectionView:(UICollectionView *)collectionView
+                    layout:(UICollectionViewLayout *)collectionViewLayout
+minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 5.0f;
 }
 
 #pragma mark- NNSXDelegate 筛选后重新call接口

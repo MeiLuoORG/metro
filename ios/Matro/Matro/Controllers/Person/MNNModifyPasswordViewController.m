@@ -15,6 +15,7 @@
 
 #define CODE_TIME_KEY @"CODE_TIME_KEY"
 #define Phone_YANZHENGMA @"PHONE_YANGZHENGMA"
+
 #define  kScreenWidth self.view.frame.size.width
 
 @interface MNNModifyPasswordViewController () {
@@ -24,13 +25,14 @@
     UIButton *_nextStep;//下一步
 //    NSTimer *_timer;//定时器 控制再次获取验证码
     int residualTime;//设定每次获取验证码的时间间隔
-    UIView *_promplabelview;//提示框
     NSInteger _endTime;
+    BOOL _isFaSonging;
+    
+    UIView *_promplabelview;//提示框
+    
     UIView * _bkView;
     BOOL _isYESSms;
     UIButton * _closeButton;
-    
-    BOOL _isFaSonging;
 }
 
 @end
@@ -120,10 +122,11 @@ static NSString *phoneNum = @"";
     }else{
         _getVerificationCode.enabled = NO;
     }
+    /*
     if (![userPhone isEqualToString:@""]) {
         _phoneTextField.text = userPhone;
     }
-
+*/
     [self codeTimeCountdown];
 }
 

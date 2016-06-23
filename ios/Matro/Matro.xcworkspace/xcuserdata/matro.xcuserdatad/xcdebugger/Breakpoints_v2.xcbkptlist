@@ -22,28 +22,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Matro/Controllers/Person/MLCollectionViewController.m"
-            timestampString = "488286525.62648"
+            timestampString = "488361940.956047"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "-addToCartWithPID:array:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Matro/Controllers/Person/MLCollectionViewController.m"
-            timestampString = "488286013.490893"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
-            landmarkName = "-loadDate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

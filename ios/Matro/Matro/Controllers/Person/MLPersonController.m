@@ -115,7 +115,11 @@
     _messageButton.frame = CGRectMake(0, 0, 22, 22);
     [_messageButton setBackgroundImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
     [_messageButton addTarget:self action:@selector(actMessage) forControlEvents:UIControlEventTouchUpInside];
+<<<<<<< Updated upstream
 //    [self.navigationController.navigationBar addSubview:_messageButton];
+=======
+    //[self.navigationController.navigationBar addSubview:_messageButton];
+>>>>>>> Stashed changes
     _messageBadgeView = [[JSBadgeView alloc]initWithParentView:_messageButton alignment:JSBadgeViewAlignmentTopRight];
     _messageBadgeView.badgeText = @"●";
     [_messageBadgeView setBadgeTextColor:[HFSUtility hexStringToColor:Main_textRedBackgroundColor]];
@@ -135,12 +139,16 @@
     _settingButton.frame = CGRectMake(0, 0, 22, 22);
     [_settingButton setBackgroundImage:[UIImage imageNamed:@"settingzl"] forState:UIControlStateNormal];
     [_settingButton addTarget:self action:@selector(actSettingAction) forControlEvents:UIControlEventTouchUpInside];
+<<<<<<< Updated upstream
 //    [self.navigationController.navigationBar addSubview:_settingButton];
     
     UIBarButtonItem *setting = [[UIBarButtonItem alloc]initWithCustomView:_settingButton];
     
     self.navigationItem.rightBarButtonItems = @[message,l,setting];
     
+=======
+    //[self.navigationController.navigationBar addSubview:_settingButton];
+>>>>>>> Stashed changes
     
     //self.navigationItem.rightBarButtonItems = array;
     

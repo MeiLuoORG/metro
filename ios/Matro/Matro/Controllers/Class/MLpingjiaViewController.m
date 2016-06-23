@@ -7,7 +7,7 @@
 //
 
 #import "MLpingjiaViewController.h"
-#import "MLCommentTableViewCell.h"
+
 #import "MJRefresh.h"
 
 @interface MLpingjiaViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -16,8 +16,63 @@
 
 @implementation MLpingjiaViewController
 
+/*
+- (instancetype)init
+{
+    if (self = [super init])
+    {
+        self.menuViewStyle                   = WMMenuViewStyleLine;
+        self.titleColorSelected              = RGBA(174, 142, 93, 1);
+        self.titleColorNormal                = RGBA(14, 14, 14, 1);
+        self.progressColor                   = RGBA(174, 142, 93, 1);
+        self.titleSizeSelected               = 14;
+        self.pageAnimatable                  = NO;
+        self.titleSizeNormal                 = 14;
+        self.menuHeight                      = 44;
+        self.menuItemWidth                   = (MAIN_SCREEN_WIDTH - 5*15)/4;
+        self.postNotification                = YES;
+        self.itemMargin                      = 15.f;
+        self.bounces                         = NO;
+        self.menuBGColor                     = [UIColor whiteColor];
+        NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
+        NSMutableArray *titles = [[NSMutableArray alloc] init];
+        for (int i = 0; i < 4; i++) {
+            Class vcClass;
+            NSString *title;
+            switch (i) {
+                case 0:
+                    vcClass = [MLPersonOrderListViewController class];
+                    title = @"全部";
+                    break;
+                case 1:
+                    vcClass = [MLPersonOrderListViewController class];
+                    title = @"待付款";
+                    break;
+                case 2:
+                    vcClass = [MLPersonOrderListViewController class];
+                    title = @"待收货";
+                    break;
+                case 3:
+                    vcClass = [MLPersonOrderListViewController class];
+                    title = @"待评价";
+                    break;
+                default:
+                    break;
+            }
+            [viewControllers addObject:vcClass];
+            [titles addObject:title];
+        }
+        self.viewControllerClasses = viewControllers;
+        self.titles = titles;
+        
+    }
+    return self;
+}
+*/
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    /*
     self.navigationItem.title = @"用户评价";
     self.imgCollectionView.hidden = YES;
     self.commentTableview.backgroundColor = RGBA(245, 245, 245, 1);
@@ -31,8 +86,10 @@
         //        page = 1;
         //        [self downLoadList];
     }];
+     */
 }
 
+/*
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
  
     return 3;
@@ -57,14 +114,14 @@
     return 218;
 }
 
-
+*/
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 
-
+/*
 - (IBAction)actQuanbu:(id)sender {
 }
 - (IBAction)actHaoping:(id)sender {
@@ -80,4 +137,5 @@
 
 - (IBAction)myshopCar:(id)sender {
 }
+ */
 @end

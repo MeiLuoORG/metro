@@ -355,7 +355,7 @@
                             <rect key="frame" x="12" y="30" width="566" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJY-Cs-aAm">
-                                    <rect key="frame" x="526" y="0.0" width="40" height="40"/>
+                                    <rect key="frame" x="516" y="0.0" width="40" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="OJY-Cs-aAm" secondAttribute="height" multiplier="1:1" id="FSS-HX-kDs"/>
                                     </constraints>
@@ -366,17 +366,17 @@
                                     </connections>
                                 </button>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号/VIP卡号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O4Q-SI-Yxp">
-                                    <rect key="frame" x="19" y="0.0" width="495" height="40"/>
+                                    <rect key="frame" x="19" y="0.0" width="485" height="40"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="textColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    <textInputTraits key="textInputTraits"/>
                                     <connections>
                                         <outlet property="delegate" destination="-1" id="NkN-D9-Vui"/>
                                     </connections>
                                 </textField>
                                 <button hidden="YES" opaque="NO" tag="99" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWf-He-FTG">
-                                    <rect key="frame" x="515" y="0.0" width="61" height="40"/>
+                                    <rect key="frame" x="505" y="0.0" width="61" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="jWf-He-FTG" secondAttribute="height" multiplier="23:15" id="JZC-Nr-GDb"/>
                                     </constraints>
@@ -471,7 +471,7 @@
                         <constraint firstAttribute="trailing" secondItem="Dx9-Um-hHg" secondAttribute="trailing" constant="22" id="gbC-0j-P9s"/>
                         <constraint firstItem="5B3-lD-2N3" firstAttribute="leading" secondItem="dQ7-Hi-EI6" secondAttribute="leading" id="mHF-el-MF9"/>
                         <constraint firstItem="Dx9-Um-hHg" firstAttribute="leading" secondItem="U9l-OH-CWc" secondAttribute="leading" constant="22" id="rso-C5-Ngc"/>
-                        <constraint firstAttribute="trailing" secondItem="gvR-9x-ySr" secondAttribute="trailing" constant="12" id="sZK-9j-UB1"/>
+                        <constraint firstAttribute="trailing" secondItem="gvR-9x-ySr" secondAttribute="trailing" constant="22" id="sZK-9j-UB1"/>
                         <constraint firstItem="gvR-9x-ySr" firstAttribute="top" secondItem="Dx9-Um-hHg" secondAttribute="bottom" constant="5" id="x2p-CF-IJZ"/>
                         <constraint firstAttribute="trailing" secondItem="Izg-Cr-Hol" secondAttribute="trailing" constant="22" id="yMi-zt-JKe"/>
                     </constraints>

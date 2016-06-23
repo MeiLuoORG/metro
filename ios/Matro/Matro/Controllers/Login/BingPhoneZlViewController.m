@@ -27,15 +27,134 @@
 
 
 static BOOL isPass = NO;
+#define CODE_TIME_KEY @"CODE_TIME_KEY"
+
 
 @implementation BingPhoneZlViewController{
     
     NSManagedObjectContext *_context;
-    
+    int residualTime;//设定每次获取验证码的时间间隔
+    NSInteger _endTime;
+    BOOL _isFaSonging;
+    NSString * _currentCardNOs;
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.vipCardArray = [NSMutableArray new];
+    //短信倒计时
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *tempTime = [userDefaults stringForKey:CODE_TIME_KEY];
+    //NSString * userPhone = [userDefaults stringForKey:Phone_YANZHENGMA];
     
+    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[[NSDate new] timeIntervalSince1970]];
+    if (timeSp) {
+        _endTime = 60 - ([timeSp integerValue] - [tempTime integerValue]);
+    }
+    if (!tempTime || _endTime> 60) {
+        
+        //if (![userPhone isEqualToString:@""]) {
+        //self.subCodeBtn.enabled = YES;
+        _endTime = 0;
+        //}
+        //self.subCodeBtn.enabled = NO;
+    }else{
+        self.subCodeBtn.enabled = NO;
+    }
+    /*
+     if (![userPhone isEqualToString:@""]) {
+     _phoneTextField.text = userPhone;
+     }
+     */
+    [self codeTimeCountdown];
+}
+#pragma mark  验证码倒计时
+-(void)codeTimeCountdown{
+    
+    __block NSInteger timeout=_endTime; //倒计时时间
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+    dispatch_source_set_event_handler(_timer, ^{
+        if(timeout<=0){ //倒计时结束，关闭
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //设置界面的按钮显示 根据自己需求设置
+                
+                if ([HFSUtility validateMobile:self.phoneField.text]) {
+                    self.subCodeBtn.enabled=YES;
+                    [self.subCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+                    [self.subCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    _isFaSonging = NO;
+                    
+                    
+                    
+                    if (self.subCodeBtn.isEnabled) {
+                        [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
+                    }
+                    else{
+                        [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+                    }
+                    //[self.subCodeBtn setBackgroundImage:[UIImage imageNamed:@"quguangguang_button"] forState:UIControlStateNormal];
+                    //self.subCodeBtn.backgroundColor = [UIColor clearColor];
+                    self.subCodeBtn.layer.borderWidth = 1.0f;
+                    self.subCodeBtn.layer.borderColor = [UIColor clearColor].CGColor;
+                }
+                else{
+                    self.subCodeBtn.enabled=NO;
+                    [self.subCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+                    [self.subCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    _isFaSonging = NO;
+                    
+                    
+                    
+                    if (self.subCodeBtn.isEnabled) {
+                        [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
+                    }
+                    else{
+                        [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+                    }
+                    //[self.subCodeBtn setBackgroundImage:[UIImage imageNamed:@"quguangguang_button"] forState:UIControlStateNormal];
+                    //self.subCodeBtn.backgroundColor = [UIColor clearColor];
+                    self.subCodeBtn.layer.borderWidth = 1.0f;
+                    self.subCodeBtn.layer.borderColor = [UIColor clearColor].CGColor;
+                    
+                    
+                }
+                
+                
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                //NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[[NSDate new] timeIntervalSince1970]];
+                [userDefaults removeObjectForKey:CODE_TIME_KEY];
+                //[userDefaults removeObjectForKey:Phone_YANZHENGMA];
+                /*
+                 [userDefaults setObject:timeSp forKey:CODE_TIME_KEY];
+                 [userDefaults setObject:phoneNum forKey:Phone_YANZHENGMA];
+                 */
+            });
+        }else{
+            int seconds;
+            if (timeout==60) {
+                seconds=60;
+            }else{
+                seconds = timeout % 60;
+            }
+            NSString *strTime = [NSString stringWithFormat:@"(%.2d)重新发送",seconds];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _isFaSonging = YES;
+                //设置界面的按钮显示 根据自己需求设置
+                self.subCodeBtn.enabled=NO;
+                [self.subCodeBtn setTitle:strTime forState:UIControlStateNormal];
+                [self.subCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+                //[self.subCodeBtn setBackgroundImage:[UIImage imageNamed:@"TM.jpg"] forState:UIControlStateNormal];
+                //self.subCodeBtn.backgroundColor = [UIColor clearColor];
+                // self.subCodeBtn.layer.borderWidth = 1.0f;
+                // self.subCodeBtn.layer.borderColor = [UIColor colorWithHexString:@"#AE8E5D"].CGColor;
+            });
+            timeout--;
+        }
+    });
+    dispatch_resume(_timer);
 }
 
 
@@ -79,10 +198,11 @@ static BOOL isPass = NO;
     self.phoneField.layer.cornerRadius = 4.0f;
     self.phoneField.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
     self.phoneField.layer.masksToBounds = YES;
-    self.phoneField.font = [UIFont systemFontOfSize:13.0f];
+    self.phoneField.font = [UIFont systemFontOfSize:14.0f];
     //self.phoneField.leftImgName = @"Profile_gray";
     self.phoneField.leftOffset = -10.f;
     self.phoneField.rightOffset = 5.f;
+    self.phoneField.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:self.phoneField];
     
     
@@ -90,25 +210,27 @@ static BOOL isPass = NO;
     self.codeField.layer.borderWidth = 1.f;
     self.codeField.delegate = self;
     self.codeField.layer.cornerRadius = 4.0f;
+    self.codeField.keyboardType = UIKeyboardTypeNumberPad;
     self.codeField.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
     self.codeField.layer.masksToBounds = YES;
     self.codeField.placeholder = @"验证码";
     self.codeField.leftOffset = -10.f;
     self.codeField.rightOffset = 5.f;
-    self.codeField.font = [UIFont systemFontOfSize:13.0f];
+    self.codeField.font = [UIFont systemFontOfSize:14.0f];
     [self.view addSubview:self.codeField];
     // self.codeField.leftImgName = @"Lock_gray";
     //self.subCodeBtn.layer.borderWidth = 1.f;
     //self.subCodeBtn.layer.cornerRadius = 4.0f;
     
-    self.subCodeBtn  = [YMPhoneCondeButton buttonWithType:UIButtonTypeSystem];
+    self.subCodeBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.subCodeBtn setFrame:CGRectMake(SIZE_WIDTH-22-89, 99+64, 89, 41)];
     [self.subCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //self.subCodeBtn.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
     self.subCodeBtn.layer.masksToBounds = YES;
     
-    [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+    [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
     self.subCodeBtn.enabled = NO;
+    self.subCodeBtn.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:self.subCodeBtn.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(4.0,4.0)];
     
     CAShapeLayer *maskLayer2 = [[CAShapeLayer alloc] init];
@@ -131,6 +253,7 @@ static BOOL isPass = NO;
     [self.bindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.bindBtn setTitle:@"绑 定" forState:UIControlStateNormal];
     [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+    [self.bindBtn addTarget:self action:@selector(bindClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.bindBtn];
     [self.bindBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
@@ -148,7 +271,7 @@ static BOOL isPass = NO;
         filed.leftOffset = -10.f;
         filed.rightOffset = 5.f;
         //filed.leftImgName = @"Lock_gray";
-        filed.font = [UIFont systemFontOfSize:13];
+        filed.font = [UIFont systemFontOfSize:14];
         filed.layer.borderWidth = 1.f;
         filed.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
         filed.layer.masksToBounds = YES;
@@ -164,14 +287,17 @@ static BOOL isPass = NO;
         filed.leftOffset = -10.f;
         filed.rightOffset = 5.f;
         //filed.leftImgName = @"Lock_gray";
-        filed.font = [UIFont systemFontOfSize:13];
+        filed.font = [UIFont systemFontOfSize:14];
         filed.layer.borderWidth = 1.f;
         filed.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
         filed.layer.masksToBounds = YES;
         filed.layer.cornerRadius = 4.0f;
         filed;
     });
-    
+    [self.view addSubview:self.passField];
+    [self.view addSubview:self.rPassField];
+    self.passField.hidden = YES;
+    self.rPassField.hidden = YES;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangeAction:) name:UITextFieldTextDidChangeNotification object:nil];
     // Do any additional setup after loading the view from its nib.
 }
@@ -181,36 +307,43 @@ static BOOL isPass = NO;
     
     
     
-    if (self.phoneField.text.length > 0) {
-        self.subCodeBtn.enabled = YES;
-        [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_BackgroundColor]];
+    if (self.phoneField.text.length > 0 && [HFSUtility validateMobile:self.phoneField.text]) {
+        if (!_isFaSonging) {
+            self.subCodeBtn.enabled = YES;
+            [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
+        }
+        else{
+        
+        
+        }
+
         
     }else{
         self.subCodeBtn.enabled = NO;
-        [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+        [self.subCodeBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
         
     }
     
     if (isPass) {
-        if (self.phoneField.text.length > 0 && self.codeField.text.length>0 && self.passField.text.length > 0 &&self.rPassField.text.length > 0) {
+        if (self.phoneField.text.length > 0 && self.codeField.text.length>0 && self.passField.text.length > 0 &&self.rPassField.text.length > 0 && [HFSUtility validateMobile:self.phoneField.text]) {
             self.bindBtn.enabled = YES;
-            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_BackgroundColor]];
+            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
         }
         else{
             self.bindBtn.enabled = NO;
-            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
             
         }
         
     }
     else {
-        if (self.phoneField.text.length > 0 && self.codeField.text.length>0) {
+        if (self.phoneField.text.length > 0 && self.codeField.text.length>0 && [HFSUtility validateMobile:self.phoneField.text]) {
             self.bindBtn.enabled = YES;
-            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_BackgroundColor]];
+            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
         }
         else{
             self.bindBtn.enabled = NO;
-            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+            [self.bindBtn setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
             
         }
         
@@ -224,15 +357,25 @@ static BOOL isPass = NO;
         NSDictionary *result = (NSDictionary *)responseObject;
         
         if([@"0" isEqualToString:[NSString stringWithFormat:@"%@",result[@"status"]]]){
-            /*
+            _hud = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
+            
              [_hud show:YES];
              _hud.mode = MBProgressHUDModeText;
-             _hud.labelText = @"验证码已发送，请注意查收";
-             [_hud hide:YES afterDelay:2];
-             */
-            YMPhoneCondeButton *btn = (YMPhoneCondeButton *)sender;
+             _hud.labelText = @"验证码已发送";
+             [_hud hide:YES afterDelay:1];
+            //YMPhoneCondeButton *btn = (UIButton *)sender;
             
-            [btn startUpTimer];
+            _endTime = 60;
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            //NSString *tempTime = [userDefaults stringForKey:CODE_TIME_KEY];
+            
+            NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[[NSDate new] timeIntervalSince1970]];
+            [userDefaults setObject:timeSp forKey:CODE_TIME_KEY];
+            
+            [self codeTimeCountdown];
+            
+            //[btn startUpTimer];
             
         }else{
             [_hud show:YES];
@@ -244,8 +387,9 @@ static BOOL isPass = NO;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
+        
+        _hud.labelText = REQUEST_ERROR_ZL;
+        [_hud hide:YES afterDelay:1];
     }];
     
     /*zhoulu*/
@@ -290,7 +434,7 @@ static BOOL isPass = NO;
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"请求失败";
+            _hud.labelText = REQUEST_ERROR_ZL;
             [_hud hide:YES afterDelay:2];
             // NSLog(@"验证码错误信息：%@",error);
             }];
@@ -298,7 +442,7 @@ static BOOL isPass = NO;
     }else{
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请输入正确的手机号码";
+        _hud.labelText = @"手机号格式错误，请确认。";
         [_hud hide:YES afterDelay:2];
     }
     
@@ -367,9 +511,9 @@ static BOOL isPass = NO;
 
 
 - (void)showPassfield{
-    [self.view addSubview:self.passField];
-    [self.view addSubview:self.rPassField];
-    
+
+    self.passField.hidden = NO;
+    self.rPassField.hidden = NO;
     
     [UIView animateWithDuration:0.3 animations:^{
         //self.bindConstraint.constant = 191;
@@ -396,7 +540,7 @@ static BOOL isPass = NO;
 
 
 
-- (IBAction)bindClick:(id)sender {
+- (void)bindClick:(id)sender {
     
     __weak typeof(self)  weakSelf = self;
     if (self.phoneField.text.length == 0 ||
@@ -510,7 +654,7 @@ static BOOL isPass = NO;
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
      [_hud show:YES];
      _hud.mode = MBProgressHUDModeText;
-     _hud.labelText = @"请求失败";
+     _hud.labelText = REQUEST_ERROR_ZL;
      [_hud hide:YES afterDelay:2];
      // NSLog(@"验证码错误信息：%@",error);
      }];
@@ -651,10 +795,11 @@ static BOOL isPass = NO;
                                                                   
                                                               }
                                                               
-                                                              
-                                                              
+                                                                  NSLog(@"绑定会员卡的会员卡个数为：%ld",self.vipCardArray.count);
+                                                              //dispatch_async(dispatch_get_main_queue(), ^{
                                                               //绑定会员卡
-                                                              [weakSelf loadSettingMoCardViewWithCardARR:self.vipCardArray withPhone:self.phoneField.text withCardNo:nil withAccessToken:userDic[@"accessToken"]];
+                                                                   [weakSelf loadSettingMoCardViewWithCardARR:self.vipCardArray withPhone:self.phoneField.text withCardNo:nil withAccessToken:userDic[@"accessToken"]];
+                                                               //});
                                                           }
                                                       }
                                                       else if(vipCardARR.count < 1){
@@ -699,14 +844,16 @@ static BOOL isPass = NO;
                                                   
                                                   if (isDefault) {
                                                       //[weakSelf dismissViewControllerAnimated:NO completion:nil];
+                                                       dispatch_async(dispatch_get_main_queue(), ^{
                                                       [weakSelf dismissViewControllerAnimated:NO completion:^{
                                                           [[NSNotificationCenter defaultCenter]postNotificationName:kNOTIFICATIONBINDSUC object:nil];
                                                           //weakSelf.backBlock(YES);
                                                       }];
+                                                       });
                                                   }
                                                   
                                                   
-                                                  [[NSNotificationCenter defaultCenter]postNotificationName:kNOTIFICATIONBINDSUC object:nil];
+                                                  //[[NSNotificationCenter defaultCenter]postNotificationName:kNOTIFICATIONBINDSUC object:nil];
                                                   
                                               }else{
                                                   dispatch_async(dispatch_get_main_queue(), ^{
@@ -747,6 +894,7 @@ static BOOL isPass = NO;
 }
 
 - (void)loadSettingMoCardViewWithCardARR:(NSArray *)cardARR withPhone:(NSString *)phoneString withCardNo:(NSString *)cardNO withAccessToken:(NSString *)accessTokenString{
+    dispatch_async(dispatch_get_main_queue(), ^{
     /*
      [_hud show:YES];
      _hud.mode = MBProgressHUDModeText;
@@ -774,6 +922,7 @@ static BOOL isPass = NO;
     //NSLog(@"点击了注册按钮");
     self.settingMoCardView = [[SettingMoCardView alloc]initWithFrame:CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT)];
     self.settingMoCardView.cardARR = cardARR;
+    NSLog(@"绑定手机号中绑定会员卡的会员卡数组个数为：%ld",cardARR.count);
     [self.settingMoCardView loadViews];
     [self.settingMoCardView bindButtonBlockAction:^(BOOL success) {
         if (self.settingMoCardView.cardNoString != nil && ![self.settingMoCardView.cardNoString isEqualToString:@""]) {
@@ -788,6 +937,7 @@ static BOOL isPass = NO;
                 
                 [userDefault setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
             }
+            _currentCardNOs = self.settingMoCardView.cardNoString;
             
             [userDefault synchronize];
             
@@ -805,7 +955,7 @@ static BOOL isPass = NO;
                 
                 [userDefault setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
             }
-            
+            _currentCardNOs = cardModel.cardNo;
             [userDefault synchronize];
             
             [weakSelf loadBindCardViewwithPhone:phoneString withCardNo:cardModel.cardNo withAccessToken:accessTokenString];
@@ -841,7 +991,7 @@ static BOOL isPass = NO;
     
     //[self.view insertSubview:self.settingMoCardView atIndex:0];
     
-    
+    });
 }
 #pragma mark TextField 代理方法
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
@@ -876,6 +1026,9 @@ static BOOL isPass = NO;
         
         NSData *data2 = [HFSUtility RSADicToData:dic2];
         NSString *ret2 = base64_encode_data(data2);
+        
+        [self yuanShengBingCardAcrionWithRet2:ret2];
+        /*
         //@"vip/AuthUserInfo"
         [[HFSServiceClient sharedClient] POST:BindCard_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
@@ -903,17 +1056,100 @@ static BOOL isPass = NO;
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"请求失败";
+            _hud.labelText = REQUEST_ERROR_ZL;
             [_hud hide:YES afterDelay:2];
         }];
-        
+        */
         
     }
     
     
 }
 
-
+#pragma mark 注册后绑定原生方法 开始
+- (void) yuanShengBingCardAcrionWithRet2:(NSString *)ret2{
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+    //static dispatch_once_t predicate = 0;
+    //dispatch_once(&predicate, ^{
+    NSString *urlStr = [NSString stringWithFormat:@"%@",BindCard_URLString];
+    NSURL * URL = [NSURL URLWithString:urlStr];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+    [request setHTTPMethod:@"post"]; //指定请求方式
+    NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:data3];
+    [request setURL:URL]; //设置请求的地址
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      NSLog(@"原生错误error:%@",error);
+                                      
+                                      //请求没有错误
+                                      if (!error) {
+                                          if (data && data.length > 0) {
+                                              //JSON解析
+                                              // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                              NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                              //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                              //NSLog(@"设置默认卡%@",result);
+                                              if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+                                                  
+                                                  
+                                                  
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                  [UIView animateWithDuration:0.5f animations:^{
+                                                      [self.settingMoCardView setFrame:CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT)];
+                                                      
+                                                      
+                                                  } completion:^(BOOL finished) {
+                                                      NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+                                                      //[userDefault setObject:_currentCardTypeNames forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                      [userDefault setObject:_currentCardNOs forKey:kUSERDEFAULT_USERCARDNO];
+                                                      [userDefault synchronize];
+                                                  }];
+                                                  
+                                                  [self dismissViewControllerAnimated:NO completion:nil];
+                                                  [[NSNotificationCenter defaultCenter]postNotificationName:kNOTIFICATIONBINDSUC object:nil];
+                                                  });
+                                                  
+                                                  
+                                                  
+                                              }else{
+                                                  
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                  
+                                                  [_hud show:YES];
+                                                  _hud.mode = MBProgressHUDModeText;
+                                                  _hud.labelText = result[@"errMsg"];
+                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
+                                                  [_hud hide:YES afterDelay:1];
+                                                  });
+                                              }
+                                              
+                                          }
+                                      }
+                                      else{
+                                          //请求有错误
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                          
+                                          [_hud show:YES];
+                                          _hud.mode = MBProgressHUDModeText;
+                                          _hud.labelText = REQUEST_ERROR_ZL;
+                                          _hud.labelFont = [UIFont systemFontOfSize:13];
+                                          [_hud hide:YES afterDelay:1];
+                                          });
+                                          
+                                      }
+                                      
+                                  }];
+    
+    [task resume];
+    
+    //});
+}
+#pragma end mark 注册后绑定会员卡 册方法  结束
 
 #pragma end mark
 
