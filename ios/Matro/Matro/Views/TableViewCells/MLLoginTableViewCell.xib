@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -37,14 +37,21 @@
                             <action selector="delAccountClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="QSg-72-1oj"/>
                         </connections>
                     </button>
+                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E1l-pF-MBW">
+                        <rect key="frame" x="19" y="43" width="280" height="1"/>
+                        <color key="backgroundColor" red="0.90980392160000001" green="0.8862745098" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="QK9-wb-Jn6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1Bc-xn-bpo"/>
+                    <constraint firstItem="E1l-pF-MBW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="19" id="2PJ-aR-UZj"/>
                     <constraint firstItem="Sxc-N3-mQl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="379-V7-axN"/>
                     <constraint firstItem="Sxc-N3-mQl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6MK-jn-Au3"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="E1l-pF-MBW" secondAttribute="trailing" constant="19" id="8Kr-O7-7Ie"/>
                     <constraint firstItem="QK9-wb-Jn6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="19" id="MaS-Nu-CcN"/>
                     <constraint firstAttribute="trailing" secondItem="Sxc-N3-mQl" secondAttribute="trailing" id="T54-Dg-5wB"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="E1l-pF-MBW" secondAttribute="bottom" id="UV9-cW-csa"/>
                     <constraint firstAttribute="trailing" secondItem="QK9-wb-Jn6" secondAttribute="trailing" id="blm-jV-efL"/>
                     <constraint firstAttribute="bottom" secondItem="Sxc-N3-mQl" secondAttribute="bottom" id="fLp-fW-L5e"/>
                     <constraint firstItem="ADR-9y-Hkf" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="jrL-U8-NaN"/>

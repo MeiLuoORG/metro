@@ -31,7 +31,7 @@
 
 
 @interface MLLoginViewController ()<UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>{
-    NSInteger _endTime;
+  
     NSManagedObjectContext *_context;
     NSMutableArray *_accountArray;
     
@@ -43,6 +43,9 @@
     NSString * _currentCardTypeNames;
     
     BOOL _isFaSonging;//是否验证码正在发送
+    int residualTime;//设定每次获取验证码的时间间隔
+    NSInteger _endTime;
+    
     
     BOOL _isQuickly_Register;
 }
@@ -82,7 +85,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     _isReadDelegate = YES;
-    _isFaSonging = NO;
+    //_isFaSonging = NO;
     self.vipCardArray = [[NSMutableArray alloc]init];
     [self loginVCUI];
     
@@ -121,7 +124,10 @@
     
     //UiTextField变化通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangeAction:) name:UITextFieldTextDidChangeNotification object:nil];
+ 
     
+    //
+    [self textField:_accountView].keyboardType = UIKeyboardTypeNumberPad;
 }
 
 - (void)textChangeAction:(id)sender{
@@ -343,20 +349,21 @@
     _tableView.layer.borderColor = [UIColor colorWithHexString:Main_bianGrayBackgroundColor].CGColor;
     _tableView.layer.cornerRadius = 4.0f;
     
-    
+        /*
     //不支持QQ
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
         _qqLoginBgView.hidden = YES;
         _qqLoginButton.hidden = YES;
         //NSLog(@"不支持QQ");
     }
-    
+    */
+    /*
     //不支持微信
     if (![WXApi isWXAppInstalled] || ![WXApi isWXAppSupportApi]) {
         _wxLoginBgView.hidden = YES;
         //NSLog(@"不支持微信");
     }
-    
+    */
     //加载头部
     [self setTopTltle];
 }
@@ -513,7 +520,7 @@
     
 
     
-    if ([HFSUtility validateMobile:[self textField:_rphoneView].text]) {
+    //if ([HFSUtility validateMobile:[self textField:_rphoneView].text]) {
         //短信倒计时
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *tempTime = [userDefaults stringForKey:CODE_TIME_KEY];
@@ -525,7 +532,7 @@
         NSLog(@"tempTime值为：%@,_endTime的值为：%ld",tempTime,_endTime);
         if (!tempTime ||  _endTime> 60) {
             
-            _codeButton.enabled = YES;
+            //_codeButton.enabled = YES;
             _isFaSonging = NO;
             _endTime = 0;
         }else{
@@ -534,11 +541,19 @@
         }
         
         [self codeTimeCountdown];
-    }
-    else{
-        _codeButton.enabled = NO;
-        [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
-    }
+
+    /*
+     if (![userPhone isEqualToString:@""]) {
+     _phoneTextField.text = userPhone;
+     }
+     */
+    [self codeTimeCountdown];
+    
+    //}
+    //else{
+       // _codeButton.enabled = NO;
+       // [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+    //}
     
 }
 
@@ -569,10 +584,23 @@
         if(timeout<=0){ //倒计时结束，关闭
             dispatch_source_cancel(_timer);
             dispatch_async(dispatch_get_main_queue(), ^{
-                //设置界面的按钮显示 根据自己需求设置
-                _codeButton.enabled=YES;
-                _isFaSonging = NO;
-                [_codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+                
+                if ([HFSUtility validateMobile:[self textField:self.rphoneView].text]) {
+                    //设置界面的按钮显示 根据自己需求设置
+                    _codeButton.enabled=YES;
+                    _isFaSonging = NO;
+                    [_codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+                    [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonNormel_backgroundColor]];
+                }
+                else{
+                    
+                    //设置界面的按钮显示 根据自己需求设置
+                    _codeButton.enabled=NO;
+                    _isFaSonging = NO;
+                    [_codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+                    [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonGray_backgroundColor]];
+                }
+
                 
                 /*
                 [_codeButton setBackgroundImage:[UIImage imageNamed:@"quguangguang_button"] forState:UIControlStateNormal];
@@ -580,7 +608,7 @@
                 _codeButton.layer.borderWidth = 1.0f;
                 _codeButton.layer.borderColor = [UIColor clearColor].CGColor;
                  */
-                [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonNormel_backgroundColor]];
+
             });
         }else{
             int seconds;
@@ -1458,11 +1486,11 @@
         
         
     }
-    
+    /*
     [_hud show:YES];
     _hud.mode = MBProgressHUDModeText;
     _hud.labelText = @"正在登录...";
-    
+    */
     __weak typeof(self) weakSelf = self;
 //
 //    NSDictionary *dic = @{@"appId":APP_ID,
@@ -1886,6 +1914,22 @@
 
 - (IBAction)qqLoginBtnAction:(UIButton *)sender {
 
+    //不支持QQ
+    if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
+        //_qqLoginBgView.hidden = YES;
+        //_qqLoginButton.hidden = YES;
+        
+       // dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"您还没有安装QQ";
+            [_hud hide:YES afterDelay:2];
+        //});
+        
+        //NSLog(@"不支持QQ");
+        return;
+    }
     NSLog(@"点击了QQ");
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
     
@@ -1921,6 +1965,17 @@
 
 
 - (IBAction)wxLoginButtonAction:(id)sender {
+    
+    //不支持微信
+    if (![WXApi isWXAppInstalled] || ![WXApi isWXAppSupportApi]) {
+        //_wxLoginBgView.hidden = YES;
+        //NSLog(@"不支持微信");
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"您还没有安装微信";
+        [_hud hide:YES afterDelay:2];
+        return;
+    }
     
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
     
@@ -2162,10 +2217,11 @@
 //验证码按钮
 - (IBAction)codeButtonAction:(id)sender {
     //http://app.matrojp.com/P2MLinkCenter/common/sendsms
+    /*
     [_hud show:YES];
     _hud.mode = MBProgressHUDModeIndeterminate;
     _hud.labelText = @"";
-    
+    */
     if ([HFSUtility validateMobile:[self textField:_rphoneView].text]) {
         
         NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,
@@ -2208,6 +2264,11 @@
             [_hud hide:YES afterDelay:2];
             });
             _endTime = 60;
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            //NSString *tempTime = [userDefaults stringForKey:CODE_TIME_KEY];
+            _isFaSonging = YES;
+            NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[[NSDate new] timeIntervalSince1970]];
+            [userDefaults setObject:timeSp forKey:CODE_TIME_KEY];
             [self codeTimeCountdown];
                                                                                     
         }else{
@@ -2307,10 +2368,11 @@
 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;{
-    
+    /*
     if (![textField.text isEqualToString:@""]) {
         [self closeButton:textField].hidden = NO;
     }
+    */
     return YES;
 }
 
