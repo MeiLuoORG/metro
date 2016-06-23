@@ -86,7 +86,6 @@
                     <constraint firstItem="uHM-j4-fL2" firstAttribute="leading" secondItem="GpL-db-aRO" secondAttribute="trailing" constant="4" id="2cV-Qr-HwK"/>
                     <constraint firstAttribute="topMargin" secondItem="ZCL-6m-ykr" secondAttribute="top" constant="5" id="2yh-ha-nOi"/>
                     <constraint firstItem="uHM-j4-fL2" firstAttribute="centerY" secondItem="r6l-Ju-Lnx" secondAttribute="centerY" id="3F4-wg-ygH"/>
-                    <constraint firstItem="SlV-SF-CEM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="48" id="4yP-CV-60j"/>
                     <constraint firstItem="iMi-XH-19X" firstAttribute="leading" secondItem="GyM-FW-2bc" secondAttribute="trailing" constant="10" id="7LH-ov-ePJ"/>
                     <constraint firstAttribute="trailingMargin" secondItem="uHM-j4-fL2" secondAttribute="trailing" constant="10" id="A83-R0-mtu"/>
                     <constraint firstItem="r6l-Ju-Lnx" firstAttribute="leading" secondItem="zyq-cv-NOu" secondAttribute="trailing" constant="10" id="Dtq-BM-sPN"/>
@@ -111,6 +110,7 @@
                     <constraint firstItem="hY2-v4-gIu" firstAttribute="leading" secondItem="r6l-Ju-Lnx" secondAttribute="trailing" constant="10" id="oHR-vD-3rB"/>
                     <constraint firstAttribute="bottomMargin" secondItem="iMi-XH-19X" secondAttribute="bottom" constant="10" id="qqY-nS-Sff"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Y69-cQ-DD6" secondAttribute="trailing" id="uRM-ZP-H3f"/>
+                    <constraint firstItem="SlV-SF-CEM" firstAttribute="top" secondItem="ZCL-6m-ykr" secondAttribute="bottom" constant="20" id="wKZ-dd-BmQ"/>
                     <constraint firstItem="hY2-v4-gIu" firstAttribute="centerY" secondItem="r6l-Ju-Lnx" secondAttribute="centerY" id="wzp-oo-nOs"/>
                     <constraint firstItem="GpL-db-aRO" firstAttribute="centerY" secondItem="r6l-Ju-Lnx" secondAttribute="centerY" id="y1C-mi-m3f"/>
                 </constraints>

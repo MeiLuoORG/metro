@@ -42,7 +42,6 @@
 		283261A71D19364E00C9EE4E /* MLStoreFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283261A61D19364E00C9EE4E /* MLStoreFootView.xib */; };
 		284850D01D13F41B003C2649 /* MLGoodsDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */; };
 		284850D41D13F6DE003C2649 /* MLpingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */; };
-		284850D51D13F6DE003C2649 /* MLpingjiaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284850D31D13F6DE003C2649 /* MLpingjiaViewController.xib */; };
 		285326E71CFD3A5800FA2AB0 /* MLYHQOutdateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285326E51CFD3A5800FA2AB0 /* MLYHQOutdateCell.m */; };
 		285326E81CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285326E61CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib */; };
 		285326EC1CFD3A7300FA2AB0 /* MLYHQUsedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285326EA1CFD3A7300FA2AB0 /* MLYHQUsedCell.m */; };
@@ -593,7 +592,6 @@
 		284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsDetailsViewController.xib; sourceTree = "<group>"; };
 		284850D11D13F6DE003C2649 /* MLpingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLpingjiaViewController.h; sourceTree = "<group>"; };
 		284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLpingjiaViewController.m; sourceTree = "<group>"; };
-		284850D31D13F6DE003C2649 /* MLpingjiaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLpingjiaViewController.xib; sourceTree = "<group>"; };
 		285326E41CFD3A5800FA2AB0 /* MLYHQOutdateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLYHQOutdateCell.h; sourceTree = "<group>"; };
 		285326E51CFD3A5800FA2AB0 /* MLYHQOutdateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLYHQOutdateCell.m; sourceTree = "<group>"; };
 		285326E61CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLYHQOutdateCell.xib; sourceTree = "<group>"; };
@@ -2611,7 +2609,6 @@
 				284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */,
 				284850D11D13F6DE003C2649 /* MLpingjiaViewController.h */,
 				284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */,
-				284850D31D13F6DE003C2649 /* MLpingjiaViewController.xib */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -3601,7 +3598,6 @@
 				2CBAD64E1CA3B3AC0044601B /* MLBagZengpinTableViewCell.xib in Resources */,
 				2CBAD6441CA3AD4B0044601B /* MLBagActiveTableViewCell.xib in Resources */,
 				7A083FC21D193E67001F0256 /* MLTuiHuoChengGongViewController.xib in Resources */,
-				284850D51D13F6DE003C2649 /* MLpingjiaViewController.xib in Resources */,
 				3A633B481C9EA36E00C11FD5 /* Documentation.html in Resources */,
 				6839EF191CD5A94700638B3D /* AddressManagerCell.xib in Resources */,
 				7A4D9E001D13916C006E6AB2 /* MLZTextTableViewCell.xib in Resources */,
@@ -4068,6 +4064,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "62e44b1a-475c-4eb2-8a60-fe338bef85b5";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -4104,6 +4101,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "62e44b1a-475c-4eb2-8a60-fe338bef85b5";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

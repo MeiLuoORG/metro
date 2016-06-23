@@ -304,7 +304,7 @@
                                     </connections>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyi-vk-LC0">
-                                    <rect key="frame" x="24" y="180" width="552" height="30"/>
+                                    <rect key="frame" x="12" y="180" width="576" height="30"/>
                                     <color key="backgroundColor" red="0.68235294117647061" green="0.55686274509803924" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                     <state key="normal" title="确定">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -373,11 +373,11 @@
                                 <constraint firstItem="LjE-in-kUx" firstAttribute="top" secondItem="xcL-0z-Epq" secondAttribute="bottom" id="9qr-sG-78b"/>
                                 <constraint firstItem="Fe3-xU-jEg" firstAttribute="trailing" secondItem="U4t-g5-8I1" secondAttribute="trailing" id="KMh-UW-YNZ"/>
                                 <constraint firstItem="u3U-jN-QDn" firstAttribute="top" secondItem="Nlz-dk-kMq" secondAttribute="top" id="N4J-tC-6R5"/>
-                                <constraint firstAttribute="trailing" secondItem="fyi-vk-LC0" secondAttribute="trailing" constant="24" id="Nge-lj-axb"/>
+                                <constraint firstAttribute="trailing" secondItem="fyi-vk-LC0" secondAttribute="trailing" constant="12" id="Nge-lj-axb"/>
                                 <constraint firstItem="fyi-vk-LC0" firstAttribute="top" secondItem="LjE-in-kUx" secondAttribute="bottom" constant="45" id="OED-kA-O2X"/>
                                 <constraint firstAttribute="trailing" secondItem="LjE-in-kUx" secondAttribute="trailing" id="Sjd-Ti-nFN"/>
                                 <constraint firstAttribute="trailing" secondItem="u3U-jN-QDn" secondAttribute="trailing" id="WGh-li-u4g"/>
-                                <constraint firstItem="fyi-vk-LC0" firstAttribute="leading" secondItem="Nlz-dk-kMq" secondAttribute="leading" constant="24" id="Za1-oj-tZl"/>
+                                <constraint firstItem="fyi-vk-LC0" firstAttribute="leading" secondItem="Nlz-dk-kMq" secondAttribute="leading" constant="12" id="Za1-oj-tZl"/>
                                 <constraint firstItem="u3U-jN-QDn" firstAttribute="leading" secondItem="Nlz-dk-kMq" secondAttribute="leading" id="aBK-50-r2b"/>
                                 <constraint firstItem="LjE-in-kUx" firstAttribute="leading" secondItem="Nlz-dk-kMq" secondAttribute="leading" id="dVD-hU-uIh"/>
                                 <constraint firstItem="xcL-0z-Epq" firstAttribute="top" secondItem="u3U-jN-QDn" secondAttribute="bottom" id="i0D-ke-Fib"/>

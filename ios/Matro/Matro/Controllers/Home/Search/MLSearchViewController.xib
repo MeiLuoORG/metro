@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -103,7 +103,6 @@
                                 <constraint firstAttribute="trailing" secondItem="o2w-j2-8Jn" secondAttribute="trailing" constant="12" id="CCb-xD-eqO"/>
                                 <constraint firstAttribute="bottom" secondItem="s96-2S-EZH" secondAttribute="bottom" constant="50" id="G7h-3d-LQw"/>
                                 <constraint firstAttribute="trailing" secondItem="s96-2S-EZH" secondAttribute="trailing" constant="12" id="MUe-fS-MMS"/>
-                                <constraint firstItem="o2w-j2-8Jn" firstAttribute="leading" secondItem="vsl-AR-xQy" secondAttribute="leading" constant="12" id="O5o-ya-dHf"/>
                                 <constraint firstAttribute="trailing" secondItem="wl9-W7-wqh" secondAttribute="trailing" constant="10" id="RKt-l6-9Tg"/>
                                 <constraint firstItem="s96-2S-EZH" firstAttribute="top" secondItem="o2w-j2-8Jn" secondAttribute="bottom" constant="10" id="T0s-aE-1Tu"/>
                                 <constraint firstItem="Zo1-Yu-JiO" firstAttribute="top" secondItem="3Iw-YG-ze6" secondAttribute="bottom" constant="10" id="WJ5-qy-TO9"/>
@@ -139,6 +138,7 @@
                 <constraint firstItem="H3f-9v-NBW" firstAttribute="top" secondItem="TrS-C0-qgl" secondAttribute="top" id="Tul-Qd-fgp"/>
                 <constraint firstItem="9js-x7-Rp2" firstAttribute="leading" secondItem="TrS-C0-qgl" secondAttribute="leading" id="eNH-NE-Kt6"/>
                 <constraint firstItem="vsl-AR-xQy" firstAttribute="width" secondItem="H3f-9v-NBW" secondAttribute="width" id="gVy-17-yBC"/>
+                <constraint firstItem="o2w-j2-8Jn" firstAttribute="leading" secondItem="TrS-C0-qgl" secondAttribute="leading" id="kcj-ZS-HvU"/>
             </constraints>
             <point key="canvasLocation" x="350" y="112"/>
         </view>

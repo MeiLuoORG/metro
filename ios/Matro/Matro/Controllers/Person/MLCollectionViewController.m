@@ -231,9 +231,10 @@ static NSInteger page = 1;
         cell.pImage.image = [UIImage imageNamed:@"imageloading"];
     }
 
-    /*
+    
     MLCollectgoodsModel *model = [self.dataSource objectAtIndex:indexPath.row];
     
+    /*
     cell.goodslistModel = model;
     cell.checkBoxbtn.isSelected = model.isSelect;
     __weak typeof(self) weakself = self;

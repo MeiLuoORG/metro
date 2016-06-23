@@ -14,7 +14,7 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="145" height="218"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Obzeekangjinyoung 韩国专柜 5WMP2-WJ210" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vq8-4R-erO">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Obzeekangjinyoung 韩国专柜 5WMP2-WJ210" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vq8-4R-erO">
                         <rect key="frame" x="10" y="163" width="130" height="29"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -27,9 +27,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageloading" translatesAutoresizingMaskIntoConstraints="NO" id="ejc-X6-sOy">
-                        <rect key="frame" x="0.0" y="12" width="145" height="145"/>
+                        <rect key="frame" x="0.0" y="12" width="144" height="144"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="144" id="CLG-3P-VBJ"/>
                             <constraint firstAttribute="width" secondItem="ejc-X6-sOy" secondAttribute="height" id="SKC-X1-OzP"/>
+                            <constraint firstAttribute="width" constant="144" id="X4B-jw-NQV"/>
                         </constraints>
                     </imageView>
                 </subviews>

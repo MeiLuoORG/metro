@@ -811,8 +811,13 @@
 
     
     
+<<<<<<< Updated upstream
 //
 //    //@"vip/AuthUserInfo"
+=======
+
+    //@"vip/AuthUserInfo"
+>>>>>>> Stashed changes
 //    [[HFSServiceClient sharedClient] POST:Regist_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        
 //        NSDictionary *result = (NSDictionary *)responseObject;
@@ -827,7 +832,30 @@
 //        _hud.labelText = @"请求失败";
 //        [_hud hide:YES afterDelay:2];
 //    }];
+<<<<<<< Updated upstream
 //
+=======
+//    */
+
+
+    //@"vip/AuthUserInfo"
+    [[HFSServiceClient sharedClient] POST:Regist_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"注册信息：%@",result);
+        
+        
+        
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:2];
+    }];
+    
+
+>>>>>>> Stashed changes
     ///////////---------------////////////注册END
 }
 #pragma mark 原生注册方法 开始
@@ -1299,6 +1327,10 @@
 - (void)bindCardAction{
 }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 //注册后  直接登录
 #pragma mark 注册后直接登录
 - (void)loginAfterRegisterActionwithPhone:(NSString *)phoneString withPassword:(NSString *)passWordString{
@@ -1384,6 +1416,10 @@
 
 }
 #pragma end mark
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 -(void)requestPostHttp:(NSString*)url params:(NSData*)params{
     NSURL * URL = [NSURL URLWithString:url];
     
@@ -1490,7 +1526,12 @@
     [_hud show:YES];
     _hud.mode = MBProgressHUDModeText;
     _hud.labelText = @"正在登录...";
+<<<<<<< Updated upstream
     */
+=======
+
+    
+>>>>>>> Stashed changes
     __weak typeof(self) weakSelf = self;
 //
 //    NSDictionary *dic = @{@"appId":APP_ID,
@@ -1504,6 +1545,10 @@
     //NSString *ret = base64_encode_data(data);
     //http://app-test.matrojp.com/member/ajax/app/login
     //{"appId": "test0002","userId":"00007906","password":"123456","sign":$sign}
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
     NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"userId":[self textField:_accountView].text,@"password":[self textField:_passwordView].text}];
     NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
@@ -1684,6 +1729,19 @@
                                           }
                                           
                                       }];
+<<<<<<< Updated upstream
+=======
+
+    
+
+        
+
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"登录失败：%@",error);
+//    }];
+
+
+>>>>>>> Stashed changes
     
 //    NSString *urlStr = [NSString stringWithFormat:@"%@",Login_URLString];
 //    NSURL * URL = [NSURL URLWithString:urlStr];
@@ -1726,8 +1784,17 @@
     //@"vip/AuthUserInfo"
 //    [[HFSServiceClient sharedClient] POST:Login_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
+<<<<<<< Updated upstream
         [task resume];
 
+=======
+//=======
+        [task resume];
+
+//
+//        [task resume];
+
+>>>>>>> Stashed changes
     //});
 }
 //调用 李佳重新认证接口
@@ -1831,9 +1898,19 @@
                                           }
                                           
                                       }];
+<<<<<<< Updated upstream
         [task resume];
     //});
 
+=======
+
+        [task resume];
+    //});
+
+
+
+
+>>>>>>> Stashed changes
 }
 
 
