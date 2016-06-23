@@ -95,9 +95,6 @@ static MLShippingaddress *province,*city,*area;
     _blackView.hidden = YES;
     UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:_blackView];
-
-//    [self getAllarea];
-    
     
     NSString *string = [[NSString alloc]initWithContentsOfFile:[self getDocumentpath] encoding:NSUTF8StringEncoding error:nil];
     if (!string) {

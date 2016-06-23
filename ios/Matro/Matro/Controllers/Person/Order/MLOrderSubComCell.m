@@ -14,6 +14,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     // Initialization code
     MLScoreView *view1 = [[MLScoreView alloc]initWithFrame:CGRectMake(0, 0, 150, 25)];
     view1.starViewBlock = ^(NSInteger score){

@@ -10,5 +10,7 @@
 #import "MLBaseViewController.h"
 
 @interface MLPersonOrderDetailViewController : MLBaseViewController
+@property (nonatomic,copy)NSString *order_id;
+
 
 @end

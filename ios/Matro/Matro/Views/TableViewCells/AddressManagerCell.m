@@ -31,13 +31,13 @@
 
 
 - (void)setAddress:(MLAddressListModel *)address{
-    _address = address;
-    self.usernameLabel.text = address.name;
-    self.addressLabel.text = [NSString stringWithFormat:@"%@%@",_address.area,_address.address];
-    self.phoneLabel.text = _address.mobile;
-    self.checkBtn.isSelected = [address.default_set isEqualToString:@"2"];
-    
-    
+    if (_address != address) {
+        _address = address;
+        self.usernameLabel.text = address.name;
+        self.addressLabel.text = [NSString stringWithFormat:@"%@%@",_address.area,_address.address];
+        self.phoneLabel.text = _address.mobile;
+        self.checkBtn.addSelected = [address.default_set isEqualToString:@"2"];
+    }
 }
 
 - (IBAction)editAction:(id)sender {
@@ -61,24 +61,6 @@
 
 @end
 
-@implementation AddressCheckBoxButton
-
-- (void)setIsSelected:(BOOL)isSelected{
-    _isSelected = isSelected;
-    if (_isSelected) {
-     [self setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
-    }
-    else{
-    [self setImage:[UIImage imageNamed:@"zSelectBtn"] forState:UIControlStateNormal];
-    }
-
-    
-
-}
-
-
-
-@end
 
 
 

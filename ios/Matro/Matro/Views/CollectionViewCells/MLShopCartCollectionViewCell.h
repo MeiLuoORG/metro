@@ -40,5 +40,6 @@ typedef void(^ShopCartCheckBoxBlock)();
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *delL;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *countL;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imgTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *goodsTop;
 
 @end

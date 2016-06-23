@@ -26,6 +26,7 @@
 #import "UIColor+HeinQi.h"
 #import "MLReturnsDetailModel.h"
 #import "MLTuiHuoModel.h"
+#import "MLReturnRequestViewController.h"
 
 
 
@@ -84,9 +85,27 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    __weak typeof(self) weakself = self;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             MLReturnsDetailHeadCell *cell = [tableView dequeueReusableCellWithIdentifier:kReturnsDetailHeadCell forIndexPath:indexPath];
+            
+            cell.tuiHuoModel = self.returnsDetail;
+        
+            cell.returnsDetailKeFuAction = ^(){//客服按钮
+                
+                
+            };
+            cell.returnsDetailBianjiAction = ^(){//编辑订单
+                MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
+                vc.order_id = weakself.returnsDetail.order_id;
+                [weakself.navigationController pushViewController:vc animated:YES];
+            };
+            cell.returnsDetailQuxiaoAction = ^(){ //取消订单
+                [weakself returnsCancelAction];
+            };
+            
             return cell;
         }else if (indexPath.row == 1){
             MLOrderInfoHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderInfoHeaderTableViewCell forIndexPath:indexPath];
@@ -207,12 +226,30 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
+}
+
+- (void)returnsCancelAction{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=cancel",@"http://bbctest.matrojp.com"];
+    NSDictionary *params = @{@"order_id":self.returnsDetail.order_id?:@""};
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            //取消成功  返回上一页
+            [MBProgressHUD showMessag:@"取消成功" toView:self.view];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
     
     
     
     
     
 }
+
+
 
 
 

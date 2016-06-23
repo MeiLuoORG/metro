@@ -11,5 +11,6 @@
 @interface MLTisTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *tisLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *arrowImg;
 
 @end

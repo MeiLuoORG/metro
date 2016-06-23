@@ -8,6 +8,7 @@
 
 #import "MLReturnsDetailHeadCell.h"
 #import "HFSConstants.h"
+#import "NSString+GONMarkup.h"
 
 @implementation MLReturnsDetailHeadCell
 
@@ -22,6 +23,21 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
 }
+
+
+
+- (void)setTuiHuoModel:(MLReturnsDetailModel *)tuiHuoModel{
+    if (_tuiHuoModel != tuiHuoModel) {
+        
+        _tuiHuoModel = tuiHuoModel;
+        self.shouHouLabel.attributedText = [self attributedStringWithTitle:@"订单状态" AndValue:self.tuiHuoModel.return_status];
+        self.tuiHuoLabel.attributedText = [self attributedStringWithTitle:@"退货单号" AndValue:self.tuiHuoModel.return_code];
+        self.timeLabel.attributedText = [self attributedStringWithTitle:@"申请时间" AndValue:self.tuiHuoModel.return_add_time];
+        self.orderIdLabel.attributedText = [self attributedStringWithTitle:@"订单单号" AndValue:self.tuiHuoModel.order_id];
+    }
+}
+
+
 
 
 - (IBAction)tuiHuoAction:(id)sender {
@@ -40,6 +56,11 @@
     if (self.returnsDetailKeFuAction) {
         self.returnsDetailKeFuAction();
     }
+}
+
+- (NSAttributedString *)attributedStringWithTitle:(NSString *)title AndValue:(NSString *)value{
+    NSString *attStr = [NSString stringWithFormat:@"%@：<color value=\"#999999\">%@</>",title,value];
+    return [attStr createAttributedString];
 }
 
 

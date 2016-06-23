@@ -15,12 +15,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBJ-8Y-MfS" customClass="MLCheckBoxButton">
-                        <rect key="frame" x="16" y="33" width="18" height="18"/>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBJ-8Y-MfS" customClass="MLCheckBoxButton">
+                        <rect key="frame" x="16" y="31" width="18" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="18" id="41X-yI-Rvq"/>
                             <constraint firstAttribute="height" constant="18" id="DV3-l2-kmH"/>
                         </constraints>
+                        <state key="normal" image="icon_cir_weixuanzhong"/>
                         <connections>
                             <action selector="checkBoxAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7dg-xt-20H"/>
                         </connections>
@@ -110,4 +111,7 @@
             <point key="canvasLocation" x="252" y="364.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_cir_weixuanzhong" width="18" height="18"/>
+    </resources>
 </document>

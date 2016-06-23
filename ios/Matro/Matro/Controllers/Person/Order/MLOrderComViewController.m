@@ -13,19 +13,19 @@
 #import "MLOrderComProductCell.h"
 #import "UIColor+HeinQi.h"
 #import "Masonry.h"
-#import "MLOrderListModel.h"
 #import "MJExtension.h"
-#import "MLProductModel.h"
 #import "HFSConstants.h"
 #import "MBProgressHUD+Add.h"
 #import "MLGoodsComViewController.h"
+#import "MLPersonOrderModel.h"
+#import "MLCommentProductModel.h"
+
 
 
 @interface MLOrderComViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *tableView;
-
-@property (nonatomic,strong)MLOrderListModel *orderDetail;
+@property (nonatomic,strong)NSMutableArray *productArr;
 
 @end
 
@@ -37,11 +37,9 @@ static NSInteger logisticsScore,productScore,serviceScore;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"订单评价";
-    self.JLBH = @"160022049";
-    
     _tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
-        tableView.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
+        tableView.backgroundColor = [UIColor whiteColor];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tableView.delegate = self;
         tableView.dataSource = self;
@@ -54,36 +52,18 @@ static NSInteger logisticsScore,productScore,serviceScore;
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.left.bottom.mas_equalTo(self.view);
     }];
-    [self downLoadOrderDetail];
+    [self getAllCommentProduct];
     // Do any additional setup after loading the view.
 }
 
 
-
-- (void)downLoadOrderDetail {
-    NSString *userId = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
-    [[NSUserDefaults standardUserDefaults]synchronize];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/order/OrderDetail.ashx?op=orderdetail&jlbh=%@&tpgg=M&userid=%@",SERVICE_GETBASE_URL,self.JLBH?:@"",userId?:@""];
-    urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //        NSLog(@"订单详情 请求成功%@",responseObject);
-        NSLog(@"dd %@",(NSDictionary*)responseObject);
-        self.orderDetail = [MLOrderListModel mj_objectWithKeyValues:responseObject];
-        if (self.orderDetail) {
-            [self.tableView reloadData];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"订单详情 请求失败");
-    }];
-}
 
 - (void)subOrderCom{
     
     if (logisticsScore > 0 && productScore >0 &&serviceScore) {
         NSString *userId = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID]?:@"";
         
-        NSDictionary *parm = @{@"orderId":self.JLBH,@"userId":userId,@"productScore":[NSNumber numberWithInteger:productScore],@"serviceScore":[NSNumber numberWithInteger:serviceScore],@"logisticsScore":[NSNumber numberWithInteger:logisticsScore]};
+        NSDictionary *parm = @{@"orderId":@"",@"userId":userId,@"productScore":[NSNumber numberWithInteger:productScore],@"serviceScore":[NSNumber numberWithInteger:serviceScore],@"logisticsScore":[NSNumber numberWithInteger:logisticsScore]};
         
         [[HFSServiceClient sharedJSONClientwithurl:SERVICE_BASE_URL]POST:@"order/StarScore" parameters:parm success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSString *result = [responseObject objectForKey:@"status"];
@@ -116,11 +96,31 @@ static NSInteger logisticsScore,productScore,serviceScore;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)getAllCommentProduct{
+    
+//    http://bbctest.matrojp.com/api.php?m=product&s=comment_submit&method=order&id={订单编号}&uid={用户编号}
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=order&id=%@&uid=13771961207",@"http://bbctest.matrojp.com",self.order_id];
+    [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary *data = result[@"data"];
+            NSArray *order = data[@"order"];
+            [self.productArr addObjectsFromArray:[MLCommentProductModel mj_objectArrayWithKeyValuesArray:order]];
+            [self.tableView reloadData];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
+}
+
+
+
 
 #pragma mark tableView Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return self.orderDetail.PRODUCTLIST.count;
+        return self.productArr.count;
     }
     return 2;
     
@@ -133,14 +133,18 @@ static NSInteger logisticsScore,productScore,serviceScore;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         MLOrderComProductCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderComProductCell forIndexPath:indexPath];
-        MLProductModel *product = [self.orderDetail.PRODUCTLIST objectAtIndex:indexPath.row];
+        MLCommentProductModel *product = [self.productArr objectAtIndex:indexPath.row];
         cell.product = product;
         __weak typeof(self) weakself = self;
-        cell.goodsComblock = ^(){
-            MLGoodsComViewController *vc = [[MLGoodsComViewController alloc]init];
-            vc.product = product;
-            vc.orderid = weakself.JLBH;
-            [self.navigationController pushViewController:vc animated:YES];
+        cell.goodsComblock = ^(){ //商品评价
+            if (product.is_commented == 0) { //未评价  去商品评价页面
+                MLGoodsComViewController *vc = [[MLGoodsComViewController alloc]init];
+                vc.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:vc animated:YES];
+            }else{ //已评价  去评价详情页面
+                NSLog(@"去评价详情");
+            }
+            
         };
         
         return cell;
@@ -169,25 +173,42 @@ static NSInteger logisticsScore,productScore,serviceScore;
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 10.f;
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == 0) {
+        return 8.f;
+    }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 80.f;
+        return 90;
     }
     else{
         if (indexPath.row == 0 ) {
-            return 45.f;
+            return 44;
         }
-        return 192.f;
+        return 255.f;
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    return [[UIView alloc]init];
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if (section == 0) {
+        UIView *footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,MAIN_SCREEN_WIDTH, 8)];
+        footView.backgroundColor = [UIColor colorWithHexString:@"#F5F5F5"];
+        return footView;
+    }
+    return nil;
 }
+
+- (NSMutableArray *)productArr{
+    if (!_productArr) {
+        _productArr = [NSMutableArray array];
+    }
+    return _productArr;
+}
+
+
 
 
 

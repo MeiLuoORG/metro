@@ -13,6 +13,7 @@
 @property (nonatomic,copy)NSString *company;
 @property (nonatomic,copy)NSString *status;
 @property (nonatomic,assign)float product_price;
+@property (nonatomic,copy)NSString *add_time;
 @property (nonatomic,copy)NSString *create_time;
 @property (nonatomic,strong)NSArray *products;
 @property (nonatomic,copy)NSString *return_code;

@@ -22,9 +22,7 @@ typedef NS_ENUM(NSInteger,OrderStatus){
     OrderStatusTuihuochenggong,
 };
 
-
-
-
+@class MLInvinfo;
 
 
 
@@ -48,12 +46,12 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,assign)OrderStatus status;
 @property (nonatomic,copy)NSString *des;
 @property (nonatomic,copy)NSString *seller_note;
-@property (nonatomic,copy)NSString *creat_time;
+@property (nonatomic,assign)NSTimeInterval creat_time;
 @property (nonatomic,copy)NSString *uptime;
 @property (nonatomic,copy)NSString *pay_time;
 @property (nonatomic,copy)NSString *buyer_comment;
-@property (nonatomic,copy)NSString *seller_comment;
-@property (nonatomic,copy)NSString *invoice;
+@property (nonatomic,assign)NSInteger seller_comment;
+@property (nonatomic,assign)NSInteger invoice;
 @property (nonatomic,copy)NSString *logistics;
 @property (nonatomic,copy)NSString *deliver_id;
 @property (nonatomic,copy)NSString *deliver_name;
@@ -79,6 +77,10 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,copy)NSString *discount;
 @property (nonatomic,copy)NSString *ways;
 @property (nonatomic,strong)NSArray *product;
+@property (nonatomic,assign)float order_price;
+@property (nonatomic,strong)MLInvinfo *invinfo;
+
+
 
 @property (nonatomic,assign)BOOL isMore;
 @property (nonatomic,assign)BOOL isOpen;
@@ -120,3 +122,11 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @end
 
 
+
+@interface MLInvinfo : NSObject
+
+@property (nonatomic,copy)NSString *type;
+@property (nonatomic,copy)NSString *rise;
+@property (nonatomic,copy)NSString *content;
+
+@end

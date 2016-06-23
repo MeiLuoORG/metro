@@ -23,16 +23,16 @@
     // Configure the view for the selected state
 }
 - (IBAction)haveAction:(id)sender {
-    [self.haveBtn setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
-    [self.notBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    [self.haveBtn setImage:[UIImage imageNamed:@"icon_xuanzhong"] forState:UIControlStateNormal];
+    [self.notBtn setImage:[UIImage imageNamed:@"icon_weixuanzhong"] forState:UIControlStateNormal];
     if (self.tuiHuoFukuanFaPiaoBlock) {
         self.tuiHuoFukuanFaPiaoBlock(YES);
     }
     
 }
 - (IBAction)notAction:(id)sender {
-    [self.haveBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    [self.notBtn setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+    [self.haveBtn setImage:[UIImage imageNamed:@"icon_weixuanzhong"] forState:UIControlStateNormal];
+    [self.notBtn setImage:[UIImage imageNamed:@"icon_xuanzhong"] forState:UIControlStateNormal];
     if (self.tuiHuoFukuanFaPiaoBlock) {
         self.tuiHuoFukuanFaPiaoBlock(NO);
     }

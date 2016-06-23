@@ -41,10 +41,10 @@
     if (_addSelected != addSelected) {
         _addSelected = addSelected;
         if (_addSelected) {
-            [self setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+            [self setImage:[UIImage imageNamed:@"icon_xuanzhong"] forState:UIControlStateNormal];
         }
         else{
-            [self setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+            [self setImage:[UIImage imageNamed:@"icon_weixuanzhong"] forState:UIControlStateNormal];
         }
         
         

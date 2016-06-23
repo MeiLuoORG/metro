@@ -124,9 +124,6 @@ static NSInteger goodsCount;
 
 - (void)getDataSource{
     
-<<<<<<< Updated upstream
-    
-    
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index&test_phone=13771961207",@"http://bbctest.matrojp.com"];
 //
 //    [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
@@ -137,9 +134,9 @@ static NSInteger goodsCount;
 //    }];
     
     
-=======
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
->>>>>>> Stashed changes
+//    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
+    
+    
     [[HFSServiceClient sharedJSONClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         

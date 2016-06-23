@@ -9,7 +9,7 @@
 
 #import "MLPersonOrderModel.h"
 @class MLPersonOrderProduct;
-
+@class MLInvinfo;
 @implementation MLPersonOrderModel
 
 + (NSDictionary *)replacedKeyFromPropertyName
@@ -41,3 +41,10 @@
 
 
 @end
+
+@implementation MLInvinfo
+
+
+
+@end
+

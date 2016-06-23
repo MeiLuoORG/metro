@@ -145,6 +145,7 @@
                 <outlet property="goodName" destination="rzk-AC-58K" id="rD1-kQ-9sJ"/>
                 <outlet property="goodNameL" destination="rJ4-tl-smr" id="Eqc-OR-NK4"/>
                 <outlet property="goodPrice" destination="rxB-5i-qHX" id="Z7r-iZ-vBZ"/>
+                <outlet property="goodsTop" destination="Thb-Sf-h61" id="gc6-fU-0a2"/>
                 <outlet property="imgTop" destination="mNF-u3-dFO" id="28L-J9-xBK"/>
             </connections>
             <point key="canvasLocation" x="294" y="312.5"/>

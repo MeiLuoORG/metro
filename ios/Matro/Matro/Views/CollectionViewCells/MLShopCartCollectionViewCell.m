@@ -69,9 +69,8 @@
 
 
 - (void)setProlistModel:(MLProlistModel *)prolistModel{
-//    if (_prolistModel != prolistModel) {
+    if (_prolistModel != prolistModel) {
         _prolistModel = prolistModel;
-    
         self.showDel = NO;
         [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic]];
         self.goodName.text = _prolistModel.pname;
@@ -85,6 +84,7 @@
             self.actlabel.hidden = NO;
         }
         else{
+            self.goodsTop.constant = 4;
             self.imgTop.constant =-25;
             self.actDesc.hidden = YES;
             self.actlabel.hidden = YES;
@@ -94,7 +94,7 @@
         
         [self.countField setTextValue:_prolistModel.num];
         
-//    }
+    }
 }
 
 

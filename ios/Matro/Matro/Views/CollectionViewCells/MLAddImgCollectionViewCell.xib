@@ -17,10 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubn-tb-dhE">
-                        <rect key="frame" x="55" y="5" width="20" height="20"/>
+                        <rect key="frame" x="62" y="3" width="15" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="4EY-1F-QLs"/>
-                            <constraint firstAttribute="width" constant="20" id="Mtd-Rr-ejT"/>
+                            <constraint firstAttribute="height" constant="15" id="4EY-1F-QLs"/>
+                            <constraint firstAttribute="width" constant="15" id="Mtd-Rr-ejT"/>
                         </constraints>
                         <state key="normal" image="关闭"/>
                         <connections>
@@ -31,10 +31,10 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="ubn-tb-dhE" secondAttribute="trailing" constant="5" id="5RE-jR-c45"/>
+                <constraint firstAttribute="trailing" secondItem="ubn-tb-dhE" secondAttribute="trailing" constant="3" id="5RE-jR-c45"/>
                 <constraint firstItem="Owt-yv-Yjc" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="8tR-P1-FNt"/>
                 <constraint firstItem="Owt-yv-Yjc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="C6O-qG-nGI"/>
-                <constraint firstItem="ubn-tb-dhE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="Haj-Vv-yN4"/>
+                <constraint firstItem="ubn-tb-dhE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="3" id="Haj-Vv-yN4"/>
                 <constraint firstAttribute="trailing" secondItem="Owt-yv-Yjc" secondAttribute="trailing" id="bqn-Bo-rXU"/>
                 <constraint firstAttribute="bottom" secondItem="Owt-yv-Yjc" secondAttribute="bottom" id="rsu-JK-u8p"/>
             </constraints>

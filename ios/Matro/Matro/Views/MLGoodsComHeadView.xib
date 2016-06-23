@@ -249,7 +249,7 @@
                 <outlet property="textView" destination="QPU-Tp-KrU" id="gKy-5r-mXy"/>
                 <outlet property="titleLabel" destination="tAl-Di-FZj" id="ooW-7M-doU"/>
             </connections>
-            <point key="canvasLocation" x="300" y="343"/>
+            <point key="canvasLocation" x="237" y="331"/>
         </view>
     </objects>
     <resources>

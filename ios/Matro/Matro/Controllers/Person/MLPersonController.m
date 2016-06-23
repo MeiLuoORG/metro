@@ -86,52 +86,68 @@
     [self.view addSubview:_backgroundScrollView];
     
     
-     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"news"] style:UIBarButtonItemStylePlain target:self action:@selector(actMessage)];
-
-    //self.navigationItem.rightBarButtonItem = right;
-    
-    NSMutableArray* array = [NSMutableArray array];
-    
-    for (int i =0; i<2; i++) {
-        if (i == 0) {
-            UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"news"] style:UIBarButtonItemStylePlain target:self action:@selector(actMessage)];
-            [array addObject:right];
-        }
-        if (i == 1) {
-            //Settings
-            UIBarButtonItem *right1 = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Settings"] style:UIBarButtonItemStylePlain target:self action:@selector(actSettingAction)];
-            [array addObject:right1];
-        }
-        
-
-    }
+//     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"news"] style:UIBarButtonItemStylePlain target:self action:@selector(actMessage)];
+//
+//    //self.navigationItem.rightBarButtonItem = right;
+//    
+//    NSMutableArray* array = [NSMutableArray array];
+//    
+//    for (int i =0; i<2; i++) {
+//        if (i == 0) {
+//            UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"news"] style:UIBarButtonItemStylePlain target:self action:@selector(actMessage)];
+//            [array addObject:right];
+//        }
+//        if (i == 1) {
+//            //Settings
+//            UIBarButtonItem *right1 = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Settings"] style:UIBarButtonItemStylePlain target:self action:@selector(actSettingAction)];
+//            [array addObject:right1];
+//        }
+//        
+//
+//    }
     //消息按钮
+//    _messageButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//    _messageButton.frame = CGRectMake(SIZE_WIDTH-42, 10, 22, 22);
+//    
     _messageButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _messageButton.frame = CGRectMake(SIZE_WIDTH-42, 10, 22, 22);
+    _messageButton.frame = CGRectMake(0, 0, 22, 22);
     [_messageButton setBackgroundImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
     [_messageButton addTarget:self action:@selector(actMessage) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationController.navigationBar addSubview:_messageButton];
+//    [self.navigationController.navigationBar addSubview:_messageButton];
     _messageBadgeView = [[JSBadgeView alloc]initWithParentView:_messageButton alignment:JSBadgeViewAlignmentTopRight];
     _messageBadgeView.badgeText = @"●";
     [_messageBadgeView setBadgeTextColor:[HFSUtility hexStringToColor:Main_textRedBackgroundColor]];
     [_messageBadgeView setBadgeBackgroundColor:[UIColor clearColor]];
     
+    UIBarButtonItem *message = [[UIBarButtonItem alloc]initWithCustomView:_messageButton];
+    UIView *s = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 22)];
     
     
+    UIBarButtonItem *l = [[UIBarButtonItem alloc]initWithCustomView:s];
+    
+
+    
+//    _settingButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//    _settingButton.frame = CGRectMake(SIZE_WIDTH-80, 10, 22, 22);
     _settingButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _settingButton.frame = CGRectMake(SIZE_WIDTH-80, 10, 22, 22);
+    _settingButton.frame = CGRectMake(0, 0, 22, 22);
     [_settingButton setBackgroundImage:[UIImage imageNamed:@"settingzl"] forState:UIControlStateNormal];
     [_settingButton addTarget:self action:@selector(actSettingAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationController.navigationBar addSubview:_settingButton];
+//    [self.navigationController.navigationBar addSubview:_settingButton];
+    
+    UIBarButtonItem *setting = [[UIBarButtonItem alloc]initWithCustomView:_settingButton];
+    
+    self.navigationItem.rightBarButtonItems = @[message,l,setting];
+    
     
     //self.navigationItem.rightBarButtonItems = array;
     
     
     //self.navigationController.navigationBar.hidden = YES;
     //right.badge.frame = CGRectMake(0, 0, 5, 5);
-    right.badgeValue = @"●";
-    right.badgeTextColor = [UIColor redColor];
-    right.badgeBGColor = [UIColor clearColor];
+//    right.badgeValue = @"●";
+//    right.badgeTextColor = [UIColor redColor];
+//    right.badgeBGColor = [UIColor clearColor];
     //right.badge.hidden = YES;
     //right.badgeMinSize = 0.5f;
     //right.badgeTextColor = [UIColor redColor];

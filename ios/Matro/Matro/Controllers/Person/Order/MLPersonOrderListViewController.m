@@ -243,7 +243,11 @@ static NSInteger pageIndex = 0;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
+    MLPersonOrderModel *order = [self.orderList objectAtIndex:indexPath.section];
     MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
+    vc.order_id = order.order_id;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

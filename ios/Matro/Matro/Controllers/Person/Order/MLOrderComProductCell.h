@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MLProductModel.h"
+#import "MLCommentProductModel.h"
+
 
 #define kOrderComProductCell @"OrderComProductCell"
 
@@ -18,7 +19,9 @@ typedef void(^GoodsComBlock)();
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *shaidanBtn;
 
-@property (nonatomic,strong)MLProductModel *product;
+
+@property (nonatomic,strong)MLCommentProductModel *product;
+
 @property (nonatomic,copy)GoodsComBlock  goodsComblock;
 
 

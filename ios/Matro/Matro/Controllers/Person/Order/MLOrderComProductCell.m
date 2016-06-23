@@ -15,8 +15,13 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
     // Initialization code
+    
+    self.shaidanBtn.layer.borderWidth = 1.f;
+    self.shaidanBtn.layer.borderColor = RGBA(174, 142, 93, 1).CGColor;
+    
+    
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -25,14 +30,23 @@
     // Configure the view for the selected state
 }
 
-- (void)setProduct:(MLProductModel *)product{
+
+- (void)setProduct:(MLCommentProductModel *)product{
     if (_product != product) {
         _product = product;
-        [self.myImageView sd_setImageWithURL:[NSURL URLWithString:_product.IMGURL] placeholderImage:PLACEHOLDER_IMAGE];
-        self.titleLabel.text = _product.SPNAME;
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:_product.pic]];
+        self.titleLabel.text = _product.name;
+        if (_product.is_commented == 0) {
+            [self.shaidanBtn setTitle:@"评价晒单" forState:UIControlStateNormal];
+        }else{
+            [self.shaidanBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+        }
         
     }
 }
+
+
+
 
 - (IBAction)goodsComClick:(id)sender {
     if (self.goodsComblock) {

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MLTuiHuoModel.h"
+#import "MLReturnsDetailModel.h"
 
 
 typedef void(^ReturnsDetailKeFuAction)();
@@ -24,7 +24,7 @@ typedef void(^ReturnsDetailBianjiAction)();
 @property (weak, nonatomic) IBOutlet UILabel *tuiHuoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *orderIdLabel;
-@property (nonatomic,strong)MLTuiHuoModel *tuiHuoModel;
+@property (nonatomic,strong)MLReturnsDetailModel *tuiHuoModel;
 
 @property (nonatomic,copy)ReturnsDetailKeFuAction returnsDetailKeFuAction;
 @property (nonatomic,copy)ReturnsDetailQuxiaoAction returnsDetailQuxiaoAction;

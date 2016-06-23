@@ -24,6 +24,7 @@
 #import "MLPersonOrderModel.h"
 #import "MBProgressHUD+Add.h"
 #import "MLOrderComViewController.h"
+#import "MLReturnRequestViewController.h"
 
 @interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
@@ -45,9 +46,6 @@
     
     self.title = @"订单详情";
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
-    
-
-    
     
     _tableView = ({
         UITableView *tableView =[[UITableView alloc]initWithFrame:CGRectZero];
@@ -100,15 +98,23 @@
                     break;
                 case ButtonActionTypePingJia://评价
                 {
-                    MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
-                    weakself.hidesBottomBarWhenPushed = YES;
-                    [weakself.navigationController pushViewController:vc animated:YES];
+                    if (weakself.orderDetail.seller_comment == 0) { //判断是否评价
+                        MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
+                        vc.order_id = weakself.orderDetail.order_id;
+                        weakself.hidesBottomBarWhenPushed = YES;
+                        [weakself.navigationController pushViewController:vc animated:YES];
+                    }else{
+                        [MBProgressHUD showMessag:@"订单已评价" toView:self.view];
+                    }
+
                     
                 }
                     break;
                 case ButtonActionTypeTuiHuo://退货
                 {
-                    
+                    MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
+                    vc.order_id =weakself.order_id;
+                    [weakself.navigationController pushViewController:vc animated:YES];
                 }
                     break;
                     
@@ -134,13 +140,14 @@
 }
 
 - (void)getOrderDetail{
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=detail&order_id=201605231036169565",@"http://bbctest.matrojp.com"];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=detail&order_id=%@&test_phone=13771961207",@"http://bbctest.matrojp.com",self.order_id];
     [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = [result objectForKey:@"data"];
             NSDictionary *detail = data[@"detail"];
             self.orderDetail = [MLPersonOrderDetail mj_objectWithKeyValues:detail];
+            self.orderDetail.logistics_type = @"到店自提";
             
             switch (self.orderDetail.status) {
                 case OrderStatusYishanchu:
@@ -167,6 +174,15 @@
                 case OrderStatusWancheng:
                 {
                     self.footView.footerType = FooterTypeJiaoyichenggong;
+                }
+                    break;
+                case OrderStatusQuxiao:
+                {
+                    self.footView.hidden = YES;
+                    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.right.top.bottom.equalTo(self.view);
+                    }];
+                    
                 }
                     break;
 //                case OrderStatusTuihuozhong:
@@ -248,12 +264,20 @@
         return self.orderDetail.product.count+1;
     }
     else if (section == 4){
-        return 3;
+        if ([self.orderDetail.logistics_type isEqualToString:@"到店自提"]) {
+            return 3;
+        }
+        return 2;
     }
     else if (section == 5){
-        return 2;
+        if (self.orderDetail.invoice == 0) {
+            return 1;
+        }
+        return 3;
     }else if (section == 6){
         return 5;
+    }else if (section == 7){
+        return 1;
     }
     return 0;
     
@@ -261,7 +285,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 7;
+    return 8;
 }
 
 
@@ -284,8 +308,8 @@
     else if (indexPath.section == 1){
         MLTisTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTisTableViewCell forIndexPath:indexPath];
         cell.tisLabel.text = @"订单已通过审核，仓库配送中.....";
-
-        cell.timeLabel.hidden = YES;
+        cell.timeLabel.text = @"2016-04-06 13:31";
+        
         return cell;
     }
     else if (indexPath.section == 2){
@@ -315,18 +339,43 @@
         MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.titleLabel.text = @"支付方式";
-            cell.subLabel.text = self.orderDetail.payment_name;
+            cell.subLabel.text = @"在线支付";
         }
-        else{
+        else if(indexPath.row == 1){
             cell.titleLabel.text = @"配送方式";
             cell.subLabel.text = self.orderDetail.logistics_type;
         }
+        else{
+            cell.titleLabel.textColor = RGBA(153, 153, 153, 1);
+            cell.titleLabel.text = @"#美罗观前店负一楼";
+            cell.subLabel.text = @"#823768890";
+        }
         return cell;
     }else if (indexPath.section == 5){
-        MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
-        cell.titleLabel.text = @"发票信息";
-        cell.subLabel.text = @"不开发票";
-        return cell;
+        if (self.orderDetail.invoice == 0) {
+            MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
+            cell.titleLabel.text = @"发票信息";
+            cell.subLabel.text = @"不开发票";
+            return cell;
+        }
+        else{
+            MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
+              cell.subLabel.hidden = YES;
+            if (indexPath.row == 0) { //
+                cell.titleLabel.text = @"发票信息";
+            }else if (indexPath.row == 1){
+                cell.titleLabel.text = [NSString stringWithFormat:@"抬头：%@",self.orderDetail.invinfo.rise];
+                cell.titleLabel.textColor = RGBA(153, 153,153, 1);
+
+            }else{
+                cell.titleLabel.text = [NSString stringWithFormat:@"内容：%@",self.orderDetail.invinfo.content];
+                cell.titleLabel.textColor = RGBA(153, 153,153, 1);
+                
+            }
+
+            return cell;
+        }
+
     }
     else if (indexPath.section == 6){
         if (indexPath.row <4) {
@@ -335,7 +384,7 @@
                 case 0:
                 {
                     cell.titleLabel.text = @"商品总额：";
-                    cell.subLabel.text = @"￥1233.00";
+                    cell.subLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderDetail.product_price];
                     cell.subLabel.textColor = RGBA(255, 78, 37, 1);
 
                 }
@@ -369,9 +418,19 @@
             return cell;
         }
         MLRPayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRPayTableViewCell forIndexPath:indexPath];
-        cell.rpayLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderDetail.product_price];
+        cell.rpayLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderDetail.order_price];
         cell.rpayLabel.textColor = RGBA(255, 78, 37, 1);
         return cell;
+    }else if (indexPath.section == 7){
+        MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
+        cell.titleLabel.text = @"下单时间";
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:_orderDetail.creat_time];
+        NSDateFormatter *fm = [[NSDateFormatter alloc]init];
+        [fm setDateFormat:@"YYY-MM-dd hh:mm:ss"];
+        
+        cell.subLabel.text = [fm stringFromDate:date];
+        return cell;
+        
     }
     
     return nil;
@@ -380,28 +439,35 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 30;
+        return 35;
     }else if (indexPath.section == 1){
-        return 80;
+        return 60;
     }else if (indexPath.section == 2){
-        return 120;
+        return 88;
     }
     else if (indexPath.section == 3){
         if (indexPath.row == 0) {
-            return 40;
+            return 44;
         }
         return 134;
     }
     else if (indexPath.section == 4){
-        return 40;
+        if (indexPath.row<2) {
+            return 44;
+        }
+        return 25;
     }else if (indexPath.section == 5){
-        return 44;
-    }
-    else if (indexPath.section == 6){
+        if (self.orderDetail.invinfo == 0) {
+            return 44;
+        }
+        return 30;
+    }else if (indexPath.section == 6){
         if (indexPath.row < 4) {
             return 30;
         }
         return 50;
+    }else if (indexPath.section == 7){
+        return 44;
     }
     return 0;
 }

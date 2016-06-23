@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Matro/Common/MLHttpManager.m"
-            timestampString = "488280907.150223"
+            filePath = "Matro/Controllers/Person/Address/MLAddressSelectViewController.m"
+            timestampString = "488340361.768119"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "+get:params:m:s:success:failure:"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "-loadDateAddressList"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,13 +51,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Matro/Common/MLHttpManager.m"
-            timestampString = "488280626.351579"
+            filePath = "Matro/Controllers/Person/Address/MLAddressSelectViewController.m"
+            timestampString = "488341120.67924"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "+get:params:m:s:success:failure:"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

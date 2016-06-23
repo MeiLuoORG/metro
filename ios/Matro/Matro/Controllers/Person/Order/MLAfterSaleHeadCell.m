@@ -26,13 +26,17 @@
 
 
 - (void)setTuiHuoModel:(MLTuiHuoModel *)tuiHuoModel{
-    _tuiHuoModel = tuiHuoModel;
-    self.shouHouLabel.attributedText = [self attributedStringWithTitle:@"售后状态" AndValue:_tuiHuoModel.statu];
-    self.tuiHuoLabel.attributedText = [self attributedStringWithTitle:@"退货单号" AndValue:_tuiHuoModel.return_code];
+    if (_tuiHuoModel != tuiHuoModel) {
+        _tuiHuoModel = tuiHuoModel;
+        self.shouHouLabel.attributedText = [self attributedStringWithTitle:@"售后状态" AndValue:_tuiHuoModel.statu];
+        self.tuiHuoLabel.attributedText = [self attributedStringWithTitle:@"退货单号" AndValue:_tuiHuoModel.return_code];
+        
+        self.timeLabel.attributedText = [self attributedStringWithTitle:@"申请时间" AndValue:_tuiHuoModel.add_time];
+        self.orderIdLabel.attributedText = [self attributedStringWithTitle:@"订单单号" AndValue:_tuiHuoModel.order_id];
+    }
     
-    self.timeLabel.attributedText = [self attributedStringWithTitle:@"申请时间" AndValue:_tuiHuoModel.create_time];
-    self.orderIdLabel.attributedText = [self attributedStringWithTitle:@"订单单号" AndValue:_tuiHuoModel.order_id];
 }
+
 
 
 

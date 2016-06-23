@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MLBaseViewController.h"
+#import "MLPersonOrderDetail.h"
+
 @interface MLOrderComViewController : MLBaseViewController
-@property (nonatomic,copy)NSString *JLBH;
+
+@property (nonatomic,copy)NSString *order_id;
+
+
 @end

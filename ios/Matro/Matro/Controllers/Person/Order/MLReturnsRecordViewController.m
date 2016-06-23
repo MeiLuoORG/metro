@@ -68,7 +68,7 @@ static NSInteger pageIndex = 0;
         [self getOrderDataSource];
     }];
     
-    //    [self.tableView.header beginRefreshing];
+    [self.tableView.header beginRefreshing];
     
     
     // Do any additional setup after loading the view.
@@ -91,8 +91,6 @@ static NSInteger pageIndex = 0;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     MLTuiHuoModel *model = [self.orderList objectAtIndex:indexPath.section];
-    
-    
     __weak typeof(self) weakself = self;
     if (indexPath.row == 0 ) {
         MLAfterSaleHeadCell *cell =[tableView dequeueReusableCellWithIdentifier:kMLAfterSaleHeadCell forIndexPath:indexPath];
@@ -159,52 +157,11 @@ static NSInteger pageIndex = 0;
 - (NSMutableArray *)orderList{
     if (!_orderList) {
         _orderList = [NSMutableArray array];
-        MLTuiHuoModel *testModel = [[MLTuiHuoModel alloc]init];
-        testModel.order_id = @"201606211337";
-        testModel.company = @"测试店铺";
-        testModel.status = @"已完成";
-        testModel.product_price = 25.31;
-        testModel.create_time = @"2016 06-21 13:23";
-        
-        MLTuiHuoProductModel *test1 = [[MLTuiHuoProductModel alloc]init];
-        test1.name = @"手表";
-        test1.pic = @"http://img3.douban.com/view/commodity_story/medium/public/p21316.jpg";
-        test1.num = @"2";
-        test1.setmeal = @[@"颜色",@"标签"];
-        test1.pid = @"132123";
-        MLTuiHuoProductModel *test2 = [[MLTuiHuoProductModel alloc]init];
-        test2.name = @"手机";
-        test2.pic = @"http://www.sinokin.com/imgit/P4f279422856f8.gif";
-        test2.num = @"2";
-        test2.setmeal = @[@"颜色",@"标签"];
-        test2.pid = @"132123";
-        MLTuiHuoProductModel *test3 = [[MLTuiHuoProductModel alloc]init];
-        test3.name = @"鞋子";
-        test3.pic = @"http://www.wangjiasong.com/upload/productpic/917/Big/2014102210184148.jpg";
-        test3.num = @"2";
-        test3.setmeal = @[@"颜色",@"标签"];
-        test3.pid = @"132123";
-        MLTuiHuoProductModel *test4 = [[MLTuiHuoProductModel alloc]init];
-        test4.name = @"洗衣液";
-        test4.pic = @"http://www.sinokin.com/imgit/P4ea7d043baf02.gif";
-        test4.num = @"1";
-        test4.setmeal = @[@"颜色",@"标签"];
-        test4.pid = @"132123";
-        testModel.products = @[test1,test2,test3,test4];
-        [_orderList addObject:testModel];
-        
     }
     return _orderList;
 }
 
 - (void)getOrderDataSource{
-    //    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-    //    NSTimeInterval time = [[NSDate new] timeIntervalSince1970];
-    //    NSString *sign = [token substringToIndex:12];
-    //
-    //    NSString *signStr = [NSString stringWithFormat:@"%@%@%.f%@",sign,@"return",time,@"order_list"];
-    //
-    //    NSString *md5 = [self md5:signStr];
     
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=return_list&cur_page=%li&page_size=3&test_phone=%@",@"http://bbctest.matrojp.com",pageIndex,@"13771961207"];
     [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
