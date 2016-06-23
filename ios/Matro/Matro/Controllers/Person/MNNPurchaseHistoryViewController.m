@@ -186,60 +186,15 @@ static NSInteger currentPage = 1;
     NSData *data2 = [HFSUtility RSADicToData:dic2];
     NSString *ret2 = base64_encode_data(data2);
     NSLog(@"加密后的消费记录：%@",ret2);
+    [self yuanShengRegisterAcrionWithRet2:ret2];
+    /*
     //@"vip/AuthUserInfo"
     [[HFSServiceClient sharedClient] POST:VIPCARD_HISTORY_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;
-        NSDictionary * userDataDic = result[@"data"];
+     
         NSLog(@"获取消费记录信息%@",result);
-        if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-            NSString * sumStr = [NSString stringWithFormat:@"%@",userDataDic[@"sum"]];
-            if (![sumStr isEqualToString:@"0"]) {
-                
-                NSArray * historyARR = userDataDic[@"VipSaleItems"];
-                for (NSDictionary * dicss in historyARR) {
-                    
-                    VIPCardHistoryModel * vipHistoryModel = [VIPCardHistoryModel new];
-                    vipHistoryModel.saleTime = dicss[@"SaleTime"];
-                    vipHistoryModel.saleMoney = dicss[@"SaleMoney"];
-                    vipHistoryModel.billId = dicss[@"BillId"];
-                    vipHistoryModel.storeName = dicss[@"StoreName"];
-                    vipHistoryModel.gainedCent = dicss[@"GainedCent"];
-                    
-                    [_dataArray addObject:vipHistoryModel];
-                    //vipHistoryModel
-                    
-                }
-                
-                NSLog(@"请求道记录的总数为：%ld",_dataArray.count);
-                
-                
-                [_tableView reloadData];
-            }
-            else{
-            
-                [_hud show:YES];
-                _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"暂无消费记录";
-                [_hud hide:YES afterDelay:2];
-                
-            }
-
-            
-        }else{
-            
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = result[@"errMsg"];
-            [_hud hide:YES afterDelay:2];
-            
-            /*
-             UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
-             [alert show];
-             */
-        }
-        //结束刷新
-        [self jieShuRefresh];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         //结束刷新
         [self jieShuRefresh];
@@ -250,9 +205,105 @@ static NSInteger currentPage = 1;
         [_hud hide:YES afterDelay:2];
     }];
     
-    
+    */
 }
 
+- (void) yuanShengRegisterAcrionWithRet2:(NSString *)ret2{
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+        NSString *urlStr = [NSString stringWithFormat:@"%@",VIPCARD_HISTORY_URLString];
+        NSURL * URL = [NSURL URLWithString:urlStr];
+        NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+        [request setHTTPMethod:@"post"]; //指定请求方式
+        NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+        [request setHTTPBody:data3];
+        [request setURL:URL]; //设置请求的地址
+        NSURLSession *session = [NSURLSession sharedSession];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                                completionHandler:
+                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                          NSLog(@"原生错误error:%@",error);
+                                          
+                                          //请求没有错误
+                                          if (!error) {
+                                              if (data && data.length > 0) {
+                                                  //JSON解析
+                                                  // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                                  NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                                  NSDictionary * userDataDic = result[@"data"];
+                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                                  if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+                                                      NSString * sumStr = [NSString stringWithFormat:@"%@",userDataDic[@"sum"]];
+                                                      if (![sumStr isEqualToString:@"0"]) {
+                                                          
+                                                          NSArray * historyARR = userDataDic[@"VipSaleItems"];
+                                                          for (NSDictionary * dicss in historyARR) {
+                                                              
+                                                              VIPCardHistoryModel * vipHistoryModel = [VIPCardHistoryModel new];
+                                                              vipHistoryModel.saleTime = dicss[@"SaleTime"];
+                                                              vipHistoryModel.saleMoney = dicss[@"SaleMoney"];
+                                                              vipHistoryModel.billId = dicss[@"BillId"];
+                                                              vipHistoryModel.storeName = dicss[@"StoreName"];
+                                                              vipHistoryModel.gainedCent = dicss[@"GainedCent"];
+                                                              
+                                                              [_dataArray addObject:vipHistoryModel];
+                                                              //vipHistoryModel
+                                                              
+                                                          }
+                                                          
+                                                          NSLog(@"请求道记录的总数为：%ld",_dataArray.count);
+                                                          
+                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                          [_tableView reloadData];
+                                                          });
+                                                      }
+                                                      else{
+                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                          [_hud show:YES];
+                                                          _hud.mode = MBProgressHUDModeText;
+                                                          _hud.labelText = @"暂无消费记录";
+                                                          [_hud hide:YES afterDelay:2];
+                                                          });
+                                                      }
+                                                      
+                                                      
+                                                  }else{
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [_hud show:YES];
+                                                      _hud.mode = MBProgressHUDModeText;
+                                                      _hud.labelText = result[@"errMsg"];
+                                                      [_hud hide:YES afterDelay:2];
+                                                      });
+                                                      /*
+                                                       UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
+                                                       [alert show];
+                                                       */
+                                                  }
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                  //结束刷新
+                                                  [self jieShuRefresh];
+                                                  });
+                                              }
+                                          }
+                                          else{
+                                              //请求有错误
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  
+                                                  [_hud show:YES];
+                                                  _hud.mode = MBProgressHUDModeText;
+                                                  _hud.labelText = REQUEST_ERROR_ZL;
+                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
+                                                  [_hud hide:YES afterDelay:1];
+                                              });
+                                              
+                                          }
+                                          
+                                      }];
+        
+        [task resume];
+    //});
+}
 
 /*
 #pragma mark - Navigation

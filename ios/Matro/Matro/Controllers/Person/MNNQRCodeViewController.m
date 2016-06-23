@@ -40,52 +40,14 @@
     
     NSData *data2 = [HFSUtility RSADicToData:dic2];
     NSString *ret2 = base64_encode_data(data2);
+    [self yuanShengRegisterAcrionWithRet2:ret2];
+    
+    /*
     //@"vip/AuthUserInfo"
     [[HFSServiceClient sharedClient] POST:VIPCardJiFen_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;
-        NSDictionary * userDataDic = result[@"data"];
-        NSLog(@"获取会员卡信息%@",result);
-        if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-            //vipCard
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 20)];
-            label.text = @"使用时向服务员出示二维码";
-            label.font = [UIFont systemFontOfSize:12];
-            label.textAlignment = NSTextAlignmentCenter;
-            [self.view addSubview:label];
-            // Do any additional setup after loading the view, typically from a nib.
-            NSString * erWeiMaString = userDataDic[@"QRCODE"];
-            UIImage *qrcode = [self createNonInterpolatedUIImageFormCIImage:[self createQRForString:erWeiMaString] withSize:200.0f];
-            UIImage *customQrcode = [self imageBlackToTransparent:qrcode withRed:60.0f andGreen:74.0f andBlue:89.0f];
-           
-            // set shadow
-            self.qrcodeView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-200)/2, CGRectGetMaxY(label.frame)+20, 200, 200)];
-             self.qrcodeView.image = customQrcode;
-            //self.qrcodeView.layer.shadowOffset = CGSizeMake(0, 2);
-            //self.qrcodeView.layer.shadowRadius = 2;
-            //self.qrcodeView.layer.shadowColor = [UIColor blackColor].CGColor;
-            //self.qrcodeView.layer.shadowOpacity = 0.5;
-            [self.view addSubview:self.qrcodeView];
-            
-            UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.qrcodeView.frame)+10, self.view.frame.size.width, 20)];
-            label1.text = @"每30分钟刷新";
-            label1.textAlignment = NSTextAlignmentCenter;
-            label1.alpha = 0.5;
-            label1.font = [UIFont systemFontOfSize:12];
-            [self.view addSubview:label1];
-            
-        }else{
-            
-             [_hud show:YES];
-             _hud.mode = MBProgressHUDModeText;
-             _hud.labelText = result[@"errMsg"];
-             [_hud hide:YES afterDelay:2];
-             
-            /*
-            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
-            [alert show];
-             */
-        }
+
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
@@ -93,8 +55,97 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
+*/
 
-
+}
+- (void) yuanShengRegisterAcrionWithRet2:(NSString *)ret2{
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+        NSString *urlStr = [NSString stringWithFormat:@"%@",VIPCardJiFen_URLString];
+        NSURL * URL = [NSURL URLWithString:urlStr];
+        NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+        [request setHTTPMethod:@"post"]; //指定请求方式
+        NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+        [request setHTTPBody:data3];
+        [request setURL:URL]; //设置请求的地址
+        NSURLSession *session = [NSURLSession sharedSession];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                                completionHandler:
+                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                          NSLog(@"原生错误error:%@",error);
+                                          
+                                          //请求没有错误
+                                          if (!error) {
+                                              if (data && data.length > 0) {
+                                                  //JSON解析
+                                                  // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                                  NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                                  NSDictionary * userDataDic = result[@"data"];
+                                                  NSLog(@"获取会员卡信息%@",result);
+                                                  if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                      //vipCard
+                                                      UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 20)];
+                                                      label.text = @"使用时向服务员出示二维码";
+                                                      label.font = [UIFont systemFontOfSize:12];
+                                                      label.textAlignment = NSTextAlignmentCenter;
+                                                      [self.view addSubview:label];
+                                                      // Do any additional setup after loading the view, typically from a nib.
+                                                      NSString * erWeiMaString = userDataDic[@"QRCODE"];
+                                                      UIImage *qrcode = [self createNonInterpolatedUIImageFormCIImage:[self createQRForString:erWeiMaString] withSize:200.0f];
+                                                      UIImage *customQrcode = [self imageBlackToTransparent:qrcode withRed:60.0f andGreen:74.0f andBlue:89.0f];
+                                                      
+                                                      // set shadow
+                                                      self.qrcodeView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-200)/2, CGRectGetMaxY(label.frame)+20, 200, 200)];
+                                                      self.qrcodeView.image = customQrcode;
+                                                      //self.qrcodeView.layer.shadowOffset = CGSizeMake(0, 2);
+                                                      //self.qrcodeView.layer.shadowRadius = 2;
+                                                      //self.qrcodeView.layer.shadowColor = [UIColor blackColor].CGColor;
+                                                      //self.qrcodeView.layer.shadowOpacity = 0.5;
+                                                      [self.view addSubview:self.qrcodeView];
+                                                      
+                                                      UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.qrcodeView.frame)+10, self.view.frame.size.width, 20)];
+                                                      label1.text = @"每30分钟刷新";
+                                                      label1.textAlignment = NSTextAlignmentCenter;
+                                                      label1.alpha = 0.5;
+                                                      label1.font = [UIFont systemFontOfSize:12];
+                                                      [self.view addSubview:label1];
+                                                      });
+                                                      
+                                                  }else{
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [_hud show:YES];
+                                                      _hud.mode = MBProgressHUDModeText;
+                                                      _hud.labelText = result[@"errMsg"];
+                                                      [_hud hide:YES afterDelay:2];
+                                                      });
+                                                      /*
+                                                       UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
+                                                       [alert show];
+                                                       */
+                                                  }
+                                                  
+                                              }
+                                          }
+                                          else{
+                                              //请求有错误
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  
+                                                  [_hud show:YES];
+                                                  _hud.mode = MBProgressHUDModeText;
+                                                  _hud.labelText = REQUEST_ERROR_ZL;
+                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
+                                                  [_hud hide:YES afterDelay:1];
+                                              });
+                                              
+                                          }
+                                          
+                                      }];
+        
+        [task resume];
+    //});
 }
 
 - (void)createViews {

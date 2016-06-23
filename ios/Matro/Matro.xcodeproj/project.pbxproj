@@ -306,6 +306,10 @@
 		3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04961D06DDD5004504EA /* GCDQueue.m */; };
 		3CAE049F1D06DDD5004504EA /* GCDSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04981D06DDD5004504EA /* GCDSemaphore.m */; };
 		3CAE04A01D06DDD5004504EA /* GCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE049A1D06DDD5004504EA /* GCDTimer.m */; };
+		3CE4B0D51D1A5F3A0084156C /* BingPhoneZlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0D41D1A5F3A0084156C /* BingPhoneZlViewController.m */; };
+		3CE4B0D81D1A6D010084156C /* LingQuYouHuiQuanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0D71D1A6D000084156C /* LingQuYouHuiQuanView.m */; };
+		3CE4B0DE1D1A6DAC0084156C /* LingQuQuanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0DD1D1A6DAC0084156C /* LingQuQuanCell.m */; };
+		3CE4B0E01D1A6DCC0084156C /* LingQuQuanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CE4B0DF1D1A6DCC0084156C /* LingQuQuanCell.xib */; };
 		3CEA04CC1D0E820800E5C4B6 /* SettingMoCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */; };
 		3CEA04CF1D0E879600E5C4B6 /* SettingMoCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CEA04CE1D0E879600E5C4B6 /* SettingMoCardCell.xib */; };
 		3CEDAD791D13E74E00990DA8 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDAD781D13E74E00990DA8 /* iCarousel.m */; };
@@ -1128,6 +1132,13 @@
 		3CAE04991D06DDD5004504EA /* GCDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDTimer.h; sourceTree = "<group>"; };
 		3CAE049A1D06DDD5004504EA /* GCDTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDTimer.m; sourceTree = "<group>"; };
 		3CAE049B1D06DDD5004504EA /* HYGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYGCD.h; sourceTree = "<group>"; };
+		3CE4B0D31D1A5F3A0084156C /* BingPhoneZlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BingPhoneZlViewController.h; sourceTree = "<group>"; };
+		3CE4B0D41D1A5F3A0084156C /* BingPhoneZlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BingPhoneZlViewController.m; sourceTree = "<group>"; };
+		3CE4B0D61D1A6D000084156C /* LingQuYouHuiQuanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LingQuYouHuiQuanView.h; sourceTree = "<group>"; };
+		3CE4B0D71D1A6D000084156C /* LingQuYouHuiQuanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LingQuYouHuiQuanView.m; sourceTree = "<group>"; };
+		3CE4B0DC1D1A6DAC0084156C /* LingQuQuanCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LingQuQuanCell.h; sourceTree = "<group>"; };
+		3CE4B0DD1D1A6DAC0084156C /* LingQuQuanCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LingQuQuanCell.m; sourceTree = "<group>"; };
+		3CE4B0DF1D1A6DCC0084156C /* LingQuQuanCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LingQuQuanCell.xib; sourceTree = "<group>"; };
 		3CEA04CD1D0E823300E5C4B6 /* SettingMoCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardCell.h; sourceTree = "<group>"; };
 		3CEA04CE1D0E879600E5C4B6 /* SettingMoCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingMoCardCell.xib; sourceTree = "<group>"; };
 		3CEDAD771D13E74E00990DA8 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
@@ -2703,6 +2714,8 @@
 				7A3A623F1CDB86F700D265F2 /* MLBindPhoneController.h */,
 				7A3A62401CDB86F700D265F2 /* MLBindPhoneController.m */,
 				7A3A62411CDB86F700D265F2 /* MLBindPhoneController.xib */,
+				3CE4B0D31D1A5F3A0084156C /* BingPhoneZlViewController.h */,
+				3CE4B0D41D1A5F3A0084156C /* BingPhoneZlViewController.m */,
 				3A877F971C9F820A0052F60A /* MLLoginViewController.h */,
 				3A877F981C9F820A0052F60A /* MLLoginViewController.m */,
 				3A877F991C9F820A0052F60A /* MLLoginViewController.xib */,
@@ -3109,6 +3122,11 @@
 				3C5F123B1D17A075001F66E1 /* SecondBtnsView.h */,
 				3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */,
 				3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */,
+				3CE4B0D61D1A6D000084156C /* LingQuYouHuiQuanView.h */,
+				3CE4B0D71D1A6D000084156C /* LingQuYouHuiQuanView.m */,
+				3CE4B0DC1D1A6DAC0084156C /* LingQuQuanCell.h */,
+				3CE4B0DD1D1A6DAC0084156C /* LingQuQuanCell.m */,
+				3CE4B0DF1D1A6DCC0084156C /* LingQuQuanCell.xib */,
 			);
 			path = zlPersonView;
 			sourceTree = "<group>";
@@ -3509,6 +3527,7 @@
 				3A16DC241C9FF423007AE4A2 /* MLVIPCardViewController.xib in Resources */,
 				283261A71D19364E00C9EE4E /* MLStoreFootView.xib in Resources */,
 				3A630BE91CA25C5B006E67F4 /* MLClassCollectionViewCell.xib in Resources */,
+				3CE4B0E01D1A6DCC0084156C /* LingQuQuanCell.xib in Resources */,
 				7A0720371D17D5D300E0B58E /* MLTuiHuoFooterView.xib in Resources */,
 				283261951D18EFC700C9EE4E /* MLCollectionTableViewCell.xib in Resources */,
 				7A34865B1D0EAF97002EE211 /* MLShopCartCollectionViewCell.xib in Resources */,
@@ -3653,8 +3672,10 @@
 				3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */,
 				3AA0E72F1CA8F0240079AA90 /* MLSureViewController.m in Sources */,
 				3A16DC231C9FF423007AE4A2 /* MLVIPCardViewController.m in Sources */,
+				3CE4B0D51D1A5F3A0084156C /* BingPhoneZlViewController.m in Sources */,
 				3A16DC471CA0EB63007AE4A2 /* CPPhotoInfoViewController.m in Sources */,
 				3A633B5D1C9EA36E00C11FD5 /* ZLPhotoPickerCustomToolBarView.m in Sources */,
+				3CE4B0D81D1A6D010084156C /* LingQuYouHuiQuanView.m in Sources */,
 				3A633B2E1C9EA36E00C11FD5 /* UIColor+HeinQi.m in Sources */,
 				3C5B0C811CFC37E3003FFD25 /* CustomeColorObject.m in Sources */,
 				7AF15B061D129BA500F8CF03 /* MLSelAddressTableViewCell.m in Sources */,
@@ -3778,6 +3799,7 @@
 				3A633B611C9EA36E00C11FD5 /* UIViewController+Alert.m in Sources */,
 				3A633B671C9EA36E00C11FD5 /* ZLPhotoPickerCollectionViewCell.m in Sources */,
 				3A633B631C9EA36E00C11FD5 /* ZLPhotoPickerAssetsViewController.m in Sources */,
+				3CE4B0DE1D1A6DAC0084156C /* LingQuQuanCell.m in Sources */,
 				2CBAD63D1CA399740044601B /* MLBagHeaderView.m in Sources */,
 				3CF8CF761D0E72FA00C548AC /* SettingMoCardView.m in Sources */,
 				3AFB0C7A1CA28D6F00128368 /* HFSProductCollectionViewCell.m in Sources */,

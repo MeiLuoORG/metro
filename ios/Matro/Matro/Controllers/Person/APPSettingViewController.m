@@ -183,6 +183,10 @@
     [userDefaults removeObjectForKey:KUSERDEFAULT_ISHAVE_DEFAULTCARD_BOOL];
     [userDefaults removeObjectForKey:kUSERDEFAULT_ACCCESSTOKEN];
     [userDefaults removeObjectForKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+    [userDefaults removeObjectForKey:ZHAOHUIPASSWORD_CURRENT_PHONE];
+    
+    [userDefaults removeObjectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
+    [userDefaults removeObjectForKey:KUSERDEFAULT_TIMEINTERVAR_LIJIA];
     
     [self.navigationController popViewControllerAnimated:YES];
     //[self logoutAction];

@@ -13,7 +13,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BzO-ax-qnT" userLabel="View1">
-                    <rect key="frame" x="32" y="0.0" width="60" height="67"/>
+                    <rect key="frame" x="26" y="0.0" width="60" height="67"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="待付款" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9r3-gj-vqh">
                             <rect key="frame" x="10" y="36" width="42" height="21"/>
@@ -194,13 +194,13 @@
                 <constraint firstItem="crI-H4-gMJ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-50" id="C1u-ri-FAI"/>
                 <constraint firstItem="crI-H4-gMJ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="KHO-mK-t3I"/>
                 <constraint firstItem="753-S8-urL" firstAttribute="leading" secondItem="crI-H4-gMJ" secondAttribute="trailing" constant="-15" id="MZq-tL-tUl"/>
-                <constraint firstAttribute="trailing" secondItem="yCS-LE-8ki" secondAttribute="trailing" constant="32" id="NxE-UE-fgn"/>
+                <constraint firstAttribute="trailing" secondItem="yCS-LE-8ki" secondAttribute="trailing" constant="26" id="NxE-UE-fgn"/>
                 <constraint firstItem="MU9-td-CwY" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="50" id="QA6-ky-FoY"/>
                 <constraint firstItem="crI-H4-gMJ" firstAttribute="centerX" secondItem="BzO-ax-qnT" secondAttribute="trailing" constant="15" id="coh-9a-hMl"/>
                 <constraint firstItem="crI-H4-gMJ" firstAttribute="leading" secondItem="BzO-ax-qnT" secondAttribute="leading" id="dRU-wj-g9B"/>
                 <constraint firstItem="BzO-ax-qnT" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="dcx-Zs-JFG"/>
                 <constraint firstItem="753-S8-urL" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="fUC-Kg-16H"/>
-                <constraint firstItem="BzO-ax-qnT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="32" id="kEA-Qt-YTR"/>
+                <constraint firstItem="BzO-ax-qnT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="26" id="kEA-Qt-YTR"/>
                 <constraint firstItem="crI-H4-gMJ" firstAttribute="leading" secondItem="BzO-ax-qnT" secondAttribute="trailing" constant="10" id="n6U-Ij-X8c"/>
                 <constraint firstItem="MU9-td-CwY" firstAttribute="width" secondItem="yCS-LE-8ki" secondAttribute="width" id="saG-e7-beM"/>
                 <constraint firstItem="yCS-LE-8ki" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="z5R-ta-TkC"/>

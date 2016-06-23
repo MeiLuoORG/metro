@@ -53,7 +53,7 @@
     
     for (id tf in self.subviews) {
         if ([tf isKindOfClass:[UITextField class]]) {
-            ((UITextField *)tf).textColor = [UIColor colorWithHexString:@"#AE8E5D"];
+            ((UITextField *)tf).textColor = [UIColor colorWithHexString:@"260e00"];
             [((UITextField *)tf) setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
         }
     }
