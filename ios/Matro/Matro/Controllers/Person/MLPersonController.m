@@ -33,7 +33,9 @@
 #import "JSBadgeView.h"
 #import "MJRefresh.h"
 #import "MLPersonOrderListViewController.h"
+
 #import "MLCollectionViewController.h"
+
 #import "MLAllOrdersViewController.h"
 #import "MLAddressSelectViewController.h"
 #import "MLCollectionViewController.h"
@@ -247,8 +249,8 @@
         SecondBtnsView *headView =[SecondBtnsView personHeadView];
          __weak typeof(self)weakself = self;
         headView.frame = CGRectMake(0, 110, SIZE_WIDTH, 67);
-        headView.view2CenterX.constant = -((SIZE_WIDTH/2)-62)/2;
-        headView.view4CenterX.constant = ((SIZE_WIDTH/2)-62)/2;
+        headView.view2CenterX.constant = -((SIZE_WIDTH/2)-56)/2;
+        headView.view4CenterX.constant = ((SIZE_WIDTH/2)-56)/2;
         
         headView.daiFuBLock = ^(BOOL success){
             //待付款

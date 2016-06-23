@@ -40,8 +40,29 @@
     [self loadTopView];
     [self createView];
     // Do any additional setup after loading the view.
+    //UiTextField变化通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangeAction:) name:UITextFieldTextDidChangeNotification object:nil];
+}
+
+- (void)textChangeAction:(id)sender{
+    
+    
+    
+    if (![_newPassword.text isEqualToString:@""] && ![_confirmPassword.text isEqualToString:@""]) {
+        _determine.enabled = YES;
+        [_determine setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
+        
+        
+    }
+    else{
+        _determine.enabled = NO;
+        [_determine setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+    }
+    
     
 }
+
+
 //Lock_xiugaimima锁     Profile_xiugaimima人    golden_button
 - (void)loadTopView{
     
@@ -106,7 +127,7 @@
     _newPassword.delegate = self;
     //_newPassword.borderStyle = UITextBorderStyleNone;
     _newPassword.secureTextEntry = YES;
-    [_newPassword setValue:[UIFont boldSystemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
+    [_newPassword setValue:[UIFont boldSystemFontOfSize:13] forKeyPath:@"_placeholderLabel.font"];
     _newPassword.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
     _newPassword.layer.cornerRadius = 4.0f;
     _newPassword.layer.borderWidth = 1.0f;
@@ -133,7 +154,7 @@
     
     //_confirmPassword.borderStyle = UITextBorderStyleNone;
     _confirmPassword.secureTextEntry = YES;
-    [_confirmPassword setValue:[UIFont boldSystemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
+    [_confirmPassword setValue:[UIFont boldSystemFontOfSize:13] forKeyPath:@"_placeholderLabel.font"];
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(_newPassword.frame)+10, 15, 20)];
     imageView2.image = [UIImage imageNamed:@"Lock_xiugaimima"];
     //[_bkView addSubview:imageView2];
@@ -142,7 +163,7 @@
     [_bkView addSubview:_confirmPassword];
     
     //[self createlableWithRect:CGRectMake(10, CGRectGetMaxY(_confirmPassword.frame), kScreenWidth-20, 1)];
-    _determine = [[UIButton alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(_confirmPassword.frame)+60, kScreenWidth-80, 42)];
+    _determine = [[UIButton alloc] initWithFrame:CGRectMake(22, CGRectGetMaxY(_confirmPassword.frame)+60, kScreenWidth-44, 42)];
     [_determine setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
     _determine.enabled = NO;
     //[_determine setBackgroundImage:[UIImage imageNamed:@"golden_button"] forState:UIControlStateNormal];
@@ -160,17 +181,7 @@
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
 
-    if (![_newPassword.text isEqualToString:@""] && ![_confirmPassword.text isEqualToString:@""]) {
-        _determine.enabled = YES;
-        [_determine setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
-        
-        
-    }
-    else{
-        _determine.enabled = NO;
-        [_determine setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
-    }
-    
+
     return YES;
 }
 
@@ -202,106 +213,24 @@
                                         };
                 NSData *data2 = [HFSUtility RSADicToData:dic2];
                 NSString *ret2 = base64_encode_data(data2);
+                
+                [self yuanShengXiuGgainWithRet2:ret2];
+                /*
                 //@"vip/AuthUserInfo"
                 [[HFSServiceClient sharedClient] POST:ForgetPassword_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
                     NSDictionary *result = (NSDictionary *)responseObject;
                     NSLog(@"修改密码：%@",result);
-                    if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-                        [_hud show:YES];
-                        _hud.mode = MBProgressHUDModeText;
-                        _hud.labelText = @"修改成功";
-                        [_hud hide:YES afterDelay:2];
-                        /*
-                         // 存储用户信息
-                         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                         NSDictionary * userDataDic = result[@"data"];
-                         NSArray * vipCardDic = userDataDic[@"vipCard"];
-                         
-                         if (vipCardDic.count > 0) {
-                         //存储时，除NSNumber类型使用对应的类型意外，其他的都是使用setObject:forKey:
-                         //[userDefaults setObject:result[@"cardno"] forKey:kUSERDEFAULT_USERCARDNO ];
-                         
-                         for(NSDictionary * dics in vipCardDic) {
-                         
-                         if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
-                         NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
-                         [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
-                         //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
-                         }
-                         }
-                         }
-                         if (userDataDic[@"img"] && ![@"" isEqualToString:userDataDic[@"img"]]) {
-                         [userDefaults setObject:userDataDic[@"img"] forKey:kUSERDEFAULT_USERAVATOR ];
-                         
-                         }
-                         [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE ];
-                         
-                         
-                         if ([userDataDic[@"nickName"] isEqualToString:@""] || !userDataDic[@"nickName"]) {
-                         [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERNAME ];
-                         //NSLog(@"登录方法中kUSERDEFAULT_USERNAME值phone为：%@",userDataDic[@"phone"]);
-                         }
-                         else{
-                         [userDefaults setObject:userDataDic[@"nickName"] forKey:kUSERDEFAULT_USERNAME ];
-                         //NSLog(@"登录方法中kUSERDEFAULT_USERNAME值nickname为：%@",userDataDic[@"nickname"]);
-                         }
-                         
-                         
-                         [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERID ];
-                         
-                         
-                         [userDefaults synchronize];
-                         
-                         //保存登录账号下次使用
-                         LoginHistory *loginHistory = [LoginHistory MR_findFirstByAttribute:@"loginkeyword" withValue:userDataDic[@"phone"] inContext:_context];
-                         if (!loginHistory) {
-                         LoginHistory *loginHistory = [LoginHistory MR_createEntityInContext:_context];
-                         loginHistory.loginkeyword = [self textField:_accountView].text;
-                         [_context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError *error) {
-                         [self loadLoginHistory];
-                         }];
-                         }
-                         
-                         
-                         [_hud show:YES];
-                         _hud.mode = MBProgressHUDModeText;
-                         _hud.labelText = @"注册成功";
-                         [_hud hide:YES afterDelay:2];
-                         
-                         [weakSelf textField:_rrpasswordView].text = @"";
-                         [weakSelf textField:_rphoneView].text = @"";
-                         [weakSelf textField:_rcodeView].text = @"";
-                         [weakSelf textField:_rpasswordView].text = @"";
-                         
-                         _loginTypeButton.selected = YES;
-                         _loginTypeBgView.hidden = NO;
-                         _registerTypeBgView.hidden = YES;
-                         _registerTypeButton.selected = NO;
-                         NSLog(@"注册成功");
-                         */
-                        [weakSelf dismissViewControllerAnimated:NO completion:^{
-                            weakSelf.backBlock(YES);
-                        }];
-                    }else{
-                        /*
-                         _hud.labelText = result[@"errMsg"];
-                         [_hud hide:YES afterDelay:2];
-                         */
-                        [_hud show:YES];
-                        _hud.mode = MBProgressHUDModeText;
-                        _hud.labelText = result[@"errMsg"];
-                        [_hud hide:YES afterDelay:2];
-                        
-                    }
                     
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    _hud = [[MBProgressHUD alloc]initWithView:self.view];
+                    [self.view addSubview:_hud];
                     [_hud show:YES];
                     _hud.mode = MBProgressHUDModeText;
                     _hud.labelText = @"请求失败";
                     [_hud hide:YES afterDelay:2];
                 }];
-                
+                */
                 
                 
             }
@@ -316,151 +245,37 @@
                                         };
                 NSData *data2 = [HFSUtility RSADicToData:dic2];
                 NSString *ret2 = base64_encode_data(data2);
+                
+                NSUserDefaults * userDafaults = [NSUserDefaults standardUserDefaults];
+                
+                [userDafaults setObject:_phoneNum forKey:ZHAOHUIPASSWORD_CURRENT_PHONE];
+                [userDafaults synchronize];
+                
+                [self yuanShengZhaoHuinWithRet2:ret2];
+                
+                
+                /*
                 //@"vip/AuthUserInfo"
                 [[HFSServiceClient sharedClient] POST:ForgetPassword_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
                     NSDictionary *result = (NSDictionary *)responseObject;
                     NSLog(@"忘记密码：%@",result);
-                    if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-                        [_hud show:YES];
-                        _hud.mode = MBProgressHUDModeText;
-                        _hud.labelText = @"修改成功";
-                        [_hud hide:YES afterDelay:2];
-                        /*
-                         // 存储用户信息
-                         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                         NSDictionary * userDataDic = result[@"data"];
-                         NSArray * vipCardDic = userDataDic[@"vipCard"];
-                         
-                         if (vipCardDic.count > 0) {
-                         //存储时，除NSNumber类型使用对应的类型意外，其他的都是使用setObject:forKey:
-                         //[userDefaults setObject:result[@"cardno"] forKey:kUSERDEFAULT_USERCARDNO ];
-                         
-                         for(NSDictionary * dics in vipCardDic) {
-                         
-                         if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]]){
-                         NSString * cardno = [NSString stringWithFormat:@"%@",dics[@"cardNo"]];
-                         [userDefaults setObject:cardno forKey:kUSERDEFAULT_USERCARDNO];
-                         //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
-                         }
-                         }
-                         }
-                         if (userDataDic[@"img"] && ![@"" isEqualToString:userDataDic[@"img"]]) {
-                         [userDefaults setObject:userDataDic[@"img"] forKey:kUSERDEFAULT_USERAVATOR ];
-                         
-                         }
-                         [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE ];
-                         
-                         
-                         if ([userDataDic[@"nickName"] isEqualToString:@""] || !userDataDic[@"nickName"]) {
-                         [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERNAME ];
-                         //NSLog(@"登录方法中kUSERDEFAULT_USERNAME值phone为：%@",userDataDic[@"phone"]);
-                         }
-                         else{
-                         [userDefaults setObject:userDataDic[@"nickName"] forKey:kUSERDEFAULT_USERNAME ];
-                         //NSLog(@"登录方法中kUSERDEFAULT_USERNAME值nickname为：%@",userDataDic[@"nickname"]);
-                         }
-                         
-                         
-                         [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERID ];
-                         
-                         
-                         [userDefaults synchronize];
-                         
-                         //保存登录账号下次使用
-                         LoginHistory *loginHistory = [LoginHistory MR_findFirstByAttribute:@"loginkeyword" withValue:userDataDic[@"phone"] inContext:_context];
-                         if (!loginHistory) {
-                         LoginHistory *loginHistory = [LoginHistory MR_createEntityInContext:_context];
-                         loginHistory.loginkeyword = [self textField:_accountView].text;
-                         [_context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError *error) {
-                         [self loadLoginHistory];
-                         }];
-                         }
-                         
-                         
-                         [_hud show:YES];
-                         _hud.mode = MBProgressHUDModeText;
-                         _hud.labelText = @"注册成功";
-                         [_hud hide:YES afterDelay:2];
-                         
-                         [weakSelf textField:_rrpasswordView].text = @"";
-                         [weakSelf textField:_rphoneView].text = @"";
-                         [weakSelf textField:_rcodeView].text = @"";
-                         [weakSelf textField:_rpasswordView].text = @"";
-                         
-                         _loginTypeButton.selected = YES;
-                         _loginTypeBgView.hidden = NO;
-                         _registerTypeBgView.hidden = YES;
-                         _registerTypeButton.selected = NO;
-                         NSLog(@"注册成功");
-                         */
-                        [weakSelf dismissViewControllerAnimated:NO completion:^{
-                            weakSelf.backBlock(YES);
-                        }];
-                    }else{
-                        /*
-                         _hud.labelText = result[@"errMsg"];
-                         [_hud hide:YES afterDelay:2];
-                         */
-                        [_hud show:YES];
-                        _hud.mode = MBProgressHUDModeText;
-                        _hud.labelText = result[@"errMsg"];
-                        [_hud hide:YES afterDelay:2];
-                        
-                    }
                     
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    _hud = [[MBProgressHUD alloc]initWithView:self.view];
+                    [self.view addSubview:_hud];
                     [_hud show:YES];
                     _hud.mode = MBProgressHUDModeText;
                     _hud.labelText = @"请求失败";
                     [_hud hide:YES afterDelay:2];
                 }];
+                 */
             }
             
-            
-            
-            /*
-             if ([_newPassword.text isEqualToString:_confirmPassword.text]) {
-             //{"appId": "test0002","phone":"18020260894","password":"654321","sign":$sign,"accessToken":$accessToken}
-             
-             
-             
-             //没有登录账号无法获得验证码
-             NSDictionary *dic = @{@"appId":APP_ID,@"nonceStr":NONCE_STR,@"pwd":_newPassword.text,@"mphone":_phoneNum?:@"",@"vcode":self.vcode?:@""};
-             NSLog(@"%@",dic);
-             NSData *data = [HFSUtility RSADicToData:dic] ;
-             NSString *ret = base64_encode_data(data);
-             
-             [[HFSServiceClient sharedClient] POST:@"vip/ResetPassword" parameters:ret success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             NSDictionary *result = (NSDictionary *)responseObject;
-             NSLog(@"返回编码:%@",result[@"status"]);
-             NSLog(@"%@",result[@"msg"]);
-             if([@"0" isEqualToString:[NSString stringWithFormat:@"%@",result[@"status"]]]){
-             
-             [_hud show:YES];
-             _hud.mode = MBProgressHUDModeText;
-             _hud.labelText = @"密码修改成功";
-             [_hud hide:YES afterDelay:2];
-             [self performSelector:@selector(popView) withObject:nil afterDelay:2];
-             }
-             else{
-             [_hud show:YES];
-             _hud.mode = MBProgressHUDModeText;
-             _hud.labelText = result[@"msg"];
-             [_hud hide:YES afterDelay:2];
-             }
-             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"请求失败");
-             [_hud show:YES];
-             _hud.mode = MBProgressHUDModeText;
-             _hud.labelText = @"请求失败";
-             [_hud hide:YES afterDelay:2];
-             }];
-             }
-             */
         }
         else {
+            _hud = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"两次输入密码不同";
@@ -470,6 +285,166 @@
 
     
 }
+
+#pragma mark 原生修改密码
+
+- (void) yuanShengXiuGgainWithRet2:(NSString *)ret2{
+    __weak __typeof(&*self)weakSelf =self;
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+        NSString *urlStr = [NSString stringWithFormat:@"%@",ForgetPassword_URLString];
+        NSURL * URL = [NSURL URLWithString:urlStr];
+        NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+        [request setHTTPMethod:@"post"]; //指定请求方式
+        NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+        [request setHTTPBody:data3];
+        [request setURL:URL]; //设置请求的地址
+        NSURLSession *session = [NSURLSession sharedSession];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                                completionHandler:
+                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                          NSLog(@"原生错误error:%@",error);
+                                          
+                                          //请求没有错误
+                                          if (!error) {
+                                              if (data && data.length > 0) {
+                                                  //JSON解析
+                                                  // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                                  NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                                  if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                      _hud = [[MBProgressHUD alloc]initWithView:self.view];
+                                                      [self.view addSubview:_hud];
+                                                      [_hud show:YES];
+                                                      _hud.mode = MBProgressHUDModeText;
+                                                      _hud.labelText = @"修改成功";
+                                                      [_hud hide:YES afterDelay:1];
+                                                      });
+                                                      [weakSelf dismissViewControllerAnimated:NO completion:^{
+                                                          weakSelf.backBlock(YES);
+                                                      }];
+                                                  }else{
+                                                      /*
+                                                       _hud.labelText = result[@"errMsg"];
+                                                       [_hud hide:YES afterDelay:2];
+                                                       */
+                                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                                      _hud = [[MBProgressHUD alloc]initWithView:self.view];
+                                                      [self.view addSubview:_hud];
+                                                      [_hud show:YES];
+                                                      _hud.mode = MBProgressHUDModeText;
+                                                      _hud.labelText = result[@"errMsg"];
+                                                      [_hud hide:YES afterDelay:2];
+                                                       });
+                                                  }
+
+                                                  
+                                              }
+                                          }
+                                          else{
+                                              //请求有错误
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  
+                                                  [_hud show:YES];
+                                                  _hud.mode = MBProgressHUDModeText;
+                                                  _hud.labelText = REQUEST_ERROR_ZL;
+                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
+                                                  [_hud hide:YES afterDelay:1];
+                                              });
+                                              
+                                          }
+                                          
+                                      }];
+        
+        [task resume];
+    //});
+}
+
+
+#pragma end mark
+
+#pragma mark 原生找回密码
+- (void) yuanShengZhaoHuinWithRet2:(NSString *)ret2{
+    __weak __typeof(&*self)weakSelf =self;
+    //GCD异步实现
+    dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_sync(q1, ^{
+        NSString *urlStr = [NSString stringWithFormat:@"%@",ForgetPassword_URLString];
+        NSURL * URL = [NSURL URLWithString:urlStr];
+        NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+        [request setHTTPMethod:@"post"]; //指定请求方式
+        NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+        [request setHTTPBody:data3];
+        [request setURL:URL]; //设置请求的地址
+        NSURLSession *session = [NSURLSession sharedSession];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                                completionHandler:
+                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                          NSLog(@"原生错误error:%@",error);
+                                          
+                                          //请求没有错误
+                                          if (!error) {
+                                              if (data && data.length > 0) {
+                                                  //JSON解析
+                                                  // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                                  NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                                  if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                      _hud = [[MBProgressHUD alloc]initWithView:self.view];
+                                                      [self.view addSubview:_hud];
+                                                      [_hud show:YES];
+                                                      _hud.mode = MBProgressHUDModeText;
+                                                      _hud.labelText = @"修改成功";
+                                                      [_hud hide:YES afterDelay:2];
+                                                      });
+                                                      
+                                                      
+                                                      [weakSelf dismissViewControllerAnimated:NO completion:^{
+                                                          weakSelf.backBlock(YES);
+                                                      }];
+                                                  }else{
+                                                      /*
+                                                       _hud.labelText = result[@"errMsg"];
+                                                       [_hud hide:YES afterDelay:2];
+                                                       */
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                      _hud = [[MBProgressHUD alloc]initWithView:self.view];
+                                                      [self.view addSubview:_hud];
+                                                      [_hud show:YES];
+                                                      _hud.mode = MBProgressHUDModeText;
+                                                      _hud.labelText = result[@"errMsg"];
+                                                      [_hud hide:YES afterDelay:2];
+                                                      });
+                                                  }
+
+                                                  
+                                              }
+                                          }
+                                          else{
+                                              //请求有错误
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  
+                                                  [_hud show:YES];
+                                                  _hud.mode = MBProgressHUDModeText;
+                                                  _hud.labelText = REQUEST_ERROR_ZL;
+                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
+                                                  [_hud hide:YES afterDelay:1];
+                                              });
+                                              
+                                          }
+                                          
+                                      }];
+        
+        [task resume];
+    });
+}
+
+
+#pragma end mark
+
 
 -(BOOL)canRegister{
     NSString *errStr = nil;
@@ -489,7 +464,8 @@
     }
     
     if (errStr) {
-        
+        _hud = [[MBProgressHUD alloc]initWithView:self.view];
+        [self.view addSubview:_hud];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = errStr;

@@ -14,6 +14,7 @@
 #import "UIImage+HeinQi.h"
 #import "SBJSON.h"
 #import "GTMNSString+URLArguments.h"
+#import "CommonHeader.h"
 
 @interface MLChangePhotoViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -149,9 +150,9 @@
     
     NSData *data = [HFSUtility RSADicToData:dic2] ;
     NSString *ret = base64_encode_data(data);
-
+    [self yuanShengRegisterAcrionWithRet2:ret withUrl:imgUrl];
     
-    
+    /*
    HFSServiceClient  *_client = [[HFSServiceClient alloc]initWithBaseURL:[NSURL URLWithString:SERVICE_BASE_URL]];
     
     _client.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json", @"text/javascript",  @"text/plain",nil];
@@ -160,6 +161,7 @@
         accessToken = @"";
     }
     */
+    /*
     [_client.requestSerializer setValue:@"text/json" forHTTPHeaderField:@"Content-Type"];
 
  
@@ -167,35 +169,85 @@
         
         NSDictionary *result = (NSDictionary *)responseObject;
         NSLog(@"修改头像imgUrl:%@",result);
-        if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-            
-//            [_hud show:YES];
-//            _hud.mode = MBProgressHUDModeText;
-//            _hud.labelText = @"头像修改成功";
-//            [_hud hide:YES afterDelay:2];
-            
-            [[NSUserDefaults standardUserDefaults] setObject:imgUrl forKey:kUSERDEFAULT_USERAVATOR];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_CHANGEUSERINFO object:nil];
-            
-        }else{
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = result[@"msg"];
-            [_hud hide:YES afterDelay:2];
-        }
-        [self dismissViewControllerAnimated:YES completion:^{
-            
-        }];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
-    
+    */
 }
 
+- (void) yuanShengRegisterAcrionWithRet2:(NSString *)ret2 withUrl:(NSString *)imgUrl{
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+        NSString *urlStr = [NSString stringWithFormat:@"%@",XiuGaiInfo_URLString];
+        NSURL * URL = [NSURL URLWithString:urlStr];
+        NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+        [request setHTTPMethod:@"post"]; //指定请求方式
+        NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+        [request setHTTPBody:data3];
+        [request setURL:URL]; //设置请求的地址
+        NSURLSession *session = [NSURLSession sharedSession];
+    
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                                completionHandler:
+                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                          NSLog(@"原生错误error:%@",error);
+                                          
+                                          //请求没有错误
+                                          if (!error) {
+                                              if (data && data.length > 0) {
+                                                  //JSON解析
+                                                  // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                                  NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                                  if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+                                                      
+                                                      //            [_hud show:YES];
+                                                      //            _hud.mode = MBProgressHUDModeText;
+                                                      //            _hud.labelText = @"头像修改成功";
+                                                      //            [_hud hide:YES afterDelay:2];
+                                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [[NSUserDefaults standardUserDefaults] setObject:imgUrl forKey:kUSERDEFAULT_USERAVATOR];
+                                                      [[NSUserDefaults standardUserDefaults] synchronize];
+                                                      [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_CHANGEUSERINFO object:nil];
+                                                       });
+                                                      
+                                                  }else{
+                                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [_hud show:YES];
+                                                      _hud.mode = MBProgressHUDModeText;
+                                                      _hud.labelText = result[@"msg"];
+                                                      [_hud hide:YES afterDelay:2];
+                                                       });
+                                                  }
+                                                  [self dismissViewControllerAnimated:YES completion:^{
+                                                      
+                                                  }];
+
+                                                  
+                                              }
+                                          }
+                                          else{
+                                              //请求有错误
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  
+                                                  [_hud show:YES];
+                                                  _hud.mode = MBProgressHUDModeText;
+                                                  _hud.labelText = REQUEST_ERROR_ZL;
+                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
+                                                  [_hud hide:YES afterDelay:1];
+                                              });
+                                              
+                                          }
+                                          
+                                      }];
+        
+        [task resume];
+    //});
+}
 
 
 

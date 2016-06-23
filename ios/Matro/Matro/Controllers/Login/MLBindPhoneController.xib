@@ -48,7 +48,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="42" id="4Yu-7P-Gan"/>
                     </constraints>
-                    <state key="normal" title="绑定" backgroundImage="bg_kefu">
+                    <state key="normal" title="绑定">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="default">
@@ -99,7 +99,7 @@
                 <constraint firstAttribute="trailing" secondItem="yd6-tZ-E35" secondAttribute="trailing" constant="22" id="SeT-MY-4MQ"/>
                 <constraint firstItem="bwS-vN-tJT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="UBd-3f-MNa"/>
                 <constraint firstItem="NFo-pf-mfZ" firstAttribute="height" secondItem="bwS-vN-tJT" secondAttribute="height" id="WEd-38-cte"/>
-                <constraint firstItem="yd6-tZ-E35" firstAttribute="leading" secondItem="NFo-pf-mfZ" secondAttribute="trailing" id="eq5-Hu-Akj"/>
+                <constraint firstItem="yd6-tZ-E35" firstAttribute="leading" secondItem="NFo-pf-mfZ" secondAttribute="trailing" constant="-4" id="eq5-Hu-Akj"/>
                 <constraint firstAttribute="trailing" secondItem="bwS-vN-tJT" secondAttribute="trailing" constant="22" id="kGG-ww-3cK"/>
                 <constraint firstItem="Or1-Q1-1IX" firstAttribute="top" secondItem="NFo-pf-mfZ" secondAttribute="bottom" constant="30" id="nx7-wq-GFM"/>
                 <constraint firstItem="yd6-tZ-E35" firstAttribute="centerY" secondItem="NFo-pf-mfZ" secondAttribute="centerY" id="qcO-Tc-kSJ"/>
@@ -152,10 +152,7 @@
                     <include reference="qcO-Tc-kSJ"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="444.5" y="570.5"/>
+            <point key="canvasLocation" x="49.5" y="534.5"/>
         </view>
     </objects>
-    <resources>
-        <image name="bg_kefu" width="47" height="24"/>
-    </resources>
 </document>

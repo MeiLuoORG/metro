@@ -15,6 +15,7 @@
 #import "ZhengZePanDuan.h"
 #import "NSDatezlModel.h"
 #import "NSString+URLZL.h"
+#import "BingPhoneZlViewController.h"
 
 @interface MLLoginViewController : MLBaseViewController<UICollectionViewDelegate,UICollectionViewDataSource>
 

@@ -1,8 +1,8 @@
 //
-//  MLBindPhoneController.h
+//  BingPhoneZlViewController.h
 //  Matro
 //
-//  Created by 黄裕华 on 16/5/5.
+//  Created by lang on 16/6/22.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -16,7 +16,8 @@
 
 typedef void(^BackBlocks)(BOOL success);
 
-@interface MLBindPhoneController : MLBaseViewController<UITextFieldDelegate>
+
+@interface BingPhoneZlViewController : MLBaseViewController<UITextFieldDelegate>
 @property (nonatomic,copy)NSString *open_id;
 @property (strong, nonatomic) NSString * imgUrl;
 @property (strong, nonatomic) NSString * nickname;
@@ -25,9 +26,8 @@ typedef void(^BackBlocks)(BOOL success);
 @property (strong, nonatomic)UIView *bkView;
 @property (strong ,nonatomic) SettingMoCardView * settingMoCardView;
 
+
 @property (copy, nonatomic) BackBlocks backBlock;
 
 - (void)backBlocksAction:(BackBlocks )block;
-
-
 @end

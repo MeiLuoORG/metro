@@ -43,6 +43,8 @@
     NSString * _currentCardTypeNames;
     
     BOOL _isFaSonging;//是否验证码正在发送
+    
+    BOOL _isQuickly_Register;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *showpasswordButton;
@@ -148,21 +150,22 @@
             
             
             self.registerButton.enabled = YES;
-            [self.registerButton setBackgroundColor:[UIColor colorWithHexString:Main_BackgroundColor]];
+            [self.registerButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonNormel_backgroundColor]];
             
         }
         else{
+            
             self.registerButton.enabled = NO;
-            [self.registerButton setBackgroundColor:[UIColor colorWithHexString:Main_grayBackgroundColor]];
+            [self.registerButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonGray_backgroundColor]];
         }
         if (!_isFaSonging) {
             if ([[self textField:_rphoneView].text isEqualToString:@""] || ![self textField:_rphoneView].text || ![HFSUtility validateMobile:[self textField:_rphoneView].text]) {
                 _codeButton.enabled = NO;
-                [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+                [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
             }
             else{
                 _codeButton.enabled = YES;
-                [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_BackgroundColor]];
+                [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
             }
         }
     }
@@ -248,7 +251,7 @@
     btn.selected = !btn.selected;
     if (!btn.selected) {
         self.registerButton.enabled = NO;
-        self.registerButton.backgroundColor = [UIColor colorWithHexString:Main_grayBackgroundColor];
+        self.registerButton.backgroundColor = [UIColor colorWithHexString:Main_ButtonGray_backgroundColor];
         _isReadDelegate = NO;
     }
     else
@@ -256,11 +259,11 @@
         _isReadDelegate = YES;
         if ([self checkRegisterButtonEnabledYESorNO]) {
              self.registerButton.enabled = YES;
-            self.registerButton.backgroundColor = [UIColor colorWithHexString:Main_BackgroundColor];
+            self.registerButton.backgroundColor = [UIColor colorWithHexString:Main_ButtonNormel_backgroundColor];
         }
         else {
             self.registerButton.enabled = NO;
-            self.registerButton.backgroundColor = [UIColor colorWithHexString:Main_grayBackgroundColor];
+            self.registerButton.backgroundColor = [UIColor colorWithHexString:Main_ButtonGray_backgroundColor];
         }
        
     }
@@ -276,7 +279,7 @@
     UITextField * passText = [self textField:self.rpasswordView];
     UITextField * rePassText = [self textField:self.rrpasswordView];
     //NSLog(@"phoneText:%@,codeText:%@,passText:%@,rePassText:%@",phoneText.text,codeText.text,passText.text,rePassText.text);
-    if ([phoneText.text isEqualToString:@""] || [codeText.text isEqualToString:@""] || [passText.text isEqualToString:@""] || [rePassText.text isEqualToString:@""]) {
+    if ([phoneText.text isEqualToString:@""] || [codeText.text isEqualToString:@""] || [passText.text isEqualToString:@""] || [rePassText.text isEqualToString:@""] || ![HFSUtility validateMobile:phoneText.text] ) {
         isYes = NO;
     }
     else{
@@ -325,10 +328,21 @@
     
     [_showmoreaccoutButton setImage:[UIImage imageNamed:@"Left_Arrow_yuan2"] forState:UIControlStateSelected];
     [_showpasswordButton setImage:[UIImage imageNamed:@"xianshizl"] forState:UIControlStateSelected];
+    _showmoreaccoutButton.hidden = YES;
     
+    /*
+    UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:_tableView.bounds byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii:CGSizeMake(4.0,4.0)];
+    CAShapeLayer *maskLayer2 = [[CAShapeLayer alloc] init];
+    maskLayer2.frame = _tableView.bounds;
+    maskLayer2.path = maskPath2.CGPath;
+    //maskLayer2.fillColor = grayColors.CGColor;
+    //maskLayer.strokeColor = grayColors.CGColor;
+    _tableView.layer.mask = maskLayer2;
+    */
     _tableView.layer.borderWidth = 1.0f;
     _tableView.layer.borderColor = [UIColor colorWithHexString:Main_bianGrayBackgroundColor].CGColor;
     _tableView.layer.cornerRadius = 4.0f;
+    
     
     //不支持QQ
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
@@ -354,7 +368,22 @@
         _navTopCommoImages = [[NavTopCommonImage alloc]initWithTitle:@"登录"];
         [_navTopCommoImages loadLeftBackButtonwith:0];
         [_navTopCommoImages backButtonAction:^(BOOL succes) {
-            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            if (_isQuickly_Register) {
+                _loginTypeBgView.hidden = NO;
+                _registerTypeBgView.hidden = YES;
+                _navTopCommoImages.tittleLabel.text = @"登录";
+                _isLogin = YES;
+                if (_rightBtn) {
+                    _rightBtn.hidden = NO;
+                }
+                _isQuickly_Register = NO;
+            }
+            else{
+                
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+
         }];
         
         [self.view addSubview:_navTopCommoImages];
@@ -364,7 +393,7 @@
         [_rightBtn setTitle:@"快速注册" forState:UIControlStateNormal];
         _rightBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
         [_rightBtn setFrame:CGRectMake(SIZE_WIDTH-80, 34, 60, 22)];
-        [_rightBtn setTitleColor:[HFSUtility hexStringToColor:Main_BackgroundColor] forState:UIControlStateNormal];
+        [_rightBtn setTitleColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor] forState:UIControlStateNormal];
         [_rightBtn addTarget:self action:@selector(quicklyBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [_navTopCommoImages addSubview:_rightBtn];
         
@@ -391,6 +420,7 @@
 
 - (void)quicklyBtnAction:(UIButton *)sender{
 
+    _isQuickly_Register = YES;
     NSLog(@"点击了快速注册");
     _loginTypeBgView.hidden = YES;
     _registerTypeBgView.hidden = NO;
@@ -453,6 +483,13 @@
 //    
 //    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 //    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    
+    NSString * currentPhone = [userDefault objectForKey:ZHAOHUIPASSWORD_CURRENT_PHONE];
+    
+    if (![currentPhone isEqualToString:@""] && currentPhone != nil) {
+        [self textField:_accountView].text = currentPhone;
+    }
     
     //设置是否可以登录
     if ([[self textField:_accountView].text isEqualToString:@""] || [[self textField:_passwordView].text isEqualToString:@""]) {
@@ -463,14 +500,14 @@
         _loginButton.layer.borderWidth = 1.0f;
         _loginButton.layer.borderColor = [UIColor colorWithHexString:@"#AE8E5D"].CGColor;
          */
-        [_loginButton setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+        [_loginButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
         
     }
     //设置是否可以注册
     if (!_isReadDelegate || ![self checkRegisterButtonEnabledYESorNO]) {
         
         _registerButton.enabled = NO;
-        [_registerButton setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+        [_registerButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
     }
     
     
@@ -500,7 +537,7 @@
     }
     else{
         _codeButton.enabled = NO;
-        [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+        [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
     }
     
 }
@@ -519,7 +556,7 @@
         
     }
     [_tableView reloadData];
-    _tableViewH.constant = _accountArray.count > 3 ? 3 * 30 : _accountArray.count * 30;
+    _tableViewH.constant = _accountArray.count > 3 ? 3 * 40 : _accountArray.count * 40;
 }
 
 //倒计时
@@ -543,7 +580,7 @@
                 _codeButton.layer.borderWidth = 1.0f;
                 _codeButton.layer.borderColor = [UIColor clearColor].CGColor;
                  */
-                [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_BackgroundColor]];
+                [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonNormel_backgroundColor]];
             });
         }else{
             int seconds;
@@ -560,7 +597,7 @@
                 _isFaSonging = YES;
                 [_codeButton setTitle:strTime forState:UIControlStateNormal];
                 
-                [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_grayBackgroundColor]];
+                [_codeButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonGray_backgroundColor]];
                 //_codeButton setbac
                 /*
                 [_codeButton setBackgroundImage:[UIImage imageNamed:@"TM.jpg"] forState:UIControlStateNormal];
@@ -683,6 +720,25 @@
     UIView *view = ((UIButton *)sender).superview;
     [self textField:view].text = @"";
     ((UIButton *)sender).hidden = YES;
+    
+    if (_isLogin) {
+        _loginButton.enabled = NO;
+        
+        //[_loginButton setBackgroundImage:[UIImage imageNamed:@"TM.jpg"] forState:UIControlStateNormal];
+        _loginButton.backgroundColor = [HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor];
+    }
+    else{
+        self.registerButton.enabled = NO;
+        [self.registerButton setBackgroundColor:[UIColor colorWithHexString:Main_ButtonGray_backgroundColor]];
+        
+        if (![HFSUtility validateMobile:[self textField:_rphoneView].text]) {
+            _codeButton.enabled = NO;
+            [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
+        }
+
+    
+    }
+    
 }
 
 #pragma mark- 注册
@@ -724,28 +780,6 @@
     //NSLog(@"加密后：%@",ret2);
     //调用原生注册方法
     [self yuanShengRegisterAcrionWithRet2:ret2];
-    /*
-<<<<<<< Updated upstream
-     [[HFSServiceClient sharedClient] POST:Login_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-     NSDictionary *result = (NSDictionary *)responseObject;
-     NSLog(@"%@",responseObject);
-     
-     NSLog(@"登录成功");
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-     NSLog(@"登录失败:%@",error);
-     }];
-     */
-    /*
-     [[HFSServiceClient sharedJSONClient] POST:@"http://app-test.matrojp.com/member/ajax/app/login" parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-     NSLog(@"登录成功:%@",responseObject);
-     
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-     NSLog(@"登录失败：%@",error);
-     }];
-     */
-    
-    
-    
 
     
     
@@ -1107,7 +1141,7 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"请求失败";
+            _hud.labelText = REQUEST_ERROR_ZL;
             [_hud hide:YES afterDelay:2];
         }];
          */
@@ -1227,7 +1261,7 @@
         [_hud show:YES];
         NSLog(@"error kkkk %@",error);
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
     }];
 }
@@ -1315,7 +1349,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
     }];
  
@@ -1410,7 +1444,7 @@
     if ([self textField:_accountView].text.length == 0) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请输入手机号";
+        _hud.labelText = @"手机号格式错误，请确认。";
         [_hud hide:YES afterDelay:2];
         return;
         
@@ -1418,7 +1452,7 @@
     if ([self textField:_passwordView].text.length == 0) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请输入密码";
+        _hud.labelText = @"请使用6-20个字母或数字。";
         [_hud hide:YES afterDelay:2];
         return;
         
@@ -1487,8 +1521,7 @@
                                                   //NSLog(@"error原生数据登录：++： %@",yuanDic);
                                                   if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
                                                       
-                                                      _hud.labelText = @"登录成功";
-                                                      [_hud hide:YES afterDelay:2];
+  
                                                       
                                                       // 存储用户信息
                                                       NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -1597,28 +1630,28 @@
                                                       }
                                                       
                                                   }else{
-                                                      //dispatch_async(dispatch_get_main_queue(), ^{
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
                                                           
                                                           [_hud show:YES];
                                                           _hud.mode = MBProgressHUDModeText;
                                                           _hud.labelText = result[@"errMsg"];
                                                           _hud.labelFont = [UIFont systemFontOfSize:13];
                                                           [_hud hide:YES afterDelay:1];
-                                                      //});
+                                                      });
                                                   }
                                                   
                                               }
                                           }
                                           else{
                                           //请求有错误
-                                              //dispatch_async(dispatch_get_main_queue(), ^{
+                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                   
                                                   [_hud show:YES];
                                                   _hud.mode = MBProgressHUDModeText;
                                                   _hud.labelText = REQUEST_ERROR_ZL;
                                                   _hud.labelFont = [UIFont systemFontOfSize:13];
                                                   [_hud hide:YES afterDelay:1];
-                                              //});
+                                              });
                                           
                                           }
                                           
@@ -1664,7 +1697,10 @@
     
     //@"vip/AuthUserInfo"
 //    [[HFSServiceClient sharedClient] POST:Login_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
         [task resume];
+
+    //});
 }
 //调用 李佳重新认证接口
 - (void)renZhengLiJiaWithPhone:(NSString *)phoneString withAccessToken:(NSString *) accessTokenStr{
@@ -1690,28 +1726,17 @@
                                       ^(NSData *data, NSURLResponse *response, NSError *error) {
                                           NSString *resultString  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                           NSLog(@"李佳认证:%@,错误信息：%@",resultString,error);
-                                          
-                                          
-                                          //NSString * timeStr = @"1334322098";
-                                          
-//                                          NSDate * date1 = [NSDate dateWithTimeIntervalSinceReferenceDate:1334322098];
-//                                          NSDate * date3 = [NSDate dateWithTimeIntervalSinceNow:1334322098];
-//                                          NSDate * date4 = [NSDate dateWithTimeIntervalSince1970:1334322098];
-//                                          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-//                                          [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-//                                          NSString * fuWuStirng1 = [dateFormatter stringFromDate:date1];
-//                                          NSString * fuWuStirng3 = [dateFormatter stringFromDate:date3];
-//                                          NSString * fuWuStirng4 = [dateFormatter stringFromDate:date4];
-//                                          NSLog(@"服务器的时间为;1---%@,3---%@,4----%@",fuWuStirng1,fuWuStirng3,fuWuStirng4);
-//                                          
-//                                          
-//                                          //NSDate * date2 = [[NSDate alloc]initWithTimeInterval:0 sinceDate:date1];
-//                                          
-//                                          NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
-//                                          NSLog(@"model1地址：%p",model1);
-//                                          model1.timeInterval =1334322098;
-//                                          model1.firstDate = [NSDate date];
 
+                                          NSDate * date1 = [NSDate dateWithTimeIntervalSinceReferenceDate:1334322098];
+                                          NSDate * date3 = [NSDate dateWithTimeIntervalSinceNow:1334322098];
+                                          NSDate * date4 = [NSDate dateWithTimeIntervalSince1970:1334322098];
+                                          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+                                          [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+                                          NSString * fuWuStirng1 = [dateFormatter stringFromDate:date1];
+                                          NSString * fuWuStirng3 = [dateFormatter stringFromDate:date3];
+                                          NSString * fuWuStirng4 = [dateFormatter stringFromDate:date4];
+                                          NSLog(@"服务器的时间为;1---%@,3---%@,4----%@",fuWuStirng1,fuWuStirng3,fuWuStirng4);
+                                          
                                           
                                           
                                           //请求没有错误
@@ -1739,20 +1764,41 @@
                                                   
                                                   
                                                   //NSLog(@"error原生数据登录：++： %@",yuanDic);
+
+                                                  NSLog(@"李佳原生数据登录：++： %@",result);
+                                                  NSDictionary * dataDic = result[@"data"];
+                                                  
+                                                  //单例方法获取 时间戳
+                                                  NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
+                                                  //NSLog(@"model1地址：%p",model1);
+                                                  //model1.timeInterval =1334322098;
+                                                  //model1.firstDate = [NSDate date];
+                                                  
+                                                  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                                                  if (dataDic[@"bbc_token"]) {
+                                                      [userDefaults setObject:dataDic[@"bbc_token"] forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
+                                                  }
+                                                  if (dataDic[@"timestamp"]) {
+                                                      //NSString * timeStr = [dataDic[@"timestamp"] doubleValue];
+                                                      model1.timeInterval = (NSTimeInterval)[dataDic[@"timestamp"] doubleValue];
+                                                      model1.firstDate = [NSDate date];
+                                                      [userDefaults setObject:dataDic[@"timestamp"] forKey:KUSERDEFAULT_TIMEINTERVAR_LIJIA];
+                                                  }
+
                                                   
                                                   
                                               }
                                           }
                                           else{
                                               //请求有错误
-                                              //dispatch_async(dispatch_get_main_queue(), ^{
+                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                   
                                                   [_hud show:YES];
                                                   _hud.mode = MBProgressHUDModeText;
                                                   _hud.labelText = REQUEST_ERROR_ZL;
                                                   _hud.labelFont = [UIFont systemFontOfSize:13];
                                                   [_hud hide:YES afterDelay:1];
-                                              //});
+                                              });
                                               
                                           }
                                           
@@ -1927,7 +1973,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         NSLog(@"error %@",error);
         [_hud hide:YES afterDelay:2];
     }];
@@ -2056,7 +2102,7 @@
                                                   else{//如果没有调到绑定页面
                                                       NSLog(@"登录到绑定页");
                                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                                      MLBindPhoneController *vc = [[MLBindPhoneController alloc]init];
+                                                      BingPhoneZlViewController *vc = [[BingPhoneZlViewController alloc]init];
                                                       [vc backBlocksAction:^(BOOL success) {
                                                           if (success) {
                                                               [weakSelf dismissViewControllerAnimated:YES completion:nil];
@@ -2142,7 +2188,7 @@
     }else{
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请输入正确的手机号码";
+        _hud.labelText = @"手机号格式错误，请确认。";
         [_hud hide:YES afterDelay:2];
     }
 
@@ -2158,7 +2204,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"验证码已发送，请注意查收";
+            _hud.labelText = @"验证码已发送";
             [_hud hide:YES afterDelay:2];
             });
             _endTime = 60;
@@ -2177,7 +2223,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
         });
     }];
@@ -2216,7 +2262,7 @@
 
                                                       [_hud show:YES];
                                                       _hud.mode = MBProgressHUDModeText;
-                                                      _hud.labelText = @"手机号已注册";
+                                                      _hud.labelText = @"您的手机号已注册，请登录。";
                                                       [_hud hide:YES afterDelay:2];
                                                       });
                                                   }
@@ -2278,11 +2324,11 @@
     if([textField isEqual:[self textField:_rphoneView]]){
         if ([textField.text isEqualToString:@""] || !textField.text) {
             _codeButton.enabled = NO;
-            [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
+            [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonGray_backgroundColor]];
         }
         else{
             _codeButton.enabled = YES;
-            [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_BackgroundColor]];
+            [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
         }
     }
 }
@@ -2313,14 +2359,14 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 35;
+    return 40;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [self textField:_accountView].text = _accountArray[indexPath.row];
-    NSLog(@"%@",_accountArray[indexPath.row]);
+    NSLog(@"点击了选择手机号单元格%@",_accountArray[indexPath.row]);
     [[self textField:_accountView] resignFirstResponder];
     [self textField:_passwordView].text = @"";
     _tableView.hidden = YES;

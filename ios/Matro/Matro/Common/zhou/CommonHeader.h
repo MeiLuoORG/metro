@@ -110,6 +110,6 @@
 //按钮正常颜色
 #define Main_ButtonNormel_backgroundColor @"ae8e5d"
 
-#define REQUEST_ERROR_ZL @"请求失败"
+#define REQUEST_ERROR_ZL @"服务连接失败"
 
 #endif
