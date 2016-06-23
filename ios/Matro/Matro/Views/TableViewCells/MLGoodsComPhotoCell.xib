@@ -16,10 +16,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadinghome" translatesAutoresizingMaskIntoConstraints="NO" id="jFE-4N-G1R">
-                        <rect key="frame" x="8" y="8" width="304" height="231"/>
+                        <rect key="frame" x="8" y="8" width="304" height="223"/>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ySx-Rs-5g4">
-                        <rect key="frame" x="290" y="15" width="16" height="22"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ySx-Rs-5g4">
+                        <rect key="frame" x="290" y="14" width="16" height="22"/>
                         <state key="normal" image="icon_pingjia_shanchu"/>
                         <connections>
                             <action selector="delClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9hr-N3-FRA"/>
@@ -27,15 +27,16 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="jFE-4N-G1R" secondAttribute="bottom" constant="-8" id="BUv-4a-eo0"/>
                     <constraint firstItem="ySx-Rs-5g4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="6" id="DW7-ya-fOF"/>
                     <constraint firstItem="jFE-4N-G1R" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="JFK-ol-lY7"/>
                     <constraint firstItem="jFE-4N-G1R" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Rp0-QD-lNn"/>
+                    <constraint firstAttribute="bottom" secondItem="jFE-4N-G1R" secondAttribute="bottom" constant="8" id="UAz-EJ-6Dp"/>
                     <constraint firstAttribute="trailingMargin" secondItem="jFE-4N-G1R" secondAttribute="trailing" id="gu7-i9-cNb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ySx-Rs-5g4" secondAttribute="trailing" constant="6" id="pWI-zm-NN4"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="delBtn" destination="ySx-Rs-5g4" id="s5A-Bv-WdX"/>
                 <outlet property="myImageView" destination="jFE-4N-G1R" id="W08-8i-Wel"/>
             </connections>
         </tableViewCell>

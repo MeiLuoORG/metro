@@ -7,12 +7,15 @@
 //
 
 #import "MLProductComDetailHeadCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation MLProductComDetailHeadCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -20,5 +23,16 @@
 
     // Configure the view for the selected state
 }
+
+- (void)setProductModel:(MLProductCommentDetailProduct *)productModel{
+    if (_productModel != productModel) {
+        _productModel = productModel;
+        
+        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productModel.pic]];
+        self.goodsName.text = _productModel.pname;
+        
+    }
+}
+
 
 @end

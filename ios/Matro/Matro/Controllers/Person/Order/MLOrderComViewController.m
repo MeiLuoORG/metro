@@ -19,10 +19,13 @@
 #import "MLGoodsComViewController.h"
 #import "MLPersonOrderModel.h"
 #import "MLCommentProductModel.h"
+#import "MLProductComDetailViewController.h"
 
 
 
-@interface MLOrderComViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MLOrderComViewController ()<UITableViewDelegate,UITableViewDataSource>{
+    NSInteger logisticsScore,productScore,serviceScore,fahuoScore;
+}
 
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *productArr;
@@ -30,7 +33,7 @@
 @end
 
 
-static NSInteger logisticsScore,productScore,serviceScore;
+
 
 @implementation MLOrderComViewController
 
@@ -60,30 +63,35 @@ static NSInteger logisticsScore,productScore,serviceScore;
 
 - (void)subOrderCom{
     
-    if (logisticsScore > 0 && productScore >0 &&serviceScore) {
-        NSString *userId = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID]?:@"";
+    if (logisticsScore > 0 && productScore >0 &&serviceScore>0&&fahuoScore>0) {
         
-        NSDictionary *parm = @{@"orderId":@"",@"userId":userId,@"productScore":[NSNumber numberWithInteger:productScore],@"serviceScore":[NSNumber numberWithInteger:serviceScore],@"logisticsScore":[NSNumber numberWithInteger:logisticsScore]};
+        NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=order_submit&id=%@&uid=13771961207",@"http://bbctest.matrojp.com",self.order_id];
         
-        [[HFSServiceClient sharedJSONClientwithurl:SERVICE_BASE_URL]POST:@"order/StarScore" parameters:parm success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString *result = [responseObject objectForKey:@"status"];
-            NSLog(@"%@",responseObject);
-            if ([result isEqualToString:@"0"]) {
-                
-                [MBProgressHUD showSuccess:@"评价成功" toView:self.view];
-                [self performSelector:@selector(goBack) withObject:nil afterDelay:2];
-                
-            }
-            else{
-                [MBProgressHUD showMessag:responseObject[@"msg"] toView:self.view];
-                
+        NSDictionary *params = @{@"snuma":[NSNumber numberWithInteger:productScore],@"snumd":[NSNumber numberWithInteger:logisticsScore],@"snumb":[NSNumber numberWithInteger:serviceScore],@"snumc":[NSNumber numberWithInteger:fahuoScore]};
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary *result = (NSDictionary *)responseObject;
+            if ([result[@"code"] isEqual:@0]) {
+                [MBProgressHUD showMessag:@"评价成功" toView:self.view];
             }
             
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
-            [MBProgressHUD showMessag:@"请求失败" toView:self.view];
+            
         }];
         
+        
+        
+//        [[HFSServiceClient sharedJSONClientNOT]POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSDictionary *result = (NSDictionary *)responseObject;
+//            if ([result[@"code"] isEqual:@0]) {
+//                [MBProgressHUD showMessag:@"评价成功" toView:self.view];
+//            }
+//            
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            
+//        }];
         
     }
     else{
@@ -142,7 +150,12 @@ static NSInteger logisticsScore,productScore,serviceScore;
                 vc.hidesBottomBarWhenPushed = YES;
                 [weakself.navigationController pushViewController:vc animated:YES];
             }else{ //已评价  去评价详情页面
-                NSLog(@"去评价详情");
+                
+                MLProductComDetailViewController *vc = [[MLProductComDetailViewController alloc]init];
+                vc.comment_id = product.detail_id;
+                vc.hidesBottomBarWhenPushed = YES;
+                [weakself.navigationController pushViewController:vc animated:YES];
+                
             }
             
         };
@@ -167,7 +180,9 @@ static NSInteger logisticsScore,productScore,serviceScore;
             cell.shangpinBlock = ^(NSInteger score){
                 productScore = score;
             };
-            
+            cell.fahuoBlock = ^(NSInteger score){
+                fahuoScore = score;
+            };
             return cell;
         }
     }
@@ -188,7 +203,7 @@ static NSInteger logisticsScore,productScore,serviceScore;
         if (indexPath.row == 0 ) {
             return 44;
         }
-        return 255.f;
+        return 290.f;
     }
 }
 

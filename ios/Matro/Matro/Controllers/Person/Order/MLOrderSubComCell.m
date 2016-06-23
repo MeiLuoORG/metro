@@ -40,6 +40,14 @@
     };
     [self.fuwuBgView addSubview:view3];
     
+    MLScoreView *view4 = [[MLScoreView alloc]initWithFrame:CGRectMake(0, 0, 150, 25)];
+    view4.starViewBlock = ^(NSInteger score){
+        if (self.fahuoBlock) {
+            self.fahuoBlock(score);
+        }
+    };
+    [self.fahuoBgView addSubview:view4];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

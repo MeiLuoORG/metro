@@ -25,16 +25,11 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="快递地址将在退货单审核通过后以短信形式告知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Hr-cK-dW1">
                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入联系号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aEX-6B-glD">
-                    <rect key="frame" x="-25" y="-30" width="97" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入联系人姓名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gDZ-XW-PMg">
                     <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
@@ -45,7 +40,8 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="MZv-Dr-jtz"/>
                     </constraints>
-                    <state key="normal" title="提交">
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="提 交">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </state>
                     <variation key="default">
@@ -59,6 +55,11 @@
                         </mask>
                     </variation>
                 </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入联系人姓名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gDZ-XW-PMg">
+                    <rect key="frame" x="-25" y="-30" width="97" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -89,28 +90,28 @@
                     <exclude reference="bnD-V9-ZDF"/>
                     <exclude reference="2Hr-cK-dW1"/>
                     <exclude reference="aEX-6B-glD"/>
-                    <exclude reference="gDZ-XW-PMg"/>
                     <exclude reference="blZ-Gz-32t"/>
+                    <exclude reference="gDZ-XW-PMg"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="mTe-Bn-Axv"/>
-                    <exclude reference="xDw-BO-tik"/>
-                    <exclude reference="XiK-cw-TLS"/>
-                    <exclude reference="jFp-GP-pC8"/>
-                    <exclude reference="ugJ-3W-lB4"/>
-                    <exclude reference="D8L-Di-07a"/>
-                    <exclude reference="P7L-UJ-djd"/>
-                    <exclude reference="QpU-fw-mKl"/>
                     <exclude reference="6eK-1v-3nL"/>
                     <exclude reference="EOi-0p-7hO"/>
                     <exclude reference="M3E-uV-hqz"/>
                     <exclude reference="ljw-qG-eIF"/>
                     <exclude reference="yBc-PH-kV6"/>
-                    <exclude reference="8VX-5t-kgT"/>
-                    <exclude reference="qz5-ig-14P"/>
+                    <exclude reference="D8L-Di-07a"/>
+                    <exclude reference="P7L-UJ-djd"/>
+                    <exclude reference="QpU-fw-mKl"/>
                     <exclude reference="Bsx-nL-4nj"/>
                     <exclude reference="YCL-GI-7K1"/>
                     <exclude reference="xXt-hM-mAg"/>
+                    <exclude reference="8VX-5t-kgT"/>
+                    <exclude reference="qz5-ig-14P"/>
+                    <exclude reference="mTe-Bn-Axv"/>
+                    <exclude reference="xDw-BO-tik"/>
+                    <exclude reference="XiK-cw-TLS"/>
+                    <exclude reference="jFp-GP-pC8"/>
+                    <exclude reference="ugJ-3W-lB4"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -119,28 +120,28 @@
                     <include reference="bnD-V9-ZDF"/>
                     <include reference="2Hr-cK-dW1"/>
                     <include reference="aEX-6B-glD"/>
-                    <include reference="gDZ-XW-PMg"/>
                     <include reference="blZ-Gz-32t"/>
+                    <include reference="gDZ-XW-PMg"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="mTe-Bn-Axv"/>
-                    <include reference="xDw-BO-tik"/>
-                    <include reference="XiK-cw-TLS"/>
-                    <include reference="jFp-GP-pC8"/>
-                    <include reference="ugJ-3W-lB4"/>
-                    <include reference="D8L-Di-07a"/>
-                    <include reference="P7L-UJ-djd"/>
-                    <include reference="QpU-fw-mKl"/>
                     <include reference="6eK-1v-3nL"/>
                     <include reference="EOi-0p-7hO"/>
                     <include reference="M3E-uV-hqz"/>
                     <include reference="ljw-qG-eIF"/>
                     <include reference="yBc-PH-kV6"/>
-                    <include reference="8VX-5t-kgT"/>
-                    <include reference="qz5-ig-14P"/>
+                    <include reference="D8L-Di-07a"/>
+                    <include reference="P7L-UJ-djd"/>
+                    <include reference="QpU-fw-mKl"/>
                     <include reference="Bsx-nL-4nj"/>
                     <include reference="YCL-GI-7K1"/>
                     <include reference="xXt-hM-mAg"/>
+                    <include reference="8VX-5t-kgT"/>
+                    <include reference="qz5-ig-14P"/>
+                    <include reference="mTe-Bn-Axv"/>
+                    <include reference="xDw-BO-tik"/>
+                    <include reference="XiK-cw-TLS"/>
+                    <include reference="jFp-GP-pC8"/>
+                    <include reference="ugJ-3W-lB4"/>
                 </mask>
             </variation>
             <connections>

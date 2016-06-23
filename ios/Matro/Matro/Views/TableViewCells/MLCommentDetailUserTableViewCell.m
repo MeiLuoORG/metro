@@ -14,6 +14,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.headImg.layer.masksToBounds = YES;
+    self.headImg.layer.cornerRadius = 15.f;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

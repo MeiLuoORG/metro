@@ -51,7 +51,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="韩国CLIO/克莱欧国达尔蜗牛亮付保湿懒人霜韩国CLIO/克莱欧国达尔蜗牛亮付保湿懒人霜" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJP-y4-TKS">
-                        <rect key="frame" x="88" y="13" width="212" height="29"/>
+                        <rect key="frame" x="88" y="15" width="212" height="29"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -60,23 +60,15 @@
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="XDO-OV-jPe" secondAttribute="trailing" constant="-8" id="6xC-y7-0iP"/>
                     <constraint firstItem="XDO-OV-jPe" firstAttribute="top" secondItem="bbD-Qi-Gfq" secondAttribute="bottom" constant="10" id="FNN-TB-eIu"/>
-                    <constraint firstItem="GJP-y4-TKS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="MQK-1j-2ap"/>
-                    <constraint firstItem="bbD-Qi-Gfq" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="NDW-QG-hpO"/>
+                    <constraint firstItem="GJP-y4-TKS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="MQK-1j-2ap"/>
                     <constraint firstAttribute="trailing" secondItem="GJP-y4-TKS" secondAttribute="trailing" constant="20" id="SK6-b6-b5f"/>
                     <constraint firstAttribute="bottomMargin" secondItem="XDO-OV-jPe" secondAttribute="bottom" constant="-9" id="Wx8-NZ-6so"/>
                     <constraint firstItem="GJP-y4-TKS" firstAttribute="leading" secondItem="wGb-wF-nZ8" secondAttribute="trailing" constant="8" id="i7L-X5-GXj"/>
                     <constraint firstItem="wGb-wF-nZ8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="joX-B0-0a6"/>
                     <constraint firstAttribute="trailing" secondItem="bbD-Qi-Gfq" secondAttribute="trailing" constant="20" id="oir-Og-fmM"/>
                     <constraint firstItem="wGb-wF-nZ8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="swz-o6-4AX"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="GJP-y4-TKS" secondAttribute="trailing" id="tCr-EA-fv9"/>
                     <constraint firstItem="XDO-OV-jPe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="vAE-k3-7gp"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="tCr-EA-fv9"/>
-                        <exclude reference="NDW-QG-hpO"/>
-                    </mask>
-                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="myImageView" destination="wGb-wF-nZ8" id="JQu-kx-8Fc"/>

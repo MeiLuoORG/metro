@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 @class MLProductCommentDetailText;
 @class MLProductCommentDetailProduct;
 @class MLProductCommentDetailByuser;
@@ -31,7 +32,7 @@
 @end
 @interface MLProductCommentDetailProduct : NSObject
 @property (nonatomic,copy)NSString *pic;
-@property (nonatomic,strong)NSArray *photos;
+@property (nonatomic,copy)NSString *pname;
 @property (nonatomic,copy)NSString *goodbad;
 @end
 @interface MLProductCommentDetailByuser : NSObject
@@ -39,10 +40,22 @@
 @property (nonatomic,copy)NSString *logo;
 @property (nonatomic,copy)NSString *user;
 @property (nonatomic,copy)NSString *uptime;
+
+
 @end
 
 @interface MLProductCommentDetailText : NSObject
 @property (nonatomic,copy)NSString *con;
 @property (nonatomic,strong)NSArray *photos;
 @property (nonatomic,copy)NSString *reply;
+
+@property (nonatomic,assign)CGFloat cellHeight;
+
+
 @end
+
+@interface MLProductCommentImage : NSObject
+@property (nonatomic,copy)NSString *src;
+@property (nonatomic,copy)NSString *data_src;
+@end
+

@@ -17,6 +17,8 @@ typedef void(^OrderComShangpinBlock)(NSInteger score)
 ;
 typedef void(^OrderComFuwuBlock)(NSInteger score)
 ;
+typedef void(^OrderComFahuoBlock)(NSInteger score)
+;
 @interface MLOrderSubComCell : UITableViewCell
 
 
@@ -28,5 +30,7 @@ typedef void(^OrderComFuwuBlock)(NSInteger score)
 @property (nonatomic,copy)OrderComWuliuBlock wuliuBlock;
 @property (nonatomic,copy)OrderComShangpinBlock shangpinBlock;
 @property (nonatomic,copy)OrderComFuwuBlock fuwuBlock;
+@property (nonatomic,copy)OrderComFahuoBlock fahuoBlock;
+@property (weak, nonatomic) IBOutlet UIView *fahuoBgView;
 
 @end

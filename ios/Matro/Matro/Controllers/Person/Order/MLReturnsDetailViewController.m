@@ -72,15 +72,15 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return self.returnsDetail.products.count+2;
-    }else if (section==1){
+    }else{
         return 2;
     }
-    return 5;
+    
 }
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 2;
 }
 
 
@@ -136,21 +136,6 @@
             cell.imgsArray = self.returnsDetail.returnInfo.pic;
             return cell;
         }
-    }else{ //物流信息
-        MLLogisticsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kLogisticsTableViewCell forIndexPath:indexPath];
-        if (indexPath.row == 0) { //头
-            cell.topLine.hidden = YES;
-            cell.point.backgroundColor = [UIColor colorWithHexString:@"#AE8E5D"];
-            cell.infoLabel.textColor = [UIColor colorWithHexString:@"#AE8E5D"];
-        }else if (indexPath.row == 4){ //尾
-            cell.bottomLine.hidden = YES;
-            cell.point2.hidden = YES;
-            cell.point.backgroundColor = [UIColor colorWithHexString:@"#dcdcdc"];
-            cell.infoLabel.textColor = [UIColor colorWithHexString:@"#0e0e0e"];
-        }else{
-            cell.point2.hidden = YES;
-        }
-        return cell;
     }
     
     return nil;
@@ -160,7 +145,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return 130;
+            return 140;
         }else if (indexPath.row == 1){
             return 40;
         }
@@ -173,8 +158,6 @@
         }else if (indexPath.row ==1){
             return 120;
         }
-    }else{//物流信息
-        return 100;
     }
     return 0;
 }
@@ -229,7 +212,7 @@
 }
 
 - (void)returnsCancelAction{
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=cancel",@"http://bbctest.matrojp.com"];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=cancel&test_phone=13771961207",@"http://bbctest.matrojp.com"];
     NSDictionary *params = @{@"order_id":self.returnsDetail.order_id?:@""};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -242,9 +225,7 @@
         
     }];
     
-    
-    
-    
+
     
     
 }

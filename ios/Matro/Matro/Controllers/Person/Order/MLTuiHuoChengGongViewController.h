@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MLTuiHuoChengGongViewController : UIViewController
+@property (nonatomic,copy)NSString *order_id;
 
 @end

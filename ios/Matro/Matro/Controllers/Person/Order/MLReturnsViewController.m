@@ -91,7 +91,6 @@ static NSInteger pageIndex = 0;
     
     MLTuiHuoModel *model = [self.orderList objectAtIndex:indexPath.section];
     
-    
     __weak typeof(self) weakself = self;
     if (indexPath.row == 0 ) {
         MLRetrunsHeadCell *cell =[tableView dequeueReusableCellWithIdentifier:kMLRetrunsHeadCell forIndexPath:indexPath];
@@ -158,13 +157,6 @@ static NSInteger pageIndex = 0;
 }
 
 - (void)getOrderDataSource{
-//    NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-//    NSTimeInterval time = [[NSDate new] timeIntervalSince1970];
-//    NSString *sign = [token substringToIndex:12];
-//    
-//    NSString *signStr = [NSString stringWithFormat:@"%@%@%.f%@",sign,@"return",time,@"order_list"];
-//    
-//    NSString *md5 = [self md5:signStr];
     
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_list&cur_page=%li&page_size=10&test_phone=%@",@"http://bbctest.matrojp.com",pageIndex,@"13771961207"];
     [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -192,8 +184,6 @@ static NSInteger pageIndex = 0;
     }];
     
 }
-
-
 
 
 @end

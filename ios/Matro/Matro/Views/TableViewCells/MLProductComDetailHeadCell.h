@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MLCommentProductModel.h"
 
 #define kProductComDetailHeadCell  @"productComDetailHeadCell"
 @interface MLProductComDetailHeadCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UIImageView *goodsImg;
+@property (weak, nonatomic) IBOutlet UILabel *goodsName;
+
+@property (nonatomic,strong)MLProductCommentDetailProduct *productModel;
+
 
 @end

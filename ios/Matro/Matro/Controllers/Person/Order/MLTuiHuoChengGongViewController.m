@@ -7,6 +7,7 @@
 //
 
 #import "MLTuiHuoChengGongViewController.h"
+#import "MLReturnsDetailViewController.h"
 
 @interface MLTuiHuoChengGongViewController ()
 
@@ -26,6 +27,12 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)btnAction:(id)sender {
+    MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
+    vc.order_id = self.order_id;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
 }
 
 @end

@@ -16,5 +16,6 @@ typedef void(^GoodsComDelImageBlock)();
 @property (weak, nonatomic) IBOutlet UIImageView *myImageView;
 
 @property (nonatomic,copy)GoodsComDelImageBlock goodsComDelImageBlock;
+@property (weak, nonatomic) IBOutlet UIButton *delBtn;
 
 @end

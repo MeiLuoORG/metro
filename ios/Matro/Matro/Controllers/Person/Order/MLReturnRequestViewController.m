@@ -38,7 +38,7 @@
     PlaceholderTextView *messageText;
     UITextField *usernameField;
     UITextField *userphoneField;
-    NSArray *selTag;
+    MLReturnsQuestiontype *selQuestion;
     NSArray *tagsArray;
 }
 @property (nonatomic,strong)UITableView *tableView;
@@ -89,17 +89,11 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.left.bottom.mas_equalTo(self.view);
     }];
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"success" style:UIBarButtonItemStylePlain target:self action:@selector(pushToSuccess:)];
+    
     [self getOrderDetail];
 
 }
 
-- (void)pushToSuccess:(id)sender{
-    MLTuiHuoChengGongViewController *vc = [[MLTuiHuoChengGongViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
-    
-}
 
 
 
@@ -160,10 +154,9 @@
         cell.clickStr = self.returnsDetail.returnInfo.question_type.content;
         cell.tags = tagsArray;
         cell.wenTiBiaoQianSelBlock = ^(NSArray *tagsIndex){
-            NSString *indexStr = [tagsArray firstObject];
+            NSString *indexStr = [tagsIndex firstObject];
             NSInteger index = [indexStr integerValue];
-            MLReturnsQuestiontype *t = [weakself.returnsDetail.question_type objectAtIndex:index];
-            weakself.returnsDetail.returnInfo.question_type = t;
+            selQuestion = [weakself.returnsDetail.question_type objectAtIndex:index];
         };
         return cell;
     }else if (indexPath.section == 2){
@@ -193,6 +186,8 @@
     }
 
 }
+
+
 
 - (void)showMore:(id)sender{
     isOpen = YES;
@@ -236,6 +231,10 @@
 #pragma mark 提交操作
 
 - (void)submitAction:(id)seder{
+    
+    if (![self checkFormat]) {
+        return;
+    }
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:3];
     MLXuanZeTuPianTableViewCell *cell  =[self.tableView cellForRowAtIndexPath:index];
     if (cell.imgsArray.count > 0) {
@@ -280,14 +279,18 @@
 }
 
 - (void)submitTuihuoAction{
+
     NSString *url = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=return&s=save_return&test_phone=%@",@"13771961207"];
-    NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":@"1",@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"username":usernameField.text.length>0?usernameField.text:@"",@"userphone":userphoneField.text.length>0?userphoneField.text:@"",@"pic":self.imgsUrlArray.description};
+    NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":selQuestion.ID,@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"username":usernameField.text.length>0?usernameField.text:@"",@"userphone":userphoneField.text.length>0?userphoneField.text:@"",@"pic":self.imgsUrlArray.description};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@",responseObject);
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
-            [MBProgressHUD showMessag:@"提交成功" toView:self.view];
+            MLTuiHuoChengGongViewController *vc = [[MLTuiHuoChengGongViewController alloc]init];
+            vc.order_id = self.order_id;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -329,6 +332,44 @@
     
     
     
+}
+
+
+
+- (BOOL)checkFormat{
+    if (!selQuestion) {
+        [MBProgressHUD showMessag:@"请选择问题类型" toView:self.view];
+        return NO;
+    }
+    else{
+        if (messageText.text.length == 0) {
+            [MBProgressHUD showMessag:@"请输入问题描述" toView:self.view];
+            return NO;
+        }else{
+            NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:3];
+            MLXuanZeTuPianTableViewCell *cell  =[self.tableView cellForRowAtIndexPath:index];
+            if (cell.imgsArray.count == 1) {//请上传问题图片
+                [MBProgressHUD showMessag:@"请上传图片" toView:self.view];
+                return NO;
+            }
+            else{
+                if (usernameField.text.length == 0) {
+                    [MBProgressHUD showMessag:@"请输入联系人" toView:self.view];
+                    return NO;
+                }
+                else{
+                    if (userphoneField.text.length == 0) {
+                        [MBProgressHUD showMessag:@"请输入联系电话" toView:self.view];
+                        return NO;
+                    }
+                    else{
+                        return YES;
+                    }
+                }
+            }
+        }
+    }
+    return NO;
 }
 
 

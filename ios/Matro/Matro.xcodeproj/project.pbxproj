@@ -363,6 +363,8 @@
 		7A0720411D17E98400E0B58E /* MLXuanZeTuPianTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A07203F1D17E98400E0B58E /* MLXuanZeTuPianTableViewCell.xib */; };
 		7A0720451D17EDC300E0B58E /* MLAddImgCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0720431D17EDC300E0B58E /* MLAddImgCollectionViewCell.m */; };
 		7A0720461D17EDC300E0B58E /* MLAddImgCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0720441D17EDC300E0B58E /* MLAddImgCollectionViewCell.xib */; };
+		7A07AC5D1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A07AC5B1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.m */; };
+		7A07AC5E1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A07AC5C1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.xib */; };
 		7A083FC11D193E67001F0256 /* MLTuiHuoChengGongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A083FBF1D193E67001F0256 /* MLTuiHuoChengGongViewController.m */; };
 		7A083FC21D193E67001F0256 /* MLTuiHuoChengGongViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A083FC01D193E67001F0256 /* MLTuiHuoChengGongViewController.xib */; };
 		7A083FC51D194299001F0256 /* MLReturnsRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A083FC41D194299001F0256 /* MLReturnsRecordViewController.m */; };
@@ -1233,6 +1235,9 @@
 		7A0720421D17EDC300E0B58E /* MLAddImgCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddImgCollectionViewCell.h; sourceTree = "<group>"; };
 		7A0720431D17EDC300E0B58E /* MLAddImgCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddImgCollectionViewCell.m; sourceTree = "<group>"; };
 		7A0720441D17EDC300E0B58E /* MLAddImgCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLAddImgCollectionViewCell.xib; sourceTree = "<group>"; };
+		7A07AC5A1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCommentDetailTextTableViewCell.h; sourceTree = "<group>"; };
+		7A07AC5B1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCommentDetailTextTableViewCell.m; sourceTree = "<group>"; };
+		7A07AC5C1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLCommentDetailTextTableViewCell.xib; sourceTree = "<group>"; };
 		7A083FBE1D193E67001F0256 /* MLTuiHuoChengGongViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTuiHuoChengGongViewController.h; sourceTree = "<group>"; };
 		7A083FBF1D193E67001F0256 /* MLTuiHuoChengGongViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTuiHuoChengGongViewController.m; sourceTree = "<group>"; };
 		7A083FC01D193E67001F0256 /* MLTuiHuoChengGongViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLTuiHuoChengGongViewController.xib; sourceTree = "<group>"; };
@@ -2593,6 +2598,9 @@
 				7A0936801D1BCDA3002325A2 /* MLCommentDetailUserTableViewCell.h */,
 				7A0936811D1BCDA3002325A2 /* MLCommentDetailUserTableViewCell.m */,
 				7A0936821D1BCDA3002325A2 /* MLCommentDetailUserTableViewCell.xib */,
+				7A07AC5A1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.h */,
+				7A07AC5B1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.m */,
+				7A07AC5C1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -3471,6 +3479,7 @@
 				3AA0E7C21CA920D20079AA90 /* MLPayTableViewCell.xib in Resources */,
 				3A633B911C9EA83D00C11FD5 /* MLBagViewController.xib in Resources */,
 				7A3A62771CDB874F00D265F2 /* MLRetrunsHeadCell.xib in Resources */,
+				7A07AC5E1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.xib in Resources */,
 				3AA0E7A31CA91E500079AA90 /* AlipaySDK.bundle in Resources */,
 				7A272EC01D1A2EFC00242F24 /* MLShopCartMoreCell.xib in Resources */,
 				3ACF2CDC1CA4E702003D1F67 /* MLMoreTableViewCell.xib in Resources */,
@@ -3927,6 +3936,7 @@
 				7AF6EEB81CE40AC200ECFCAA /* MLPersonHeadView.m in Sources */,
 				3A633B361C9EA36E00C11FD5 /* DALabeledCircularProgressView.m in Sources */,
 				7AF6EEC31CE41B3400ECFCAA /* MLPersonOrderCell.m in Sources */,
+				7A07AC5D1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.m in Sources */,
 				7ACD3A751CE842A9004BAF8B /* MLWishlistFootView.m in Sources */,
 				3A0E99FD1CB3B19900364D6E /* MLLogisticsTableViewCell.m in Sources */,
 				3A633B791C9EA4E000C11FD5 /* MLNavigationController.m in Sources */,
