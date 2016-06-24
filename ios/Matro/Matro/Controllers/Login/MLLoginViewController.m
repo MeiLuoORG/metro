@@ -810,24 +810,7 @@
     //调用原生注册方法
     [self yuanShengRegisterAcrionWithRet2:ret2];
 
-    
 
-    //@"vip/AuthUserInfo"
-    [[HFSServiceClient sharedClient] POST:Regist_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSDictionary *result = (NSDictionary *)responseObject;
-        NSLog(@"注册信息：%@",result);
-        
-        
-        
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
-    }];
-    
 }
 #pragma mark 原生注册方法 开始
 - (void) yuanShengRegisterAcrionWithRet2:(NSString *)ret2{
@@ -1486,9 +1469,20 @@
         
         
     }
-
     
-    __weak typeof(self) weakSelf = self;
+//
+//    NSDictionary *dic = @{@"appId":APP_ID,
+//                          @"nonceStr":NONCE_STR,
+//                          @"account":[self textField:_accountView].text,
+//                          @"pwd":[self textField:_passwordView].text
+//                          };
+    
+   // NSData *data = [HFSUtility RSADicToData:dic];
+    
+    //NSString *ret = base64_encode_data(data);
+    //http://app-test.matrojp.com/member/ajax/app/login
+    //{"appId": "test0002","userId":"00007906","password":"123456","sign":$sign}
+
 
     NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"userId":[self textField:_accountView].text,@"password":[self textField:_passwordView].text}];
     NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
@@ -1672,6 +1666,8 @@
                                           }
                                           
                                       }];
+    
+    
 //    NSString *urlStr = [NSString stringWithFormat:@"%@",Login_URLString];
 //    NSURL * URL = [NSURL URLWithString:urlStr];
 //    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
@@ -1708,7 +1704,6 @@
 //                                  }];
 //    
 //    [task resume];
-
         [task resume];
 
 }
@@ -1813,6 +1808,9 @@
                                           }
                                           
                                       }];
+    
+    
+    
         [task resume];
 }
 
