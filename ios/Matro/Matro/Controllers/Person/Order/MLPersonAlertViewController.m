@@ -7,6 +7,7 @@
 //
 
 #import "MLPersonAlertViewController.h"
+#import "HFSConstants.h"
 
 @interface MLPersonAlertViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -19,17 +20,22 @@
 
 @implementation MLPersonAlertViewController
 
+- (IBAction)closeWindow:(id)sender {
+    [self dismissViewControllerAnimated:NO completion:nil];
+    
+}
 
 
-+ (MLPersonAlertViewController *)alertVcWithTitle:(NSString *)title{
-    MLPersonAlertViewController *vc = [[MLPersonAlertViewController alloc]initWithTitle:title];
++ (MLPersonAlertViewController *)alertVcWithTitle:(NSString *)title AndAlertDoneAction:(AlertDoneBlock)alertAction{
+    MLPersonAlertViewController *vc = [[MLPersonAlertViewController alloc]initWithTitle:title AndAlertDoneAction:(AlertDoneBlock)alertAction];
     return vc;
 }
 
 
-- (instancetype)initWithTitle:(NSString *)alert_Title{
+- (instancetype)initWithTitle:(NSString *)alert_Title AndAlertDoneAction:(AlertDoneBlock)alertAction{
     if (self = [super init]) {
         self.alert_Title = alert_Title;
+        self.alertDoneBlock = alertAction;
     }
     return self;
 }
@@ -41,6 +47,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.titleLabel.text = self.alert_Title;
+    self.cancelBtn.layer.borderColor = RGBA(174, 142, 93, 1).CGColor;
+    self.cancelBtn.layer.borderWidth = 1.f;
+    self.doneBtn.layer.borderWidth = 1.f;
+    self.doneBtn.layer.borderColor = RGBA(174, 142, 93, 1).CGColor;
+
+
 }
 
 - (IBAction)clickAction:(id)sender {
@@ -49,10 +61,11 @@
         [self dismissViewControllerAnimated:NO completion:nil];
     }
     else{
+        
         if (self.alertDoneBlock) {
             self.alertDoneBlock();
         }
-        
+        [self dismissViewControllerAnimated:NO completion:nil];
     }
     
 }

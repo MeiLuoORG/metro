@@ -148,7 +148,7 @@ static char  BlankPageViewKey;
             break;
         case EaseBlankPageTypeShouhuodizhi://空地址记录
         {
-            imageName = @"wufaxianshi";
+            imageName = @"icon_zanwu";
             tipStr = @"暂无收货地址，请直接新增";
             
         }

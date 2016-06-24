@@ -44,6 +44,7 @@
 #import "MLServiceMainController.h"
 #import "MLFootMarkViewController.h"
 
+#import "MLLogisticsViewController.h"
 
 @interface MLPersonController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -270,12 +271,16 @@
         };
         headView.daiFaHuoBLock = ^(BOOL success){
             //代发货
-            NSLog(@"代发货,暂无接口");
+            
             if (!loginid) {
                 [weakself showError];
                 return;
             }else{
-
+                
+            MLPersonOrderListViewController *vc = [[MLPersonOrderListViewController alloc]initWithOrderType:OrderType_Shouhuo];
+            vc.hidesBottomBarWhenPushed = YES;
+            [weakself.navigationController pushViewController:vc animated:YES];
+                
             }
         };
         headView.daiPingBLock = ^(BOOL success){

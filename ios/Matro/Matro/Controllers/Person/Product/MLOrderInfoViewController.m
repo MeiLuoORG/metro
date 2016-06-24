@@ -289,7 +289,7 @@
         [self presentViewController:cancelVc animated:YES completion:nil];
     }else if ([typeStr isEqualToString:@"订单跟踪"]){//订单追踪
         MLLogisticsViewController *vc = [[MLLogisticsViewController alloc]init];
-        vc.jlbh = self.order.JLBH;
+//        vc.jlbh = self.order.JLBH;
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
         return;

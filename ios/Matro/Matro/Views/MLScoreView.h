@@ -16,7 +16,7 @@ typedef void(^StarViewBlock)(NSInteger score);
 @property (nonatomic,strong)NSArray *starArray;
 @property (nonatomic,copy)StarViewBlock starViewBlock;
 
-
+- (void)setStaticScore:(NSInteger)score;
 
 
 @end

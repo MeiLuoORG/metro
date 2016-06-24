@@ -17,6 +17,7 @@
 #import "MLCommentDetailTextTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "HFSConstants.h"
+#import "MBProgressHUD+Add.h"
 
 
 @interface MLProductComDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -67,6 +68,9 @@
             self.commentDetail = [MLProductCommentDetailModel mj_objectWithKeyValues:data];
             [self.tableView reloadData];
         
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         

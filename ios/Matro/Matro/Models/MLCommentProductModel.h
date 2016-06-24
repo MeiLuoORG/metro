@@ -33,7 +33,7 @@
 @interface MLProductCommentDetailProduct : NSObject
 @property (nonatomic,copy)NSString *pic;
 @property (nonatomic,copy)NSString *pname;
-@property (nonatomic,copy)NSString *goodbad;
+@property (nonatomic,assign)NSInteger goodbad;
 @end
 @interface MLProductCommentDetailByuser : NSObject
 @property (nonatomic,copy)NSString *userid;

@@ -23,6 +23,8 @@
 }
 
 
+
+
 - (void)setProduct:(NSArray *)product{
     _product = product;
     self.isMore = (_product.count>2);

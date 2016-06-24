@@ -85,7 +85,7 @@
 - (NSMutableArray *)imgsArray{
     if (!_imgsArray) {
         _imgsArray = [NSMutableArray array];
-        [_imgsArray addObject:[UIImage imageNamed:@"wufaxianshi-1"]];
+        [_imgsArray addObject:[UIImage imageNamed:@"btn_tianjia_picture"]];
         
     }
     return _imgsArray;

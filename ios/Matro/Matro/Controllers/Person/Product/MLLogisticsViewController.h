@@ -10,7 +10,8 @@
 
 @interface MLLogisticsViewController : MLBaseViewController
 
+@property (nonatomic,copy)NSString *express_company;
+@property (nonatomic,copy)NSString *express_number;
 
-@property (nonatomic,strong)NSString *jlbh;
 
 @end

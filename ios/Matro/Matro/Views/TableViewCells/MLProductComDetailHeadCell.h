@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "MLCommentProductModel.h"
+#import "MLScoreView.h"
 
 #define kProductComDetailHeadCell  @"productComDetailHeadCell"
 @interface MLProductComDetailHeadCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *goodsImg;
 @property (weak, nonatomic) IBOutlet UILabel *goodsName;
-
+@property (weak, nonatomic) IBOutlet UIView *scoreBgView;
+@property (nonatomic,strong)MLScoreView *scoreView;
 @property (nonatomic,strong)MLProductCommentDetailProduct *productModel;
 
 

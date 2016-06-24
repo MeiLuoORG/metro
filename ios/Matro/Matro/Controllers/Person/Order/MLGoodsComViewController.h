@@ -7,11 +7,12 @@
 //
 
 #import "MLBaseViewController.h"
-#import "MLProductModel.h"
+#import "MLCommentProductModel.h"
+
 
 @interface MLGoodsComViewController : MLBaseViewController
-@property (nonatomic,strong)MLProductModel *product;
+@property (nonatomic,strong)MLCommentProductModel *product;
+@property (nonatomic,copy)NSString *pid;
 
-@property (nonatomic,copy)NSString *orderid;
 
 @end

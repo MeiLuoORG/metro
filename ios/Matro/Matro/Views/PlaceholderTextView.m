@@ -7,7 +7,7 @@
 //
 
 #import "PlaceholderTextView.h"
-
+#import "Masonry.h"
 @interface PlaceholderTextView()<UITextViewDelegate>
 {
     UILabel *PlaceholderLabel;
@@ -32,12 +32,19 @@
     float left=5,top=2,hegiht=30;
     
     self.placeholderColor = [UIColor lightGrayColor];
-    PlaceholderLabel=[[UILabel alloc] initWithFrame:CGRectMake(left, top
-                                                               , CGRectGetWidth(self.frame)-2*left, hegiht)];
+//    PlaceholderLabel=[[UILabel alloc] initWithFrame:CGRectMake(left, top
+//                                                               , self.frame.size.width, hegiht)];
+    PlaceholderLabel=[[UILabel alloc] initWithFrame:CGRectZero];
     PlaceholderLabel.font=self.placeholderFont?self.placeholderFont:self.font;
     PlaceholderLabel.textColor=self.placeholderColor;
     [self addSubview:PlaceholderLabel];
     PlaceholderLabel.text=self.placeholder;
+    [PlaceholderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(left);
+        make.top.equalTo(self).offset(top);
+        make.right.equalTo(self).offset(-5);
+        make.height.mas_equalTo(hegiht);
+    }];
 
 }
 // Only override drawRect: if you perform custom drawing.

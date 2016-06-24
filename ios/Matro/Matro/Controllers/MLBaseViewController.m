@@ -84,8 +84,15 @@
 
 - (void)alert:(NSString *)title msg:(NSString *)msg {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    
     [alert show];
+}
+
+- (void)showTransparentController:(UIViewController *)controller{
+    controller.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+    controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:controller animated:NO completion:^(void){
+        controller.view.superview.backgroundColor = [UIColor clearColor];
+    }];
 }
 
 @end

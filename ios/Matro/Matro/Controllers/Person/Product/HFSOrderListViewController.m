@@ -235,7 +235,7 @@ static NSInteger pageIndex = 1;
         
         MLOrderListModel *order = [_orderList objectAtIndex:button.tag - 1];
         MLLogisticsViewController * vc = [[MLLogisticsViewController alloc]init];
-        vc.jlbh = order.JLBH?:@"";
+//        vc.jlbh = order.JLBH?:@"";
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([titleStr isEqualToString:@"确认收货"]){

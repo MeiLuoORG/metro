@@ -32,14 +32,13 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j7u-km-mT0">
-                        <rect key="frame" x="264" y="12" width="40" height="40"/>
-                        <color key="backgroundColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j7u-km-mT0">
+                        <rect key="frame" x="265" y="13" width="38" height="38"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="Brm-px-Fyq"/>
                             <constraint firstAttribute="width" constant="40" id="CuR-kt-MQw"/>
                         </constraints>
-                        <state key="normal" title="客服">
+                        <state key="normal" image="icon_erji">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </state>
                         <connections>
@@ -133,7 +132,10 @@
                 <outlet property="timeLabel" destination="F1A-Wb-AZ7" id="Eg9-1D-HYJ"/>
                 <outlet property="tuiHuoLabel" destination="wKJ-Hc-lu2" id="pvE-Tj-bzq"/>
             </connections>
-            <point key="canvasLocation" x="103" y="562"/>
+            <point key="canvasLocation" x="313" y="329"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_erji" width="38" height="38"/>
+    </resources>
 </document>

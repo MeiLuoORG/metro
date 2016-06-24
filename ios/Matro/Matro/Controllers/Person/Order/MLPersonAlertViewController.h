@@ -12,6 +12,7 @@ typedef void(^AlertDoneBlock)();
 
 @interface MLPersonAlertViewController : UIViewController
 @property (nonatomic,copy)AlertDoneBlock  alertDoneBlock;
-+ (MLPersonAlertViewController *)alertVcWithTitle:(NSString *)title;
++ (MLPersonAlertViewController *)alertVcWithTitle:(NSString *)title AndAlertDoneAction:(AlertDoneBlock)alertAction;
+
 
 @end

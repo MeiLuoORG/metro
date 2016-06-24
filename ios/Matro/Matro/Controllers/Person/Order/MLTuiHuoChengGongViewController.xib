@@ -50,22 +50,26 @@
                         <action selector="btnAction:" destination="-1" eventType="touchUpInside" id="eHS-dO-dd7"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mn6-lD-yiR">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mn6-lD-yiR">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                    <state key="normal" title="提交成功！">
+                    <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="提交成功！" image="icon_tijiaochenggong">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <state key="highlighted" title="提交成功！" image="icon_tijiaochenggong"/>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="bMA-Lh-BTf" firstAttribute="top" secondItem="mn6-lD-yiR" secondAttribute="bottom" constant="20" id="EJs-8p-7lw"/>
                 <constraint firstItem="6k9-B5-Z1l" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="YMe-3I-m0W"/>
+                <constraint firstItem="mn6-lD-yiR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="Zfg-OA-0Ve"/>
                 <constraint firstAttribute="trailing" secondItem="bMA-Lh-BTf" secondAttribute="trailing" constant="28" id="a9v-eY-AKy"/>
                 <constraint firstItem="bMA-Lh-BTf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="28" id="bWc-Ba-doG"/>
                 <constraint firstItem="6k9-B5-Z1l" firstAttribute="top" secondItem="bMA-Lh-BTf" secondAttribute="bottom" constant="50" id="esa-qM-84T"/>
                 <constraint firstItem="mn6-lD-yiR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lWE-4A-yob"/>
                 <constraint firstItem="mn6-lD-yiR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="t4l-yV-UYn"/>
+                <constraint firstAttribute="trailing" secondItem="mn6-lD-yiR" secondAttribute="trailing" constant="80" id="vn1-YF-bxs"/>
                 <constraint firstAttribute="trailing" secondItem="6k9-B5-Z1l" secondAttribute="trailing" constant="40" id="w5q-Jf-bjL"/>
             </constraints>
             <variation key="default">
@@ -75,14 +79,16 @@
                     <exclude reference="mn6-lD-yiR"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="YMe-3I-m0W"/>
-                    <exclude reference="esa-qM-84T"/>
-                    <exclude reference="w5q-Jf-bjL"/>
+                    <exclude reference="Zfg-OA-0Ve"/>
                     <exclude reference="lWE-4A-yob"/>
                     <exclude reference="t4l-yV-UYn"/>
+                    <exclude reference="vn1-YF-bxs"/>
                     <exclude reference="EJs-8p-7lw"/>
                     <exclude reference="a9v-eY-AKy"/>
                     <exclude reference="bWc-Ba-doG"/>
+                    <exclude reference="YMe-3I-m0W"/>
+                    <exclude reference="esa-qM-84T"/>
+                    <exclude reference="w5q-Jf-bjL"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -92,17 +98,22 @@
                     <include reference="mn6-lD-yiR"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="YMe-3I-m0W"/>
-                    <include reference="esa-qM-84T"/>
-                    <include reference="w5q-Jf-bjL"/>
+                    <include reference="Zfg-OA-0Ve"/>
                     <include reference="lWE-4A-yob"/>
                     <include reference="t4l-yV-UYn"/>
+                    <include reference="vn1-YF-bxs"/>
                     <include reference="EJs-8p-7lw"/>
                     <include reference="a9v-eY-AKy"/>
                     <include reference="bWc-Ba-doG"/>
+                    <include reference="YMe-3I-m0W"/>
+                    <include reference="esa-qM-84T"/>
+                    <include reference="w5q-Jf-bjL"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="274" y="-30"/>
+            <point key="canvasLocation" x="-18" y="-57"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_tijiaochenggong" width="48" height="48"/>
+    </resources>
 </document>

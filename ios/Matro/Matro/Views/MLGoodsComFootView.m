@@ -11,6 +11,10 @@
 
 @implementation MLGoodsComFootView
 
+
+
+
+
 + (MLGoodsComFootView *)goodsComFootView{
     return LoadNibWithSelfClassName;
 }

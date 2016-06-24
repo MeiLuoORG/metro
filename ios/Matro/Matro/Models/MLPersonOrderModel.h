@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,assign)NSTimeInterval creat_time;
 @property (nonatomic,copy)NSString *uptime;
 @property (nonatomic,copy)NSString *pay_time;
-@property (nonatomic,copy)NSString *buyer_comment;
+@property (nonatomic,assign)NSInteger buyer_comment;
 @property (nonatomic,assign)NSInteger seller_comment;
 @property (nonatomic,assign)NSInteger invoice;
 @property (nonatomic,copy)NSString *logistics;

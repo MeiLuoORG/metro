@@ -9,13 +9,16 @@
 #import "MLProductComDetailHeadCell.h"
 #import "UIImageView+WebCache.h"
 
+
 @implementation MLProductComDetailHeadCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    MLScoreView *view1 = [[MLScoreView alloc]initWithFrame:CGRectMake(35, 0, 150, 25)];
+    self.scoreView = view1;
+    [self.scoreBgView addSubview:view1];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -28,9 +31,9 @@
     if (_productModel != productModel) {
         _productModel = productModel;
         
-        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productModel.pic]];
+        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productModel.pic] placeholderImage:[UIImage imageNamed:@"imageloading"]];
         self.goodsName.text = _productModel.pname;
-        
+        [self.scoreView setStaticScore:_productModel.goodbad];   
     }
 }
 

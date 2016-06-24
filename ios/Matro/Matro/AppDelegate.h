@@ -26,6 +26,10 @@
 #import <BaiduMapAPI_Map/BMKMapView.h>//只引入所需的单个头文件
 
 
+static NSString *appKey = @"beddefb33f6e5abc8d411c2b";
+static NSString *channel = @"Publish channel";
+static BOOL isProduction = FALSE;
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

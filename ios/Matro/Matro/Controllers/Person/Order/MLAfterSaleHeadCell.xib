@@ -45,14 +45,13 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVW-DY-raB">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVW-DY-raB">
                         <rect key="frame" x="245" y="16" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="0m6-yy-Kzw"/>
                             <constraint firstAttribute="height" constant="40" id="Dkg-Sf-XtO"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <state key="normal" title="客服" backgroundImage="bg_kefu">
+                        <state key="normal" image="icon_erji">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
@@ -98,7 +97,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="bg_kefu" width="47" height="24"/>
+        <image name="icon_erji" width="38" height="38"/>
         <image name="xiayiye_arrow" width="9" height="17"/>
     </resources>
 </document>

@@ -20,6 +20,11 @@
     }
     return self;
 }
+
+
+
+
+
 - (void)setupBaseView{
     CGFloat btnCenterY = self.frame.size.height/2;
     CGFloat btnW = 20;
@@ -55,6 +60,26 @@
     if(self.starViewBlock)
     {
         self.starViewBlock(index+1);
+    }
+}
+
+- (void)setStaticScore:(NSInteger)score{
+    
+    
+    if (!(score-1 < self.starArray.count)) {
+        return;
+    }
+    score -=1;
+    for (UIButton *btn in self.starArray)
+    {
+        [btn setImage:[UIImage imageNamed:@"Star_small1"] forState:UIControlStateNormal];
+        btn.enabled = NO;
+    }
+    NSInteger index = score;
+    for (int i = 0; i<=index; i++)
+    {
+        UIButton *btn = (UIButton *)self.starArray[i];
+        [btn setImage:[UIImage imageNamed:@"Star_small2"] forState:UIControlStateNormal];
     }
 }
 

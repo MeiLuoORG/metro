@@ -29,6 +29,7 @@
 
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *productArr;
+@property (nonatomic,strong)NSDictionary *order_comment;
 
 @end
 
@@ -74,25 +75,15 @@
             NSDictionary *result = (NSDictionary *)responseObject;
             if ([result[@"code"] isEqual:@0]) {
                 [MBProgressHUD showMessag:@"评价成功" toView:self.view];
+            }else{
+                NSString *msg = result[@"msg"];
+                [MBProgressHUD showMessag:msg toView:self.view];
+
             }
-            
-            
+             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
         }];
-        
-        
-        
-//        [[HFSServiceClient sharedJSONClientNOT]POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            NSDictionary *result = (NSDictionary *)responseObject;
-//            if ([result[@"code"] isEqual:@0]) {
-//                [MBProgressHUD showMessag:@"评价成功" toView:self.view];
-//            }
-//            
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            
-//        }];
-        
     }
     else{
         [MBProgressHUD showMessag:@"请完善评分" toView:self.view];
@@ -107,14 +98,21 @@
 - (void)getAllCommentProduct{
     
 //    http://bbctest.matrojp.com/api.php?m=product&s=comment_submit&method=order&id={订单编号}&uid={用户编号}
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=order&id=%@&uid=13771961207",@"http://bbctest.matrojp.com",self.order_id];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=order&id=%@&test_phone=13771961207",@"http://bbctest.matrojp.com",self.order_id];
     [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSArray *order = data[@"order"];
             [self.productArr addObjectsFromArray:[MLCommentProductModel mj_objectArrayWithKeyValuesArray:order]];
+            if ([data[@"order_comment"] isKindOfClass:[NSDictionary class]]) {
+                self.order_comment = data[@"order_comment"];
+            }
             [self.tableView reloadData];
+        }
+        else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -147,15 +145,23 @@
         cell.goodsComblock = ^(){ //商品评价
             if (product.is_commented == 0) { //未评价  去商品评价页面
                 MLGoodsComViewController *vc = [[MLGoodsComViewController alloc]init];
+                vc.product = product;
+                vc.pid = product.pid;
                 vc.hidesBottomBarWhenPushed = YES;
                 [weakself.navigationController pushViewController:vc animated:YES];
             }else{ //已评价  去评价详情页面
                 
-                MLProductComDetailViewController *vc = [[MLProductComDetailViewController alloc]init];
-                vc.comment_id = product.detail_id;
+//                MLProductComDetailViewController *vc = [[MLProductComDetailViewController alloc]init];
+//                vc.comment_id = product.detail_id;
+//                vc.hidesBottomBarWhenPushed = YES;
+//                [weakself.navigationController pushViewController:vc animated:YES];
+                
+                
+                MLGoodsComViewController *vc = [[MLGoodsComViewController alloc]init];
+                vc.product = product;
+                vc.pid = product.pid;
                 vc.hidesBottomBarWhenPushed = YES;
                 [weakself.navigationController pushViewController:vc animated:YES];
-                
             }
             
         };
@@ -169,20 +175,28 @@
         }
         else{
             MLOrderSubComCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderComSubCell forIndexPath:indexPath];
-            [cell.subBtn addTarget:self action:@selector(subOrderCom) forControlEvents:UIControlEventTouchUpInside];
-            cell.wuliuBlock = ^(NSInteger score){
-                logisticsScore = score;
-            };
-            cell.fuwuBlock = ^(NSInteger score){
-                serviceScore = score;
+            if (self.order_comment) { //如果有值 赋值
+                cell.subBtn.hidden = YES;
+                cell.comment_info = self.order_comment;
+                
+            }else{
+                [cell.subBtn addTarget:self action:@selector(subOrderCom) forControlEvents:UIControlEventTouchUpInside];
+                cell.wuliuBlock = ^(NSInteger score){
+                    logisticsScore = score;
+                };
+                cell.fuwuBlock = ^(NSInteger score){
+                    serviceScore = score;
+                    
+                };
+                cell.shangpinBlock = ^(NSInteger score){
+                    productScore = score;
+                };
+                cell.fahuoBlock = ^(NSInteger score){
+                    fahuoScore = score;
+                };
 
-            };
-            cell.shangpinBlock = ^(NSInteger score){
-                productScore = score;
-            };
-            cell.fahuoBlock = ^(NSInteger score){
-                fahuoScore = score;
-            };
+            }
+            
             return cell;
         }
     }

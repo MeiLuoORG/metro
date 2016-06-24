@@ -30,4 +30,7 @@ static NSString *base64_encode_data(NSData *data){
 
 - (void)alert:(NSString *)title msg:(NSString *)msg;
 
+- (void)showTransparentController:(UIViewController *)controller;
+
+
 @end
