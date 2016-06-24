@@ -20,18 +20,29 @@
                     <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r46-FY-Gxu">
+                    <rect key="frame" x="0.0" y="43" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="WaB-B8-z9d"/>
+                    </constraints>
+                </view>
             </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="FLr-I5-zEo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="2Nw-Fw-dee"/>
                 <constraint firstItem="FLr-I5-zEo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Fni-mp-Ok1"/>
                 <constraint firstAttribute="bottom" secondItem="FLr-I5-zEo" secondAttribute="bottom" id="Z04-v5-TcI"/>
+                <constraint firstItem="r46-FY-Gxu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="abM-FQ-fMt"/>
+                <constraint firstAttribute="bottom" secondItem="r46-FY-Gxu" secondAttribute="bottom" id="hv3-hQ-IOp"/>
+                <constraint firstAttribute="trailing" secondItem="r46-FY-Gxu" secondAttribute="trailing" id="i5K-Oj-RSn"/>
                 <constraint firstAttribute="trailing" secondItem="FLr-I5-zEo" secondAttribute="trailing" id="oKa-Zt-QF3"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="secondTitle" destination="FLr-I5-zEo" id="hs7-Ej-jUc"/>
             </connections>
-            <point key="canvasLocation" x="235.5" y="-77"/>
+            <point key="canvasLocation" x="235.5" y="-81"/>
         </view>
     </objects>
 </document>

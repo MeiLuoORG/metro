@@ -9,6 +9,7 @@
 #import "MLCollectstoresModel.h"
 
 @implementation MLCollectstoresModel
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
              

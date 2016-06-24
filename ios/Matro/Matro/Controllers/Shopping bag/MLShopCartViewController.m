@@ -112,8 +112,13 @@ static NSInteger goodsCount;
     }];
     [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
     
+    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action:@selector(nothing)];
+    self.navigationItem.leftBarButtonItem = left;
+    
 }
-
+-(void)nothing{
+    
+}
 
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -125,7 +130,35 @@ static NSInteger goodsCount;
 - (void)getDataSource{
     
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index&test_phone=13771961207",@"http://bbctest.matrojp.com"];
+<<<<<<< Updated upstream
     
+=======
+//
+//    [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
+//        
+//    } failure:^(NSError *error) {
+//        
+//        
+//    }];
+
+//    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
+
+
+    
+    
+
+//    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
+    
+    
+//
+//    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
+
+
+  //  NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
+
+
+
+>>>>>>> Stashed changes
     [[HFSServiceClient sharedJSONClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         

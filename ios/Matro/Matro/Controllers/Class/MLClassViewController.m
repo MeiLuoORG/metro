@@ -29,6 +29,7 @@
 
 #import "SYQRCodeViewController.h"
 #import "MLGoodsDetailsViewController.h"
+#import "MLPinpaiCollectionViewCell.h"
 
 
 #define HEADER_IDENTIFIER @"MLClassHeader"//第二大类用tableview的header来显示
@@ -41,6 +42,7 @@
     NSArray *_classTitleArray;//第一大类数组
     NSMutableArray *_classSecondArray;//第二大类数组
     UITextField *searchText;
+    UIImageView *imageview;
 }
 
 @property (strong, nonatomic) UISearchBar *searchBar;
@@ -112,8 +114,20 @@
     _topScrollSegmentControl.selectedIndex = 0;
     
    
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 242)];
+    imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 232)];
+    view.backgroundColor = [UIColor colorWithHexString:@"F1F1F1"];
+    [view addSubview:imageview];
+    self.tableView.tableHeaderView = view;
+    
+    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action:@selector(nothing)];
+    self.navigationItem.leftBarButtonItem = left;
     
     [self loadAllClass];
+}
+
+-(void)nothing{
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -273,10 +287,18 @@
     return 44;
 }
 
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    MLSecondClass * secondClass = _classSecondArray[tableView.tag];
+    long int count = secondClass.ThreeClassificationList.count;
+    NSLog(@"count===%ld",count);
+    long int i;
+    i = count / 4;
+    NSLog(@"%li",i);
+    
     float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin + 1 * 5))/4);
     float height = width * 3/2;
-    return height + 30;
+    return (height*(i+1) + 5*i);
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -372,7 +394,7 @@
     NSLog(@"%@",_topScrollSegmentControl.buttons[index]);
     for (MLClass *title in _classTitleArray) {
         if ([_topScrollSegmentControl.buttons[index] isEqualToString:title.MC]) {
-            [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:title.imgurl] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+            [imageview sd_setImageWithURL:[NSURL URLWithString:title.imgurl] placeholderImage:[UIImage imageNamed:@"imageloading"]];
             
         }
     }

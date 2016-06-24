@@ -96,6 +96,7 @@ static CGFloat kHeight = 0;
     self.clearBtn.layer.masksToBounds = YES;
     
     [self gethotKeywords];
+    
 }
 
 //隐藏键盘
@@ -158,6 +159,8 @@ static CGFloat kHeight = 0;
     
     [[HFSServiceClient sharedClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (responseObject) {
+            NSLog(@"responseObject===1111%@",responseObject);
+            
             NSDictionary *dataDic = responseObject[@"data"];
             NSArray *dic = dataDic[@"recommend"];
             int i=0;

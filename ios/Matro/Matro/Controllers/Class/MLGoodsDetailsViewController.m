@@ -251,7 +251,9 @@
 - (IBAction)actPingjia:(id)sender {
     
     NSLog(@"pingjia===");
+    
     MLpingjiaViewController *vc = [[MLpingjiaViewController alloc] init];
+    vc.paramDic = self.paramDic;
     [self.navigationController pushViewController:vc animated:NO];
     
 }
@@ -406,14 +408,69 @@
                 
                 [self.webView loadHTMLString:htmlCode baseURL:nil];
             }
-
+            
             self.biaotiLabel.text = dic[@"pinfo"][@"pname"];
             self.texingLabel.text = dic[@"pinfo"][@"p_name"];
-            float  originprice= [dic[@"pinfo"][@"price"] floatValue];
+            
+            
+            NSString *promition_start_time = dic[@"pinfo"][@"promition_start_time"];
+            NSString *promition_end_time = dic[@"pinfo"][@"promition_end_time"];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd-HH:mm"];
+            NSString *nowdate= [dateFormatter stringFromDate:[NSDate date]];
+            NSDate *date=[dateFormatter dateFromString:nowdate];
+            
+            if ([promition_start_time isEqual:@0] || [promition_end_time isEqual:@0] ) {
+                
+                float pricef = [dic[@"pinfo"][@"market_price"] floatValue];
+                self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+                
+            }else if (![promition_start_time isEqual:@0] && ![promition_end_time isEqual:@0] ){
+                NSDate *date1=[dateFormatter dateFromString:promition_start_time];
+                NSDate *date2=[dateFormatter dateFromString:promition_end_time];
+                
+                NSComparisonResult result1 = [date1 compare:date];
+                NSComparisonResult result2 = [date2 compare:date];
+                
+                NSString *is_promotion = dic[@"pinfo"][@"is_promotion"];
+                if ([is_promotion isEqual:@1] && !result1 && result2) {
+                    
+                    float pricef = [dic[@"pinfo"][@"promotion_price"]floatValue] ;
+                    self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+                    
+                    
+                }else{
+                    
+                    float pricef = [dic[@"pinfo"][@"market_price"] floatValue];
+                    self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+                }
+            }
+            /*
+            NSDate *date1=[dateFormatter dateFromString:promition_start_time];
+            NSDate *date2=[dateFormatter dateFromString:promition_end_time];
+            
+            NSComparisonResult result1 = [date1 compare:date];
+            NSComparisonResult result2 = [date2 compare:date];
+            
+            NSString *is_promotion = dic[@"pinfo"][@"is_promotion"];
+            if ([is_promotion isEqual:@1] && !result1 && result2) {
+                
+                float pricef = [dic[@"pinfo"][@"promotion_price"]floatValue] ;
+                self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+                
+                
+            }else{
+                
+                float pricef = [dic[@"pinfo"][@"market_price"] floatValue];
+                self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+            }
+            */
             
             float pricef = [dic[@"pinfo"][@"market_price"] floatValue];
-            NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
             self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+            float  originprice= [dic[@"pinfo"][@"price"] floatValue];
+            
+            NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
             
             NSAttributedString *attrStr =
             [[NSAttributedString alloc]initWithString:pricestr

@@ -159,6 +159,12 @@ static char  BlankPageViewKey;
             tipStr = @"暂无物流信息";
         }
             break;
+        case EaseBlankPageTypePingjia://空评价
+        {
+            imageName = @"";
+            tipStr = @"没有评价信息额";
+        }
+            break;
     }
     [_imageView setImage:[UIImage imageNamed:imageName]];
     _tipLabel.text = tipStr;

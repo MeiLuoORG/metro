@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MLPingjiaListViewController">
+            <connections>
+                <outlet property="commentCollectionView" destination="X2x-0m-06b" id="aiF-JP-8kV"/>
+                <outlet property="commentTableView" destination="XTq-Vp-oZR" id="Vf7-nw-B7A"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XTq-Vp-oZR">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="X2x-0m-06b">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Uc6-MT-fUV">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="XTq-Vp-oZR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="0s5-dZ-JWd"/>
+                <constraint firstItem="XTq-Vp-oZR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="42g-xz-E3S"/>
+                <constraint firstAttribute="bottom" secondItem="X2x-0m-06b" secondAttribute="bottom" id="7pp-AM-8Pk"/>
+                <constraint firstItem="X2x-0m-06b" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8VL-eK-UG4"/>
+                <constraint firstAttribute="trailing" secondItem="XTq-Vp-oZR" secondAttribute="trailing" id="J2t-ef-s3d"/>
+                <constraint firstAttribute="bottom" secondItem="XTq-Vp-oZR" secondAttribute="bottom" id="Mjz-9J-geb"/>
+                <constraint firstItem="X2x-0m-06b" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qqs-uI-n47"/>
+                <constraint firstAttribute="trailing" secondItem="X2x-0m-06b" secondAttribute="trailing" id="xb4-ZH-rvt"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

@@ -10,12 +10,12 @@
 
 @interface MLCollectgoodsModel : NSObject
 
-@property(nonatomic,copy)NSString *ID;
-@property(nonatomic,copy)NSString *PID;
-@property(nonatomic,copy)NSString *Pname;
-@property(nonatomic,copy)NSString *Pimage;
-@property(nonatomic,copy)NSString *Pprice;
-@property (nonatomic,copy)NSArray *Psetmeal;
+@property(nonatomic,strong)NSString *ID;
+@property(nonatomic,strong)NSString *PID;
+@property(nonatomic,strong)NSString *Pname;
+@property(nonatomic,strong)NSString *Pimage;
+@property(nonatomic,strong)NSString *Pprice;
+@property (nonatomic,strong)NSArray *Psetmeal;
 
 @property (nonatomic,assign)BOOL isSelect;
 

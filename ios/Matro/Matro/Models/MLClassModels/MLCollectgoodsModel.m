@@ -10,6 +10,7 @@
 
 @implementation MLCollectgoodsModel
 
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
              

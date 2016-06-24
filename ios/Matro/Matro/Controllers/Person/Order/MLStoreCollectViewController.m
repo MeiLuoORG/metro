@@ -215,6 +215,8 @@ static NSInteger page = 1;
     }
  
      MLCollectstoresModel *model = [self.dataSource objectAtIndex:indexPath.row];
+    
+    NSLog(@"model===%@",model);
      cell.storeslistModel = model;
      cell.checkBoxbtn.isSelected = model.isSelect;
      __weak typeof(self) weakself = self;

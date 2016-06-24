@@ -179,6 +179,7 @@ static NSInteger page = 1;
         
         
         [_hud show:YES];
+        
         [_hud hide:YES afterDelay:1];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -234,8 +235,9 @@ static NSInteger page = 1;
     
     MLCollectgoodsModel *model = [self.dataSource objectAtIndex:indexPath.row];
     
-    /*
+    
     cell.goodslistModel = model;
+    /*
     cell.checkBoxbtn.isSelected = model.isSelect;
     __weak typeof(self) weakself = self;
     cell.goodslistCheckBlock = ^(BOOL isSelected){

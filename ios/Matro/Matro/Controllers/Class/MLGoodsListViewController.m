@@ -166,7 +166,7 @@ static NSInteger page = 1;
     
     
     
-    searchImg.frame = CGRectMake(textW - 58 , 4, imgW, imgW);
+    searchImg.frame = CGRectMake(textW - 45 , 4, imgW, imgW);
     searchText.textColor = [UIColor grayColor];
     searchText.placeholder = @"寻找你想要的商品";
     searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
@@ -646,8 +646,8 @@ static NSInteger page = 1;
         
         NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
         
-        [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, 1)];
-        [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(pricestr.length - 2, 2)];
+        [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 1)];
+        [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
         
         cell.currentPriceLabel.attributedText = pricestr;
         
@@ -679,19 +679,37 @@ static NSInteger page = 1;
     if (_filterParam) {
     
         NSString *str = tempdic[@"pname"];
+        if (str.length <= 12) {
+            cell.productnameLb.text = str?:@"";
+        }else{
+            NSString *namestr = [str substringWithRange:NSMakeRange(0, 12)];
+            cell.productnameLb.text = namestr?:@"";
+        }
         
-        cell.productnameLb.text = str?:@"";
+        
     }
     else{
        
         NSString *str = tempdic[@"pname"];
+        if (str.length <= 11) {
+            cell.productnameLb.text = str?:@"";
+        }else{
+            NSString *namestr = [str substringWithRange:NSMakeRange(0, 11)];
+            cell.productnameLb.text = namestr?:@"";
+        }
 
-        cell.productnameLb.text = str?:@"";
+        
     }
     
     float price = [tempdic[@"price"] floatValue];
     
-    cell.priceLb.text =[NSString stringWithFormat:@"￥%.2f",price];
+    NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
+    
+    [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 1)];
+    [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
+    
+    cell.priceLb.attributedText = pricestr;
+
     return cell;
 }
 

@@ -151,6 +151,12 @@
             //_loginButton.layer.borderColor = [UIColor clearColor].CGColor;
         }
         
+        if (![[self textField:_accountView].text isEqualToString:@""]) {
+            [self closeButton:[self textField:_accountView]].hidden = NO;
+        }
+        else{
+            [self closeButton:[self textField:_accountView]].hidden = YES;
+        }
     }
     else{
         if (_isReadDelegate && [self checkRegisterButtonEnabledYESorNO]) {
@@ -838,6 +844,8 @@
                                                   // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                                   NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                                                   
+                                                  NSLog(@"原生注册后信息：%@",result);
+                                                  
                                                   if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
                                                       
                                                       // _hud.labelText = @"注册成功";
@@ -1068,7 +1076,11 @@
     [self.settingMoCardView bindButtonBlockAction:^(BOOL success) {
         if (self.settingMoCardView.cardNoString != nil && ![self.settingMoCardView.cardNoString isEqualToString:@""]) {
             _currentCardTypeNames = self.settingMoCardView.cardTypeName;
+            
             _currentCardNOs = self.settingMoCardView.cardNoString;
+            
+            NSLog(@"绑定的默认卡号为：%@,会员卡名为：%@",_currentCardNOs,_currentCardTypeNames);
+            
             [weakSelf loadBindCardViewwithPhone:phoneString withCardNo:self.settingMoCardView.cardNoString withAccessToken:accessTokenString];
         }
         else{
@@ -1077,6 +1089,7 @@
             VipCardModel * cardModel = (VipCardModel *)[cardARR objectAtIndex:0];
             _currentCardNOs = cardModel.cardNo;
             _currentCardTypeNames = cardModel.cardTypeName;
+            NSLog(@"绑定的默认卡号为：%@,会员卡名为：%@",_currentCardNOs,_currentCardTypeNames);
             /*NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
             [userDefault setObject:cardModel.cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
             [userDefault synchronize];
@@ -1189,50 +1202,50 @@
                                                   //NSLog(@"设置默认卡%@",result);
                                                   if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
                                                       
+                                                      NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+                                                      [userDefault setObject:_currentCardTypeNames forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                      [userDefault setObject:_currentCardNOs forKey:kUSERDEFAULT_USERCARDNO];
+                                                      [userDefault synchronize];
                                                       
-                                                      
-                                                      //dispatch_async(dispatch_get_main_queue(), ^{
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
                                                           [UIView animateWithDuration:0.5f animations:^{
                                                               [self.settingMoCardView setFrame:CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT)];
                                                               
                                                               
                                                           } completion:^(BOOL finished) {
-                                                              NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
-                                                              [userDefault setObject:_currentCardTypeNames forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
-                                                              [userDefault setObject:_currentCardNOs forKey:kUSERDEFAULT_USERCARDNO];
-                                                              [userDefault synchronize];
+                                                              
                                                           }];
                                                           
                                                           [self dismissViewControllerAnimated:NO completion:nil];
                                                          
-                                                      //});
+                                                     });
                                                       
                                                       
                                                       
                                                   }else{
                                                       
-                                                       //dispatch_async(dispatch_get_main_queue(), ^{
+                                                       dispatch_async(dispatch_get_main_queue(), ^{
                                                           
                                                           [_hud show:YES];
                                                           _hud.mode = MBProgressHUDModeText;
                                                           _hud.labelText = result[@"errMsg"];
                                                           _hud.labelFont = [UIFont systemFontOfSize:13];
                                                           [_hud hide:YES afterDelay:1];
-                                                      //});
+                                                      });
                                                   }
                                                   
                                               }
                                           }
                                           else{
                                               //请求有错误
-                                              //dispatch_async(dispatch_get_main_queue(), ^{
+                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                   
                                                   [_hud show:YES];
                                                   _hud.mode = MBProgressHUDModeText;
                                                   _hud.labelText = REQUEST_ERROR_ZL;
                                                   _hud.labelFont = [UIFont systemFontOfSize:13];
                                                   [_hud hide:YES afterDelay:1];
-                                              //});
+                                              });
                                               
                                           }
                                           
@@ -2365,6 +2378,7 @@
         _tableView.hidden = YES;
         _showmoreaccoutButton.selected = NO;
     }
+    /*
     if([textField isEqual:[self textField:_rphoneView]]){
         if ([textField.text isEqualToString:@""] || !textField.text) {
             _codeButton.enabled = NO;
@@ -2375,6 +2389,7 @@
             [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
         }
     }
+      */
 }
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
