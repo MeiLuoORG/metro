@@ -9,6 +9,7 @@
 #import "UIView+BlankPage.h"
 #import <objc/runtime.h>
 #import "Masonry.h"
+#import "HFSConstants.h"
 
 @implementation UIView (BlankPage)
 static char  BlankPageViewKey;
@@ -95,10 +96,10 @@ static char  BlankPageViewKey;
     //    布局
     [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(self).offset(100);
+        make.top.equalTo(self).offset(30);
     }];
     [_tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.centerX.equalTo(self);
+        make.centerX.equalTo(self);
         make.top.equalTo(_imageView.mas_bottom);
         make.height.mas_equalTo(50);
     }];
@@ -181,9 +182,11 @@ static char  BlankPageViewKey;
             button;
         });
         [self addSubview:actionBtn];
+        actionBtn.layer.cornerRadius = 5.f;
+        actionBtn.layer.masksToBounds = YES;
         
         [actionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(125 , 36));
+            make.size.mas_equalTo(CGSizeMake(200 , 40));
             make.top.equalTo(_tipLabel.mas_bottom).offset(15);
             make.centerX.equalTo(self);
         }];
@@ -193,6 +196,7 @@ static char  BlankPageViewKey;
                 make.centerX.equalTo(self);
                 make.left.mas_equalTo(self).offset(50);
                 make.right.mas_equalTo(self).offset(-50);
+                make.height.mas_equalTo(40);
             }];
             actionBtn.layer.masksToBounds = YES;
             actionBtn.layer.cornerRadius = 3.f;
@@ -200,10 +204,21 @@ static char  BlankPageViewKey;
         
         NSString *titleStr;
         switch (blankPageType) {
-            case EaseBlankPageTypeShouCang:
-            case EaseBlankPageTypeLiuLan:
-            case EaseBlankPageTypeGouWuDai:
+            case EaseBlankPageTypeShouCang:{
+                titleStr=@"去逛逛";
+            }
+                 break;
+            case EaseBlankPageTypeLiuLan:{
+                titleStr=@"去逛逛";
+            }
+                break;
+            case EaseBlankPageTypeGouWuDai:{
+                
+                titleStr=@"去逛逛";
+                break;
+            }
             case EaseBlankPageTypeDingdan:
+                _tipLabel.textColor = RGBA(80, 80, 80, 1);
                 titleStr=@"去逛逛";
                 break;
             case EaseBlankPageTypeShouhuodizhi:

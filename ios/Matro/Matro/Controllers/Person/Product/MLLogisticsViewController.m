@@ -32,15 +32,15 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"订单跟踪";
-    
+//    self.express_number = @"3101058115241";
+//    self.express_company = @"韵达";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-//    [self downLoadLogTrack];
+    [self downLoadLogTrack];
 }
 
 
 - (void)downLoadLogTrack {
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=getkd&test_phone=13771961207",@"http://bbctest.matrojp.com"];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=getkd",MATROJP_BASE_URL];
     NSDictionary *params = @{@"express_company":self.express_company,@"express_number":self.express_number};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -58,28 +58,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
-    
-    
-    
-    
-    
-    
-//    NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/order/OrderForm.ashx?op=wlxx&jlbh=%@&userid=%@",SERVICE_GETBASE_URL,_jlbh,userId];
-//    [[HFSServiceClient sharedClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"订单跟踪 请求成功");
-//        NSData *dic = (NSData *)responseObject;
-//        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
-//        NSArray *backArr = [result objectForKey:@"BackObject"];
-//        if (result && backArr.count>0) {
-//            _logisticsArray = backArr ;
-//            [self.tableView reloadData];
-//        }
-//        
-//        [self.view configBlankPage:EaseBlankPageTypeZhuiZong hasData:(_logisticsArray.count>0)];
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        
-//    }];
+
     
 }
 

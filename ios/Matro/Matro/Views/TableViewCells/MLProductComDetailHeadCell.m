@@ -8,6 +8,7 @@
 
 #import "MLProductComDetailHeadCell.h"
 #import "UIImageView+WebCache.h"
+#import "HFSConstants.h"
 
 
 @implementation MLProductComDetailHeadCell
@@ -27,11 +28,12 @@
     // Configure the view for the selected state
 }
 
+
 - (void)setProductModel:(MLProductCommentDetailProduct *)productModel{
     if (_productModel != productModel) {
         _productModel = productModel;
         
-        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productModel.pic] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",MATROJP_BASE_URL,_productModel.pic]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
         self.goodsName.text = _productModel.pname;
         [self.scoreView setStaticScore:_productModel.goodbad];   
     }

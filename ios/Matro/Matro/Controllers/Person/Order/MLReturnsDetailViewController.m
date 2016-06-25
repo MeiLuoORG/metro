@@ -46,6 +46,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
     
+    self.title = @"退货单详情";
     _tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

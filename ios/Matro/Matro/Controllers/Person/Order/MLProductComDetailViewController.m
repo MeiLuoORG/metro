@@ -18,6 +18,7 @@
 #import "UIImageView+WebCache.h"
 #import "HFSConstants.h"
 #import "MBProgressHUD+Add.h"
+#import "MLHttpManager.h"
 
 
 @interface MLProductComDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -59,22 +60,25 @@
 }
 
 - (void)getComment{
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=detail&id=%@",@"http://bbctest.matrojp.com",self.comment_id];
-    
-    [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=detail&id=%@",MATROJP_BASE_URL,self.comment_id];
+    [MLHttpManager get:url params:nil m:@"product" s:@"comment" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             self.commentDetail = [MLProductCommentDetailModel mj_objectWithKeyValues:data];
             [self.tableView reloadData];
-        
+            
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
+    
+    
+
 }
 
 
@@ -105,7 +109,7 @@
         cell.delBtn.hidden = YES;
         
         MLProductCommentImage *imageModel = [self.commentDetail.comment_detail.photos objectAtIndex:indexPath.row - 3];
-        [cell.myImageView sd_setImageWithURL:[NSURL URLWithString:imageModel.data_src]];
+        [cell.myImageView sd_setImageWithURL:[NSURL URLWithString:imageModel.data_src] placeholderImage:PLACEHOLDER_IMAGE];
         
         return cell;
     }

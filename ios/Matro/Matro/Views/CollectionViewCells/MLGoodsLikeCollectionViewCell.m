@@ -7,6 +7,8 @@
 //
 
 #import "MLGoodsLikeCollectionViewCell.h"
+#import "UIImageView+WebCache.h"
+#import "HFSConstants.h"
 
 @implementation MLGoodsLikeCollectionViewCell
 
@@ -14,5 +16,20 @@
     [super awakeFromNib];
     // Initialization code
 }
+
+
+- (void)setLikeModel:(MLGuessLikeModel *)likeModel{
+    if (_likeModel != likeModel) {
+        _likeModel = likeModel;
+        [self.imgView sd_setImageWithURL:[NSURL URLWithString:_likeModel.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        
+        
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_likeModel.price];
+        self.goodsName.text = _likeModel.pname;
+        
+    }
+}
+
+
 
 @end

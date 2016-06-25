@@ -23,8 +23,6 @@
 #import "MLFootprintViewController.h"
 #import "MLCusServiceController.h"
 #import "MNNMemberViewController.h"
-
-#import "MLHYHTableViewController.h"
 #import "MLWishlistViewController.h"
 #import "MLPropertyCell.h"
 #import "MLPropertysubCell.h"
@@ -904,11 +902,6 @@
                 break;
             case 4:  //意见反馈
             {
-                MLHYHTableViewController *vc = [[MLHYHTableViewController alloc]init];
-                vc.hidesBottomBarWhenPushed = YES;
-
-                [self.navigationController pushViewController:vc animated:YES];
-                
             }
                 break;
                 

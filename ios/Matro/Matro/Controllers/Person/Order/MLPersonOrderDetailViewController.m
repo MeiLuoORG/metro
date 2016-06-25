@@ -309,7 +309,6 @@
         MLTisTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTisTableViewCell forIndexPath:indexPath];
         cell.tisLabel.text = @"订单已通过审核，仓库配送中.....";
         cell.timeLabel.text = @"2016-04-06 13:31";
-        
         return cell;
     }
     else if (indexPath.section == 2){

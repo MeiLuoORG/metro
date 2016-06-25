@@ -33,7 +33,6 @@
 #import "MLShopCartViewController.h"
 
 
-#import "MLHYHTableViewController.h"
 #import "HFSUtility.h"
 #import "NSString+URLZL.h"
 
@@ -119,8 +118,6 @@
                  apsForProduction:isProduction
             advertisingIdentifier:nil];
     
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
 
     
     
@@ -150,25 +147,13 @@
     
     self.window.rootViewController = _tabBarController;
     
+    
     return YES;
 }
 
-- (void)networkDidReceiveMessage:(NSNotification *)notification {
-    NSDictionary * userInfo = [notification userInfo];
-//    NSString *content = [userInfo valueForKey:@"content"];
-//    NSDictionary *extras = [userInfo valueForKey:@"extras"];
-//    NSString *customizeField1 = [extras valueForKey:@"customizeField1"]; //服务端传递的Extras附加字段，key是自己定义的
-    NSLog(@"%@",userInfo);
-}
 
 
 
--(void)tagsAliasCallback:(int)iResCode
-                    tags:(NSSet*)tags
-                   alias:(NSString*)alias
-{
-    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
-}
 
 
 

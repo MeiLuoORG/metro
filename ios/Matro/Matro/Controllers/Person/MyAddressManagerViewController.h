@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLBaseViewController.h"
 
 typedef void(^AddAddressSuccess)();
-@interface MyAddressManagerViewController : UIViewController
+@interface MyAddressManagerViewController : MLBaseViewController
 @property (weak, nonatomic) IBOutlet UITableView *addressTBView;
 
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;

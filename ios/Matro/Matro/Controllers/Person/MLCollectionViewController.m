@@ -69,7 +69,7 @@ static NSInteger page = 1;
         footView.addCartBlock = ^(){
             NSLog(@"收藏商品加入购物车");
             for (MLCollectgoodsModel *model in self.goodslistArray) {
-                [self addToCartWithPID:model.PID array: model.Psetmeal];
+                [self addToCartWithPID:model.pid array: model.setmeal];
             }
              
             
@@ -163,7 +163,7 @@ static NSInteger page = 1;
             }
             
             
-            [self.dataSource addObjectsFromArray:[MLCollectgoodsModel mj_keyValuesArrayWithObjectArray:_collectionArray]];
+            [self.dataSource addObjectsFromArray:[MLCollectgoodsModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
             
             NSLog(@"self.goods===%@",self.dataSource);
             
@@ -219,11 +219,11 @@ static NSInteger page = 1;
         cell.selectW.constant  = 20;
     }
     
-    NSDictionary *tempDic = self.dataSource[indexPath.section];
+    MLCollectgoodsModel *tempDic = self.dataSource[indexPath.section];
     
-    cell.pName.text = tempDic[@"pname"];
-    cell.pPrice.text = [NSString stringWithFormat:@"￥%@",tempDic[@"price"]];
-    NSString *image = tempDic[@"image"];
+    cell.pName.text = tempDic.pname;
+    cell.pPrice.text = [NSString stringWithFormat:@"￥%@",tempDic.price];
+    NSString *image = tempDic.image;
     if (![image isKindOfClass:[NSNull class]]) {
         
        [cell.pImage sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"imageloading"]];
@@ -231,25 +231,7 @@ static NSInteger page = 1;
     }else{
         cell.pImage.image = [UIImage imageNamed:@"imageloading"];
     }
-
-    
-    MLCollectgoodsModel *model = [self.dataSource objectAtIndex:indexPath.row];
-    
-    
-    cell.goodslistModel = model;
-    /*
-    cell.checkBoxbtn.isSelected = model.isSelect;
-    __weak typeof(self) weakself = self;
-    cell.goodslistCheckBlock = ^(BOOL isSelected){
-        model.isSelect = isSelected;
-        if (isSelected) {
-            [weakself.goodslistArray addObject:model];
-        }
-        else{
-            [weakself.goodslistArray removeObject:model];
-        }
-    };
-    */
+    cell.goodslistModel = tempDic;
     
     return cell;
 }

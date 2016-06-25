@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLBaseViewController.h"
 
-@interface MLProductComDetailViewController : UIViewController
+@interface MLProductComDetailViewController : MLBaseViewController
 @property (nonatomic,copy)NSString *comment_id;
 
 @end

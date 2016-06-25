@@ -31,6 +31,8 @@
 #import "MLTuiHuoChengGongViewController.h"
 #import "MLReturnsDetailModel.h"
 
+#import "MLHttpManager.h"
+
 
 @interface MLReturnRequestViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -245,13 +247,17 @@
         
         [cell.imgsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (idx<cell.imgsArray.count-1) {
+                
+                
+                
+                
                 UIImage *img = (UIImage *)obj;
-                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
                 NSData *imgData = UIImageJPEGRepresentation(img, 0.3);
                 NSDictionary *params = @{@"method":@"refund_img",@"order_id":self.returnsDetail.order_id};
-                [manager POST:@"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                    [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
-                } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [MLHttpManager post:@"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index" params:params m:@"uploadimg" s:@"index" sconstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                      [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
+                } success:^(id responseObject) {
                     NSDictionary *result = (NSDictionary *)responseObject;
                     if ([result[@"code"] isEqual:@0]) { //上传成功
                         NSDictionary *data = result[@"data"];
@@ -266,9 +272,31 @@
                         uploadCount -- ;
                     }
                     NSLog(@"%@",responseObject);
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    NSLog(@"%@",error);
+                } failure:^(NSError *error) {
+                     NSLog(@"%@",error);
                 }];
+                
+                
+//                [manager POST:@"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//                    [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
+//                } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                    NSDictionary *result = (NSDictionary *)responseObject;
+//                    if ([result[@"code"] isEqual:@0]) { //上传成功
+//                        NSDictionary *data = result[@"data"];
+//                        NSString *url = data[@"pic_url"];
+//                        [self.imgsUrlArray addObject:url];
+//                        already++;
+//                        if (already == uploadCount) { //图片上传完成  请求退货操作
+//                            [self submitTuihuoAction];
+//                            
+//                        }
+//                    }else{//上传失败就跳过 少传一张
+//                        uploadCount -- ;
+//                    }
+//                    NSLog(@"%@",responseObject);
+//                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                    NSLog(@"%@",error);
+//                }];
                 
             }
         }];

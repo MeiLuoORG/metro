@@ -34,7 +34,7 @@
 - (void)setProduct:(MLCommentProductModel *)product{
     if (_product != product) {
         _product = product;
-        [self.imageView sd_setImageWithURL:[NSURL URLWithString:_product.pic]];
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",MATROJP_BASE_URL,_product.pic]]];
         self.titleLabel.text = _product.name;
         if (_product.is_commented == 0) {
             [self.shaidanBtn setTitle:@"评价晒单" forState:UIControlStateNormal];

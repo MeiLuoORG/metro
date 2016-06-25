@@ -20,6 +20,7 @@
 #import "SBJSON.h"
 #import "GTMNSString+URLArguments.h"
 #import "MBProgressHUD+Add.h"
+#import "MLHttpManager.h"
 
 
 @interface MLGoodsComViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
@@ -27,8 +28,6 @@
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *imgsArray;
 @property (nonatomic,strong)NSMutableArray *imgUrlArray;
-
-
 @property (nonatomic,assign)NSInteger comScore;
 @property (nonatomic,strong)MLGoodsComHeadView *headView;
 
@@ -90,28 +89,28 @@
         
         [self.imgsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 UIImage *img = (UIImage *)obj;
-                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                NSData *imgData = UIImageJPEGRepresentation(img, 0.3);
-                NSDictionary *params = @{@"method":@"comment"};
-                [manager POST:@"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                    [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
-                } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    NSDictionary *result = (NSDictionary *)responseObject;
-                    if ([result[@"code"] isEqual:@0]) { //上传成功
-                        NSDictionary *data = result[@"data"];
-                        NSString *url = data[@"pic_url"];
-                        [self.imgUrlArray addObject:url];
-                        already++;
-                        if (already == uploadCount) { //图片上传完成  请求退货操作
-                            [self uploadCommentInfo];
-                        }
-                    }else{//上传失败就跳过 少传一张
-                        uploadCount -- ;
+            NSData *imgData = UIImageJPEGRepresentation(img, 0.3);
+            NSDictionary *params = @{@"method":@"comment"};
+            NSString *url =[NSString stringWithFormat:@"%@/api.php?m=uploadimg&s=index",MATROJP_BASE_URL];
+            [MLHttpManager post:url params:params m:@"uploadimg" s:@"index" sconstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
+            } success:^(id responseObject) {
+                NSDictionary *result = (NSDictionary *)responseObject;
+                if ([result[@"code"] isEqual:@0]) { //上传成功
+                    NSDictionary *data = result[@"data"];
+                    NSString *url = data[@"pic_url"];
+                    [self.imgUrlArray addObject:url];
+                    already++;
+                    if (already == uploadCount) { //图片上传完成  请求退货操作
+                        [self uploadCommentInfo];
                     }
-                    NSLog(@"%@",responseObject);
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    NSLog(@"%@",error);
-                }];
+                }else{//上传失败就跳过 少传一张
+                    uploadCount -- ;
+                }
+
+            } failure:^(NSError *error) {
+                
+            }];
         }];
     }else{
         [MBProgressHUD showMessag:@"请选择图片" toView:self.view];
@@ -127,19 +126,24 @@
     }
     NSDictionary *params = @{@"pid":self.pid,@"comment_text":self.headView.textView.text,@"stars":[NSNumber numberWithInteger:self.comScore],@"pic":str};
     
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=product_submit&test_phone=13771961207",@"http://bbctest.matrojp.com"];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=product_submit",MATROJP_BASE_URL];
+    
+    [MLHttpManager post:url params:params m:@"product" s:@"comment_submit" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
+            if (self.goodsComSuccess) {
+                self.goodsComSuccess();
+            }
             [MBProgressHUD showMessag:@"评价成功" toView:self.view];
+            [self performSelector:@selector(goBack) withObject:nil afterDelay:1];
         }
         else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
 }

@@ -7,21 +7,28 @@
 //
 
 #import "MLCollectgoodsModel.h"
+@class MLSetmeal;
 
 @implementation MLCollectgoodsModel
 
 
-+ (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{
-             
-             @"ID" : @"id",
-             @"Pid" : @"pid",
-             @"Pname" : @"pname",
-             @"Pimage" : @"image",
-             @"Pprice": @"price",
-             @"Psetmeal":@"setmeal",
-             };
++ (NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{@"ID":@"id"};
 }
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"setmeal":[MLSetmeal class]};
+}
+
+@end
+
+
+
+@implementation MLSetmeal
+
+
+
 
 
 @end

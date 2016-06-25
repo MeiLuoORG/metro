@@ -22,7 +22,11 @@
 #import "MLPersonAlertViewController.h"
 #import "MBProgressHUD+add.h"
 #import "MLOrderComViewController.h"
-
+#import "MLReturnRequestViewController.h"
+#import "MLLogisticsViewController.h"
+#import "HFSConstants.h"
+#import "MLHttpManager.h"
+#import "MLReturnRequestViewController.h"
 
 
 typedef NS_ENUM(NSInteger,OrderActionType){
@@ -41,7 +45,9 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     ButtonActionTypeTuiHuo
 };
 
-@interface MLPersonOrderListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MLPersonOrderListViewController ()<UITableViewDelegate,UITableViewDataSource>{
+    NSInteger pageIndex;
+}
 @property (nonatomic,assign)OrderType type;
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *orderList;
@@ -49,7 +55,6 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
 
 @end
 
-static NSInteger pageIndex = 0;
 
 @implementation MLPersonOrderListViewController
 
@@ -114,7 +119,15 @@ static NSInteger pageIndex = 0;
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self getOrderList];
     }];
+    
+    pageIndex = 0;
+
+    
     [self.tableView.header beginRefreshing];
+    [self.view configBlankPage:EaseBlankPageTypeDingdan hasData:(self.orderList.count>0)];
+    self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+        NSLog(@"去逛逛吧");
+    };
 }
 
 
@@ -126,8 +139,8 @@ static NSInteger pageIndex = 0;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     MLPersonOrderModel *order = [self.orderList objectAtIndex:section];
-    if (order.isMore) {//如果超过两个的情况
-        return order.isOpen?order.product.count+3:5;
+    if (order.isMore && !order.isOpen) {//如果超过两个的情况
+        return 5;
     }
     return order.product.count+2;
 }
@@ -135,8 +148,6 @@ static NSInteger pageIndex = 0;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MLPersonOrderModel *order = [self.orderList objectAtIndex:indexPath.section];
-    
-    
     __weak typeof(self) weakself = self;
     if (indexPath.row == 0) {
         MLOrderInfoHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderInfoHeaderTableViewCell forIndexPath:indexPath];
@@ -144,213 +155,76 @@ static NSInteger pageIndex = 0;
         return cell;
     }
     
-    if (order.isMore) {
-        if (order.isOpen) {//展开的情况
-            if (indexPath.row == order.product.count+1) { //倒数第二行
-                MLMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MoreCell" forIndexPath:indexPath];
-                return cell;
-            }
-            else if (indexPath.row == order.product.count+2){//最后一行
-                MLOrderInfoFooterTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kOrderInfoFooterTableViewCell forIndexPath:indexPath];
-                cell.orderList = order;
-                cell.cancelAction = ^(){ //取消操作
-                    MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定取消此订单吗？" AndAlertDoneAction:^{
-                        [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.order_id];
-                    }];
-                    [weakself showTransparentController:vc];
-                };
-                cell.shouHuoAction = ^(){//确认收货操作
-                    MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定确认收货吗？" AndAlertDoneAction:^{
-                        [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.order_id];
-                    }];
-                    [weakself showTransparentController:vc];
-                };
-                cell.pingJiaAction = ^(){//评价  调到评价页面
-                    MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
-                    vc.order_id = order.order_id;
-                    [weakself.navigationController pushViewController: vc animated:YES];
-                    
-                    
-                };
-                cell.kanPingJiaAction= ^(){//查看订单评价  跳到查看订单评价页面
-                    MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
-                    vc.order_id = order.order_id;
-                    [weakself.navigationController pushViewController: vc animated:YES];
-                };
-                cell.zhuiZongAction = ^(){//订单追踪  跳到订单追踪页面
-                    
-                };
-                cell.tuiHuoAction = ^(){//退货操作
-                    MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定退货吗？" AndAlertDoneAction:^{
-                        [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.order_id];
-                    }];
-                    [weakself showTransparentController:vc];
-                };
-                cell.fuKuanAction = ^(){//跳到付款 页面
-                    
-                };
-
-                return cell;
-            }
-            else{
-                MLOrderCenterTableViewCell *cell= [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
-                MLPersonOrderProduct *product = [order.product objectAtIndex:indexPath.row-1];
-                cell.productOrder = product;
-
-                return cell;
-            }
-            
-        }
-        else //未展开
-        {
-            if (indexPath.row == 3) { //倒数第二行
-                MLMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MoreCell" forIndexPath:indexPath];
-                return cell;
-            }else if (indexPath.row == 4){
-                MLOrderInfoFooterTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kOrderInfoFooterTableViewCell forIndexPath:indexPath];
-                cell.orderList = order;
-                cell.cancelAction = ^(){ //取消操作
-                    MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定取消此订单吗？" AndAlertDoneAction:^{
-                        [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.ID];
-                    }];
-                    [weakself showTransparentController:vc];
-                };
-                cell.shouHuoAction = ^(){//确认收货操作
-                    MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定确认收货吗？" AndAlertDoneAction:^{
-                        [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.ID];
-                    }];
-                    [weakself showTransparentController:vc];
-                };
-                cell.pingJiaAction = ^(){//评价  调到评价页面
-                    MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
-                    vc.order_id = order.order_id;
-                    [weakself.navigationController pushViewController:vc animated:YES];
-                    
-                };
-                cell.kanPingJiaAction= ^(){//查看订单评价  跳到查看订单评价页面
-                    MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
-                    vc.order_id = order.order_id;
-                    [weakself.navigationController pushViewController:vc animated:YES];
-                };
-                cell.zhuiZongAction = ^(){//订单追踪  跳到订单追踪页面
-                    
-                };
-                cell.tuiHuoAction = ^(){//退货操作
-                    MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定退货吗？" AndAlertDoneAction:^{
-                        [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.order_id];
-                    }];
-                    [weakself showTransparentController:vc];
-                };
-                cell.fuKuanAction = ^(){//跳到付款 页面
-                    
-                };
-                
-                return cell;
-            }
-            else{
-                MLOrderCenterTableViewCell *cell= [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
-                MLPersonOrderProduct *product = [order.product objectAtIndex:indexPath.row-1];
-                cell.productOrder = product;
-                return cell;
-            }
-            
-        }
-     
-    }
-    else{
-        if (indexPath.row == order.product.count+1) { //倒数第二行
-            MLOrderInfoFooterTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kOrderInfoFooterTableViewCell forIndexPath:indexPath];
-            cell.orderList = order;
-            cell.cancelAction = ^(){ //取消操作
-                MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定取消此订单吗？" AndAlertDoneAction:^{
-                    [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.ID];
-                }];
-                [weakself showTransparentController:vc];
-            };
-            cell.shouHuoAction = ^(){//确认收货操作
-                MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定确认收货吗？" AndAlertDoneAction:^{
-                    [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.order_id];
-                }];
-                [weakself showTransparentController:vc];
-            };
-            cell.pingJiaAction = ^(){//评价  调到评价页面
-                MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
-                vc.order_id = order.order_id;
-                [weakself.navigationController pushViewController:vc animated:YES];
-            };
-            cell.kanPingJiaAction= ^(){//查看订单评价  跳到查看订单评价页面
-                MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
-                vc.order_id = order.order_id;
-                [weakself.navigationController pushViewController:vc animated:YES];
-            };
-            cell.zhuiZongAction = ^(){//订单追踪  跳到订单追踪页面
-                
-            };
-            cell.tuiHuoAction = ^(){//退货操作
-                MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定退货吗？" AndAlertDoneAction:^{
-                    [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.order_id];
-                }];
-                [weakself showTransparentController:vc];
-            };
-            cell.fuKuanAction = ^(){//跳到付款 页面
-                
-            };
-            return cell;
-        }else{
-            MLOrderCenterTableViewCell *cell= [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
-            MLPersonOrderProduct *product = [order.product objectAtIndex:indexPath.row-1];
-            cell.productOrder = product;
-            
-            return cell;
-        }
+    if (order.isMore && !order.isOpen && indexPath.row == 3) { // 有更多
+        MLMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MoreCell" forIndexPath:indexPath];
+        [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%lu件",order.product.count - 2] forState:UIControlStateNormal];
+        cell.moreActionBlock = ^(){
+            order.isOpen = YES;
+            [weakself.tableView reloadData];
+        };
+        return cell;
     }
     
-
+    if ((order.isMore && order.isOpen && indexPath.row == order.product.count+1 )||(order.isMore && indexPath.row == 4 && !order.isOpen) ||(!order.isMore && indexPath.row == order.product.count+1) ) {
+        MLOrderInfoFooterTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kOrderInfoFooterTableViewCell forIndexPath:indexPath];
+        cell.orderList = order;
+        cell.cancelAction = ^(){ //取消操作
+            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定取消此订单吗？" AndAlertDoneAction:^{
+                [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.order_id];
+            }];
+            [weakself showTransparentController:vc];
+        };
+        cell.shouHuoAction = ^(){//确认收货操作
+            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定确认收货吗？" AndAlertDoneAction:^{
+                [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.order_id];
+            }];
+            [weakself showTransparentController:vc];
+        };
+        cell.pingJiaAction = ^(){//评价  调到评价页面
+            MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
+            vc.order_id = order.order_id;
+            [weakself.navigationController pushViewController: vc animated:YES];
+        };
+        cell.kanPingJiaAction= ^(){//查看订单评价  跳到查看订单评价页面
+            MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
+            vc.order_id = order.order_id;
+            [weakself.navigationController pushViewController: vc animated:YES];
+        };
+        cell.zhuiZongAction = ^(){//订单追踪  跳到订单追踪页面
+            MLLogisticsViewController *vc = [[MLLogisticsViewController alloc]init];
+            [weakself.navigationController pushViewController:vc animated:YES];
+        };
+        cell.tuiHuoAction = ^(){//退货操作
+            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定退货吗？" AndAlertDoneAction:^{
+                MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
+                vc.order_id = order.order_id;
+                [weakself.navigationController pushViewController:vc animated:YES];
+            }];
+            [weakself showTransparentController:vc];
+        };
+        cell.fuKuanAction = ^(){//跳到付款 页面
+            
+        };
+        
+        return cell;
+    }
+    
+    MLOrderCenterTableViewCell *cell= [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
+    MLPersonOrderProduct *product = [order.product objectAtIndex:indexPath.row-1];
+    cell.productOrder = product;
+    return cell;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MLPersonOrderModel *order = [self.orderList objectAtIndex:indexPath.section];
     
-    if (indexPath.row == 0) {
-        return 44;
+    if ((order.isMore && !order.isOpen && indexPath.row == 3 )|| (indexPath.row == 0) || (order.isMore && order.isOpen && indexPath.row == order.product.count+1 )||(order.isMore && indexPath.row == 4 && !order.isOpen) ||(!order.isMore && indexPath.row == order.product.count+1)) { // 有更多
+    
+        return 40;
+    
     }
-    if (order.isMore) {
-        if (order.isOpen) {//展开的情况
-            if (indexPath.row == order.product.count+1) { //倒数第二行
-                return 44;
-                
-            }
-            else if (indexPath.row == order.product.count+2){//最后一行
-                return 44;
-                
-            }
-            else{
-                return 134;
-                
-            }
-            
-        }
-        else //未展开
-        {
-            if (indexPath.row == 3) { //倒数第二行
-              return 44;
-            }else if (indexPath.row == 4){
-             return 44;
-            }
-            else{
-                return 134;
-            }
-        }
-        
-    }
-    else{
-        if (indexPath.row == order.product.count+1) { //倒数第二行
-            return 44;
-        }
-        else{
-            return 134;
-        }
-    }
+    return 134;
     
     
 }
@@ -366,7 +240,6 @@ static NSInteger pageIndex = 0;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     
     MLPersonOrderModel *order = [self.orderList objectAtIndex:indexPath.section];
     MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
@@ -386,35 +259,34 @@ static NSInteger pageIndex = 0;
     switch (self.type) {
         case OrderType_All:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&test_phone=13771961207",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8",MATROJP_BASE_URL,[NSNumber numberWithInteger:pageIndex]];
         }
             break;
         case OrderType_Fukuan:
         {
-             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=1&test_phone=13771961207",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
+             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=1",MATROJP_BASE_URL,[NSNumber numberWithInteger:pageIndex]];
         }
             break;
         case OrderType_Pingjia:
         {
-             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=4&buyer_comment=0&test_phone=13771961207",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
+             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=4&buyer_comment=0",MATROJP_BASE_URL,[NSNumber numberWithInteger:pageIndex]];
         }
             break;
         case OrderType_Shouhuo:
         {
-             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=3&test_phone=13771961207",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
+             url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=index&cur_page=%@&page_size=8&status=3",MATROJP_BASE_URL,[NSNumber numberWithInteger:pageIndex]];
         }
             break;
         default:
             break;
     }
-
-    [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    [MLHttpManager post:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
         [self.tableView.header endRefreshing];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSDictionary *order_list = data[@"order_list"];
-            
             if (order_list &&[order_list isKindOfClass:[NSDictionary class]])
             {
                 NSArray *list = order_list[@"list"];
@@ -427,48 +299,18 @@ static NSInteger pageIndex = 0;
                 }
                 [self.tableView reloadData];
             }
-            
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
         
         [self.view configBlankPage:EaseBlankPageTypeDingdan hasData:(self.orderList.count>0)];
-        self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
-            NSLog(@"去逛逛吧");
-        };
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-          [self.tableView.header endRefreshing];
+    } failure:^(NSError *error) {
+         [self.tableView.header endRefreshing];
+         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
 }
 
-
-- (void)orderActionWithOrderId:(NSString *)orderId AndOerActiontype:(OrderActionType)actionType{
-    NSString *action;
-    switch (actionType) {
-        case OrderActionTypeDel:
-            action = @"delete";
-            break;
-        case OrderActionTypeCancel:
-            action = @"cancel";
-            break;
-        case OrderActionTypeconfirm:
-            action = @"confirm";
-            break;
-        default:
-            break;
-    }
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@&test_phone=13771961207",@"http://localbbc.matrojp.com",action,orderId];
-    [[HFSServiceClient sharedJSONClientNOT]POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *result = (NSDictionary *)responseObject;
-        if ([result[@"code"] isEqual:@0]) { //操作成功
-            
-            
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
-    
-    
-    
-}
 
 
 
@@ -498,22 +340,20 @@ static NSInteger pageIndex = 0;
     }else{
         action = @"";
     }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString *url= [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@",action,order_id];
-    [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url= [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@",MATROJP_BASE_URL,action,order_id];
+    [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //操作成功
-            [MBProgressHUD showSuccess:@"操作成功" toView:self.view];
-            
+          [MBProgressHUD showSuccess:@"操作成功" toView:self.view];
+          pageIndex = 0;
+          [self getOrderList];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
-    
-    
-    
-    
-    
+
 }
 
 

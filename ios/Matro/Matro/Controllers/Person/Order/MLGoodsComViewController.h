@@ -10,9 +10,12 @@
 #import "MLCommentProductModel.h"
 
 
+typedef void(^GoodsComSuccess)();
+
 @interface MLGoodsComViewController : MLBaseViewController
 @property (nonatomic,strong)MLCommentProductModel *product;
 @property (nonatomic,copy)NSString *pid;
+@property (nonatomic,copy)GoodsComSuccess goodsComSuccess;
 
 
 @end

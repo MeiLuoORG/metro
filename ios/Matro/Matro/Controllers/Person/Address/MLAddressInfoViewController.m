@@ -16,6 +16,7 @@
 #import "MJExtension.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "MBProgressHUD+Add.h"
+#import "MLHttpManager.h"
 
 @interface MLAddressInfoViewController ()<UIPickerViewDataSource,UIPickerViewDelegate>{
     UIControl *_blackView;
@@ -123,7 +124,7 @@ static MLShippingaddress *province,*city,*area;
 }
 
 
--(NSString*)getDocumentpath
+- (NSString*)getDocumentpath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"Area.json"]];
@@ -132,58 +133,9 @@ static MLShippingaddress *province,*city,*area;
 
 
 
-
--(void)getAllarea
-{
-    [[HFSServiceClient sharedJSONClientNOT] GET:[NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=dis&test_phone=13771961207",@"http://bbctest.matrojp.com"] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *result = (NSDictionary *)responseObject;
-        if ([[result objectForKey:@"code"] isEqual:@0]) {
-            NSDictionary *data = result[@"data"];
-            NSArray *district_info = [MLShippingaddress mj_objectArrayWithKeyValuesArray:data[@"district_info"]];
-            
-//            缓存本地
-            NSArray *tmp = [MLShippingaddress mj_keyValuesArrayWithObjectArray:district_info];
-            NSLog(@"%@",tmp);
-            SBJSON *sbjson = [SBJSON new];
-            NSError *error;
-            NSString *jsonstr = [sbjson stringWithObject:tmp error:&error];
-            if (jsonstr) {
-                [jsonstr writeToFile:[self getDocumentpath] atomically:YES encoding:NSUTF8StringEncoding error:&error];
-            }
-            
-            [self.addressData addObjectsFromArray:district_info];
-            province = [self.addressData firstObject];
-            if (province.sub.count>0) {
-                city = [province.sub firstObject];
-                if (city.sub.count>0) {
-                    [city.sub firstObject];
-                }
-            }
-            [self.addressPickerView reloadAllComponents];
-        }
-    
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
-
-}
-
-
-//- (NSArray *)getsub:(NSArray *)allAddress pid:(NSString *)pid{
-//    NSMutableArray *tmp = [NSMutableArray array];
-//    for (MLShippingaddress *address in allAddress) {
-//        if ([address.pid isEqualToString:pid]) {
-//            address.sub = [self getsub:allAddress pid:address.ID];
-//            [tmp addObject:address];
-//        }
-//    }
-//    return [tmp copy];
-//}
-
-
-
-
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
     _rH.constant = MAIN_SCREEN_HEIGHT - 64;
     _rW.constant = MAIN_SCREEN_WIDTH;
 }
@@ -274,22 +226,21 @@ static MLShippingaddress *province,*city,*area;
         return;
 
     }
-//    NSString *loginid = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
     
-     NSString  *urlStr = [NSString stringWithFormat:@"%@api.php?m=member&s=admin_orderadder&do=%@&test_phone=13771961207",@"http://bbctest.matrojp.com/",_isNewAddress?@"add":@"upd"];
+     NSString  *urlStr = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=%@",MATROJP_BASE_URL,_isNewAddress?@"add":@"upd"];
     
     
     NSDictionary *params ;
     if (_isNewAddress) {
-        params =@{@"uid":@"21357",@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:@"",@"data[area]":self.selTextField.text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:@"",@"data[cityid]":city.ID?:@"",@"data[mobile]":self.phoneTextField.text};
+        params =@{@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:@"",@"data[area]":self.selTextField.text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:@"",@"data[cityid]":city.ID?:@"",@"data[mobile]":self.phoneTextField.text};
     }
     else{
-        params =@{@"uid":@"21357",@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:self.addressDetail.areaid,@"data[area]":self.selTextField.text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:self.addressDetail.provinceid,@"data[cityid]":city.ID?:self.addressDetail.cityid,@"data[mobile]":self.phoneTextField.text,@"id":self.addressDetail.ID?:@""};
+        params =@{@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:self.addressDetail.areaid,@"data[area]":self.selTextField.text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:self.addressDetail.provinceid,@"data[cityid]":city.ID?:self.addressDetail.cityid,@"data[mobile]":self.phoneTextField.text,@"id":self.addressDetail.ID?:@""};
     }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MLHttpManager post:urlStr params:params m:@"member" s:@"admin_orderadder" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //添加成功
             if (self.addressSuccess) {
@@ -298,15 +249,13 @@ static MLShippingaddress *province,*city,*area;
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             NSString *msg = result[@"msg"];
-            
             [MBProgressHUD showMessag:msg toView:self.view];
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         [MBProgressHUD showMessag:@"网络错误!" toView:self.view];
+
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
-    
-    
     
     
 }
@@ -436,6 +385,44 @@ static MLShippingaddress *province,*city,*area;
     return _addressData;
 }
 
+- (void)getAllarea
+{
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=dis",MATROJP_BASE_URL];
+    [MLHttpManager get:urlStr params:nil m:@"member" s:@"admin_orderadder" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([[result objectForKey:@"code"] isEqual:@0]) {
+            NSDictionary *data = result[@"data"];
+            NSArray *district_info = [MLShippingaddress mj_objectArrayWithKeyValuesArray:data[@"district_info"]];
+            
+            //            缓存本地
+            NSArray *tmp = [MLShippingaddress mj_keyValuesArrayWithObjectArray:district_info];
+            NSLog(@"%@",tmp);
+            SBJSON *sbjson = [SBJSON new];
+            NSError *error;
+            NSString *jsonstr = [sbjson stringWithObject:tmp error:&error];
+            if (jsonstr) {
+                [jsonstr writeToFile:[self getDocumentpath] atomically:YES encoding:NSUTF8StringEncoding error:&error];
+            }
+            
+            [self.addressData addObjectsFromArray:district_info];
+            province = [self.addressData firstObject];
+            if (province.sub.count>0) {
+                city = [province.sub firstObject];
+                if (city.sub.count>0) {
+                    [city.sub firstObject];
+                }
+            }
+            [self.addressPickerView reloadAllComponents];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+    
+}
 
 
 

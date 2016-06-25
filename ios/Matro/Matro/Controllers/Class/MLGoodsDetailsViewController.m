@@ -36,6 +36,9 @@
 #import "SearchHistory.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import "MLpingjiaViewController.h"
+#import "MLHttpManager.h"
+
+
 
 @interface UIImage (SKTagView)
 
@@ -754,33 +757,53 @@
     }
     
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=add_cart&test_phone=13771961207",@"http://bbctest.matrojp.com"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=add_cart",@"http://bbctest.matrojp.com"];
     NSDictionary *params = @{@"id":pid,@"nums":[NSNumber numberWithInteger:_shuliangStepper.value],@"sid":sid,@"sku":sku};
     
-    
-    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+    [MLHttpManager post:urlStr params:params m:@"product" s:@"cart" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSString *code = result[@"code"];
+        if ([code isEqual:@0]) {
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"加入购物车成功";
+            [_hud hide:YES afterDelay:2];
+        }
+        NSLog(@"请求成功 result====%@",result);
+
+    } failure:^(NSError *error) {
+        NSLog(@"请求失败 error===%@",error);
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"加入购物车失败";
+        [_hud hide:YES afterDelay:2];
+    }];
         
         
-    } success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         
-         NSDictionary *result = (NSDictionary *)responseObject;
-         NSString *code = result[@"code"];
-         if ([code isEqual:@0]) {
-             [_hud show:YES];
-             _hud.mode = MBProgressHUDModeText;
-             _hud.labelText = @"加入购物车成功";
-             [_hud hide:YES afterDelay:2];
-         }
-         NSLog(@"请求成功 result====%@",result);
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"请求失败 error===%@",error);
-         [_hud show:YES];
-         _hud.mode = MBProgressHUDModeText;
-         _hud.labelText = @"加入购物车失败";
-         [_hud hide:YES afterDelay:2];
-     }];
+        
+//    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+//        
+//        
+//    } success:^(AFHTTPRequestOperation *operation, id responseObject)
+//     {
+//         
+//         NSDictionary *result = (NSDictionary *)responseObject;
+//         NSString *code = result[@"code"];
+//         if ([code isEqual:@0]) {
+//             [_hud show:YES];
+//             _hud.mode = MBProgressHUDModeText;
+//             _hud.labelText = @"加入购物车成功";
+//             [_hud hide:YES afterDelay:2];
+//         }
+//         NSLog(@"请求成功 result====%@",result);
+//         
+//     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//         NSLog(@"请求失败 error===%@",error);
+//         [_hud show:YES];
+//         _hud.mode = MBProgressHUDModeText;
+//         _hud.labelText = @"加入购物车失败";
+//         [_hud hide:YES afterDelay:2];
+//     }];
     
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -1156,28 +1179,46 @@
         [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
         [self.shoucangButton setTitleColor:RGBA(174, 142, 93, 1) forState:UIControlStateNormal];
   
-        NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product&test_phone=13771961207",@"http://bbctest.matrojp.com"];
+        NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com"];
         NSDictionary *params = @{@"do":@"add",@"pid":pid,@"uname":uname};
-    
-    
-      [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
-       } success:^(AFHTTPRequestOperation *operation, id responseObject){
-           
-        NSDictionary *result = (NSDictionary *)responseObject;
-        NSString *share_add = result[@"data"][@"share_add"];
-        if (share_add) {
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"收藏成功";
-            [_hud hide:YES afterDelay:2];
-        }
-        NSLog(@"请求成功 result====%@",result);
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败 error===%@",error);
-        
-        }];
+            
+            
+      [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_product" success:^(id responseObject) {
+          NSDictionary *result = (NSDictionary *)responseObject;
+          NSString *share_add = result[@"data"][@"share_add"];
+          if (share_add) {
+              [_hud show:YES];
+              _hud.mode = MBProgressHUDModeText;
+              _hud.labelText = @"收藏成功";
+              [_hud hide:YES afterDelay:2];
+          }
+          NSLog(@"请求成功 result====%@",result);
+      } failure:^(NSError *error) {
+          NSLog(@"请求失败 error===%@",error);
+          
+      }];
+            
+            
+            
+            
+//      [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+//       } success:^(AFHTTPRequestOperation *operation, id responseObject){
+//           
+//        NSDictionary *result = (NSDictionary *)responseObject;
+//        NSString *share_add = result[@"data"][@"share_add"];
+//        if (share_add) {
+//            [_hud show:YES];
+//            _hud.mode = MBProgressHUDModeText;
+//            _hud.labelText = @"收藏成功";
+//            [_hud hide:YES afterDelay:2];
+//        }
+//        NSLog(@"请求成功 result====%@",result);
+//        
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"请求失败 error===%@",error);
+//        
+//        }];
     }else{
         self.shoucangButton.selected = NO;
         [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
@@ -1208,7 +1249,7 @@
     if (userid) {
         if (!self.shoucangButton.selected) {
  
-            NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product&test_phone=13771961207",@"http://bbctest.matrojp.com"];
+            NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com"];
             NSDictionary *params = @{@"do":@"del",@"id":sender};
             self.shoucangButton.selected = NO;
             [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];

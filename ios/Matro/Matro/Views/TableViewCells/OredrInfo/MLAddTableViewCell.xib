@@ -28,14 +28,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="189" height="60"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Profile_dingdanxiangqing" translatesAutoresizingMaskIntoConstraints="NO" id="pIK-Ma-UH4">
-                                <rect key="frame" x="12" y="20" width="21" height="21"/>
+                                <rect key="frame" x="16" y="20" width="21" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="21" id="74b-W7-ofF"/>
                                     <constraint firstAttribute="height" constant="21" id="mqx-bp-Lv7"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="贺六爷" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXq-bg-IlG">
-                                <rect key="frame" x="45" y="22" width="132" height="18"/>
+                                <rect key="frame" x="49" y="22" width="128" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -45,10 +45,16 @@
                         <constraints>
                             <constraint firstItem="kXq-bg-IlG" firstAttribute="centerY" secondItem="pIK-Ma-UH4" secondAttribute="centerY" id="6Lf-V3-7W4"/>
                             <constraint firstItem="pIK-Ma-UH4" firstAttribute="leading" secondItem="1zu-MX-zME" secondAttribute="leading" constant="12" id="CB9-vM-568"/>
+                            <constraint firstItem="pIK-Ma-UH4" firstAttribute="leading" secondItem="1zu-MX-zME" secondAttribute="leading" constant="16" id="I00-ea-9s2"/>
                             <constraint firstItem="pIK-Ma-UH4" firstAttribute="centerY" secondItem="1zu-MX-zME" secondAttribute="centerY" id="LWx-CT-9EM"/>
                             <constraint firstItem="kXq-bg-IlG" firstAttribute="leading" secondItem="pIK-Ma-UH4" secondAttribute="trailing" constant="12" id="ao9-Wo-0Pe"/>
                             <constraint firstAttribute="trailing" secondItem="kXq-bg-IlG" secondAttribute="trailing" constant="12" id="eMZ-OX-GR1"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="CB9-vM-568"/>
+                            </mask>
+                        </variation>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R1g-AV-hFt">
                         <rect key="frame" x="189" y="0.0" width="188" height="60"/>
@@ -77,7 +83,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="江苏省苏州市工业园区星湖街288号圆融时代广场" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAm-Jh-JUF">
-                        <rect key="frame" x="12" y="61" width="353" height="59"/>
+                        <rect key="frame" x="16" y="61" width="345" height="59"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -93,9 +99,11 @@
                     <constraint firstAttribute="bottom" secondItem="xAm-Jh-JUF" secondAttribute="bottom" id="IHD-Jo-nDt"/>
                     <constraint firstItem="1zu-MX-zME" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="IOm-rd-2dt"/>
                     <constraint firstItem="JT7-ce-jVE" firstAttribute="top" secondItem="1zu-MX-zME" secondAttribute="bottom" id="LVb-N6-bw6"/>
+                    <constraint firstItem="xAm-Jh-JUF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="LtM-Lj-sYa"/>
                     <constraint firstItem="1zu-MX-zME" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Q5q-uM-a7z"/>
                     <constraint firstAttribute="trailing" secondItem="R1g-AV-hFt" secondAttribute="trailing" id="Q8e-h7-FFm"/>
                     <constraint firstItem="xAm-Jh-JUF" firstAttribute="top" secondItem="JT7-ce-jVE" secondAttribute="bottom" id="aXF-m9-VoO"/>
+                    <constraint firstAttribute="trailing" secondItem="xAm-Jh-JUF" secondAttribute="trailing" constant="16" id="bwa-lm-Jyn"/>
                     <constraint firstAttribute="trailing" secondItem="xAm-Jh-JUF" secondAttribute="trailing" id="hdz-Fb-Sat"/>
                     <constraint firstItem="JT7-ce-jVE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="icO-zs-eUw"/>
                     <constraint firstItem="R1g-AV-hFt" firstAttribute="leading" secondItem="1zu-MX-zME" secondAttribute="trailing" id="qHC-DR-wcW"/>
@@ -104,6 +112,8 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="09J-tt-NEp"/>
+                        <exclude reference="5W4-WA-xVZ"/>
                         <exclude reference="FYc-nd-0vG"/>
                         <exclude reference="hdz-Fb-Sat"/>
                     </mask>

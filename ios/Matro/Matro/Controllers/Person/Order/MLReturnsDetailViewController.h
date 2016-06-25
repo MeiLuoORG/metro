@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLBaseViewController.h"
 
-@interface MLReturnsDetailViewController : UIViewController
+@interface MLReturnsDetailViewController : MLBaseViewController
 @property (nonatomic,copy)NSString *order_id;
 
 @end

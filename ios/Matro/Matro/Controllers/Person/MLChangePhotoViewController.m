@@ -108,10 +108,10 @@
         NSString *accessTokenStr =[accessToken substringToIndex:12];
         NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
         NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
-        NSString *signStr =[NSString stringWithFormat:@"%@%f",accessTokenStr,timestamp];
+        NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,@"uploadimg",timestamp,@"index"];
         NSString *sign = [self md65:signStr];
         
-        NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%f",UPLOADTOUXIANG_IMAGE_URLString,bbc_token,sign,timestamp];
+        NSString *newUrl = [NSString stringWithFormat:@"%@&timestamp=%.f&bbc_token=%@&sign=%@",UPLOADTOUXIANG_IMAGE_URLString,timestamp,bbc_token,sign];
         
         
         NSData *imgData = UIImageJPEGRepresentation(avatorimg, 0.3);
@@ -119,7 +119,7 @@
         NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"avator.jpg"]];
         
         BOOL result = [UIImagePNGRepresentation(avatorimg)writeToFile: filePath atomically:YES]; // 保存成功会返回YES
-
+        NSLog(@"是否保存到本地:%d",result);
         //picture: 上传的图片
         //method: header（固定值）
         //NSDictionary *params = @{@"method":@"refund_img",@"order_id":@"123456"};

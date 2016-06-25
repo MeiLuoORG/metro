@@ -20,6 +20,7 @@
 #import "MLPersonOrderModel.h"
 #import "MLCommentProductModel.h"
 #import "MLProductComDetailViewController.h"
+#import "MLHttpManager.h"
 
 
 
@@ -66,30 +67,27 @@
     
     if (logisticsScore > 0 && productScore >0 &&serviceScore>0&&fahuoScore>0) {
         
-        NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=order_submit&id=%@&uid=13771961207",@"http://bbctest.matrojp.com",self.order_id];
+        NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=order_submit&",MATROJP_BASE_URL];
+        NSDictionary *params = @{@"snuma":[NSNumber numberWithInteger:productScore],@"snumd":[NSNumber numberWithInteger:logisticsScore],@"snumb":[NSNumber numberWithInteger:serviceScore],@"snumc":[NSNumber numberWithInteger:fahuoScore],@"id":self.order_id?:@""};
         
-        NSDictionary *params = @{@"snuma":[NSNumber numberWithInteger:productScore],@"snumd":[NSNumber numberWithInteger:logisticsScore],@"snumb":[NSNumber numberWithInteger:serviceScore],@"snumc":[NSNumber numberWithInteger:fahuoScore]};
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MLHttpManager post:url params:params m:@"product" s:@"comment_submit" success:^(id responseObject) {
             NSDictionary *result = (NSDictionary *)responseObject;
             if ([result[@"code"] isEqual:@0]) {
                 [MBProgressHUD showMessag:@"评价成功" toView:self.view];
             }else{
                 NSString *msg = result[@"msg"];
                 [MBProgressHUD showMessag:msg toView:self.view];
-
+                
             }
-             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
+        } failure:^(NSError *error) {
+            [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
         }];
+    
     }
     else{
         [MBProgressHUD showMessag:@"请完善评分" toView:self.view];
     }
 }
-
 
 - (void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
@@ -97,13 +95,16 @@
 
 - (void)getAllCommentProduct{
     
-//    http://bbctest.matrojp.com/api.php?m=product&s=comment_submit&method=order&id={订单编号}&uid={用户编号}
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=order&id=%@&test_phone=13771961207",@"http://bbctest.matrojp.com",self.order_id];
-    [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=order&id=%@",MATROJP_BASE_URL,self.order_id];
+    
+    [MLHttpManager post:url params:nil m:@"product" s:@"comment_submit" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSArray *order = data[@"order"];
+            [self.productArr removeAllObjects];
             [self.productArr addObjectsFromArray:[MLCommentProductModel mj_objectArrayWithKeyValuesArray:order]];
             if ([data[@"order_comment"] isKindOfClass:[NSDictionary class]]) {
                 self.order_comment = data[@"order_comment"];
@@ -114,8 +115,9 @@
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+
+    } failure:^(NSError *error) {
+         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
 }
@@ -147,19 +149,15 @@
                 MLGoodsComViewController *vc = [[MLGoodsComViewController alloc]init];
                 vc.product = product;
                 vc.pid = product.pid;
+                vc.goodsComSuccess = ^(){
+                    [weakself getAllCommentProduct];
+                };
                 vc.hidesBottomBarWhenPushed = YES;
                 [weakself.navigationController pushViewController:vc animated:YES];
             }else{ //已评价  去评价详情页面
                 
-//                MLProductComDetailViewController *vc = [[MLProductComDetailViewController alloc]init];
-//                vc.comment_id = product.detail_id;
-//                vc.hidesBottomBarWhenPushed = YES;
-//                [weakself.navigationController pushViewController:vc animated:YES];
-                
-                
-                MLGoodsComViewController *vc = [[MLGoodsComViewController alloc]init];
-                vc.product = product;
-                vc.pid = product.pid;
+                MLProductComDetailViewController *vc = [[MLProductComDetailViewController alloc]init];
+                vc.comment_id = product.detail_id;
                 vc.hidesBottomBarWhenPushed = YES;
                 [weakself.navigationController pushViewController:vc animated:YES];
             }

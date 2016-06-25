@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLGuessLikeModel.h"
 
 #define kGoodsLikeCollectionViewCell  @"goodsLikeCollectionViewCell"
 @interface MLGoodsLikeCollectionViewCell : UICollectionViewCell
+@property (nonatomic,strong)MLGuessLikeModel *likeModel;
+@property (weak, nonatomic) IBOutlet UIImageView *imgView;
+@property (weak, nonatomic) IBOutlet UILabel *goodsName;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 @end

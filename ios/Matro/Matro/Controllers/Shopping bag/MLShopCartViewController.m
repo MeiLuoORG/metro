@@ -28,9 +28,10 @@
 #import "NSString+GONMarkup.h"
 #import "MBProgressHUD+Add.h"
 #import "MLShopCartMoreCell.h"
+#import "MLGuessLikeModel.h"
+#import "MLGoodsDetailsViewController.h"
 
 #import "MLHttpManager.h"
-
 
 @interface MLShopCartViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CPStepperDelegate>
 
@@ -42,6 +43,7 @@
 
 static float allPrice = 0;
 static NSInteger goodsCount;
+static NSInteger pageIndex = 0;
 
 @implementation MLShopCartViewController
 
@@ -50,6 +52,9 @@ static NSInteger goodsCount;
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
+    
+    
+    self.navigationItem.leftBarButtonItem = nil;
     
     _loginView = ({
         UIView *headView = [[UIView alloc]initWithFrame:CGRectZero];
@@ -111,51 +116,54 @@ static NSInteger goodsCount;
         make.left.right.bottom.mas_equalTo(self.view);
     }];
     [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
-    
-    UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action:@selector(nothing)];
-    self.navigationItem.leftBarButtonItem = left;
-    
-}
--(void)nothing{
+    self.collectionView.header = [MJRefreshHeader headerWithRefreshingBlock:^{
+        [self getDataSource];
+    }];
+    [self.collectionView.header beginRefreshing];
     
 }
 
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self getDataSource];
-    
-}
-
-- (void)getDataSource{
-    
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index&test_phone=13771961207",@"http://bbctest.matrojp.com"];
-
-    [[HFSServiceClient sharedJSONClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *result = (NSDictionary *)responseObject;
-        
-        if ([[result objectForKey:@"code"] isEqual:@0]) {
-            self.shopCart = [MLShopingCartlistModel mj_objectWithKeyValues:result[@"data"][@"cart_list"]];
-            
-            [self.collectionView reloadData];
-            [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"网络错误");  
-    }];
-}
-
-
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-     NSString  *loginid = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
+    NSString  *loginid = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
     if (loginid) {
         [self showOrHiddenLoginView:NO];
     }
     else{
         [self showOrHiddenLoginView:YES];
     }
+    
 }
+
+- (void)getDataSource{
+    
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
+    
+    [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
+        [self.collectionView.header endRefreshing];
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([[result objectForKey:@"code"] isEqual:@0]) {
+            self.shopCart = [MLShopingCartlistModel mj_objectWithKeyValues:result[@"data"][@"cart_list"]];
+            [self.collectionView reloadData];
+            if (self.shopCart.cart.count > 0) {
+                [self guessYourLike];
+            }
+            [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
+        }else{
+            NSString *msg = result[@"data"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+        
+    } failure:^(NSError *error) {
+        [self.collectionView.header endRefreshing];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+
+}
+
+
+
 
 #pragma mark -- UICollectionViewDataSource
 
@@ -165,7 +173,6 @@ static NSInteger goodsCount;
         return self.likeArray.count;
     }
     else{
-        
         MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:section];
         if (cart.isMore && !cart.isOpen) {
             return 3;
@@ -185,6 +192,8 @@ static NSInteger goodsCount;
 {
     if (indexPath.section == self.shopCart.cart.count) {
         MLGoodsLikeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kGoodsLikeCollectionViewCell forIndexPath:indexPath];
+        MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
+        cell.likeModel = model;
         return cell;
     }
     else{
@@ -253,9 +262,9 @@ static NSInteger goodsCount;
             }
             MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
             if (model.shipfree_val > 0) {
-                return CGSizeMake(MAIN_SCREEN_WIDTH, 125);//没有包邮情况
+                return CGSizeMake(MAIN_SCREEN_WIDTH, 138);//没有包邮情况
             }
-            return CGSizeMake(MAIN_SCREEN_WIDTH, 104);
+            return CGSizeMake(MAIN_SCREEN_WIDTH, 117);
         }
     
 }
@@ -281,6 +290,14 @@ static NSInteger goodsCount;
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == self.shopCart.cart.count) {  //猜你喜欢点击
+        MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
+        MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+        NSDictionary *params = @{@"id":model.ID};
+        vc.paramDic = params;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 //返回这个UICollectionView是否可以被选择
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -381,7 +398,6 @@ static NSInteger goodsCount;
 
 - (void)loginAction:(id)sender{
     
-    
     MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
     loginVc.isLogin = YES;
     [self presentViewController:loginVc animated:YES completion:nil];
@@ -402,10 +418,7 @@ static NSInteger goodsCount;
 - (NSMutableArray *)likeArray{
     if (!_likeArray) {
         _likeArray = [NSMutableArray array];
-        [_likeArray addObject:@"1"];
-        [_likeArray addObject:@"2"];
-        [_likeArray addObject:@"1"];
-        [_likeArray addObject:@"1"];
+        
     }
     return _likeArray;
 }
@@ -428,25 +441,28 @@ static NSInteger goodsCount;
 }
 
 - (void)deleteGoods:(MLProlistModel *)goods{
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=delete&test_phone=13771961207",@"http://bbctest.matrojp.com"];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:url parameters:@{@"cart_id":goods.ID} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=delete",MATROJP_BASE_URL];
+    [MLHttpManager post:url params:@{@"cart_id":goods.ID} m:@"product" s:@"cart" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
-            
+            [MBProgressHUD showMessag:@"删除成功" toView:self.view];
             [self getDataSource];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
-    
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
 }
 
-
-
 - (void)changeNum:(MLProlistModel *)prolist AndCount:(NSInteger)count{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"http://bbctest.matrojp.com/api.php?m=product&s=cart&action=modify&test_phone=13771961207" parameters:@{@"id":prolist.ID,@"nums":[NSNumber numberWithInteger:count]} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=modify",MATROJP_BASE_URL];
+    [MLHttpManager post:urlStr params:@{@"id":prolist.ID,@"nums":[NSNumber numberWithInteger:count]} m:@"product" s:@"cart" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //修改成功
             //调用接口
@@ -458,25 +474,53 @@ static NSInteger goodsCount;
         {
             [self getDataSource];
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [MBProgressHUD showMessag:@"" toView:self.view];
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
+    
 }
 
 - (void)confirmOrderWithProducts:(NSArray *)products{//创建订单
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"http://bbctest.matrojp.com/api.php?m=product&s=confirm_order&test_phone=13771961207" parameters:products success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=confirm_order",MATROJP_BASE_URL];
+    [MLHttpManager post:urlStr params:products m:@"product" s:@"confirm_order" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             //订单提交成功   后续操作
             [MBProgressHUD showSuccess:@"订单提交成功，后续操作" toView:self.view];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
+    
 }
+
+
+- (void)guessYourLike{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=%@&limit=10",MATROJP_BASE_URL,[NSNumber numberWithInteger:pageIndex]];
+    [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            [self.likeArray removeAllObjects];
+            NSDictionary *data = result[@"data"];
+            NSArray *product = data[@"product"];
+            [self.likeArray addObjectsFromArray:[MLGuessLikeModel mj_objectArrayWithKeyValuesArray:product]];
+            [self.collectionView reloadData];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+}
+
 
 
 

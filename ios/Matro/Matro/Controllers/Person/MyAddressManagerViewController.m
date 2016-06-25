@@ -17,6 +17,7 @@
 #import "MLAddressListModel.h"
 #import "MJExtension.h"
 #import "MBProgressHUD+Add.h"
+#import "MLHttpManager.h"
 
 
 @interface MyAddressManagerViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
@@ -37,11 +38,8 @@
     userid = [[NSUserDefaults standardUserDefaults] valueForKey:kUSERDEFAULT_USERID];
     addressAry = [[NSMutableArray alloc] init];
     _addressTBView.sectionFooterHeight = 0.1f;
-    [self.addBtn setBackgroundColor:[HFSUtility hexStringToColor:@"AE8E5D"]];
     [self.addBtn addTarget:self action:@selector(addAddress:) forControlEvents:UIControlEventTouchUpInside];
-    _hud = [[MBProgressHUD alloc]initWithView:self.view];
-    [self.view addSubview:_hud];
-        self.view.backgroundColor = RGBA(245, 245, 245, 1);
+    self.view.backgroundColor = RGBA(245, 245, 245, 1);
     [self loadDateAddressList];
 
 }
@@ -83,13 +81,13 @@
         [weakself.navigationController pushViewController:vc animated:YES];
     };
     cell.addressDefault = ^(){
-        [weakself changeAddressStatus:model];
+        [weakself addressAction:model WithAction:@"setdef"];
     };
     cell.addressManagerDel = ^(){
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定删除此记录" message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { //调接口删除
-            [weakself delAddress:model];
+            [weakself addressAction:model WithAction:@"del"];
         }];
         [alert addAction:done];
         [alert addAction:cancel];
@@ -105,6 +103,9 @@
 {
     MLAddressInfoViewController *vc = [MLAddressInfoViewController new];
     vc.isNewAddress = YES;
+    vc.addressSuccess = ^(){
+        [self loadDateAddressList];
+    };
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -122,79 +123,61 @@
 
 
 #pragma mark 修改默认地址状态
-- (void)changeAddressStatus:(MLAddressListModel *)model{
-    
+
+
+- (void)addressAction:(MLAddressListModel *)model WithAction:(NSString *)action{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=setdef&test_phone=13771961207",@"http://bbctest.matrojp.com"];
-    NSDictionary *params = @{@"id":model.ID};
+
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=%@",MATROJP_BASE_URL,action];
+    NSDictionary *params = @{@"id":model.ID?:@""};
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MLHttpManager post:url params:params m:@"member" s:@"admin_orderadder" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
+            [MBProgressHUD showMessag:@"操作成功" toView:self.view];
             [self loadDateAddressList];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [MBProgressHUD showMessag:@"网络错误" toView:self.view];
-    }];
-    
-    
-
-    
-    
-    
-}
-
-- (void)delAddress:(MLAddressListModel *)model{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    NSString *url = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=del&test_phone=13771961207"];
-    NSDictionary *params = @{@"id":model.ID};
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
         
-        NSDictionary *result = (NSDictionary *)responseObject;
-        if ([result[@"code"] isEqual:@0]) {
-            [self loadDateAddressList];
-        }
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [MBProgressHUD showMessag:@"网络错误" toView:self.view];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
-    
 }
-
 
 
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {
-    
-    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=lists&uid=%@&test_phone=13771961207",@"21357"];
-    [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=lists",MATROJP_BASE_URL];
+    [MLHttpManager get:urlStr params:nil m:@"member" s:@"admin_orderadder" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
-        
         if([result[@"code"] isEqual:@0])
         {
             NSDictionary *data = result[@"data"];
             NSArray *address_lists = data[@"address_lists"];
-            
+            [addressAry removeAllObjects];
             if (address_lists.count>0) {
-                [addressAry removeAllObjects];
+                
                 [addressAry addObjectsFromArray:[MLAddressListModel mj_objectArrayWithKeyValuesArray:address_lists]];
             }
             [_addressTBView reloadData];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
         [self configBlankView];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self configBlankView];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showSuccess:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
+    
 }
 
 
@@ -202,12 +185,13 @@
      [self.view configBlankPage:EaseBlankPageTypeShouhuodizhi hasData:(addressAry.count>0)];
     __weak typeof(self) weakself = self;
     self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
-        NSLog(@"新增收货地址");
         MLAddressInfoViewController *vc = [[MLAddressInfoViewController alloc]init];
         vc.isNewAddress = YES;
+        vc.addressSuccess = ^(){
+            [weakself loadDateAddressList];
+        };
         [weakself.navigationController pushViewController:vc animated:YES];
     };
-
     self.addBtn.hidden = !(addressAry.count>0);
 }
 

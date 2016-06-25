@@ -21,6 +21,7 @@
 #import "UIView+BlankPage.h"
 #import "MLAddressInfoViewController.h"
 #import "MBProgressHUD+Add.h"
+#import "MLHttpManager.h"
 
 
 @interface MLAddressSelectViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -179,10 +180,11 @@ static MLAddressListModel *selAddress;
 
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {
-    
-    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=admin_orderadder&do=lists&test_phone=13771961207"];
-    [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=lists",MATROJP_BASE_URL];
+    [MLHttpManager get:urlStr params:nil m:@"member" s:@"admin_orderadder" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         
         if([result[@"code"] isEqual:@0])
@@ -195,10 +197,13 @@ static MLAddressListModel *selAddress;
                 [self.addressList addObjectsFromArray:[MLAddressListModel mj_objectArrayWithKeyValuesArray:address_lists]];
             }
             [self.tableView reloadData];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
 }
 

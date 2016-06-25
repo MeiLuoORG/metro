@@ -25,6 +25,10 @@
 #define kNOTIFICATIONWXPAY   @"wxPayResult"
 
 
+#define MATROJP_BASE_URL  @"http://bbctest.matrojp.com"
+#define NETWORK_ERROR_MESSAGE @"您的网络好像不太给力，请稍后再试"
+
+
 #define DOCUMENT_FOLDER_PATH    (NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0])
 
 //#define APP_ID @"testapp2"
