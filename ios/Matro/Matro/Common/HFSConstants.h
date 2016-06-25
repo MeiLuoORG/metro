@@ -154,6 +154,9 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 //会员卡的默认名称
 #define VIPCARDIMG_DEFAULTNAME @"b54504436257.jpg"
 
+//上传头像
+#define UPLOADTOUXIANG_IMAGE_URLString  @"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index"
+
 
 /*zhouluEND*/
 

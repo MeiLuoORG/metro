@@ -830,6 +830,9 @@ static BOOL isPass = NO;
                                                       isDefault = YES;
                                                   }
                                                   
+                                                  
+                                                  //调用李佳认证接口
+                                                  [self renZhengLiJiaWithPhone:userDic[@"phone"] withAccessToken:userDic[@"accessToken"]];
                                                   [userDefaults synchronize];
                                                   
                                                   /*
@@ -895,6 +898,99 @@ static BOOL isPass = NO;
 #pragma end mark 原生注册方法  结束
 
 #pragma end mark  绑定手机号 结束
+- (void)renZhengLiJiaWithPhone:(NSString *)phoneString withAccessToken:(NSString *) accessTokenStr{
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+    //获取设备ID
+    NSString *identifierForVendor = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    //NSString *identifierForAdvertising = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+    NSLog(@"accessToken编码前为：%@",accessTokenStr);
+    NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
+    NSString * urlPinJie = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",phoneString,accessTokenEncodeStr,identifierForVendor];
+    //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString * urlStr = urlPinJie;
+    //NSLog(@"李佳的认证接口：%@",urlStr);
+    NSURL * URL = [NSURL URLWithString:urlStr];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+    [request setHTTPMethod:@"get"]; //指定请求方式
+    //NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+    //[request setHTTPBody:data3];
+    [request setURL:URL]; //设置请求的地址
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      NSString *resultString  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                      NSLog(@"李佳认证:%@,错误信息：%@",resultString,error);
+                                      
+                                      //请求没有错误
+                                      if (!error) {
+                                          if (data && data.length > 0) {
+                                              //JSON解析
+                                              // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                              NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                              
+                                              if (result && [result isKindOfClass:[NSDictionary class]]) {
+                                                  if ([result[@"code"] isEqual:@0]) {
+                                                      NSDictionary *data = result[@"data"];
+                                                      
+                                                      NSString *bbc_token = [data objectForKey:@"bbc_token"];
+                                                      NSString *timestamp = data[@"timestamp"];
+                                                      
+                                                      NSDatezlModel * model1 = [NSDatezlModel shareDate];
+                                                      model1.timeInterval =[timestamp integerValue];
+                                                      model1.firstDate = [NSDate date];
+                                                      [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
+                                                      
+                                                  }
+                                              }
+                                              NSLog(@"%@",result);
+                                              
+                                              
+                                              //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                              
+                                              //NSLog(@"李佳原生数据登录：++： %@",result);
+                                              NSDictionary * dataDic = result[@"data"];
+                                              
+                                              //单例方法获取 时间戳
+                                              NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
+                                              //NSLog(@"model1地址：%p",model1);
+                                              //model1.timeInterval =1334322098;
+                                              //model1.firstDate = [NSDate date];
+                                              
+                                              NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                                              if (dataDic[@"bbc_token"]) {
+                                                  [userDefaults setObject:dataDic[@"bbc_token"] forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
+                                              }
+                                              if (dataDic[@"timestamp"]) {
+                                                  //NSString * timeStr = [dataDic[@"timestamp"] doubleValue];
+                                                  model1.timeInterval = (NSTimeInterval)[dataDic[@"timestamp"] doubleValue];
+                                                  model1.firstDate = [NSDate date];
+                                                  [userDefaults setObject:dataDic[@"timestamp"] forKey:KUSERDEFAULT_TIMEINTERVAR_LIJIA];
+                                              }
+                                          }
+                                      }
+                                      else{
+                                          //请求有错误
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              
+                                              [_hud show:YES];
+                                              _hud.mode = MBProgressHUDModeText;
+                                              _hud.labelText = REQUEST_ERROR_ZL;
+                                              _hud.labelFont = [UIFont systemFontOfSize:13];
+                                              [_hud hide:YES afterDelay:1];
+                                          });
+                                          
+                                      }
+                                      
+                                  }];
+    
+    [task resume];
+    
+    //});
+    
+}
 
 #pragma 返回Block
 - (void)backBlocksAction:(BackBlocks)block{

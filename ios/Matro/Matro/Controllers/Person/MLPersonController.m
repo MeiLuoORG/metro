@@ -710,6 +710,13 @@
         NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
         NSLog(@"model2地址为：%p",model1);
         [model1 currentTimeDate];
+        
+        ShiMingViewController * shiMingVC = [[ShiMingViewController alloc]init];
+        shiMingVC.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:shiMingVC animated:YES];
+        
+        
          NSLog(@"5实名认证");
     }
 

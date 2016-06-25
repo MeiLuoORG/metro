@@ -19,6 +19,8 @@
 
 @interface MNNModifyNameViewController : MLBaseViewController
 
+
+@property (strong, nonatomic) NSString * currentName;
 @property (nonatomic,weak)id<MNNModifyNameViewControllerDelegate>delegate;
 
 @end

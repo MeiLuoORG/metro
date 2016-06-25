@@ -41,7 +41,40 @@
             failure(error);
         }
     }];
+    //mgr POST:<#(NSString *)#> parameters:<#(id)#> constructingBodyWithBlock:<#^(id<AFMultipartFormData> formData)block#> success:<#^(AFHTTPRequestOperation *operation, id responseObject)success#> failure:<#^(AFHTTPRequestOperation *operation, NSError *error)failure#>
+    //mgr POST:<#(NSString *)#> parameters:<#(id)#> constructingBodyWithBlock:<#^(id<AFMultipartFormData> formData)block#> success:<#^(AFHTTPRequestOperation *operation, id responseObject)success#> failure:<#^(AFHTTPRequestOperation *operation, NSError *error)failure#>
 }
+//上传图片
++ (void)post:(NSString *)url params:(NSDictionary *)params constructingBodyWithBlock:(void(^)(id<AFMultipartFormData> formData))block  success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure{
+
+    // 1.创建请求管理者
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    NSString *accessTokenStr =[accessToken substringToIndex:12];
+    NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
+    NSTimeInterval timestamp = [[NSDatezlModel shareDate] currentTimeDate];
+    NSString *signStr =[NSString stringWithFormat:@"%@%f",accessTokenStr,timestamp];
+    NSString *sign = [self md5:signStr];
+    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%f",url,bbc_token,sign,timestamp];
+    
+    // 2.发送请求
+    [mgr POST:newUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        if (success) {
+            success(responseObject);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        if (failure) {
+            failure(error);
+        }
+    }];
+    
+    
+
+}
+
 
 
 + (void)get:(NSString *)url params:(NSDictionary *)params m:(NSString *)m s:(NSString *)s success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure

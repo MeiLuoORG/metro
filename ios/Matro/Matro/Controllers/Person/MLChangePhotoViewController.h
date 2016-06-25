@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "MLBaseViewController.h"
-
+#import "MLHttpManager.h"
+#import "NSDatezlModel.h"
 
 
 @interface MLChangePhotoViewController : MLBaseViewController
 
 
+- (void)paiZhaoShangChuan;
+- (void)xiangceShangChuan;
++ (NSString *)md65:(NSString *)str;
 @end

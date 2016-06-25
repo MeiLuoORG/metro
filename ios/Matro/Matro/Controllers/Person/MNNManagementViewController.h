@@ -8,8 +8,9 @@
 
 #import "MLBaseViewController.h"
 #import "ShenFenZhengController.h"
+#import "CommonHeader.h"
 
-@interface MNNManagementViewController : MLBaseViewController
+@interface MNNManagementViewController : MLBaseViewController<UIActionSheetDelegate>
 
 @property (strong, nonatomic) UILabel * shenFenLabel;
 

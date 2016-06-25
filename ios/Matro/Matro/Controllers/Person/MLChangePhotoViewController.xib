@@ -69,7 +69,7 @@
                             </variation>
                             <variation key="widthClass=compact">
                                 <mask key="subviews">
-                                    <include reference="T8U-pP-inc"/>
+                                    <exclude reference="T8U-pP-inc"/>
                                     <include reference="NWi-NQ-kHQ"/>
                                 </mask>
                                 <mask key="constraints">
@@ -160,9 +160,9 @@
                     </variation>
                     <variation key="widthClass=compact">
                         <mask key="subviews">
-                            <include reference="T9R-3F-5dh"/>
-                            <include reference="ThL-U8-1m1"/>
-                            <include reference="5EF-X0-jOu"/>
+                            <exclude reference="T9R-3F-5dh"/>
+                            <exclude reference="ThL-U8-1m1"/>
+                            <exclude reference="5EF-X0-jOu"/>
                         </mask>
                         <mask key="constraints">
                             <include reference="GwV-d4-xJS"/>
@@ -198,7 +198,7 @@
             </variation>
             <variation key="widthClass=compact">
                 <mask key="subviews">
-                    <include reference="18g-u0-lU4"/>
+                    <exclude reference="18g-u0-lU4"/>
                 </mask>
                 <mask key="constraints">
                     <include reference="azl-m0-SKU"/>

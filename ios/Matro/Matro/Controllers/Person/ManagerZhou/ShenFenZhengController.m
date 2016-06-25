@@ -24,11 +24,11 @@
     [self createView];
     // Do any additional setup after loading the view.
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 22)];
     [button setTitle:@"保存" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [button setTitleColor:[HFSUtility hexStringToColor:Main_BackgroundColor] forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont systemFontOfSize:12];
+    button.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
@@ -90,7 +90,7 @@
 
 //创建修改试图golden_button
 - (void)createView {
-    _textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 20, self.view.frame.size.width-20, 30)];
+    _textField = [[UITextField alloc] initWithFrame:CGRectMake(22, 42, self.view.frame.size.width-44, 41)];
     _textField.borderStyle = UITextBorderStyleRoundedRect;
     _textField.text = self.shenFenStr;
     _textField.placeholder = @"请输入身份证号码";

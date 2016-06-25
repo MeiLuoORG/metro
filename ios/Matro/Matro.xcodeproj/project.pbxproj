@@ -288,6 +288,8 @@
 		3C055CD81D08143700362C4D /* ShenFenZhengController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C055CD71D08143700362C4D /* ShenFenZhengController.m */; };
 		3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */; };
 		3C0FCEF91D0E8C170076396F /* MLSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */; };
+		3C13F2F21D1D19C70069A8F6 /* ShiMingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13F2F01D1D19C70069A8F6 /* ShiMingViewController.m */; };
+		3C13F2F31D1D19C70069A8F6 /* ShiMingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */; };
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
 		3C5B0C6E1CFC372D003FFD25 /* MessagesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C661CFC372D003FFD25 /* MessagesTableViewCell.m */; };
 		3C5B0C6F1CFC372D003FFD25 /* MessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5B0C671CFC372D003FFD25 /* MessagesTableViewCell.xib */; };
@@ -1113,6 +1115,9 @@
 		3C0AF2021CFFE1BC00E48B18 /* NavTopCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTopCommonImage.h; sourceTree = "<group>"; };
 		3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTopCommonImage.m; sourceTree = "<group>"; };
 		3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSearchViewController.xib; sourceTree = "<group>"; };
+		3C13F2EF1D1D19C70069A8F6 /* ShiMingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShiMingViewController.h; sourceTree = "<group>"; };
+		3C13F2F01D1D19C70069A8F6 /* ShiMingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShiMingViewController.m; sourceTree = "<group>"; };
+		3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShiMingViewController.xib; sourceTree = "<group>"; };
 		3C2E204C1D0ABDAF00184D48 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		3C5B0C651CFC372D003FFD25 /* MessagesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesTableViewCell.h; sourceTree = "<group>"; };
@@ -3060,6 +3065,9 @@
 			children = (
 				3C055CD61D08143700362C4D /* ShenFenZhengController.h */,
 				3C055CD71D08143700362C4D /* ShenFenZhengController.m */,
+				3C13F2EF1D1D19C70069A8F6 /* ShiMingViewController.h */,
+				3C13F2F01D1D19C70069A8F6 /* ShiMingViewController.m */,
+				3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */,
 			);
 			path = ManagerZhou;
 			sourceTree = "<group>";
@@ -3580,6 +3588,7 @@
 				7AEC88D81CE462EF00B43DD4 /* MLGoodsComFootView.xib in Resources */,
 				7A3A626A1CDB874F00D265F2 /* MLAfterSaleProductCell.xib in Resources */,
 				7A272EC51D1A405500242F24 /* MLReturnsWentiTableViewCell.xib in Resources */,
+				3C13F2F31D1D19C70069A8F6 /* ShiMingViewController.xib in Resources */,
 				3AF01E5C1CBBAB94005830BD /* MLLogisticsViewController.xib in Resources */,
 				7ACFA5F71D11233B00987A03 /* MLPersonAlertViewController.xib in Resources */,
 				7A3A62731CDB874F00D265F2 /* MLOrderSubHeadCell.xib in Resources */,
@@ -3781,7 +3790,11 @@
 				3A633B581C9EA36E00C11FD5 /* ZLPhotoPickerBrowserViewController+SignlePhotoBrowser.m in Sources */,
 				7AED646F1CDDB45D008F55BD /* MLCusHelpViewController.m in Sources */,
 				7ACD3A721CE83CE1004BAF8B /* MLCheckBoxButton.m in Sources */,
+
 				7AB90FEF1D1CC52800FB9EE7 /* MLLogisticsModel.m in Sources */,
+
+				3C13F2F21D1D19C70069A8F6 /* ShiMingViewController.m in Sources */,
+
 				28FF03871D1124F6004978CD /* MLGoodsDetailsViewController.m in Sources */,
 				280F7D6A1CF9729A00D42FA6 /* MLPropertyCell.m in Sources */,
 				7A4D9DFF1D13916C006E6AB2 /* MLZTextTableViewCell.m in Sources */,

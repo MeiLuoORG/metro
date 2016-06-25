@@ -11,7 +11,7 @@
 typedef void(^HeadViewLoginBlock)();
 typedef void(^HeadViewRegBlock)();
 typedef void(^HeadViewImageBlock)();
-@interface MLPersonHeadView : UIView
+@interface MLPersonHeadView : UIView<UIGestureRecognizerDelegate>
 + (MLPersonHeadView *)personHeadView;
 
 
@@ -25,6 +25,7 @@ typedef void(^HeadViewImageBlock)();
 @property (weak, nonatomic) IBOutlet UIButton *rightBtn;
 
 @property (weak, nonatomic) IBOutlet UIImageView *biaoZhiImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImg;
 
 
 @property (nonatomic,copy)HeadViewLoginBlock loginBlock;

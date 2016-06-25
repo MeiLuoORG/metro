@@ -856,6 +856,9 @@
                                                       NSDictionary * userDataDic = result[@"data"];
                                                       
                                                       
+                                                      
+                                                      
+                                                      
                                                       if (userDataDic[@"img"] && ![@"" isEqualToString:userDataDic[@"img"]]) {
                                                           [userDefaults setObject:userDataDic[@"img"] forKey:kUSERDEFAULT_USERAVATOR ];
                                                           
@@ -973,6 +976,9 @@
                                                           }
                                                           
                                                       }
+                                                      
+                                                      //调用李佳认证接口
+                                                      [self renZhengLiJiaWithPhone:userDataDic[@"phone"] withAccessToken:userDataDic[@"accessToken"]];
                                                       
                                                       [userDefaults synchronize];
                                                       
@@ -1725,14 +1731,16 @@
     //GCD异步实现
     //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     //dispatch_sync(q1, ^{
+    //获取设备ID
+    NSString *identifierForVendor = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    //NSString *identifierForAdvertising = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
     NSLog(@"accessToken编码前为：%@",accessTokenStr);
         NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
-        NSString * urlPinJie = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=check_token&phone=%@&accessToken=%@",phoneString,accessTokenEncodeStr];
+        NSString * urlPinJie = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",phoneString,accessTokenEncodeStr,identifierForVendor];
         //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString * urlStr = urlPinJie;
-        NSLog(@"李佳的认证接口：%@",urlStr);
+        //NSLog(@"李佳的认证接口：%@",urlStr);
         NSURL * URL = [NSURL URLWithString:urlStr];
-      
         NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
         [request setHTTPMethod:@"get"]; //指定请求方式
         //NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
@@ -1744,18 +1752,6 @@
                                       ^(NSData *data, NSURLResponse *response, NSError *error) {
                                           NSString *resultString  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                           NSLog(@"李佳认证:%@,错误信息：%@",resultString,error);
-
-                                          NSDate * date1 = [NSDate dateWithTimeIntervalSinceReferenceDate:1334322098];
-                                          NSDate * date3 = [NSDate dateWithTimeIntervalSinceNow:1334322098];
-                                          NSDate * date4 = [NSDate dateWithTimeIntervalSince1970:1334322098];
-                                          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-                                          [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-                                          NSString * fuWuStirng1 = [dateFormatter stringFromDate:date1];
-                                          NSString * fuWuStirng3 = [dateFormatter stringFromDate:date3];
-                                          NSString * fuWuStirng4 = [dateFormatter stringFromDate:date4];
-                                          NSLog(@"服务器的时间为;1---%@,3---%@,4----%@",fuWuStirng1,fuWuStirng3,fuWuStirng4);
-                                          
-                                          
                                           
                                           //请求没有错误
                                           if (!error) {
@@ -1783,7 +1779,7 @@
                                                   
                                                   //NSLog(@"error原生数据登录：++： %@",yuanDic);
 
-                                                  NSLog(@"李佳原生数据登录：++： %@",result);
+                                                  //NSLog(@"李佳原生数据登录：++： %@",result);
                                                   NSDictionary * dataDic = result[@"data"];
                                                   
                                                   //单例方法获取 时间戳
@@ -1802,9 +1798,6 @@
                                                       model1.firstDate = [NSDate date];
                                                       [userDefaults setObject:dataDic[@"timestamp"] forKey:KUSERDEFAULT_TIMEINTERVAR_LIJIA];
                                                   }
-
-                                                  
-                                                  
                                               }
                                           }
                                           else{
@@ -2105,6 +2098,9 @@
                                                       
                                                       
                                                       [userDefaults setObject:userDataDic[@"accessToken"] forKey:kUSERDEFAULT_ACCCESSTOKEN];
+                                                      
+                                                      //调用李佳认证接口
+                                                      [self renZhengLiJiaWithPhone:userDataDic[@"phone"] withAccessToken:userDataDic[@"accessToken"]];
                                                       
                                                       [userDefaults synchronize];
                                                       

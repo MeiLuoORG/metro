@@ -15,6 +15,7 @@
 #import "NSDatezlModel.h"
 
 #import "SecondBtnsView.h"
+#import "ShiMingViewController.h"
 
 @interface MLPersonController : MLBaseViewController
 

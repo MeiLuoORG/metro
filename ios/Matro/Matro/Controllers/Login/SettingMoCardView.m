@@ -60,6 +60,8 @@
     
     self.OKButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.OKButton setTitle:@"确定" forState:UIControlStateNormal];
+    self.OKButton.layer.cornerRadius = 4.0f;
+    self.OKButton.layer.masksToBounds = YES;
     [self.OKButton setFrame:CGRectMake(22, SIZE_HEIGHT-80, SIZE_WIDTH-44, 40)];
     [self.OKButton setBackgroundColor:[HFSUtility hexStringToColor:Main_grayBackgroundColor]];
     [self.OKButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -115,6 +117,24 @@
     
     VipCardModel * cardModel = [self.cardARR objectAtIndex:indexPath.row];
     NSLog(@"会员卡的URL：%@",cardModel.cardImg);
+    
+    if (cardModel.cardNo.length >= 8) {
+        /*
+         NSString *originalStr = @"Hello World";
+         // 下标之间的子字符串：第一个参数为开始下标，第二个参数为长度
+         NSString *subStr = [originalStr substringWithRange:NSMakeRange(6, 2)];
+         */
+        //0000000075
+        NSLog(@"当前的卡号为：%@",cardModel.cardNo);
+        NSString * str1 = [cardModel.cardNo substringWithRange:NSMakeRange(0, 3)];
+        NSString * addStr = [NSString stringWithFormat:@"%@  ",str1];
+        
+        NSString * str2 = [cardModel.cardNo substringWithRange:NSMakeRange(3, 5)];
+        NSString * zongStr = [NSString stringWithFormat:@"%@%@",addStr,str2];
+        
+        cell.cardNOLabel.text = cardModel.cardNo;
+    }
+    
     [cell.cardImageView sd_setImageWithURL:[NSURL URLWithString:cardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
     
    // cell.cardImageView sd_setImageWithURL:<#(NSURL *)#> placeholderImage:<#(UIImage *)#> completed:<#^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)completedBlock#>

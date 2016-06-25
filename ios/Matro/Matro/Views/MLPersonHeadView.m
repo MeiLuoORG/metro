@@ -22,6 +22,24 @@
     self.regBtn.layer.cornerRadius = 4.0f;
     
     [self setFrame:CGRectMake(0, 0, SIZE_WIDTH, 125.0f)];
+    self.backgroundImg.userInteractionEnabled = YES;
+    
+    //隐藏键盘
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
+    //设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    tapGestureRecognizer.delegate = self;
+    //将触摸事件添加到当前view
+    [self.backgroundImg addGestureRecognizer:tapGestureRecognizer];
+    
+}
+
+- (void)keyboardHide:(id)sender{
+
+    if (self.imageBlock) {
+        self.imageBlock();
+    }
+    
     
 }
 

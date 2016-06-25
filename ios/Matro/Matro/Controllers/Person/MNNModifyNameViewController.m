@@ -26,9 +26,22 @@
     self.title = @"修改昵称";
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
     [self.view addGestureRecognizer:gesture];
+    
+    UIButton * rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightBtn setFrame:CGRectMake(0, 0, 40, 22)];
+    [rightBtn setTitle:@"保存" forState:UIControlStateNormal];
+    rightBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    [rightBtn addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setTitleColor:[HFSUtility hexStringToColor:Main_BackgroundColor] forState:UIControlStateNormal];
+    
+    UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    self.navigationItem.rightBarButtonItem = item;
+    
     [self createView];
     // Do any additional setup after loading the view.
 }
+
+
 
 - (void)tap {
     [_textField resignFirstResponder];
@@ -36,25 +49,26 @@
 
 //创建修改试图golden_button
 - (void)createView {
-    _textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 20, self.view.frame.size.width-20, 30)];
+    _textField = [[UITextField alloc] initWithFrame:CGRectMake(22, 40, self.view.frame.size.width-44, 41)];
     _textField.borderStyle = UITextBorderStyleRoundedRect;
     _textField.placeholder = @"请输入新的昵称";
-    _textField.clearButtonMode = UITextFieldViewModeAlways;
+    _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _textField.text = self.currentName;
     [self.view addSubview:_textField];
-    _preservationButton = [[UIButton alloc] initWithFrame:CGRectMake(50, CGRectGetMaxY(_textField.frame)+40, self.view.frame.size.width-100, 30)];
+    _preservationButton = [[UIButton alloc] initWithFrame:CGRectMake(22, CGRectGetMaxY(_textField.frame)+40, self.view.frame.size.width-44, 42)];
     [_preservationButton setBackgroundImage:[UIImage imageNamed:@"golden_button"] forState:UIControlStateNormal];
     [_preservationButton setTitle:@"保存" forState:UIControlStateNormal];
     [_preservationButton addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_preservationButton];
+    //[self.view addSubview:_preservationButton];
 }
 #pragma mark 保存修改后的昵称
 - (void)buttonAction {
     
     [_textField resignFirstResponder];
-    if ([_textField.text isEqualToString:@""]) {
+    if ([_textField.text isEqualToString:@""] || _textField.text.length <2 || _textField.text.length > 20) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请输入您的昵称";
+        _hud.labelText = @"昵称格式不正确，请确认。";
         [_hud hide:YES afterDelay:2];
     }
     else {

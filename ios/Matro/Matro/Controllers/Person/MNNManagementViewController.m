@@ -40,24 +40,25 @@
     [super viewDidLoad];
     self.title = @"账户信息设置";
     
-    self.shenFenLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_WIDTH-200, 10, 150, 20)];
+    self.shenFenLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_WIDTH-210, 10, 150, 20)];
+    self.shenFenLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.shenFenLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
     userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * str = [userDefaults objectForKey:KUSERDEFAULT_IDCARD_SHENFEN];
     if (str.length == 18) {
-        NSString * str2 = [str stringByReplacingCharactersInRange:NSMakeRange(4, 10) withString:@"****"];
+        NSString * str2 = [str stringByReplacingCharactersInRange:NSMakeRange(3, 11) withString:@"****"];
         self.shenFenLabel.text = str2;
     }
 
     
     self.shenFenLabel.textAlignment = NSTextAlignmentRight;
-    self.shenFenLabel.font = [UIFont systemFontOfSize:15];
     NSLog(@"身份信息：%@",str);
     
     [self createTableView];
     userDefaults = [NSUserDefaults standardUserDefaults];
     loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
     avatorurl = [userDefaults objectForKey:kUSERDEFAULT_USERAVATOR];
-    [self showAlert];
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateUserInfo) name:NOTIFICATION_CHANGEUSERINFO object:nil];
     
     
@@ -94,45 +95,64 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-    cell.textLabel.font = [UIFont systemFontOfSize:15];
+    cell.textLabel.font = [UIFont systemFontOfSize:13];
     if (indexPath.row == 0) {
-        cell.textLabel.text = @"头像";
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH-90, 10, 60, 60)];
-        _imageView.layer.cornerRadius = 30;
+        cell.textLabel.text = @"  头像";
+        //cell.textLabel.font = [UIFont systemFontOfSize:13.0];
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH-90, 6, 30, 30)];
+        _imageView.layer.cornerRadius = 15;
         _imageView.layer.masksToBounds = YES;
         if (avatorurl) {
             
             [_imageView sd_setImageWithURL:[NSURL URLWithString:avatorurl] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
         }
         [cell.contentView addSubview:_imageView];
+        /*
+        [_imageView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(cell.contentView);
+        }];
+        */
+        
     }else if (indexPath.row == 1) {
-        cell.textLabel.text = @"昵称";
-        _lable = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 230, 10, 200, 20)];
+        cell.textLabel.text = @"  昵称";
+        _lable = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 260, 11, 200, 20)];
         _lable.text = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];
         _lable.textAlignment = NSTextAlignmentRight;
-        _lable.font = [UIFont systemFontOfSize:15];
+        _lable.font = [UIFont systemFontOfSize:12.0];
+        _lable.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
         
         [cell.contentView addSubview:_lable];
     }else if (indexPath.row == 2) {
-        cell.textLabel.text = @"用户名";
-        UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(cell.frame.size.width-150, 10, 150, 20)];
+        cell.textLabel.text = @"  用户名";
+        //cell.frame.size.width
+        UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH-260, 11, 200, 20)];
         lable.text = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];;
         lable.textAlignment = NSTextAlignmentRight;
-        lable.font = [UIFont systemFontOfSize:15];
-        cell.accessoryView = lable;
+        lable.font = [UIFont systemFontOfSize:12];
+        lable.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
+        
+        //cell.accessoryType = UITableViewCellAccessoryNone;
+        UIView * kongView = [[UIView alloc]init];
+        cell.accessoryView = kongView;
+        [cell.contentView addSubview:lable];
     }else if (indexPath.row == 3) {
-        cell.textLabel.text = @"身份证号";
+        cell.textLabel.text = @"  身份证号";
 
         [cell addSubview:self.shenFenLabel];
     }else if (indexPath.row == 4) {
-        cell.textLabel.text = @"收货地址";
+        cell.textLabel.text = @"  收货地址";
     }
     else if(indexPath.row == 5){
-        cell.textLabel.text = @"修改密码";
+        cell.textLabel.text = @"  修改密码";
     }
     if (indexPath.row != 2 || indexPath.row != 0) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    //tableView.separatorInset = UIEdgeInsetsMake(0, -50, 0, 0);
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    UIView * spView = [[UIView alloc]initWithFrame:CGRectMake(0, 41, SIZE_WIDTH, 1)];
+    spView.backgroundColor = [HFSUtility hexStringToColor:Main_spelBackgroundColor];
+    [cell addSubview:spView];
     
     return cell;
 }
@@ -142,26 +162,19 @@
 }
 #pragma end mark 
 #pragma mark 修改身份证
-
-
-#pragma end mark
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        return 80;
-    }
-    else {
-        return 40;
-    }
-    return 0;
+//UIActionSheet
+- (void)someButtonClicked {
+    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"从相册上传" otherButtonTitles:@"拍照上传", nil];
+    //sheet.destructiveButtonIndex = 1;
+    [sheet showInView:self.view];
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //头像
-    if (indexPath.row == 0) {
-        
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"点击了第几个按钮result = %d", (int)buttonIndex);
+    if(buttonIndex == 0){
+    
         MLChangePhotoViewController *vc = [[MLChangePhotoViewController alloc]init];
-        vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+        //vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+        vc.view.backgroundColor = [UIColor clearColor];
         if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
             
             vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
@@ -171,11 +184,62 @@
             self.modalPresentationStyle=UIModalPresentationCurrentContext;
             
         }
-        [self presentViewController:vc  animated:YES completion:^(void)
+        [self presentViewController:vc  animated:NO completion:^(void)
          {
              vc.view.superview.backgroundColor = [UIColor clearColor];
+             [vc xiangceShangChuan];
              
          }];
+        
+        
+    }
+    else if (buttonIndex == 1){
+    
+        MLChangePhotoViewController *vc = [[MLChangePhotoViewController alloc]init];
+        //vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+        vc.view.backgroundColor = [UIColor clearColor];
+        if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+            
+            vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+            
+        }else{
+            
+            self.modalPresentationStyle=UIModalPresentationCurrentContext;
+            
+        }
+        [self presentViewController:vc  animated:NO completion:^(void)
+         {
+             vc.view.superview.backgroundColor = [UIColor clearColor];
+             [vc paiZhaoShangChuan];
+         }];
+    }
+    
+    
+}
+
+#pragma end mark
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return 42;
+    }
+    else {
+        return 42;
+    }
+    return 0;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //头像
+    if (indexPath.row == 0) {
+        
+        [self someButtonClicked];
+        
+        //[self showAlert];
+        /*
+
+        
+        */
 
     }
     //昵称
@@ -183,6 +247,7 @@
         self.hidesBottomBarWhenPushed = YES;
         MNNModifyNameViewController *modifyNameVC = [MNNModifyNameViewController new];
         modifyNameVC.delegate = self;
+        modifyNameVC.currentName = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];
         [self.navigationController pushViewController:modifyNameVC animated:YES];
     }
     //收货地址
@@ -266,7 +331,9 @@
     [alertController addAction:cancelAction];
     [alertController addAction:otherAction01];
     [alertController addAction:otherAction02];
-    
+    [self presentViewController:alertController animated:YES completion:^{
+        
+    }];
 }
 
 
