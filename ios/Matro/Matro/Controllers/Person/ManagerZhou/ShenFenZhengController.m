@@ -97,6 +97,8 @@
     _textField.clearButtonMode = UITextFieldViewModeAlways;
     _textField.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:_textField];
+    
+    [_textField becomeFirstResponder];
     /*
     _preservationButton = [[UIButton alloc] initWithFrame:CGRectMake(50, CGRectGetMaxY(_textField.frame)+40, self.view.frame.size.width-100, 30)];
     [_preservationButton setBackgroundImage:[UIImage imageNamed:@"golden_button"] forState:UIControlStateNormal];

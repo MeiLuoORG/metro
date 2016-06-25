@@ -318,6 +318,8 @@
 		3CE4B0E01D1A6DCC0084156C /* LingQuQuanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CE4B0DF1D1A6DCC0084156C /* LingQuQuanCell.xib */; };
 		3CEA04CC1D0E820800E5C4B6 /* SettingMoCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */; };
 		3CEA04CF1D0E879600E5C4B6 /* SettingMoCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CEA04CE1D0E879600E5C4B6 /* SettingMoCardCell.xib */; };
+		3CEAC66D1D1E799B00E953A7 /* XiuGaiPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAC66B1D1E799B00E953A7 /* XiuGaiPasswordViewController.m */; };
+		3CEAC66E1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CEAC66C1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib */; };
 		3CEDAD791D13E74E00990DA8 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDAD781D13E74E00990DA8 /* iCarousel.m */; };
 		3CEDAD7D1D13ECFB00990DA8 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7A1D13ECFB00990DA8 /* background.png */; };
 		3CEDAD7E1D13ECFB00990DA8 /* page.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7B1D13ECFB00990DA8 /* page.png */; };
@@ -1168,6 +1170,9 @@
 		3CE4B0DF1D1A6DCC0084156C /* LingQuQuanCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LingQuQuanCell.xib; sourceTree = "<group>"; };
 		3CEA04CD1D0E823300E5C4B6 /* SettingMoCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardCell.h; sourceTree = "<group>"; };
 		3CEA04CE1D0E879600E5C4B6 /* SettingMoCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingMoCardCell.xib; sourceTree = "<group>"; };
+		3CEAC66A1D1E799B00E953A7 /* XiuGaiPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiuGaiPasswordViewController.h; sourceTree = "<group>"; };
+		3CEAC66B1D1E799B00E953A7 /* XiuGaiPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiuGaiPasswordViewController.m; sourceTree = "<group>"; };
+		3CEAC66C1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XiuGaiPasswordViewController.xib; sourceTree = "<group>"; };
 		3CEDAD771D13E74E00990DA8 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		3CEDAD781D13E74E00990DA8 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		3CEDAD7A1D13ECFB00990DA8 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
@@ -3065,6 +3070,9 @@
 				3C13F2EF1D1D19C70069A8F6 /* ShiMingViewController.h */,
 				3C13F2F01D1D19C70069A8F6 /* ShiMingViewController.m */,
 				3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */,
+				3CEAC66A1D1E799B00E953A7 /* XiuGaiPasswordViewController.h */,
+				3CEAC66B1D1E799B00E953A7 /* XiuGaiPasswordViewController.m */,
+				3CEAC66C1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib */,
 			);
 			path = ManagerZhou;
 			sourceTree = "<group>";
@@ -3550,6 +3558,7 @@
 				687704051CCF615E0008ED46 /* home_html.zip in Resources */,
 				7AEDD0C61CE59F5D009B12F4 /* MLSaleServiceProductCell.xib in Resources */,
 				3A633B8C1C9EA82200C11FD5 /* MLClassViewController.xib in Resources */,
+				3CEAC66E1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib in Resources */,
 				3A1F72CC1CA3F904000ECE08 /* HFSOrderListFooterView.xib in Resources */,
 				7ACFA6161D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib in Resources */,
 				3A16DC521CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.xib in Resources */,
@@ -3897,6 +3906,7 @@
 				7AEC88D61CE462E000B43DD4 /* MLGoodsComFootView.m in Sources */,
 				3A633B951C9EA85800C11FD5 /* MLPersonViewController.m in Sources */,
 				7ACD3A7A1CE86D97004BAF8B /* MLReturnsHeader.m in Sources */,
+				3CEAC66D1D1E799B00E953A7 /* XiuGaiPasswordViewController.m in Sources */,
 				7AF0D7D61CE5957E00A8F913 /* MLSaleServiceViewController.m in Sources */,
 				3AA0E7AD1CA91E500079AA90 /* RSADataSigner.m in Sources */,
 				3C5F123D1D17A075001F66E1 /* SecondBtnsView.m in Sources */,

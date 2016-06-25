@@ -41,7 +41,7 @@
     self.title = @"账户信息设置";
     
     self.shenFenLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_WIDTH-210, 10, 150, 20)];
-    self.shenFenLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.shenFenLabel.font = [UIFont systemFontOfSize:15.0f];
     self.shenFenLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
     userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * str = [userDefaults objectForKey:KUSERDEFAULT_IDCARD_SHENFEN];
@@ -66,7 +66,7 @@
 }
 //创建tableView
 - (void)createTableView {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = [[UIView alloc] init];
@@ -95,7 +95,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-    cell.textLabel.font = [UIFont systemFontOfSize:13];
+    cell.textLabel.font = [UIFont systemFontOfSize:15];
     if (indexPath.row == 0) {
         cell.textLabel.text = @"  头像";
         //cell.textLabel.font = [UIFont systemFontOfSize:13.0];
@@ -115,10 +115,11 @@
         
     }else if (indexPath.row == 1) {
         cell.textLabel.text = @"  昵称";
+        
         _lable = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 260, 11, 200, 20)];
         _lable.text = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];
         _lable.textAlignment = NSTextAlignmentRight;
-        _lable.font = [UIFont systemFontOfSize:12.0];
+        _lable.font = [UIFont systemFontOfSize:15.0];
         _lable.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
         
         [cell.contentView addSubview:_lable];
@@ -128,7 +129,7 @@
         UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH-260, 11, 200, 20)];
         lable.text = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];;
         lable.textAlignment = NSTextAlignmentRight;
-        lable.font = [UIFont systemFontOfSize:12];
+        lable.font = [UIFont systemFontOfSize:15];
         lable.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
         
         //cell.accessoryType = UITableViewCellAccessoryNone;
@@ -260,9 +261,15 @@
     //修改密码
     if (indexPath.row == 5) {
         self.hidesBottomBarWhenPushed = YES;
-        MNNModifyPasswordViewController *modifyPasswordVC = [MNNModifyPasswordViewController new];
         
+        XiuGaiPasswordViewController * VC = [[XiuGaiPasswordViewController alloc]init];
+        
+        
+        [self.navigationController pushViewController:VC animated:YES];
+        /*
+        MNNModifyPasswordViewController *modifyPasswordVC = [MNNModifyPasswordViewController new];
         [self presentViewController:modifyPasswordVC animated:YES completion:nil];
+         */
         //[self.navigationController pushViewController:modifyPasswordVC animated:YES];
     }
     //身份证号码

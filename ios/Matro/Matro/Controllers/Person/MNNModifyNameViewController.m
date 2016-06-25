@@ -59,6 +59,8 @@
     [_preservationButton setBackgroundImage:[UIImage imageNamed:@"golden_button"] forState:UIControlStateNormal];
     [_preservationButton setTitle:@"保存" forState:UIControlStateNormal];
     [_preservationButton addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_textField becomeFirstResponder];
     //[self.view addSubview:_preservationButton];
 }
 #pragma mark 保存修改后的昵称

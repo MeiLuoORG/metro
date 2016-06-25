@@ -230,6 +230,7 @@
             [userDefaults removeObjectForKey:KUSERDEFAULT_ISHAVE_DEFAULTCARD_BOOL];
             [userDefaults removeObjectForKey:kUSERDEFAULT_ACCCESSTOKEN];
             
+            
             [self.navigationController popViewControllerAnimated:YES];
             
             //[self dismissViewControllerAnimated:YES completion:nil];

@@ -9,6 +9,7 @@
 #import "MLBaseViewController.h"
 #import "ShenFenZhengController.h"
 #import "CommonHeader.h"
+#import "XiuGaiPasswordViewController.h"
 
 @interface MNNManagementViewController : MLBaseViewController<UIActionSheetDelegate>
 

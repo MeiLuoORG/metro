@@ -65,6 +65,16 @@
     
     float _thirderHeight;
     float _zongViewHeight;
+    BOOL _isRenZhengQequestSuc;
+    BOOL _isRenZheng;
+    
+    NSString * _pay_id;
+    NSString * _pay_mobile;
+    NSString * _real_name;
+    NSString * _identity_card;
+    NSString * _identity_picurl;
+    BOOL  _iS_identity_verify;
+    
 }
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)MLPersonHeadView *headView;
@@ -244,6 +254,12 @@
     [self loadThirdButtonsView];
     [self loadFourButtonsView];
     
+    //李佳接口认证成功后  接收通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(renZhengAction:) name:RENZHENG_LIJIA_Notification object:nil];
+}
+- (void)renZhengAction:(id)sender{
+    //查询实名认证
+    [self chaXunISshiMingRenZheng];
 }
 
 #pragma mark zhoulu 第二栏按钮组
@@ -709,15 +725,57 @@
         NSLog(@"model2地址为：%p",model1);
         [model1 currentTimeDate];
         
-        ShiMingViewController * shiMingVC = [[ShiMingViewController alloc]init];
-        shiMingVC.hidesBottomBarWhenPushed = YES;
-        
-        [self.navigationController pushViewController:shiMingVC animated:YES];
+        if (_isRenZhengQequestSuc) {
+            ShiMingViewController * shiMingVC = [[ShiMingViewController alloc]init];
+            shiMingVC.hidesBottomBarWhenPushed = YES;
+            shiMingVC.isRenZheng = _isRenZheng;
+            if (_isRenZheng) {
+                shiMingVC.pay_id = _pay_id;
+                shiMingVC.userPhone = _pay_mobile;
+                shiMingVC.userName = _real_name;
+                shiMingVC.userShenFenCardID = _identity_card;
+                shiMingVC.shenFenImageURLStr = _identity_picurl;
+                
+            }
+            
+            [self.navigationController pushViewController:shiMingVC animated:YES];
+        }
+
         
         
          NSLog(@"5实名认证");
     }
 
+}
+
+
+#pragma mark 查询实名认证
+- (void)chaXunISshiMingRenZheng{
+    [MLHttpManager get:CHAXUNRENZHENG_RENZHENG_URLStrign params:nil m:@"member" s:@"admin_member" success:^(id responseObject) {
+        NSLog(@"查询实名认证：%@",responseObject);
+        NSDictionary * dataDic = responseObject[@"data"];
+        //identity_list
+        _iS_identity_verify = dataDic[@"identity_varify"];
+        if (_iS_identity_verify) {
+            
+            _headView.renZhengLabel.text = @"已认证";
+            _isRenZheng = YES;
+            
+            _pay_id = dataDic[@"pay_id"];
+            _pay_mobile = dataDic[@"pay_mobile"];
+            _real_name = dataDic[@"real_name"];
+            _identity_card = dataDic[@"identity_card"];
+            _identity_picurl = dataDic[@"identity_pic"];
+        }
+        else{
+            _isRenZheng = NO;
+            _headView.renZhengLabel.text = @"未认证";
+        }
+        _isRenZhengQequestSuc = YES;
+    } failure:^(NSError *error) {
+        _isRenZhengQequestSuc = NO;
+        NSLog(@"查询实名认证失败：%@",error);
+    }];
 }
 
 
@@ -770,6 +828,8 @@
         else{
             _backgroundScrollView.contentSize = CGSizeMake(SIZE_WIDTH, SIZE_HEIGHT-49.0-64.0);
         }
+        
+
         
     }
     else{
@@ -824,6 +884,9 @@
     [self.headView.headBtn sd_setImageWithURL:[NSURL URLWithString:avatorurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
     
     [self showZLMessageBtnAndSettingBtn];
+    
+    //查询实名认证
+    [self chaXunISshiMingRenZheng];
 }
 
 

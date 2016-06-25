@@ -1624,6 +1624,7 @@
                                                           }];
                                                       }
                                                       
+                
                                                       if (isDefault) {
                                                           [weakSelf dismissViewControllerAnimated:YES completion:nil];
                                                       }
@@ -1767,7 +1768,7 @@
                                                           NSString *bbc_token = [data objectForKey:@"bbc_token"];
                                                           NSString *timestamp = data[@"timestamp"];
                                                           
-                                                          NSDatezlModel * model1 = [NSDatezlModel shareDate];
+                                                          NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
                                                           model1.timeInterval =[timestamp integerValue];
                                                           model1.firstDate = [NSDate date];
                                                           [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
@@ -1798,6 +1799,10 @@
                                                       model1.firstDate = [NSDate date];
                                                       [userDefaults setObject:dataDic[@"timestamp"] forKey:KUSERDEFAULT_TIMEINTERVAR_LIJIA];
                                                   }
+                                                  
+                                                  //认证成功后发送通知
+                                                  [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
+                                                  
                                               }
                                           }
                                           else{

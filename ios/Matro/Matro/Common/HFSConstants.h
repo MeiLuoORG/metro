@@ -108,6 +108,9 @@
 
 #define ZHAOHUIPASSWORD_CURRENT_PHONE  @"ZHAOHUIPASSWORD_PHONE"
 
+//李佳接口认证成功后 通知名
+#define RENZHENG_LIJIA_Notification @"renzheng_lijia_notification"
+
 /*zhoulu*/
 
 #define LoadNibWithSelfClassName [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil]firstObject]
@@ -158,10 +161,13 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 //会员卡的默认名称
 #define VIPCARDIMG_DEFAULTNAME @"b54504436257.jpg"
 
-//上传头像
+//上传头像http://bbctest.matrojp.com/api.php?m=uploadimg&s=index
 #define UPLOADTOUXIANG_IMAGE_URLString  @"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index"
 
-
+//查询实名认证
+#define CHAXUNRENZHENG_RENZHENG_URLStrign @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=sel_identity_card"
+//上传认证信息
+#define SHANGCHUAN_RENZHENG_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=add_identity_card"
 /*zhouluEND*/
 
 

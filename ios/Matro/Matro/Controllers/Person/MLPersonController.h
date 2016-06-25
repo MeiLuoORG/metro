@@ -17,6 +17,8 @@
 #import "SecondBtnsView.h"
 #import "ShiMingViewController.h"
 
+#import "MLHttpManager.h"
+
 @interface MLPersonController : MLBaseViewController
 
 @end
