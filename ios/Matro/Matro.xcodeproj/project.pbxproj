@@ -3790,11 +3790,8 @@
 				3A633B581C9EA36E00C11FD5 /* ZLPhotoPickerBrowserViewController+SignlePhotoBrowser.m in Sources */,
 				7AED646F1CDDB45D008F55BD /* MLCusHelpViewController.m in Sources */,
 				7ACD3A721CE83CE1004BAF8B /* MLCheckBoxButton.m in Sources */,
-
 				7AB90FEF1D1CC52800FB9EE7 /* MLLogisticsModel.m in Sources */,
-
 				3C13F2F21D1D19C70069A8F6 /* ShiMingViewController.m in Sources */,
-
 				28FF03871D1124F6004978CD /* MLGoodsDetailsViewController.m in Sources */,
 				280F7D6A1CF9729A00D42FA6 /* MLPropertyCell.m in Sources */,
 				7A4D9DFF1D13916C006E6AB2 /* MLZTextTableViewCell.m in Sources */,
@@ -4183,8 +4180,8 @@
 			baseConfigurationReference = 5DBB37CE6C3BF0EADC461009 /* Pods-Matro.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Song Chang (PDPCG4V7LN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Song Chang (PDPCG4V7LN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4226,7 +4223,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d9113dbd-6b39-4c1d-85ec-7a9d4fbc8153";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -4236,8 +4233,8 @@
 			baseConfigurationReference = 665E7595487B22B165F5C4BB /* Pods-Matro.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Song Chang (PDPCG4V7LN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Song Chang (PDPCG4V7LN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4279,7 +4276,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d9113dbd-6b39-4c1d-85ec-7a9d4fbc8153";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
