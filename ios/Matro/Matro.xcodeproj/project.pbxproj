@@ -325,6 +325,7 @@
 		3CEDAD7E1D13ECFB00990DA8 /* page.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7B1D13ECFB00990DA8 /* page.png */; };
 		3CEDAD7F1D13ECFB00990DA8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */; };
 		3CEDAD821D14128C00990DA8 /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDAD811D14128C00990DA8 /* VipCardModel.m */; };
+		3CF538F41D213AA800395779 /* YouHuiQuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF538F31D213AA800395779 /* YouHuiQuanModel.m */; };
 		3CF8CF761D0E72FA00C548AC /* SettingMoCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */; };
 		3CFC2A4C1D127C5C00C43BFF /* b54504436257.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3CFC2A4B1D127C5C00C43BFF /* b54504436257.jpg */; };
 		4F634A77A9985A18C9E56D1D /* Pods_Matro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C6CE0BB33E839F3EBF5309 /* Pods_Matro.framework */; };
@@ -1192,6 +1193,8 @@
 		3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		3CEDAD801D14128C00990DA8 /* VipCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipCardModel.h; sourceTree = "<group>"; };
 		3CEDAD811D14128C00990DA8 /* VipCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipCardModel.m; sourceTree = "<group>"; };
+		3CF538F21D213AA800395779 /* YouHuiQuanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouHuiQuanModel.h; sourceTree = "<group>"; };
+		3CF538F31D213AA800395779 /* YouHuiQuanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouHuiQuanModel.m; sourceTree = "<group>"; };
 		3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardCell.m; sourceTree = "<group>"; };
 		3CF8CF721D0E72FA00C548AC /* SettingMoCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardView.h; sourceTree = "<group>"; };
 		3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardView.m; sourceTree = "<group>"; };
@@ -3265,6 +3268,7 @@
 		3CAE048A1D06C5CE004504EA /* PersonModel */ = {
 			isa = PBXGroup;
 			children = (
+				3CF538F11D2139E800395779 /* YouHuiQuanModel */,
 				3C8D93C31D1920A70015CC66 /* NSDateModels */,
 				3CAE048B1D06C5CE004504EA /* cardModel */,
 			);
@@ -3313,6 +3317,15 @@
 				3CEDAD781D13E74E00990DA8 /* iCarousel.m */,
 			);
 			path = iCarousel;
+			sourceTree = "<group>";
+		};
+		3CF538F11D2139E800395779 /* YouHuiQuanModel */ = {
+			isa = PBXGroup;
+			children = (
+				3CF538F21D213AA800395779 /* YouHuiQuanModel.h */,
+				3CF538F31D213AA800395779 /* YouHuiQuanModel.m */,
+			);
+			path = YouHuiQuanModel;
 			sourceTree = "<group>";
 		};
 		3CF868FE1CFD2BE200EFD96E /* UIButton+Badge */ = {
@@ -3937,6 +3950,7 @@
 				7AF725B81CE1304F00B00FB8 /* MLKuajingCell.m in Sources */,
 				7AF15B021D12985400F8CF03 /* MLAddressSelectViewController.m in Sources */,
 				D658CBE61CAA91DD006C70F4 /* MNNManagementViewController.m in Sources */,
+				3CF538F41D213AA800395779 /* YouHuiQuanModel.m in Sources */,
 				7A34865A1D0EAF97002EE211 /* MLShopCartCollectionViewCell.m in Sources */,
 				3A2148641CB356E1007DF97D /* HBRSAHandler.m in Sources */,
 				687703D01CCEE9330008ED46 /* MMMaterialDesignSpinner.m in Sources */,

@@ -168,6 +168,14 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define CHAXUNRENZHENG_RENZHENG_URLStrign @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=sel_identity_card"
 //上传认证信息
 #define SHANGCHUAN_RENZHENG_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=add_identity_card"
+
+//请求所有优惠券 信息
+#define QingQiuYouHuiQuan_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons"
+//领取 优惠券 列表
+#define LingQuYouHuiQuan_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=coupons"
+//领取优惠券
+#define LingQuanAction_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=set_coupons"
+
 /*zhouluEND*/
 
 

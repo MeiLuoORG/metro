@@ -179,6 +179,7 @@
     [self loadSecondButtonsView];
     [self loadThirdButtonsView];
     [self loadFourButtonsView];
+    [self ctreateYOUHUIQuanView];
     
     //李佳接口认证成功后  接收通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(renZhengAction:) name:RENZHENG_LIJIA_Notification object:nil];
@@ -399,10 +400,158 @@
     _thirderHeight = 182.0f+(310.0f/750.0f)*SIZE_WIDTH;
 }
 
+//领取优惠券视图
+- (void)ctreateYOUHUIQuanView{
+
+     __weak typeof (self) weakSelf = self;
+    self.lingQuQuanView = [[LingQuYouHuiQuanView alloc]initWithFrame:CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT)];
+    self.lingQuQuanView.quanARR = [[NSMutableArray alloc]init];
+    [self.lingQuQuanView createView];
+    
+    [self.lingQuQuanView setHideBlockAction:^(BOOL success) {
+        [weakSelf.tabBarController.tabBar setHidden:NO];
+        [UIView animateWithDuration:0.2f animations:^{
+            weakSelf.lingQuQuanView.frame = CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT);
+            
+            
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+    }];
+    [self.lingQuQuanView selectQuanBlockAction:^(BOOL success, YouHuiQuanModel *ret) {
+        if (ret) {
+            
+            
+            [weakSelf selectYouHuiQuan:ret];
+        }
+    }];
+    
+    [self.view addSubview:self.lingQuQuanView];
+    
+
+}
+
 - (void)bannarButtonAction:(UIButton *)sender{
     
-    NSLog(@"离去优惠券");
+    
+    //self.navigationController.toolbar.hidden = YES;
+     //self.hidesBottomBarWhenPushed = YES;
+
+       // __weak typeof (self) weakSelf = self;
+    [self qignQiuYouHuiQuan];
+    
+        NSLog(@"执行了加载了优惠圈视图");
+        [UIView animateWithDuration:0.2f animations:^{
+            self.lingQuQuanView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT);
+        
+        } completion:^(BOOL finished) {
+            [self.tabBarController.tabBar setHidden:YES];
+        }];
+        
+
+ 
+    
+    
 }
+
+
+#pragma mark  请求优惠券
+- (void)qignQiuYouHuiQuan{
+//http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons&test_phone=18260127042
+    
+    [MLHttpManager get:LingQuYouHuiQuan_URLString params:nil m:@"member" s:@"admin_coupons" success:^(id responseObject) {
+        NSLog(@"请求优惠券信息：%@",responseObject);
+        NSDictionary * result = (NSDictionary *)responseObject;
+        NSDictionary * dataDic = result[@"data"];
+        NSArray  *  b2cQuanARR = dataDic[@"b2c_coupons"];
+        if (b2cQuanARR.count > 0) {
+            for (NSDictionary * quanDic in b2cQuanARR) {
+             
+                YouHuiQuanModel * model = [[YouHuiQuanModel alloc]init];
+                model.startTime = quanDic[@"YXQ_B"];
+                model.endTime = quanDic[@"YXQ_E"];
+                model.mingChengStr = quanDic[@"YHQMC"];
+                model.flag = quanDic[@"FLAG"];
+                model.jinE = quanDic[@"JE"];
+                model.quanBH = quanDic[@"JLBH"];
+                model.quanID = quanDic[@"YHQID"];
+                model.quanType = quanDic[@"CXLX"];
+                
+                [self.lingQuQuanView.quanARR addObject:model];
+            }
+        }
+        
+        [self.lingQuQuanView.tablieview reloadData];
+        
+    } failure:^(NSError *error) {
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = REQUEST_ERROR_ZL;
+        [_hud hide:YES afterDelay:1];
+    }];
+    
+}
+
+- (void)selectYouHuiQuan:(YouHuiQuanModel *)model{
+    NSLog(@"优惠券信息;%@,%@,%@",model.quanType,model.quanBH,model.quanID);
+    
+    NSDictionary * ret = @{@"cxlx":model.quanType,
+                           @"jlbh":model.quanBH,
+                           @"yhqid":model.quanID
+                           };
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:ret options:NSJSONWritingPrettyPrinted error:nil];
+    //NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+    NSDictionary *params = @{@"action":@"set_coupons"};
+    
+    /*
+    [[HFSServiceClient sharedJSONClient] POST:LingQuanAction_URLString parameters:ret constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+         NSLog(@"点击领取优惠券%@",responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"优惠券请求失败：%@",error);
+    }];
+    */
+    
+    [MLHttpManager post:LingQuanAction_URLString params:ret m:@"member" s:@"admin_coupons" sconstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+
+    } success:^(id responseObject) {
+           NSLog(@"点击领取优惠券%@",responseObject);
+    } failure:^(NSError *error) {
+        NSLog(@"优惠券请求失败：%@",error);
+        _hud = [[MBProgressHUD alloc]initWithView:self.view];
+        [self.view addSubview:_hud];
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = REQUEST_ERROR_ZL;
+        [_hud hide:YES afterDelay:1];
+        
+    }];
+    
+    
+    /*
+    //m=member&s=admin_coupons&action=set_coupons&test_phone=18868672308
+    [MLHttpManager post:LingQuanAction_URLString params:ret m:@"member" s:@"admin_coupons" success:^(id responseObject) {
+        NSLog(@"点击领取优惠券%@",responseObject);
+        
+    } failure:^(NSError *error) {
+        NSLog(@"优惠券请求失败：%@",error);
+        _hud = [[MBProgressHUD alloc]initWithView:self.view];
+        [self.view addSubview:_hud];
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = REQUEST_ERROR_ZL;
+        [_hud hide:YES afterDelay:1];
+        
+    }];
+    */
+
+}
+
+#pragma end mark
+
 
 #pragma end mark 第三按钮组
 

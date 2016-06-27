@@ -19,6 +19,11 @@
 
 #import "MLHttpManager.h"
 
+#import "LingQuYouHuiQuanView.h"
+#import "YouHuiQuanModel.h"
+
 @interface MLPersonController : MLBaseViewController
+
+@property (strong, nonatomic) LingQuYouHuiQuanView * lingQuQuanView;
 
 @end

@@ -127,7 +127,8 @@
     _newPassword.delegate = self;
     //_newPassword.borderStyle = UITextBorderStyleNone;
     _newPassword.secureTextEntry = YES;
-    [_newPassword setValue:[UIFont boldSystemFontOfSize:13] forKeyPath:@"_placeholderLabel.font"];
+    _newPassword.font = [UIFont systemFontOfSize:15.0f];
+    //[_newPassword setValue:[UIFont boldSystemFontOfSize:13] forKeyPath:@"_placeholderLabel.font"];
     _newPassword.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
     _newPassword.layer.cornerRadius = 4.0f;
     _newPassword.layer.borderWidth = 1.0f;
@@ -154,7 +155,8 @@
     
     //_confirmPassword.borderStyle = UITextBorderStyleNone;
     _confirmPassword.secureTextEntry = YES;
-    [_confirmPassword setValue:[UIFont boldSystemFontOfSize:13] forKeyPath:@"_placeholderLabel.font"];
+    _confirmPassword.font = [UIFont systemFontOfSize:15.0f];
+    //[_confirmPassword setValue:[UIFont boldSystemFontOfSize:13] forKeyPath:@"_placeholderLabel.font"];
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(_newPassword.frame)+10, 15, 20)];
     imageView2.image = [UIImage imageNamed:@"Lock_xiugaimima"];
     //[_bkView addSubview:imageView2];
