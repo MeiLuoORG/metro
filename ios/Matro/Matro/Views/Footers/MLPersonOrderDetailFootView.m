@@ -2,7 +2,7 @@
 //  MLPersonOrderDetailFootView.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/18.
+//  Created by MR.Huang on 16/6/18.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -21,69 +21,72 @@
 
 
 - (void)setFooterType:(FooterType)footerType{
-    _footerType = footerType;
-    switch (_footerType) {
-        case FooterTypeDaifahuo:
-        {
-            self.orderTime.hidden = NO;
-            self.shengyufukuanLb.hidden = NO;
-            self.daojishiLb.hidden = YES;
-            self.payBtn.hidden = YES;
-            self.cancelBtn.hidden = YES;
-            self.shenyuLb.hidden = YES;
+    if (_footerType != footerType) {
+        _footerType = footerType;
+        switch (_footerType) {
+            case FooterTypeDaifahuo:
+            {
+                self.orderTime.hidden = NO;
+                self.shengyufukuanLb.hidden = NO;
+                self.daojishiLb.hidden = YES;
+                self.payBtn.hidden = YES;
+                self.cancelBtn.hidden = YES;
+                self.shenyuLb.hidden = YES;
+            }
+                break;
+            case FooterTypeDaifukuan:
+            {
+                self.orderTime.hidden = YES;
+                self.shengyufukuanLb.hidden = YES;
+                self.daojishiLb.hidden = NO;
+                self.payBtn.hidden = NO;
+                self.cancelBtn.hidden = NO;
+                self.shenyuLb.hidden = NO;
+                [self.cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+                [self.payBtn setTitle:@"付款" forState:UIControlStateNormal];
+                
+            }
+                break;
+            case FooterTypeDaishouhuo:
+            {
+                self.orderTime.hidden = YES;
+                self.shengyufukuanLb.hidden = YES;
+                self.daojishiLb.hidden = YES;
+                self.payBtn.hidden = NO;
+                self.cancelBtn.hidden = NO;
+                self.shenyuLb.hidden = YES;
+                [self.cancelBtn setTitle:@"订单追踪" forState:UIControlStateNormal];
+                [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+            }
+                break;
+            case FooterTypeJiaoyiguanbi:
+            {
+                self.orderTime.hidden = YES;
+                self.shengyufukuanLb.hidden = YES;
+                self.daojishiLb.hidden = YES;
+                self.payBtn.hidden = NO;
+                self.cancelBtn.hidden = YES;
+                self.shenyuLb.hidden = YES;
+                [self.payBtn setTitle:@"删除" forState:UIControlStateNormal];
+            }
+                break;
+            case FooterTypeJiaoyichenggong:
+            {
+                self.orderTime.hidden = YES;
+                self.shengyufukuanLb.hidden = YES;
+                self.daojishiLb.hidden = YES;
+                self.payBtn.hidden = NO;
+                self.cancelBtn.hidden = NO;
+                self.shenyuLb.hidden = YES;
+                [self.cancelBtn setTitle:@"评价" forState:UIControlStateNormal];
+                [self.payBtn setTitle:@"退货" forState:UIControlStateNormal];
+            }
+                break;
+            default:
+                self.hidden = YES;
+                break;
         }
-            break;
-        case FooterTypeDaifukuan:
-        {
-            self.orderTime.hidden = YES;
-            self.shengyufukuanLb.hidden = YES;
-            self.daojishiLb.hidden = NO;
-            self.payBtn.hidden = NO;
-            self.cancelBtn.hidden = NO;
-            self.shenyuLb.hidden = NO;
-            [self.cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-            [self.payBtn setTitle:@"付款" forState:UIControlStateNormal];
 
-        }
-            break;
-        case FooterTypeDaishouhuo:
-        {
-            self.orderTime.hidden = YES;
-            self.shengyufukuanLb.hidden = YES;
-            self.daojishiLb.hidden = YES;
-            self.payBtn.hidden = NO;
-            self.cancelBtn.hidden = NO;
-            self.shenyuLb.hidden = YES;
-            [self.cancelBtn setTitle:@"订单追踪" forState:UIControlStateNormal];
-            [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
-        }
-            break;
-        case FooterTypeJiaoyiguanbi:
-        {
-            self.orderTime.hidden = YES;
-            self.shengyufukuanLb.hidden = YES;
-            self.daojishiLb.hidden = YES;
-            self.payBtn.hidden = NO;
-            self.cancelBtn.hidden = YES;
-            self.shenyuLb.hidden = YES;
-            [self.payBtn setTitle:@"删除" forState:UIControlStateNormal];
-        }
-            break;
-        case FooterTypeJiaoyichenggong:
-        {
-            self.orderTime.hidden = YES;
-            self.shengyufukuanLb.hidden = YES;
-            self.daojishiLb.hidden = YES;
-            self.payBtn.hidden = NO;
-            self.cancelBtn.hidden = NO;
-            self.shenyuLb.hidden = YES;
-            [self.cancelBtn setTitle:@"评价" forState:UIControlStateNormal];
-            [self.payBtn setTitle:@"退货" forState:UIControlStateNormal];
-        }
-            break;
-        default:
-            self.hidden = YES;
-            break;
     }
 }
 

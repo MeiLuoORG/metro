@@ -72,7 +72,7 @@ static NSInteger page = 1;
              
              str = [[str stringByAppendingFormat:@"%@,",model.Shopid] mutableCopy];
              }
-             
+
              [self cancelWishlistWithID:[str copy]];
              
         };

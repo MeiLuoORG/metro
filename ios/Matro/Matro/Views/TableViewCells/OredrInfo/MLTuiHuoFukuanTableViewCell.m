@@ -2,7 +2,7 @@
 //  MLTuiHuoFukuanTableViewCell.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/20.
+//  Created by MR.Huang on 16/6/20.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -38,5 +38,19 @@
     }
     
 }
+
+- (void)setFapiao:(BOOL)fapiao{
+    if (_fapiao != fapiao) {
+        _fapiao = fapiao;
+        if (_fapiao) {
+            [self haveAction:nil];
+        }else{
+            [self notAction:nil];
+        }
+        
+        
+    }
+}
+
 
 @end

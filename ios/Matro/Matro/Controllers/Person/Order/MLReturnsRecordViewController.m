@@ -2,7 +2,7 @@
 //  MLReturnsRecordViewController.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/21.
+//  Created by MR.Huang on 16/6/21.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -25,15 +25,19 @@
 #import "MLMoreTableViewCell.h"
 #import "MLAfterSaleHeadCell.h"
 #import "MLReturnsDetailViewController.h"
+#import "HFSConstants.h"
+#import "MLHttpManager.h"
 
 
 @interface MLReturnsRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *orderList;
+@property (nonatomic,assign)NSInteger  maxPage;
+
 
 @end
 
-static NSInteger pageIndex = 0;
+static NSInteger pageIndex = 1;
 
 @implementation MLReturnsRecordViewController
 
@@ -60,7 +64,7 @@ static NSInteger pageIndex = 0;
         make.right.left.top.bottom.mas_equalTo(self.view);
     }];
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        pageIndex = 0 ;
+        pageIndex = 1 ;
         [self getOrderDataSource];
     }];
     
@@ -162,20 +166,20 @@ static NSInteger pageIndex = 0;
 }
 
 - (void)getOrderDataSource{
-    
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=return_list&cur_page=%li&page_size=3&test_phone=%@",@"http://bbctest.matrojp.com",pageIndex,@"13771961207"];
-    [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=return_list&cur_page=%li&page_size=10",MATROJP_BASE_URL,pageIndex];
+    [MLHttpManager get:url params:nil m:@"return" s:@"return_list" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         [self.tableView.header endRefreshing];
         [self.tableView.footer endRefreshing];
-        
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
-            if (pageIndex == 0) {
+            if (pageIndex == 1) {
                 [self.orderList removeAllObjects];
             }
+            NSString *pageCount = data[@"page_num"] ;
+            self.maxPage = [pageCount integerValue];
             [self.orderList addObjectsFromArray:[MLTuiHuoModel mj_objectArrayWithKeyValuesArray:data[@"return_list"]]];
-            pageIndex ++;
+            
             [self.tableView reloadData];
         }else{
             NSString *str = result[@"msg"];
@@ -183,7 +187,7 @@ static NSInteger pageIndex = 0;
             [MBProgressHUD showMessag:str toView:self.view];
         }
         [self.view configBlankPage:EaseBlankPageTypeTuihuo hasData:(self.orderList.count>0)];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [self.tableView.header endRefreshing];
         [self.tableView.footer endRefreshing];
     }];

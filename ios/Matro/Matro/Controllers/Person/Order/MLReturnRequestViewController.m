@@ -2,7 +2,7 @@
 //  MLReturnRequestViewController.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/5/13.
+//  Created by MR.Huang on 16/5/13.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -49,7 +49,7 @@
 @property (nonatomic,strong)NSMutableArray *imgsUrlArray;
 
 @property (nonatomic,strong)MLReturnsDetailModel *returnsDetail;
-
+@property (nonatomic,strong)MLReturnsReturnInfo  *returnInfo;
 
 @end
 
@@ -92,11 +92,17 @@
         make.top.right.left.bottom.mas_equalTo(self.view);
     }];
     
+    UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:backButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
+    
     [self getOrderDetail];
 
 }
 
-
+- (void)backBtnAction{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -153,7 +159,13 @@
         }
     }else if (indexPath.section == 1){
         MLWenTiBiaoQianTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kWenTiBiaoQianTableViewCell forIndexPath:indexPath];
-        cell.clickStr = self.returnsDetail.returnInfo.question_type.content;
+        if (self.returnInfo.question_type) { //如果有选中
+            cell.clickStr = self.returnInfo.question_type_content;
+            MLReturnsQuestiontype *clickType = [[MLReturnsQuestiontype alloc]init];
+            clickType.ID = self.returnInfo.question_type ;
+            clickType.content = self.returnInfo.question_type_content;
+            selQuestion = clickType;
+        }
         cell.tags = tagsArray;
         cell.wenTiBiaoQianSelBlock = ^(NSArray *tagsIndex){
             NSString *indexStr = [tagsIndex firstObject];
@@ -163,11 +175,22 @@
         return cell;
     }else if (indexPath.section == 2){
         MLTuiHuoMiaoshuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTuiHuoMiaoshuTableViewCell forIndexPath:indexPath];
+        if (self.returnInfo.message) {
+            cell.textView.text = self.returnInfo.message;
+            cell.textView.PlaceholderLabel.hidden = YES;
+            cell.countLabel.text = [NSString stringWithFormat:@"%li/1000",self.returnInfo.message.length];
+        }
         messageText = cell.textView;
-        
         return cell;
     }else if(indexPath.section == 3){
         MLXuanZeTuPianTableViewCell *cell  = [tableView dequeueReusableCellWithIdentifier:kXuanZeTuPianTableViewCell forIndexPath:indexPath];
+        if (self.returnInfo.pic.count>0) { //如果有值
+            for (NSString *imgUrl in self.returnInfo.pic) {
+                [cell.imgsArray insertObject:imgUrl atIndex:0];
+            }
+            
+            [cell.collectionView reloadData];
+        }
         cell.xuanZeTuPianBlock = ^(){//选择图片
             [KZPhotoManager getImage:^(UIImage *image) {
                 MLXuanZeTuPianTableViewCell *cell  =[weakself.tableView cellForRowAtIndexPath:indexPath];
@@ -178,6 +201,9 @@
         return cell;
     }else if(indexPath.section == 4){
         MLTuiHuoFukuanTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTuiHuoFukuanTableViewCell forIndexPath:indexPath];
+        if (self.returnInfo) {
+            cell.fapiao = (self.returnInfo.invoice == 1);
+        }
         cell.tuiHuoFukuanFaPiaoBlock = ^(BOOL fapiao){
             weakself.fapiao = fapiao;
         };
@@ -237,66 +263,48 @@
     if (![self checkFormat]) {
         return;
     }
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:3];
     MLXuanZeTuPianTableViewCell *cell  =[self.tableView cellForRowAtIndexPath:index];
     if (cell.imgsArray.count > 0) {
-        
-        
         __block  NSInteger already = 0;
         __block  NSInteger uploadCount = cell.imgsArray.count - 1;
-        
         [cell.imgsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (idx<cell.imgsArray.count-1) {
-                
-                
-                
-                
-                UIImage *img = (UIImage *)obj;
-//                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                NSData *imgData = UIImageJPEGRepresentation(img, 0.3);
-                NSDictionary *params = @{@"method":@"refund_img",@"order_id":self.returnsDetail.order_id};
-                [MLHttpManager post:@"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index" params:params m:@"uploadimg" s:@"index" sconstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                      [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
-                } success:^(id responseObject) {
-                    NSDictionary *result = (NSDictionary *)responseObject;
-                    if ([result[@"code"] isEqual:@0]) { //上传成功
-                        NSDictionary *data = result[@"data"];
-                        NSString *url = data[@"pic_url"];
-                        [self.imgsUrlArray addObject:url];
-                        already++;
-                        if (already == uploadCount) { //图片上传完成  请求退货操作
-                            [self submitTuihuoAction];
-                            
-                        }
-                    }else{//上传失败就跳过 少传一张
-                        uploadCount -- ;
+                if ([obj isKindOfClass:[NSString class]]) { //如果是字符串类型直接加入数组
+                    already ++;
+                    [self.imgsUrlArray addObject:obj];
+                    if (already == uploadCount) { //图片上传完成  请求退货操作
+                        [self submitTuihuoAction];
+                        
                     }
-                    NSLog(@"%@",responseObject);
-                } failure:^(NSError *error) {
-                     NSLog(@"%@",error);
-                }];
-                
-                
-//                [manager POST:@"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index" parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//                    [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
-//                } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                    NSDictionary *result = (NSDictionary *)responseObject;
-//                    if ([result[@"code"] isEqual:@0]) { //上传成功
-//                        NSDictionary *data = result[@"data"];
-//                        NSString *url = data[@"pic_url"];
-//                        [self.imgsUrlArray addObject:url];
-//                        already++;
-//                        if (already == uploadCount) { //图片上传完成  请求退货操作
-//                            [self submitTuihuoAction];
-//                            
-//                        }
-//                    }else{//上传失败就跳过 少传一张
-//                        uploadCount -- ;
-//                    }
-//                    NSLog(@"%@",responseObject);
-//                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//                    NSLog(@"%@",error);
-//                }];
+                }
+                else{//如果是imgage类型 上传后再加入
+                    UIImage *img = (UIImage *)obj;
+                    NSData *imgData = UIImageJPEGRepresentation(img, 0.3);
+                    NSDictionary *params = @{@"method":@"refund_img",@"order_id":self.returnsDetail.order_id};
+                    [MLHttpManager post:[NSString stringWithFormat:@"%@/api.php?m=uploadimg&s=index",MATROJP_BASE_URL] params:params m:@"uploadimg" s:@"index" sconstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                        [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
+                    } success:^(id responseObject) {
+                        NSDictionary *result = (NSDictionary *)responseObject;
+                        if ([result[@"code"] isEqual:@0]) { //上传成功
+                            NSDictionary *data = result[@"data"];
+                            NSString *url = data[@"pic_url"];
+                            [self.imgsUrlArray addObject:url];
+                            already++;
+                            if (already == uploadCount) { //图片上传完成  请求退货操作
+                                [self submitTuihuoAction];
+                                
+                            }
+                        }else{//上传失败就跳过 少传一张
+                            uploadCount -- ;
+                        }
+                    } failure:^(NSError *error) {
+                       [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    }];
+
+                }
                 
             }
         }];
@@ -307,12 +315,11 @@
 }
 
 - (void)submitTuihuoAction{
-
-    NSString *url = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=return&s=save_return&test_phone=%@",@"13771961207"];
-    NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":selQuestion.ID,@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"username":usernameField.text.length>0?usernameField.text:@"",@"userphone":userphoneField.text.length>0?userphoneField.text:@"",@"pic":self.imgsUrlArray.description};
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
+   [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=save_return",MATROJP_BASE_URL];
+    NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":selQuestion.ID,@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"username":usernameField.text.length>0?usernameField.text:@"",@"userphone":userphoneField.text.length>0?userphoneField.text:@"",@"pic":[self.imgsUrlArray componentsJoinedByString:@","]};
+    [MLHttpManager post:url params:params m:@"return" s:@"save_return" success:^(id responseObject) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             MLTuiHuoChengGongViewController *vc = [[MLTuiHuoChengGongViewController alloc]init];
@@ -320,9 +327,15 @@
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
+    
 }
 
 
@@ -335,33 +348,46 @@
 
 
 - (void)getOrderDetail{
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_detail&test_phone=13771961207&order_id=%@",@"http://bbctest.matrojp.com",self.order_id];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_detail",MATROJP_BASE_URL];
     NSDictionary *params = @{@"order_id":self.order_id?:@""};
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MLHttpManager post:url params:params m:@"return" s:@"order_detail" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSDictionary *order_detail = data[@"order_detail"];
+            NSDictionary *returnInfo = data[@"returnInfo"];
             self.returnsDetail = [MLReturnsDetailModel mj_objectWithKeyValues:order_detail];
+            self.returnInfo = [MLReturnsReturnInfo mj_objectWithKeyValues:returnInfo];
             NSMutableArray *tmp = [NSMutableArray array];
             for (int i = 0; i<self.returnsDetail.question_type.count; i++) {
                 MLReturnsQuestiontype *q = self.returnsDetail.question_type[i];
                 [tmp addObject:q.content];
             }
             tagsArray = [tmp copy];
-            
+            if (self.returnInfo) {
+                [self updateFootInfo];
+            }
             [self.tableView reloadData];
             
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
+
     
     
 }
 
+
+- (void)updateFootInfo{
+    self.footerView.phoneField.text = self.returnInfo.userphone;
+    self.footerView.nameField.text = self.returnInfo.username;
+}
 
 
 - (BOOL)checkFormat{
@@ -399,8 +425,6 @@
     }
     return NO;
 }
-
-
 
 
 

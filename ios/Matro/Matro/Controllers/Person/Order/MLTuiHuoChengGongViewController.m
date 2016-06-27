@@ -2,7 +2,7 @@
 //  MLTuiHuoChengGongViewController.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/21.
+//  Created by MR.Huang on 16/6/21.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -19,8 +19,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"申请提交成功";
-    
+    UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:backButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
 }
+
+- (void)backBtnAction{
+    
+    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

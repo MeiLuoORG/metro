@@ -2,11 +2,12 @@
 //  MLGuessLikeModel.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/25.
+//  Created by MR.Huang on 16/6/25.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
 #import "MLGuessLikeModel.h"
+#import "HFSConstants.h"
 
 @implementation MLGuessLikeModel
 
@@ -18,7 +19,7 @@
 - (void)setPic:(NSString *)pic{
     _pic = pic;
     
-    _pic = [NSString stringWithFormat:@"http://bbctest.matrojp.com/%@",pic];
+    _pic = [NSString stringWithFormat:@"%@/%@",MATROJP_BASE_URL,pic];
     
 }
 

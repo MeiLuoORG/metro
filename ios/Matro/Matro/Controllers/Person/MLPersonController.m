@@ -2,7 +2,7 @@
 //  MLPersonController.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/5/12.
+//  Created by MR.Huang on 16/5/12.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -97,39 +97,13 @@
     
     [self.view addSubview:_backgroundScrollView];
     
-    
-//     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"news"] style:UIBarButtonItemStylePlain target:self action:@selector(actMessage)];
-//
-//    //self.navigationItem.rightBarButtonItem = right;
-//    
-//    NSMutableArray* array = [NSMutableArray array];
-//    
-//    for (int i =0; i<2; i++) {
-//        if (i == 0) {
-//            UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"news"] style:UIBarButtonItemStylePlain target:self action:@selector(actMessage)];
-//            [array addObject:right];
-//        }
-//        if (i == 1) {
-//            //Settings
-//            UIBarButtonItem *right1 = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Settings"] style:UIBarButtonItemStylePlain target:self action:@selector(actSettingAction)];
-//            [array addObject:right1];
-//        }
-//        
-//
-//    }
-    //消息按钮
-//    _messageButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    _messageButton.frame = CGRectMake(SIZE_WIDTH-42, 10, 22, 22);
-//    
+
     _messageButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _messageButton.frame = CGRectMake(0, 0, 22, 22);
     [_messageButton setBackgroundImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
     [_messageButton addTarget:self action:@selector(actMessage) forControlEvents:UIControlEventTouchUpInside];
 
 
-//    [self.navigationController.navigationBar addSubview:_messageButton];
-
-    //[self.navigationController.navigationBar addSubview:_messageButton];
 
 
     _messageBadgeView = [[JSBadgeView alloc]initWithParentView:_messageButton alignment:JSBadgeViewAlignmentTopRight];
@@ -144,65 +118,17 @@
     UIBarButtonItem *l = [[UIBarButtonItem alloc]initWithCustomView:s];
     
 
-    
-//    _settingButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    _settingButton.frame = CGRectMake(SIZE_WIDTH-80, 10, 22, 22);
     _settingButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _settingButton.frame = CGRectMake(0, 0, 22, 22);
     [_settingButton setBackgroundImage:[UIImage imageNamed:@"settingzl"] forState:UIControlStateNormal];
     [_settingButton addTarget:self action:@selector(actSettingAction) forControlEvents:UIControlEventTouchUpInside];
 
 
-//    [self.navigationController.navigationBar addSubview:_settingButton];
 
     
     UIBarButtonItem *setting = [[UIBarButtonItem alloc]initWithCustomView:_settingButton];
     
     self.navigationItem.rightBarButtonItems = @[message,l,setting];
-
-    
-
-    //[self.navigationController.navigationBar addSubview:_settingButton];
-
-
-    
-    //self.navigationItem.rightBarButtonItems = array;
-    
-    
-    //self.navigationController.navigationBar.hidden = YES;
-    //right.badge.frame = CGRectMake(0, 0, 5, 5);
-//    right.badgeValue = @"●";
-//    right.badgeTextColor = [UIColor redColor];
-//    right.badgeBGColor = [UIColor clearColor];
-    //right.badge.hidden = YES;
-    //right.badgeMinSize = 0.5f;
-    //right.badgeTextColor = [UIColor redColor];
-    
-    /*
-    badgeView = [[JSBadgeView alloc] initWithParentView:right.customView alignment:JSBadgeViewAlignmentTopRight];
-    badgeView.badgeText = @"2";
-     */
-    
-    // Do any additional setup after loading the view.
-    /*
-    _tableView = ({
-        UITableView *table = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-64-self.tabBarController.tabBar.bounds.size.height)];
-        table.separatorStyle = UITableViewCellSeparatorStyleNone;
-        table.backgroundColor = RGBA(245, 245, 245, 1);
-        table.delegate = self;
-        table.dataSource = self;
-        table.showsVerticalScrollIndicator = NO;
-        [table registerNib:[UINib nibWithNibName:@"MLPersonAccountCell" bundle:nil] forCellReuseIdentifier:kMLPersonAccountCell];
-        [table registerNib:[UINib nibWithNibName:@"MLCusServiceCell" bundle:nil] forCellReuseIdentifier:kMLCusServiceCell];
-        [table registerNib:[UINib nibWithNibName:@"MLPersonOrderCell" bundle:nil] forCellReuseIdentifier:kMLPersonOrderCell];
-        [table registerNib:[UINib nibWithNibName:@"MLPropertyCell" bundle:nil] forCellReuseIdentifier:kMLPropertyCell];
-        [table registerNib:[UINib nibWithNibName:@"MLPropertysubCell" bundle:nil] forCellReuseIdentifier:kMLPropertysubCell];
-        
-        [self.view addSubview:table];
-        table;
-    });
-    
-    */
     
     _headView = ({
         MLPersonHeadView *headView =[MLPersonHeadView personHeadView];
@@ -1234,12 +1160,10 @@
 
 -(void)actMessage{
     [self hideZLMessageBtnAndSetingBtn];
-    self.hidesBottomBarWhenPushed = YES;
-    MessagesViewController * VC = [[MessagesViewController alloc]init];
-    
-    [self.navigationController pushViewController:VC animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
-
+    MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+   
 }
 //设置
 - (void)actSettingAction{

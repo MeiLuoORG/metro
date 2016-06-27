@@ -2,7 +2,7 @@
 //  MLGoodsComViewController.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/5/12.
+//  Created by MR.Huang on 16/5/12.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -63,7 +63,9 @@
     [footView.sendComBtn addTarget:self action:@selector(sendComDetail:) forControlEvents:UIControlEventTouchUpInside];
     
     self.tableView.tableFooterView = footView;
+    UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:backButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
 }
 
 

@@ -2,7 +2,7 @@
 //  MLPersonOrderModel.h
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/16.
+//  Created by MR.Huang on 16/6/16.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,copy)NSString *des;
 @property (nonatomic,copy)NSString *seller_note;
 @property (nonatomic,assign)NSTimeInterval creat_time;
-@property (nonatomic,copy)NSString *uptime;
+@property (nonatomic,assign)NSTimeInterval uptime;
 @property (nonatomic,copy)NSString *pay_time;
 @property (nonatomic,assign)NSInteger buyer_comment;
 @property (nonatomic,assign)NSInteger seller_comment;

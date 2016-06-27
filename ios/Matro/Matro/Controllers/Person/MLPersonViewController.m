@@ -112,8 +112,6 @@
     self.vipcardBgView.hidden = YES;
     self.vipcardHeight.constant = 0;
     
-    
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateUserInfo) name:NOTIFICATION_CHANGEUSERINFO object:nil];
 }
 
 

@@ -9,9 +9,7 @@
 #import "PlaceholderTextView.h"
 #import "Masonry.h"
 @interface PlaceholderTextView()<UITextViewDelegate>
-{
-    UILabel *PlaceholderLabel;
-}
+
 
 @end
 @implementation PlaceholderTextView
@@ -34,12 +32,12 @@
     self.placeholderColor = [UIColor lightGrayColor];
 //    PlaceholderLabel=[[UILabel alloc] initWithFrame:CGRectMake(left, top
 //                                                               , self.frame.size.width, hegiht)];
-    PlaceholderLabel=[[UILabel alloc] initWithFrame:CGRectZero];
-    PlaceholderLabel.font=self.placeholderFont?self.placeholderFont:self.font;
-    PlaceholderLabel.textColor=self.placeholderColor;
-    [self addSubview:PlaceholderLabel];
-    PlaceholderLabel.text=self.placeholder;
-    [PlaceholderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _PlaceholderLabel=[[UILabel alloc] initWithFrame:CGRectZero];
+    _PlaceholderLabel.font=self.placeholderFont?self.placeholderFont:self.font;
+    _PlaceholderLabel.textColor=self.placeholderColor;
+    [self addSubview:_PlaceholderLabel];
+    _PlaceholderLabel.text=self.placeholder;
+    [_PlaceholderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(left);
         make.top.equalTo(self).offset(top);
         make.right.equalTo(self).offset(-5);
@@ -51,10 +49,10 @@
 // An empty implementation adversely affects performance during animation.
 -(void)setPlaceholder:(NSString *)placeholder{
     if (placeholder.length == 0 || [placeholder isEqualToString:@""]) {
-        PlaceholderLabel.hidden=YES;
+        _PlaceholderLabel.hidden=YES;
     }
     else
-        PlaceholderLabel.text=placeholder;
+        _PlaceholderLabel.text=placeholder;
     _placeholder=placeholder;
 
     
@@ -63,14 +61,14 @@
 -(void)DidChange:(NSNotification*)noti{
     
     if (self.placeholder.length == 0 || [self.placeholder isEqualToString:@""]) {
-        PlaceholderLabel.hidden=YES;
+        _PlaceholderLabel.hidden=YES;
     }
     
     if (self.text.length > 0) {
-        PlaceholderLabel.hidden=YES;
+        _PlaceholderLabel.hidden=YES;
     }
     else{
-        PlaceholderLabel.hidden=NO;
+        _PlaceholderLabel.hidden=NO;
     }
     
     
@@ -78,7 +76,7 @@
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [PlaceholderLabel removeFromSuperview];
+    [_PlaceholderLabel removeFromSuperview];
 
 
 }

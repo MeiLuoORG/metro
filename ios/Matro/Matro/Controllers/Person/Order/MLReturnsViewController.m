@@ -2,7 +2,7 @@
 //  MLReturnsViewController.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/5/5.
+//  Created by MR.Huang on 16/5/5.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -21,6 +21,7 @@
 #import "MLReturnRequestViewController.h"
 #import "MBProgressHUD+Add.h"
 #import "HFSUtility.h"
+#import "MLHttpManager.h"
 
 #import "MLMoreTableViewCell.h"
 
@@ -158,12 +159,11 @@ static NSInteger pageIndex = 0;
 
 - (void)getOrderDataSource{
     
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_list&cur_page=%li&page_size=10&test_phone=%@",@"http://bbctest.matrojp.com",pageIndex,@"13771961207"];
-    [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_list&cur_page=%li&page_size=10",MATROJP_BASE_URL,pageIndex];
+    [MLHttpManager get:url params:nil m:@"return" s:@"order_list" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         [self.tableView.header endRefreshing];
         [self.tableView.footer endRefreshing];
-    
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             if (pageIndex == 0) {
@@ -177,8 +177,8 @@ static NSInteger pageIndex = 0;
             
             [MBProgressHUD showMessag:str toView:self.view];
         }
-       [self.view configBlankPage:EaseBlankPageTypeTuihuo hasData:(self.orderList.count>0)];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.view configBlankPage:EaseBlankPageTypeTuihuo hasData:(self.orderList.count>0)];
+    } failure:^(NSError *error) {
         [self.tableView.header endRefreshing];
         [self.tableView.footer endRefreshing];
     }];

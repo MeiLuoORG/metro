@@ -1,18 +1,19 @@
 //
-//  MessagesTableViewCell.m
+//  MLSystemHeaderCell.m
 //  Matro
 //
-//  Created by lang on 16/5/30.
+//  Created by MR.Huang on 16/6/27.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
-#import "MessagesTableViewCell.h"
+#import "MLSystemHeaderCell.h"
 
-@implementation MessagesTableViewCell
+@implementation MLSystemHeaderCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

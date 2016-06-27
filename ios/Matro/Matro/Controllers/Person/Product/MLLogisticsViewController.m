@@ -32,8 +32,8 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"订单跟踪";
-//    self.express_number = @"3101058115241";
-//    self.express_company = @"韵达";
+    self.express_number = @"3101058115241";
+    self.express_company = @"韵达";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self downLoadLogTrack];
 }
@@ -48,7 +48,7 @@
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSArray *time_line = data[@"timeline"];
-            [self.logisticsArray addObjectsFromArray:time_line];
+            [self.logisticsArray addObjectsFromArray:[MLLogisticsModel mj_objectArrayWithKeyValuesArray:time_line]];
             [self.tableView reloadData];
         }
         else{
@@ -109,32 +109,10 @@
     return 100;
 }
 
-//"time": "2016-06-05 13:25:37",
-//
-//"location": "",
-//
-//"context": "苏州市|签收|苏州市【园区三部】，小杨代 已签收"
 
 - (NSMutableArray *)logisticsArray{
     if(!_logisticsArray){
         _logisticsArray = [NSMutableArray array];
-        MLLogisticsModel *logistics = [[MLLogisticsModel alloc]init];
-        logistics.context = @"苏州市|签收|苏州市【园区三部】，小杨代 已签收";
-        logistics.time = @"2016-06-05 13:25:37";
-        logistics.location= @"";
-        [_logisticsArray addObject:logistics];
-        
-        MLLogisticsModel *logistics1 = [[MLLogisticsModel alloc]init];
-        logistics1.context = @"苏州市|到件|到苏州市【园区三部】";
-        logistics1.time = @"2016-06-05 08:51:19";
-        logistics1.location= @"";
-        [_logisticsArray addObject:logistics1];
-        MLLogisticsModel *logistics2 = [[MLLogisticsModel alloc]init];
-        logistics2.context = @"苏州市|派件|苏州市【园区三部】，【杨岗/13115106897】正在派件";
-        logistics2.time = @"2016-06-05 05:08:33";
-        logistics2.location= @"";
-        [_logisticsArray addObject:logistics2];
-        
     }
     return _logisticsArray;
 }

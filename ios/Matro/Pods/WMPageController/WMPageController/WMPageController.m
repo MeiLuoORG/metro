@@ -196,9 +196,14 @@ static NSInteger const kWMUndefinedIndex = -1;
 
 - (UIViewController *)initializeViewControllerAtIndex:(NSInteger)index {
     if ([self.dataSource respondsToSelector:@selector(pageController:viewControllerAtIndex:)]) {
-        return [self.dataSource pageController:self viewControllerAtIndex:index];
+        UIViewController *vc = [self.dataSource pageController:self viewControllerAtIndex:index];
+        vc.title = _titles[index];
+        return vc;
     }
-    return [[self.viewControllerClasses[index] alloc] init];
+    UIViewController *vc = [[self.viewControllerClasses[index] alloc] init];
+    vc.title = _titles[index];
+    
+    return vc;
 }
 
 - (NSString *)titleAtIndex:(NSInteger)index {

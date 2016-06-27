@@ -195,35 +195,9 @@
                                   ^(NSData *data, NSURLResponse *response, NSError *error) {
                                       NSString *resultString  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                       NSLog(@"李佳认证:%@,错误信息：%@",resultString,error);
-                                      
-                                      
-                                      //NSString * timeStr = @"1334322098";
-                                      
-                                      //                                          NSDate * date1 = [NSDate dateWithTimeIntervalSinceReferenceDate:1334322098];
-                                      //                                          NSDate * date3 = [NSDate dateWithTimeIntervalSinceNow:1334322098];
-                                      //                                          NSDate * date4 = [NSDate dateWithTimeIntervalSince1970:1334322098];
-                                      //                                          NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-                                      //                                          [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-                                      //                                          NSString * fuWuStirng1 = [dateFormatter stringFromDate:date1];
-                                      //                                          NSString * fuWuStirng3 = [dateFormatter stringFromDate:date3];
-                                      //                                          NSString * fuWuStirng4 = [dateFormatter stringFromDate:date4];
-                                      //                                          NSLog(@"服务器的时间为;1---%@,3---%@,4----%@",fuWuStirng1,fuWuStirng3,fuWuStirng4);
-                                      //
-                                      //
-                                      //                                          //NSDate * date2 = [[NSDate alloc]initWithTimeInterval:0 sinceDate:date1];
-                                      //
-                                      //                                          NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
-                                      //                                          NSLog(@"model1地址：%p",model1);
-                                      //                                          model1.timeInterval =1334322098;
-                                      //                                          model1.firstDate = [NSDate date];
-                                      
-                                      
-                                      
                                       //请求没有错误
                                       if (!error) {
                                           if (data && data.length > 0) {
-                                              //JSON解析
-                                              // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                               NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                                               
                                               if (result && [result isKindOfClass:[NSDictionary class]]) {
@@ -249,15 +223,7 @@
                                           }
                                       }
                                       else{
-                                          //请求有错误
-                                          //dispatch_async(dispatch_get_main_queue(), ^{
-                                          
-//                                          [_hud show:YES];
-//                                          _hud.mode = MBProgressHUDModeText;
-//                                          _hud.labelText = REQUEST_ERROR_ZL;
-//                                          _hud.labelFont = [UIFont systemFontOfSize:13];
-//                                          [_hud hide:YES afterDelay:1];
-                                          //});
+
                                           
                                       }
                                       
@@ -274,8 +240,6 @@
 
 -(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
 {
-    
-//    NSLog(@"%@",url.host);
     
     //如果极简开发包不可用，会跳转支付宝钱包进行支付，需要将支付宝钱包的支付结果回传给开发包
     if ([url.host isEqualToString:@"safepay"]) {
@@ -356,6 +320,8 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [application setApplicationIconBadgeNumber:0];
+    [application cancelAllLocalNotifications];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -364,6 +330,21 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [JPUSHService handleRemoteNotification:userInfo];
+    NSLog(@"收到通知:%@", userInfo);
+}
+
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:
+(void (^)(UIBackgroundFetchResult))completionHandler {
+    [JPUSHService handleRemoteNotification:userInfo];
+    NSLog(@"收到通知:%@", userInfo);
 }
 
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window

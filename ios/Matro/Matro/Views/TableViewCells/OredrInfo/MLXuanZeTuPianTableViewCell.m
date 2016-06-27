@@ -2,13 +2,14 @@
 //  MLXuanZeTuPianTableViewCell.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/20.
+//  Created by MR.Huang on 16/6/20.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
 #import "MLXuanZeTuPianTableViewCell.h"
 #import "MLAddImgCollectionViewCell.h"
 #import "HFSConstants.h"
+#import "UIImageView+WebCache.h"
 
 
 #define MaxPic 5
@@ -44,7 +45,13 @@
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MLAddImgCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kAddImgCollectionViewCell forIndexPath:indexPath];
-    cell.imgView.image = [self.imgsArray objectAtIndex:indexPath.row];
+    id img = [_imgsArray objectAtIndex:indexPath.row];
+    if ([img isKindOfClass:[NSString class]]) { //如果是string类型
+        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:img] placeholderImage:PLACEHOLDER_IMAGE];
+    }else{
+        cell.imgView.image = img;
+    }
+    
     cell.delBtn.hidden = (indexPath.row == self.imgsArray.count-1);
     __weak typeof(self) weakself = self;
     cell.addImgCollectionDelBlock = ^(){

@@ -2,7 +2,7 @@
 //  MLPersonOrderDetailFootView.h
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/18.
+//  Created by MR.Huang on 16/6/18.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 

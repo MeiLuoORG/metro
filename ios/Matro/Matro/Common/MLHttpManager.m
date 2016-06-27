@@ -2,7 +2,7 @@
 //  MLHttpManager.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/22.
+//  Created by MR.Huang on 16/6/22.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -27,11 +27,6 @@
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
     NSString *sign = [self md5:signStr];
     NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
-<<<<<<< Updated upstream
-    
-=======
->>>>>>> Stashed changes
-    
     // 2.发送请求
     [mgr POST:newUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -56,11 +51,7 @@
     NSString *accessTokenStr =[accessToken substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
     NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
-<<<<<<< Updated upstream
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
-=======
-    NSString *signStr =[NSString stringWithFormat:@"%@%.f",accessTokenStr,timestamp];
->>>>>>> Stashed changes
     NSString *sign = [self md5:signStr];
     NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
     

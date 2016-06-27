@@ -2,7 +2,7 @@
 //  MLPersonAlertViewController.h
 //  AlertView
 //
-//  Created by 黄裕华 on 16/6/15.
+//  Created by MR.Huang on 16/6/15.
 //  Copyright © 2016年 hyh. All rights reserved.
 //
 

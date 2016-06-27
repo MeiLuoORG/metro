@@ -2,7 +2,7 @@
 //  UIView+BlankPage.m
 //  kongjiazai
 //
-//  Created by 黄裕华 on 16/5/13.
+//  Created by MR.Huang on 16/5/13.
 //  Copyright © 2016年 hyh. All rights reserved.
 //
 
@@ -87,8 +87,8 @@ static char  BlankPageViewKey;
         _tipLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _tipLabel.backgroundColor = [UIColor clearColor];
         _tipLabel.numberOfLines = 0;
-        _tipLabel.font = [UIFont systemFontOfSize:15];
-        _tipLabel.textColor = [UIColor lightGrayColor];
+        _tipLabel.font = [UIFont systemFontOfSize:14];
+        _tipLabel.textColor = RGBA(80, 80, 80, 1);
         _tipLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_tipLabel];
     }

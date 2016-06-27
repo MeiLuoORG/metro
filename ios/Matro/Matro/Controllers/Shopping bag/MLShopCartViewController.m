@@ -2,7 +2,7 @@
 //  MLShopCartViewController.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/13.
+//  Created by MR.Huang on 16/6/13.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -133,14 +133,14 @@ static NSInteger pageIndex = 0;
     else{
         [self showOrHiddenLoginView:YES];
     }
+    [self getDataSource];
     
 }
 
 - (void)getDataSource{
     
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
-    
-    [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",MATROJP_BASE_URL];
+        [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
         [self.collectionView.header endRefreshing];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
@@ -161,9 +161,6 @@ static NSInteger pageIndex = 0;
     }];
 
 }
-
-
-
 
 #pragma mark -- UICollectionViewDataSource
 

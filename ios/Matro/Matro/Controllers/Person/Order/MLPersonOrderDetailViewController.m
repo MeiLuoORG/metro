@@ -2,7 +2,7 @@
 //  MLPersonDetailViewController.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/17.
+//  Created by MR.Huang on 16/6/17.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -25,6 +25,8 @@
 #import "MBProgressHUD+Add.h"
 #import "MLOrderComViewController.h"
 #import "MLReturnRequestViewController.h"
+#import "MLHttpManager.h"
+#import "MLLogisticsViewController.h"
 
 @interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
@@ -88,6 +90,8 @@
                     break;
                 case ButtonActionTypeZhuizong://订单追踪
                 {
+                    MLLogisticsViewController *vc = [[MLLogisticsViewController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
                     
                 }
                     break;
@@ -101,13 +105,11 @@
                     if (weakself.orderDetail.seller_comment == 0) { //判断是否评价
                         MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
                         vc.order_id = weakself.orderDetail.order_id;
-                        weakself.hidesBottomBarWhenPushed = YES;
+                        vc.hidesBottomBarWhenPushed = YES;
                         [weakself.navigationController pushViewController:vc animated:YES];
                     }else{
                         [MBProgressHUD showMessag:@"订单已评价" toView:self.view];
                     }
-
-                    
                 }
                     break;
                 case ButtonActionTypeTuiHuo://退货
@@ -129,7 +131,7 @@
     
     [self.footView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
-        make.height.mas_equalTo(40);
+        make.height.mas_equalTo(50);
     }];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self.view);
@@ -140,14 +142,13 @@
 }
 
 - (void)getOrderDetail{
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=detail&order_id=%@&test_phone=13771961207",@"http://bbctest.matrojp.com",self.order_id];
-    [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=detail&order_id=%@",MATROJP_BASE_URL,self.order_id?:@""];
+    [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = [result objectForKey:@"data"];
             NSDictionary *detail = data[@"detail"];
             self.orderDetail = [MLPersonOrderDetail mj_objectWithKeyValues:detail];
-            self.orderDetail.logistics_type = @"到店自提";
             
             switch (self.orderDetail.status) {
                 case OrderStatusYishanchu:
@@ -155,10 +156,13 @@
                     self.footView.footerType = FooterTypeJiaoyiguanbi;
                 }
                     break;
-
-                case OrderStatusDaifukuan:
+                    
+                case OrderStatusDaifukuan:  //启用倒计时
                 {
                     self.footView.footerType = FooterTypeDaifukuan;
+                    NSDate *now = [NSDate new];
+                    NSDate *since = [NSDate dateWithTimeIntervalSince1970:self.orderDetail.creat_time];
+                    [self compareDate:now currentDate:since];
                 }
                     break;
                 case OrderStatusDaifahuo:
@@ -166,11 +170,11 @@
                     self.footView.footerType = FooterTypeDaifahuo;
                 }
                     break;
-//                case OrderStatusDaiqueren:
-//                {
-//                    
-//                }
-//                    break;
+                    //                case OrderStatusDaiqueren:
+                    //                {
+                    //
+                    //                }
+                    //                    break;
                 case OrderStatusWancheng:
                 {
                     self.footView.footerType = FooterTypeJiaoyichenggong;
@@ -185,27 +189,32 @@
                     
                 }
                     break;
-//                case OrderStatusTuihuozhong:
-//                {
-//                    
-//                }
-//                    break;
-//                case OrderStatusTuihuochenggong:
-//                {
-//                    
-//                }
-//                    break;
-//                    
+                    //                case OrderStatusTuihuozhong:
+                    //                {
+                    //
+                    //                }
+                    //                    break;
+                    //                case OrderStatusTuihuochenggong:
+                    //                {
+                    //
+                    //                }
+                    //                    break;
+                    //                    
                     
                 default:
                     self.footView.footerType = FooterTypeQitazhuangtai;
                     break;
             }
-            _footView.footerType = FooterTypeJiaoyichenggong;
+            
             [self.tableView reloadData];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
 }
@@ -232,18 +241,19 @@
         action = @"";
     }
     
-    NSString *url= [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@",action,self.orderDetail.order_id];
-    [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *result = (NSDictionary *)responseObject;
+    NSString *url= [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@",MATROJP_BASE_URL,action,self.orderDetail.order_id];
+    [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
+         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //操作成功
             [MBProgressHUD showSuccess:@"操作成功" toView:self.view];
             
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
-    
-    
     
     
     
@@ -472,7 +482,6 @@
 }
 
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 8;
 }
@@ -480,7 +489,65 @@
     return [[UIView alloc]init];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 1) {
+        MLLogisticsViewController *vc = [[MLLogisticsViewController alloc]init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
 
+
+-(void)compareDate:(NSDate*)startdate currentDate:(NSDate*)endDate
+{
+    float restm =  [endDate timeIntervalSinceDate:startdate ];
+    if (restm/60/60>2) { //小时
+        restm = 60*60*2-restm;
+        [self startTime:restm];
+    }
+    else{
+    
+        
+        restm = 60*60*2-restm;
+        [self startTime:restm];
+    }
+}
+
+
+-(void)startTime:(float)resttime{
+    __block int timeout=resttime; //倒计时时间
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+    dispatch_source_set_event_handler(_timer, ^{
+        if(timeout<=0){ //倒计时结束，关闭
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //设置界面的按钮显示 根据自己需求设置
+                self.footView.payBtn.enabled = NO;
+                [self.footView.payBtn setBackgroundColor:[UIColor grayColor]];
+            });
+        }else{
+            //format of hour
+            NSString *str_hour = [NSString stringWithFormat:@"%02d",timeout/3600];
+            //format of minute
+            NSString *str_minute = [NSString stringWithFormat:@"%02d",(timeout%3600)/60];
+            //format of second
+            NSString *str_second = [NSString stringWithFormat:@"%02d",timeout%60];
+            //format of time
+            NSString *format_time = [NSString stringWithFormat:@"%@:%@:%@",str_hour,str_minute,str_second];            dispatch_async(dispatch_get_main_queue(), ^{
+                //设置界面的按钮显示 根据自己需求设置
+                //NSLog(@"____%@",strTime);
+                [UIView beginAnimations:nil context:nil];
+                [UIView setAnimationDuration:1];
+                self.footView.daojishiLb.text = format_time;
+                [UIView commitAnimations];
+            });
+            timeout--;
+        }
+    });
+    dispatch_resume(_timer);
+}
 
 
 

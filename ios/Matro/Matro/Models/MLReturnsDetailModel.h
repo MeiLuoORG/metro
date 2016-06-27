@@ -2,7 +2,7 @@
 //  MLReturnsDetailModel.h
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/22.
+//  Created by MR.Huang on 16/6/22.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -19,8 +19,6 @@
 @property (nonatomic,copy)NSString *return_status;
 @property (nonatomic,copy)NSString *return_add_time;
 
-@property (nonatomic,strong)MLReturnsReturnInfo *returnInfo;
-
 
 @property (nonatomic,assign)BOOL isMore;
 @property (nonatomic,assign)BOOL isOpen;
@@ -34,7 +32,9 @@
 @property (nonatomic,copy)NSString *username;
 @property (nonatomic,copy)NSString *userphone;
 @property (nonatomic,strong)NSArray *pic;
-@property (nonatomic,strong)MLReturnsQuestiontype *question_type;
+@property (nonatomic,copy)NSString *question_type;
+@property (nonatomic,copy)NSString *question_type_content;
+
 
 @end
 

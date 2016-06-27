@@ -112,7 +112,7 @@ static MLShippingaddress *province,*city,*area;
         if (province.sub.count>0) {
             city = [province.sub firstObject];
             if (city.sub.count>0) {
-                [city.sub firstObject];
+              area = [city.sub firstObject];
             }
         }
         [self.addressPickerView reloadAllComponents];
@@ -393,8 +393,6 @@ static MLShippingaddress *province,*city,*area;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSArray *district_info = [MLShippingaddress mj_objectArrayWithKeyValuesArray:data[@"district_info"]];
-            
-            //            缓存本地
             NSArray *tmp = [MLShippingaddress mj_keyValuesArrayWithObjectArray:district_info];
             NSLog(@"%@",tmp);
             SBJSON *sbjson = [SBJSON new];
@@ -409,7 +407,7 @@ static MLShippingaddress *province,*city,*area;
             if (province.sub.count>0) {
                 city = [province.sub firstObject];
                 if (city.sub.count>0) {
-                    [city.sub firstObject];
+                   area  = [city.sub firstObject];
                 }
             }
             [self.addressPickerView reloadAllComponents];

@@ -2,7 +2,7 @@
 //  MLReturnsDetailViewController.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/22.
+//  Created by MR.Huang on 16/6/22.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -27,6 +27,7 @@
 #import "MLReturnsDetailModel.h"
 #import "MLTuiHuoModel.h"
 #import "MLReturnRequestViewController.h"
+#import "MLHttpManager.h"
 
 
 
@@ -36,6 +37,7 @@
 @property (nonatomic,strong)UITableView *tableView;
 
 @property (nonatomic,strong)MLReturnsDetailModel *returnsDetail;
+@property (nonatomic,strong)MLReturnsReturnInfo *returnInfo;
 
 @end
 
@@ -127,14 +129,14 @@
         
         if (indexPath.row == 0) {
             MLReturnsWentiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kReturnsWentiTableViewCell forIndexPath:indexPath];
-            cell.wentiDesc.text = self.returnsDetail.returnInfo.question_type.content;
-            cell.wentiText.text = self.returnsDetail.returnInfo.message;
+            cell.wentiDesc.text = self.returnInfo.question_type_content;
+            cell.wentiText.text = self.returnInfo.message;
             
             return cell;
         }
         else {
             MLReturnsDetailPhototCell *cell = [tableView dequeueReusableCellWithIdentifier:kReturnsDetailPhototCell forIndexPath:indexPath];
-            cell.imgsArray = self.returnsDetail.returnInfo.pic;
+            cell.imgsArray = self.returnInfo.pic;
             return cell;
         }
     }
@@ -195,40 +197,46 @@
 #pragma mark 网络请求
 
 - (void)getOrderDetail{
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_detail&test_phone=13771961207&order_id=%@",@"http://bbctest.matrojp.com",self.order_id];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_detail",MATROJP_BASE_URL];
     NSDictionary *params = @{@"order_id":self.order_id?:@""};
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MLHttpManager post:url params:params m:@"return" s:@"order_detail" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
+            NSDictionary *returnInfo = data[@"returnInfo"];
             NSDictionary *order_detail = data[@"order_detail"];
             self.returnsDetail = [MLReturnsDetailModel mj_objectWithKeyValues:order_detail];
-            [self.tableView reloadData];
+            self.returnInfo = [MLReturnsReturnInfo mj_objectWithKeyValues:returnInfo];
             
+            [self.tableView reloadData];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
+    
+    
 }
 
 - (void)returnsCancelAction{
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=cancel&test_phone=13771961207",@"http://bbctest.matrojp.com"];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=cancel",MATROJP_BASE_URL];
     NSDictionary *params = @{@"order_id":self.returnsDetail.order_id?:@""};
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MLHttpManager post:url params:params m:@"return" s:@"cancel" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             //取消成功  返回上一页
             [MBProgressHUD showMessag:@"取消成功" toView:self.view];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
-    
 
-    
-    
 }
 
 

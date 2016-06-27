@@ -10,6 +10,7 @@
 
 
 @interface PlaceholderTextView : UITextView
+@property (nonatomic,strong)UILabel *PlaceholderLabel;
 
 @property(copy,nonatomic) NSString *placeholder;
 @property(strong,nonatomic) UIColor *placeholderColor;

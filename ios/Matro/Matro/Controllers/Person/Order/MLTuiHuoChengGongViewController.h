@@ -2,13 +2,14 @@
 //  MLTuiHuoChengGongViewController.h
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/21.
+//  Created by MR.Huang on 16/6/21.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "MLBaseViewController.h"
 
-@interface MLTuiHuoChengGongViewController : UIViewController
+@interface MLTuiHuoChengGongViewController : MLBaseViewController
 @property (nonatomic,copy)NSString *order_id;
 
 @end

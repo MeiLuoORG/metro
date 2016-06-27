@@ -2,7 +2,7 @@
 //  MLReturnsDetailPhototCell.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/22.
+//  Created by MR.Huang on 16/6/22.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -35,7 +35,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MLAddImgCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kAddImgCollectionViewCell forIndexPath:indexPath];
     NSString *url = [self.imgsArray objectAtIndex:indexPath.row];
-    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:url]];
+    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:PLACEHOLDER_IMAGE];
     cell.delBtn.hidden = YES;
     return cell;
 }
@@ -60,6 +60,12 @@
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
 }
 
+- (void)setImgsArray:(NSArray *)imgsArray{
+    if (_imgsArray != imgsArray) {
+        _imgsArray = imgsArray;
+        [self.collectionView reloadData];
+    }
+}
 
 
 @end

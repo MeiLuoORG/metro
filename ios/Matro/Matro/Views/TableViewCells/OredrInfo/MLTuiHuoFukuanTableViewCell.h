@@ -2,7 +2,7 @@
 //  MLTuiHuoFukuanTableViewCell.h
 //  Matro
 //
-//  Created by 黄裕华 on 16/6/20.
+//  Created by MR.Huang on 16/6/20.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -16,5 +16,7 @@ typedef void(^TuiHuoFukuanFaPiaoBlock)(BOOL);
 @property (weak, nonatomic) IBOutlet UIButton *haveBtn;
 @property (weak, nonatomic) IBOutlet UIButton *notBtn;
 @property (nonatomic,copy)TuiHuoFukuanFaPiaoBlock tuiHuoFukuanFaPiaoBlock;
+
+@property (nonatomic,assign)BOOL fapiao;
 
 @end
