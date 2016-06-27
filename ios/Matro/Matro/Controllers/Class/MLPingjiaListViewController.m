@@ -19,9 +19,10 @@
 #define CollectionViewCellMargin 10.0f//间隔10
 @interface MLPingjiaListViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 {
-    NSMutableArray *commentList;
+    NSMutableArray *commentList;//评价列表
     NSMutableArray *imageList;
     NSString *picstr;
+    float Hight;
     
 }
 @property (weak, nonatomic) IBOutlet UITableView *commentTableView;
@@ -85,22 +86,16 @@ static float height;
     self.commentTableView.dataSource = self;
     commentList = [NSMutableArray array];
     imageList = [NSMutableArray array];
-    /*
-    self.commentTableView.header = [self refreshHeaderWith:self.commentTableView];
-    self.commentCollectionView.header = [self refreshHeaderWith:self.commentCollectionView];
-    
-    self.commentTableView.footer = [self loadMoreDataFooterWith:self.commentTableView];
-    self.commentCollectionView.footer = [self loadMoreDataFooterWith:self.commentCollectionView];
-    [self loadData];
-    */
+   
     self.commentTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         pageIndex = 1;
         
         [self loadData];
+        [self.commentTableView reloadData];
     }];
     self.commentTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self loadData];
-        
+        [self.commentTableView reloadData];
     }];
      [self.commentTableView.header beginRefreshing];
     
@@ -156,8 +151,8 @@ static float height;
                 MJRefreshAutoNormalFooter *footer1 = (MJRefreshAutoNormalFooter *)self.commentCollectionView.footer;
                 footer.stateLabel.text = @"没有更多了";
                 footer1.stateLabel.text = @"没有更多了";
-                [self.commentTableView.header endRefreshing];
-                [self.commentCollectionView.header endRefreshing];
+                [self.commentTableView.footer endRefreshing];
+                [self.commentCollectionView.footer endRefreshing];
                 return ;
             }
             
@@ -201,9 +196,48 @@ static float height;
     cell.imageHead.layer.masksToBounds = YES;
     NSDictionary *tempDic = commentList[indexPath.row];
     NSNumber *star = tempDic[@"stars"];
+    UIImage *image1 = [UIImage imageNamed:@"Star_big2"];
+    
+    
+    
+    if (star.intValue == 0) {
+        
+        cell.star1.image = image1;
+        cell.star2.image = image1;
+        cell.star3.image = image1;
+        cell.star4.image = image1;
+        cell.star5.image = image1;
+    }else if (star.intValue == 1){
+        
+        cell.star2.image = image1;
+        cell.star3.image = image1;
+        cell.star4.image = image1;
+        cell.star5.image = image1;
+        
+    }else if (star.intValue == 2){
+        
+        cell.star3.image = image1;
+        cell.star4.image = image1;
+        cell.star5.image = image1;
+        
+    }else if (star.intValue == 3){
+        
+        cell.star4.image = image1;
+        cell.star5.image = image1;
+        
+    }else if (star.intValue == 4){
+        
+        cell.star5.image = image1;
+        
+    }else if (star.intValue == 5){
+        
+        
+    }
+    
+    
     cell.userName.text = tempDic[@"user"];
     cell.timeLab.text = tempDic[@"uptime"];
-    cell.pingjiaLab.text = tempDic[@"con"];
+    //cell.pingjiaLab.text = tempDic[@"con"];
     imageList  = tempDic[@"photos"];
     NSString *imgstr = tempDic[@"logo"];
     if (![imgstr isKindOfClass:[NSNull class]]) {
@@ -212,15 +246,25 @@ static float height;
     else{
         cell.imageHead.image = [UIImage imageNamed:@"imageLoading"];
     }
-//    picstr = tempDic[@"pic"];
-//    if ([picstr isKindOfClass:[NSNull class]]) {
-//        cell.collectH.constant = 0;
-//    }
+    picstr = tempDic[@"pic"];
+   
+    //CGSize theSize = [cell.pingjiaLab.text sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH, 999999.0f) lineBreakMode:UILineBreakModeWordWrap];
     
-    CGSize theSize = [cell.pingjiaLab.text sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH, 999999.0f) lineBreakMode:UILineBreakModeWordWrap];
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+    
+    CGSize theSize = [cell.pingjiaLab.text boundingRectWithSize:CGSizeMake(MAIN_SCREEN_WIDTH, 999999.0f) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
+    
     height = theSize.height;
     NSLog(@"%f",height);
-    
+    if ([picstr isKindOfClass:[NSNull class]]) {
+        Hight = 100 + height;
+        cell.collectH.constant = 0;
+    }
+    else{
+        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin + 1 * 5))/5);
+        float height1 = width;
+        Hight = height1 + 100 +height;
+    }
     cell.imgCollectionView.delegate = self;
     cell.imgCollectionView.dataSource = self;
     cell.imgCollectionView.tag = indexPath.section;
@@ -233,15 +277,15 @@ static float height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin + 1 * 5))/5);
-    float height1 = width;
-    /*
-    if (![picstr isKindOfClass:[NSNull class]]) {
-       return height1 + 100 + height;
-    }
-     */
-    return  height1 +100 + height;
+//    if ([picstr isKindOfClass:[NSNull class]]) {
+//        return 100+height;
+//    }
+//    
+//    float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin + 1 * 5))/5);
+//    float height1 = width;
+//    
+//    return  height1 +100 + height;
+    return Hight;
 }
 
 
@@ -260,11 +304,10 @@ static float height;
     
     if (![src isKindOfClass:[NSNull class]]) {
         
-       [cell.imageCell sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[UIImage imageNamed:@"imageLoading"]];
+       [cell.imageCell sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[UIImage imageNamed:@"imageloading"]];
         
     }else{
-        cell.imageH.constant = 0;
-        cell.imageW.constant = 0;
+        cell.imageCell.image = [UIImage imageNamed:@"imageloading"];
         
     }
     

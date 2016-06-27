@@ -8,13 +8,20 @@
 
 #import "MLFootMarkViewController.h"
 #import "Masonry.h"
+#import "MLFootTableViewCell.h"
 #import "MLFootMarkTableViewCell.h"
 #import "MJRefresh.h"
 #import "UIView+BlankPage.h"
 #import "MLWishlistModel.h"
 #import "HFSServiceClient.h"
 #import "UIImageView+WebCache.h"
+#import "MLFootModel.h"
+#import "MJExtension.h"
 @interface MLFootMarkViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+
+    NSMutableArray *footArray;
+}
 
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *dataSource;
@@ -26,15 +33,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"浏览足迹";
-    // Do any additional setup after loading the view.
     
     [self loadData];
+     _dataSource = [NSMutableArray array];
     
     _tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tableView.backgroundColor = RGBA(245, 245, 245, 1);
-        [tableView registerNib:[UINib nibWithNibName:@"MLFootMarkTableViewCell" bundle:nil] forCellReuseIdentifier:kMLFootMarkTableViewCell];
+        [tableView registerNib:[UINib nibWithNibName:@"MLFootTableViewCell" bundle:nil] forCellReuseIdentifier:@"MLFootTableViewCell"];
         tableView.delegate = self;
         tableView.dataSource = self;
         [self.view addSubview:tableView];
@@ -48,28 +55,19 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"清空" style:UIBarButtonItemStylePlain target:self action:@selector(removeAll:)];
     
+    
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self.tableView.header endRefreshing];
-        //[self.dataSource removeAllObjects];
         [self.tableView reloadData];
-        [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
-        self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
-            NSLog(@"浏览足迹的去逛逛");
-            
-        };
     }];
     
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self.tableView.footer endRefreshing];
-        //[self.dataSource addObjectsFromArray:@[@"",@"",@"",@""]];
+        
         [self.tableView reloadData];
-        [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
-        self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
-            NSLog(@"浏览足迹的去逛逛");
-
-        };
         
     }];
+    
     
     [self.tableView.header beginRefreshing];
     
@@ -86,7 +84,24 @@
     [[HFSServiceClient sharedJSONClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"请求成功 ==== %@",responseObject);
-        self.dataSource = responseObject[@"data"][@"footprint_info"];
+        footArray = responseObject[@"data"][@"footprint_info"];
+        
+        if (footArray.count>0) {
+          
+            NSLog(@"self.goods===%@",footArray);
+            [self.dataSource addObjectsFromArray:[MLFootModel mj_objectArrayWithKeyValuesArray:footArray]];
+            
+            [self.tableView reloadData];
+            
+        }else{
+            [self.dataSource removeAllObjects];
+            [self.tableView reloadData];
+            [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
+            self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+                
+            };
+        }
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"网络错误");
@@ -103,41 +118,36 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MLFootMarkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMLFootMarkTableViewCell forIndexPath:indexPath];
+    
+     MLFootTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MLFootTableViewCell" forIndexPath:indexPath];
+    /*
     cell.footMarkAddCartBlock = ^(){
         NSLog(@"加入购物车操作");
     };
     cell.footMarkDeleteBlock = ^(){
         NSLog(@"删除足迹操作");
-    };
-    NSDictionary *tempDic = self.dataSource[indexPath.row];
-    cell.Pname.text = tempDic[@"panme"];
-    cell.Pprice.text = [NSString stringWithFormat:@"￥%@",tempDic[@"price"]];
-    NSString *imageStr = tempDic[@"pic"];
+    };*/
+     
+    MLFootModel *tempDic = self.dataSource[indexPath.row];
+    cell.pname.text = tempDic.pname;
+    cell.price.text = [NSString stringWithFormat:@"￥%@",tempDic.price];
+    cell.pHot.hidden  = YES;
+    NSString *imageStr = tempDic.pic;
     
     if (![imageStr isKindOfClass:[NSNull class]]) {
         
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        [cell.pimage sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"imageloading"]];
         
     }else{
-        cell.imageView.image = [UIImage imageNamed:@"imageloading"];
+        cell.pimage.image = [UIImage imageNamed:@"imageloading"];
     }
+    
     
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-
-    return 1.f;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10.f;
-}
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 140;
+    return 125.f;
 }
 
 

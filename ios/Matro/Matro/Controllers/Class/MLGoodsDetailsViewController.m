@@ -298,37 +298,42 @@
             NSArray *porpertyArr = dic[@"pinfo"][@"porperty"];
             [porpertyArray addObjectsFromArray:porpertyArr];
             
-            NSLog(@"porpertyArr===%@",porpertyArr);
             for (NSDictionary *tempdic in porpertyArr) {
-                NSLog(@"tempdic==%@",tempdic);
                 
                 NSArray *setmealArr = tempdic[@"setmeal"];
-                NSLog(@"setmealArr==%@",setmealArr);
-                NSDictionary *guigeDic1 = setmealArr[0];
-                NSDictionary *guigeDic2 = setmealArr[1];
-                NSString *guigestr1 = guigeDic1[@"name"];
-                NSString *guigestr2 = guigeDic2[@"name"];
+                if (setmealArr.count ==1) {
+                   
+                    NSDictionary *guigeDic1 = setmealArr[0];
+                    NSString *guigestr1 = guigeDic1[@"name"];
+                    [huoyuanArray addObject:guigestr1];
+                    
+                }else{
+                    
+                    NSDictionary *guigeDic1 = setmealArr[0];
+                    NSDictionary *guigeDic2 = setmealArr[1];
+                    NSString *guigestr1 = guigeDic1[@"name"];
+                    NSString *guigestr2 = guigeDic2[@"name"];
                
-                [huoyuanArray addObject:guigestr1];
-                [jieduanArray addObject:guigestr2];
-                NSLog(@"huoyuanArray===%@,jieduanArray===%@",huoyuanArray,jieduanArray);
+                    [huoyuanArray addObject:guigestr1];
+                    [jieduanArray addObject:guigestr2];
+                }
+                
             }
             
             [_tableView reloadData];
         }else{
             self.guigeH.constant = 0;
-//            _titleArray = @[@"货源",@"阶段"];
-//            [_tableView reloadData];
+
         }
         
         NSArray *promotionArr = dic[@"promotion"];
-        NSLog(@"promotionArr===%@",promotionArr);
+       
         for (NSDictionary *promotionDic in promotionArr) {
             
             NSString *nameStr = promotionDic[@"name"];
             [promotionArray addObject:nameStr];
         }
-        NSLog(@"promotionArray===%@",promotionArray);
+        
         //①②③④⑤
         if (promotionArray.count == 0) {
             self.cuxiaoxinxiLabel.text = @"";
@@ -356,7 +361,7 @@
         }
         
         NSString *count = dic[@"comment_score"];
-        NSLog(@"count===%@",count);
+       
         UIImage *image1 = [UIImage imageNamed:@"xin2"];
         
         if (count.intValue == 0) {
@@ -394,7 +399,7 @@
         }
         
         if (dic && dic[@"pinfo"] && dic[@"pinfo"]!=[NSNull null]) {
-            NSLog(@"return dic %@",dic);
+            
             NSDictionary *tempdic = dic[@"pinfo"];
             self.shareDic = tempdic;
             if (tempdic[@"jmsp_id"] && tempdic[@"jmsp_id"] !=[NSNull null]) {
@@ -469,9 +474,9 @@
             }
             */
             
-            float pricef = [dic[@"pinfo"][@"market_price"] floatValue];
+            float pricef = [dic[@"pinfo"][@"price"] floatValue];
             self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-            float  originprice= [dic[@"pinfo"][@"price"] floatValue];
+            float  originprice= [dic[@"pinfo"][@"market_price"] floatValue];
             
             NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
             
@@ -510,7 +515,6 @@
                 self.kuncuntisLabel.text = @"售罄";
             }
             
-            NSLog(@"%@",dic);
             if ([dic[@"pinfo"][@"way"] isEqualToString:@"1"]) {
                 self.kujingBgView.hidden = YES;
                 self.kuajingHeight.constant = 0;
@@ -573,46 +577,50 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
-    
-    
 }
-
 
 - (void)selectedTag:(NSString *)tagName{
     
     NSLog(@"点击了====%@",tagName);
     NSLog(@"array====%@",porpertyArray);
-    
     NSString *price;
     NSString *market_price;
     NSString *stock;
     NSString *safe_stock;
     
     for (NSDictionary *searchDic in porpertyArray) {
-        
-        NSArray *setmealArr = searchDic[@"setmeal"];
-        NSDictionary *guigeDic1 = setmealArr[0];
-        NSDictionary *guigeDic2 = setmealArr[1];
-        NSString *guigestr1 = guigeDic1[@"name"];
-        NSString *guigestr2 = guigeDic2[@"name"];
         NSMutableArray *guige = [[NSMutableArray alloc] init];
-        [guige addObject:guigestr1];
-        [guige addObject:guigestr2];
+        NSArray *setmealArr = searchDic[@"setmeal"];
+        if (setmealArr.count == 1) {
+            NSDictionary *guigeDic1 = setmealArr[0];
+            
+            NSString *guigestr1 = guigeDic1[@"name"];
+            
+            
+            [guige addObject:guigestr1];
+            
+        }else{
+            
+            NSDictionary *guigeDic1 = setmealArr[0];
+            NSDictionary *guigeDic2 = setmealArr[1];
+            NSString *guigestr1 = guigeDic1[@"name"];
+            NSString *guigestr2 = guigeDic2[@"name"];
+       
+            [guige addObject:guigestr1];
+            [guige addObject:guigestr2];
+        }
         
-        NSLog(@"guige===%@",guige);
         
         for (NSString *searchStr in guige) {
             if ([searchStr isEqualToString:tagName]) {
                 Searchdic = searchDic;
-                price = searchDic[@"price"];
-                market_price = searchDic[@"market_price"];
+                price = searchDic[@"market_price"];
+                market_price = searchDic[@"price"];
                 stock = searchDic[@"stock"];
                 safe_stock = searchDic[@"safe_stock"];
                 
                 }
             }
-        
-        
     }
     
     NSLog(@"%@  %@  %@  %@",price,market_price,stock,safe_stock);
@@ -649,42 +657,36 @@
         self.kuncuntisLabel.text = @"售罄";
     }
     
-
-    
 }
-
-
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     _pingmuH.constant = MAIN_SCREEN_HEIGHT - 64 - 45;
     _pingmuW.constant = MAIN_SCREEN_WIDTH;
-    
-//    //根据接口换地址
-//    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:weburl]];
-//    [_webView loadRequest:request];
-    //_titleArray = @[@"货  源:",@"阶  段:"];
 
 }
 
 - (void)guessYLike {
+   // http://bbctest.matrojp.com/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=20&catid=11080601,11080201&brandid=
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/order/shoppingcart.ashx?op=getcnxh&spsl=6",SERVICE_GETBASE_URL];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=",@"http://bbctest.matrojp.com"];
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"responseObject===%@",responseObject);
+        
         if(responseObject)
         {
             [_recommendArray removeAllObjects];
-            NSArray *arr = (NSArray *)responseObject;
+            NSArray *arr = responseObject[@"data"][@"product"];
             if (arr && arr.count>0) {
                 [_recommendArray addObjectsFromArray:arr];
             }
         }
-        NSInteger row = (((_recommendArray.count / 3) >= 1 ? (_recommendArray.count / 3) + ((_recommendArray.count % 3 == 0)? 0 : 1) : 1));
+        //NSInteger row = (((_recommendArray.count / 3) >= 1 ? (_recommendArray.count / 3) + ((_recommendArray.count % 3 == 0)? 0 : 1) : 1));
         
 //        CGRect rect = [UIScreen mainScreen].bounds;
-        
+        NSInteger row = 2;
         if (_recommendArray.count != 0) {
-            _likeH.constant = 157*row;
+            _likeH.constant = 170*row;
 //            _likeH.constant = (row + 1) * 10 + row *((MAIN_SCREEN_WIDTH - 5 * 10)/3/(rect.size.width/3)*157);
         }else{
             _likeH.constant = 0;
@@ -864,7 +866,6 @@
     NSLog(@"self.paramDic===%@",self.shareDic);
     
     MLShareGoodsViewController *vc = [[MLShareGoodsViewController alloc]init];
-    // vc.paramDic= self.paramDic;
     vc.paramDic = self.shareDic;
     
     if (self.imageScrollView.subviews.count>0) {
@@ -876,7 +877,6 @@
     vc.erweimaBlock = ^(){
         MLGoodsSharePhotoViewController *vc = [[MLGoodsSharePhotoViewController alloc]init];
         vc.goodsDetail = weakself.shareDic;
-        //vc.paramDic = weakself.paramDic;
         vc.paramDic = weakself.shareDic;
         vc.img_url = imgUrlArray.count>0?[imgUrlArray firstObject]:@"";
         vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
@@ -934,12 +934,11 @@
         imageview.contentMode = UIViewContentModeScaleAspectFit;
         imageview.tag = i;
         imageview.userInteractionEnabled = YES;
-        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapped:)];
+        //UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapped:)];
         //[imageview addGestureRecognizer:singleTap];
         [_imageScrollView addSubview:imageview];
     }
     
-
     _imageScrollView.contentSize = CGSizeMake(imageScrollViewWidth*_imageArray.count, 0);
     _imageScrollView.bounces = NO;
     _imageScrollView.pagingEnabled = YES;
@@ -1048,6 +1047,11 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return _recommendArray.count;
 }
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+
+    return 1;
+
+}
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"RecommendCollectionViewCell" ;
@@ -1058,8 +1062,20 @@
     RecommendCollectionViewCell * cell = (RecommendCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     NSDictionary *paramdic = [_recommendArray objectAtIndex:indexPath.row];
-    cell.productNameLabel.text = paramdic[@"SPNAME"];
-    [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:paramdic[@"IMGURL"]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+    cell.productNameLabel.text = paramdic[@"pname"];
+    NSString *picstr = paramdic[@"pic"];
+    if (![picstr isKindOfClass:[NSNull class]]) {
+        [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:paramdic[@"pic"]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+    }else{
+    
+        cell.productImageView .image = [UIImage imageNamed:@"imageloading"];
+    }
+    
+    NSString *pricestr = paramdic[@"price"];
+    CGFloat price = [pricestr floatValue];
+    cell.productPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",price];
+    
+    /*
     NSString *priceStr = paramdic[@"XJ"];
     NSString *realStr = paramdic[@"LSDJ"];
     CGFloat xj = [priceStr floatValue];
@@ -1067,12 +1083,13 @@
     
     NSString   *newpriceStr = [NSString stringWithFormat:@"<font name = \"STHeitiSC-Light\" size = \"13\"><color value = \"#856D47\">￥%.2f </></><font name = \"STHeitiSC-Light\" size = \"13\"><strike  word=\"true\"><color value = \"#505050\">￥%.2f</></></>",xj,lsdj];
     cell.productPriceLabel.attributedText = [newpriceStr createAttributedString];
+     */
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((MAIN_SCREEN_WIDTH - 5* 10)/3, 150);
+    return CGSizeMake((MAIN_SCREEN_WIDTH - 35)/4, 165);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1087,13 +1104,18 @@
     
 }
 
-
-
-
-
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(0, 15, 0, 0);
+    return UIEdgeInsetsMake(0, 10, 0, 0);
 }
+
+//-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section  {
+//
+//    return 5.f;
+//}
+//-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+//    return 5.f;
+//}
+
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;{

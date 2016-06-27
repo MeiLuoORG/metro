@@ -27,6 +27,7 @@
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
     NSString *sign = [self md5:signStr];
     NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
+
     // 2.发送请求
     [mgr POST:newUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -51,7 +52,9 @@
     NSString *accessTokenStr =[accessToken substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
     NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
+
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
+
     NSString *sign = [self md5:signStr];
     NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
     

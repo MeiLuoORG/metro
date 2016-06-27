@@ -32,9 +32,35 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
 
 }
+
+/*
+- (void)handleSwipeFrom:(UISwipeGestureRecognizer *)gestureRecognizer{
+    if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+        if (!_showDel) {
+            [UIView animateWithDuration:0.2 animations:^{
+                self.countL.constant = 8 + 80;
+                self.checkBoxL.constant = 16 - 80;
+                self.actL.constant = 39 - 80;
+                
+            } completion:^(BOOL finished) {
+                _showDel = YES;
+            }];
+        }
+        
+    }
+    else{//收齐
+        [UIView animateWithDuration:0.2 animations:^{
+            self.countL.constant = 8;
+            self.checkBoxL.constant = 16;
+            self.actL.constant = 39;
+        } completion:^(BOOL finished) {
+            _showDel = NO;
+        }];
+    }
+}
+*/
 
 
 - (void)leftAction:(UISwipeGestureRecognizer *)sender{
@@ -44,6 +70,9 @@
         make.right.equalTo(self.mas_right);
     }];
     
+    
+    
+    
 }
 
 - (void)rightAction:(UISwipeGestureRecognizer *)sender{
@@ -52,6 +81,8 @@
          make.left.equalTo(self.mas_right);
     }];
 }
+
+
 
 - (IBAction)addCartClick:(id)sender {
     if (self.footMarkAddCartBlock) {
@@ -70,6 +101,7 @@
 /**
  *  拦截frame的设置
  */
+/*
 - (void)setFrame:(CGRect)frame
 {
     frame.origin.y += 8;
@@ -78,6 +110,6 @@
     frame.size.height -= 8;
     [super setFrame:frame];
 }
-
+*/
 
 @end

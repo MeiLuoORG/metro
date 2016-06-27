@@ -7,9 +7,14 @@
 //
 
 #import "MLCollectgoodsModel.h"
-@class MLSetmeal;
+
+
+
+@class MLPsetmeal;
+
 
 @implementation MLCollectgoodsModel
+
 
 
 + (NSDictionary *)replacedKeyFromPropertyName
@@ -17,18 +22,28 @@
     return @{@"ID":@"id"};
 }
 
+
+
 + (NSDictionary *)objectClassInArray{
-    return @{@"setmeal":[MLSetmeal class]};
+    return @{@"setmeal":[MLPsetmeal class]};
 }
 
 @end
 
 
 
-@implementation MLSetmeal
 
 
+@implementation MLPsetmeal
 
++ (NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{
+             @"SID":@"sid",
+             @"Code":@"code"
+             
+             };
+}
 
 
 @end

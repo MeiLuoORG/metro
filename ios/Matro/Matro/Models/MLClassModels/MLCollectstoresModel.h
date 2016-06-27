@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface MLCollectstoresModel : NSObject
-
-@property(nonatomic,copy)NSString *Shopid;
-@property(nonatomic,copy)NSString *Sscore;
-@property(nonatomic,copy)NSString *Shopname;
-@property(nonatomic,copy)NSString *Slogo;
+@property(nonatomic,copy)NSString *ID;
+@property(nonatomic,copy)NSString *shopID;
+@property(nonatomic,copy)NSString *score;
+@property(nonatomic,copy)NSString *shopname;
+@property(nonatomic,copy)NSString *logo;
 
 @property (nonatomic,assign)BOOL isSelect;
 

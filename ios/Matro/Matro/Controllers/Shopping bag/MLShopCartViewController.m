@@ -138,10 +138,14 @@ static NSInteger pageIndex = 0;
 }
 
 - (void)getDataSource{
+
+
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
     
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",MATROJP_BASE_URL];
-        [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
+    [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
+
         [self.collectionView.header endRefreshing];
+
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
             self.shopCart = [MLShopingCartlistModel mj_objectWithKeyValues:result[@"data"][@"cart_list"]];
@@ -159,7 +163,9 @@ static NSInteger pageIndex = 0;
         [self.collectionView.header endRefreshing];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
+    
 
+    
 }
 
 #pragma mark -- UICollectionViewDataSource
@@ -209,6 +215,7 @@ static NSInteger pageIndex = 0;
         MLShopCartCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kShopCartCollectionViewCell forIndexPath:indexPath];
         MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
         cell.prolistModel = model;
+        
         cell.checkBox.cartSelected = (model.is_check == 1);
         cell.countField.value = model.num;
         cell.countField.stepperDelegate = self;

@@ -70,10 +70,11 @@ static NSInteger page = 1;
              NSMutableString *str= [[NSMutableString alloc]init];
              for (MLCollectstoresModel *model in self.storeslistArray) {
              
-             str = [[str stringByAppendingFormat:@"%@,",model.Shopid] mutableCopy];
+             str = [[str stringByAppendingFormat:@"%@,",model.ID] mutableCopy];
              }
+             
+             [self cancelWishlistWithID:str];
 
-             [self cancelWishlistWithID:[str copy]];
              
         };
         
@@ -145,18 +146,22 @@ static NSInteger page = 1;
                 [self.dataSource removeAllObjects];
             }
             [self.dataSource addObjectsFromArray:[MLCollectstoresModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
+            
             [self._tableView reloadData];
             
-            [self.view configBlankPage:EaseBlankPageTypeShouCang hasData:(self.dataSource.count>0)];
+            
+            
+        }else{
+            
+            [self.dataSource removeAllObjects];
+            [self._tableView reloadData];
+            [self.view configBlankPage:EaseBlankPageTypeShouCangstore hasData:(self.dataSource.count>0)];
             self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
                 weakself.tabBarController.selectedIndex = 1;
                 [weakself.navigationController popToRootViewControllerAnimated:YES];
             };
             
         }
-        [_hud show:YES];
-        
-        [_hud hide:YES afterDelay:1];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -173,7 +178,7 @@ static NSInteger page = 1;
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _collectionArray.count;
+    return self.dataSource.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;{
@@ -196,16 +201,16 @@ static NSInteger page = 1;
         cell.selectW.constant  = 20;
     }
     
-    NSDictionary *tempDic = _collectionArray[indexPath.section];
+    MLCollectstoresModel *tempDic = self.dataSource[indexPath.section];
     
-    cell.sName.text = tempDic[@"shopname"];
-    cell.sPrice.text = [NSString stringWithFormat:@"%@ 分",tempDic[@"score"]];
-    cell.sProgress.progress = [tempDic[@"score"] floatValue]/5.f;
+    cell.sName.text = tempDic.shopname;
+    cell.sPrice.text = [NSString stringWithFormat:@"%@ 分",tempDic.score];
+    cell.sProgress.progress = [tempDic.score floatValue]/5.f;
     
     CGAffineTransform transform = CGAffineTransformMakeScale(1.0f, 3.0f);
     cell.sProgress.transform = transform;
     
-    NSString *logo = tempDic[@"logo"];
+    NSString *logo = tempDic.logo;
     if (![logo isKindOfClass:[NSNull class]]) {
         
         [cell.sImage sd_setImageWithURL:[NSURL URLWithString:logo] placeholderImage:[UIImage imageNamed:@"imageloading"]];
@@ -214,24 +219,20 @@ static NSInteger page = 1;
         cell.sImage.image = [UIImage imageNamed:@"imageloading"];
     }
  
-     MLCollectstoresModel *model = [self.dataSource objectAtIndex:indexPath.row];
-    
-    NSLog(@"model===%@",model);
+     MLCollectstoresModel *model = [self.dataSource objectAtIndex:indexPath.section];
      cell.storeslistModel = model;
      cell.checkBoxbtn.isSelected = model.isSelect;
      __weak typeof(self) weakself = self;
      cell.storeslistCheckBlock = ^(BOOL isSelected){
      model.isSelect = isSelected;
      if (isSelected) {
-     [weakself.storeslistArray addObject:model];
+         [weakself.storeslistArray addObject:model];
      }
      else{
-     [weakself.storeslistArray removeObject:model];
-     }
+         [weakself.storeslistArray removeObject:model];
+        }
      };
-    
-    
-    
+
     return cell;
 }
 
@@ -289,7 +290,7 @@ static NSInteger page = 1;
      
      批量取消：do=delall    id=32,33,34  【id","隔开】
      */
-    
+    NSLog(@"shopID===%@",shopID);
     NSString *dostr;
     NSString *str = @",";
     if ([shopID rangeOfString:str].location != NSNotFound) {
@@ -302,7 +303,7 @@ static NSInteger page = 1;
         dostr = @"del";
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com&test_phone=13771961207"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_shop&test_phone=13771961207",@"http://bbctest.matrojp.com"];
     NSDictionary *params = @{@"do":dostr,@"id":shopID};
     
     
@@ -318,6 +319,8 @@ static NSInteger page = 1;
              _hud.mode = MBProgressHUDModeText;
              _hud.labelText = @"取消收藏成功";
              [_hud hide:YES afterDelay:2];
+             [self loadDate];
+             [self._tableView reloadData];
          }else{
              
          }

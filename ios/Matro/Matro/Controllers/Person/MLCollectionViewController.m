@@ -33,7 +33,7 @@
 @property (nonatomic,strong)MLWishlistFootView *footView;
 @property (nonatomic,strong)NSMutableArray *dataSource;
 @property (nonatomic,strong)NSMutableArray *goodslistArray;
-@property (nonatomic,strong)MLCollectgoodsModel *goods;
+
 @end
 
 static BOOL isEditing = NO;
@@ -69,7 +69,9 @@ static NSInteger page = 1;
         footView.addCartBlock = ^(){
             NSLog(@"收藏商品加入购物车");
             for (MLCollectgoodsModel *model in self.goodslistArray) {
+
                 [self addToCartWithPID:model.pid array: model.setmeal];
+
             }
              
             
@@ -152,6 +154,7 @@ static NSInteger page = 1;
         
         NSLog(@"responseObject===%@",responseObject);
         
+        
         _collectionArray = responseObject[@"data"][@"share_list"];
         
         __weak typeof(self) weakself = self;
@@ -162,25 +165,24 @@ static NSInteger page = 1;
                 [self.dataSource removeAllObjects];
             }
             
+
             
             [self.dataSource addObjectsFromArray:[MLCollectgoodsModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
             
             NSLog(@"self.goods===%@",self.dataSource);
             
             [self.tableView reloadData];
-            
+        
+        }else{
+            [self.dataSource removeAllObjects];
+            [self.tableView reloadData];
             [self.view configBlankPage:EaseBlankPageTypeShouCang hasData:(self.dataSource.count>0)];
             self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
                 weakself.tabBarController.selectedIndex = 1;
                 [weakself.navigationController popToRootViewControllerAnimated:YES];
             };
-            
         }
         
-        
-        [_hud show:YES];
-        
-        [_hud hide:YES afterDelay:1];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -231,7 +233,29 @@ static NSInteger page = 1;
     }else{
         cell.pImage.image = [UIImage imageNamed:@"imageloading"];
     }
-    cell.goodslistModel = tempDic;
+
+
+    
+    MLCollectgoodsModel *model = [self.dataSource objectAtIndex:indexPath.section];
+ 
+    cell.goodslistModel = model;
+
+    cell.checkBoxbtn.isSelected = model.isSelect;
+    __weak typeof(self) weakself = self;
+    cell.goodslistCheckBlock = ^(BOOL isSelected){
+        model.isSelect = isSelected;
+        if (isSelected) {
+            [weakself.goodslistArray addObject:model];
+            NSLog(@"goodlist===%@",_goodslistArray);
+            
+        }
+        else{
+            [weakself.goodslistArray removeObject:model];
+        }
+    };
+    
+    
+
     
     return cell;
 }
@@ -279,14 +303,38 @@ static NSInteger page = 1;
      
      
      */
+    NSString *nums = @"1";
+    NSLog(@"goodlist===%@",_goodslistArray);
     
-        NSLog(@"PID===%@222===%@",PID,array);
-        NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=add_cart",@"http://bbctest.matrojp.com"];
-        NSDictionary *params = @{@"id":PID,@"nums":@1,@"sid":@"0",@"sku":@"0"};
+    NSArray *dicArr = [MLCollectgoodsModel mj_keyValuesArrayWithObjectArray:_goodslistArray];
+    NSLog(@"%@",dicArr);
     
-        
+    
+    NSString *idstr;
+    NSString *sid;
+    NSString *sku;
+   
+    NSMutableDictionary *cart_listDic = [NSMutableDictionary dictionary];
+ 
+    for (int i=0; i < dicArr.count; i++) {
+         NSMutableArray *cart_listArr = [NSMutableArray array];
+        idstr = dicArr[i][@"pid"];
+        sid = dicArr[i][@"setmeal"][0][@"sid"];
+        sku = dicArr[i][@"setmeal"][0][@"code"];
+        [cart_listArr addObject:idstr];
+        [cart_listArr addObject:nums];
+        [cart_listArr addObject:sid];
+        [cart_listArr addObject:sku];
+        NSString *cart_list = [NSString stringWithFormat:@"cart_list[%d]",i];
+        [cart_listDic setObject:cart_listArr forKey:cart_list];
+       
+    }
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=mul_add_cart&test_phone=13771961207",@"http://bbctest.matrojp.com"];
+       
+    NSDictionary *params = cart_listDic;
+    
         [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
-            
             
         } success:^(AFHTTPRequestOperation *operation, id responseObject)
          {
@@ -308,7 +356,7 @@ static NSInteger page = 1;
              _hud.labelText = @"加入购物车失败";
              [_hud hide:YES afterDelay:2];
          }];
-        
+    
     
     
 }
@@ -337,7 +385,7 @@ static NSInteger page = 1;
         dostr = @"del";
     }
     
-            NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com&test_phone=13771961207"];
+            NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product&test_phone=13771961207",@"http://bbctest.matrojp.com"];
             NSDictionary *params = @{@"do":dostr,@"id":ID};
             
             
@@ -353,6 +401,8 @@ static NSInteger page = 1;
                      _hud.mode = MBProgressHUDModeText;
                      _hud.labelText = @"取消收藏成功";
                      [_hud hide:YES afterDelay:2];
+                     [self loadDate];
+                     [self.tableView reloadData];
                  }else{
                      
                  }

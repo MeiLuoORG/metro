@@ -11,6 +11,7 @@
 
 typedef void(^FootMarkAddCartBlock)();
 typedef void(^FootMarkDeleteBlock)();
+
 @interface MLFootMarkTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *sideView;
 
@@ -20,6 +21,9 @@ typedef void(^FootMarkDeleteBlock)();
 @property (weak, nonatomic) IBOutlet UILabel *isHotLab;
 @property (weak, nonatomic) IBOutlet UILabel *Pname;
 @property (weak, nonatomic) IBOutlet UILabel *Pprice;
+@property (nonatomic,assign)BOOL showDel;
+@property (weak, nonatomic) IBOutlet UIButton *addBtn;
+@property (weak, nonatomic) IBOutlet UIButton *delBtn;
 
 @property (nonatomic,copy)FootMarkAddCartBlock footMarkAddCartBlock;
 @property (nonatomic,copy)FootMarkDeleteBlock  footMarkDeleteBlock;

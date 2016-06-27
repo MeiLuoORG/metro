@@ -1,14 +1,14 @@
 //
-//  MLCollectstoresModel.m
+//  MLFootModel.m
 //  Matro
 //
-//  Created by Matro on 16/6/22.
+//  Created by Matro on 16/6/27.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
-#import "MLCollectstoresModel.h"
+#import "MLFootModel.h"
 
-@implementation MLCollectstoresModel
+@implementation MLFootModel
 
 + (NSDictionary *)replacedKeyFromPropertyName {
     return @{

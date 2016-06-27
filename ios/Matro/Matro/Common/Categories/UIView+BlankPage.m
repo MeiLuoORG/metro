@@ -126,6 +126,12 @@ static char  BlankPageViewKey;
             tipStr = @"您还没有收藏的商品";
         }
             break;
+        case EaseBlankPageTypeShouCangstore://空收藏
+        {
+            imageName = @"icon_shouhou_kong";
+            tipStr = @"您还没有收藏的店铺";
+        }
+            break;
         case EaseBlankPageTypeLiuLan://空浏览
         {
             imageName = @"icon_shouhou_kong";
@@ -133,6 +139,7 @@ static char  BlankPageViewKey;
             
         }
         break;
+            
         case EaseBlankPageTypeGouWuDai://空购物袋
         {
             imageName = @"wufaxianshi";
