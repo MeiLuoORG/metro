@@ -113,16 +113,12 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     }];
     
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        pageIndex = 0;
+        pageIndex = 1;
         [self getOrderList];
     }];
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self getOrderList];
     }];
-    
-    pageIndex = 0;
-
-    
     [self.tableView.header beginRefreshing];
     [self.view configBlankPage:EaseBlankPageTypeDingdan hasData:(self.orderList.count>0)];
     self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
@@ -174,9 +170,17 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
             }];
             [weakself showTransparentController:vc];
         };
+        
+        cell.shanchuAction =^(){//删除订单操作
+            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定删除此订单吗？" AndAlertDoneAction:^{
+                [weakself OrderActionWithButtonType:ButtonActionTypeShanchu AndOrder:order.order_id];
+            }];
+            [weakself showTransparentController:vc];
+        };
+        
         cell.shouHuoAction = ^(){//确认收货操作
             MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定确认收货吗？" AndAlertDoneAction:^{
-                [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.order_id];
+                [weakself OrderActionWithButtonType:ButtonActionTypeQuerenshouhuo AndOrder:order.order_id];
             }];
             [weakself showTransparentController:vc];
         };
@@ -218,15 +222,10 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     MLPersonOrderModel *order = [self.orderList objectAtIndex:indexPath.section];
-    
     if ((order.isMore && !order.isOpen && indexPath.row == 3 )|| (indexPath.row == 0) || (order.isMore && order.isOpen && indexPath.row == order.product.count+1 )||(order.isMore && indexPath.row == 4 && !order.isOpen) ||(!order.isMore && indexPath.row == order.product.count+1)) { // 有更多
-    
         return 40;
-    
     }
     return 134;
-    
-    
 }
 
 
@@ -283,6 +282,8 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     
     [MLHttpManager post:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
         [self.tableView.header endRefreshing];
+        [self.tableView.footer endRefreshing];
+        
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
@@ -290,14 +291,18 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
             if (order_list &&[order_list isKindOfClass:[NSDictionary class]])
             {
                 NSArray *list = order_list[@"list"];
-                if (pageIndex == 0) {
+                if (pageIndex == 1) {
                     [self.orderList removeAllObjects];
                 }
-                if (list.count>0) {
+                NSString *count = order_list[@"total"];
+                if (list.count>0 && self.orderList.count < [count integerValue]) {
                     [self.orderList addObjectsFromArray:[MLPersonOrderModel mj_objectArrayWithKeyValuesArray:list]];
                     pageIndex ++;
+                    [self.tableView reloadData];
                 }
-                [self.tableView reloadData];
+                else{
+                    [MBProgressHUD showMessag:@"暂无更多数据" toView:self.view];
+                }
             }
         }else{
             NSString *msg = result[@"msg"];
@@ -306,6 +311,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
         
         [self.view configBlankPage:EaseBlankPageTypeDingdan hasData:(self.orderList.count>0)];
     } failure:^(NSError *error) {
+          [self.tableView.footer endRefreshing];
          [self.tableView.header endRefreshing];
          [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
@@ -344,13 +350,17 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     
     NSString *url= [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@",MATROJP_BASE_URL,action,order_id];
     [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //操作成功
           [MBProgressHUD showSuccess:@"操作成功" toView:self.view];
-          pageIndex = 0;
-          [self getOrderList];
+          [self.tableView.header beginRefreshing];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
     } failure:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
 

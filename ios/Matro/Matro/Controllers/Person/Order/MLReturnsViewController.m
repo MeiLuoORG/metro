@@ -169,12 +169,17 @@ static NSInteger pageIndex = 0;
             if (pageIndex == 0) {
                 [self.orderList removeAllObjects];
             }
-            [self.orderList addObjectsFromArray:[MLTuiHuoModel mj_objectArrayWithKeyValuesArray:data[@"order_list"]]];
-            pageIndex ++;
-            [self.tableView reloadData];
+            NSString *count = data[@"total"];
+            if (self.orderList.count < [count integerValue]) {
+                [self.orderList addObjectsFromArray:[MLTuiHuoModel mj_objectArrayWithKeyValuesArray:data[@"order_list"]]];
+                pageIndex ++;
+                [self.tableView reloadData];
+            }else{
+                [MBProgressHUD showMessag:@"已没有更多记录" toView:self.view];
+            }
+
         }else{
             NSString *str = result[@"msg"];
-            
             [MBProgressHUD showMessag:str toView:self.view];
         }
         [self.view configBlankPage:EaseBlankPageTypeTuihuo hasData:(self.orderList.count>0)];

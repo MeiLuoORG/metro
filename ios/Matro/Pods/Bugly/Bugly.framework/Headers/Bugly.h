@@ -2,7 +2,7 @@
 //  Bugly.h
 //  Bugly
 //
-//  Version: 2.2(3)
+//  Version: 2.3(0)
 //
 //  Copyright (c) 2016年 Bugly. All rights reserved.
 //
@@ -30,6 +30,17 @@ BLY_START_NONNULL
  *  @param config 传入配置的 BuglyConfig
  */
 + (void)startWithAppId:(NSString * BLY_NULLABLE)appId
+                config:(BuglyConfig * BLY_NULLABLE)config;
+
+/**
+ *  使用指定配置初始化Bugly
+ *
+ *  @param appId 注册Bugly分配的应用唯一标识
+ *  @param developmentDevice 是否开发设备
+ *  @param config 传入配置的 BuglyConfig
+ */
++ (void)startWithAppId:(NSString * BLY_NULLABLE)appId
+     developmentDevice:(BOOL)development
                 config:(BuglyConfig * BLY_NULLABLE)config;
 
 /**

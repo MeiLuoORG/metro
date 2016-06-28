@@ -32,7 +32,6 @@
 @interface MLReturnsRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *orderList;
-@property (nonatomic,assign)NSInteger  maxPage;
 
 
 @end
@@ -130,6 +129,9 @@ static NSInteger pageIndex = 1;
         MLTuiHuoModel *model = [self.orderList objectAtIndex:indexPath.section];
         MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
         vc.order_id = model.order_id;
+        vc.cancelSuccess = ^(){
+            [self.tableView.header beginRefreshing];
+        };
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -152,7 +154,7 @@ static NSInteger pageIndex = 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10.f;
+    return 8.f;
     
 }
 
@@ -176,14 +178,17 @@ static NSInteger pageIndex = 1;
             if (pageIndex == 1) {
                 [self.orderList removeAllObjects];
             }
-            NSString *pageCount = data[@"page_num"] ;
-            self.maxPage = [pageCount integerValue];
-            [self.orderList addObjectsFromArray:[MLTuiHuoModel mj_objectArrayWithKeyValuesArray:data[@"return_list"]]];
-            
-            [self.tableView reloadData];
+            NSString *count = data[@"total"];
+            if (self.orderList.count < [count integerValue]) {
+                [self.orderList addObjectsFromArray:[MLTuiHuoModel mj_objectArrayWithKeyValuesArray:data[@"return_list"]]];
+                pageIndex++;
+                [self.tableView reloadData];
+            }else{
+                [MBProgressHUD showMessag:@"暂无更多数据" toView:self.view];
+            }
+
         }else{
             NSString *str = result[@"msg"];
-            
             [MBProgressHUD showMessag:str toView:self.view];
         }
         [self.view configBlankPage:EaseBlankPageTypeTuihuo hasData:(self.orderList.count>0)];

@@ -35,6 +35,12 @@
         _orderList = orderList;
         self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderList.product_price];
         switch (self.orderList.status) {
+            case OrderStatusQuxiao:
+            {
+                [self.rightBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+                self.leftBtn.hidden = YES;
+            }
+                break;
             case OrderStatusDaifukuan:
             {
                 [self.leftBtn setTitle:@"取消" forState:UIControlStateNormal];
@@ -76,6 +82,7 @@
     
     
     switch (self.orderList.status) {
+            
         case OrderStatusDaifukuan:
         {
             if (self.cancelAction) {
@@ -112,10 +119,15 @@
     
 }
 - (IBAction)rightAction:(id)sender {
-    
-    
-    
+
     switch (self.orderList.status) {
+       case OrderStatusQuxiao:
+        {
+            if (self.shanchuAction) {
+                self.shanchuAction();
+            }
+        }
+            
         case OrderStatusDaifukuan:
         {
             if (self.fuKuanAction) {

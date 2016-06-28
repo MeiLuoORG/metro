@@ -27,11 +27,6 @@
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
     NSString *sign = [self md5:signStr];
     NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
-
-<<<<<<< Updated upstream
-=======
-    
->>>>>>> Stashed changes
     // 2.发送请求
     [mgr POST:newUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -48,9 +43,6 @@
 }
 //上传图片
 + (void)post:(NSString *)url params:(id)params  m:(NSString *)m  s:(NSString *)s sconstructingBodyWithBlock:(void(^)(id<AFMultipartFormData> formData))block  success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure{
-
-    
-    
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
     NSString *accessTokenStr =[accessToken substringToIndex:12];
@@ -61,9 +53,6 @@
 
     NSString *sign = [self md5:signStr];
     NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
-    
-    
-    
     [mgr POST:newUrl parameters:params constructingBodyWithBlock:block success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success(responseObject);

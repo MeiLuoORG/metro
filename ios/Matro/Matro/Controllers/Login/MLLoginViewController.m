@@ -27,6 +27,7 @@
 #import "YMNavigationController.h"
 #import "JPUSHService.h"
 
+
 #define CODE_TIME_KEY @"CODE_TIME_KEY"
 
 
@@ -1587,7 +1588,6 @@
                                                       [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE];
                                                       
                                                       
-                                                          [JPUSHService setTags:nil aliasInbackground:userDataDic[@"phone"]];
                                                       NSLog(@"登录方法中的nickName值为：%@",userDataDic[@"nickName"]);
                                                       if ([userDataDic[@"nickName"] isEqualToString:@""] || !userDataDic[@"nickName"]) {
                                                           [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERNAME ];
@@ -1733,7 +1733,7 @@
     //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     //dispatch_sync(q1, ^{
     //获取设备ID
-    NSString *identifierForVendor = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    NSString *identifierForVendor = [JPUSHService registrationID];
     NSLog(@"设备号ID：%@",identifierForVendor);
     //NSString *identifierForAdvertising = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
     //NSLog(@"accessToken编码前为：%@",accessTokenStr);

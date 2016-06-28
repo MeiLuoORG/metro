@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "MLBaseViewController.h"
 
+
+
+typedef void(^CancelSuccess)();
+
 @interface MLReturnsDetailViewController : MLBaseViewController
 @property (nonatomic,copy)NSString *order_id;
+@property (nonatomic,copy)CancelSuccess cancelSuccess;
 
 @end

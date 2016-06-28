@@ -9,9 +9,15 @@
 #import <UIKit/UIKit.h>
 
 #define kReturnsDetailPhototCell  @"returnsDetailPhototCell"
+
+
+
+typedef void(^ReturnPhotoClick)(NSInteger);
+
 @interface MLReturnsDetailPhototCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic,strong)NSArray *imgsArray;
+@property (nonatomic,copy)ReturnPhotoClick returnPhotoClick;
 
 @end

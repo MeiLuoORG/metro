@@ -28,6 +28,7 @@
 #import "MLTuiHuoModel.h"
 #import "MLReturnRequestViewController.h"
 #import "MLHttpManager.h"
+#import "MJPhotoBrowser.h"
 
 
 
@@ -38,7 +39,6 @@
 
 @property (nonatomic,strong)MLReturnsDetailModel *returnsDetail;
 @property (nonatomic,strong)MLReturnsReturnInfo *returnInfo;
-
 @end
 
 @implementation MLReturnsDetailViewController
@@ -93,11 +93,8 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             MLReturnsDetailHeadCell *cell = [tableView dequeueReusableCellWithIdentifier:kReturnsDetailHeadCell forIndexPath:indexPath];
-            
             cell.tuiHuoModel = self.returnsDetail;
-        
             cell.returnsDetailKeFuAction = ^(){//客服按钮
-                
                 
             };
             cell.returnsDetailBianjiAction = ^(){//编辑订单
@@ -105,7 +102,7 @@
                 vc.order_id = weakself.returnsDetail.order_id;
                 [weakself.navigationController pushViewController:vc animated:YES];
             };
-            cell.returnsDetailQuxiaoAction = ^(){ //取消订单
+            cell.returnsDetailQuxiaoAction = ^(){ //取消退货
                 [weakself returnsCancelAction];
             };
             
@@ -137,6 +134,18 @@
         else {
             MLReturnsDetailPhototCell *cell = [tableView dequeueReusableCellWithIdentifier:kReturnsDetailPhototCell forIndexPath:indexPath];
             cell.imgsArray = self.returnInfo.pic;
+            cell.returnPhotoClick = ^(NSInteger index){
+               MJPhotoBrowser *_photoBrow = [[MJPhotoBrowser alloc]init];
+                NSMutableArray *tmp = [NSMutableArray array];
+                for (NSString *imgUrl  in self.returnInfo.pic) {
+                    MJPhoto *photo = [[MJPhoto alloc]init];
+                    photo.url = [NSURL URLWithString:imgUrl];
+                    [tmp addObject:photo];
+                }
+                _photoBrow.photos = [tmp copy];
+                _photoBrow.currentPhotoIndex = index;
+                [_photoBrow show];
+            };
             return cell;
         }
     }
@@ -197,9 +206,12 @@
 #pragma mark 网络请求
 
 - (void)getOrderDetail{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_detail",MATROJP_BASE_URL];
     NSDictionary *params = @{@"order_id":self.order_id?:@""};
     [MLHttpManager post:url params:params m:@"return" s:@"order_detail" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
@@ -207,7 +219,6 @@
             NSDictionary *order_detail = data[@"order_detail"];
             self.returnsDetail = [MLReturnsDetailModel mj_objectWithKeyValues:order_detail];
             self.returnInfo = [MLReturnsReturnInfo mj_objectWithKeyValues:returnInfo];
-            
             [self.tableView reloadData];
         }
         else{
@@ -215,6 +226,7 @@
             [MBProgressHUD showMessag:msg toView:self.view];
         }
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
@@ -229,6 +241,11 @@
         if ([result[@"code"] isEqual:@0]) {
             //取消成功  返回上一页
             [MBProgressHUD showMessag:@"取消成功" toView:self.view];
+            if (self.cancelSuccess) {
+                self.cancelSuccess();
+            }
+            [self performSelector:@selector(popback) withObject:nil afterDelay:1];
+            
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
@@ -236,11 +253,12 @@
     } failure:^(NSError *error) {
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
-
 }
 
 
-
+- (void)popback{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 @end

@@ -175,8 +175,7 @@
     //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     //dispatch_sync(q1, ^{
     //获取设备ID
-    NSString *identifierForVendor = [[UIDevice currentDevice].identifierForVendor UUIDString];
-    NSLog(@"accessToken编码前为：%@",accessTokenStr);
+    NSString *identifierForVendor = [JPUSHService registrationID];
     NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
     NSString * urlPinJie = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",phoneString,accessTokenEncodeStr,identifierForVendor];
     //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -337,6 +336,9 @@
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [JPUSHService handleRemoteNotification:userInfo];
     NSLog(@"收到通知:%@", userInfo);
+    
+    
+    
 }
 
 - (void)application:(UIApplication *)application
@@ -345,6 +347,7 @@ fetchCompletionHandler:
 (void (^)(UIBackgroundFetchResult))completionHandler {
     [JPUSHService handleRemoteNotification:userInfo];
     NSLog(@"收到通知:%@", userInfo);
+    
 }
 
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window

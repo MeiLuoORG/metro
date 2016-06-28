@@ -19,6 +19,7 @@ typedef void(^LeftKanPingJiaAction)();
 typedef void(^RightZhuiZongAction)();
 typedef void(^RightTuiHuoAction)();
 typedef void(^RightFuKuanAction)();
+typedef void (^RightShanchuAction)();
 
 
 
@@ -36,6 +37,6 @@ typedef void(^RightFuKuanAction)();
 @property (nonatomic,copy)RightZhuiZongAction zhuiZongAction;
 @property (nonatomic,copy)RightTuiHuoAction tuiHuoAction;
 @property (nonatomic,copy)RightFuKuanAction fuKuanAction;
-
+@property (nonatomic,copy)RightShanchuAction shanchuAction;
 
 @end

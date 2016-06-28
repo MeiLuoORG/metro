@@ -142,8 +142,10 @@
 }
 
 - (void)getOrderDetail{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=detail&order_id=%@",MATROJP_BASE_URL,self.order_id?:@""];
     [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = [result objectForKey:@"data"];
@@ -162,7 +164,7 @@
                     self.footView.footerType = FooterTypeDaifukuan;
                     NSDate *now = [NSDate new];
                     NSDate *since = [NSDate dateWithTimeIntervalSince1970:self.orderDetail.creat_time];
-                    [self compareDate:now currentDate:since];
+                    [self compareDate:since currentDate:now];
                 }
                     break;
                 case OrderStatusDaifahuo:
@@ -170,11 +172,14 @@
                     self.footView.footerType = FooterTypeDaifahuo;
                 }
                     break;
-                    //                case OrderStatusDaiqueren:
-                    //                {
-                    //
-                    //                }
-                    //                    break;
+                case OrderStatusDaiqueren:
+                {
+                    self.footView.hidden = YES;
+                    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.right.top.bottom.equalTo(self.view);
+                    }];
+                }
+                    break;
                 case OrderStatusWancheng:
                 {
                     self.footView.footerType = FooterTypeJiaoyichenggong;
@@ -189,17 +194,23 @@
                     
                 }
                     break;
-                    //                case OrderStatusTuihuozhong:
-                    //                {
-                    //
-                    //                }
-                    //                    break;
-                    //                case OrderStatusTuihuochenggong:
-                    //                {
-                    //
-                    //                }
-                    //                    break;
-                    //                    
+                case OrderStatusTuihuozhong:
+                {
+                    self.footView.hidden = YES;
+                    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.right.top.bottom.equalTo(self.view);
+                    }];
+                }
+                    break;
+                case OrderStatusTuihuochenggong:
+                {
+                    self.footView.hidden = YES;
+                    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.right.top.bottom.equalTo(self.view);
+                    }];
+                }
+                    break;
+                    
                     
                 default:
                     self.footView.footerType = FooterTypeQitazhuangtai;
@@ -214,6 +225,7 @@
         
 
     } failure:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
@@ -274,9 +286,6 @@
         return self.orderDetail.product.count+1;
     }
     else if (section == 4){
-        if ([self.orderDetail.logistics_type isEqualToString:@"到店自提"]) {
-            return 3;
-        }
         return 2;
     }
     else if (section == 5){
@@ -318,7 +327,15 @@
     else if (indexPath.section == 1){
         MLTisTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTisTableViewCell forIndexPath:indexPath];
         cell.tisLabel.text = @"订单已通过审核，仓库配送中.....";
-        cell.timeLabel.text = @"2016-04-06 13:31";
+        if (self.orderDetail.deliver_time) {
+            NSDate *time = [NSDate dateWithTimeIntervalSince1970:[self.orderDetail.deliver_time floatValue]];
+            NSDateFormatter *fm = [[NSDateFormatter alloc]init];
+            [fm setDateFormat:@"yyy-MM-dd HH:mm"];
+            cell.timeLabel.text = [fm stringFromDate:time];
+        }
+        if (!(self.orderDetail.deliver_name && self.orderDetail.deliver_code)) {
+            cell.hidden = YES;
+        }
         return cell;
     }
     else if (indexPath.section == 2){
@@ -350,14 +367,9 @@
             cell.titleLabel.text = @"支付方式";
             cell.subLabel.text = @"在线支付";
         }
-        else if(indexPath.row == 1){
+        else{
             cell.titleLabel.text = @"配送方式";
             cell.subLabel.text = self.orderDetail.logistics_type;
-        }
-        else{
-            cell.titleLabel.textColor = RGBA(153, 153, 153, 1);
-            cell.titleLabel.text = @"#美罗观前店负一楼";
-            cell.subLabel.text = @"#823768890";
         }
         return cell;
     }else if (indexPath.section == 5){
@@ -450,7 +462,10 @@
     if (indexPath.section == 0) {
         return 35;
     }else if (indexPath.section == 1){
-        return 60;
+        if (self.orderDetail.deliver_name && self.orderDetail.deliver_code) {
+            return 60;
+        }
+        return 0;
     }else if (indexPath.section == 2){
         return 88;
     }
@@ -483,6 +498,9 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == 1 && !(self.orderDetail.deliver_code && self.orderDetail.deliver_name)) {
+        return 0;
+    }
     return 8;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -492,6 +510,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
         MLLogisticsViewController *vc = [[MLLogisticsViewController alloc]init];
+        vc.express_number = self.orderDetail.deliver_code;
+        vc.express_company = self.orderDetail.deliver_name;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -501,13 +521,13 @@
 -(void)compareDate:(NSDate*)startdate currentDate:(NSDate*)endDate
 {
     float restm =  [endDate timeIntervalSinceDate:startdate ];
-    if (restm/60/60>2) { //小时
-        restm = 60*60*2-restm;
-        [self startTime:restm];
+    if (restm/60/60>2) { //小时   如果倒计时超过2小时 不显示倒计时
+        self.footView.daojishiLb.hidden = YES;
+        self.footView.shenyuLb.hidden = YES;
+        self.footView.payBtn.backgroundColor = [UIColor grayColor];
+        self.footView.payBtn.enabled = NO;
     }
     else{
-    
-        
         restm = 60*60*2-restm;
         [self startTime:restm];
     }

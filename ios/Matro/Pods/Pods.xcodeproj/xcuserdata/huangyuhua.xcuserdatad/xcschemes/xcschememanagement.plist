@@ -44,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MJPhotoBrowser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -84,7 +89,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>WMPageController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>YLGIFImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -92,12 +107,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0928901C0F51A031AC20AEC0B592C53B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0F73F7A4C27A2AD6728409F43C65820F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1FE8321D19C947A19D7B5095F85BC57F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2554A926AC5D836437BD65DCB4AFC763</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>278102C04C9D82366AB8B667D4AF9E34</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>28431759A8D4940A0A982B235BF94522</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>37C76CD246D637B8E4C586284A0D96B2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,7 +152,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7F9C40187166259BC5D8A351D91E0155</key>
+		<key>80B42C4D6275334E11C7CA146064C746</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,7 +172,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A89F10D32C5F2BECEAA2EA54CC716F61</key>
+		<key>A926EAD394645155999B589CE5DA94B6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -142,22 +182,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B084596D6F5EF2CDA286EF2DA70F092F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C3088D509DCC08B3E07004508CF0BCC0</key>
+		<key>C2ADB7B284175F0C8F6C27D12C3D181E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>C91A46012F8822DFDBAC8BC32FCC9001</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C97A452819539CD94F10D65FC0841732</key>
 		<dict>
 			<key>primary</key>
 			<true/>

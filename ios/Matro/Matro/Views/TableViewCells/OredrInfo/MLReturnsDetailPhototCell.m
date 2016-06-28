@@ -58,7 +58,14 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    
+    if (self.returnPhotoClick) {
+        self.returnPhotoClick(indexPath.row);
+    }
+    
 }
+
+
 
 - (void)setImgsArray:(NSArray *)imgsArray{
     if (_imgsArray != imgsArray) {

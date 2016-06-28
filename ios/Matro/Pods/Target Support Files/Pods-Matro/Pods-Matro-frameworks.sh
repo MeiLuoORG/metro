@@ -92,6 +92,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Matro/IQKeyboardManager.framework"
   install_framework "Pods-Matro/MBProgressHUD.framework"
   install_framework "Pods-Matro/MJExtension.framework"
+  install_framework "Pods-Matro/MJPhotoBrowser.framework"
   install_framework "Pods-Matro/MJRefresh.framework"
   install_framework "Pods-Matro/MagicalRecord.framework"
   install_framework "Pods-Matro/Mantle.framework"
@@ -99,7 +100,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Matro/NSString_Color.framework"
   install_framework "Pods-Matro/RATreeView.framework"
   install_framework "Pods-Matro/SDWebImage.framework"
+  install_framework "Pods-Matro/SVProgressHUD.framework"
   install_framework "Pods-Matro/WMPageController.framework"
+  install_framework "Pods-Matro/YLGIFImage.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Matro/AFNetworking.framework"
@@ -110,6 +113,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Matro/IQKeyboardManager.framework"
   install_framework "Pods-Matro/MBProgressHUD.framework"
   install_framework "Pods-Matro/MJExtension.framework"
+  install_framework "Pods-Matro/MJPhotoBrowser.framework"
   install_framework "Pods-Matro/MJRefresh.framework"
   install_framework "Pods-Matro/MagicalRecord.framework"
   install_framework "Pods-Matro/Mantle.framework"
@@ -117,5 +121,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Matro/NSString_Color.framework"
   install_framework "Pods-Matro/RATreeView.framework"
   install_framework "Pods-Matro/SDWebImage.framework"
+  install_framework "Pods-Matro/SVProgressHUD.framework"
   install_framework "Pods-Matro/WMPageController.framework"
+  install_framework "Pods-Matro/YLGIFImage.framework"
 fi

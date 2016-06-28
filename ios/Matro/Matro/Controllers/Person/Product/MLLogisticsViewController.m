@@ -18,6 +18,7 @@
 #import "MLLogisticsModel.h"
 #import "MJExtension.h"
 #import "MBProgressHUD+Add.h"
+#import "MLHttpManager.h"
 
 @interface MLLogisticsViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -32,18 +33,18 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"订单跟踪";
-    self.express_number = @"3101058115241";
-    self.express_company = @"韵达";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self downLoadLogTrack];
 }
 
 
 - (void)downLoadLogTrack {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=getkd",MATROJP_BASE_URL];
-    NSDictionary *params = @{@"express_company":self.express_company,@"express_number":self.express_number};
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary *params = @{@"express_company":self.express_company?:@"",@"express_number":self.express_number?:@""};
+    
+    [MLHttpManager post:url params:params m:@"member" s:@"getkd" success:^(id responseObject) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
@@ -54,12 +55,19 @@
         else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
+            [self performSelector:@selector(goback) withObject:nil afterDelay:1];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
 
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
     
+}
+
+
+- (void)goback{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)homeAction{

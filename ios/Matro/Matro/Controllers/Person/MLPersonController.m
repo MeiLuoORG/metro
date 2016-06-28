@@ -137,8 +137,6 @@
             [self hideZLMessageBtnAndSetingBtn];
             MLLoginViewController *vc = [[MLLoginViewController alloc]init];
             vc.isLogin = YES;
-            //YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
-            
             [weakself presentViewController:vc animated:YES completion:nil];
             
         };
@@ -146,7 +144,6 @@
             [self hideZLMessageBtnAndSetingBtn];
             MLLoginViewController *vc = [[MLLoginViewController alloc]init];
             vc.isLogin = NO;
-            //YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
             [weakself presentViewController:vc animated:YES completion:nil];
         };
         headView.imageBlock = ^(){
@@ -166,16 +163,6 @@
         headView;
     });
     [_backgroundScrollView addSubview:_headView];
-    //self.tableView.tableHeaderView = self.headView;
-    
-    /*
-    _backgroundScrollView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [_tableView.header endRefreshing];
-        //        page = 1;
-        //        [self downLoadList];
-        badgeView.hidden = NO;
-    }];
-    */
     [self loadSecondButtonsView];
     [self loadThirdButtonsView];
     [self loadFourButtonsView];
@@ -191,17 +178,7 @@
 
 #pragma mark zhoulu 第二栏按钮组
 - (void)loadSecondButtonsView{
-/*
     
-    for (int i = 0; i<5; i++) {
-        
-        UIButton * btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        [btn setFrame:CGRectMake(32, 20, 27, 60)];
-        btn.tag = 1000+i;
-        
-        [_backgroundScrollView addSubview:btn];
-    }
-*/
     self.secondBtnsView = ({
         SecondBtnsView *headView =[SecondBtnsView personHeadView];
          __weak typeof(self)weakself = self;
@@ -407,13 +384,10 @@
     self.lingQuQuanView = [[LingQuYouHuiQuanView alloc]initWithFrame:CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT)];
     self.lingQuQuanView.quanARR = [[NSMutableArray alloc]init];
     [self.lingQuQuanView createView];
-    
     [self.lingQuQuanView setHideBlockAction:^(BOOL success) {
         [weakSelf.tabBarController.tabBar setHidden:NO];
         [UIView animateWithDuration:0.2f animations:^{
             weakSelf.lingQuQuanView.frame = CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT);
-            
-            
         } completion:^(BOOL finished) {
             
         }];

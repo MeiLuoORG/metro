@@ -13,6 +13,9 @@
 #import "YMPhoneCondeButton.h"
 #import "HFSUtility.h"
 #import <MagicalRecord/MagicalRecord.h>
+#import "JPUSHService.h"
+
+
 @interface BingPhoneZlViewController ()
 @property (strong, nonatomic) YMLeftImageField *phoneField;
 @property (strong, nonatomic) YMLeftImageField *codeField;
@@ -903,7 +906,8 @@ static BOOL isPass = NO;
     //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     //dispatch_sync(q1, ^{
     //获取设备ID
-    NSString *identifierForVendor = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    NSString *identifierForVendor = [JPUSHService registrationID];
+    
     //NSString *identifierForAdvertising = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
     NSLog(@"accessToken编码前为：%@",accessTokenStr);
     NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];

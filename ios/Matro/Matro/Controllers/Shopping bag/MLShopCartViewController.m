@@ -471,8 +471,8 @@ static NSInteger pageIndex = 0;
         if ([result[@"code"] isEqual:@0]) { //修改成功
             //调用接口
             prolist.num = count;
-            [self.collectionView reloadData];
             [self countAllPrice];
+            [self.collectionView reloadData];
         }
         else
         {
