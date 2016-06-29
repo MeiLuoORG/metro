@@ -22,6 +22,8 @@
     UITextField *_confirmPassword;
     UIButton *_determine;
     UIView * _bkView;
+    
+    NSString * _zhaoHuiPasswordString;
 }
 
 @end
@@ -247,7 +249,7 @@
                                         };
                 NSData *data2 = [HFSUtility RSADicToData:dic2];
                 NSString *ret2 = base64_encode_data(data2);
-                
+                _zhaoHuiPasswordString = _newPassword.text;
                 NSUserDefaults * userDafaults = [NSUserDefaults standardUserDefaults];
                 
                 [userDafaults setObject:_phoneNum forKey:ZHAOHUIPASSWORD_CURRENT_PHONE];

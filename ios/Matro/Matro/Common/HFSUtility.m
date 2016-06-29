@@ -31,7 +31,7 @@ static NSMutableData *totaldata ;
 //手机号码验证
 + (BOOL) validateMobile:(NSString *)mobile {
     //手机号以13， 15，18，17开头，八个 \d 数字字符
-    NSString *phoneRegex = @"^13[0-9]{1}[0-9]{8}$|14[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|17[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$";
+    NSString *phoneRegex = @"^13[0-9]{1}[0-9]{8}$|14[0-9]{1}[0-9]{8}$|15[0-9]{1}[0-9]{8}$|17[0-9]{1}[0-9]{8}$|18[0-9]{1}[0-9]{8}$|16[0-9]{1}[0-9]{8}$";
     NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
     return [phoneTest evaluateWithObject:mobile];
 }
