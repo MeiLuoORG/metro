@@ -27,10 +27,7 @@
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
     NSString *sign = [self md5:signStr];
     NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
     // 2.发送请求
     [mgr POST:newUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

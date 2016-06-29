@@ -1617,12 +1617,8 @@
                                                       
                                                       [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE];
                                                       
-<<<<<<< Updated upstream
-                                                      
-=======
                                                       [userDefaults setObject:_loginPasswordString forKey:KUSERDEFAULT_PASSWORD_ZL];
-                                                          [JPUSHService setTags:nil aliasInbackground:userDataDic[@"phone"]];
->>>>>>> Stashed changes
+
                                                       NSLog(@"登录方法中的nickName值为：%@",userDataDic[@"nickName"]);
                                                       if ([userDataDic[@"nickName"] isEqualToString:@""] || !userDataDic[@"nickName"]) {
                                                           [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERNAME ];
