@@ -15,7 +15,11 @@
 
 @end
 
-@implementation XiuGaiPasswordViewController
+@implementation XiuGaiPasswordViewController{
+
+
+    NSString * _xiugaiPasswordString;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,7 +71,11 @@
     
     if ([self.oldField.text isEqualToString:@""]) {
         errStr = @"请输入原密码";
-    }else if ([self.SecondField.text isEqualToString:@""]||[self.ThirdField.text isEqualToString:@""]) {
+        
+    }else if(![self.oldField.text isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:KUSERDEFAULT_PASSWORD_ZL]]){
+        errStr = @"原密码输入错误";
+    }
+    else if ([self.SecondField.text isEqualToString:@""]||[self.ThirdField.text isEqualToString:@""]) {
         errStr = @"请输入新密码";
     }else if (![self.SecondField.text isEqualToString:self.ThirdField.text]){
         errStr = @"两次密码输入不一致，请确认。";
@@ -125,7 +133,7 @@
                                         };
                 NSData *data2 = [HFSUtility RSADicToData:dic2];
                 NSString *ret2 = base64_encode_data(data2);
-                
+                _xiugaiPasswordString = self.SecondField.text;
                 [self yuanShengXiuGgainWithRet2:ret2];
                 /*
                  //@"vip/AuthUserInfo"
@@ -194,7 +202,12 @@
                                                       _hud.mode = MBProgressHUDModeText;
                                                       _hud.labelText = @"修改成功";
                                                       [_hud hide:YES afterDelay:1];
+                                                      
                                                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                                                      
+                                                      NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+                                                      [userDefault setObject:_xiugaiPasswordString forKey:KUSERDEFAULT_PASSWORD_ZL];
+                                                      
                                                   });
                                                  
                                               }else{

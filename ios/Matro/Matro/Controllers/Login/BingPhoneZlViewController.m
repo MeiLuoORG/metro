@@ -26,6 +26,8 @@
 
 @property (strong, nonatomic) NSLayoutConstraint *bindConstraint;
 
+
+
 @end
 
 
@@ -40,6 +42,10 @@ static BOOL isPass = NO;
     NSInteger _endTime;
     BOOL _isFaSonging;
     NSString * _currentCardNOs;
+    
+    NSString * _loginPasswordString;
+    NSString * _registerPasswordString;
+    
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -617,6 +623,7 @@ static BOOL isPass = NO;
                      @"password":self.passField.text,
                      @"sign":signDic[@"sign"]
                      };
+        _registerPasswordString = self.passField.text;
         
     }else{
         //老用户
@@ -727,7 +734,7 @@ static BOOL isPass = NO;
                                                   
                                                   [userDefaults setObject:userDic[@"phone"] forKey:kUSERDEFAULT_USERID];
                                                   
-                                                  
+                                                  [userDefaults setObject:_registerPasswordString forKey:KUSERDEFAULT_PASSWORD_ZL];
                                                   
                                                   
                                                   [userDefaults setObject:userDic[@"accessToken"] forKey:kUSERDEFAULT_ACCCESSTOKEN];

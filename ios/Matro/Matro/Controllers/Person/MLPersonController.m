@@ -74,7 +74,9 @@
     NSString * _identity_card;
     NSString * _identity_picurl;
     BOOL  _iS_identity_verify;
-    
+    NSString * _youHuiQuanCount;
+    NSString * _youHuiQuanYuE;
+    NSMutableArray * _youHuiQuanMuARR;
 }
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)MLPersonHeadView *headView;
@@ -86,7 +88,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _youHuiQuanMuARR = [[NSMutableArray alloc]init];
     
      self.navigationItem.title = @"个人中心";
     self.navigationItem.leftBarButtonItem = nil;
@@ -304,6 +306,9 @@
     xingYunLabel.adjustsFontSizeToFitWidth = YES;
     xingYunLabel.minimumScaleFactor = 0.5f;
 
+    UITapGestureRecognizer * tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tiaoZhuanHuiYuanKa)];
+    UITapGestureRecognizer * tap2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tiaoZhuanYouHuiQuan)];
+    UITapGestureRecognizer * tap3 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tiaoZhuanHuiYuanKa)];
     
     _jiFenValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3+94), 55, 50, 18)];
     _jiFenValueLabel.text = @"20000";
@@ -312,6 +317,8 @@
     _jiFenValueLabel.textAlignment = NSTextAlignmentCenter;
     _jiFenValueLabel.adjustsFontSizeToFitWidth = YES;
     _jiFenValueLabel.minimumScaleFactor = 0.5f;
+    _jiFenValueLabel.userInteractionEnabled = YES;
+    [_jiFenValueLabel addGestureRecognizer:tap3];
     
     UILabel * jiFenLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f+94), 70, 50, 18)];
     jiFenLabel.text = @"积分";
@@ -320,6 +327,8 @@
     jiFenLabel.textAlignment = NSTextAlignmentCenter;
     jiFenLabel.adjustsFontSizeToFitWidth = YES;
     jiFenLabel.minimumScaleFactor = 0.5f;
+    jiFenLabel.userInteractionEnabled = YES;
+    [jiFenLabel addGestureRecognizer:tap3];
     
     _youhuiValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f*2.0f+144), 55, 50, 18)];
     _youhuiValueLabel.text = @"4";
@@ -328,7 +337,8 @@
     _youhuiValueLabel.textAlignment = NSTextAlignmentCenter;
     _youhuiValueLabel.adjustsFontSizeToFitWidth = YES;
     _youhuiValueLabel.minimumScaleFactor = 0.5f;
-    
+    _youhuiValueLabel.userInteractionEnabled = YES;
+    [_youhuiValueLabel addGestureRecognizer:tap2];
     
     
     UILabel * youhuiLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f*2.0f+144), 70, 50, 18)];
@@ -338,7 +348,8 @@
     youhuiLabel.textAlignment = NSTextAlignmentCenter;
     youhuiLabel.adjustsFontSizeToFitWidth = YES;
     youhuiLabel.minimumScaleFactor = 0.5f;
-    
+    youhuiLabel.userInteractionEnabled = YES;
+    [youhuiLabel addGestureRecognizer:tap2];
     
     _yuEValueLabel = [[UILabel alloc]initWithFrame:CGRectMake((SIZE_WIDTH-44-50), 55, 50, 18)];
     _yuEValueLabel.text = @"34588";
@@ -347,6 +358,9 @@
     _yuEValueLabel.textAlignment = NSTextAlignmentCenter;
     _yuEValueLabel.adjustsFontSizeToFitWidth = YES;
     _yuEValueLabel.minimumScaleFactor = 0.5f;
+    _yuEValueLabel.userInteractionEnabled = YES;
+    [_yuEValueLabel addGestureRecognizer:tap1];
+    
     
     UILabel * yuElabel = [[UILabel alloc]initWithFrame:CGRectMake((SIZE_WIDTH-44-50), 70, 50, 18)];
     yuElabel.text = @"余额";
@@ -355,6 +369,8 @@
     yuElabel.textAlignment = NSTextAlignmentCenter;
     yuElabel.adjustsFontSizeToFitWidth = YES;
     yuElabel.minimumScaleFactor = 0.5f;
+    yuElabel.userInteractionEnabled = YES;
+    [yuElabel addGestureRecognizer:tap1];
     
     [_thirdButtonBackView addSubview:xingYunLabel];
     [_thirdButtonBackView addSubview:_xingYunXingValueLabel];
@@ -376,6 +392,48 @@
  
     _thirderHeight = 182.0f+(310.0f/750.0f)*SIZE_WIDTH;
 }
+#pragma mark 第三组按钮跳转 
+
+- (void)tiaoZhuanHuiYuanKa{
+    if (!loginid) {
+        [self showError];
+        return;
+    }
+    [self hideZLMessageBtnAndSetingBtn];
+    NSUserDefaults * userdefault = [NSUserDefaults standardUserDefaults];
+    NSString * str = [userdefault objectForKey:kUSERDEFAULT_USERCARDNO];
+    if(![str isEqualToString:@""] && str ) {
+        MNNMemberViewController *memberVC = [MNNMemberViewController new];
+        memberVC.hidesBottomBarWhenPushed = YES;
+        //[memberVC loadData];
+        [self.navigationController pushViewController:memberVC animated:YES];
+    }
+}
+
+- (void)tiaoZhuanYouHuiQuan{
+    if (!loginid) {
+        [self showError];
+        return;
+    }
+    
+    NSUserDefaults * userdefault = [NSUserDefaults standardUserDefaults];
+    NSString * str = [userdefault objectForKey:kUSERDEFAULT_USERCARDNO];
+    if(![str isEqualToString:@""] && str ) {
+        QuanListZLViewController *VC = [[QuanListZLViewController alloc]init];
+        VC.hidesBottomBarWhenPushed = YES;
+        if (_youHuiQuanMuARR.count > 0) {
+            [VC.quanListARR removeAllObjects];
+            VC.quanListARR = _youHuiQuanMuARR;
+        }
+        [self presentViewController:VC animated:YES completion:nil];
+        //[memberVC loadData];
+        //[self.navigationController pushViewController:VC animated:YES];
+    }
+}
+
+
+#pragma end mark
+
 
 //领取优惠券视图
 - (void)ctreateYOUHUIQuanView{
@@ -385,19 +443,20 @@
     self.lingQuQuanView.quanARR = [[NSMutableArray alloc]init];
     [self.lingQuQuanView createView];
     [self.lingQuQuanView setHideBlockAction:^(BOOL success) {
+        //查询 用户已经领取的优惠券
+        [weakSelf chaXunYiLingQuQuanList];
+        
         [weakSelf.tabBarController.tabBar setHidden:NO];
         [UIView animateWithDuration:0.2f animations:^{
             weakSelf.lingQuQuanView.frame = CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT);
         } completion:^(BOOL finished) {
-            
+            [weakSelf.lingQuQuanView.quanARR removeAllObjects];
         }];
         
     }];
     [self.lingQuQuanView selectQuanBlockAction:^(BOOL success, YouHuiQuanModel *ret) {
         if (ret) {
-            
-            
-            [weakSelf selectYouHuiQuan:ret];
+
         }
     }];
     
@@ -422,11 +481,6 @@
         } completion:^(BOOL finished) {
             [self.tabBarController.tabBar setHidden:YES];
         }];
-        
-
- 
-    
-    
 }
 
 
@@ -457,8 +511,19 @@
         }
         
         [self.lingQuQuanView.tablieview reloadData];
+        if (self.lingQuQuanView.quanARR.count == 0) {
+            _hud = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"您的优惠券都已领取";
+            [_hud hide:YES afterDelay:1];
+        }
+        
         
     } failure:^(NSError *error) {
+        _hud = [[MBProgressHUD alloc]initWithView:self.view];
+        [self.view addSubview:_hud];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = REQUEST_ERROR_ZL;
@@ -467,61 +532,50 @@
     
 }
 
-- (void)selectYouHuiQuan:(YouHuiQuanModel *)model{
-    NSLog(@"优惠券信息;%@,%@,%@",model.quanType,model.quanBH,model.quanID);
-    
-    NSDictionary * ret = @{@"cxlx":model.quanType,
-                           @"jlbh":model.quanBH,
-                           @"yhqid":model.quanID
-                           };
-    
-    NSData *data = [NSJSONSerialization dataWithJSONObject:ret options:NSJSONWritingPrettyPrinted error:nil];
-    //NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-    NSDictionary *params = @{@"action":@"set_coupons"};
-    
-    /*
-    [[HFSServiceClient sharedJSONClient] POST:LingQuanAction_URLString parameters:ret constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-         NSLog(@"点击领取优惠券%@",responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"优惠券请求失败：%@",error);
-    }];
-    */
-    
-    [MLHttpManager post:LingQuanAction_URLString params:ret m:@"member" s:@"admin_coupons" sconstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
 
-    } success:^(id responseObject) {
-           NSLog(@"点击领取优惠券%@",responseObject);
+#pragma mark 查询已经领取的优惠券
+- (void)chaXunYiLingQuQuanList{
+//m=member&s=admin_coupons
+    [MLHttpManager get:YOUHUIQUANLIST_YiLingQu_URLString params:nil m:@"member" s:@"admin_coupons" success:^(id responseObject) {
+        _youHuiQuanMuARR = [[NSMutableArray alloc]init];
+        NSLog(@"请求用户已领取的优惠券：%@",responseObject);
+        NSDictionary * result = (NSDictionary *)responseObject;
+        NSDictionary * dataDic = result[@"data"];
+        NSArray * allCouponsARR = dataDic[@"b2c_allcoupons"];
+        if (allCouponsARR) {
+            _youHuiQuanCount = [NSString stringWithFormat:@"%ld",allCouponsARR.count];
+        }
+        else{
+        
+            _youHuiQuanCount = @"0";
+        }
+        int yuE = 0;
+        if (allCouponsARR.count > 0) {
+            
+            for (NSDictionary * dic in allCouponsARR) {
+                YouHuiQuanModel * model = [[YouHuiQuanModel alloc]init];
+                model.balance = [dic[@"Balance"] intValue];
+                model.mingChengStr = dic[@"CouponTypeName"];
+                model.endTime = dic[@"ValidDate"];
+                model.quanID = dic[@"CouponType"];
+                [_youHuiQuanMuARR addObject:model];
+                yuE = yuE + model.balance;
+            }
+           
+        }
+         _youHuiQuanYuE = [NSString stringWithFormat:@"%d",yuE];
+        _yuEValueLabel.text = _youHuiQuanYuE;
+        _youhuiValueLabel.text = _youHuiQuanCount;
+        
+        
     } failure:^(NSError *error) {
-        NSLog(@"优惠券请求失败：%@",error);
         _hud = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:1];
-        
     }];
-    
-    
-    /*
-    //m=member&s=admin_coupons&action=set_coupons&test_phone=18868672308
-    [MLHttpManager post:LingQuanAction_URLString params:ret m:@"member" s:@"admin_coupons" success:^(id responseObject) {
-        NSLog(@"点击领取优惠券%@",responseObject);
-        
-    } failure:^(NSError *error) {
-        NSLog(@"优惠券请求失败：%@",error);
-        _hud = [[MBProgressHUD alloc]initWithView:self.view];
-        [self.view addSubview:_hud];
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = REQUEST_ERROR_ZL;
-        [_hud hide:YES afterDelay:1];
-        
-    }];
-    */
-
 }
 
 #pragma end mark
@@ -800,11 +854,16 @@
 
 #pragma mark 查询实名认证
 - (void)chaXunISshiMingRenZheng{
-    [MLHttpManager get:CHAXUNRENZHENG_RENZHENG_URLStrign params:nil m:@"member" s:@"admin_member" success:^(id responseObject) {
+    NSDictionary * ret = @{@"pay_mobile":[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERPHONE]};
+    
+    [MLHttpManager post:CHAXUNRENZHENG_RENZHENG_URLStrign params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
         NSLog(@"查询实名认证：%@",responseObject);
         NSDictionary * dataDic = responseObject[@"data"];
         //identity_list
-        _iS_identity_verify = dataDic[@"identity_varify"];
+        NSDictionary * identity_listDic = dataDic[@"identity_list"];
+        
+        _iS_identity_verify = [identity_listDic[@"identity_verify"] boolValue];
+        
         if (_iS_identity_verify) {
             
             _headView.renZhengLabel.text = @"已认证";
@@ -921,6 +980,7 @@
         
         self.headView.nickLabel.text = nickname;
         self.headView.nickLabel.hidden = NO;
+        
     }
     else
     {
@@ -934,8 +994,12 @@
     
     [self showZLMessageBtnAndSettingBtn];
     
-    //查询实名认证
-    [self chaXunISshiMingRenZheng];
+    if ([userDefaults objectForKey:kUSERDEFAULT_USERPHONE]) {
+        //查询实名认证
+        [self chaXunISshiMingRenZheng];
+        //查询 用户已经领取的优惠券
+        [self chaXunYiLingQuQuanList];
+    }
 }
 
 

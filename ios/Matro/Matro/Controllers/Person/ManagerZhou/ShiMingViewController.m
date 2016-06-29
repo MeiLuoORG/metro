@@ -103,20 +103,20 @@
 }
 //添加认证信息接口
 - (void)tianjiaRenZhengInfo{
-    
+    __weak typeof(self) weakself = self;
     NSDictionary * ret = @{@"pay_mobile":[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERPHONE],
                            @"real_name":_xingMingLabel.text,
                            @"identity_card":_shenFenCardId.text,
                            @"identity_pic":_uploadIMG_URLString
                            };
-    
-    [MLHttpManager post:SHANGCHUAN_RENZHENG_URLString params:ret m:@"menber" s:@"admin_member" success:^(id responseObject) {
+    NSLog(@"用户名：%@,真是姓名：%@,身份证号：%@,图片路径：%@",[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERPHONE],_xingMingLabel.text,_shenFenCardId.text,_uploadIMG_URLString);
+    [MLHttpManager post:SHANGCHUAN_RENZHENG_URLString params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"添加认证信息接口：%@",result);
         NSDictionary * dataDic = result[@"data"];
         BOOL is_Add_suc = dataDic[@"identity_add"];
         if (is_Add_suc) {
-            [self.navigationController popViewControllerAnimated:YES];
+            [weakself.navigationController popViewControllerAnimated:YES];
         }
         else{
             [_hud show:YES];

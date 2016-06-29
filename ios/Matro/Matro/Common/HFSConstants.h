@@ -96,6 +96,8 @@
 #define ZIP_FILE_NAME                      @"home_html"
 
 /*zhoulu*/
+#define KUSERDEFAULT_PASSWORD_ZL       @"USER_PASSWORD_ZL"
+
 #define KUSERDEFAULT_ISHAVE_DEFAULTCARD_BOOL @"ISHAVE_DEFAULTCARD_BOOL"
 //身份证号
 #define KUSERDEFAULT_IDCARD_SHENFEN         @"USER_IDCARD_SHENFEN"
@@ -175,6 +177,9 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define LingQuYouHuiQuan_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=coupons"
 //领取优惠券
 #define LingQuanAction_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=set_coupons"
+
+//用户的优惠券
+#define YOUHUIQUANLIST_YiLingQu_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons"
 
 /*zhouluEND*/
 

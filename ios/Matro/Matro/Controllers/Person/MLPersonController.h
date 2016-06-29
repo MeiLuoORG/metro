@@ -22,6 +22,8 @@
 #import "LingQuYouHuiQuanView.h"
 #import "YouHuiQuanModel.h"
 
+#import "QuanListZLViewController.h"
+
 @interface MLPersonController : MLBaseViewController
 
 @property (strong, nonatomic) LingQuYouHuiQuanView * lingQuQuanView;

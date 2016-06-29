@@ -50,6 +50,10 @@
     
     
     BOOL _isQuickly_Register;
+    NSString * _loginPasswordString;
+    NSString * _registerPasswordString;
+    
+    
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIButton *showpasswordButton;
@@ -181,6 +185,30 @@
                 _codeButton.enabled = YES;
                 [_codeButton setBackgroundColor:[HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor]];
             }
+        }
+        if (![[self textField:_rphoneView].text isEqualToString:@""]) {
+            [self closeButton:[self textField:_rphoneView]].hidden = NO;
+        }
+        else{
+            [self closeButton:[self textField:_rphoneView]].hidden = YES;
+        }
+        if (![[self textField:_rcodeView].text isEqualToString:@""]) {
+            [self closeButton:[self textField:_rcodeView]].hidden = NO;
+        }
+        else{
+            [self closeButton:[self textField:_rcodeView]].hidden = YES;
+        }
+        if (![[self textField:_rpasswordView].text isEqualToString:@""]) {
+            [self closeButton:[self textField:_rpasswordView]].hidden = NO;
+        }
+        else{
+            [self closeButton:[self textField:_rpasswordView]].hidden = YES;
+        }
+        if (![[self textField:_rrpasswordView].text isEqualToString:@""]) {
+            [self closeButton:[self textField:_rrpasswordView]].hidden = NO;
+        }
+        else{
+            [self closeButton:[self textField:_rrpasswordView]].hidden = YES;
         }
     }
 }
@@ -781,6 +809,7 @@
 //注册按钮
 - (IBAction)registerButton:(id)sender {
     
+    [self keyboardHide:nil];
     //测试 选中 会员卡
     //[self loadSettingMoCardView];
     
@@ -813,6 +842,7 @@
                             };
     NSData *data2 = [HFSUtility RSADicToData:dic2];
     NSString *ret2 = base64_encode_data(data2);
+    _registerPasswordString = [self textField:_rpasswordView].text;
     //NSLog(@"加密后：%@",ret2);
     //调用原生注册方法
     [self yuanShengRegisterAcrionWithRet2:ret2];
@@ -855,18 +885,15 @@
                                                       // 存储用户信息
                                                       NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                                                       NSDictionary * userDataDic = result[@"data"];
-                                                      
-                                                      
-                                                      
-                                                      
-                                                      
+
                                                       if (userDataDic[@"img"] && ![@"" isEqualToString:userDataDic[@"img"]]) {
                                                           [userDefaults setObject:userDataDic[@"img"] forKey:kUSERDEFAULT_USERAVATOR ];
-                                                          
                                                       }
+                                                      
                                                       
                                                       [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE ];
                                                       [userDefaults setObject:userDataDic[@"accessToken"] forKey:kUSERDEFAULT_ACCCESSTOKEN];
+                                                      [userDefaults setObject:_registerPasswordString forKey:KUSERDEFAULT_PASSWORD_ZL];
                                                       
                                                       if ([userDataDic[@"nickName"] isEqualToString:@""] || !userDataDic[@"nickName"]) {
                                                           [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERNAME ];
@@ -876,6 +903,7 @@
                                                           [userDefaults setObject:userDataDic[@"nickName"] forKey:kUSERDEFAULT_USERNAME ];
                                                           //NSLog(@"登录方法中kUSERDEFAULT_USERNAME值nickname为：%@",userDataDic[@"nickname"]);
                                                       }
+                                                      
                                                       
                                                       if (userDataDic[@"idcard"]) {
                                                           [userDefaults setObject:userDataDic[@"idcard"] forKey:KUSERDEFAULT_IDCARD_SHENFEN];
@@ -1513,6 +1541,8 @@
     NSData *data2 = [HFSUtility RSADicToData:dic2];
     NSString *ret2 = base64_encode_data(data2);
     NSLog(@"加密后----：%@",ret2);
+    
+    _loginPasswordString = [self textField:_passwordView].text;
     //调用原生登录方法
     [self yuanShengLoginAcrionWithRet2:ret2];
 
@@ -1545,7 +1575,7 @@
                                                   //JSON解析
                                                   // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                                    NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                                  NSLog(@"error原生数据登录：++： %@",result);
                                                   if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
                                                       
   
@@ -1587,7 +1617,12 @@
                                                       
                                                       [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE];
                                                       
+<<<<<<< Updated upstream
                                                       
+=======
+                                                      [userDefaults setObject:_loginPasswordString forKey:KUSERDEFAULT_PASSWORD_ZL];
+                                                          [JPUSHService setTags:nil aliasInbackground:userDataDic[@"phone"]];
+>>>>>>> Stashed changes
                                                       NSLog(@"登录方法中的nickName值为：%@",userDataDic[@"nickName"]);
                                                       if ([userDataDic[@"nickName"] isEqualToString:@""] || !userDataDic[@"nickName"]) {
                                                           [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERNAME ];

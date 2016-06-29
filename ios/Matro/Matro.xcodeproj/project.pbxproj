@@ -305,6 +305,8 @@
 		3C5B0C8C1CFC4348003FFD25 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */; };
 		3C5F123D1D17A075001F66E1 /* SecondBtnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */; };
 		3C5F123F1D17A09F001F66E1 /* SecondBtnsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */; };
+		3C78E1C21D225BED0016628C /* QuanListZLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C78E1C01D225BED0016628C /* QuanListZLViewController.m */; };
+		3C78E1C31D225BED0016628C /* QuanListZLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C78E1C11D225BED0016628C /* QuanListZLViewController.xib */; };
 		3C8D93C61D1920D80015CC66 /* NSDatezlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8D93C51D1920D80015CC66 /* NSDatezlModel.m */; };
 		3C8D93CA1D1944240015CC66 /* NSString+URLZL.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8D93C91D1944240015CC66 /* NSString+URLZL.m */; };
 		3CAE049C1D06DDD5004504EA /* GCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04911D06DDD5004504EA /* GCD.m */; };
@@ -1166,6 +1168,9 @@
 		3C5F123B1D17A075001F66E1 /* SecondBtnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondBtnsView.h; sourceTree = "<group>"; };
 		3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondBtnsView.m; sourceTree = "<group>"; };
 		3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondBtnsView.xib; sourceTree = "<group>"; };
+		3C78E1BF1D225BED0016628C /* QuanListZLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuanListZLViewController.h; sourceTree = "<group>"; };
+		3C78E1C01D225BED0016628C /* QuanListZLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuanListZLViewController.m; sourceTree = "<group>"; };
+		3C78E1C11D225BED0016628C /* QuanListZLViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuanListZLViewController.xib; sourceTree = "<group>"; };
 		3C8D93C41D1920D80015CC66 /* NSDatezlModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDatezlModel.h; sourceTree = "<group>"; };
 		3C8D93C51D1920D80015CC66 /* NSDatezlModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDatezlModel.m; sourceTree = "<group>"; };
 		3C8D93C81D1944240015CC66 /* NSString+URLZL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLZL.h"; sourceTree = "<group>"; };
@@ -1725,6 +1730,9 @@
 				280F7CDD1CF829D600D42FA6 /* MLYHQViewController.h */,
 				280F7CDE1CF829D600D42FA6 /* MLYHQViewController.m */,
 				280F7CDF1CF829D600D42FA6 /* MLYHQViewController.xib */,
+				3C78E1BF1D225BED0016628C /* QuanListZLViewController.h */,
+				3C78E1C01D225BED0016628C /* QuanListZLViewController.m */,
+				3C78E1C11D225BED0016628C /* QuanListZLViewController.xib */,
 			);
 			path = Youhui;
 			sourceTree = "<group>";
@@ -3715,6 +3723,7 @@
 				7A3A62681CDB874F00D265F2 /* MLAfterSaleHeadCell.xib in Resources */,
 				2CBAD63F1CA399930044601B /* MLBagHeaderView.xib in Resources */,
 				7AED646C1CDDAECE008F55BD /* MLCusServiceCell.xib in Resources */,
+				3C78E1C31D225BED0016628C /* QuanListZLViewController.xib in Resources */,
 				3A16DC241C9FF423007AE4A2 /* MLVIPCardViewController.xib in Resources */,
 				283261A71D19364E00C9EE4E /* MLStoreFootView.xib in Resources */,
 				3A630BE91CA25C5B006E67F4 /* MLClassCollectionViewCell.xib in Resources */,
@@ -4082,6 +4091,7 @@
 				3ACB8D811CC089C500C7398B /* MLClass.m in Sources */,
 				280F7CD41CF7F44800D42FA6 /* qrinput.c in Sources */,
 				3A1AA8B61CAA0DEC00AF73C2 /* MLInvoiceViewController.m in Sources */,
+				3C78E1C21D225BED0016628C /* QuanListZLViewController.m in Sources */,
 				3A633B351C9EA36E00C11FD5 /* DACircularProgressView.m in Sources */,
 				3A16DC431CA0EAD1007AE4A2 /* CPProduct.m in Sources */,
 				3A630BDE1CA25663006E67F4 /* MLClassTableViewCell.m in Sources */,

@@ -18,4 +18,8 @@
 @property (strong, nonatomic) NSString * quanBH;
 @property (strong, nonatomic) NSString * quanID;
 @property (strong, nonatomic) NSString * quanType;
+
+@property (assign, nonatomic) int balance;
+
+
 @end
