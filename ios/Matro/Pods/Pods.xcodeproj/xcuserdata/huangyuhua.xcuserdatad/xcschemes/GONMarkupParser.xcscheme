@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '3D2F0FC8193ECC341D12715A'
+               BlueprintIdentifier = '68994688DEFF3740AEF622A0'
                BlueprintName = 'GONMarkupParser'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'GONMarkupParser.framework'>

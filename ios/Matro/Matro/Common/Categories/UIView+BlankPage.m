@@ -149,7 +149,7 @@ static char  BlankPageViewKey;
         break;
         case EaseBlankPageTypeDingdan://空订单
         {
-            imageName = @"wufaxianshi";
+            imageName = @"icon_wudingdan";
             tipStr = @"您目前还没有订单";
             
         }

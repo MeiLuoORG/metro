@@ -20,11 +20,14 @@
 #import "EasyJSWebView.h"
 #import "HFSUtility.h"
 #import "MLGoodsDetailsViewController.h"
-
 #import <AVFoundation/AVFoundation.h>
 #import "YMNavigationController.h"
-
 #import "SYQRCodeViewController.h"
+#import "MLGoodsDetailsViewController.h"
+#import "MLPushMessageModel.h"
+#import "MJExtension.h"
+#import "MLActiveWebViewController.h"
+#import "MLReturnsDetailViewController.h"
 #import "MLGoodsDetailsViewController.h"
 
 @interface MLHomeViewController ()<UISearchBarDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,JSInterfaceDelegate,AVCaptureMetadataOutputObjectsDelegate>//用于处理采集信息的代理
@@ -114,14 +117,57 @@
     NSURL *url = [NSURL fileURLWithPath:path];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3000];
     [self.webView loadRequest:request];
-    
-
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushMessage:) name:@"PUSHMESSAGE" object:nil];
+    AppDelegate *del = [UIApplication sharedApplication].delegate;
+    if (del.pushMessage) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"PUSHMESSAGE" object:del.pushMessage userInfo:nil];
+    }
     
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
    
 }
+
+- (void)pushMessage:(NSNotification *)not{
+    MLPushMessageModel *message = not.object;
+    [self.tabBarController setSelectedIndex:0];
+    switch (message.go) {
+        case PushMessageGOCenter:
+        {
+            [self.tabBarController setSelectedIndex:3];
+        }
+            break;
+        case PushMessageGOUrl:
+        {
+            MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
+            vc.title = @"热门活动";
+            vc.link = message.link;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case PushMessageGOReturns:
+        {
+            MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
+            vc.order_id = message.order_id;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case PushMessageGOProductDetail:
+        {
+            MLGoodsDetailsViewController *vc =[[MLGoodsDetailsViewController alloc]init];
+            vc.paramDic = @{@"id":message.pid?:@""};
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 
 
 #pragma js点击回调

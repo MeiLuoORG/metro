@@ -11,11 +11,20 @@
 #import "MLSystemHeaderCell.h"
 #import "Masonry.h"
 #import "MJRefresh.h"
+#import "MLMessageCenterModel.h"
+#import "MJExtension.h"
+#import "HFSConstants.h"
+#import "MLHttpManager.h"
+#import "MBProgressHUD+Add.h"
+#import "MLPersonOrderDetailViewController.h"
+
+
 
 @interface MLSystemMessageController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong)UITableView *tableView;
-
+@property (nonatomic,strong)NSMutableArray *messageArray;
+@property (nonatomic,assign)NSInteger pageIndex;
 @end
 
 @implementation MLSystemMessageController
@@ -39,15 +48,16 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(0, 0, 0, 0));
     }];
-    self.tableView.header = [MJRefreshHeader headerWithRefreshingBlock:^{
-        [self.tableView.header endRefreshing];
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        self.pageIndex = 1;
+        [self getMessages];
     }];
-    
-    
+    self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(getMessages)];
+    [self.tableView.header beginRefreshing];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 10;
+    return self.messageArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -55,12 +65,16 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    MLSystemMessageModel *message = [self.messageArray objectAtIndex:indexPath.section];
     if (indexPath.row == 0) {
         MLSystemHeaderCell *cell = [tableView dequeueReusableCellWithIdentifier:kSystemHeaderCell forIndexPath:indexPath];
+        cell.timeLabel.text = message.create_time;
         return cell;
     }
     else{
         MLSystemBodyCell *cell = [tableView dequeueReusableCellWithIdentifier:kSystemBodyCell forIndexPath:indexPath];
+        cell.titleLabel.text = message.title;
+        cell.contentLabel.text  = message.desc;
         return cell;
     }
 }
@@ -76,14 +90,64 @@
     return 8;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return [[UIView alloc]init];
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    
+    MLSystemMessageModel *model = [self.messageArray objectAtIndex:indexPath.section];
+    MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
+    vc.order_id = model.order_id;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
     
     
 }
 
+
+- (void)getMessages{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=system_list&cur_page=%li&page_size=10",MATROJP_BASE_URL,self.pageIndex];
+    [MLHttpManager get:url params:nil m:@"push" s:@"system_list" success:^(id responseObject) {
+        [self.tableView.header endRefreshing];
+        [self.tableView.footer endRefreshing];
+        
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            if (self.pageIndex == 1) {
+                [self.messageArray removeAllObjects];
+            }
+            
+            NSDictionary *data = result[@"data"];
+            NSArray *list = data[@"list"];
+            NSString *total = data[@"total"];
+            if (self.messageArray.count < [total integerValue]) {
+                [self.messageArray addObjectsFromArray:[MLSystemMessageModel mj_objectArrayWithKeyValuesArray:list]];
+                self.pageIndex ++;
+                [self.tableView reloadData];
+            }else{
+                [MBProgressHUD showMessag:@"暂无更多数据" toView:self.view];
+            }
+        }
+        else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+    } failure:^(NSError *error) {
+        [self.tableView.header endRefreshing];
+        [self.tableView.footer endRefreshing];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+    
+}
+
+- (NSMutableArray *)messageArray{
+    if (!_messageArray) {
+        _messageArray = [NSMutableArray array];
+    }
+    return _messageArray;
+}
 
 
 @end

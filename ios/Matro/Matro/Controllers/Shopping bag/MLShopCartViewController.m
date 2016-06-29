@@ -22,7 +22,6 @@
 #import "MLCartHeadCollectionReusableView.h"
 #import "MLGoodsLikeCollectionViewCell.h"
 #import "MLCheckBoxButton.h"
-//#import "MBProgressHUD+Add.h"
 #import "UIView+BlankPage.h"
 #import "MLLoginViewController.h"
 #import "NSString+GONMarkup.h"
@@ -30,6 +29,7 @@
 #import "MLShopCartMoreCell.h"
 #import "MLGuessLikeModel.h"
 #import "MLGoodsDetailsViewController.h"
+#import "MLShopCartFootView.h"
 
 #import "MLHttpManager.h"
 
@@ -39,6 +39,9 @@
 @property (nonatomic,strong)NSMutableArray *likeArray;
 @property (nonatomic,strong)UIView *loginView;
 @property (nonatomic,strong)MLShopingCartlistModel *shopCart;
+@property (nonatomic,strong)MLShopCartFootView *footView;
+
+
 @end
 
 static float allPrice = 0;
@@ -52,10 +55,7 @@ static NSInteger pageIndex = 0;
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
-    
-    
     self.navigationItem.leftBarButtonItem = nil;
-    
     _loginView = ({
         UIView *headView = [[UIView alloc]initWithFrame:CGRectZero];
         headView.backgroundColor = [UIColor whiteColor];
@@ -87,7 +87,6 @@ static NSInteger pageIndex = 0;
     });
 
     
-    
     _collectionView = ({
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -99,27 +98,42 @@ static NSInteger pageIndex = 0;
                 [self.view addSubview:collectionView];
         [collectionView registerNib:[UINib nibWithNibName:@"MLLikeHeadCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kLikeHeadCollectionReusableView];
         [collectionView registerNib:[UINib nibWithNibName:@"MLCartHeadCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kCartHeadCollectionReusableView];
-        [collectionView registerNib:[UINib nibWithNibName:@"MLCartFootCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:kCartFootCollectionReusableView];
+//        [collectionView registerNib:[UINib nibWithNibName:@"MLCartFootCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:kCartFootCollectionReusableView];
         [collectionView registerNib:[UINib nibWithNibName:@"MLShopCartMoreCell" bundle:nil] forCellWithReuseIdentifier:@"MoreCell"];
-        
         collectionView;
     });
-
+    
+    _footView = ({
+        MLShopCartFootView *footView = [MLShopCartFootView footView];
+        [footView.checkBox addTarget:self action:@selector(selectAllGoods:) forControlEvents:UIControlEventTouchUpInside];
+        [footView.clearingBtn addTarget:self action:@selector(clearingAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:footView];
+        footView;
+    });
+    
+    
     
     [self.loginView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(self.view);
         make.top.mas_equalTo(self.view).offset(8);
         make.height.mas_equalTo(45);
     }];
+
+    [self.footView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.left.right.equalTo(self.view);
+        make.height.mas_equalTo(60);
+    }];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.loginView.mas_bottom).offset(8);
         make.left.right.bottom.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.footView.mas_top);
     }];
+    
     [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
-    self.collectionView.header = [MJRefreshHeader headerWithRefreshingBlock:^{
+    self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self getDataSource];
     }];
-    [self.collectionView.header beginRefreshing];
+    
     
 }
 
@@ -127,35 +141,35 @@ static NSInteger pageIndex = 0;
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     NSString  *loginid = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
-    if (loginid) {
+    if (loginid) { //已登录情况
         [self showOrHiddenLoginView:NO];
+        [self getDataSource];
     }
-    else{
+    else{ //未登录情况
         [self showOrHiddenLoginView:YES];
+        self.shopCart = nil;
+        [self.likeArray removeAllObjects];
+        [self.collectionView reloadData];
+        [self configBlankPage];
     }
-    [self getDataSource];
-    
 }
 
 - (void)getDataSource{
 
-
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",@"http://bbctest.matrojp.com"];
-    
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",MATROJP_BASE_URL];
     [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
-
         [self.collectionView.header endRefreshing];
-
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
             self.shopCart = [MLShopingCartlistModel mj_objectWithKeyValues:result[@"data"][@"cart_list"]];
+            [self countAllPrice];
             [self.collectionView reloadData];
             if (self.shopCart.cart.count > 0) {
                 [self guessYourLike];
             }
-            [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
+            [self configBlankPage];
         }else{
-            NSString *msg = result[@"data"];
+            NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
         }
         
@@ -167,6 +181,23 @@ static NSInteger pageIndex = 0;
 
     
 }
+
+- (void)configBlankPage{
+    [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
+    if (self.shopCart.cart > 0) { //如果有数据就显示 foot
+        self.footView.hidden = NO;
+        [self.collectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.top.equalTo(self.view);
+            make.bottom.mas_equalTo(self.footView.mas_top);
+        }];
+    }else{ //没数据就不显示
+        self.footView.hidden = YES;
+        [self.collectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.bottom.mas_equalTo(self.view);
+        }];
+    }
+}
+
 
 #pragma mark -- UICollectionViewDataSource
 
@@ -215,7 +246,6 @@ static NSInteger pageIndex = 0;
         MLShopCartCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kShopCartCollectionViewCell forIndexPath:indexPath];
         MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
         cell.prolistModel = model;
-        
         cell.checkBox.cartSelected = (model.is_check == 1);
         cell.countField.value = model.num;
         cell.countField.stepperDelegate = self;
@@ -254,7 +284,6 @@ static NSInteger pageIndex = 0;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     //如果购物车里有数据
-//    if (self.shopCart.cart.count > 0) {
         if (indexPath.section == self.shopCart.cart.count) {
             CGFloat cellW = (MAIN_SCREEN_WIDTH - 8)/2;
             return CGSizeMake(cellW,cellW*1.4);
@@ -316,15 +345,8 @@ static NSInteger pageIndex = 0;
         MLLikeHeadCollectionReusableView *likeHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kLikeHeadCollectionReusableView forIndexPath:indexPath];
         
         return likeHead;
-    }else if (indexPath.section == self.shopCart.cart.count - 1 && [kind isEqualToString:UICollectionElementKindSectionFooter]) {
-       MLCartFootCollectionReusableView *cartFoot = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:kCartFootCollectionReusableView forIndexPath:indexPath];
-        [cartFoot.checkBox addTarget:self action:@selector(selectAllGoods:) forControlEvents:UIControlEventTouchUpInside];
-        [cartFoot.clearingBtn addTarget:self action:@selector(clearingAction) forControlEvents:UIControlEventTouchUpInside];
-        NSString *attr = [NSString stringWithFormat:@"<font  size = \"13\">合计：<color value = \"#FF4E26\">￥%.2f</><font  size = \"11\"><color value = \"#999999\"> 共%li件，不含运费</></></>",allPrice,(long)goodsCount];
-        cartFoot.detailLabel.attributedText = [attr createAttributedString];
-        return cartFoot;
     }
-    else{
+    else if([kind isEqualToString:UICollectionElementKindSectionHeader]){
         MLCartHeadCollectionReusableView *cartHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kCartHeadCollectionReusableView forIndexPath:indexPath];
         MLShopingCartModel *model = [self.shopCart.cart objectAtIndex:indexPath.section];
         cartHead.checkBox.cartSelected = model.select_All;
@@ -388,15 +410,6 @@ static NSInteger pageIndex = 0;
     return CGSizeZero;
    
 }
-//返回头footerView的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
-{
-    if (section == self.shopCart.cart.count - 1) {
-        CGSize size={MAIN_SCREEN_WIDTH,50};
-        return size;
-    }
-    return CGSizeZero;
-}
 
 
 
@@ -412,7 +425,7 @@ static NSInteger pageIndex = 0;
 - (void)showOrHiddenLoginView:(BOOL)isShow{
     self.loginView.hidden = !isShow;
     [self.collectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(isShow? self.loginView.mas_bottom:self.view).offset(10);
+        make.top.mas_equalTo(isShow? self.loginView.mas_bottom:self.view).offset(0);
         make.left.right.bottom.mas_equalTo(self.view);
     }];
 }
@@ -440,7 +453,8 @@ static NSInteger pageIndex = 0;
             }
         }
     }
-    
+    NSString *attr = [NSString stringWithFormat:@"<font  size = \"13\">合计：<color value = \"#FF4E26\">￥%.2f</><font  size = \"11\"><color value = \"#999999\"> 共%li件，不含运费</></></>",allPrice,(long)goodsCount];
+    self.footView.detailLabel.attributedText = [attr createAttributedString];
     [self.collectionView reloadData];
 }
 
@@ -524,6 +538,8 @@ static NSInteger pageIndex = 0;
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
 }
+
+
 
 
 

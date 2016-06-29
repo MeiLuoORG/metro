@@ -16,11 +16,5 @@
     return @{@"ID":@"id"};
 }
 
-- (void)setPic:(NSString *)pic{
-    _pic = pic;
-    
-    _pic = [NSString stringWithFormat:@"%@/%@",MATROJP_BASE_URL,pic];
-    
-}
 
 @end

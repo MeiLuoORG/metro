@@ -20,5 +20,6 @@ typedef void(^CartHeadBlock)(BOOL);
 @property (weak, nonatomic) IBOutlet MLCheckBoxButton *checkBox;
 @property (nonatomic,copy)CartHeadBlock cartHeadBlock;
 @property (nonatomic,strong)MLShopingCartModel *shopingCart;
+@property (weak, nonatomic) IBOutlet UIButton *arrowBtn;
 
 @end

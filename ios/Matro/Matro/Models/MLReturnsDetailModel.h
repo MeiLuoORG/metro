@@ -29,8 +29,6 @@
 @interface MLReturnsReturnInfo : NSObject
 @property (nonatomic,copy)NSString *message;
 @property (nonatomic,assign)NSInteger invoice;
-@property (nonatomic,copy)NSString *username;
-@property (nonatomic,copy)NSString *userphone;
 @property (nonatomic,strong)NSArray *pic;
 @property (nonatomic,copy)NSString *question_type;
 @property (nonatomic,copy)NSString *question_type_content;

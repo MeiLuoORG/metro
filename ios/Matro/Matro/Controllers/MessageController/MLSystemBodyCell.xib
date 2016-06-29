@@ -21,26 +21,26 @@
                             <constraint firstAttribute="width" constant="12" id="xTZ-eH-GZo"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您有一笔未支付的订单，快去看看吧。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Csi-aI-7hy">
-                        <rect key="frame" x="16" y="47" width="268" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您有一笔未支付的订单，快去看看吧。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Csi-aI-7hy">
+                        <rect key="frame" x="16" y="42" width="268" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="订单未支付" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dh4-kw-4KB">
-                        <rect key="frame" x="16" y="25" width="268" height="18"/>
+                        <rect key="frame" x="16" y="16" width="268" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Dh4-kw-4KB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="8mT-Zm-QGJ"/>
                     <constraint firstItem="htf-lB-XyB" firstAttribute="leading" secondItem="Csi-aI-7hy" secondAttribute="trailing" constant="8" id="Cbd-Ut-Zpg"/>
-                    <constraint firstItem="Dh4-kw-4KB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="EYc-F4-e6Y"/>
+                    <constraint firstItem="Dh4-kw-4KB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="EYc-F4-e6Y"/>
+                    <constraint firstItem="Csi-aI-7hy" firstAttribute="top" secondItem="Dh4-kw-4KB" secondAttribute="bottom" constant="8" id="Sox-B2-6Gg"/>
                     <constraint firstItem="htf-lB-XyB" firstAttribute="leading" secondItem="Dh4-kw-4KB" secondAttribute="trailing" constant="8" id="dTo-qm-caQ"/>
                     <constraint firstItem="htf-lB-XyB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gor-oQ-Mxl"/>
-                    <constraint firstAttribute="bottom" secondItem="Csi-aI-7hy" secondAttribute="bottom" constant="25" id="irr-l0-Cay"/>
                     <constraint firstAttribute="trailing" secondItem="htf-lB-XyB" secondAttribute="trailing" constant="16" id="jcG-qe-jh9"/>
                     <constraint firstItem="Csi-aI-7hy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="tqY-Bp-zgy"/>
                 </constraints>

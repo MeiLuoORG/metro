@@ -10,10 +10,18 @@
 #import "MLMessagesControlCell.h"
 #import "MLSystemMessageController.h"
 #import "MLActMessageViewController.h"
+#import "MLHttpManager.h"
+#import "MLMessageCenterModel.h"
+#import "HFSConstants.h"
+#import "MBProgressHUD+Add.h"
+#import "MJExtension.h"
+
+
 
 @interface MLMessagesViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *tableView;
+@property (nonatomic,strong)NSMutableArray *messageArray;
 
 @end
 
@@ -34,25 +42,43 @@
         [self.view addSubview:tableView];
         tableView;
     });
-    
-    
+    [self getDataSource];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return self.messageArray.count;
 }
 
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MLMessagesControlCell *cell = [tableView dequeueReusableCellWithIdentifier:kMessagesControlCell  forIndexPath:indexPath];
+    MLMessageCenterModel *model  = [self.messageArray objectAtIndex:indexPath.row];
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"系统消息";
         cell.imgView.image = [UIImage imageNamed:@"icon_xitongxiaoxi"];
+        if (model.type == 1) {
+            cell.timeLabel.text = model.last_time;
+            cell.contentLabel.text = model.desc;
+        }
+        else{
+            model = [self.messageArray lastObject];
+            cell.timeLabel.text = model.last_time;
+            cell.contentLabel.text = model.desc;
+        }
     }
     else{
         cell.titleLabel.text = @"优惠促销";
         cell.imgView.image = [UIImage imageNamed:@"icon_youhuiquan"];
+        if (model.type == 2) {
+            cell.timeLabel.text = model.last_time;
+            cell.contentLabel.text = model.desc;
+        }
+        else{
+            model = [self.messageArray lastObject];
+            cell.timeLabel.text = model.last_time;
+            cell.contentLabel.text = model.desc;
+        }
     }
     return cell;
     
@@ -79,6 +105,39 @@
         
     }
 }
+
+- (void)getDataSource{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=message_center",MATROJP_BASE_URL];
+    [MLHttpManager get:url params:nil m:@"push" s:@"message_center" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary *data = result[@"data"];
+            NSArray *list = data[@"list"];
+            [self.messageArray addObjectsFromArray:[MLMessageCenterModel mj_objectArrayWithKeyValuesArray:list]];
+            [self.tableView reloadData];
+            
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showSuccess:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+    
+    
+    
+    
+}
+
+- (NSMutableArray *)messageArray{
+    if (!_messageArray) {
+        _messageArray = [NSMutableArray array];
+    }
+    return _messageArray;
+}
+
+
 
 
 

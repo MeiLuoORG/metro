@@ -24,7 +24,6 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - BaiduMap-iOS-SDK (2.10.2)
   - Base64nl (1.2)
   - Bugly (2.3.0)
   - DWTagList (0.0.7)
@@ -57,7 +56,6 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.5.4)
   - AFNetworking-Synchronous (~> 0.3.1)
-  - BaiduMap-iOS-SDK (~> 2.10.2)
   - Base64nl (~> 1.2)
   - Bugly
   - DWTagList (~> 0.0.7)
@@ -77,7 +75,6 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AFNetworking-Synchronous: 29531ad341ec465a4ff9b66dea9cf7272080e12e
-  BaiduMap-iOS-SDK: 970d9c1c07c227d23fba9a9bd0e7567b2958d72c
   Base64nl: a497bdcd1c01ea793d36b399016195a8713c0e95
   Bugly: 14baf2b647a689a247aa972bf136c88c4f8ca712
   DWTagList: cdf3607a7c37850a0c437d63c981f643dc5904bb

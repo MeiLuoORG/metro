@@ -24,7 +24,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="系统消息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXx-9u-eIi">
                         <rect key="frame" x="54" y="8" width="56" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16-05-16" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lu5-u7-KbZ">
@@ -48,7 +48,6 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="9ch-oQ-JGu" secondAttribute="bottom" constant="10" id="0Cg-dX-2g2"/>
                     <constraint firstItem="2XZ-tm-fPa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Itt-8Y-pDL"/>
                     <constraint firstItem="5Q7-XY-WOj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="JTr-1y-tlf"/>
                     <constraint firstItem="5Q7-XY-WOj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Koo-V9-pku"/>
@@ -59,6 +58,7 @@
                     <constraint firstAttribute="trailing" secondItem="2XZ-tm-fPa" secondAttribute="trailing" id="bz4-fP-vdv"/>
                     <constraint firstItem="lu5-u7-KbZ" firstAttribute="leading" secondItem="LXx-9u-eIi" secondAttribute="trailing" constant="8" id="l1N-wW-F91"/>
                     <constraint firstAttribute="trailing" secondItem="9ch-oQ-JGu" secondAttribute="trailing" constant="8" id="oTS-Ab-Da6"/>
+                    <constraint firstItem="9ch-oQ-JGu" firstAttribute="top" secondItem="LXx-9u-eIi" secondAttribute="bottom" constant="4" id="qz8-X3-bZi"/>
                     <constraint firstItem="LXx-9u-eIi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="xDh-hH-I6t"/>
                 </constraints>
             </tableViewCellContentView>

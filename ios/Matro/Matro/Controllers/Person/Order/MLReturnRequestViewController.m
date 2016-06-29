@@ -38,13 +38,10 @@
 {
     BOOL isOpen;
     PlaceholderTextView *messageText;
-    UITextField *usernameField;
-    UITextField *userphoneField;
     MLReturnsQuestiontype *selQuestion;
     NSArray *tagsArray;
 }
 @property (nonatomic,strong)UITableView *tableView;
-@property (nonatomic,strong)MLTuiHuoFooterView *footerView;
 @property (nonatomic,assign)BOOL fapiao;
 @property (nonatomic,strong)NSMutableArray *imgsUrlArray;
 
@@ -77,13 +74,16 @@
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        MLTuiHuoFooterView *footView = [MLTuiHuoFooterView footView];
-        [footView.submitBtn addTarget:self action:@selector(submitAction:) forControlEvents:UIControlEventTouchUpInside];
-        footView.frame = CGRectMake(0, 0, SCREENWIDTH, 250);
-        tableView.tableFooterView = footView;
-        userphoneField = footView.phoneField;
-        usernameField = footView.nameField;
-        self.footerView = footView;
+        
+        UIView *footer = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 80)];
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(40, 20, MAIN_SCREEN_WIDTH - 80, 40)];
+        [btn setTitle:@"提交" forState:UIControlStateNormal];
+        btn.layer.masksToBounds = YES;
+        btn.layer.cornerRadius = 4.f;
+        btn.backgroundColor = RGBA(174, 142, 93, 1);
+        [footer addSubview:btn];
+        [btn addTarget:self action:@selector(submitAction:) forControlEvents:UIControlEventTouchUpInside];
+        tableView.tableFooterView = footer;
         [self.view addSubview:tableView];
         tableView;
     });
@@ -317,7 +317,7 @@
 - (void)submitTuihuoAction{
    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=save_return",MATROJP_BASE_URL];
-    NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":selQuestion.ID,@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"username":usernameField.text.length>0?usernameField.text:@"",@"userphone":userphoneField.text.length>0?userphoneField.text:@"",@"pic":[self.imgsUrlArray componentsJoinedByString:@","]};
+    NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":selQuestion.ID,@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"pic":[self.imgsUrlArray componentsJoinedByString:@","]};
     [MLHttpManager post:url params:params m:@"return" s:@"save_return" success:^(id responseObject) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
@@ -364,9 +364,6 @@
                 [tmp addObject:q.content];
             }
             tagsArray = [tmp copy];
-            if (self.returnInfo) {
-                [self updateFootInfo];
-            }
             [self.tableView reloadData];
             
         }else{
@@ -383,11 +380,6 @@
     
 }
 
-
-- (void)updateFootInfo{
-    self.footerView.phoneField.text = self.returnInfo.userphone;
-    self.footerView.nameField.text = self.returnInfo.username;
-}
 
 
 - (BOOL)checkFormat{
@@ -407,19 +399,7 @@
                 return NO;
             }
             else{
-                if (usernameField.text.length == 0) {
-                    [MBProgressHUD showMessag:@"请输入联系人" toView:self.view];
-                    return NO;
-                }
-                else{
-                    if (userphoneField.text.length == 0) {
-                        [MBProgressHUD showMessag:@"请输入联系电话" toView:self.view];
-                        return NO;
-                    }
-                    else{
-                        return YES;
-                    }
-                }
+                return YES;
             }
         }
     }

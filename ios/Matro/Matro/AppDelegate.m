@@ -31,15 +31,15 @@
 
 #import "IQKeyboardManager.h"
 #import "MLShopCartViewController.h"
-
-
 #import "HFSUtility.h"
 #import "NSString+URLZL.h"
+#import "MLPushMessageModel.h"
+#import "MJExtension.h"
+
+#import "MLActiveWebViewController.h"
 
 
-@interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>{
- BMKMapManager* _mapManager;
-}
+@interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>
 
 @end
 
@@ -50,13 +50,6 @@
     // Override point for customization after application launch.
     
     [self initializeHomePageData];
-    /*百度地图*/
-    _mapManager = [[BMKMapManager alloc]init];
-    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
-    BOOL ret = [_mapManager start:@"GERkgmhZLebGqOAk5PZF5Qs6G0WqbowS" generalDelegate:nil];
-    if (!ret) {
-        NSLog(@"manager start failed!");
-    }
     MMMaterialDesignSpinner *_loadingSpinner = [[MMMaterialDesignSpinner alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width-80)/2, ([UIScreen mainScreen].bounds.size.height-80)/2, 80, 80)];
     _loadingSpinner.tintColor = [HFSUtility hexStringToColor:@"#ae8e5d"];
     _loadingSpinner.lineWidth = 5;
@@ -143,11 +136,12 @@
     
     
     [self autoLogin];
-    
-    
+
     self.window.rootViewController = _tabBarController;
-    
-    
+    if ([launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey]) {
+        self.pushMessage = [MLPushMessageModel mj_objectWithKeyValues:[launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey]];
+        
+    }
     return YES;
 }
 
@@ -315,6 +309,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -335,20 +330,29 @@
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [JPUSHService handleRemoteNotification:userInfo];
-    NSLog(@"收到通知:%@", userInfo);
-    
-    
     
 }
+
+
+
 
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:
 (void (^)(UIBackgroundFetchResult))completionHandler {
     [JPUSHService handleRemoteNotification:userInfo];
-    NSLog(@"收到通知:%@", userInfo);
+
+    MLPushMessageModel *pushMessage = [MLPushMessageModel mj_objectWithKeyValues:userInfo];
     
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"PUSHMESSAGE" object:pushMessage];
 }
+
+
+- (void)application:(UIApplication *)application
+  didReceiveLocalNotification:(UILocalNotification *)notification {
+    [JPUSHService showLocalNotificationAtFront:notification identifierKey:nil];
+}
+
 
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
