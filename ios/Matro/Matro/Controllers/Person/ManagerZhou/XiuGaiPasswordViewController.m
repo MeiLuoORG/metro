@@ -72,8 +72,6 @@
     if ([self.oldField.text isEqualToString:@""]) {
         errStr = @"请输入原密码";
         
-    }else if(![self.oldField.text isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:KUSERDEFAULT_PASSWORD_ZL]]){
-        errStr = @"原密码输入错误";
     }
     else if ([self.SecondField.text isEqualToString:@""]||[self.ThirdField.text isEqualToString:@""]) {
         errStr = @"请输入新密码";
@@ -100,6 +98,12 @@
         return NO;
     }
     return YES;
+    
+    /*
+     else if(![self.oldField.text isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:KUSERDEFAULT_PASSWORD_ZL]]){
+     errStr = @"原密码输入错误";
+     }
+     */
 }
 
 
@@ -174,7 +178,7 @@
     //GCD异步实现
     //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     //dispatch_sync(q1, ^{
-    NSString *urlStr = [NSString stringWithFormat:@"%@",ForgetPassword_URLString];
+    NSString *urlStr = [NSString stringWithFormat:@"%@",XiuGaiPassword_URLString];
     NSURL * URL = [NSURL URLWithString:urlStr];
     NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
     [request setHTTPMethod:@"post"]; //指定请求方式
@@ -193,7 +197,7 @@
                                               //JSON解析
                                               // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                               NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                                              //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                              NSLog(@"error原生修改密码：++： %@",result);
                                               if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
                                                   dispatch_async(dispatch_get_main_queue(), ^{
                                                       _hud = [[MBProgressHUD alloc]initWithView:self.view];

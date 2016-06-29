@@ -24,6 +24,9 @@
 
 #import "QuanListZLViewController.h"
 
+#import "PinPaiZLViewController.h"
+
+
 @interface MLPersonController : MLBaseViewController
 
 @property (strong, nonatomic) LingQuYouHuiQuanView * lingQuQuanView;

@@ -289,6 +289,12 @@
 		3AFB0C751CA28CD100128368 /* HFSProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB0C731CA28CD100128368 /* HFSProductTableViewCell.m */; };
 		3AFB0C7A1CA28D6F00128368 /* HFSProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB0C781CA28D6F00128368 /* HFSProductCollectionViewCell.m */; };
 		3AFB0C7B1CA28D6F00128368 /* HFSProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB0C791CA28D6F00128368 /* HFSProductCollectionViewCell.xib */; };
+		3C05567B1D236F8A0092D140 /* PulldownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C05567A1D236F8A0092D140 /* PulldownMenu.m */; };
+		3C0556801D239F330092D140 /* PinPaiZLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C05567E1D239F330092D140 /* PinPaiZLViewController.m */; };
+		3C0556811D239F330092D140 /* PinPaiZLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C05567F1D239F330092D140 /* PinPaiZLViewController.xib */; };
+		3C0556851D23AA820092D140 /* ZLCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0556831D23AA820092D140 /* ZLCollectionViewCell.m */; };
+		3C0556861D23AA820092D140 /* ZLCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C0556841D23AA820092D140 /* ZLCollectionViewCell.xib */; };
+		3C05568A1D23ACB80092D140 /* PinPaiModelZl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0556891D23ACB80092D140 /* PinPaiModelZl.m */; };
 		3C055CD81D08143700362C4D /* ShenFenZhengController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C055CD71D08143700362C4D /* ShenFenZhengController.m */; };
 		3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */; };
 		3C0FCEF91D0E8C170076396F /* MLSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */; };
@@ -1140,6 +1146,16 @@
 		3AFB0C771CA28D6F00128368 /* HFSProductCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFSProductCollectionViewCell.h; sourceTree = "<group>"; };
 		3AFB0C781CA28D6F00128368 /* HFSProductCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFSProductCollectionViewCell.m; sourceTree = "<group>"; };
 		3AFB0C791CA28D6F00128368 /* HFSProductCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HFSProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		3C0556791D236F8A0092D140 /* PulldownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulldownMenu.h; sourceTree = "<group>"; };
+		3C05567A1D236F8A0092D140 /* PulldownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulldownMenu.m; sourceTree = "<group>"; };
+		3C05567D1D239F330092D140 /* PinPaiZLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinPaiZLViewController.h; sourceTree = "<group>"; };
+		3C05567E1D239F330092D140 /* PinPaiZLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinPaiZLViewController.m; sourceTree = "<group>"; };
+		3C05567F1D239F330092D140 /* PinPaiZLViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinPaiZLViewController.xib; sourceTree = "<group>"; };
+		3C0556821D23AA820092D140 /* ZLCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLCollectionViewCell.h; sourceTree = "<group>"; };
+		3C0556831D23AA820092D140 /* ZLCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLCollectionViewCell.m; sourceTree = "<group>"; };
+		3C0556841D23AA820092D140 /* ZLCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLCollectionViewCell.xib; sourceTree = "<group>"; };
+		3C0556881D23ACB80092D140 /* PinPaiModelZl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinPaiModelZl.h; sourceTree = "<group>"; };
+		3C0556891D23ACB80092D140 /* PinPaiModelZl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinPaiModelZl.m; sourceTree = "<group>"; };
 		3C055CD61D08143700362C4D /* ShenFenZhengController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShenFenZhengController.h; sourceTree = "<group>"; };
 		3C055CD71D08143700362C4D /* ShenFenZhengController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShenFenZhengController.m; sourceTree = "<group>"; };
 		3C0AF2021CFFE1BC00E48B18 /* NavTopCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTopCommonImage.h; sourceTree = "<group>"; };
@@ -2051,6 +2067,7 @@
 		3A633AA41C9EA36E00C11FD5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3C0556871D23AC9A0092D140 /* PinPaiModel */,
 				7AF15AFC1D12820900F8CF03 /* OrderModel */,
 				3CAE048A1D06C5CE004504EA /* PersonModel */,
 				3AAA0A8B1CACB8E90071A313 /* HFSPriceDataObject.h */,
@@ -2738,6 +2755,7 @@
 		3A633B801C9EA7C900C11FD5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3C05567C1D239F150092D140 /* PinPaiVCZL */,
 				687703E81CCF40A30008ED46 /* MyJSInterface.h */,
 				687703E91CCF40A30008ED46 /* MyJSInterface.m */,
 				3A633B831C9EA7F900C11FD5 /* MLHomeViewController.h */,
@@ -3144,6 +3162,37 @@
 			path = OredrInfo;
 			sourceTree = "<group>";
 		};
+		3C0556781D236F8A0092D140 /* xiaLacaiDan */ = {
+			isa = PBXGroup;
+			children = (
+				3C0556791D236F8A0092D140 /* PulldownMenu.h */,
+				3C05567A1D236F8A0092D140 /* PulldownMenu.m */,
+			);
+			path = xiaLacaiDan;
+			sourceTree = "<group>";
+		};
+		3C05567C1D239F150092D140 /* PinPaiVCZL */ = {
+			isa = PBXGroup;
+			children = (
+				3C05567D1D239F330092D140 /* PinPaiZLViewController.h */,
+				3C05567E1D239F330092D140 /* PinPaiZLViewController.m */,
+				3C05567F1D239F330092D140 /* PinPaiZLViewController.xib */,
+				3C0556821D23AA820092D140 /* ZLCollectionViewCell.h */,
+				3C0556831D23AA820092D140 /* ZLCollectionViewCell.m */,
+				3C0556841D23AA820092D140 /* ZLCollectionViewCell.xib */,
+			);
+			path = PinPaiVCZL;
+			sourceTree = "<group>";
+		};
+		3C0556871D23AC9A0092D140 /* PinPaiModel */ = {
+			isa = PBXGroup;
+			children = (
+				3C0556881D23ACB80092D140 /* PinPaiModelZl.h */,
+				3C0556891D23ACB80092D140 /* PinPaiModelZl.m */,
+			);
+			path = PinPaiModel;
+			sourceTree = "<group>";
+		};
 		3C055CD51D08140800362C4D /* ManagerZhou */ = {
 			isa = PBXGroup;
 			children = (
@@ -3241,6 +3290,7 @@
 		3C5B0C721CFC37E3003FFD25 /* zhou */ = {
 			isa = PBXGroup;
 			children = (
+				3C0556781D236F8A0092D140 /* xiaLacaiDan */,
 				3CEDAD761D13E74E00990DA8 /* iCarousel */,
 				3CAE048F1D06DDD5004504EA /* HYGCD */,
 				3C0AF2011CFFE1BC00E48B18 /* TopNavBackground */,
@@ -3702,6 +3752,7 @@
 				7AEDD0D01CE5A913009B12F4 /* MLServiceTracksTableViewCell.xib in Resources */,
 				7AEC88D81CE462EF00B43DD4 /* MLGoodsComFootView.xib in Resources */,
 				7A3A626A1CDB874F00D265F2 /* MLAfterSaleProductCell.xib in Resources */,
+				3C0556861D23AA820092D140 /* ZLCollectionViewCell.xib in Resources */,
 				7A272EC51D1A405500242F24 /* MLReturnsWentiTableViewCell.xib in Resources */,
 				7ABB22311D20F2C400529B2B /* MLMessagesControlCell.xib in Resources */,
 				3C13F2F31D1D19C70069A8F6 /* ShiMingViewController.xib in Resources */,
@@ -3767,6 +3818,7 @@
 				280F7D6B1CF9729A00D42FA6 /* MLPropertyCell.xib in Resources */,
 				28CF860B1CEDC59A00E582EE /* UMSLoginViewController.xib in Resources */,
 				3AA0E72B1CA8C2990079AA90 /* MLLikeTableViewCell.xib in Resources */,
+				3C0556811D239F330092D140 /* PinPaiZLViewController.xib in Resources */,
 				7ABB22461D210C5000529B2B /* MLActMessageBodyCell.xib in Resources */,
 				3ACF2D061CA53046003D1F67 /* MLAddTableViewCell.xib in Resources */,
 				7AEC88E71CE47A6A00B43DD4 /* MLGoodsSharePhotoViewController.xib in Resources */,
@@ -3906,6 +3958,7 @@
 				280F7D741CF981BA00D42FA6 /* MLMyPropertyViewController.m in Sources */,
 				280F7CD61CF7F44800D42FA6 /* rscode.c in Sources */,
 				3ACF2D001CA52F1F003D1F67 /* MLTisTableViewCell.m in Sources */,
+				3C0556801D239F330092D140 /* PinPaiZLViewController.m in Sources */,
 				3A16DC2D1CA00968007AE4A2 /* MLLoginTableViewCell.m in Sources */,
 				7A3A62421CDB86F700D265F2 /* MLBindPhoneController.m in Sources */,
 				7A1DC24E1D23640C0094D751 /* MLMessageCenterModel.m in Sources */,
@@ -3921,6 +3974,7 @@
 				3C5B0C801CFC37E3003FFD25 /* CustomButton.m in Sources */,
 				3ACF2CF11CA5070E003D1F67 /* ZipArchive.mm in Sources */,
 				7AED64731CDDBD9B008F55BD /* MLHelpCenterDetailController.m in Sources */,
+				3C05567B1D236F8A0092D140 /* PulldownMenu.m in Sources */,
 				2CBAD6431CA3AD4B0044601B /* MLBagActiveTableViewCell.m in Sources */,
 				3ACF2CF01CA5070E003D1F67 /* zip.c in Sources */,
 				3A633B4F1C9EA36E00C11FD5 /* YAScrollSegmentControl.m in Sources */,
@@ -3957,6 +4011,7 @@
 				7A272EBA1D1A265500242F24 /* MLReturnsDetailHeadCell.m in Sources */,
 				687704241CD34E4A0008ED46 /* SBJsonParser.m in Sources */,
 				3A633B4E1C9EA36E00C11FD5 /* SSKeychain.m in Sources */,
+				3C0556851D23AA820092D140 /* ZLCollectionViewCell.m in Sources */,
 				3AA0E7A21CA91E500079AA90 /* AliPayOrder.m in Sources */,
 				3AA0E7341CA916A90079AA90 /* MLPayViewController.mm in Sources */,
 				7ABB22411D210C0B00529B2B /* MLActMessageViewController.m in Sources */,
@@ -4021,6 +4076,7 @@
 				3A633B611C9EA36E00C11FD5 /* UIViewController+Alert.m in Sources */,
 				3A633B671C9EA36E00C11FD5 /* ZLPhotoPickerCollectionViewCell.m in Sources */,
 				7ABB224A1D210D8000529B2B /* MLActMessageFootCell.m in Sources */,
+				3C05568A1D23ACB80092D140 /* PinPaiModelZl.m in Sources */,
 				3A633B631C9EA36E00C11FD5 /* ZLPhotoPickerAssetsViewController.m in Sources */,
 				3CE4B0DE1D1A6DAC0084156C /* LingQuQuanCell.m in Sources */,
 				7A50BA301D1E35C900E76AC5 /* MLGuessLikeModel.m in Sources */,

@@ -807,6 +807,10 @@
     }
     if (sender.tag == 104) {
          NSLog(@"3客服");
+        PinPaiZLViewController * VC = [[PinPaiZLViewController alloc]init];
+        VC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:VC animated:YES];
+        
     }
     if (sender.tag == 105) {
          NSLog(@"4足迹");

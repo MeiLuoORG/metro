@@ -11,6 +11,7 @@
 #import "CommonHeader.h"
 #import "XiuGaiPasswordViewController.h"
 
+
 @interface MNNManagementViewController : MLBaseViewController<UIActionSheetDelegate>
 
 @property (strong, nonatomic) UILabel * shenFenLabel;

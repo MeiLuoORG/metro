@@ -134,7 +134,7 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define Regist_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/register"
 //验证码 接口
 #define Code_URLString @"http://app.matrojp.com/P2MLinkCenter/common/sendsms"
-//判断手机号是否注册过http://app-test.matrojp.com/member/ajax/app/sso/phoneIsRegister
+//判断手机号是否注册过
 #define PhoneIsRegisted_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/phoneIsRegister"
 //退出登录
 #define Logout_URLString @"http://app-test.matrojp.com/member/ajax/app/access/loginOut"
@@ -142,13 +142,13 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define ThirdLogin_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/thirdPartyLogin"
 //第三方登录 绑定手机号
 #define ThirdLogin_BindPhone_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/thirdPartyLoginBind"
-//修改密码 http://app-test.matrojp.com/member/ajax/app/access/updatePsw
+//修改密码
 #define XiuGaiPassword_URLString @"http://app-test.matrojp.com/member/ajax/app/access/updatePsw"
 //绑定会员卡
 #define BindCard_URLString @"http://app-test.matrojp.com/member/ajax/app/access/cardBind"
 //忘记密码
 #define ForgetPassword_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/forgetPsw"
-//会员信息查询 http://app-test.matrojp.com/member/ajax/app/access/getUser
+//会员信息查询
 #define VIPInfo_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getUser"
 //会员卡可用积分
 #define VIPCardJiFen_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getOfflineVipCard"
@@ -156,7 +156,7 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define VIPCardJiLu_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
 //修改账户信息
 #define XiuGaiInfo_URLString @"http://app-test.matrojp.com/member/ajax/app/access/updateUserInfo"
-//http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem
+
 //会员卡消费记录
 #define VIPCARD_HISTORY_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
 
@@ -180,6 +180,9 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 
 //用户的优惠券
 #define YOUHUIQUANLIST_YiLingQu_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons"
+
+//品牌馆
+#define PinPaiGuanList_URLString @"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list"
 
 /*zhouluEND*/
 

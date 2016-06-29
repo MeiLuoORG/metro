@@ -13,7 +13,20 @@
 #import "SDImageCache.h"
 #import "MLPushConfigViewController.h"
 
+<<<<<<< Updated upstream
 @interface APPSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
+=======
+@interface APPSettingViewController ()<UITableViewDataSource,UITableViewDelegate,PulldownMenuDelegate>{
+    
+    BMKLocationService * _locService;
+    BMKGeoCodeSearch* _geoCode;
+    BOOL _isLocationSuccess;
+    PulldownMenu * _pulldownMenu;
+    
+    UIImageView * _gengDuoImageView;
+    BOOL _isShowImage;
+}
+>>>>>>> Stashed changes
 
 
 @end
@@ -23,7 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //[self startsLocation];
-    self.title = @"应用设置";
+    _isShowImage = NO;
+    self.title = @"设置";
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if (![userDefaults objectForKey:kUSERDEFAULT_USERID]) {
         self.logoutBtn.hidden = YES;
@@ -34,7 +48,151 @@
     self.logoutBtn.backgroundColor = [HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor];
     [self.logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
     
+<<<<<<< Updated upstream
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
+=======
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 22)];
+    [button setImage:[UIImage imageNamed:@"gengduozl"] forState:UIControlStateNormal];
+    button.imageEdgeInsets = UIEdgeInsetsMake(8, 9, 8, 9);
+    [button addTarget:self action:@selector(buttonAction3:) forControlEvents:UIControlEventTouchUpInside];
+    //[button setTitleColor:[HFSUtility hexStringToColor:Main_BackgroundColor] forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+
+    [self createGengDuoImageView];
+    
+     
+}
+- (void)createGengDuoImageView{
+
+    
+    _gengDuoImageView  = [[UIImageView alloc]initWithFrame:CGRectMake(SIZE_WIDTH-13-150, 0, 150, 144)];
+    _gengDuoImageView.userInteractionEnabled = YES;
+    _gengDuoImageView.backgroundColor = [UIColor whiteColor];
+    _gengDuoImageView.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
+    _gengDuoImageView.layer.borderWidth = 1;
+    _gengDuoImageView.layer.masksToBounds = YES;
+    [self.view addSubview:_gengDuoImageView];
+    
+    UIButton * btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn1 setFrame:CGRectMake(0, 10, 150, 33)];
+    [btn1 setTitle:@"首页" forState:UIControlStateNormal];
+    [btn1 setTitleColor:[HFSUtility hexStringToColor:Main_textNormalBackgroundColor] forState:UIControlStateNormal];
+    btn1.tag = 101;
+    [btn1 setImage:[UIImage imageNamed:@"home-2"] forState:UIControlStateNormal];
+    btn1.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 11, 125);
+    btn1.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 70);
+    btn1.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    UIView * spView1 = [[UIView alloc]initWithFrame:CGRectMake(10, 45, 130, 1)];
+    spView1.backgroundColor = [HFSUtility hexStringToColor:Main_spelBackgroundColor];
+    [_gengDuoImageView addSubview:spView1];
+    [_gengDuoImageView addSubview:btn1];
+    [btn1 addTarget:self action:@selector(kuaiJieBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+
+    UIButton * btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn2 setFrame:CGRectMake(0, CGRectGetMaxY(spView1.frame), 150, 33)];
+    [btn2 setTitle:@"搜索" forState:UIControlStateNormal];
+    [btn2 setTitleColor:[HFSUtility hexStringToColor:Main_textNormalBackgroundColor] forState:UIControlStateNormal];
+    btn2.tag = 102;
+    [btn2 setImage:[UIImage imageNamed:@"home-2"] forState:UIControlStateNormal];
+    btn2.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 11, 125);
+    btn2.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 70);
+    btn2.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    UIView * spView2 = [[UIView alloc]initWithFrame:CGRectMake(10, 45+33, 130, 1)];
+    spView2.backgroundColor = [HFSUtility hexStringToColor:Main_spelBackgroundColor];
+    [_gengDuoImageView addSubview:spView2];
+    [_gengDuoImageView addSubview:btn2];
+    [btn2 addTarget:self action:@selector(kuaiJieBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UIButton * btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn3 setFrame:CGRectMake(0, CGRectGetMaxY(spView2.frame), 150, 33)];
+    [btn3 setTitle:@"消息" forState:UIControlStateNormal];
+    [btn3 setTitleColor:[HFSUtility hexStringToColor:Main_textNormalBackgroundColor] forState:UIControlStateNormal];
+    btn3.tag = 103;
+    [btn3 setImage:[UIImage imageNamed:@"home-2"] forState:UIControlStateNormal];
+    btn3.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 11, 125);
+    btn3.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 70);
+    btn3.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    UIView * spView3 = [[UIView alloc]initWithFrame:CGRectMake(10, 45+33+33, 130, 1)];
+    spView3.backgroundColor = [HFSUtility hexStringToColor:Main_spelBackgroundColor];
+    [_gengDuoImageView addSubview:spView3];
+    [_gengDuoImageView addSubview:btn3];
+    [btn3 addTarget:self action:@selector(kuaiJieBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton * btn4 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn4 setFrame:CGRectMake(0, CGRectGetMaxY(spView3.frame), 150, 33)];
+    [btn4 setTitle:@"收藏" forState:UIControlStateNormal];
+    [btn4 setTitleColor:[HFSUtility hexStringToColor:Main_textNormalBackgroundColor] forState:UIControlStateNormal];
+    btn4.tag = 104;
+    [btn4 setImage:[UIImage imageNamed:@"home-2"] forState:UIControlStateNormal];
+    btn4.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 11, 125);
+    btn4.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 70);
+    btn4.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    UIView * spView4 = [[UIView alloc]initWithFrame:CGRectMake(10, 45+33+33+33, 130, 1)];
+    spView4.backgroundColor = [HFSUtility hexStringToColor:Main_spelBackgroundColor];
+    //[_gengDuoImageView addSubview:spView4];
+    [_gengDuoImageView addSubview:btn4];
+    [btn4 addTarget:self action:@selector(kuaiJieBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _gengDuoImageView.hidden = YES;
+}
+
+
+- (void)buttonAction3:(UIButton *)sender{
+    
+    NSLog(@"点击了更多按钮");
+    if (_isShowImage) {
+        _isShowImage = NO;
+        _gengDuoImageView.hidden = YES;
+        
+    }
+    else{
+        _isShowImage = YES;
+        _gengDuoImageView.hidden = NO;
+    }
+   
+    
+}
+
+//快捷入口
+
+- (void)kuaiJieBtnAction:(UIButton *)sender{
+
+    if (sender.tag == 101) {
+        NSLog(@"点击了首页");
+        //首页
+        UITabBarController *rootViewController = (UITabBarController *)((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
+        [rootViewController setSelectedIndex:0];
+        
+
+    }
+    if (sender.tag == 102) {
+        //搜索
+    }
+    if (sender.tag == 103) {
+        //消息
+    }
+    if (sender.tag == 104) {
+        //收藏
+    }
+    
+    [self.navigationController popViewControllerAnimated:NO];
+    _isShowImage = NO;
+    _gengDuoImageView.hidden = YES;
+
+}
+
+
+
+#pragma mark百度地图定位 开始
+//开始定位
+- (void)startsLocation{
+    /*
+     LocationGoldController * locat = [[LocationGoldController alloc]init];
+     [locat startLocationUser];
+     */
+>>>>>>> Stashed changes
     
     
     // Do any additional setup after loading the view from its nib.

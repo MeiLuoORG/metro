@@ -35,7 +35,7 @@
                         <constraint firstAttribute="height" constant="40" id="ftT-bN-GgH"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="退出登录">
+                    <state key="normal" title="退  出">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>

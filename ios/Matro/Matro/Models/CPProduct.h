@@ -22,4 +22,5 @@
 @property (nonatomic, copy, readonly) NSString *category;
 
 @property (nonatomic, copy) NSNumber *tags;
+
 @end
