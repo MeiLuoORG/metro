@@ -237,7 +237,7 @@ static float height;
     
     cell.userName.text = tempDic[@"user"];
     cell.timeLab.text = tempDic[@"uptime"];
-    //cell.pingjiaLab.text = tempDic[@"con"];
+    cell.pingjiaLab.text = tempDic[@"con"];
     imageList  = tempDic[@"photos"];
     NSString *imgstr = tempDic[@"logo"];
     if (![imgstr isKindOfClass:[NSNull class]]) {

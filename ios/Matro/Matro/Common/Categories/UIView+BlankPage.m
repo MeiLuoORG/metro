@@ -212,9 +212,15 @@ static char  BlankPageViewKey;
         NSString *titleStr;
         switch (blankPageType) {
             case EaseBlankPageTypeShouCang:{
-                titleStr=@"去逛逛";
+                actionBtn.hidden = YES;
+                //titleStr=@"去逛逛";
             }
                  break;
+            case EaseBlankPageTypeShouCangstore:{
+                actionBtn.hidden = YES;
+                //titleStr=@"去逛逛";
+            }
+                break;
             case EaseBlankPageTypeLiuLan:{
                 titleStr=@"去逛逛";
             }

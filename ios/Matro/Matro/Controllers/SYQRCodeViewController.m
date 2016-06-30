@@ -8,7 +8,7 @@
 
 #import "SYQRCodeViewController.h"
 #import <AVFoundation/AVFoundation.h>
-
+#import "MLGoodsDetailsViewController.h"
 //设备宽/高/坐标
 #define kDeviceWidth [UIScreen mainScreen].bounds.size.width
 #define KDeviceHeight [UIScreen mainScreen].bounds.size.height
@@ -219,6 +219,7 @@ static const float kReaderViewHeight = 250;
         if (obj.stringValue && ![obj.stringValue isEqualToString:@""] && obj.stringValue.length > 0)
         {
             NSLog(@"---------%@",obj.stringValue);
+            
             
             if ([obj.stringValue containsString:@"http"])
             {

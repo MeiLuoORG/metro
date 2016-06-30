@@ -20,7 +20,7 @@
 #import "MLCollectgoodsModel.h"
 #import "MLCheckBoxButton.h"
 #import "MJExtension.h"
-
+#import "MLHttpManager.h"
 @interface MLCollectionViewController ()<UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *_collectionArray;
     NSString *userid;
@@ -44,6 +44,7 @@ static NSInteger page = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"商品收藏";
+    isEditing = NO;
     [self loadDate];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -143,11 +144,53 @@ static NSInteger page = 1;
      &test_phone=13771961207
   */
     
-    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_product&test_phone=13771961207"];
+    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_product"];
      NSDictionary *params = @{@"do":@"sel"};
     
-    [_hud show:YES];
-    [_hud hide:YES afterDelay:1];
+    
+    
+    [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_product" success:^(id responseObject) {
+        NSLog(@"请求成功responseObject===%@",responseObject);
+        [_hud show:YES];
+        [_hud hide:YES afterDelay:1];
+        _collectionArray = responseObject[@"data"][@"share_list"];
+        
+        __weak typeof(self) weakself = self;
+        
+        if (_collectionArray.count>0) {
+            
+            if (page == 1) {
+                [self.dataSource removeAllObjects];
+            }
+            
+            
+            
+            [self.dataSource addObjectsFromArray:[MLCollectgoodsModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
+            
+            NSLog(@"self.goods===%@",self.dataSource);
+            
+            [self.tableView reloadData];
+            
+        }else{
+            [self.dataSource removeAllObjects];
+            [self.tableView reloadData];
+            [self.view configBlankPage:EaseBlankPageTypeShouCang hasData:(self.dataSource.count>0)];
+            self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+                weakself.tabBarController.selectedIndex = 1;
+                [weakself.navigationController popToRootViewControllerAnimated:YES];
+            };
+        }
+       
+    } failure:^(NSError *error) {
+        NSLog(@"请求失败 error===%@",error);
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
+    }];
+    
+    /*
     [[HFSServiceClient sharedJSONClientNOT] POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData){
     
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -192,7 +235,7 @@ static NSInteger page = 1;
         [_hud hide:YES afterDelay:1];
         
     }];
-    
+    */
     
     
 }
@@ -330,9 +373,32 @@ static NSInteger page = 1;
        
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=mul_add_cart&test_phone=13771961207",@"http://bbctest.matrojp.com"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=mul_add_cart",@"http://bbctest.matrojp.com"];
        
     NSDictionary *params = cart_listDic;
+    NSLog(@"params===%@",params);
+    
+    [MLHttpManager post:urlStr params:params m:@"product" s:@"cart" success:^(id responseObject) {
+        
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSString *code = result[@"code"];
+        if ([code isEqual:@0]) {
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"加入购物车成功";
+            [_hud hide:YES afterDelay:2];
+        }
+        NSLog(@"请求成功 result====%@",result);
+    } failure:^(NSError *error) {
+        NSLog(@"请求失败 error===%@",error);
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
+    }];
+    
+    /*
     
         [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
             
@@ -356,7 +422,7 @@ static NSInteger page = 1;
              _hud.labelText = @"加入购物车失败";
              [_hud hide:YES afterDelay:2];
          }];
-    
+    */
     
     
 }
@@ -387,8 +453,35 @@ static NSInteger page = 1;
     
             NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product&test_phone=13771961207",@"http://bbctest.matrojp.com"];
             NSDictionary *params = @{@"do":dostr,@"id":ID};
+    
+    [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_product" success:^(id responseObject) {
+        NSLog(@"请求成功responseObject===%@",responseObject);
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSString *share_add = result[@"data"][@"ads_del"];
+        if (share_add) {
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"取消收藏成功";
+            [_hud hide:YES afterDelay:2];
+            [self loadDate];
             
-            
+            [self.tableView reloadData];
+        }else{
+        
+        }
+        
+        
+        NSLog(@"请求成功 result====%@",result);
+    } failure:^(NSError *error) {
+        NSLog(@"请求失败 error===%@",error);
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
+    }];
+    
+            /*
             [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
                 
                 
@@ -412,7 +505,7 @@ static NSInteger page = 1;
                  NSLog(@"请求失败 error===%@",error);
                  
              }];
-    
+    */
 
 }
 

@@ -271,7 +271,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&test_phone=13771961207",@"http://bbctest.matrojp.com",_paramDic[@"id"]];
     //测试链接
-    //NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
+   // NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
     
     [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
@@ -500,6 +500,8 @@
             NSString *amount = dic[@"pinfo"][@"amount"];
             NSString *safe_amount = dic[@"pinfo"][@"safe_amount"];
             NSString *sell_amount = dic[@"pinfo"][@"sell_amount"];
+            self.shuliangStepper.maxValue = amount.intValue;
+            
             
             if (amount.floatValue >= safe_amount.floatValue) {
                 self.kuncuntisLabel.text = @"库存充足";
@@ -514,6 +516,7 @@
                 rightbtn.enabled = NO;
                 self.kuncuntisLabel.text = @"售罄";
             }
+            
             
             if ([dic[@"pinfo"][@"way"] isEqualToString:@"1"]) {
                 self.kujingBgView.hidden = YES;
@@ -852,10 +855,8 @@
 {
     MLLoginViewController *vc = [[MLLoginViewController alloc] init];
      vc.isLogin = YES;
-    YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
-    [self presentViewController:nvc animated:YES completion:^{
-        
-    }];
+   // YMNavigationController *nvc = [[YMNavigationController alloc]initWithRootViewController:vc];
+     [self presentViewController:vc animated:YES completion:nil];
 }
 #pragma mark- 分享按钮
 -(void)shareButtonAction{
@@ -1204,7 +1205,7 @@
         NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com"];
         NSDictionary *params = @{@"do":@"add",@"pid":pid,@"uname":uname};
             
-            
+        
       [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_product" success:^(id responseObject) {
           NSDictionary *result = (NSDictionary *)responseObject;
           NSString *share_add = result[@"data"][@"share_add"];
@@ -1219,28 +1220,29 @@
           NSLog(@"请求失败 error===%@",error);
           
       }];
+       
             
             
-            
-            
-//      [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
-//       } success:^(AFHTTPRequestOperation *operation, id responseObject){
-//           
-//        NSDictionary *result = (NSDictionary *)responseObject;
-//        NSString *share_add = result[@"data"][@"share_add"];
-//        if (share_add) {
-//            [_hud show:YES];
-//            _hud.mode = MBProgressHUDModeText;
-//            _hud.labelText = @"收藏成功";
-//            [_hud hide:YES afterDelay:2];
-//        }
-//        NSLog(@"请求成功 result====%@",result);
-//        
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"请求失败 error===%@",error);
-//        
-//        }];
+       /*
+      [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+       } success:^(AFHTTPRequestOperation *operation, id responseObject){
+           
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSString *share_add = result[@"data"][@"share_add"];
+        if (share_add) {
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"收藏成功";
+            [_hud hide:YES afterDelay:2];
+        }
+        NSLog(@"请求成功 result====%@",result);
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求失败 error===%@",error);
+        
+        }];
+        */
     }else{
         self.shoucangButton.selected = NO;
         [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
@@ -1250,7 +1252,9 @@
         return;
         }
     }else{
-        [MBProgressHUD showMessag:@"请先登录" toView:self.view];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [alert show];
         return;
     }
     
@@ -1277,6 +1281,26 @@
             [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
             [self.shoucangButton setTitleColor:RGBA(38, 14, 0, 1) forState:UIControlStateNormal];
             
+            
+            [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_product" success:^(id responseObject) {
+                NSDictionary *result = (NSDictionary *)responseObject;
+                NSString *share_add = result[@"data"][@"ads_del"];
+                if (share_add) {
+                    [_hud show:YES];
+                    _hud.mode = MBProgressHUDModeText;
+                    _hud.labelText = @"取消收藏成功";
+                    [_hud hide:YES afterDelay:2];
+                }else{
+                    
+                }
+                NSLog(@"请求成功 result====%@",result);
+               
+            } failure:^(NSError *error) {
+                NSLog(@"请求失败 error===%@",error);
+                
+            }];
+            
+            /*
             [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
                 
                 
@@ -1299,6 +1323,7 @@
                  NSLog(@"请求失败 error===%@",error);
                  
              }];
+             */
         }else{
             self.shoucangButton.selected = NO;
             [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
@@ -1307,7 +1332,9 @@
             return;
         }
     }else{
-        [MBProgressHUD showMessag:@"请先登录" toView:self.view];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [alert show];
         return;
     }
 

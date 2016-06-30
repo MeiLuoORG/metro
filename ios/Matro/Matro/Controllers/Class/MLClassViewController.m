@@ -41,6 +41,10 @@
     
     NSArray *_classTitleArray;//第一大类数组
     NSMutableArray *_classSecondArray;//第二大类数组
+    
+    NSMutableDictionary *brandDic;
+    NSMutableArray *brandArr;//品牌
+    
     UITextField *searchText;
     UIImageView *imageview;
 }
@@ -182,6 +186,9 @@
         NSLog(@"responseObject===%@",responseObject);
         
         NSArray *arr = responseObject[@"data"][@"ret"];
+        brandDic = responseObject[@"data"][@"brandtitle"];
+        brandArr = responseObject[@"data"][@"brand"];
+        
         
         _classTitleArray = [MTLJSONAdapter modelsOfClass:[MLClass class] fromJSONArray:arr error:nil];
         NSMutableArray *tempTitleArr = [NSMutableArray array];
@@ -218,6 +225,7 @@
         NSLog(@"responseObject===%@",responseObject);
         [_classSecondArray removeAllObjects];
         NSArray *arr = responseObject[@"data"][@"ret"];
+        
          _classSecondArray = [[MTLJSONAdapter modelsOfClass:[MLSecondClass class] fromJSONArray:arr error:nil] mutableCopy];
         NSLog(@"9999%@",_classSecondArray);
         
@@ -253,7 +261,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return _classSecondArray.count;//当前一级分类下有多少个二级分类就返回多少个Sections
+    return _classSecondArray.count ;//当前一级分类下有多少个二级分类就返回多少个Sections 并且加上一个品牌的section
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;{
@@ -261,12 +269,15 @@
     if (secondClass.ThreeClassificationList.count == 0 || !secondClass.ThreeClassificationList || [secondClass.ThreeClassificationList isEqual:[NSNull null]]) {
         return 0;
     }
+    
     return 1;//二级分下只有一个cell，当二级分类下没有三级分类的时候返回0
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;{
     
-    static NSString *CellIdentifier = @"MLClassTableViewCell" ;
+    static NSString *CellIdentifier = @"MLClassTableViewCell";
+    
     MLClassTableViewCell *cell = (MLClassTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray *array = [[NSBundle mainBundle]loadNibNamed: CellIdentifier owner:self options:nil];
@@ -315,6 +326,10 @@
     tap.delegate = self;
     headerView.secondTitle.tag = section;
     [headerView.secondTitle addGestureRecognizer:tap];
+    
+    if (section == _classSecondArray.count) {
+        headerView.secondTitle.text = brandDic[@"mc"];
+    }
     headerView.secondTitle.text = headerinfo.mc;
     return headerView;
 }
@@ -335,7 +350,13 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     MLSecondClass * secondClass = _classSecondArray[collectionView.tag];
+    
+    if (section == secondClass.ThreeClassificationList.count ) {
+        return brandArr.count;
+    }
+    
     return secondClass.ThreeClassificationList.count;
+    
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

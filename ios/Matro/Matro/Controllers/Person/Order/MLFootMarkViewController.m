@@ -17,6 +17,8 @@
 #import "UIImageView+WebCache.h"
 #import "MLFootModel.h"
 #import "MJExtension.h"
+#import "MLHttpManager.h"
+
 @interface MLFootMarkViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
 
@@ -81,31 +83,73 @@
     
     
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail_footprint&test_phone=13771961207&action=sel_footprint",@"http://bbctest.matrojp.com"];
+    
+    [MLHttpManager get:url params:nil m:@"product" s:@"detail_footprint" success:^(id responseObject) {
+        NSLog(@"请求成功 ==== %@",responseObject);
+        if ([responseObject[@"data"][@"footprint_info"] isKindOfClass:[NSString class]]) {
+            
+            [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
+            
+        }else{
+            
+            footArray = responseObject[@"data"][@"footprint_info"];
+            
+            if (footArray.count>0) {
+                
+                NSLog(@"self.goods===%@",footArray);
+                [self.dataSource addObjectsFromArray:[MLFootModel mj_objectArrayWithKeyValuesArray:footArray]];
+                
+                [self.tableView reloadData];
+                
+            }else{
+                [self.dataSource removeAllObjects];
+                [self.tableView reloadData];
+                [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
+                self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+                    
+                };
+            }
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"请求失败");
+    }];
+    
+    /*
     [[HFSServiceClient sharedJSONClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"请求成功 ==== %@",responseObject);
-        footArray = responseObject[@"data"][@"footprint_info"];
         
-        if (footArray.count>0) {
-          
-            NSLog(@"self.goods===%@",footArray);
-            [self.dataSource addObjectsFromArray:[MLFootModel mj_objectArrayWithKeyValuesArray:footArray]];
+        if ([responseObject[@"data"][@"footprint_info"] isKindOfClass:[NSString class]]) {
             
-            [self.tableView reloadData];
+            [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
             
         }else{
-            [self.dataSource removeAllObjects];
-            [self.tableView reloadData];
-            [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
-            self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+            
+            footArray = responseObject[@"data"][@"footprint_info"];
+            
+            if (footArray.count>0) {
                 
-            };
+                NSLog(@"self.goods===%@",footArray);
+                [self.dataSource addObjectsFromArray:[MLFootModel mj_objectArrayWithKeyValuesArray:footArray]];
+                
+                [self.tableView reloadData];
+                
+            }else{
+                [self.dataSource removeAllObjects];
+                [self.tableView reloadData];
+                [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
+                self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+                    
+                };
+            }
         }
+        
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"网络错误");
     }];
+     */
 }
 
 
@@ -153,6 +197,15 @@
 
 - (void)removeAll:(id)sender{
     NSLog(@"删除所有");
+    
+    NSString *str = @"http://bbctest.matrojp.com/api.php?m=product&s=detail_footprint&action=del_footprint";
+    [MLHttpManager get:str params:nil m:@"product" s:@"detail_footprint" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"请求成功result===%@",result);
+    } failure:^(NSError *error) {
+        NSLog(@"请求失败");
+    }];
+    
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
     [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];

@@ -11,15 +11,15 @@
 #import "HFSServiceClient.h"
 #import "CommonHeader.h"
 
-<<<<<<< Updated upstream
-@interface APPSettingViewController : MLBaseViewController
-=======
+
+
+
 #import "PulldownMenu.h"
 #import "AppDelegate.h"
 
 
-@interface APPSettingViewController : MLBaseViewController<BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>
->>>>>>> Stashed changes
+@interface APPSettingViewController : MLBaseViewController
+
 @property (weak, nonatomic) IBOutlet UITableView *settingTable;
 @property (weak, nonatomic) IBOutlet UIButton *logoutBtn;
 

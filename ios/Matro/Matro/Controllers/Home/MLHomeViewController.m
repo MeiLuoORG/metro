@@ -30,9 +30,12 @@
 #import "MLReturnsDetailViewController.h"
 #import "MLGoodsDetailsViewController.h"
 
-@interface MLHomeViewController ()<UISearchBarDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,JSInterfaceDelegate,AVCaptureMetadataOutputObjectsDelegate>//用于处理采集信息的代理
+@interface MLHomeViewController ()<UISearchBarDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,JSInterfaceDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate>//用于处理采集信息的代理
 {
     AVCaptureSession * session;//输入输出的中间桥梁
+    NSString *version;
+    NSString *loadversion;
+    NSString *downlink;
 }
 
 @property (strong, nonatomic) IBOutlet EasyJSWebView *webView;
@@ -43,6 +46,12 @@
 
 @property (weak, nonatomic) IBOutlet MMMaterialDesignSpinner *loadingSpinner;
 @property (weak, nonatomic) IBOutlet UIView *loadingBGView;
+@property (weak, nonatomic) IBOutlet UIView *versionView;
+@property (weak, nonatomic) IBOutlet UIView *btnView;
+@property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
+@property (weak, nonatomic) IBOutlet UIButton *downBtn;
+@property (weak, nonatomic) IBOutlet UILabel *versionlab;
+@property (weak, nonatomic) IBOutlet UILabel *gengxinlab;
 
 @property ( strong , nonatomic ) AVCaptureDevice * device;
 
@@ -62,15 +71,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-
+    [self getVersion];
+    [self loadVersion];
+    self.versionView.hidden = YES;
+    self.versionView.layer.cornerRadius = 4.f;
+    self.versionView.layer.masksToBounds = YES;
+    self.downBtn.layer.cornerRadius = 4.f;
+    self.downBtn.layer.masksToBounds = YES;
+    self.cancelBtn.layer.cornerRadius = 4.f;
+    self.cancelBtn.layer.masksToBounds = YES;
+    
+    
+    
     UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"shouyesaoyisao"] style:UIBarButtonItemStylePlain target:self action:@selector(scanning)];
-    
-    
-    
+
     self.navigationItem.leftBarButtonItem = left;
-    
-    
 
     //添加边框和提示
     UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)] ;
@@ -124,10 +139,59 @@
     }
     
 }
+
+
+- (IBAction)actCancel:(id)sender {
+    self.versionView.hidden = YES;
+}
+
+- (IBAction)actDown:(id)sender {
+    NSLog(@"去下载");
+    
+}
+
+
+-(void)loadVersion{
+    
+    NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=upgrade&s=index&action=sel_upgrade";
+    NSDictionary *params = @{@"appverison":version,@"apptype":@"ios"};
+    
+    
+    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+        
+            } success:^(AFHTTPRequestOperation *operation, id responseObject)
+             {
+        
+                 NSDictionary *result = (NSDictionary *)responseObject;
+                 NSString *code = result[@"code"];
+                 if ([code isEqual:@0]) {
+                     loadversion = result[@"data"][@"sel_info"][@"appverison"];
+                     downlink = result[@"data"][@"sel_info"][@"download_link"];
+                     NSLog(@"version===%@ loadversion===%@",version, loadversion);
+                     
+                     if (version < loadversion) {
+                         
+                         self.versionView.hidden = NO;
+                         NSString *labstr = result[@"data"][@"sel_info"][@"version_desc"];
+                         self.gengxinlab.text = [NSString stringWithFormat:@"1.%@\n\n2.%@",labstr,labstr];
+                         self.versionlab.text = [NSString stringWithFormat:@"美罗全球精品购V%@",loadversion];
+                     }
+                     
+                 }
+                 NSLog(@"请求成功 result====%@",result);
+        
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 NSLog(@"请求失败 error===%@",error);
+                 
+             }];
+    
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
    
 }
+
 
 - (void)pushMessage:(NSNotification *)not{
     MLPushMessageModel *message = not.object;
@@ -167,6 +231,7 @@
             break;
     }
 }
+
 
 
 
@@ -255,6 +320,23 @@
             
             
             
+            if (qrString.length >0) {
+                NSString *idstr = [self jiexi:@"id" webaddress:qrString];
+                if (idstr.length > 0 ) {
+                    MLGoodsDetailsViewController *detailVc = [[MLGoodsDetailsViewController alloc]init];
+                    detailVc.paramDic = @{@"id":idstr};
+                    detailVc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:detailVc animated:YES];
+                }
+            }else{
+            
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"加载失败";
+                [_hud hide:YES afterDelay:2];
+            }
+            
+            /*
             if (qrString.length>0) {
                 NSString *JMSP_ID = [self jiexi:@"JMSP_ID" webaddress:qrString];
                 NSString *ZCSP = nil;
@@ -276,7 +358,7 @@
                
 
             }
-
+            */
         }];
     };
     qrcodevc.SYQRCodeFailBlock = ^(SYQRCodeViewController *aqrvc){//扫描失败
@@ -345,4 +427,27 @@
     _hud.labelText = @"加载失败";
     [_hud hide:YES afterDelay:2];
 }
+
+
+//查看是否有更新
+#pragma mark - 应用市场
+
+- (NSString*)getVersion
+{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSLog(@"version===%@",version);
+    return version;
+}
+
+- (void)appStore_openApp
+{
+    
+    NSString *str = [NSString stringWithFormat:
+                     @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=%@&mt=8",
+                     @"1023257602"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+}
+
+
 @end

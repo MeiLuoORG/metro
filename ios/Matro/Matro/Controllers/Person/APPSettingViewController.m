@@ -13,20 +13,20 @@
 #import "SDImageCache.h"
 #import "MLPushConfigViewController.h"
 
-<<<<<<< Updated upstream
-@interface APPSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
-=======
+
+
+
 @interface APPSettingViewController ()<UITableViewDataSource,UITableViewDelegate,PulldownMenuDelegate>{
     
-    BMKLocationService * _locService;
-    BMKGeoCodeSearch* _geoCode;
+    //BMKLocationService * _locService;
+    //BMKGeoCodeSearch* _geoCode;
     BOOL _isLocationSuccess;
     PulldownMenu * _pulldownMenu;
     
     UIImageView * _gengDuoImageView;
     BOOL _isShowImage;
 }
->>>>>>> Stashed changes
+
 
 
 @end
@@ -48,9 +48,9 @@
     self.logoutBtn.backgroundColor = [HFSUtility hexStringToColor:Main_ButtonNormel_backgroundColor];
     [self.logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
     
-<<<<<<< Updated upstream
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
-=======
+
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 22)];
     [button setImage:[UIImage imageNamed:@"gengduozl"] forState:UIControlStateNormal];
     button.imageEdgeInsets = UIEdgeInsetsMake(8, 9, 8, 9);
@@ -192,7 +192,7 @@
      LocationGoldController * locat = [[LocationGoldController alloc]init];
      [locat startLocationUser];
      */
->>>>>>> Stashed changes
+
     
     
     // Do any additional setup after loading the view from its nib.

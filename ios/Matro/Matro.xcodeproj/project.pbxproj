@@ -51,6 +51,10 @@
 		285808041D14F20B0097D334 /* MLCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808021D14F20B0097D334 /* MLCommentTableViewCell.xib */; };
 		285808081D1517AA0097D334 /* MLgoodsCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */; };
 		285808091D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */; };
+		2869F6891D221AF7003C4663 /* MLServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869F6871D221AF7003C4663 /* MLServiceViewController.m */; };
+		2869F68A1D221AF7003C4663 /* MLServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F6881D221AF7003C4663 /* MLServiceViewController.xib */; };
+		2869F68D1D2279B7003C4663 /* MLKefuHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869F68C1D2279B7003C4663 /* MLKefuHeader.m */; };
+		2869F68F1D227A08003C4663 /* MLKefuHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F68E1D227A08003C4663 /* MLKefuHeader.xib */; };
 		2875856C1D210030000BDEF4 /* MLFootMarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2875856B1D210030000BDEF4 /* MLFootMarkTableViewCell.xib */; };
 		287585701D210386000BDEF4 /* MLFootTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2875856E1D210386000BDEF4 /* MLFootTableViewCell.m */; };
 		287585711D210386000BDEF4 /* MLFootTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2875856F1D210386000BDEF4 /* MLFootTableViewCell.xib */; };
@@ -64,6 +68,8 @@
 		287C86D81D1D1FBA0002E5E2 /* MLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C86D71D1D1FBA0002E5E2 /* MLLoginViewController.m */; };
 		287C86DC1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C86DA1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.m */; };
 		287C86DD1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 287C86DB1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.xib */; };
+		2887EA031D239E54001FECFE /* MLCommitOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2887EA011D239E54001FECFE /* MLCommitOrderViewController.m */; };
+		2887EA041D239E54001FECFE /* MLCommitOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2887EA021D239E54001FECFE /* MLCommitOrderViewController.xib */; };
 		28CEFB1A1CF99C940070E2CA /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CEFB191CF99C940070E2CA /* JSBadgeView.m */; };
 		28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85CE1CEDC59900E582EE /* UMSocialLocalizable.strings */; };
 		28CF86051CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85DC1CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a */; };
@@ -649,6 +655,12 @@
 		285808051D1517AA0097D334 /* MLgoodsCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLgoodsCollectTableViewCell.h; sourceTree = "<group>"; };
 		285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLgoodsCollectTableViewCell.m; sourceTree = "<group>"; };
 		285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLgoodsCollectTableViewCell.xib; sourceTree = "<group>"; };
+		2869F6861D221AF7003C4663 /* MLServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLServiceViewController.h; sourceTree = "<group>"; };
+		2869F6871D221AF7003C4663 /* MLServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLServiceViewController.m; sourceTree = "<group>"; };
+		2869F6881D221AF7003C4663 /* MLServiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLServiceViewController.xib; sourceTree = "<group>"; };
+		2869F68B1D2279B7003C4663 /* MLKefuHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLKefuHeader.h; sourceTree = "<group>"; };
+		2869F68C1D2279B7003C4663 /* MLKefuHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLKefuHeader.m; sourceTree = "<group>"; };
+		2869F68E1D227A08003C4663 /* MLKefuHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLKefuHeader.xib; sourceTree = "<group>"; };
 		2875856B1D210030000BDEF4 /* MLFootMarkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLFootMarkTableViewCell.xib; sourceTree = "<group>"; };
 		2875856D1D210386000BDEF4 /* MLFootTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFootTableViewCell.h; sourceTree = "<group>"; };
 		2875856E1D210386000BDEF4 /* MLFootTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFootTableViewCell.m; sourceTree = "<group>"; };
@@ -669,6 +681,9 @@
 		287C86D91D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPinpaiCollectionViewCell.h; sourceTree = "<group>"; };
 		287C86DA1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPinpaiCollectionViewCell.m; sourceTree = "<group>"; };
 		287C86DB1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLPinpaiCollectionViewCell.xib; sourceTree = "<group>"; };
+		2887EA001D239E54001FECFE /* MLCommitOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLCommitOrderViewController.h; path = ../Person/Order/MLCommitOrderViewController.h; sourceTree = "<group>"; };
+		2887EA011D239E54001FECFE /* MLCommitOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLCommitOrderViewController.m; path = ../Person/Order/MLCommitOrderViewController.m; sourceTree = "<group>"; };
+		2887EA021D239E54001FECFE /* MLCommitOrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MLCommitOrderViewController.xib; path = ../Person/Order/MLCommitOrderViewController.xib; sourceTree = "<group>"; };
 		28CEFB181CF99C940070E2CA /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
 		28CEFB191CF99C940070E2CA /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		28CF85CF1CEDC59900E582EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
@@ -2584,6 +2599,9 @@
 				7ACD3A781CE86D97004BAF8B /* MLReturnsHeader.h */,
 				7ACD3A791CE86D97004BAF8B /* MLReturnsHeader.m */,
 				7ACD3A7B1CE86DA5004BAF8B /* MLReturnsHeader.xib */,
+				2869F68B1D2279B7003C4663 /* MLKefuHeader.h */,
+				2869F68C1D2279B7003C4663 /* MLKefuHeader.m */,
+				2869F68E1D227A08003C4663 /* MLKefuHeader.xib */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -2825,8 +2843,14 @@
 				280F7D711CF981BA00D42FA6 /* MLMyPropertyViewController.h */,
 				280F7D721CF981BA00D42FA6 /* MLMyPropertyViewController.m */,
 				280F7D731CF981BA00D42FA6 /* MLMyPropertyViewController.xib */,
+
 				7A1DC25A1D23A4C80094D751 /* MLPushConfigViewController.h */,
 				7A1DC25B1D23A4C80094D751 /* MLPushConfigViewController.m */,
+
+				2869F6861D221AF7003C4663 /* MLServiceViewController.h */,
+				2869F6871D221AF7003C4663 /* MLServiceViewController.m */,
+				2869F6881D221AF7003C4663 /* MLServiceViewController.xib */,
+
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -2840,6 +2864,9 @@
 				3AA0E72C1CA8F0240079AA90 /* MLSureViewController.h */,
 				3AA0E72D1CA8F0240079AA90 /* MLSureViewController.m */,
 				3AA0E72E1CA8F0240079AA90 /* MLSureViewController.xib */,
+				2887EA001D239E54001FECFE /* MLCommitOrderViewController.h */,
+				2887EA011D239E54001FECFE /* MLCommitOrderViewController.m */,
+				2887EA021D239E54001FECFE /* MLCommitOrderViewController.xib */,
 				3AA0E7311CA916A90079AA90 /* MLPayViewController.h */,
 				3AA0E7321CA916A90079AA90 /* MLPayViewController.mm */,
 				3AA0E7331CA916A90079AA90 /* MLPayViewController.xib */,
@@ -3720,6 +3747,7 @@
 				3A633B8C1C9EA82200C11FD5 /* MLClassViewController.xib in Resources */,
 				3CEAC66E1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib in Resources */,
 				3A1F72CC1CA3F904000ECE08 /* HFSOrderListFooterView.xib in Resources */,
+				2869F68F1D227A08003C4663 /* MLKefuHeader.xib in Resources */,
 				7ACFA6161D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib in Resources */,
 				3A16DC521CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.xib in Resources */,
 				3A633B4D1C9EA36E00C11FD5 /* Documentation.html in Resources */,
@@ -3831,8 +3859,10 @@
 				2CBAD64E1CA3B3AC0044601B /* MLBagZengpinTableViewCell.xib in Resources */,
 				2CBAD6441CA3AD4B0044601B /* MLBagActiveTableViewCell.xib in Resources */,
 				7A083FC21D193E67001F0256 /* MLTuiHuoChengGongViewController.xib in Resources */,
+				2869F68A1D221AF7003C4663 /* MLServiceViewController.xib in Resources */,
 				3A633B481C9EA36E00C11FD5 /* Documentation.html in Resources */,
 				6839EF191CD5A94700638B3D /* AddressManagerCell.xib in Resources */,
+				2887EA041D239E54001FECFE /* MLCommitOrderViewController.xib in Resources */,
 				7A4D9E001D13916C006E6AB2 /* MLZTextTableViewCell.xib in Resources */,
 				280F7D751CF981BA00D42FA6 /* MLMyPropertyViewController.xib in Resources */,
 				3A1F72D61CA3FAEC000ECE08 /* HFSOrderListViewController.xib in Resources */,
@@ -3981,6 +4011,7 @@
 				7A40B4BD1D1929180026AFD2 /* KZPhotoManager.m in Sources */,
 				3A633B301C9EA36E00C11FD5 /* UILabel+HeinQi.m in Sources */,
 				7A083FC11D193E67001F0256 /* MLTuiHuoChengGongViewController.m in Sources */,
+				2869F6891D221AF7003C4663 /* MLServiceViewController.m in Sources */,
 				287C86D51D1CC4E00002E5E2 /* MLpingjiaImgViewCell.m in Sources */,
 				687703E41CCF3F720008ED46 /* EasyJSWebView.m in Sources */,
 				7AEC88DC1CE464EC00B43DD4 /* MLGoodsComPhotoCell.m in Sources */,
@@ -4111,6 +4142,7 @@
 				3A633B691C9EA36E00C11FD5 /* ZLPhotoPickerGroupTableViewCell.m in Sources */,
 				3ACB8D841CC089EF00C7398B /* MLSecondClass.m in Sources */,
 				2832619E1D192E4800C9EE4E /* MLstoreCollectTableViewCell.m in Sources */,
+				2869F68D1D2279B7003C4663 /* MLKefuHeader.m in Sources */,
 				280F7D551CF93E3200D42FA6 /* NSDictionary+HYBUnicodeReadable.m in Sources */,
 				3A1AA8BC1CAA2F8B00AF73C2 /* MLAddressListViewController.m in Sources */,
 				7A813ED11CD850E300FAB6B2 /* MLOrderListModel.m in Sources */,
@@ -4200,6 +4232,7 @@
 				3ACF2CEF1CA5070E003D1F67 /* unzip.c in Sources */,
 				3A16DC3B1CA0EA23007AE4A2 /* CPStepper.m in Sources */,
 				3AE02E0D1CABBBBF0016FA75 /* RADataObject.m in Sources */,
+				2887EA031D239E54001FECFE /* MLCommitOrderViewController.m in Sources */,
 				7AED64771CDE1F1C008F55BD /* NSString+GONMarkup.m in Sources */,
 				7ABB22301D20F2C400529B2B /* MLMessagesControlCell.m in Sources */,
 				280F7CD51CF7F44800D42FA6 /* qrspec.c in Sources */,

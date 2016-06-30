@@ -14,10 +14,9 @@
 @interface MLInvoiceViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *kai;
 @property (strong, nonatomic) IBOutlet UIButton *bukai;
-@property (strong, nonatomic) IBOutlet UIButton *putong;
-@property (strong, nonatomic) IBOutlet UIButton *mingxi;
-@property (strong, nonatomic) IBOutlet UITextField *titouTextField;
-@property (strong, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UIView *gongsilab;
+@property (weak, nonatomic) IBOutlet UIButton *geren;
+@property (weak, nonatomic) IBOutlet UIButton *gongsi;
 
 @end
 
@@ -28,6 +27,9 @@
     // Do any additional setup after loading the view from its nib.
     [self invoiceUI];
     self.title = @"发票信息";
+    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:@"保存"  style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonAction:)];
+    right.tintColor = RGBA(192, 159, 116, 1);
+    self.navigationItem.rightBarButtonItem = right;
     
     //隐藏键盘
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
@@ -36,6 +38,10 @@
 //    tapGestureRecognizer.delegate = self;
     //将触摸事件添加到当前view
     [self.view addGestureRecognizer:tapGestureRecognizer];
+    self.gongsilab.layer.borderWidth = 1.f;
+    self.gongsilab.layer.borderColor = RGBA(241, 241, 241, 1).CGColor;
+    self.gongsilab.layer.cornerRadius = 4.f;
+    self.gongsilab.layer.masksToBounds = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,9 +63,8 @@
 - (void)invoiceUI{
     [_kai invoiceselButtonType];
     [_bukai invoiceselButtonType];
-    [_putong invoiceselButtonType];
-    [_mingxi invoiceselButtonType];
-    [_saveButton loginButtonType];
+    [_geren invoiceselButtonType];
+    [_gongsi invoiceselButtonType];
 
 }
 
@@ -77,19 +82,15 @@
     
     if ([button isEqual:_kai]) {
         _bukai.selected = NO;
-        _putong.selected = YES;
-        _mingxi.selected = YES;
-        _titouTextField.enabled = YES;
+        
     }else{
         _kai.selected = NO;
-        _putong.selected = NO;
-        _mingxi.selected = NO;
-        _titouTextField.enabled = NO;
-        _titouTextField.text = @"";
+       
     }
     
 }
-- (IBAction)saveButtonAction:(id)sender {
+- (void)saveButtonAction:(id)sender {
+    /*
     
     NSString *titou = _titouTextField.text;
     if ([@"" isEqualToString:titou]) {
@@ -101,16 +102,9 @@
                             @"titleText":titou
                             }];
     [self.navigationController popViewControllerAnimated:YES];
+     */
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

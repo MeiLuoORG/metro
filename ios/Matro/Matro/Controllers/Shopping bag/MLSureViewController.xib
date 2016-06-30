@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -53,7 +53,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="686"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sTj-TH-fnu" userLabel="地址" customClass="UIControl">
-                                    <rect key="frame" x="0.0" y="12" width="600" height="80"/>
+                                    <rect key="frame" x="0.0" y="10" width="600" height="80"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xiayiye_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="Fwd-sl-lGM">
                                             <rect key="frame" x="579" y="32" width="9" height="17"/>
@@ -78,27 +78,27 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JUS-lo-IXB">
                                             <rect key="frame" x="12" y="0.0" width="567" height="80"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Profile_dingdanxiangqing" translatesAutoresizingMaskIntoConstraints="NO" id="TUx-25-AP9">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myself" translatesAutoresizingMaskIntoConstraints="NO" id="TUx-25-AP9">
                                                     <rect key="frame" x="8" y="8" width="21" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="21" id="Lrd-sR-2Oc"/>
                                                         <constraint firstAttribute="height" constant="21" id="RX5-zC-KVg"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDT-wq-2bm">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="叮叮当当" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDT-wq-2bm">
                                                     <rect key="frame" x="37" y="10" width="45" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="iPhone_dingdanxiangqing" translatesAutoresizingMaskIntoConstraints="NO" id="64a-IL-8oc">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shouji" translatesAutoresizingMaskIntoConstraints="NO" id="64a-IL-8oc">
                                                     <rect key="frame" x="94" y="8" width="21" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="PQM-pW-qyn"/>
                                                         <constraint firstAttribute="width" constant="21" id="wlp-MH-jcU"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SsT-i2-hFe">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="18949151936" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SsT-i2-hFe">
                                                     <rect key="frame" x="127" y="10" width="160" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="160" id="wmo-Xq-qib"/>
@@ -107,7 +107,7 @@
                                                     <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82x-Zb-Wmx">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="江苏省苏州市工业园区星湖街228号" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82x-Zb-Wmx">
                                                     <rect key="frame" x="8" y="37" width="547" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="79" id="MhC-Ca-VD4"/>
@@ -247,38 +247,6 @@
                                     <connections>
                                         <action selector="surelistAction:" destination="-1" eventType="touchUpInside" id="m7q-cU-uwl"/>
                                     </connections>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCh-zD-Zsr" userLabel="身份证">
-                                    <rect key="frame" x="0.0" y="104" width="600" height="45"/>
-                                    <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="因涉及全球购商品，请填写收货人身份证" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ARq-Zl-cm4">
-                                            <rect key="frame" x="12" y="0.0" width="256" height="45"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                        </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Med-yh-pjr">
-                                            <rect key="frame" x="523" y="6" width="65" height="33"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="65" id="4e5-yy-SCk"/>
-                                            </constraints>
-                                            <state key="normal" title="保存" backgroundImage="shanchu_button">
-                                                <color key="titleColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="deviceRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="saveShengfenzheng:" destination="-1" eventType="touchUpInside" id="Pra-lA-Van"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="45" id="64o-m9-C31"/>
-                                        <constraint firstAttribute="bottom" secondItem="ARq-Zl-cm4" secondAttribute="bottom" id="BF1-gE-cIs"/>
-                                        <constraint firstItem="ARq-Zl-cm4" firstAttribute="top" secondItem="OCh-zD-Zsr" secondAttribute="top" id="Lde-lr-acb"/>
-                                        <constraint firstAttribute="trailing" secondItem="Med-yh-pjr" secondAttribute="trailing" constant="12" id="QVD-ke-45q"/>
-                                        <constraint firstItem="Med-yh-pjr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ARq-Zl-cm4" secondAttribute="trailing" constant="12" id="THa-Tj-aMV"/>
-                                        <constraint firstItem="Med-yh-pjr" firstAttribute="centerY" secondItem="OCh-zD-Zsr" secondAttribute="centerY" id="pYs-48-5aQ"/>
-                                        <constraint firstItem="ARq-Zl-cm4" firstAttribute="leading" secondItem="OCh-zD-Zsr" secondAttribute="leading" constant="12" id="yf0-w6-q68"/>
-                                    </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ej-q4-b5l" userLabel="配送方式">
                                     <rect key="frame" x="0.0" y="253" width="600" height="45"/>
@@ -683,6 +651,38 @@
                                         <constraint firstItem="VpC-DY-qf4" firstAttribute="centerY" secondItem="sMw-FW-a1e" secondAttribute="centerY" id="vSK-mv-CbE"/>
                                     </constraints>
                                 </view>
+                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OCh-zD-Zsr" userLabel="身份证">
+                                    <rect key="frame" x="0.0" y="108" width="600" height="45"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="因涉及全球购商品，请填写收货人身份证" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ARq-Zl-cm4">
+                                            <rect key="frame" x="12" y="0.0" width="256" height="45"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Med-yh-pjr">
+                                            <rect key="frame" x="523" y="6" width="65" height="33"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="65" id="4e5-yy-SCk"/>
+                                            </constraints>
+                                            <state key="normal" title="保存" backgroundImage="shanchu_button">
+                                                <color key="titleColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="deviceRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="saveShengfenzheng:" destination="-1" eventType="touchUpInside" id="Pra-lA-Van"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="45" id="64o-m9-C31"/>
+                                        <constraint firstAttribute="bottom" secondItem="ARq-Zl-cm4" secondAttribute="bottom" id="BF1-gE-cIs"/>
+                                        <constraint firstItem="ARq-Zl-cm4" firstAttribute="top" secondItem="OCh-zD-Zsr" secondAttribute="top" id="Lde-lr-acb"/>
+                                        <constraint firstAttribute="trailing" secondItem="Med-yh-pjr" secondAttribute="trailing" constant="12" id="QVD-ke-45q"/>
+                                        <constraint firstItem="Med-yh-pjr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ARq-Zl-cm4" secondAttribute="trailing" constant="12" id="THa-Tj-aMV"/>
+                                        <constraint firstItem="Med-yh-pjr" firstAttribute="centerY" secondItem="OCh-zD-Zsr" secondAttribute="centerY" id="pYs-48-5aQ"/>
+                                        <constraint firstItem="ARq-Zl-cm4" firstAttribute="leading" secondItem="OCh-zD-Zsr" secondAttribute="leading" constant="12" id="yf0-w6-q68"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -727,7 +727,7 @@
                                 <constraint firstItem="xWQ-CB-Q0h" firstAttribute="top" secondItem="FXE-pi-Vkk" secondAttribute="bottom" id="uB8-mW-RvN"/>
                                 <constraint firstItem="FXE-pi-Vkk" firstAttribute="leading" secondItem="RoS-Od-Qaw" secondAttribute="leading" id="uIc-Fi-P9x"/>
                                 <constraint firstItem="VpC-DY-qf4" firstAttribute="leading" secondItem="Kbp-dZ-DQl" secondAttribute="leading" id="uKM-i3-yND"/>
-                                <constraint firstItem="sTj-TH-fnu" firstAttribute="top" secondItem="RoS-Od-Qaw" secondAttribute="top" constant="12" id="vHx-7l-4Ya"/>
+                                <constraint firstItem="sTj-TH-fnu" firstAttribute="top" secondItem="RoS-Od-Qaw" secondAttribute="top" constant="10" id="vHx-7l-4Ya"/>
                                 <constraint firstItem="Kbp-dZ-DQl" firstAttribute="leading" secondItem="SmE-3c-VTg" secondAttribute="leading" id="wuW-WH-3ME"/>
                                 <constraint firstItem="ssf-nu-m68" firstAttribute="top" secondItem="V8Y-fk-4vH" secondAttribute="bottom" id="ww2-hw-FZp"/>
                             </constraints>
@@ -847,11 +847,11 @@
     </objects>
     <resources>
         <image name="Location-Pin" width="12" height="17"/>
-        <image name="Profile_dingdanxiangqing" width="21" height="21"/>
-        <image name="iPhone_dingdanxiangqing" width="21" height="21"/>
+        <image name="myself" width="44" height="44"/>
         <image name="rili" width="16" height="18"/>
         <image name="shanchu_button" width="64" height="33"/>
         <image name="shangmenziti_button" width="87" height="33"/>
+        <image name="shouji" width="45" height="45"/>
         <image name="xiayiye_arrow" width="9" height="17"/>
     </resources>
 </document>

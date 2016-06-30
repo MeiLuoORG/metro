@@ -72,8 +72,8 @@
 
 //发票选择按钮样式
 - (void)invoiceselButtonType{
-    [self setImage:[UIImage imageNamed:@"xuanzeqi_xiao"] forState:UIControlStateNormal];
-    [self setImage:[UIImage imageNamed:@"xuanzeqi_xiao2"] forState:UIControlStateSelected];
+    [self setImage:[UIImage imageNamed:@"icon_weixuanzhong"] forState:UIControlStateNormal];
+    [self setImage:[UIImage imageNamed:@"icon_xuanzhong"] forState:UIControlStateSelected];
 }
 
 //快递配送

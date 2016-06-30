@@ -43,6 +43,10 @@
 #import "MLFootMarkViewController.h"
 
 #import "MLLogisticsViewController.h"
+#import "MLServiceViewController.h"
+
+#import "MLSureViewController.h"
+#import "MLCommitOrderViewController.h"
 
 @interface MLPersonController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -807,9 +811,23 @@
     }
     if (sender.tag == 104) {
          NSLog(@"3客服");
-        PinPaiZLViewController * VC = [[PinPaiZLViewController alloc]init];
-        VC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:VC animated:YES];
+
+//        PinPaiZLViewController * VC = [[PinPaiZLViewController alloc]init];
+//        VC.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:VC animated:YES];
+
+        if (!loginid) {
+            [self showError];
+            return;
+        }
+        [self hideZLMessageBtnAndSetingBtn];
+       // MLCommitOrderViewController *vc = [[MLCommitOrderViewController alloc]init];
+        
+        MLServiceViewController *vc = [[MLServiceViewController alloc]init];
+         
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:NO];
+
         
     }
     if (sender.tag == 105) {

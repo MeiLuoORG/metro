@@ -67,10 +67,19 @@ static CGFloat kHeight = 0;
     //返回按钮
     //UIBarButtonItem *returnBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Left_Arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(returnAction :)];
     UIBarButtonItem *returnBtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(returnAction :)];
+    
     NSDictionary * attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14]};
     [returnBtn setTitleTextAttributes:attributes forState:UIControlStateNormal];
     [returnBtn setTintColor:RGBA(131, 131, 131, 1)];
     self.navigationItem.rightBarButtonItem = returnBtn;
+    
+    UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@""  style:UIBarButtonItemStylePlain target:self action:@selector(returnAction :)];
+    item.title = @"";
+    item.image = backButtonImage;
+    item.width = -20;
+    self.navigationItem.leftBarButtonItem = item;
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"#F6F6F6"];
     
@@ -230,6 +239,7 @@ static CGFloat kHeight = 0;
 
 
 - (void) hide {
+    
     [self.parentViewController.view removeFromSuperview];
     [self.parentViewController removeFromParentViewController];
 }
@@ -300,6 +310,9 @@ static CGFloat kHeight = 0;
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;{
+    if (_historySearchTextArray.count >20) {
+        return 20;
+    }
     return _historySearchTextArray.count;
 }
 
