@@ -373,6 +373,7 @@
 		687704241CD34E4A0008ED46 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6877041D1CD34E4A0008ED46 /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		687704251CD34E4A0008ED46 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6877041F1CD34E4A0008ED46 /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		687705E51CD35D100008ED46 /* GTMNSString+URLArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 687705741CD35D100008ED46 /* GTMNSString+URLArguments.m */; };
+		7A01A8451D24C1050067F4E9 /* MLShopInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A01A8441D24C1050067F4E9 /* MLShopInfoViewController.m */; };
 		7A028D851CEAC294005D14BC /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A028D841CEAC294005D14BC /* MBProgressHUD+Add.m */; };
 		7A0720291D17D2E300E0B58E /* MLTuiHuoMiaoshuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0720271D17D2E300E0B58E /* MLTuiHuoMiaoshuTableViewCell.m */; };
 		7A07202A1D17D2E300E0B58E /* MLTuiHuoMiaoshuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0720281D17D2E300E0B58E /* MLTuiHuoMiaoshuTableViewCell.xib */; };
@@ -1298,6 +1299,8 @@
 		687705731CD35D100008ED46 /* GTMNSString+URLArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+URLArguments.h"; sourceTree = "<group>"; };
 		687705741CD35D100008ED46 /* GTMNSString+URLArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+URLArguments.m"; sourceTree = "<group>"; };
 		73C6CE0BB33E839F3EBF5309 /* Pods_Matro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Matro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A01A8431D24C1050067F4E9 /* MLShopInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLShopInfoViewController.h; sourceTree = "<group>"; };
+		7A01A8441D24C1050067F4E9 /* MLShopInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLShopInfoViewController.m; sourceTree = "<group>"; };
 		7A028D841CEAC294005D14BC /* MBProgressHUD+Add.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Add.m"; sourceTree = "<group>"; };
 		7A028D861CEAC2AF005D14BC /* MBProgressHUD+Add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Add.h"; sourceTree = "<group>"; };
 		7A0720261D17D2E300E0B58E /* MLTuiHuoMiaoshuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTuiHuoMiaoshuTableViewCell.h; sourceTree = "<group>"; };
@@ -2780,6 +2783,8 @@
 				3A633B841C9EA7F900C11FD5 /* MLHomeViewController.m */,
 				3A633B851C9EA7F900C11FD5 /* MLHomeViewController.xib */,
 				3A16DC5D1CA15BB7007AE4A2 /* Search */,
+				7A01A8431D24C1050067F4E9 /* MLShopInfoViewController.h */,
+				7A01A8441D24C1050067F4E9 /* MLShopInfoViewController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -2843,14 +2848,11 @@
 				280F7D711CF981BA00D42FA6 /* MLMyPropertyViewController.h */,
 				280F7D721CF981BA00D42FA6 /* MLMyPropertyViewController.m */,
 				280F7D731CF981BA00D42FA6 /* MLMyPropertyViewController.xib */,
-
 				7A1DC25A1D23A4C80094D751 /* MLPushConfigViewController.h */,
 				7A1DC25B1D23A4C80094D751 /* MLPushConfigViewController.m */,
-
 				2869F6861D221AF7003C4663 /* MLServiceViewController.h */,
 				2869F6871D221AF7003C4663 /* MLServiceViewController.m */,
 				2869F6881D221AF7003C4663 /* MLServiceViewController.xib */,
-
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -4040,6 +4042,7 @@
 				7ACFA5FD1D1125AF00987A03 /* MLPersonOrderListViewController.m in Sources */,
 				2CBAD64D1CA3B3AC0044601B /* MLBagZengpinTableViewCell.m in Sources */,
 				7A272EBA1D1A265500242F24 /* MLReturnsDetailHeadCell.m in Sources */,
+				7A01A8451D24C1050067F4E9 /* MLShopInfoViewController.m in Sources */,
 				687704241CD34E4A0008ED46 /* SBJsonParser.m in Sources */,
 				3A633B4E1C9EA36E00C11FD5 /* SSKeychain.m in Sources */,
 				3C0556851D23AA820092D140 /* ZLCollectionViewCell.m in Sources */,
