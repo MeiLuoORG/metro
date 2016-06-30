@@ -223,7 +223,7 @@ static BOOL selectPP = NO;
         NSLog(@"result=111=%@",result);
         
         
-        if (result) {
+        if (result && result.count > 0) {
             for (NSDictionary *temp in result) {
                 RADataObject *itemAll = [RADataObject dataObjectWithIdstr:temp[@"id"] name:temp[@"name"] children:nil];
                 itemAll.level = @0;
@@ -361,6 +361,7 @@ static BOOL selectPP = NO;
             [array addObject:priceDic7];
             
         }
+        
         NSLog(@"array === %@",array);
         if (array && array.count>0) {
             int i=1;
@@ -453,7 +454,7 @@ static BOOL selectPP = NO;
         
         NSLog(@"result=222=%@",result);
 
-        if (result) {
+        if (result && result.count > 0) {
             int i=0;
             for (NSDictionary *temp in result) {
                 NSDictionary *toptemp = temp[@"top"];

@@ -86,9 +86,17 @@
     
     [MLHttpManager get:url params:nil m:@"product" s:@"detail_footprint" success:^(id responseObject) {
         NSLog(@"请求成功 ==== %@",responseObject);
+        
+        __weak typeof(self) weakself = self;
+        
         if ([responseObject[@"data"][@"footprint_info"] isKindOfClass:[NSString class]]) {
             
             [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
+            self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+                weakself.tabBarController.selectedIndex = 1;
+                [weakself.navigationController popToRootViewControllerAnimated:YES];
+                
+            };
             
         }else{
             
@@ -106,6 +114,8 @@
                 [self.tableView reloadData];
                 [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
                 self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+                    weakself.tabBarController.selectedIndex = 1;
+                    [weakself.navigationController popToRootViewControllerAnimated:YES];
                     
                 };
             }

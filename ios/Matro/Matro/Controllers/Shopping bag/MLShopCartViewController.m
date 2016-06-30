@@ -160,6 +160,7 @@ static NSInteger pageIndex = 0;
     [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
         [self.collectionView.header endRefreshing];
         NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"result===%@",result);
         if ([[result objectForKey:@"code"] isEqual:@0]) {
             self.shopCart = [MLShopingCartlistModel mj_objectWithKeyValues:result[@"data"][@"cart_list"]];
             [self countAllPrice];
