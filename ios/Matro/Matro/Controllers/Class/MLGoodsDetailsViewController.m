@@ -1339,6 +1339,10 @@
     }
 
 }
+- (IBAction)actDianpu:(id)sender {
+    
+    NSLog(@"进入店铺");
+}
 
 @end
 
