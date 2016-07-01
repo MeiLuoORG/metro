@@ -7,6 +7,8 @@
 //
 
 #import "MLBaseViewController.h"
+#import <JavaScriptCore/JavaScriptCore.h>
+#import "PinPaiZLViewController.h"
 
 @interface MLHomeViewController : MLBaseViewController
 

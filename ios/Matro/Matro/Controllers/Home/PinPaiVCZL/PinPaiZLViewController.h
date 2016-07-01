@@ -23,7 +23,9 @@
 #import "ZLCollectionViewCell.h"
 #import "PinPaiModelZl.h"
 #import "NSString+GONMarkup.h"
-
+#import "HFSServiceClient.h"
+#import "ZhengZePanDuan.h"
+#import "MLGoodsListViewController.h"
 
 @interface PinPaiZLViewController : MLBaseViewController<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource>
 

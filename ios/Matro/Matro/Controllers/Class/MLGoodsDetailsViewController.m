@@ -1,3 +1,4 @@
+
 //
 //  MLGoodsDetailsViewController.m
 //  Matro
@@ -75,6 +76,8 @@
     
     NSDictionary *Searchdic;//根据选的规格遍历出来的商品信息
     
+    NSString *phoneNum;
+    
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;//最底层的SV
 @property (strong, nonatomic) IBOutlet UIPageControl *pagecontrol;
@@ -129,6 +132,20 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *cuxiaoxinxiH;
 @property (weak, nonatomic) IBOutlet UIView *biaotiView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *guigeH;
+
+@property (weak, nonatomic) IBOutlet UIImageView *dianpuimage;
+@property (weak, nonatomic) IBOutlet UILabel *dianpuname;
+@property (weak, nonatomic) IBOutlet UILabel *dianputexing;
+@property (weak, nonatomic) IBOutlet UILabel *miaoshuNum;
+@property (weak, nonatomic) IBOutlet UILabel *fuwuNum;
+@property (weak, nonatomic) IBOutlet UILabel *wuliuNum;
+@property (weak, nonatomic) IBOutlet UILabel *guanzhuNum;
+@property (weak, nonatomic) IBOutlet UILabel *shangpinNum;
+@property (weak, nonatomic) IBOutlet UILabel *dongtaiNum;
+@property (weak, nonatomic) IBOutlet UIView *lianxikefuView;
+@property (weak, nonatomic) IBOutlet UIView *jinrudianpuView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *yonghucaozuoH;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *dianpuH;
 
 
 
@@ -218,7 +235,17 @@
     overView = cover;
     [self.view addSubview:cover];
     
+    self.lianxikefuView.layer.borderWidth = 1.f;
+    self.lianxikefuView.layer.borderColor = RGBA(193, 193, 193, 1).CGColor;
+    self.lianxikefuView.layer.cornerRadius = 4.f;
+    self.lianxikefuView.layer.masksToBounds = YES;
+    self.jinrudianpuView.layer.borderWidth = 1.f;
+    self.jinrudianpuView.layer.borderColor = RGBA(193, 193, 193, 1).CGColor;
+    self.jinrudianpuView.layer.cornerRadius = 4.f;
+    self.jinrudianpuView.layer.masksToBounds = YES;
+    
     [self loadDateProDetail];
+    [self loaddataDianpu];
 
     [self guessYLike];
 
@@ -660,6 +687,70 @@
         rightbtn.enabled = NO;
         self.kuncuntisLabel.text = @"售罄";
     }
+    
+}
+
+-(void)loaddataDianpu{
+    
+      //  http://bbctest.matrojp.com/api.php?m=shop&s=shop&uid=20505
+    
+    NSString *dpid = self.paramDic[@"userid"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@",@"http://bbctest.matrojp.com",dpid];
+    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"responseObject===%@",responseObject);
+        if ([responseObject[@"code"] isEqual:@0]) {
+            NSDictionary *shop_info = responseObject[@"data"][@"shop_info"];
+            NSString *logo = shop_info[@"logo"];
+            if (![logo isKindOfClass:[NSNull class]]) {
+                [self.dianpuimage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://bbctest.matrojp.com%@",logo]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+            }else{
+            
+                self.dianpuimage.image = [UIImage imageNamed:@"imageloading"];
+            }
+            NSArray *csarr = shop_info[@"cs"];
+            for (NSDictionary *tempdic in csarr) {
+                NSString *tool = tempdic[@"tool"];
+                NSString *number = tempdic[@"number"];
+                if ([tool isEqualToString:@"4"]) {
+                    phoneNum = number;
+                    break;
+                }
+                
+            }
+    
+            if (![phoneNum isEqualToString:@""]) {
+                self.dianpuH.constant = 210;
+                self.yonghucaozuoH.constant = 44;
+            }else{
+            
+                self.dianpuH.constant = 166;
+                self.yonghucaozuoH.constant = 0;
+            }
+            
+            self.dianpuname.text = shop_info[@"company"];
+            self.dianputexing.text = shop_info[@"main_pro"];
+            NSString  *score_a = shop_info[@"score_a"];
+            NSString *score_b = shop_info[@"score_b"];
+            NSString *score_c = shop_info[@"score_c"];
+            
+            self.miaoshuNum.text = [NSString stringWithFormat:@"%@",score_a];
+            self.fuwuNum.text = [NSString stringWithFormat:@"%@",score_b];
+            self.wuliuNum.text = [NSString stringWithFormat:@"%@",score_c];
+            
+            self.guanzhuNum.text = shop_info[@"shop_collect"];
+            self.shangpinNum.text = shop_info[@"product_num"];
+            self.dongtaiNum.text = shop_info[@"news_num"];
+            
+        }
+        
+       
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:2];
+        
+    }];
     
 }
 
@@ -1336,14 +1427,34 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         
         [alert show];
+        
+        
         return;
     }
 
 }
+
+-(void)showError
+{
+    MLLoginViewController *vc = [[MLLoginViewController alloc]init];
+    vc.isLogin = YES;
+    [self presentViewController:vc animated:YES completion:nil];
+    
+}
+
+
 - (IBAction)actDianpu:(id)sender {
     MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+    
+}
+- (IBAction)actKefu:(id)sender {
+    
+    NSLog(@"联系客服%@",phoneNum);
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@",phoneNum]];
+    [[UIApplication sharedApplication] openURL:url];
     
 }
 

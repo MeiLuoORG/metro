@@ -811,22 +811,24 @@
     if (sender.tag == 104) {
          NSLog(@"3客服");
 
-//        PinPaiZLViewController * VC = [[PinPaiZLViewController alloc]init];
-//        VC.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:VC animated:YES];
-
+        PinPaiZLViewController * VC = [[PinPaiZLViewController alloc]init];
+        VC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:VC animated:YES];
+ 
+/*
         if (!loginid) {
             [self showError];
             return;
         }
         [self hideZLMessageBtnAndSetingBtn];
+ 
        // MLCommitOrderViewController *vc = [[MLCommitOrderViewController alloc]init];
         
         MLServiceViewController *vc = [[MLServiceViewController alloc]init];
          
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:NO];
-
+*/
         
     }
     if (sender.tag == 105) {
@@ -852,6 +854,7 @@
         if (_isRenZhengQequestSuc) {
             ShiMingViewController * shiMingVC = [[ShiMingViewController alloc]init];
             shiMingVC.hidesBottomBarWhenPushed = YES;
+            NSLog(@"是否认证：%d",_isRenZheng);
             shiMingVC.isRenZheng = _isRenZheng;
             if (_isRenZheng) {
                 shiMingVC.pay_id = _pay_id;
@@ -859,15 +862,12 @@
                 shiMingVC.userName = _real_name;
                 shiMingVC.userShenFenCardID = _identity_card;
                 shiMingVC.shenFenImageURLStr = _identity_picurl;
-                
+                 NSLog(@"姓名为：%@,身份证号为：%@,图片地址：%@",shiMingVC.userName,shiMingVC.userShenFenCardID,shiMingVC.shenFenImageURLStr);
             }
             
             [self.navigationController pushViewController:shiMingVC animated:YES];
         }
 
-        
-        
-         NSLog(@"5实名认证");
     }
 
 }
@@ -881,25 +881,36 @@
         NSLog(@"查询实名认证：%@",responseObject);
         NSDictionary * dataDic = responseObject[@"data"];
         //identity_list
-        NSDictionary * identity_listDic = dataDic[@"identity_list"];
+
+            NSDictionary * identity_listDic = dataDic[@"identity_list"];
         
-        _iS_identity_verify = [identity_listDic[@"identity_verify"] boolValue];
+            
+            
         
-        if (_iS_identity_verify) {
-            
-            _headView.renZhengLabel.text = @"已认证";
-            _isRenZheng = YES;
-            
-            _pay_id = dataDic[@"pay_id"];
-            _pay_mobile = dataDic[@"pay_mobile"];
-            _real_name = dataDic[@"real_name"];
-            _identity_card = dataDic[@"identity_card"];
-            _identity_picurl = dataDic[@"identity_pic"];
+            NSString * trueStr = identity_listDic[@"identity_verify"];
+        if ([trueStr isEqualToString:@"true"]) {
+            _iS_identity_verify = YES;
         }
         else{
-            _isRenZheng = NO;
-            _headView.renZhengLabel.text = @"未认证";
+            _iS_identity_verify = YES;
         }
+            
+            if (_iS_identity_verify) {
+                
+                _headView.renZhengLabel.text = @"已认证";
+                _isRenZheng = YES;
+                
+                _pay_id = identity_listDic[@"pay_id"];
+                _pay_mobile = identity_listDic[@"pay_mobile"];
+                _real_name = identity_listDic[@"real_name"];
+                _identity_card = identity_listDic[@"identity_card"];
+                _identity_picurl = identity_listDic[@"identity_pic"];
+            }
+            else{
+                _isRenZheng = NO;
+                _headView.renZhengLabel.text = @"未认证";
+            }
+
         _isRenZhengQequestSuc = YES;
     } failure:^(NSError *error) {
         _isRenZhengQequestSuc = NO;

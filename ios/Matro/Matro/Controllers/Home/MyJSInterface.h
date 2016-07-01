@@ -1,4 +1,4 @@
-//
+///Users/lang/Documents/美罗/项目工程/GitHub/metro/metro/ios/Matro/Matro/Controllers
 //  MyJSInterface.h
 //  EasyJSWebViewSample
 //
@@ -22,6 +22,9 @@
 -(void)navigationProduct:(NSString*)param productid:(NSString*)productId;
 //- (void) testWithFuncParam: (EasyJSDataFunction*) param;
 //- (void) testWithFuncParam2: (EasyJSDataFunction*) param;
+//zhoulu
+- (void) homeChannerClick:(NSString *)param;
+
 
 - (NSString*) testWithRet;
 @property (assign,nonatomic,readwrite)id <JSInterfaceDelegate>delegate;

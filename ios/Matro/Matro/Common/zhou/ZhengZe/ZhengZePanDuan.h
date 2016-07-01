@@ -23,4 +23,6 @@
 + (BOOL)checkURL : (NSString *) url;
 #pragma 6-20位数字或字符组合
 + (BOOL)checkPasswordMeiLuo:(NSString *)password;
+#pragma 英文字母
++ (BOOL)checkEnglishZiMu:(NSString *)string;
 @end

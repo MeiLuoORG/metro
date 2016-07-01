@@ -134,7 +134,7 @@ static char  BlankPageViewKey;
             break;
         case EaseBlankPageTypeLiuLan://空浏览
         {
-            imageName = @"icon_shouhou_kong";
+            imageName = @"icon_zuji_kong";
             tipStr = @"您还没有浏览的商品";
             
         }

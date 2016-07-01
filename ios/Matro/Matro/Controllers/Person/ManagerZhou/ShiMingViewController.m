@@ -39,8 +39,8 @@
     
     //[self.view addSubview:navTop];
     
-    _isRenZheng = NO;
-    if (_isRenZheng) {
+
+    if (self.isRenZheng) {
         [self createView1];
     }
     else{
@@ -65,7 +65,13 @@
 - (void)viewWillAppear:(BOOL)animated{
     
 
-
+    if (self.isRenZheng) {
+        
+        _xingMingLabel.text = self.userName;
+        _shenFenCardId.text = self.userShenFenCardID;
+        //[_shangChuanButton sd_setImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@""]];
+        [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal];
+    }
 
 }
 
@@ -161,6 +167,7 @@
     _xingMingLabel = [[UITextField alloc]initWithFrame:CGRectMake(100, CGRectGetMaxY(spView.frame)+1, SIZE_WIDTH-90-19, 41)];
     _xingMingLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
     _xingMingLabel.enabled = NO;
+    
     [self.view addSubview:_xingMingLabel];
     UIView * spView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 83, SIZE_WIDTH, 1)];
     spView2.backgroundColor = [HFSUtility hexStringToColor:Main_spelBackgroundColor];
@@ -172,7 +179,9 @@
     shenLabel.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:shenLabel];
     _shenFenCardId = [[UITextField alloc]initWithFrame:CGRectMake(100, CGRectGetMaxY(spView2.frame)+1, SIZE_WIDTH-90-19, 41)];
+    _shenFenCardId.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
     _shenFenCardId.enabled = NO;
+    
     [self.view addSubview:_shenFenCardId];
     
     //4
@@ -185,10 +194,10 @@
     [self.view addSubview:label];
     
     _shangChuanButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_shangChuanButton setBackgroundImage:[UIImage imageNamed:@"jiahao"] forState:UIControlStateNormal];
+    //[_shangChuanButton setBackgroundImage:[UIImage imageNamed:@"jiahao"] forState:UIControlStateNormal];
     [_shangChuanButton setFrame:CGRectMake(22, CGRectGetMaxY(label.frame)+20, 80, 80)];
     _shangChuanButton.enabled = NO;
-    [_shangChuanButton sd_setImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
+    
     [self.view addSubview:_shangChuanButton];
 
     

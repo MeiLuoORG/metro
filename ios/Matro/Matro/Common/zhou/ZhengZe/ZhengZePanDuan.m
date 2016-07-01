@@ -10,6 +10,15 @@
 
 @implementation ZhengZePanDuan
 
+#pragma 英文字符
++ (BOOL)checkEnglishZiMu:(NSString *)string{
+    
+    
+    NSString *pattern = @"^[A-Za-z]+$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:string];
+    return isMatch;
+}
 
 #pragma 正则匹配手机号
 + (BOOL)checkTelNumber:(NSString *) telNumber
