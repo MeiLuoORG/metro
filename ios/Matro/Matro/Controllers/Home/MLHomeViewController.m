@@ -30,7 +30,13 @@
 #import "MLReturnsDetailViewController.h"
 #import "MLGoodsDetailsViewController.h"
 
-@interface MLHomeViewController ()<UISearchBarDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,JSInterfaceDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate>//用于处理采集信息的代理
+@protocol HomeJSObjectDelegate <JSExport>
+
+- (void)fourButtonAction:(NSString *)index;
+
+@end
+//JSInterfaceDelegate
+@interface MLHomeViewController ()<UISearchBarDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,HomeJSObjectDelegate,UIScrollViewDelegate>//用于处理采集信息的代理
 {
     AVCaptureSession * session;//输入输出的中间桥梁
     NSString *version;
@@ -38,7 +44,9 @@
     NSString *downlink;
 }
 
-@property (strong, nonatomic) IBOutlet EasyJSWebView *webView;
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
+//@property (strong, nonatomic) UIWebView * webView;
+@property(nonatomic,strong)JSContext *contextjs;
 //搜索
 @property (strong, nonatomic) UISearchBar *searchBar;
 
@@ -124,14 +132,22 @@
     
     [_loadingBGView removeFromSuperview];
     
+    /*
     _interface = [MyJSInterface new];
     
     _interface.delegate = self;
-    [self.webView addJavascriptInterfaces:_interface WithName:@"_native"];
+    */
+    //[self.webView addJavascriptInterfaces:_interface WithName:@"_native"];
+    //self.webView.delegate = self;
     NSString *path = [[DOCUMENT_FOLDER_PATH stringByAppendingPathComponent:ZIP_FILE_NAME] stringByAppendingPathComponent:@"home_html/index.html"];
     NSURL *url = [NSURL fileURLWithPath:path];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3000];
+    
+    NSURL * url2 = [NSURL URLWithString:HomeHTML_URLString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url2 cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3000];
+    self.webView.delegate = self;
+    self.webView.scrollView.delegate = self;
     [self.webView loadRequest:request];
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushMessage:) name:@"PUSHMESSAGE" object:nil];
     AppDelegate *del = [UIApplication sharedApplication].delegate;
     if (del.pushMessage) {
@@ -139,6 +155,25 @@
     }
     
 }
+
+#pragma mark UIScrollView代理方法
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    NSLog(@"scrollViewDidScroll方法");
+}
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView{
+
+    NSLog(@"scrollViewDidZoom");
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    NSLog(@"开始拖拽");
+}
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
+    NSLog(@"scrollViewDidScrollToTop");
+}
+
+
+#pragma end UIScrollView代理方法结束
 
 
 - (IBAction)actCancel:(id)sender {
@@ -232,10 +267,52 @@
     }
 }
 
-
-
-
 #pragma js点击回调
+
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    NSLog(@"网页开始加载");
+}
+
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    self.contextjs = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    self.contextjs[@"_native"] = self;
+    self.contextjs.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
+        context.exception = exceptionValue;
+        NSLog(@"JavaScript异常信息：%@", exceptionValue);
+    };
+    [_loadingSpinner stopAnimating];
+    self.loadingBGView.hidden = YES;
+    [_hud hide:YES];
+}
+
+
+- (void)storeCollectClick:(BOOL)type{
+    NSLog(@"是否执行了 %@",type?@"执行":@"未执行");
+}
+
+
+- (void)fourButtonAction:(NSString *)index{
+    
+     [self performSelectorOnMainThread:@selector(pushToGoodsDetail:) withObject:index waitUntilDone:YES];
+    
+}
+
+- (void)pushToGoodsDetail:(NSString *)index{
+
+    NSLog(@"点击了品牌馆:%@",index);
+    if ([index isEqualToString:@"60"]) {
+        PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
+        pinVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:pinVC animated:YES];
+    }
+
+
+}
+
+
+/*
 - (void)homeAction:(NSDictionary*)paramdic
 {
     MLGoodsDetailsViewController *vc = [MLGoodsDetailsViewController new];
@@ -245,6 +322,10 @@
     
 }
 
+- (void)homeChannerClick:(NSDictionary *)paramdic{
+
+    NSLog(@"点击了");
+}
 
 - (void)navFloorAction:(NSString *)params{
     MLGoodsListViewController *vc = [[MLGoodsListViewController alloc]init];
@@ -253,7 +334,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-
+*/
 
 
 - (void)didReceiveMemoryWarning {
@@ -405,18 +486,18 @@
 
 
 #pragma mark- UIWebViewDelegate
+
+/*
 - (void) webViewDidStartLoad:(UIWebView *)webView
 {
     NSLog(@"webViewDidStartLoad");
 }
 - (void) webViewDidFinishLoad:(UIWebView *)webView
 {
-    [_loadingSpinner stopAnimating];
-    self.loadingBGView.hidden = YES;
-    
-    
-    [_hud hide:YES];
+ 
 }
+*/
+
 - (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     self.loadingBGView.hidden = YES;

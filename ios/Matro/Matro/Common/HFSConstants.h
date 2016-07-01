@@ -183,6 +183,9 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 
 //品牌馆
 #define PinPaiGuanList_URLString @"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list"
+//首页地址
+//http://61.155.212.146:3000
+#define HomeHTML_URLString @"http://61.155.212.146:3000"
 
 /*zhouluEND*/
 

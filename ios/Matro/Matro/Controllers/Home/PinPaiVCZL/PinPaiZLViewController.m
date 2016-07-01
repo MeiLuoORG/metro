@@ -17,14 +17,18 @@
     UICollectionView * _collectionView;
     
     UITableView * _tableView;
-    
+    //collectionView
     NSMutableArray * _pinPaiARR;
     
     UIButton * _indexButton;
     
+    //tableview
     NSMutableDictionary * _sectionDic;
     NSMutableArray * _sectionPinARR;
     NSMutableArray * _allKeysARR;
+    NSMutableArray * _zongARR;
+    
+    int _currentPageIndex;
 }
 
 - (void)viewDidLoad {
@@ -33,6 +37,7 @@
     _sectionDic = [[NSMutableDictionary alloc]init];
     _sectionPinARR = [[NSMutableArray alloc]init];
     _allKeysARR = [[NSMutableArray alloc]init];
+    _zongARR = [[NSMutableArray alloc]init];
     
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view from its nib.
@@ -59,7 +64,7 @@
     UIButton * genDuoBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     genDuoBtn.frame = CGRectMake(0, 0, 22, 22);
     [genDuoBtn setImage:[UIImage imageNamed:@"gengduozl"] forState:UIControlStateNormal];
-    genDuoBtn.imageEdgeInsets = UIEdgeInsetsMake(7, 0, 7, 0);
+    genDuoBtn.imageEdgeInsets = UIEdgeInsetsMake(7, 0, 9, 0);
     [genDuoBtn addTarget:self action:@selector(gengDuoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -74,27 +79,15 @@
 
     
     [self createCollecttionView];
-    //[self createTableViews];
+    [self createTableViews];
     [self loadSearchButton];
-    [self loadData];
+    [self loadDataWithPageIndex:1 withPagesize:20];
 }
 
-/*
- //首字母排序
- NSArray *keysArray = [dict allKeys];
- NSArray *resultArray = [keysArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
- 
- return [obj1 compare:obj2 options:NSNumericSearch];
- }];
- for (NSString *categoryId in resultArray) {
- 
- ⋯⋯
- NSLog(@"[dict objectForKey:categoryId] === %@",[dict objectForKey:categoryId]);
- }
- 
- */
+
 
 - (void)createCollecttionView{
+    _currentPageIndex = 1;
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;//滑动方向
     layout.itemSize = CGSizeMake(SIZE_WIDTH /3.0f, SIZE_WIDTH /3.0f);
@@ -108,16 +101,27 @@
     [self.view addSubview:_collectionView];
     
     _collectionView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    
+        [self headerShuaXin];
+    }];
+    _collectionView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         
     }];
-    _collectionView.footer = [MJRefreshFooter footerWithRefreshingBlock:^{
-        
-    }];
+//close-2
+}
 
+- (void)headerShuaXin{
+    _currentPageIndex = 1;
+    [_pinPaiARR removeAllObjects];
+    [self loadDataWithPageIndex:1 withPagesize:20];
+}
+- (void)footerShuaXin{
+    _currentPageIndex++;
+    [self loadDataWithPageIndex:_currentPageIndex withPagesize:20];
 }
 
 - (void)createTableViews{
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-64) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(SIZE_WIDTH, 0, SIZE_WIDTH, SIZE_HEIGHT-64) style:UITableViewStyleGrouped];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.showsVerticalScrollIndicator = NO;
@@ -125,17 +129,130 @@
     //_tableView.backgroundColor = [HFSUtility hexStringToColor:@"260e00"];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    _tableView.bounces = NO;
+    //改变索引的颜色
+    _tableView.sectionIndexColor = [UIColor whiteColor];
+    //改变索引选中的背景颜色
+    _tableView.sectionIndexBackgroundColor = [UIColor colorWithRed:38.0/255.0f green:14.0f/255.0f blue:0.0 alpha:0.95];
+    _tableView.sectionIndexTrackingBackgroundColor = [UIColor clearColor];
     [self.view addSubview:_tableView];
-
+    //加载数据
+    [self loadTableViewData];
+   
 }
+//加载 tableView的 数据
+- (void)loadTableViewData{
+    
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=0",1,20000];
+    [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+
+        
+        NSDictionary * result = (NSDictionary *)responseObject;
+        NSLog(@"请求品牌馆：%@",result);
+        NSDictionary * dataDic = result[@"data"];
+        NSString * sumStr = dataDic[@"sum"];
+        if (![sumStr isEqualToString:@"0"]) {
+            NSArray * brandARR = dataDic[@"brand"];
+            if (brandARR.count > 0 ) {
+                for (NSDictionary * brandDic in brandARR) {
+                    //[PinPaiModelZl modelWithDictionary:brandDic error:nil];
+                    PinPaiModelZl * pinPaiModel = [[PinPaiModelZl alloc]init];
+                    pinPaiModel.id = brandDic[@"id"];
+                    pinPaiModel.char_index = brandDic[@"char_index"];
+                    pinPaiModel.name = brandDic[@"name"];
+                    pinPaiModel.ishot = brandDic[@"ishot"];
+                    pinPaiModel.logo = brandDic[@"logo"];
+                    
+                    [_zongARR addObject:pinPaiModel];
+                    
+                }
+                //数组排序
+                [self arrPaiXuWith:_zongARR];
+            }
+        }
+        else{
+            _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"没有品牌信息";
+            [_hud hide:YES afterDelay:2];
+            
+        }
+        
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+        [self.view addSubview:_hud];
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = REQUEST_ERROR_ZL;
+        [_hud hide:YES afterDelay:2];
+    }];
+
+    
+}
+//数组排序
+- (void)arrPaiXuWith:(NSMutableArray *)zongArr{
+
+    NSMutableArray * teshuArr = [[NSMutableArray alloc]init];
+    for (PinPaiModelZl * model in zongArr) {
+        model.char_index = model.char_index.uppercaseString;
+        NSString * char_index = model.char_index;
+        //数组是否包含某一对象
+        //[dataArray indexOfObject:object] != NSNotFound
+        if (![ZhengZePanDuan checkEnglishZiMu:char_index]) {
+            [teshuArr addObject:model];
+            [_sectionDic setObject:teshuArr forKey:@"#"];
+        }
+        else{
+            if ([_sectionDic.allKeys containsObject:char_index]) {
+                NSMutableArray * arr2 = _sectionDic[char_index];
+                [arr2 addObject:model];
+            }
+            else{
+                    NSMutableArray * arr = [[NSMutableArray alloc]init];
+                    [arr addObject:model];
+                    [_sectionDic setObject:arr forKey:char_index];
+
+            }
+
+        
+        }
+        
+        
+        
+    }
+    
+    //首字母排序
+    NSArray *keysArray = [_sectionDic allKeys];
+    _allKeysARR = [keysArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        return [obj1 compare:obj2 options:NSNumericSearch];
+    }];
+    for (NSString *categoryId in _allKeysARR) {
+        NSLog(@"字母排序结果：%@",categoryId);
+        //NSLog(@"[dict objectForKey:categoryId] === %@",[_sectionDic objectForKey:categoryId]);
+    }
+    
+    [_tableView reloadData];
+}
+
+
 
 #pragma mark TableViewDelegate 代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    NSString * key = [_allKeysARR objectAtIndex:section];
+    NSArray * arr = _sectionDic[key];
+    NSInteger count = arr.count;
+    return count;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return _allKeysARR.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
@@ -162,6 +279,15 @@
     NSString *attr = [NSString stringWithFormat:@"<font  size = \"13\">合计：<color value = \"#FF4E26\">￥%.2f</><font  size = \"11\"><color value = \"#999999\"> 共%li件，不含运费</></></>",allPrice,(long)goodsCount];
     cartFoot.detailLabel.attributedText = [attr createAttributedString];
     */
+    cell.textLabel.textColor = [UIColor whiteColor];
+    
+    NSString * key = [_allKeysARR objectAtIndex:indexPath.section];
+    NSArray * arr = _sectionDic[key];
+    PinPaiModelZl * model = [arr objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = model.name;
+    
+    
     cell.backgroundColor = [UIColor colorWithRed:38.0/255.0f green:14.0f/255.0f blue:0.0 alpha:0.95];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -177,6 +303,19 @@
     lael.font = [UIFont systemFontOfSize:24.0f];
     lael.textColor = [UIColor whiteColor];
     [bkView addSubview:lael];
+    
+    lael.text = [_allKeysARR objectAtIndex:section];
+    
+    
+    
+    if (section == 0) {
+        UIButton * closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [closeBtn setFrame:CGRectMake(SIZE_WIDTH-48, 8, 35, 35)];
+        [closeBtn setImage:[UIImage imageNamed:@"close-2"] forState:UIControlStateNormal];
+        [closeBtn addTarget:self action:@selector(closeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [bkView addSubview:closeBtn];
+    }
+    
     return bkView;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -184,6 +323,30 @@
     view.backgroundColor = [UIColor colorWithRed:38.0/255.0f green:14.0f/255.0f blue:0.0 alpha:0.95];
     
     return view;
+}
+
+//返回索引数组
+-(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return _allKeysARR;
+}
+
+//响应点击索引时的委托方法
+-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    NSInteger count = 0;
+    
+    NSLog(@"%@-%ld",title,index);
+    
+    for(NSString *character in _allKeysARR)
+    {
+        if([character isEqualToString:title])
+        {
+            return count;
+        }
+        count ++;
+    }
+    return 0;
 }
 
 #pragma end TableViewDelegate  代理犯法结束
@@ -204,16 +367,37 @@
 }
 
 - (void)searchButtonAction:(UIButton *)sender{
-
-
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        _tableView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-64);
+    } completion:^(BOOL finished) {
+        _indexButton.hidden = YES;
+    }];
 
 }
 
-- (void)loadData{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+- (void)closeButtonAction:(UIButton *)sender{
     
-    NSDictionary * ret = @{@"method":@"list"};
-    [MLHttpManager get:PinPaiGuanList_URLString params:ret m:@"brand" s:@"brand" success:^(id responseObject) {
+    [UIView animateWithDuration:0.3f animations:^{
+        _tableView.frame  = CGRectMake(SIZE_WIDTH, 0, SIZE_WIDTH, SIZE_HEIGHT-64);
+    } completion:^(BOOL finished) {
+        
+        _indexButton.hidden = NO;
+    }];
+    //[_zongARR removeAllObjects];
+}
+
+
+
+- (void)loadDataWithPageIndex:(int) pageIndex withPagesize:(int) pageSize{
+    //http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list&pageindex=1&pagesize=20
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=1",pageIndex,pageSize];
+    [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [_collectionView.header endRefreshing];
+        [_collectionView.footer endRefreshing];
+        
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"请求品牌馆：%@",result);
         NSDictionary * dataDic = result[@"data"];
@@ -234,7 +418,7 @@
                 }
                 _indexButton.hidden = NO;
                 [_collectionView reloadData];
-                [_tableView reloadData];
+                
             }
             
             
@@ -246,11 +430,12 @@
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"没有品牌信息";
             [_hud hide:YES afterDelay:2];
-        
+            
         }
         
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    } failure:^(NSError *error) {
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
@@ -258,10 +443,28 @@
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
-        
     }];
+    /*
+    [[HFSServiceClient sharedClient] POST:BindCard_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *result = (NSDictionary *)responseObject;
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = REQUEST_ERROR_ZL;
+        [_hud hide:YES afterDelay:2];
+    }];
+*/
+}
+
+- (NSString *)urlWithPageindex:(int)index withPageSize:(int)size{
+    NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d",index,size];
+    return urlStr;
 
 }
+
 
 - (void)shareButtonAction:(UIButton *)sender{
 

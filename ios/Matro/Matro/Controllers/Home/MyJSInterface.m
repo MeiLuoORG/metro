@@ -58,11 +58,6 @@
 
         [_delegate homeAction:parmdic];
     }
-   
-    
-    
-
-
 }
 
 
@@ -95,5 +90,14 @@
 	NSString* ret = @"js";
 	return ret;
 }
+
+
+//zhoulu
+- (void)homeChannerClick:(NSString *)param{
+    NSLog(@"nslog点击了");
+
+}
+
+
 
 @end
