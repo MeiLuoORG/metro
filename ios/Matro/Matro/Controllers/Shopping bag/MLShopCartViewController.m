@@ -32,6 +32,7 @@
 #import "MLShopCartFootView.h"
 
 #import "MLHttpManager.h"
+#import "LingQuYouHuiQuanView.h"
 
 @interface MLShopCartViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CPStepperDelegate>
 
@@ -40,7 +41,7 @@
 @property (nonatomic,strong)UIView *loginView;
 @property (nonatomic,strong)MLShopingCartlistModel *shopCart;
 @property (nonatomic,strong)MLShopCartFootView *footView;
-
+@property (nonatomic,strong)LingQuYouHuiQuanView *lingQuQuanView;
 
 @end
 
@@ -133,6 +134,43 @@ static NSInteger pageIndex = 0;
     self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self getDataSource];
     }];
+    
+    [self ctreateYOUHUIQuanView];
+    
+}
+
+
+
+
+#pragma end mark
+
+
+//领取优惠券视图
+- (void)ctreateYOUHUIQuanView{
+    
+    __weak typeof (self) weakSelf = self;
+    self.lingQuQuanView = [[LingQuYouHuiQuanView alloc]initWithFrame:CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT)];
+    self.lingQuQuanView.quanARR = [[NSMutableArray alloc]init];
+    [self.lingQuQuanView createView];
+    [self.lingQuQuanView setHideBlockAction:^(BOOL success) {
+        //查询 用户已经领取的优惠券
+//        [weakSelf chaXunYiLingQuQuanList];
+        
+        [weakSelf.tabBarController.tabBar setHidden:NO];
+        [UIView animateWithDuration:0.2f animations:^{
+            weakSelf.lingQuQuanView.frame = CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT);
+        } completion:^(BOOL finished) {
+            [weakSelf.lingQuQuanView.quanARR removeAllObjects];
+        }];
+        
+    }];
+    [self.lingQuQuanView selectQuanBlockAction:^(BOOL success, YouHuiQuanModel *ret) {
+        if (ret) {
+            
+        }
+    }];
+    
+    [self.view addSubview:self.lingQuQuanView];
     
     
 }
@@ -293,10 +331,6 @@ static NSInteger pageIndex = 0;
             if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
                 return CGSizeMake(MAIN_SCREEN_WIDTH, 40);
             }
-            MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
-            if (model.shipfree_val > 0) {
-                return CGSizeMake(MAIN_SCREEN_WIDTH, 138);//没有包邮情况
-            }
             return CGSizeMake(MAIN_SCREEN_WIDTH, 117);
         }
     
@@ -354,12 +388,32 @@ static NSInteger pageIndex = 0;
         cartHead.cartHeadBlock = ^(BOOL isSelect){
             [self countAllPrice];
         };
-        
-        
+        __weak typeof(self) weakself = self;
+        cartHead.youHuiBlock = ^(){ //展示优惠券列表
+            
+            [self.lingQuQuanView.quanARR removeAllObjects];
+            //创建数据数组
+            for (NSDictionary * quanDic in model.dpyhq) {
+                YouHuiQuanModel * model = [[YouHuiQuanModel alloc]init];
+                model.startTime = quanDic[@"YXQ_B"];
+                model.endTime = quanDic[@"YXQ_E"];
+                model.mingChengStr = quanDic[@"YHQMC"];
+                model.flag = quanDic[@"FLAG"];
+                model.jinE = quanDic[@"JE"];
+                model.quanBH = quanDic[@"JLBH"];
+                model.quanID = quanDic[@"YHQID"];
+                model.quanType = quanDic[@"CXLX"];
+                [self.lingQuQuanView.quanARR addObject:model];
+            }
+            [self.lingQuQuanView.tablieview reloadData];
+            [UIView animateWithDuration:0.2f animations:^{
+                weakself.lingQuQuanView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT);
+            } completion:^(BOOL finished) {
+                [weakself.tabBarController.tabBar setHidden:YES];
+            }];
+        };
         return cartHead;
     }
-    
-    
     return nil;
     
 }

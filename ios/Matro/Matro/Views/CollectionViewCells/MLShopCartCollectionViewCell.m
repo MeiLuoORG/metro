@@ -38,6 +38,7 @@
     [rightRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
     [self addGestureRecognizer:rightRecognizer];
     
+    
 }
 
 
@@ -48,7 +49,6 @@
             [UIView animateWithDuration:0.2 animations:^{
                 self.countL.constant = 8 + 80;
                 self.checkBoxL.constant = 16 - 80;
-                self.actL.constant = 39 - 80;
 
             } completion:^(BOOL finished) {
                 _showDel = YES;
@@ -60,7 +60,6 @@
         [UIView animateWithDuration:0.2 animations:^{
             self.countL.constant = 8;
             self.checkBoxL.constant = 16;
-            self.actL.constant = 39;
         } completion:^(BOOL finished) {
             _showDel = NO;
         }];
@@ -72,10 +71,13 @@
     if (_prolistModel != prolistModel) {
         _prolistModel = prolistModel;
         self.showDel = NO;
+        self.countL.constant = 8;
+        self.checkBoxL.constant = 16;
         [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic]];
         self.goodName.text = _prolistModel.pname;
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.pro_price];
         self.checkBox.cartSelected = (_prolistModel.is_check == 1);
+        self.manjianLabel.hidden = !(_prolistModel.mjtitle.length > 0);
         
         [self.countField setTextValue:_prolistModel.num];
         

@@ -155,7 +155,10 @@
             switch (self.orderDetail.status) {
                 case OrderStatusYishanchu:
                 {
-                    self.footView.footerType = FooterTypeJiaoyiguanbi;
+                    self.footView.hidden = YES;
+                    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.right.top.bottom.equalTo(self.view);
+                    }];
                 }
                     break;
                     
@@ -210,7 +213,6 @@
                     }];
                 }
                     break;
-                    
                     
                 default:
                     self.footView.footerType = FooterTypeQitazhuangtai;

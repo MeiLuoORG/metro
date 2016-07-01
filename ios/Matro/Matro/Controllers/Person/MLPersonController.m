@@ -509,7 +509,6 @@
                 model.quanBH = quanDic[@"JLBH"];
                 model.quanID = quanDic[@"YHQID"];
                 model.quanType = quanDic[@"CXLX"];
-                
                 [self.lingQuQuanView.quanARR addObject:model];
             }
         }

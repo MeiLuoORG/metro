@@ -10,7 +10,6 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "HFSConstants.h"
 #import "MLGoodsDetailsViewController.h"
-#import "MBProgressHUD+Add.h"
 
 @protocol JSObjectDelegate <JSExport>
 - (void)navigationStoreProduct:(NSString *)productId;
@@ -28,6 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
+    self.title = @"店铺详情";
     _webView = ({
         UIWebView *webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
         webView.delegate = self;
@@ -40,15 +42,17 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
 }
 
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
     self.context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     self.context[@"_native"] = self;
+//    self.context[@"storeProductClick"] = ^(NSString *productid,NSString *type){
+//        NSLog(@"%@   %@",productid,type);
+//    };
     self.context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
         context.exception = exceptionValue;
         NSLog(@"异常信息：%@", exceptionValue);
@@ -58,14 +62,22 @@
 
 
 - (void)navigationStoreProduct:(NSString *)productId{
+    [self performSelectorOnMainThread:@selector(pushToGoodsDetail:) withObject:productId waitUntilDone:YES];
+}
+
+- (void)storeProductClick:(NSString *)productId{
+    NSLog(@"%@",productId);
+}
+
+
+
+- (void)pushToGoodsDetail:(NSString *)productId{
     MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
     NSDictionary *params = @{@"id":productId?:@""};
     vc.paramDic = params;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
-
-
 
 
 @end

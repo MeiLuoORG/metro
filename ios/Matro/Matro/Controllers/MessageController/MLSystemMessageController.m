@@ -107,6 +107,27 @@
 }
 
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 1) {
+        return YES;
+    }
+    return NO;
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        
+        MLSystemMessageModel *model = [self.messageArray objectAtIndex:indexPath.section];
+        [self deleteMessage:model];
+        [self.messageArray removeObject:model];
+        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+
+    }
+}
+
+
 - (void)getMessages{
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=system_list&cur_page=%li&page_size=10",MATROJP_BASE_URL,self.pageIndex];
     [MLHttpManager get:url params:nil m:@"push" s:@"system_list" success:^(id responseObject) {
@@ -141,6 +162,26 @@
     }];
     
 }
+
+- (void)deleteMessage:(MLSystemMessageModel *)message{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=delete",MATROJP_BASE_URL];
+    NSDictionary *params = @{@"type":@"1",@"delete_id":message.ID?:@""};
+    [MLHttpManager post:url params:params m:@"push" s:@"delete" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            [MBProgressHUD showMessag:@"删除成功" toView:self.view];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+    
+    
+    
+}
+
 
 - (NSMutableArray *)messageArray{
     if (!_messageArray) {

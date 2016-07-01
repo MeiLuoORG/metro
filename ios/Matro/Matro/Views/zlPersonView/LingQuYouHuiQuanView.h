@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "LingQuQuanCell.h"
 #import "CommonHeader.h"
-
 #import "HFSUtility.h"
 #import "VipCardModel.h"
 #import "HFSConstants.h"

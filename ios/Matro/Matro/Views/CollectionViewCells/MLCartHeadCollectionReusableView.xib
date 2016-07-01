@@ -54,6 +54,15 @@
                         <constraint firstAttribute="height" constant="1" id="q44-6i-g6S"/>
                     </constraints>
                 </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KJw-8V-zwI">
+                    <rect key="frame" x="258" y="11" width="46" height="30"/>
+                    <state key="normal" title="优惠券">
+                        <color key="titleColor" red="0.68235294120000001" green="0.5568627451" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="youhuiAction:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="M1g-lX-XiM"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.99215686274509807" green="0.99215686274509807" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -63,6 +72,8 @@
                 <constraint firstItem="AqZ-66-GlY" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="Lq8-sb-g3f"/>
                 <constraint firstAttribute="trailing" secondItem="AqZ-66-GlY" secondAttribute="trailing" id="OWY-fR-Yfl"/>
                 <constraint firstItem="AqZ-66-GlY" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="Pgu-gK-8j6"/>
+                <constraint firstItem="KJw-8V-zwI" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="Y3B-TX-fr7"/>
+                <constraint firstAttribute="trailing" secondItem="KJw-8V-zwI" secondAttribute="trailing" constant="16" id="cJm-Hz-gln"/>
                 <constraint firstItem="lpM-DU-OeP" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="god-Hi-duX"/>
                 <constraint firstItem="bU4-ed-lh2" firstAttribute="leading" secondItem="lpM-DU-OeP" secondAttribute="trailing" constant="8" id="hOb-Uy-7nJ"/>
                 <constraint firstItem="bU4-ed-lh2" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="mCO-RZ-Y3q"/>
@@ -74,6 +85,7 @@
                 <outlet property="arrowBtn" destination="bU4-ed-lh2" id="jVE-iY-RE0"/>
                 <outlet property="checkBox" destination="RK0-G3-lat" id="uaL-uj-LxM"/>
                 <outlet property="titleLabel" destination="lpM-DU-OeP" id="6HC-1m-y1h"/>
+                <outlet property="youhuiBtn" destination="KJw-8V-zwI" id="aR5-Ey-sWf"/>
             </connections>
             <point key="canvasLocation" x="252" y="349.5"/>
         </collectionReusableView>

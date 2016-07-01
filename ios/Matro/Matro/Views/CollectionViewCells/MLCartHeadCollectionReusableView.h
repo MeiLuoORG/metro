@@ -14,6 +14,8 @@
 
 typedef void(^CartHeadBlock)(BOOL);
 
+typedef void(^YouHuiBlock)();
+
 #define kCartHeadCollectionReusableView @"cartHeadCollectionReusableView"
 @interface MLCartHeadCollectionReusableView : UICollectionReusableView
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -21,5 +23,7 @@ typedef void(^CartHeadBlock)(BOOL);
 @property (nonatomic,copy)CartHeadBlock cartHeadBlock;
 @property (nonatomic,strong)MLShopingCartModel *shopingCart;
 @property (weak, nonatomic) IBOutlet UIButton *arrowBtn;
+@property (weak, nonatomic) IBOutlet UIButton *youhuiBtn;
+@property (nonatomic,copy)YouHuiBlock youHuiBlock;
 
 @end

@@ -61,7 +61,6 @@
         [self dismissViewControllerAnimated:NO completion:nil];
     }
     else{
-        
         if (self.alertDoneBlock) {
             self.alertDoneBlock();
         }

@@ -48,7 +48,7 @@
 @property (nonatomic,copy)NSString *sublimit;
 @property (nonatomic,copy)NSString *discount;
 @property (nonatomic,copy)NSString *warehouse_nickname;
-
+@property (nonatomic,strong)NSArray *dpyhq;
 @property (nonatomic,assign)BOOL select_All;
 
 
@@ -111,4 +111,25 @@
 @property (nonatomic,copy)NSString *old_price;
 @property (nonatomic,copy)NSString *summatch_price;
 @property (nonatomic,copy)NSString *taxprice;
+@property (nonatomic,copy)NSString *mjtitle;
+
+
 @end
+
+
+//@interface MLYouhuiQuanModel : NSObject
+//@property (nonatomic,copy)NSString *JLBH;
+//@property (nonatomic,copy)NSString *YHQMC;
+//@property (nonatomic,copy)NSString *YHQID;
+//@property (nonatomic,copy)NSString *JE;
+//@property (nonatomic,copy)NSString *YXQ_B;
+//@property (nonatomic,copy)NSString *YXQ_E;
+//@property (nonatomic,copy)NSString *CXLX;
+//@property (nonatomic,copy)NSString *HYGROUPID;
+//@property (nonatomic,copy)NSString *LQBJ;
+//@property (nonatomic,copy)NSString *FLAG;
+//
+//
+//@end
+
+

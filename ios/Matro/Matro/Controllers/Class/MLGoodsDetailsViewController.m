@@ -37,6 +37,7 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "MLpingjiaViewController.h"
 #import "MLHttpManager.h"
+#import "MLShopInfoViewController.h"
 
 
 
@@ -1340,8 +1341,10 @@
 
 }
 - (IBAction)actDianpu:(id)sender {
+    MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
     
-    NSLog(@"进入店铺");
 }
 
 @end

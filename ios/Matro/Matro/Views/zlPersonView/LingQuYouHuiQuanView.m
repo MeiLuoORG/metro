@@ -59,7 +59,9 @@
 }
 - (void)hideTableView{
     NSLog(@"出发了点击事件");
-    self.hideBlock(YES);
+    if (self.hideBlock) {
+        self.hideBlock(YES);
+    }
     
 }
 

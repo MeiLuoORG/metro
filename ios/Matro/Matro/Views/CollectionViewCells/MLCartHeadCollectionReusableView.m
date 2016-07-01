@@ -23,6 +23,11 @@
         self.cartHeadBlock(btn.cartSelected);
     }
 }
+- (IBAction)youhuiAction:(id)sender {
+    if (self.youHuiBlock) {
+        self.youHuiBlock();
+    }
+}
 
 
 - (void)setShopingCart:(MLShopingCartModel *)shopingCart{
@@ -30,7 +35,7 @@
         _shopingCart = shopingCart;
         self.titleLabel.text = _shopingCart.warehouse_nickname;
         self.checkBox.cartSelected = _shopingCart.select_All;
-        
+        self.youhuiBtn.hidden = !(_shopingCart.dpyhq.count>0);
     }
 }
 

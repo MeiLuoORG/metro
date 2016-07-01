@@ -9,6 +9,8 @@
 #import "MLPushConfigViewController.h"
 #import "MLPushConfigTableViewCell.h"
 #import "HFSConstants.h"
+#import "MLHttpManager.h"
+#import "MBProgressHUD+Add.h"
 
 @interface MLPushConfigViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -41,7 +43,7 @@
         [self.view addSubview:tableView];
         tableView;
     });
-    
+    [self getSettingInfo];
     
 }
 
@@ -68,10 +70,42 @@
 
 
 - (void)clearAction:(id)sender{ //请空全部消息操作
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=delete",MATROJP_BASE_URL];
+    NSDictionary *params = @{@"type":@"-1",@"delete_id":@"-1"};
+    [MLHttpManager post:url params:params m:@"push" s:@"delete" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            [MBProgressHUD showMessag:@"删除成功" toView:self.view];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+    
+    
     
 }
 
-
+- (void)getSettingInfo{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=setting",MATROJP_BASE_URL];
+    [MLHttpManager get:url params:nil m:@"push" s:@"setting" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            
+        }else{
+            
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+    
+}
 
 
 
