@@ -39,7 +39,7 @@
 #import "MLpingjiaViewController.h"
 #import "MLHttpManager.h"
 #import "MLShopInfoViewController.h"
-
+#import "MLHelpCenterDetailController.h"
 
 
 @interface UIImage (SKTagView)
@@ -297,7 +297,7 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&test_phone=13771961207",@"http://bbctest.matrojp.com",_paramDic[@"id"]];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&test_phone=18949151936",@"http://bbctest.matrojp.com",_paramDic[@"id"]];
     //测试链接
    // NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
     
@@ -307,9 +307,9 @@
         NSDictionary *dic = responseObject[@"data"];
         pDic = responseObject[@"data"];
         
-        _titleArray = dic[@"pinfo"][@"porperty_name"];
+        _titleArray = dic[@"pinfo"][@"porperty_name"];//规格名
         
-        NSString *is_collect = dic[@"pinfo"][@"is_collect"];
+        NSString *is_collect = dic[@"pinfo"][@"is_collect"];//是否收藏
         
         if ([is_collect isEqual:@0]) {
             self.shoucangButton.selected = NO;
@@ -325,7 +325,7 @@
         if (_titleArray && _titleArray.count >0) {
             NSArray *porpertyArr = dic[@"pinfo"][@"porperty"];
             [porpertyArray addObjectsFromArray:porpertyArr];
-            
+            int i= 0;
             for (NSDictionary *tempdic in porpertyArr) {
                 
                 NSArray *setmealArr = tempdic[@"setmeal"];
@@ -333,7 +333,18 @@
                    
                     NSDictionary *guigeDic1 = setmealArr[0];
                     NSString *guigestr1 = guigeDic1[@"name"];
-                    [huoyuanArray addObject:guigestr1];
+                    if (i == 0) {
+                        [huoyuanArray addObject:guigestr1];
+                    }else{
+                    for (NSString *searchstr in huoyuanArray) {
+                        if (![guigestr1 isEqualToString:searchstr]) {
+                            [huoyuanArray addObject:guigestr1];
+                        }else{
+                            
+                        }
+                    }
+                    }
+                    i++;
                     
                 }else{
                     
@@ -341,9 +352,25 @@
                     NSDictionary *guigeDic2 = setmealArr[1];
                     NSString *guigestr1 = guigeDic1[@"name"];
                     NSString *guigestr2 = guigeDic2[@"name"];
-               
+                    if (i == 0) {
+                        [huoyuanArray addObject:guigestr1];
+                        
+                    }else{
+                    for (NSString *searchstr in huoyuanArray) {
+                        if (![guigestr1 isEqualToString:searchstr]) {
+                            [huoyuanArray addObject:guigestr1];
+                            
+                        }else{
+                            
+                        }
+                    }
+                    }
+                    i++;
+                    /*
                     [huoyuanArray addObject:guigestr1];
+                     */
                     [jieduanArray addObject:guigestr2];
+                     
                 }
                 
             }
@@ -362,7 +389,7 @@
             [promotionArray addObject:nameStr];
         }
         
-        //①②③④⑤
+        //①②③④⑤⑥⑦⑧⑨⑩
         if (promotionArray.count == 0) {
             self.cuxiaoxinxiLabel.text = @"";
         }else if (promotionArray.count == 1){
@@ -386,6 +413,18 @@
             self.cuxiaoH.constant  = 112;
             self.cuxiaoxinxiH.constant  = 90;
             self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@\n⑤ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3],promotionArray[4]];
+        }else if (promotionArray.count == 6){
+            self.cuxiaoH.constant  = 130;
+            self.cuxiaoxinxiH.constant  = 108;
+            self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@\n⑤ %@\n⑥ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3],promotionArray[4],promotionArray[5]];
+        }else if (promotionArray.count == 7){
+            self.cuxiaoH.constant  = 148;
+            self.cuxiaoxinxiH.constant  = 126;
+            self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@\n⑤ %@\n⑥ %@\n⑦ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3],promotionArray[4],promotionArray[5],promotionArray[6]];
+        }else if (promotionArray.count == 8){
+            self.cuxiaoH.constant  = 166;
+            self.cuxiaoxinxiH.constant  = 144;
+            self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@\n⑤ %@\n⑥ %@\n⑦ %@\n⑧ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3],promotionArray[4],promotionArray[5],promotionArray[6],promotionArray[7]];
         }
         
         NSString *count = dic[@"comment_score"];
@@ -619,6 +658,7 @@
     NSString *stock;
     NSString *safe_stock;
     
+    
     for (NSDictionary *searchDic in porpertyArray) {
         NSMutableArray *guige = [[NSMutableArray alloc] init];
         NSArray *setmealArr = searchDic[@"setmeal"];
@@ -802,6 +842,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//关于税费计算
+- (IBAction)actShuifei:(id)sender {
+    NSString *code = @"35";
+    MLHelpCenterDetailController *vc = [[MLHelpCenterDetailController alloc]init];
+    vc.webCode = code;
+    [self.navigationController  pushViewController:vc animated:YES];
+    
+}
+
+
 #pragma mark 立即购买
 - (IBAction)buyAction:(id)sender {
   
@@ -1224,6 +1275,7 @@
         NSArray *array = [[NSBundle mainBundle]loadNibNamed: CellIdentifier owner:self options:nil];
         cell = [array objectAtIndex:0];
     }
+    
     
     cell.infoTitleLabel.text = [ NSString stringWithFormat:@"%@:", _titleArray[indexPath.row]];
     

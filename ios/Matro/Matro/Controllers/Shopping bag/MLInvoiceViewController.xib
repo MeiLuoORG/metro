@@ -8,8 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MLInvoiceViewController">
             <connections>
                 <outlet property="bukai" destination="bBP-im-R7R" id="aaS-lG-Bdo"/>
+                <outlet property="fapiaoInfo" destination="PBM-M7-ElR" id="EGi-iE-oWU"/>
                 <outlet property="geren" destination="VE7-hu-V4n" id="O79-OS-hef"/>
                 <outlet property="gongsi" destination="2bF-xP-5TB" id="zDW-67-ra1"/>
+                <outlet property="gongsiLabH" destination="4H2-yg-SCg" id="9Sr-HF-zfm"/>
                 <outlet property="gongsilab" destination="obj-j2-eix" id="Ih3-gT-irR"/>
                 <outlet property="kai" destination="4ZN-Ei-JIa" id="TAZ-Cg-ROe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -44,7 +46,7 @@
                                 <action selector="invoiceButtonAction:" destination="-1" eventType="touchUpInside" id="cNq-SM-WlF"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZN-Ei-JIa">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZN-Ei-JIa">
                             <rect key="frame" x="12" y="0.0" width="115" height="45"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
@@ -137,12 +139,15 @@
                                     <color key="textColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VE7-hu-V4n">
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VE7-hu-V4n">
                                     <rect key="frame" x="98" y="12" width="60" height="22"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <state key="normal" title="  个人" image="icon_weixuanzhong">
                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="taitouButtonAction:" destination="-1" eventType="touchUpInside" id="J4F-sh-reN"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2bF-xP-5TB">
                                     <rect key="frame" x="187" y="14" width="90" height="18"/>
@@ -150,6 +155,9 @@
                                     <state key="normal" title="  公司名称" image="icon_xuanzhong">
                                         <color key="titleColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="taitouButtonAction:" destination="-1" eventType="touchUpInside" id="HZ2-0O-VHG"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

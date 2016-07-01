@@ -35,18 +35,22 @@
 }
 
 - (void)getWebContent{
+   
+   // http://bbctest.matrojp.com/api.php?m=help&s=index&id=45
     
-    NSString *urlStr = [NSString stringWithFormat:@"http://61.155.212.164/SPGL/Page_Base/NRGL/WebFrameEdit/INFO/DefineInfoitem_h.ashx?op=infoitem&page=1&webframecode=%@&rows=10",_webCode?:@""];
+    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=help&s=index&id=%@",_webCode?:@""];
     
     NSLog(@"%@",urlStr);
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *result = [responseObject objectForKey:@"rows"];
-        NSNumber *resultCode = [responseObject objectForKey:@"total"];
+        NSLog(@"responseObject==%@",responseObject);
         
-        if (resultCode.integerValue>0) {
-            NSDictionary *dic = [result objectAtIndex:0];
-            NSString *title = [dic objectForKey:@"TITLE"];
-            NSString *htmlCode = [dic objectForKey:@"CONTENT"];
+        NSDictionary *result = [responseObject objectForKey:@"data"];
+        NSNumber *resultCode = [responseObject objectForKey:@"code"];
+        
+        if ([resultCode isEqual:@0]) {
+            NSDictionary *dic = [result objectForKey:@"help_info"];
+            NSString *title = [dic objectForKey:@"con_title"];
+            NSString *htmlCode = [dic objectForKey:@"con_desc"];
             self.navigationItem.title = title;
             [_webView loadHTMLString:htmlCode baseURL:nil];
         }

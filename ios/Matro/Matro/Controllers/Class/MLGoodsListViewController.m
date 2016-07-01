@@ -188,11 +188,10 @@ static NSInteger page = 1;
     [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
     */
     [_shaixuanButton changeImageAndTitle];
+    [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
     
-    /*
     [_changeButton setImage:[UIImage imageNamed:@"liebiao1"] forState:UIControlStateNormal];
     [_changeButton setImage:[UIImage imageNamed:@"list"] forState:UIControlStateSelected];
-    */
     
     _blackControl = [[UIControl alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH ,MAIN_SCREEN_HEIGHT)];
     _blackControl.backgroundColor = [UIColor blackColor];
@@ -311,7 +310,7 @@ static NSInteger page = 1;
     
     NSString *listtepy=@"";
     //NSString *sort=@"";//排列方式
-    NSString *orderby =@"";
+    NSString *orderby =@"amount";//默认销量
     NSString *spflid = @"";//商品分类id
     NSString *jgs = @"";
     NSString *jge = @"";
@@ -501,7 +500,8 @@ static NSInteger page = 1;
         
         page = 1;
         [self getGoodsList];
-    }else if ([typeStr isEqualToString:@"品牌"]){
+    }/*
+    else if ([typeStr isEqualToString:@"品牌"]){
         button.selected = !button.selected;
         NSString *urlStr = [NSString stringWithFormat:@"http://www.matrojp.com/Ajax/search/search.ashx?op=5&spflcode=&jgcount=5"];
         [[HFSServiceClient sharedClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -514,7 +514,7 @@ static NSInteger page = 1;
             
         }];
         [self reloadData];
-    }
+    }*/
     else if([typeStr isEqualToString:@"价格"])
     {
         button.selected = !button.selected;

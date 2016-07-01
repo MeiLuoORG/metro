@@ -11,7 +11,9 @@
 #import "MLAddressListViewController.h"
 #import "MLHttpManager.h"
 #import "MBProgressHUD+Add.h"
-
+#import "MLOrderListViewCell.h"
+#import "MLShopCartMoreCell.h"
+#import "MLOrderHeader.h"
 @interface MLCommitOrderViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *myscrollview;
@@ -23,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *baocunBtn;//保存按钮
 @property (weak, nonatomic) IBOutlet UITextField *idTextFiled;//输入身份证号码
 @property (weak, nonatomic) IBOutlet UILabel *idLab;//身份证号码
-@property (weak, nonatomic) IBOutlet UITableView *ProTableview;//订单商品
+@property (strong, nonatomic) IBOutlet UITableView *ProTableview;//订单商品
 @property (weak, nonatomic) IBOutlet UILabel *suieLab;//税额
 @property (weak, nonatomic) IBOutlet UILabel *peisongLab;//配送方式
 @property (weak, nonatomic) IBOutlet UILabel *quanqiugouFapiaoLab;//全球购发票问题
@@ -72,6 +74,23 @@
     self.shiyongBtn.layer.borderColor = RGBA(174, 142, 93, 1).CGColor;
     self.shiyongBtn.layer.cornerRadius = 4.f;
     self.shiyongBtn.layer.masksToBounds = YES;
+    _ProTableview = ({
+        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
+        tableView.backgroundColor = RGBA(245, 245, 245, 1);
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        [tableView registerNib:[UINib nibWithNibName:@"MLOrderListViewCell" bundle:nil] forCellReuseIdentifier:KMLOrderListViewCell];
+        [tableView registerNib:[UINib nibWithNibName:@"MLShopCartMoreCell" bundle:nil ] forCellReuseIdentifier:@"MoreCell"];
+        [tableView registerNib:[UINib nibWithNibName:@"MLOrderHeader" bundle:nil] forCellReuseIdentifier:@"MLOrderHeader"];
+        tableView.tableFooterView = [[UIView alloc]init];
+        [self.view addSubview:tableView];
+        tableView;
+    });
+    
+    
+    [self loadData];
 }
 
 
@@ -79,22 +98,47 @@
 -(void)loadData{
     //http://bbctest.matrojp.com/api.php?m=product&s=confirm_order
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=confirm_order",@"http://bbctest.matrojp.com"];
-    NSDictionary *products = @{@"product_id[0]":@"39"};
+    NSLog(@"paramsdic===%@",_paramsDic);
     
-    [MLHttpManager post:urlStr params:products m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=confirm_order",@"http://bbctest.matrojp.com"];
+    [MLHttpManager post:urlStr params:_paramsDic m:@"product" s:@"confirm_order" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"result===%@",result);
+        
         if ([result[@"code"] isEqual:@0]) {
+            
            [MBProgressHUD showSuccess:@"请求成功" toView:self.view];
+            
         }else{
+            
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
+            
         }
     } failure:^(NSError *error) {
+        
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+    return 2;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    MLOrderListViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:KMLOrderListViewCell];
+    
+    return cell;
+    
 }
 
 //点击head进入地址

@@ -51,12 +51,8 @@
 @property (nonatomic,strong)NSArray *dpyhq;
 @property (nonatomic,assign)BOOL select_All;
 
-
 @property (nonatomic,assign)BOOL isMore;
 @property (nonatomic,assign)BOOL isOpen;
-
-
-
 
 @end
 

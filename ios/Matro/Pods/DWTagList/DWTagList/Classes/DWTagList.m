@@ -49,8 +49,8 @@
         self.borderColor = BORDER_COLOR;
         self.borderWidth = BORDER_WIDTH;
         self.textColor = TEXT_COLOR;
-        self.textShadowColor = TEXT_SHADOW_COLOR;
-        self.textShadowOffset = TEXT_SHADOW_OFFSET;
+       // self.textShadowColor = TEXT_SHADOW_COLOR;
+       // self.textShadowOffset = TEXT_SHADOW_OFFSET;
         self.showTagMenu = DEFAULT_SHOW_TAG_MENU;
     }
     return self;

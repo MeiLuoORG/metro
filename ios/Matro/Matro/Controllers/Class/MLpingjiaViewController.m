@@ -80,9 +80,21 @@
     self.navigationItem.title = @"用户评价";
     self.scrollView.scrollEnabled = NO;
     self.viewFrame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-64);
+    UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
     
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@""  style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
+    item.title = @"";
+    item.image = backButtonImage;
+    item.width = -20;
+    
+    self.navigationItem.leftBarButtonItem = item;
 }
 
+- (void)backBtnAction{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

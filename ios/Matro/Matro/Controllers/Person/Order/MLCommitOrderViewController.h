@@ -10,4 +10,5 @@
 
 @interface MLCommitOrderViewController : MLBaseViewController
 
+@property(nonatomic,retain)NSDictionary *paramsDic;
 @end

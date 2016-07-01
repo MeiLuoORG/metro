@@ -10,6 +10,7 @@
 #import "HFSServiceClient.h"
 #import "MLKefuHeader.h"
 #import "UIColor+HeinQi.h"
+#import "MLHelpCenterDetailController.h"
 
 #define HEADER_IDENTIFIER @"MLKefuHeader"
 @interface MLServiceViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -24,6 +25,8 @@
     NSMutableArray *idArr1;
     NSMutableArray *idArr3;
     NSMutableArray *idArr4;
+    
+    NSString *selectID;
     
 }
 @property (weak, nonatomic) IBOutlet UITableView *kefuTableview;
@@ -247,13 +250,45 @@
     return cell;
     
 }
-/*
--(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return sectionArr[section];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            selectID = idArr1[0];
+        }else if (indexPath.row == 1){
+            selectID = idArr1[1];
+        }else{
+            selectID = idArr1[2];
+        }
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            selectID = idArr3[0];
+        }else if (indexPath.row == 1){
+            selectID = idArr3[1];
+        }else{
+            selectID = idArr3[2];
+        }
+    }else  {
+        if (indexPath.row == 0) {
+            selectID = idArr4[0];
+        }else if (indexPath.row == 1){
+            selectID = idArr4[1];
+        }else if(indexPath.row  == 2){
+            selectID = idArr4[2];
+        }else{
+            selectID = idArr4[3];
+        }
+    }
+    
+    NSLog(@"selectID==%@",selectID);
+    
+    MLHelpCenterDetailController *vc = [[MLHelpCenterDetailController alloc]init];
+    vc.webCode = selectID;
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
-*/
+
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     

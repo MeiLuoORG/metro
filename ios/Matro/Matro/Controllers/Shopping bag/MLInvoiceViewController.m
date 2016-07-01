@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIView *gongsilab;
 @property (weak, nonatomic) IBOutlet UIButton *geren;
 @property (weak, nonatomic) IBOutlet UIButton *gongsi;
+@property (weak, nonatomic) IBOutlet UIView *fapiaoInfo;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *gongsiLabH;
 
 @end
 
@@ -42,6 +44,7 @@
     self.gongsilab.layer.borderColor = RGBA(241, 241, 241, 1).CGColor;
     self.gongsilab.layer.cornerRadius = 4.f;
     self.gongsilab.layer.masksToBounds = YES;
+    _gongsiLabH.constant = 0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,6 +74,25 @@
 -(void)keyboardHide:(UITapGestureRecognizer*)tap{
     [self.view endEditing:YES];
 }
+- (IBAction)taitouButtonAction:(id)sender {
+    UIButton *button = ((UIButton *)sender);
+    if (button.selected) {
+        return;
+    }
+    
+    button.selected = YES;
+    
+    if ([button isEqual:_geren]) {
+        _gongsi.selected = NO;
+        _gongsiLabH.constant = 0;
+        
+    }else{
+        _geren.selected = NO;
+        _gongsiLabH.constant = 44;
+        
+    }
+    
+}
 
 - (IBAction)invoiceButtonAction:(id)sender {
     UIButton *button = ((UIButton *)sender);
@@ -82,9 +104,11 @@
     
     if ([button isEqual:_kai]) {
         _bukai.selected = NO;
+        self.fapiaoInfo.hidden = NO;
         
     }else{
         _kai.selected = NO;
+        self.fapiaoInfo.hidden = YES;
        
     }
     

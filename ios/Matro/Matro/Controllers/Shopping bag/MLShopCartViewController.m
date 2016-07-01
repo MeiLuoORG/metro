@@ -33,6 +33,7 @@
 
 #import "MLHttpManager.h"
 #import "LingQuYouHuiQuanView.h"
+#import "MLCommitOrderViewController.h"
 
 @interface MLShopCartViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CPStepperDelegate>
 
@@ -432,12 +433,14 @@ static NSInteger pageIndex = 0;
 
 
 - (void)clearingAction{//结算操作
-    
+  
     NSMutableArray *temp = [NSMutableArray array];
+   
+    
     for (MLShopingCartModel *model in self.shopCart.cart) {
         for (MLProlistModel *prolist in model.prolist) {
             if (prolist.is_check == 1) {
-                NSDictionary *dic = @{@"product_id[]":prolist.ID};
+                NSDictionary *dic = @{@"product_id":prolist.ID};
                 [temp addObject:dic];
             }
         }
@@ -447,6 +450,21 @@ static NSInteger pageIndex = 0;
         [MBProgressHUD showMessag:@"您还没有选择商品" toView:self.view];
     }
     else{ //发送下单请求
+         NSMutableDictionary *tempdic = [NSMutableDictionary dictionary ];
+        for (int i=0; i < temp.count; i++) {
+            NSMutableArray *product_id = [NSMutableArray array];
+            NSString *productid = temp[i][@"product_id"];
+            [product_id addObject:productid];
+            NSString *cart_list = [NSString stringWithFormat:@"product_id[%d]",i];
+            [tempdic setObject:product_id forKey:cart_list];
+            
+        }
+        NSLog(@"tempdic === %@",tempdic);
+        MLCommitOrderViewController *vc = [[MLCommitOrderViewController alloc]init];
+        vc.paramsDic = tempdic;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        
         [self confirmOrderWithProducts:[temp copy]];
     }
 }

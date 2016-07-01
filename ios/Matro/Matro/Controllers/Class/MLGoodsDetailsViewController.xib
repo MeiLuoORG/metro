@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -382,6 +382,9 @@
                                                                                 <constraint firstAttribute="width" constant="28" id="JAb-aL-Kj9"/>
                                                                             </constraints>
                                                                             <state key="normal" image="question"/>
+                                                                            <connections>
+                                                                                <action selector="actShuifei:" destination="-1" eventType="touchUpInside" id="LE1-dk-r9R"/>
+                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -535,7 +538,7 @@
                                                                                     <color key="textColor" red="0.94509803920000002" green="0.39607843139999999" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="0.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="oqq-ea-tAX">
+                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="4" translatesAutoresizingMaskIntoConstraints="NO" id="oqq-ea-tAX">
                                                                                     <rect key="frame" x="76" y="0.0" width="20" height="20"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="20" id="vfm-sH-cCw"/>
@@ -570,7 +573,7 @@
                                                                                     <color key="textColor" red="0.94509803920000002" green="0.39607843139999999" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="0.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="K96-PO-oTP">
+                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="41" translatesAutoresizingMaskIntoConstraints="NO" id="K96-PO-oTP">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="20" id="Cuz-9v-bdQ"/>
@@ -605,7 +608,7 @@
                                                                                     <color key="textColor" red="0.94509803920000002" green="0.39607843139999999" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="3.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="Ma9-it-8KZ">
+                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="41" translatesAutoresizingMaskIntoConstraints="NO" id="Ma9-it-8KZ">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="20" id="SLJ-zB-84u"/>
@@ -1526,7 +1529,8 @@
     </objects>
     <resources>
         <image name="0.JPG" width="194" height="145"/>
-        <image name="3.JPG" width="181" height="136"/>
+        <image name="4" width="15" height="15"/>
+        <image name="41" width="15" height="15"/>
         <image name="Star_big2" width="16" height="15"/>
         <image name="biaoqian" width="40" height="16"/>
         <image name="dianpu" width="20" height="20"/>

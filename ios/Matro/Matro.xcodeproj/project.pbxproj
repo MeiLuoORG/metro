@@ -32,6 +32,11 @@
 		280F7D701CF972CC00D42FA6 /* MLPropertysubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280F7D6E1CF972CC00D42FA6 /* MLPropertysubCell.xib */; };
 		280F7D741CF981BA00D42FA6 /* MLMyPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 280F7D721CF981BA00D42FA6 /* MLMyPropertyViewController.m */; };
 		280F7D751CF981BA00D42FA6 /* MLMyPropertyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280F7D731CF981BA00D42FA6 /* MLMyPropertyViewController.xib */; };
+		2814D60D1D26467F00F8ECB8 /* MLOrderListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2814D60B1D26467F00F8ECB8 /* MLOrderListViewCell.m */; };
+		2814D60E1D26467F00F8ECB8 /* MLOrderListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2814D60C1D26467F00F8ECB8 /* MLOrderListViewCell.xib */; };
+		2814D6111D26512700F8ECB8 /* MLOrderHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2814D6101D26512600F8ECB8 /* MLOrderHeader.m */; };
+		2814D6131D26514000F8ECB8 /* MLOrderHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2814D6121D26514000F8ECB8 /* MLOrderHeader.xib */; };
+		2814D6191D2657B000F8ECB8 /* MLOrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2814D6181D2657B000F8ECB8 /* MLOrderListModel.m */; };
 		283261941D18EFC700C9EE4E /* MLCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 283261921D18EFC700C9EE4E /* MLCollectionTableViewCell.m */; };
 		283261951D18EFC700C9EE4E /* MLCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283261931D18EFC700C9EE4E /* MLCollectionTableViewCell.xib */; };
 		283261991D192D6E00C9EE4E /* MLStoreCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283261971D192D6E00C9EE4E /* MLStoreCollectViewController.m */; };
@@ -459,7 +464,6 @@
 		7A6B22CC1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A6B22CA1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.xib */; };
 		7A7672E01D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7672DE1D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.m */; };
 		7A7672E11D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A7672DF1D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.xib */; };
-		7A813ED11CD850E300FAB6B2 /* MLOrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A813ED01CD850E300FAB6B2 /* MLOrderListModel.m */; };
 		7A813ED41CD8652400FAB6B2 /* MLProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A813ED31CD8652400FAB6B2 /* MLProductModel.m */; };
 		7A8613D91D14E24700C75D5A /* MLOrderDetailFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A8613D81D14E24700C75D5A /* MLOrderDetailFootView.xib */; };
 		7A8613DE1D14E6F600C75D5A /* MLPersonOrderDetailFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A8613DD1D14E6F600C75D5A /* MLPersonOrderDetailFootView.m */; };
@@ -631,6 +635,14 @@
 		280F7D711CF981BA00D42FA6 /* MLMyPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLMyPropertyViewController.h; path = Matro/Views/TableViewCells/MLMyPropertyViewController.h; sourceTree = SOURCE_ROOT; };
 		280F7D721CF981BA00D42FA6 /* MLMyPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLMyPropertyViewController.m; path = Matro/Views/TableViewCells/MLMyPropertyViewController.m; sourceTree = SOURCE_ROOT; };
 		280F7D731CF981BA00D42FA6 /* MLMyPropertyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MLMyPropertyViewController.xib; path = Matro/Views/TableViewCells/MLMyPropertyViewController.xib; sourceTree = SOURCE_ROOT; };
+		2814D60A1D26467F00F8ECB8 /* MLOrderListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderListViewCell.h; sourceTree = "<group>"; };
+		2814D60B1D26467F00F8ECB8 /* MLOrderListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderListViewCell.m; sourceTree = "<group>"; };
+		2814D60C1D26467F00F8ECB8 /* MLOrderListViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLOrderListViewCell.xib; sourceTree = "<group>"; };
+		2814D60F1D26512600F8ECB8 /* MLOrderHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderHeader.h; sourceTree = "<group>"; };
+		2814D6101D26512600F8ECB8 /* MLOrderHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderHeader.m; sourceTree = "<group>"; };
+		2814D6121D26514000F8ECB8 /* MLOrderHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLOrderHeader.xib; sourceTree = "<group>"; };
+		2814D6171D2657B000F8ECB8 /* MLOrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderListModel.h; sourceTree = "<group>"; };
+		2814D6181D2657B000F8ECB8 /* MLOrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderListModel.m; sourceTree = "<group>"; };
 		283261911D18EFC700C9EE4E /* MLCollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionTableViewCell.h; sourceTree = "<group>"; };
 		283261921D18EFC700C9EE4E /* MLCollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionTableViewCell.m; sourceTree = "<group>"; };
 		283261931D18EFC700C9EE4E /* MLCollectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLCollectionTableViewCell.xib; sourceTree = "<group>"; };
@@ -1446,8 +1458,6 @@
 		7A7672DD1D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsLikeCollectionViewCell.h; sourceTree = "<group>"; };
 		7A7672DE1D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsLikeCollectionViewCell.m; sourceTree = "<group>"; };
 		7A7672DF1D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsLikeCollectionViewCell.xib; sourceTree = "<group>"; };
-		7A813ECF1CD850E300FAB6B2 /* MLOrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderListModel.h; sourceTree = "<group>"; };
-		7A813ED01CD850E300FAB6B2 /* MLOrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderListModel.m; sourceTree = "<group>"; };
 		7A813ED21CD8652400FAB6B2 /* MLProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLProductModel.h; sourceTree = "<group>"; };
 		7A813ED31CD8652400FAB6B2 /* MLProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLProductModel.m; sourceTree = "<group>"; };
 		7A8613D81D14E24700C75D5A /* MLOrderDetailFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLOrderDetailFootView.xib; sourceTree = "<group>"; };
@@ -2118,10 +2128,10 @@
 				D6C6F5B41CC0D11900809AC5 /* MLLikeModel.m */,
 				D6C6F5B61CC0D6D500809AC5 /* MLAddressModel.h */,
 				D6C6F5B71CC0D6D500809AC5 /* MLAddressModel.m */,
-				7A813ECF1CD850E300FAB6B2 /* MLOrderListModel.h */,
-				7A813ED01CD850E300FAB6B2 /* MLOrderListModel.m */,
 				7A813ED21CD8652400FAB6B2 /* MLProductModel.h */,
 				7A813ED31CD8652400FAB6B2 /* MLProductModel.m */,
+				2814D6171D2657B000F8ECB8 /* MLOrderListModel.h */,
+				2814D6181D2657B000F8ECB8 /* MLOrderListModel.m */,
 				7ACD3A7D1CE9669A004BAF8B /* MLWishlistModel.h */,
 				7ACD3A7E1CE9669A004BAF8B /* MLWishlistModel.m */,
 				7A4869C61D0F9C73001FDE5C /* MLShopingCartlistModel.h */,
@@ -2618,6 +2628,9 @@
 				2869F68B1D2279B7003C4663 /* MLKefuHeader.h */,
 				2869F68C1D2279B7003C4663 /* MLKefuHeader.m */,
 				2869F68E1D227A08003C4663 /* MLKefuHeader.xib */,
+				2814D60F1D26512600F8ECB8 /* MLOrderHeader.h */,
+				2814D6101D26512600F8ECB8 /* MLOrderHeader.m */,
+				2814D6121D26514000F8ECB8 /* MLOrderHeader.xib */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -2761,6 +2774,9 @@
 				7A1DC25D1D23A56C0094D751 /* MLPushConfigTableViewCell.h */,
 				7A1DC25E1D23A56C0094D751 /* MLPushConfigTableViewCell.m */,
 				7A1DC25F1D23A56C0094D751 /* MLPushConfigTableViewCell.xib */,
+				2814D60A1D26467F00F8ECB8 /* MLOrderListViewCell.h */,
+				2814D60B1D26467F00F8ECB8 /* MLOrderListViewCell.m */,
+				2814D60C1D26467F00F8ECB8 /* MLOrderListViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -3766,6 +3782,7 @@
 				7ACFA6161D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib in Resources */,
 				3A16DC521CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.xib in Resources */,
 				3A633B4D1C9EA36E00C11FD5 /* Documentation.html in Resources */,
+				2814D6131D26514000F8ECB8 /* MLOrderHeader.xib in Resources */,
 				28CF860D1CEDC59A00E582EE /* UMSShareListController.xib in Resources */,
 				3A633A621C9E9E2F00C11FD5 /* Assets.xcassets in Resources */,
 				3C0FCEF91D0E8C170076396F /* MLSearchViewController.xib in Resources */,
@@ -3860,6 +3877,7 @@
 				7A3A62431CDB86F700D265F2 /* MLBindPhoneController.xib in Resources */,
 				3A1F72C71CA3F8CD000ECE08 /* HFSOrderListHeaderView.xib in Resources */,
 				280F7D6B1CF9729A00D42FA6 /* MLPropertyCell.xib in Resources */,
+				2814D60E1D26467F00F8ECB8 /* MLOrderListViewCell.xib in Resources */,
 				28CF860B1CEDC59A00E582EE /* UMSLoginViewController.xib in Resources */,
 				3AA0E72B1CA8C2990079AA90 /* MLLikeTableViewCell.xib in Resources */,
 				3C0556811D239F330092D140 /* PinPaiZLViewController.xib in Resources */,
@@ -4039,6 +4057,7 @@
 				D6C6F5B51CC0D11900809AC5 /* MLLikeModel.m in Sources */,
 				3AA0E7AA1CA91E500079AA90 /* MD5DataSigner.m in Sources */,
 				7A028D851CEAC294005D14BC /* MBProgressHUD+Add.m in Sources */,
+				2814D60D1D26467F00F8ECB8 /* MLOrderListViewCell.m in Sources */,
 				3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */,
 				7AEDD0CF1CE5A913009B12F4 /* MLServiceTracksTableViewCell.m in Sources */,
 				3A633B601C9EA36E00C11FD5 /* ZLPhotoPickerGroup.m in Sources */,
@@ -4120,6 +4139,7 @@
 				3C055CD81D08143700362C4D /* ShenFenZhengController.m in Sources */,
 				3A633B501C9EA36E00C11FD5 /* UIImage+ZLPhotoLib.m in Sources */,
 				3A633B3A1C9EA36E00C11FD5 /* TADotView.m in Sources */,
+				2814D6111D26512700F8ECB8 /* MLOrderHeader.m in Sources */,
 				3AA0E7C11CA920D20079AA90 /* MLPayTableViewCell.m in Sources */,
 				283261991D192D6E00C9EE4E /* MLStoreCollectViewController.m in Sources */,
 				280F7CE01CF829D600D42FA6 /* MLYHQViewController.m in Sources */,
@@ -4138,6 +4158,7 @@
 				7AEC88D61CE462E000B43DD4 /* MLGoodsComFootView.m in Sources */,
 				3A633B951C9EA85800C11FD5 /* MLPersonViewController.m in Sources */,
 				7ABB22381D20F96100529B2B /* MLSystemHeaderCell.m in Sources */,
+				2814D6191D2657B000F8ECB8 /* MLOrderListModel.m in Sources */,
 				7ACD3A7A1CE86D97004BAF8B /* MLReturnsHeader.m in Sources */,
 				3CEAC66D1D1E799B00E953A7 /* XiuGaiPasswordViewController.m in Sources */,
 				7AF0D7D61CE5957E00A8F913 /* MLSaleServiceViewController.m in Sources */,
@@ -4164,7 +4185,6 @@
 				2869F68D1D2279B7003C4663 /* MLKefuHeader.m in Sources */,
 				280F7D551CF93E3200D42FA6 /* NSDictionary+HYBUnicodeReadable.m in Sources */,
 				3A1AA8BC1CAA2F8B00AF73C2 /* MLAddressListViewController.m in Sources */,
-				7A813ED11CD850E300FAB6B2 /* MLOrderListModel.m in Sources */,
 				3A16DC3F1CA0EA69007AE4A2 /* RecommendCollectionViewCell.m in Sources */,
 				7ABB22341D20F8BC00529B2B /* MLSystemMessageController.m in Sources */,
 				D658CBE71CAA91DD006C70F4 /* MNNModifyNameViewController.m in Sources */,

@@ -30,6 +30,7 @@
 #import "MLReturnsDetailViewController.h"
 #import "MLGoodsDetailsViewController.h"
 
+
 @protocol HomeJSObjectDelegate <JSExport>
 
 - (void)fourButtonAction:(NSString *)index;
@@ -189,7 +190,12 @@
 }
 
 - (IBAction)actDown:(id)sender {
-    NSLog(@"去下载");
+    NSLog(@"去下载downlink===%@",downlink);
+    self.versionView.hidden = YES;
+    
+    NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/su-zhou-mei-luo-jing-pin/id1112037018?mt=8"];
+    [[UIApplication sharedApplication]openURL:url];
+    
     
 }
 
@@ -210,13 +216,13 @@
                  if ([code isEqual:@0]) {
                      loadversion = result[@"data"][@"sel_info"][@"appverison"];
                      downlink = result[@"data"][@"sel_info"][@"download_link"];
-                     NSLog(@"version===%@ loadversion===%@",version, loadversion);
+                     NSLog(@"version===%@ loadversion===%@ downlink===%@",version, loadversion,downlink);
                      
                      if (version < loadversion) {
                          
                          self.versionView.hidden = NO;
                          NSString *labstr = result[@"data"][@"sel_info"][@"version_desc"];
-                         self.gengxinlab.text = [NSString stringWithFormat:@"1.%@\n\n2.%@",labstr,labstr];
+                         self.gengxinlab.text = [NSString stringWithFormat:@"1.%@\n\n2.%@\n\n3.%@\n\n4.%@\n\n5.%@",labstr,labstr,labstr,labstr,labstr];
                          self.versionlab.text = [NSString stringWithFormat:@"美罗全球精品购V%@",loadversion];
                      }
                      

@@ -87,6 +87,11 @@ static float height;
     commentList = [NSMutableArray array];
     imageList = [NSMutableArray array];
    
+     self.commentTableView.header = [self refreshHeaderWith: self.commentTableView];
+    
+     self.commentTableView.footer = [self loadMoreDataFooterWith: self.commentTableView];
+    
+    /*
     self.commentTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         pageIndex = 1;
         
@@ -97,9 +102,14 @@ static float height;
         [self loadData];
         [self.commentTableView reloadData];
     }];
+     */
+    
+    [self loadData ];
      [self.commentTableView.header beginRefreshing];
     
 }
+
+
 
 #pragma mark 获取数据
 
