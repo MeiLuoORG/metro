@@ -17,14 +17,18 @@
 #import "MLHttpManager.h"
 #import "MBProgressHUD+Add.h"
 #import "MLPersonOrderDetailViewController.h"
+#import "HFSUtility.h"
+#import "UIViewController+MLMenu.h"
 
 
 
 @interface MLSystemMessageController ()<UITableViewDataSource,UITableViewDelegate>
 
+
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *messageArray;
 @property (nonatomic,assign)NSInteger pageIndex;
+
 @end
 
 @implementation MLSystemMessageController
@@ -54,7 +58,21 @@
     }];
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(getMessages)];
     [self.tableView.header beginRefreshing];
+    
+    [self addMenuButton];
+//    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gengduozl"] style:UIBarButtonItemStylePlain target:self action:@selector(showDownList)];
+    
+    
 }
+
+#pragma mark--展示下拉菜单
+//-(void)showDownList{
+//    [self.view showDownMenuWithItems:@[@{@"img":@"icon_gengduo_home",@"title":@"首页"},@{@"img":@"icon_gengduo_search",@"title":@"搜索"},@{@"img":@"icon_gengduo_message",@"title":@"消息"},@{@"img":@"icon_gengduo_collect",@"title":@"收藏"}] AndSelBlock:^(NSInteger index) {
+//        NSLog(@"%li",index);
+//    }];
+//}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.messageArray.count;

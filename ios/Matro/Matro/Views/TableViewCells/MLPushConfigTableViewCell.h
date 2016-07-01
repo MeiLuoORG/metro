@@ -15,4 +15,5 @@ typedef void(^PushConfigChange)(BOOL);
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (nonatomic,copy)PushConfigChange pushConfigChange;
 
+@property (weak, nonatomic) IBOutlet UISwitch *switchs;
 @end

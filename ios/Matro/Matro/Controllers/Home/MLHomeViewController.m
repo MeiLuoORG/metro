@@ -154,6 +154,14 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PUSHMESSAGE" object:del.pushMessage userInfo:nil];
     }
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleSingleTap:) name:@"PushToSearchCenter" object:nil];
+    
+    
+}
+
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 #pragma mark UIScrollView代理方法

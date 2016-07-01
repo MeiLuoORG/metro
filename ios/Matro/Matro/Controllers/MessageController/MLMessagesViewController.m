@@ -15,6 +15,7 @@
 #import "HFSConstants.h"
 #import "MBProgressHUD+Add.h"
 #import "MJExtension.h"
+#import "MLPushConfigViewController.h"
 
 
 
@@ -42,6 +43,13 @@
         [self.view addSubview:tableView];
         tableView;
     });
+    
+    UIButton  *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn.frame = CGRectMake(0, 0, 22, 22);
+    [btn setBackgroundImage:[UIImage imageNamed:@"settingzl"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(actSettingAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    
     [self getDataSource];
 }
 
@@ -49,7 +57,11 @@
     return self.messageArray.count;
 }
 
-
+- (void)actSettingAction{
+    MLPushConfigViewController *vc = [[MLPushConfigViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MLMessagesControlCell *cell = [tableView dequeueReusableCellWithIdentifier:kMessagesControlCell  forIndexPath:indexPath];

@@ -176,7 +176,24 @@
     
     //李佳接口认证成功后  接收通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(renZhengAction:) name:RENZHENG_LIJIA_Notification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(actMessage) name:@"PushToMessage" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushToStoreCenter) name:@"PushToStore" object:nil];
 }
+
+
+- (void)pushToStoreCenter{
+    MLStoreCollectViewController *vc = [[MLStoreCollectViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:NO];
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+
+
+
 - (void)renZhengAction:(id)sender{
     //查询实名认证
     [self chaXunISshiMingRenZheng];

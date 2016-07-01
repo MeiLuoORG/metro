@@ -13,6 +13,7 @@
 #import "MBProgressHUD+Add.h"
 
 @interface MLPushConfigViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic,strong)NSMutableArray *settingArray;
 
 @property (nonatomic,strong)UITableView *tableView;
 @end
@@ -49,25 +50,55 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return self.settingArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    __weak typeof(self) weakself = self;
     MLPushConfigTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kPushConfigTableViewCell forIndexPath:indexPath];
     if (indexPath.row == 0) {
+        for (NSDictionary *dic in self.settingArray) {
+            if ([dic[@"type"] isEqual:@2]) {
+                cell.switchs.on = [dic[@"status"] isEqualToString:@"1"];
+            }
+        }
         cell.titleLabel.text = @"促销优惠";
         cell.pushConfigChange = ^(BOOL pushOn){
-            
+            [weakself messageInfoSettingWithType:@"2" andOption:pushOn];
         };
     }else{
+        for (NSDictionary *dic in self.settingArray) {
+            if ([dic[@"type"] isEqual:@1]) {
+                cell.switchs.on = [dic[@"status"] isEqualToString:@"1"];
+            }
+        }
         cell.titleLabel.text = @"系统通知";
         cell.pushConfigChange = ^(BOOL pushOn){
-            
+            [weakself messageInfoSettingWithType:@"1" andOption:pushOn];
         };
     }
     return cell;
 }
 
+
+- (void)messageInfoSettingWithType:(NSString *)type andOption:(BOOL)option{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=setting",MATROJP_BASE_URL];
+    NSDictionary *param = @{@"type":type,@"option":option?@"1":@"0"};
+    
+    [MLHttpManager post:url params:param m:@"push" s:@"setting" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            [MBProgressHUD showMessag:@"操作成功" toView:self.view];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+}
 
 - (void)clearAction:(id)sender{ //请空全部消息操作
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -92,22 +123,30 @@
 }
 
 - (void)getSettingInfo{
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=setting",MATROJP_BASE_URL];
-    [MLHttpManager get:url params:nil m:@"push" s:@"setting" success:^(id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=get_setting",MATROJP_BASE_URL];
+    [MLHttpManager get:url params:nil m:@"push" s:@"get_setting" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
-            
+            NSDictionary *data= data[@"data"];
+            NSArray *list = data[@"list"];
+            [self.settingArray addObjectsFromArray:list];
+            [self.tableView reloadData];
         }else{
-            
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
         }
-        
     } failure:^(NSError *error) {
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
 }
 
-
+- (NSMutableArray *)settingArray{
+    if (!_settingArray) {
+        _settingArray = [NSMutableArray array];
+    }
+    return _settingArray;
+}
 
 
 @end

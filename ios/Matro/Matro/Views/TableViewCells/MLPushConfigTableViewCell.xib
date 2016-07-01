@@ -14,13 +14,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ca-g1-fl9">
-                        <rect key="frame" x="255" y="6" width="51" height="31"/>
-                        <color key="onTintColor" red="0.68235294120000001" green="0.5568627451" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <action selector="swithChange:" destination="KGk-i7-Jjw" eventType="valueChanged" id="qy8-To-a1e"/>
-                        </connections>
-                    </switch>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6WP-1V-iaZ">
                         <rect key="frame" x="16" y="42" width="304" height="1"/>
                         <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
@@ -34,6 +27,13 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ca-g1-fl9">
+                        <rect key="frame" x="255" y="6" width="51" height="31"/>
+                        <color key="onTintColor" red="0.68235294120000001" green="0.5568627451" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <action selector="swithChange:" destination="KGk-i7-Jjw" eventType="valueChanged" id="vLn-Rs-9NA"/>
+                        </connections>
+                    </switch>
                 </subviews>
                 <constraints>
                     <constraint firstItem="rZk-tO-4ES" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="40Y-Ja-z5M"/>
@@ -46,6 +46,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="switchs" destination="5ca-g1-fl9" id="NUR-PJ-bgv"/>
                 <outlet property="titleLabel" destination="rZk-tO-4ES" id="LND-yc-Ow9"/>
             </connections>
         </tableViewCell>
