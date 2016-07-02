@@ -30,12 +30,85 @@
 #import "MLReturnsDetailViewController.h"
 #import "MLGoodsDetailsViewController.h"
 
-<<<<<<< Updated upstream
-=======
+
 #import "HACursor.h"
 #import "UIView+Extension.h"
 #import "HATestView.h"
->>>>>>> Stashed changes
+
+
+
+#define kDefaultTabHeight 44.0 // Default tab height
+#define kDefaultTabOffset 56.0 // Offset of the second and further tabs' from left
+#define kDefaultTabWidth 128.0
+
+#define kDefaultTabLocation 1.0 // 1.0: Top, 0.0: Bottom
+
+#define kDefaultStartFromSecondTab 0.0 // 1.0: YES, 0.0: NO
+
+#define kDefaultCenterCurrentTab 0.0 // 1.0: YES, 0.0: NO
+
+#define kPageViewTag 34
+
+#define kDefaultIndicatorColor [UIColor colorWithRed:178.0/255.0 green:203.0/255.0 blue:57.0/255.0 alpha:0.75]
+#define kDefaultTabsViewBackgroundColor [UIColor colorWithRed:234.0/255.0 green:234.0/255.0 blue:234.0/255.0 alpha:0.75]
+#define kDefaultContentViewBackgroundColor [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:248.0/255.0 alpha:0.75]
+
+// TabView for tabs, that provides un/selected state indicators
+@class TabView;
+
+@interface TabView : UIView
+@property (nonatomic, getter = isSelected) BOOL selected;
+@property (nonatomic) UIColor *indicatorColor;
+@end
+
+@implementation TabView
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+- (void)setSelected:(BOOL)selected {
+    _selected = selected;
+    // Update view as state changed
+    [self setNeedsDisplay];
+}
+- (void)drawRect:(CGRect)rect {
+    
+    UIBezierPath *bezierPath;
+    
+    // Draw top line
+    bezierPath = [UIBezierPath bezierPath];
+    [bezierPath moveToPoint:CGPointMake(0.0, 0.0)];
+    [bezierPath addLineToPoint:CGPointMake(rect.size.width, 0.0)];
+    [[UIColor colorWithWhite:197.0/255.0 alpha:0.75] setStroke];
+    [bezierPath setLineWidth:1.0];
+    [bezierPath stroke];
+    
+    // Draw bottom line
+    bezierPath = [UIBezierPath bezierPath];
+    [bezierPath moveToPoint:CGPointMake(0.0, rect.size.height)];
+    [bezierPath addLineToPoint:CGPointMake(rect.size.width, rect.size.height)];
+    [[UIColor colorWithWhite:197.0/255.0 alpha:0.75] setStroke];
+    [bezierPath setLineWidth:1.0];
+    [bezierPath stroke];
+    
+    // Draw an indicator line if tab is selected
+    if (self.selected) {
+        
+        bezierPath = [UIBezierPath bezierPath];
+        
+        // Draw the indicator
+        [bezierPath moveToPoint:CGPointMake(0.0, rect.size.height - 1.0)];
+        [bezierPath addLineToPoint:CGPointMake(rect.size.width, rect.size.height - 1.0)];
+        [bezierPath setLineWidth:5.0];
+        [self.indicatorColor setStroke];
+        [bezierPath stroke];
+    }
+}
+@end
+
 
 @protocol HomeJSObjectDelegate <JSExport>
 
@@ -43,7 +116,7 @@
 
 @end
 //JSInterfaceDelegate
-@interface MLHomeViewController ()<UISearchBarDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,HomeJSObjectDelegate,HATopDragProtocol>//用于处理采集信息的代理
+@interface MLHomeViewController ()<UISearchBarDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,HomeJSObjectDelegate,HATopDragProtocol,ViewPagerDataSource, ViewPagerDelegate,UIPageViewControllerDataSource, UIPageViewControllerDelegate,UIScrollViewDelegate>//用于处理采集信息的代理
 {
     AVCaptureSession * session;//输入输出的中间桥梁
     NSString *version;
@@ -84,6 +157,20 @@
 @property (nonatomic, strong) NSMutableArray *pageViews;
 
 @property (strong, nonatomic) HACursor * cursor;
+
+@property UIPageViewController *pageViewController;
+@property (assign) id<UIScrollViewDelegate> origPageScrollViewDelegate;
+
+@property UIScrollView *tabsView;
+@property UIView *contentView;
+
+@property NSMutableArray *tabs;
+@property NSMutableArray *contents;
+
+@property NSUInteger tabCount;
+//@property (getter = isAnimatingToTab, assign) BOOL animatingToTab;
+@property (assign, nonatomic) BOOL animatingToTab;
+@property (nonatomic) NSUInteger activeTabIndex;
 
 @end
 
@@ -137,13 +224,16 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PUSHMESSAGE" object:del.pushMessage userInfo:nil];
     }
     //加载搜索 头部
-    [self createNavTopView];
-    [self createTitleNavTopView];
+    //[self createNavTopView];
+    //[self createTitleNavTopView];
 
     //注册通知  按钮切换
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(homeViewButtonIndexNotification:) name:HOMEVIEW_BUTTON_INDEX_NOTIFICATION object:nil];
     self.currentOffestY = 0.0f;//当前位移
+    
+
+    
 }
 - (void)createNavTopView{
     self.firstTopView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 104)];
@@ -151,8 +241,9 @@
     [self.view addSubview:self.firstTopView];
     
     UIButton * leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftBtn setFrame:CGRectMake(10, 30, 25, 22)];
-    [leftBtn setImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
+    [leftBtn setFrame:CGRectMake(10, 30, 22, 19)];
+    //[leftBtn setImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(scanning) forControlEvents:UIControlEventTouchUpInside];
     
     [self.firstTopView addSubview:leftBtn];
@@ -217,6 +308,9 @@
 
 #pragma mark 头部 导航条
 
+
+
+
 - (void)createTitleNavTopView{
 
     //不允许有重复的标题
@@ -258,19 +352,17 @@
         //[textView createWebViewWith:@"http://www.baidu.com"];
         [self.pageViews addObject:textView];
     }
-<<<<<<< Updated upstream
+
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleSingleTap:) name:@"PushToSearchCenter" object:nil];
-    
+    return self.pageViews;
     
 }
 
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
-=======
-    return self.pageViews;
->>>>>>> Stashed changes
+
 }
 #pragma end mark 头部导航条 结束
 
@@ -315,7 +407,7 @@
 
 - (void)hatestView:(HATestView *)haView withContentOffest:(float)haViewOffestY{
     
-
+/*
     if (haViewOffestY < 54.0f && haViewOffestY > 0) {
         self.currentOffestY = haViewOffestY;
         NSLog(@"打印haViewOffestY值为：%g",haViewOffestY);
@@ -332,22 +424,56 @@
         }
     
     
-    }
-    /*
-     historyY = scrollView.contentOffset.y;
+    }*/
+    
+     //historyY = scrollView.contentOffset.y;
      
-     if (scrollView.contentOffset.y<historyY) {
-     NSLog(@"down");
+     if (haViewOffestY < self.currentOffestY) {
+    
+         if (self.currentOffestY > haViewOffestY + 25) {
+           NSLog(@"down向下 动画执行");
+             [UIView animateWithDuration:0.3f animations:^{
+                 self.view.frame = CGRectMake(0, 0.0f, SIZE_WIDTH, SIZE_HEIGHT);
+                 haView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT);
+                 haView.webView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT);
+                 self.cursor.rootScrollViewHeight = self.cursor.rootScrollViewHeight-54.0f;
+             } completion:^(BOOL finished) {
+                 
+             }];
+             
+         }
+         
+         
      
-     } else if (scrollView.contentOffset.y>historyY) {
-     NSLog(@"up");
+     } else if (haViewOffestY > self.currentOffestY) {
+    
+         if (haViewOffestY > self.currentOffestY + 25) {
+              NSLog(@"up向上  动画执行");
+             [UIView animateWithDuration:0.3f animations:^{
+                 self.view.frame = CGRectMake(0, -54.0f, SIZE_WIDTH, SIZE_HEIGHT+54.0f);
+                 haView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT+54.0f);
+                 haView.webView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT+54.0f);
+                 self.cursor.rootScrollViewHeight = self.cursor.rootScrollViewHeight+54.0f;
+             } completion:^(BOOL finished) {
+                 
+             }];
+         }
      
      }
-     
-     */
+
 }
 
 #pragma end mark
+
+#pragma mark 第二次 创建头部
+
+#pragma mark 头部导航 第二次 代理方法
+
+
+
+
+#pragma end mark
+
 
 
 - (IBAction)actCancel:(id)sender {
