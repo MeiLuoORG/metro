@@ -219,8 +219,6 @@
 		3A633B781C9EA4E000C11FD5 /* MLBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A633B751C9EA4E000C11FD5 /* MLBaseViewController.m */; };
 		3A633B791C9EA4E000C11FD5 /* MLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A633B771C9EA4E000C11FD5 /* MLNavigationController.m */; };
 		3A633B7E1C9EA65500C11FD5 /* HFSApplicationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A633B7B1C9EA65500C11FD5 /* HFSApplicationContext.m */; };
-		3A633B861C9EA7F900C11FD5 /* MLHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A633B841C9EA7F900C11FD5 /* MLHomeViewController.m */; };
-		3A633B871C9EA7F900C11FD5 /* MLHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A633B851C9EA7F900C11FD5 /* MLHomeViewController.xib */; };
 		3A633B8B1C9EA82200C11FD5 /* MLClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A633B891C9EA82200C11FD5 /* MLClassViewController.m */; };
 		3A633B8C1C9EA82200C11FD5 /* MLClassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A633B8A1C9EA82200C11FD5 /* MLClassViewController.xib */; };
 		3A633B911C9EA83D00C11FD5 /* MLBagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A633B8F1C9EA83D00C11FD5 /* MLBagViewController.xib */; };
@@ -355,6 +353,11 @@
 		3CEDAD7E1D13ECFB00990DA8 /* page.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7B1D13ECFB00990DA8 /* page.png */; };
 		3CEDAD7F1D13ECFB00990DA8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */; };
 		3CEDAD821D14128C00990DA8 /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDAD811D14128C00990DA8 /* VipCardModel.m */; };
+		3CF2A08B1D27668C00ACCDD6 /* HomeSubViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A0891D27668C00ACCDD6 /* HomeSubViewViewController.m */; };
+		3CF2A08C1D27668C00ACCDD6 /* HomeSubViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A08A1D27668C00ACCDD6 /* HomeSubViewViewController.xib */; };
+		3CF2A08F1D276F4600ACCDD6 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A08E1D276F4600ACCDD6 /* ViewPagerController.m */; };
+		3CF2A0931D276F8900ACCDD6 /* ZLHomezlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A0911D276F8900ACCDD6 /* ZLHomezlViewController.m */; };
+		3CF2A0941D276F8900ACCDD6 /* ZLHomezlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A0921D276F8900ACCDD6 /* ZLHomezlViewController.xib */; };
 		3CF538F41D213AA800395779 /* YouHuiQuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF538F31D213AA800395779 /* YouHuiQuanModel.m */; };
 		3CF8CF761D0E72FA00C548AC /* SettingMoCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */; };
 		3CFC2A4C1D127C5C00C43BFF /* b54504436257.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3CFC2A4B1D127C5C00C43BFF /* b54504436257.jpg */; };
@@ -981,9 +984,6 @@
 		3A633B7B1C9EA65500C11FD5 /* HFSApplicationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFSApplicationContext.m; sourceTree = "<group>"; };
 		3A633B7C1C9EA65500C11FD5 /* HFSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFSConstants.h; sourceTree = "<group>"; };
 		3A633B7D1C9EA65500C11FD5 /* HFSUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFSUtility.h; sourceTree = "<group>"; };
-		3A633B831C9EA7F900C11FD5 /* MLHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLHomeViewController.h; sourceTree = "<group>"; };
-		3A633B841C9EA7F900C11FD5 /* MLHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLHomeViewController.m; sourceTree = "<group>"; };
-		3A633B851C9EA7F900C11FD5 /* MLHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLHomeViewController.xib; sourceTree = "<group>"; };
 		3A633B881C9EA82200C11FD5 /* MLClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLClassViewController.h; sourceTree = "<group>"; };
 		3A633B891C9EA82200C11FD5 /* MLClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLClassViewController.m; sourceTree = "<group>"; };
 		3A633B8A1C9EA82200C11FD5 /* MLClassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLClassViewController.xib; sourceTree = "<group>"; };
@@ -1285,6 +1285,14 @@
 		3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		3CEDAD801D14128C00990DA8 /* VipCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipCardModel.h; sourceTree = "<group>"; };
 		3CEDAD811D14128C00990DA8 /* VipCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipCardModel.m; sourceTree = "<group>"; };
+		3CF2A0881D27668C00ACCDD6 /* HomeSubViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSubViewViewController.h; sourceTree = "<group>"; };
+		3CF2A0891D27668C00ACCDD6 /* HomeSubViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeSubViewViewController.m; sourceTree = "<group>"; };
+		3CF2A08A1D27668C00ACCDD6 /* HomeSubViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeSubViewViewController.xib; sourceTree = "<group>"; };
+		3CF2A08D1D276F4600ACCDD6 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
+		3CF2A08E1D276F4600ACCDD6 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
+		3CF2A0901D276F8900ACCDD6 /* ZLHomezlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLHomezlViewController.h; sourceTree = "<group>"; };
+		3CF2A0911D276F8900ACCDD6 /* ZLHomezlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLHomezlViewController.m; sourceTree = "<group>"; };
+		3CF2A0921D276F8900ACCDD6 /* ZLHomezlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLHomezlViewController.xib; sourceTree = "<group>"; };
 		3CF538F21D213AA800395779 /* YouHuiQuanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouHuiQuanModel.h; sourceTree = "<group>"; };
 		3CF538F31D213AA800395779 /* YouHuiQuanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouHuiQuanModel.m; sourceTree = "<group>"; };
 		3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardCell.m; sourceTree = "<group>"; };
@@ -2839,9 +2847,12 @@
 				3C05567C1D239F150092D140 /* PinPaiVCZL */,
 				687703E81CCF40A30008ED46 /* MyJSInterface.h */,
 				687703E91CCF40A30008ED46 /* MyJSInterface.m */,
-				3A633B831C9EA7F900C11FD5 /* MLHomeViewController.h */,
-				3A633B841C9EA7F900C11FD5 /* MLHomeViewController.m */,
-				3A633B851C9EA7F900C11FD5 /* MLHomeViewController.xib */,
+				3CF2A0901D276F8900ACCDD6 /* ZLHomezlViewController.h */,
+				3CF2A0911D276F8900ACCDD6 /* ZLHomezlViewController.m */,
+				3CF2A0921D276F8900ACCDD6 /* ZLHomezlViewController.xib */,
+				3CF2A0881D27668C00ACCDD6 /* HomeSubViewViewController.h */,
+				3CF2A0891D27668C00ACCDD6 /* HomeSubViewViewController.m */,
+				3CF2A08A1D27668C00ACCDD6 /* HomeSubViewViewController.xib */,
 				3A16DC5D1CA15BB7007AE4A2 /* Search */,
 				7A01A8431D24C1050067F4E9 /* MLShopInfoViewController.h */,
 				7A01A8441D24C1050067F4E9 /* MLShopInfoViewController.m */,
@@ -3309,6 +3320,7 @@
 		3C1306C01D260BA1005CFCEC /* DaoHangZL */ = {
 			isa = PBXGroup;
 			children = (
+				3CF2A0841D27663800ACCDD6 /* ICViewPager */,
 				3C1306C11D260BBC005CFCEC /* HACursor */,
 			);
 			path = DaoHangZL;
@@ -3546,6 +3558,15 @@
 				3CEDAD781D13E74E00990DA8 /* iCarousel.m */,
 			);
 			path = iCarousel;
+			sourceTree = "<group>";
+		};
+		3CF2A0841D27663800ACCDD6 /* ICViewPager */ = {
+			isa = PBXGroup;
+			children = (
+				3CF2A08D1D276F4600ACCDD6 /* ViewPagerController.h */,
+				3CF2A08E1D276F4600ACCDD6 /* ViewPagerController.m */,
+			);
+			path = ICViewPager;
 			sourceTree = "<group>";
 		};
 		3CF538F11D2139E800395779 /* YouHuiQuanModel */ = {
@@ -3963,8 +3984,8 @@
 				7ABB22461D210C5000529B2B /* MLActMessageBodyCell.xib in Resources */,
 				3ACF2D061CA53046003D1F67 /* MLAddTableViewCell.xib in Resources */,
 				7AEC88E71CE47A6A00B43DD4 /* MLGoodsSharePhotoViewController.xib in Resources */,
+				3CF2A0941D276F8900ACCDD6 /* ZLHomezlViewController.xib in Resources */,
 				7A09367F1D1BCB9B002325A2 /* MLProductComDetailHeadCell.xib in Resources */,
-				3A633B871C9EA7F900C11FD5 /* MLHomeViewController.xib in Resources */,
 				6839EF231CD6C4B600638B3D /* APPSettingCell.xib in Resources */,
 				28CF86091CEDC59A00E582EE /* UMShareEditViewController.xib in Resources */,
 				3CEA04CF1D0E879600E5C4B6 /* SettingMoCardCell.xib in Resources */,
@@ -3972,6 +3993,7 @@
 				2CBAD64E1CA3B3AC0044601B /* MLBagZengpinTableViewCell.xib in Resources */,
 				2CBAD6441CA3AD4B0044601B /* MLBagActiveTableViewCell.xib in Resources */,
 				7A083FC21D193E67001F0256 /* MLTuiHuoChengGongViewController.xib in Resources */,
+				3CF2A08C1D27668C00ACCDD6 /* HomeSubViewViewController.xib in Resources */,
 				2869F68A1D221AF7003C4663 /* MLServiceViewController.xib in Resources */,
 				3A633B481C9EA36E00C11FD5 /* Documentation.html in Resources */,
 				6839EF191CD5A94700638B3D /* AddressManagerCell.xib in Resources */,
@@ -4065,10 +4087,12 @@
 				3C1306E11D260BBC005CFCEC /* UIColor+RGBA.m in Sources */,
 				3A633B4B1C9EA36E00C11FD5 /* AsyncSocket.m in Sources */,
 				3A633B2C1C9EA36E00C11FD5 /* UIBarButtonItem+Badge.m in Sources */,
+				3CF2A08F1D276F4600ACCDD6 /* ViewPagerController.m in Sources */,
 				7AEC88CE1CE45D1500B43DD4 /* MLGoodsComHeadView.m in Sources */,
 				7AFFC45A1D1A7A810038B176 /* MLReturnsDetailModel.m in Sources */,
 				3A633B3C1C9EA36E00C11FD5 /* SDCollectionViewCell.m in Sources */,
 				7A272EC91D1A437C00242F24 /* MLReturnsDetailPhototCell.m in Sources */,
+				3CF2A08B1D27668C00ACCDD6 /* HomeSubViewViewController.m in Sources */,
 				7A3A62721CDB874F00D265F2 /* MLOrderSubHeadCell.m in Sources */,
 				285326E71CFD3A5800FA2AB0 /* MLYHQOutdateCell.m in Sources */,
 				3A21486A1CB3A5CC007DF97D /* LoginHistory.m in Sources */,
@@ -4150,6 +4174,7 @@
 				7ACD3A7F1CE9669A004BAF8B /* MLWishlistModel.m in Sources */,
 				7AF15AFB1D126FE100F8CF03 /* MLAddressListModel.m in Sources */,
 				6839EF181CD5A94700638B3D /* AddressManagerCell.m in Sources */,
+				3CF2A0931D276F8900ACCDD6 /* ZLHomezlViewController.m in Sources */,
 				7AFDED3C1D265155008751B9 /* UIView+DownMenu.m in Sources */,
 				3A2148691CB3A5CC007DF97D /* LoginHistory+CoreDataProperties.m in Sources */,
 				7ABB222C1D20D85800529B2B /* MLMessagesViewController.m in Sources */,
@@ -4386,7 +4411,6 @@
 				3A633B3B1C9EA36E00C11FD5 /* TAPageControl.m in Sources */,
 				3AF01E5B1CBBAB94005830BD /* MLLogisticsViewController.m in Sources */,
 				3A633B511C9EA36E00C11FD5 /* UIView+ZLExtension.m in Sources */,
-				3A633B861C9EA7F900C11FD5 /* MLHomeViewController.m in Sources */,
 				7A1DC2641D23B3E60094D751 /* MLShopCartFootView.m in Sources */,
 				3A1AA8D71CAA8B7100AF73C2 /* MLPayerrTableViewCell.m in Sources */,
 				3ACB8D871CC08AEC00C7398B /* MLClassInfo.m in Sources */,

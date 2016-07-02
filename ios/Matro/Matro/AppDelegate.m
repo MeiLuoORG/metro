@@ -7,11 +7,12 @@
 //
 
 #import "AppDelegate.h"
-#import "MLHomeViewController.h"
 #import "MLClassViewController.h"
 #import "MLBagViewController.h"
 #import "MLPersonViewController.h"
 #import "MLPersonController.h"
+#import "ZLHomezlViewController.h"
+
 
 #import "HFSConstants.h"
 #import "UIColor+HeinQi.h"
@@ -392,7 +393,8 @@ fetchCompletionHandler:
 
 - (UITabBarController*)buildTabBarController
 {
-    MLHomeViewController *homeViewController = [[MLHomeViewController alloc]init];
+    
+    ZLHomezlViewController *homeViewController = [[ZLHomezlViewController alloc]init];
     homeViewController.title = @"首页";
     MLNavigationController *homeNavigationController = [[MLNavigationController alloc]initWithRootViewController:homeViewController];
     homeNavigationController.tabBarItem.image = [UIImage imageNamed:@"home-2"];
