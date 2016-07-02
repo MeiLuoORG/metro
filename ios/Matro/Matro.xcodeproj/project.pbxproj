@@ -126,7 +126,6 @@
 		3A16DC611CA15BB7007AE4A2 /* MLSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A16DC5F1CA15BB7007AE4A2 /* MLSearchViewController.m */; };
 		3A1AA8B61CAA0DEC00AF73C2 /* MLInvoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AA8B41CAA0DEC00AF73C2 /* MLInvoiceViewController.m */; };
 		3A1AA8B71CAA0DEC00AF73C2 /* MLInvoiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AA8B51CAA0DEC00AF73C2 /* MLInvoiceViewController.xib */; };
-		3A1AA8BC1CAA2F8B00AF73C2 /* MLAddressListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AA8BA1CAA2F8B00AF73C2 /* MLAddressListViewController.m */; };
 		3A1AA8C11CAA433900AF73C2 /* MLAddressListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AA8BF1CAA433900AF73C2 /* MLAddressListTableViewCell.m */; };
 		3A1AA8C21CAA433900AF73C2 /* MLAddressListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A1AA8C01CAA433900AF73C2 /* MLAddressListTableViewCell.xib */; };
 		3A1AA8C61CAA58F200AF73C2 /* MLAddressInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AA8C41CAA58F200AF73C2 /* MLAddressInfoViewController.m */; };
@@ -474,6 +473,7 @@
 		7A5DCF2F1CDA068C003030C7 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DCF2E1CDA068C003030C7 /* Order.m */; };
 		7A6B22CB1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B22C91D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.m */; };
 		7A6B22CC1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A6B22CA1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.xib */; };
+		7A6CF02E1D27575200DB8B32 /* MLActWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6CF02D1D27575200DB8B32 /* MLActWebViewController.m */; };
 		7A7672E01D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7672DE1D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.m */; };
 		7A7672E11D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A7672DF1D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.xib */; };
 		7A813ED41CD8652400FAB6B2 /* MLProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A813ED31CD8652400FAB6B2 /* MLProductModel.m */; };
@@ -593,7 +593,6 @@
 		D658CBE71CAA91DD006C70F4 /* MNNModifyNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D658CBDA1CAA91DD006C70F4 /* MNNModifyNameViewController.m */; };
 		D658CBE81CAA91DD006C70F4 /* MNNModifyPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D658CBDC1CAA91DD006C70F4 /* MNNModifyPasswordViewController.m */; };
 		D658CBEA1CAA91DD006C70F4 /* MNNNextStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D658CBE01CAA91DD006C70F4 /* MNNNextStepViewController.m */; };
-		D67CFBAC1CC0F698006F24BF /* MLAddressListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D67CFBAB1CC0F698006F24BF /* MLAddressListViewController.xib */; };
 		D6C6F5861CC0C8DF00809AC5 /* MLBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C6F5851CC0C8DF00809AC5 /* MLBagViewController.m */; };
 		D6C6F5B51CC0D11900809AC5 /* MLLikeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C6F5B41CC0D11900809AC5 /* MLLikeModel.m */; };
 		D6C6F5B81CC0D6D500809AC5 /* MLAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C6F5B71CC0D6D500809AC5 /* MLAddressModel.m */; };
@@ -807,8 +806,6 @@
 		3A1AA8B31CAA0DEC00AF73C2 /* MLInvoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLInvoiceViewController.h; sourceTree = "<group>"; };
 		3A1AA8B41CAA0DEC00AF73C2 /* MLInvoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLInvoiceViewController.m; sourceTree = "<group>"; };
 		3A1AA8B51CAA0DEC00AF73C2 /* MLInvoiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLInvoiceViewController.xib; sourceTree = "<group>"; };
-		3A1AA8B91CAA2F8B00AF73C2 /* MLAddressListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddressListViewController.h; sourceTree = "<group>"; };
-		3A1AA8BA1CAA2F8B00AF73C2 /* MLAddressListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddressListViewController.m; sourceTree = "<group>"; };
 		3A1AA8BE1CAA433900AF73C2 /* MLAddressListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAddressListTableViewCell.h; sourceTree = "<group>"; };
 		3A1AA8BF1CAA433900AF73C2 /* MLAddressListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAddressListTableViewCell.m; sourceTree = "<group>"; };
 		3A1AA8C01CAA433900AF73C2 /* MLAddressListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLAddressListTableViewCell.xib; sourceTree = "<group>"; };
@@ -1490,6 +1487,8 @@
 		7A6B22C81D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCartHeadCollectionReusableView.h; sourceTree = "<group>"; };
 		7A6B22C91D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCartHeadCollectionReusableView.m; sourceTree = "<group>"; };
 		7A6B22CA1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLCartHeadCollectionReusableView.xib; sourceTree = "<group>"; };
+		7A6CF02C1D27575200DB8B32 /* MLActWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLActWebViewController.h; sourceTree = "<group>"; };
+		7A6CF02D1D27575200DB8B32 /* MLActWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLActWebViewController.m; sourceTree = "<group>"; };
 		7A7672DD1D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsLikeCollectionViewCell.h; sourceTree = "<group>"; };
 		7A7672DE1D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsLikeCollectionViewCell.m; sourceTree = "<group>"; };
 		7A7672DF1D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsLikeCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1688,7 +1687,6 @@
 		D65C9BDF1CABC9C500D212E7 /* MNNPurchaseHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNNPurchaseHistoryTableViewCell.m; sourceTree = "<group>"; };
 		D67181851CABB2D100D5F6C2 /* MNNMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNNMemberViewController.h; sourceTree = "<group>"; };
 		D67181861CABB2D100D5F6C2 /* MNNMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNNMemberViewController.m; sourceTree = "<group>"; };
-		D67CFBAB1CC0F698006F24BF /* MLAddressListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLAddressListViewController.xib; sourceTree = "<group>"; };
 		D6C6F5851CC0C8DF00809AC5 /* MLBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLBagViewController.m; sourceTree = "<group>"; };
 		D6C6F5B31CC0D11900809AC5 /* MLLikeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLLikeModel.h; path = MLClassModels/MLLikeModel.h; sourceTree = "<group>"; };
 		D6C6F5B41CC0D11900809AC5 /* MLLikeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLLikeModel.m; path = MLClassModels/MLLikeModel.m; sourceTree = "<group>"; };
@@ -1968,9 +1966,6 @@
 		3A1AA8B81CAA2F6E00AF73C2 /* Address */ = {
 			isa = PBXGroup;
 			children = (
-				3A1AA8B91CAA2F8B00AF73C2 /* MLAddressListViewController.h */,
-				3A1AA8BA1CAA2F8B00AF73C2 /* MLAddressListViewController.m */,
-				D67CFBAB1CC0F698006F24BF /* MLAddressListViewController.xib */,
 				3A1AA8C31CAA58F200AF73C2 /* MLAddressInfoViewController.h */,
 				3A1AA8C41CAA58F200AF73C2 /* MLAddressInfoViewController.m */,
 				3A1AA8C51CAA58F200AF73C2 /* MLAddressInfoViewController.xib */,
@@ -3402,6 +3397,8 @@
 				7ABB22471D210D8000529B2B /* MLActMessageFootCell.h */,
 				7ABB22481D210D8000529B2B /* MLActMessageFootCell.m */,
 				7ABB22491D210D8000529B2B /* MLActMessageFootCell.xib */,
+				7A6CF02C1D27575200DB8B32 /* MLActWebViewController.h */,
+				7A6CF02D1D27575200DB8B32 /* MLActWebViewController.m */,
 			);
 			path = MessageController;
 			sourceTree = "<group>";
@@ -3869,7 +3866,6 @@
 				3A633A621C9E9E2F00C11FD5 /* Assets.xcassets in Resources */,
 				3C0FCEF91D0E8C170076396F /* MLSearchViewController.xib in Resources */,
 				7AEDD0D51CE5BB6E009B12F4 /* MLReturnRequestFootView.xib in Resources */,
-				D67CFBAC1CC0F698006F24BF /* MLAddressListViewController.xib in Resources */,
 				280AADB11CFEDC7500E7A2FA /* 0.JPG in Resources */,
 				3ACF2D101CA535FE003D1F67 /* MLRPayTableViewCell.xib in Resources */,
 				2875856C1D210030000BDEF4 /* MLFootMarkTableViewCell.xib in Resources */,
@@ -4083,6 +4079,7 @@
 				3CE4B0D51D1A5F3A0084156C /* BingPhoneZlViewController.m in Sources */,
 				3A16DC471CA0EB63007AE4A2 /* CPPhotoInfoViewController.m in Sources */,
 				3A633B5D1C9EA36E00C11FD5 /* ZLPhotoPickerCustomToolBarView.m in Sources */,
+				7A6CF02E1D27575200DB8B32 /* MLActWebViewController.m in Sources */,
 				3CE4B0D81D1A6D010084156C /* LingQuYouHuiQuanView.m in Sources */,
 				3A633B2E1C9EA36E00C11FD5 /* UIColor+HeinQi.m in Sources */,
 				3C5B0C811CFC37E3003FFD25 /* CustomeColorObject.m in Sources */,
@@ -4274,7 +4271,6 @@
 				2832619E1D192E4800C9EE4E /* MLstoreCollectTableViewCell.m in Sources */,
 				2869F68D1D2279B7003C4663 /* MLKefuHeader.m in Sources */,
 				280F7D551CF93E3200D42FA6 /* NSDictionary+HYBUnicodeReadable.m in Sources */,
-				3A1AA8BC1CAA2F8B00AF73C2 /* MLAddressListViewController.m in Sources */,
 				3A16DC3F1CA0EA69007AE4A2 /* RecommendCollectionViewCell.m in Sources */,
 				7ABB22341D20F8BC00529B2B /* MLSystemMessageController.m in Sources */,
 				D658CBE71CAA91DD006C70F4 /* MNNModifyNameViewController.m in Sources */,

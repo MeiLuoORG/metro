@@ -11,7 +11,7 @@
 #import "HFSConstants.h"
 
 #import "MLLoginViewController.h"
-#import "MLAddressListViewController.h"
+#import "MLAddressSelectViewController.h"
 #import "HFSOrderListViewController.h"
 #import "MNNManagementViewController.h"
 #import "APPSettingViewController.h"

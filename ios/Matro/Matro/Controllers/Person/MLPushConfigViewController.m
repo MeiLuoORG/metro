@@ -127,7 +127,7 @@
     [MLHttpManager get:url params:nil m:@"push" s:@"get_setting" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
-            NSDictionary *data= data[@"data"];
+            NSDictionary *data= result[@"data"];
             NSArray *list = data[@"list"];
             [self.settingArray addObjectsFromArray:list];
             [self.tableView reloadData];

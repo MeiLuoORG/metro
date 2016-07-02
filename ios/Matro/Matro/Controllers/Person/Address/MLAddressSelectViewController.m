@@ -53,12 +53,10 @@ static MLAddressListModel *selAddress;
     });
     _footView = ({
         UIView *footView = [[UIView alloc]initWithFrame:CGRectZero];
-        footView.backgroundColor = [UIColor whiteColor];
         UIButton *btn = [[UIButton alloc]initWithFrame:CGRectZero];
         [btn setTitle:@"新增收货地址" forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:16];
         [btn addTarget:self action:@selector(addAddress:) forControlEvents:UIControlEventTouchUpInside];
-        
         [btn setBackgroundColor:RGBA(178, 148, 88, 1)];
         btn.layer.masksToBounds = YES;
         btn.layer.cornerRadius = 3.f;
@@ -79,24 +77,10 @@ static MLAddressListModel *selAddress;
         make.bottom.mas_equalTo(self.footView.mas_top);
     }];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"确认选择" style:UIBarButtonItemStylePlain target:self action:@selector(doneAction:)];
     
     [self loadDateAddressList];
 }
 
-
-- (void)doneAction:(id)sender{
-    
-    if (!selAddress) {
-        [MBProgressHUD showMessag:@"请选择联系人" toView:self.view];
-        return;
-    }
-    if (self.addressSelectBlock) {
-        self.addressSelectBlock(selAddress);
-    }
-    [self.navigationController popViewControllerAnimated:YES];
-
-}
 
 - (void)addAddress:(id)sender{
     MLAddressInfoViewController *vc = [[MLAddressInfoViewController alloc]init];
@@ -133,10 +117,10 @@ static MLAddressListModel *selAddress;
         [weakself.navigationController pushViewController:vc animated:YES];
         
     };
-    cell.checkBoxBlock = ^(BOOL isSel){
-        selAddress = isSel?model:nil;
-        [weakself.tableView reloadData];
-    };
+//    cell.checkBoxBlock = ^(BOOL isSel){
+//        selAddress = isSel?model:nil;
+//        [weakself.tableView reloadData];
+//    };
     
     
     
@@ -161,12 +145,12 @@ static MLAddressListModel *selAddress;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     MLAddressListModel *address = [self.addressList objectAtIndex:indexPath.row];
-    MLSelAddressTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    selAddress = cell.checkBox.addSelected?nil:address;
+//    MLSelAddressTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    selAddress = cell.checkBox.addSelected?nil:address;
+    selAddress = address;
     [self.tableView reloadData];
-    
     if (!selAddress) {
         [MBProgressHUD showMessag:@"请选择联系人" toView:self.view];
         return;

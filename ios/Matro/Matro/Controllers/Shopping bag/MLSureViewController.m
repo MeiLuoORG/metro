@@ -10,7 +10,7 @@
 #import "MLListViewController.h"
 #import "MLPayViewController.h"
 #import "MLInvoiceViewController.h"
-#import "MLAddressListViewController.h"
+#import "MLAddressSelectViewController.h"
 #import "SBJSON.h"
 #import "HFSConstants.h"
 #import "UIButton+HeinQi.h"
@@ -23,7 +23,7 @@
 #import "MLProductModel.h"
 
 
-@interface MLSureViewController ()<InvoiceDelegate,AddressDelegate>
+@interface MLSureViewController ()<InvoiceDelegate>
 {
     NSString *userid;
     NSDictionary *defaultAddress;
@@ -73,7 +73,7 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic,strong)MLInvoiceViewController *invoiceVc;
 
-@property (nonatomic,strong)MLAddressListViewController *addressVc;
+@property (nonatomic,strong)MLAddressSelectViewController *addressVc;
 
 
 @end
@@ -176,8 +176,7 @@
     [self loadDateAddressList];
     ddly = @"0";
     
-    _addressVc = [[MLAddressListViewController alloc]init];
-    _addressVc.delegate = self;
+    _addressVc = [[MLAddressSelectViewController alloc]init];
     
 }
 

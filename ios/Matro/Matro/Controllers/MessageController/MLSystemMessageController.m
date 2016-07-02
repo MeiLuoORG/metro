@@ -60,18 +60,11 @@
     [self.tableView.header beginRefreshing];
     
     [self addMenuButton];
-//    
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gengduozl"] style:UIBarButtonItemStylePlain target:self action:@selector(showDownList)];
     
     
 }
 
 #pragma mark--展示下拉菜单
-//-(void)showDownList{
-//    [self.view showDownMenuWithItems:@[@{@"img":@"icon_gengduo_home",@"title":@"首页"},@{@"img":@"icon_gengduo_search",@"title":@"搜索"},@{@"img":@"icon_gengduo_message",@"title":@"消息"},@{@"img":@"icon_gengduo_collect",@"title":@"收藏"}] AndSelBlock:^(NSInteger index) {
-//        NSLog(@"%li",index);
-//    }];
-//}
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

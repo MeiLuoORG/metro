@@ -169,9 +169,7 @@
             else{
                 
             }
-            
         }
-        
         
     } failure:^(NSError *error) {
         NSLog(@"优惠券请求失败：%@",error);

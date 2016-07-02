@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLBaseViewController.h"
 
 @class MLAddressListModel;
 
 typedef void(^AddressSelectBlock)(MLAddressListModel*);
-@interface MLAddressSelectViewController : UIViewController
+@interface MLAddressSelectViewController : MLBaseViewController
 @property (nonatomic,copy)AddressSelectBlock addressSelectBlock;
 
 

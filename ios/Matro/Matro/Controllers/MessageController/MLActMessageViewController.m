@@ -19,6 +19,8 @@
 #import "UIImageView+WebCache.h"
 #import "MLHttpManager.h"
 #import "MBProgressHUD+Add.h"
+#import "UIViewController+MLMenu.h"
+#import "MLActWebViewController.h"
 
 @interface MLActMessageViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)NSMutableArray *messageArray;
@@ -54,6 +56,7 @@
     }];
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(getActMessages)];
     [self.tableView.header beginRefreshing];
+    [self addMenuButton];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -106,6 +109,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    MLActiveMessageModel *message = [self.messageArray objectAtIndex:indexPath.section];
+    MLActWebViewController *vc = [[MLActWebViewController alloc]init];
+    vc.link = message.link;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 

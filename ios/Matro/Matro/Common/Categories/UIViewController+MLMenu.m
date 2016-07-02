@@ -28,13 +28,12 @@
         switch (index) {
             case 0: //首页 跳到首页
             {
-                 [self.navigationController popToRootViewControllerAnimated:YES];
                 [self.tabBarController setSelectedIndex:0];
             }
                 break;
             case 1: //搜索 跳到搜索页
             {
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:NO];
                 [self.tabBarController setSelectedIndex:0];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"PushToSearchCenter" object:nil];
                 

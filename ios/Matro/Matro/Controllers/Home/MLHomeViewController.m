@@ -30,12 +30,11 @@
 #import "MLReturnsDetailViewController.h"
 #import "MLGoodsDetailsViewController.h"
 
-<<<<<<< Updated upstream
-=======
+
 #import "HACursor.h"
 #import "UIView+Extension.h"
 #import "HATestView.h"
->>>>>>> Stashed changes
+
 
 @protocol HomeJSObjectDelegate <JSExport>
 
@@ -143,6 +142,7 @@
     //注册通知  按钮切换
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(homeViewButtonIndexNotification:) name:HOMEVIEW_BUTTON_INDEX_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleSingleTap:) name:@"PushToSearchCenter" object:nil];
     self.currentOffestY = 0.0f;//当前位移
 }
 - (void)createNavTopView{
@@ -189,7 +189,6 @@
     
     //self.navigationItem.titleView = frameView;
     [self.firstTopView addSubview:frameView];
-    
     UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     [frameView addGestureRecognizer:singleTap];
     
@@ -258,19 +257,13 @@
         //[textView createWebViewWith:@"http://www.baidu.com"];
         [self.pageViews addObject:textView];
     }
-<<<<<<< Updated upstream
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleSingleTap:) name:@"PushToSearchCenter" object:nil];
-    
+     return self.pageViews;
     
 }
 
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
-=======
-    return self.pageViews;
->>>>>>> Stashed changes
 }
 #pragma end mark 头部导航条 结束
 

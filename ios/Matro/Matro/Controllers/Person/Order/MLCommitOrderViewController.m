@@ -8,12 +8,14 @@
 
 #import "MLCommitOrderViewController.h"
 #import "MLInvoiceViewController.h"
-#import "MLAddressListViewController.h"
+#import "MLAddressSelectViewController.h"
 #import "MLHttpManager.h"
 #import "MBProgressHUD+Add.h"
 #import "MLOrderListViewCell.h"
 #import "MLShopCartMoreCell.h"
 #import "MLOrderHeader.h"
+#import "MLAddressListModel.h"
+
 @interface MLCommitOrderViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *myscrollview;
@@ -50,7 +52,7 @@
 
 @property (nonatomic,strong)MLInvoiceViewController *invoiceVc;
 
-@property (nonatomic,strong)MLAddressListViewController *addressVc;
+@property (nonatomic,strong)MLAddressSelectViewController *addressVc;
 
 @end
 
@@ -166,10 +168,16 @@
 }
 
 
-- (MLAddressListViewController *)addressVc{
+
+- (MLAddressSelectViewController *)addressVc{
     if (!_addressVc) {
-        _addressVc = [[MLAddressListViewController alloc]init];
-        
+        _addressVc = [[MLAddressSelectViewController alloc]init];
+        __weak typeof(self) weakself = self;
+        _addressVc.addressSelectBlock = ^(MLAddressListModel *selAddress){
+            weakself.userName.text = selAddress.name;
+            weakself.phoneNum.text = selAddress.mobile;
+            weakself.address.text = [NSString stringWithFormat:@"%@%@",selAddress.area,selAddress.address];
+        };
         
     }
     return _addressVc;

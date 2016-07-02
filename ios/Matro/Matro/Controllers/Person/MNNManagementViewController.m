@@ -9,7 +9,7 @@
 #import "MNNManagementViewController.h"
 #import "MNNModifyNameViewController.h"
 #import "MNNModifyPasswordViewController.h"
-#import "MLAddressListViewController.h"
+#import "MLAddressSelectViewController.h"
 #import "HFSUtility.h"
 #import "HFSConstants.h"
 #import "HFSServiceClient.h"

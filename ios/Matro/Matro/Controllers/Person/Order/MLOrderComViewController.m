@@ -75,6 +75,7 @@
             NSDictionary *result = (NSDictionary *)responseObject;
             if ([result[@"code"] isEqual:@0]) {
                 [MBProgressHUD showMessag:@"评价成功" toView:self.view];
+                [self performSelector:@selector(goBack) withObject:nil afterDelay:0.5];
             }else{
                 NSString *msg = result[@"msg"];
                 [MBProgressHUD showMessag:msg toView:self.view];
