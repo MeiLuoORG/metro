@@ -69,8 +69,9 @@
     _gengDuoImageView.userInteractionEnabled = YES;
     _gengDuoImageView.backgroundColor = [UIColor whiteColor];
     _gengDuoImageView.layer.borderColor = [HFSUtility hexStringToColor:Main_bianGrayBackgroundColor].CGColor;
-    _gengDuoImageView.layer.borderWidth = 1;
-    _gengDuoImageView.layer.masksToBounds = YES;
+    //_gengDuoImageView.layer.borderWidth = 1;
+    //_gengDuoImageView.layer.masksToBounds = YES;
+    _gengDuoImageView.image = [UIImage imageNamed:@"juxingzl"];
     [self.view addSubview:_gengDuoImageView];
     
     UIButton * btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -94,9 +95,9 @@
     [btn2 setTitle:@"搜索" forState:UIControlStateNormal];
     [btn2 setTitleColor:[HFSUtility hexStringToColor:Main_textNormalBackgroundColor] forState:UIControlStateNormal];
     btn2.tag = 102;
-    [btn2 setImage:[UIImage imageNamed:@"home-2"] forState:UIControlStateNormal];
+    [btn2 setImage:[UIImage imageNamed:@"sousuo"] forState:UIControlStateNormal];
     btn2.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 11, 125);
-    btn2.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 70);
+    btn2.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 70);
     btn2.titleLabel.font = [UIFont systemFontOfSize:13.0f];
     UIView * spView2 = [[UIView alloc]initWithFrame:CGRectMake(10, 45+33, 130, 1)];
     spView2.backgroundColor = [HFSUtility hexStringToColor:Main_spelBackgroundColor];
@@ -110,9 +111,9 @@
     [btn3 setTitle:@"消息" forState:UIControlStateNormal];
     [btn3 setTitleColor:[HFSUtility hexStringToColor:Main_textNormalBackgroundColor] forState:UIControlStateNormal];
     btn3.tag = 103;
-    [btn3 setImage:[UIImage imageNamed:@"home-2"] forState:UIControlStateNormal];
+    [btn3 setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
     btn3.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 11, 125);
-    btn3.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 70);
+    btn3.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 65);
     btn3.titleLabel.font = [UIFont systemFontOfSize:13.0f];
     UIView * spView3 = [[UIView alloc]initWithFrame:CGRectMake(10, 45+33+33, 130, 1)];
     spView3.backgroundColor = [HFSUtility hexStringToColor:Main_spelBackgroundColor];
@@ -125,9 +126,9 @@
     [btn4 setTitle:@"收藏" forState:UIControlStateNormal];
     [btn4 setTitleColor:[HFSUtility hexStringToColor:Main_textNormalBackgroundColor] forState:UIControlStateNormal];
     btn4.tag = 104;
-    [btn4 setImage:[UIImage imageNamed:@"home-2"] forState:UIControlStateNormal];
+    [btn4 setImage:[UIImage imageNamed:@"star-big2"] forState:UIControlStateNormal];
     btn4.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 11, 125);
-    btn4.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 70);
+    btn4.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 70);
     btn4.titleLabel.font = [UIFont systemFontOfSize:13.0f];
     UIView * spView4 = [[UIView alloc]initWithFrame:CGRectMake(10, 45+33+33+33, 130, 1)];
     spView4.backgroundColor = [HFSUtility hexStringToColor:Main_spelBackgroundColor];

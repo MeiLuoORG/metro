@@ -828,12 +828,15 @@
     }
     if (sender.tag == 104) {
          NSLog(@"3客服");
+<<<<<<< Updated upstream
 
 //        PinPaiZLViewController * VC = [[PinPaiZLViewController alloc]init];
 //        VC.hidesBottomBarWhenPushed = YES;
 //        [self.navigationController pushViewController:VC animated:YES];
  
 
+=======
+>>>>>>> Stashed changes
         if (!loginid) {
             [self showError];
             return;
@@ -842,7 +845,7 @@
  
        // MLCommitOrderViewController *vc = [[MLCommitOrderViewController alloc]init];
         
-        MLServiceViewController *vc = [[MLServiceViewController alloc]init];
+        MLCusServiceController *vc = [[MLCusServiceController alloc]init];
          
         
         vc.hidesBottomBarWhenPushed = YES;

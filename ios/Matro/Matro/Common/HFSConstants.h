@@ -113,6 +113,10 @@
 //李佳接口认证成功后 通知名
 #define RENZHENG_LIJIA_Notification @"renzheng_lijia_notification"
 
+//首页切换  视图 按钮 通知名
+#define HOMEVIEW_BUTTON_INDEX_NOTIFICATION @"homeview_button_index_notification"
+
+
 /*zhoulu*/
 
 #define LoadNibWithSelfClassName [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil]firstObject]

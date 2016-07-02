@@ -309,6 +309,18 @@
 		3C055CD81D08143700362C4D /* ShenFenZhengController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C055CD71D08143700362C4D /* ShenFenZhengController.m */; };
 		3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */; };
 		3C0FCEF91D0E8C170076396F /* MLSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */; };
+		3C1306D81D260BBC005CFCEC /* HACursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306C31D260BBC005CFCEC /* HACursor.m */; };
+		3C1306D91D260BBC005CFCEC /* HAItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306C51D260BBC005CFCEC /* HAItemManager.m */; };
+		3C1306DA1D260BBC005CFCEC /* HARootScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306C81D260BBC005CFCEC /* HARootScrollView.m */; };
+		3C1306DB1D260BBC005CFCEC /* HARootScrollViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306CA1D260BBC005CFCEC /* HARootScrollViewCell.m */; };
+		3C1306DC1D260BBC005CFCEC /* HARootScrollViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306CC1D260BBC005CFCEC /* HARootScrollViewManager.m */; };
+		3C1306DD1D260BBC005CFCEC /* HAScrollNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306CE1D260BBC005CFCEC /* HAScrollNavBar.m */; };
+		3C1306DE1D260BBC005CFCEC /* HASortButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306D01D260BBC005CFCEC /* HASortButton.m */; };
+		3C1306DF1D260BBC005CFCEC /* HASortItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306D21D260BBC005CFCEC /* HASortItemView.m */; };
+		3C1306E01D260BBC005CFCEC /* icons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3C1306D31D260BBC005CFCEC /* icons.bundle */; };
+		3C1306E11D260BBC005CFCEC /* UIColor+RGBA.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306D51D260BBC005CFCEC /* UIColor+RGBA.m */; };
+		3C1306E21D260BBC005CFCEC /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306D71D260BBC005CFCEC /* UIView+Extension.m */; };
+		3C1306E51D260BCB005CFCEC /* HATestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306E41D260BCB005CFCEC /* HATestView.m */; };
 		3C13F2F21D1D19C70069A8F6 /* ShiMingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13F2F01D1D19C70069A8F6 /* ShiMingViewController.m */; };
 		3C13F2F31D1D19C70069A8F6 /* ShiMingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */; };
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
@@ -1192,6 +1204,29 @@
 		3C0AF2021CFFE1BC00E48B18 /* NavTopCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavTopCommonImage.h; sourceTree = "<group>"; };
 		3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavTopCommonImage.m; sourceTree = "<group>"; };
 		3C0FCEF81D0E8C170076396F /* MLSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSearchViewController.xib; sourceTree = "<group>"; };
+		3C1306C21D260BBC005CFCEC /* HACursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HACursor.h; sourceTree = "<group>"; };
+		3C1306C31D260BBC005CFCEC /* HACursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HACursor.m; sourceTree = "<group>"; };
+		3C1306C41D260BBC005CFCEC /* HAItemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HAItemManager.h; sourceTree = "<group>"; };
+		3C1306C51D260BBC005CFCEC /* HAItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HAItemManager.m; sourceTree = "<group>"; };
+		3C1306C71D260BBC005CFCEC /* HARootScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HARootScrollView.h; sourceTree = "<group>"; };
+		3C1306C81D260BBC005CFCEC /* HARootScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HARootScrollView.m; sourceTree = "<group>"; };
+		3C1306C91D260BBC005CFCEC /* HARootScrollViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HARootScrollViewCell.h; sourceTree = "<group>"; };
+		3C1306CA1D260BBC005CFCEC /* HARootScrollViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HARootScrollViewCell.m; sourceTree = "<group>"; };
+		3C1306CB1D260BBC005CFCEC /* HARootScrollViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HARootScrollViewManager.h; sourceTree = "<group>"; };
+		3C1306CC1D260BBC005CFCEC /* HARootScrollViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HARootScrollViewManager.m; sourceTree = "<group>"; };
+		3C1306CD1D260BBC005CFCEC /* HAScrollNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HAScrollNavBar.h; sourceTree = "<group>"; };
+		3C1306CE1D260BBC005CFCEC /* HAScrollNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HAScrollNavBar.m; sourceTree = "<group>"; };
+		3C1306CF1D260BBC005CFCEC /* HASortButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HASortButton.h; sourceTree = "<group>"; };
+		3C1306D01D260BBC005CFCEC /* HASortButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HASortButton.m; sourceTree = "<group>"; };
+		3C1306D11D260BBC005CFCEC /* HASortItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HASortItemView.h; sourceTree = "<group>"; };
+		3C1306D21D260BBC005CFCEC /* HASortItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HASortItemView.m; sourceTree = "<group>"; };
+		3C1306D31D260BBC005CFCEC /* icons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = icons.bundle; sourceTree = "<group>"; };
+		3C1306D41D260BBC005CFCEC /* UIColor+RGBA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RGBA.h"; sourceTree = "<group>"; };
+		3C1306D51D260BBC005CFCEC /* UIColor+RGBA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RGBA.m"; sourceTree = "<group>"; };
+		3C1306D61D260BBC005CFCEC /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		3C1306D71D260BBC005CFCEC /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		3C1306E31D260BCB005CFCEC /* HATestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HATestView.h; sourceTree = "<group>"; };
+		3C1306E41D260BCB005CFCEC /* HATestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HATestView.m; sourceTree = "<group>"; };
 		3C13F2EF1D1D19C70069A8F6 /* ShiMingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShiMingViewController.h; sourceTree = "<group>"; };
 		3C13F2F01D1D19C70069A8F6 /* ShiMingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShiMingViewController.m; sourceTree = "<group>"; };
 		3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShiMingViewController.xib; sourceTree = "<group>"; };
@@ -2805,6 +2840,7 @@
 		3A633B801C9EA7C900C11FD5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3C1306C01D260BA1005CFCEC /* DaoHangZL */,
 				3C05567C1D239F150092D140 /* PinPaiVCZL */,
 				687703E81CCF40A30008ED46 /* MyJSInterface.h */,
 				687703E91CCF40A30008ED46 /* MyJSInterface.m */,
@@ -3273,6 +3309,52 @@
 				3C0AF2031CFFE1BC00E48B18 /* NavTopCommonImage.m */,
 			);
 			path = TopNavBackground;
+			sourceTree = "<group>";
+		};
+		3C1306C01D260BA1005CFCEC /* DaoHangZL */ = {
+			isa = PBXGroup;
+			children = (
+				3C1306C11D260BBC005CFCEC /* HACursor */,
+			);
+			path = DaoHangZL;
+			sourceTree = "<group>";
+		};
+		3C1306C11D260BBC005CFCEC /* HACursor */ = {
+			isa = PBXGroup;
+			children = (
+				3C1306E31D260BCB005CFCEC /* HATestView.h */,
+				3C1306E41D260BCB005CFCEC /* HATestView.m */,
+				3C1306C21D260BBC005CFCEC /* HACursor.h */,
+				3C1306C31D260BBC005CFCEC /* HACursor.m */,
+				3C1306C41D260BBC005CFCEC /* HAItemManager.h */,
+				3C1306C51D260BBC005CFCEC /* HAItemManager.m */,
+				3C1306C61D260BBC005CFCEC /* HARootScrollView */,
+				3C1306CD1D260BBC005CFCEC /* HAScrollNavBar.h */,
+				3C1306CE1D260BBC005CFCEC /* HAScrollNavBar.m */,
+				3C1306CF1D260BBC005CFCEC /* HASortButton.h */,
+				3C1306D01D260BBC005CFCEC /* HASortButton.m */,
+				3C1306D11D260BBC005CFCEC /* HASortItemView.h */,
+				3C1306D21D260BBC005CFCEC /* HASortItemView.m */,
+				3C1306D31D260BBC005CFCEC /* icons.bundle */,
+				3C1306D41D260BBC005CFCEC /* UIColor+RGBA.h */,
+				3C1306D51D260BBC005CFCEC /* UIColor+RGBA.m */,
+				3C1306D61D260BBC005CFCEC /* UIView+Extension.h */,
+				3C1306D71D260BBC005CFCEC /* UIView+Extension.m */,
+			);
+			path = HACursor;
+			sourceTree = "<group>";
+		};
+		3C1306C61D260BBC005CFCEC /* HARootScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				3C1306C71D260BBC005CFCEC /* HARootScrollView.h */,
+				3C1306C81D260BBC005CFCEC /* HARootScrollView.m */,
+				3C1306C91D260BBC005CFCEC /* HARootScrollViewCell.h */,
+				3C1306CA1D260BBC005CFCEC /* HARootScrollViewCell.m */,
+				3C1306CB1D260BBC005CFCEC /* HARootScrollViewManager.h */,
+				3C1306CC1D260BBC005CFCEC /* HARootScrollViewManager.m */,
+			);
+			path = HARootScrollView;
 			sourceTree = "<group>";
 		};
 		3C5B0C611CFC372D003FFD25 /* CardControllsers */ = {
@@ -3856,6 +3938,7 @@
 				3A1F72E01CA3FC13000ECE08 /* HFSOrderListTableViewCell.xib in Resources */,
 				3A630BDF1CA25663006E67F4 /* MLClassTableViewCell.xib in Resources */,
 				3AA0E7351CA916A90079AA90 /* MLPayViewController.xib in Resources */,
+				3C1306E01D260BBC005CFCEC /* icons.bundle in Resources */,
 				7A0936841D1BCDA3002325A2 /* MLCommentDetailUserTableViewCell.xib in Resources */,
 				7A6B22CC1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.xib in Resources */,
 				7AEC88DD1CE464EC00B43DD4 /* MLGoodsComPhotoCell.xib in Resources */,
@@ -3975,6 +4058,7 @@
 				280F7CD11CF7F44800D42FA6 /* mask.c in Sources */,
 				D642D8571CAD009D00317AB6 /* MNNMemberViewController.m in Sources */,
 				D6FE72391CACFA6200ECF9AD /* MNNAboutUsViewController.m in Sources */,
+				3C1306E21D260BBC005CFCEC /* UIView+Extension.m in Sources */,
 				7A3A62691CDB874F00D265F2 /* MLAfterSaleProductCell.m in Sources */,
 				3ACF2CFB1CA52E35003D1F67 /* MLZTTableViewCell.m in Sources */,
 				D658CBEA1CAA91DD006C70F4 /* MNNNextStepViewController.m in Sources */,
@@ -3982,6 +4066,7 @@
 				3A633B5A1C9EA36E00C11FD5 /* ZLPhotoPickerBrowserPhotoImageView.m in Sources */,
 				3C5B0C821CFC37E3003FFD25 /* UIView+MJAlertView.m in Sources */,
 				D6C6F5B81CC0D6D500809AC5 /* MLAddressModel.m in Sources */,
+				3C1306E11D260BBC005CFCEC /* UIColor+RGBA.m in Sources */,
 				3A633B4B1C9EA36E00C11FD5 /* AsyncSocket.m in Sources */,
 				3A633B2C1C9EA36E00C11FD5 /* UIBarButtonItem+Badge.m in Sources */,
 				7AEC88CE1CE45D1500B43DD4 /* MLGoodsComHeadView.m in Sources */,
@@ -4027,11 +4112,13 @@
 				7A3A62421CDB86F700D265F2 /* MLBindPhoneController.m in Sources */,
 				7A1DC24E1D23640C0094D751 /* MLMessageCenterModel.m in Sources */,
 				3A633B581C9EA36E00C11FD5 /* ZLPhotoPickerBrowserViewController+SignlePhotoBrowser.m in Sources */,
+				3C1306DB1D260BBC005CFCEC /* HARootScrollViewCell.m in Sources */,
 				7AED646F1CDDB45D008F55BD /* MLCusHelpViewController.m in Sources */,
 				7ACD3A721CE83CE1004BAF8B /* MLCheckBoxButton.m in Sources */,
 				7AB90FEF1D1CC52800FB9EE7 /* MLLogisticsModel.m in Sources */,
 				3C13F2F21D1D19C70069A8F6 /* ShiMingViewController.m in Sources */,
 				28FF03871D1124F6004978CD /* MLGoodsDetailsViewController.m in Sources */,
+				3C1306DE1D260BBC005CFCEC /* HASortButton.m in Sources */,
 				280F7D6A1CF9729A00D42FA6 /* MLPropertyCell.m in Sources */,
 				7A4D9DFF1D13916C006E6AB2 /* MLZTextTableViewCell.m in Sources */,
 				7ABB22451D210C5000529B2B /* MLActMessageBodyCell.m in Sources */,
@@ -4054,6 +4141,7 @@
 				7A272EB61D1A262100242F24 /* MLReturnsDetailViewController.m in Sources */,
 				7A813ED41CD8652400FAB6B2 /* MLProductModel.m in Sources */,
 				7A272EBF1D1A2EFC00242F24 /* MLShopCartMoreCell.m in Sources */,
+				3C1306D91D260BBC005CFCEC /* HAItemManager.m in Sources */,
 				D6C6F5B51CC0D11900809AC5 /* MLLikeModel.m in Sources */,
 				3AA0E7AA1CA91E500079AA90 /* MD5DataSigner.m in Sources */,
 				7A028D851CEAC294005D14BC /* MBProgressHUD+Add.m in Sources */,
@@ -4076,6 +4164,7 @@
 				7ACFA5FD1D1125AF00987A03 /* MLPersonOrderListViewController.m in Sources */,
 				2CBAD64D1CA3B3AC0044601B /* MLBagZengpinTableViewCell.m in Sources */,
 				7A272EBA1D1A265500242F24 /* MLReturnsDetailHeadCell.m in Sources */,
+				3C1306DD1D260BBC005CFCEC /* HAScrollNavBar.m in Sources */,
 				7A01A8451D24C1050067F4E9 /* MLShopInfoViewController.m in Sources */,
 				687704241CD34E4A0008ED46 /* SBJsonParser.m in Sources */,
 				3A633B4E1C9EA36E00C11FD5 /* SSKeychain.m in Sources */,
@@ -4090,6 +4179,7 @@
 				3C0AF2041CFFE1BC00E48B18 /* NavTopCommonImage.m in Sources */,
 				3CEDAD791D13E74E00990DA8 /* iCarousel.m in Sources */,
 				3A633B5F1C9EA36E00C11FD5 /* ZLPhotoPickerDatas.m in Sources */,
+				3C1306DA1D260BBC005CFCEC /* HARootScrollView.m in Sources */,
 				7AF15AFF1D12822700F8CF03 /* MLPersonOrderModel.m in Sources */,
 				3A633B5B1C9EA36E00C11FD5 /* ZLPhotoPickerBrowserPhotoScrollView.m in Sources */,
 				3A633B3D1C9EA36E00C11FD5 /* SDCycleScrollView.m in Sources */,
@@ -4281,6 +4371,7 @@
 				3AA0E7AB1CA91E500079AA90 /* NSDataEx.m in Sources */,
 				7A272EC41D1A405500242F24 /* MLReturnsWentiTableViewCell.m in Sources */,
 				687704211CD34E4A0008ED46 /* NSString+SBJSON.m in Sources */,
+				3C1306D81D260BBC005CFCEC /* HACursor.m in Sources */,
 				3ACF2CEE1CA5070E003D1F67 /* mztools.c in Sources */,
 				7A3A626F1CDB874F00D265F2 /* MLOrderComViewController.m in Sources */,
 				3ACF2D051CA53046003D1F67 /* MLAddTableViewCell.m in Sources */,
@@ -4289,7 +4380,9 @@
 				3AE02DB71CAB60920016FA75 /* SearchHistory.m in Sources */,
 				287C86D81D1D1FBA0002E5E2 /* MLLoginViewController.m in Sources */,
 				283261941D18EFC700C9EE4E /* MLCollectionTableViewCell.m in Sources */,
+				3C1306DC1D260BBC005CFCEC /* HARootScrollViewManager.m in Sources */,
 				7AFFC45D1D1A88BB0038B176 /* MLHttpManager.m in Sources */,
+				3C1306DF1D260BBC005CFCEC /* HASortItemView.m in Sources */,
 				7A3A62761CDB874F00D265F2 /* MLRetrunsHeadCell.m in Sources */,
 				280F7CE51CF832C600D42FA6 /* MLYHQTableViewCell.m in Sources */,
 				3AA0E7AE1CA91E500079AA90 /* RSADataVerifier.m in Sources */,
@@ -4314,6 +4407,7 @@
 				3A1F72DD1CA3FC13000ECE08 /* HFSOrderInfoTableViewCell.m in Sources */,
 				3A633B681C9EA36E00C11FD5 /* ZLPhotoPickerFooterCollectionReusableView.m in Sources */,
 				3A633B571C9EA36E00C11FD5 /* ZLPhotoRect.m in Sources */,
+				3C1306E51D260BCB005CFCEC /* HATestView.m in Sources */,
 				3A1AA8C61CAA58F200AF73C2 /* MLAddressInfoViewController.m in Sources */,
 				3AA0E7A91CA91E500079AA90 /* DataVerifier.m in Sources */,
 				3ACF2CDB1CA4E702003D1F67 /* MLMoreTableViewCell.m in Sources */,

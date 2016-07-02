@@ -30,6 +30,12 @@
 #import "MLReturnsDetailViewController.h"
 #import "MLGoodsDetailsViewController.h"
 
+<<<<<<< Updated upstream
+=======
+#import "HACursor.h"
+#import "UIView+Extension.h"
+#import "HATestView.h"
+>>>>>>> Stashed changes
 
 @protocol HomeJSObjectDelegate <JSExport>
 
@@ -37,7 +43,7 @@
 
 @end
 //JSInterfaceDelegate
-@interface MLHomeViewController ()<UISearchBarDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,HomeJSObjectDelegate,UIScrollViewDelegate>//用于处理采集信息的代理
+@interface MLHomeViewController ()<UISearchBarDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,HomeJSObjectDelegate,HATopDragProtocol>//用于处理采集信息的代理
 {
     AVCaptureSession * session;//输入输出的中间桥梁
     NSString *version;
@@ -73,6 +79,11 @@
 @property ( strong , nonatomic ) AVCaptureVideoPreviewLayer * preview;
 @property (nonatomic,strong)MyJSInterface *interface;
 
+@property (strong, nonatomic) UIView * firstTopView;
+@property (nonatomic, strong) NSArray *titles;
+@property (nonatomic, strong) NSMutableArray *pageViews;
+
+@property (strong, nonatomic) HACursor * cursor;
 
 @end
 
@@ -80,8 +91,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getVersion];
-    [self loadVersion];
+    
+    [self.navigationController setNavigationBarHidden:YES];
+    
+    //[self getVersion];
+    //[self loadVersion];
     self.versionView.hidden = YES;
     self.versionView.layer.cornerRadius = 4.f;
     self.versionView.layer.masksToBounds = YES;
@@ -90,14 +104,66 @@
     self.cancelBtn.layer.cornerRadius = 4.f;
     self.cancelBtn.layer.masksToBounds = YES;
     
+
     
+
     
+
+    
+    _loadingSpinner.tintColor = [HFSUtility hexStringToColor:@"#ae8e5d"];
+    _loadingSpinner.lineWidth = 5;
+
+
+    
+    [_loadingBGView removeFromSuperview];
+    
+
+    /*
+    NSString *path = [[DOCUMENT_FOLDER_PATH stringByAppendingPathComponent:ZIP_FILE_NAME] stringByAppendingPathComponent:@"home_html/index.html"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    */
+    //HomeHTML_URLString
+    /*
+    NSURL * url2 = [NSURL URLWithString:@"http://www.baidu.com"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url2 cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3000];
+    self.webView.frame = CGRectMake(0, 109, SIZE_WIDTH, SIZE_HEIGHT-109-49);
+    self.webView.delegate = self;
+    self.webView.scrollView.delegate = self;
+    [self.webView loadRequest:request];
+    */
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushMessage:) name:@"PUSHMESSAGE" object:nil];
+    AppDelegate *del = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (del.pushMessage) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"PUSHMESSAGE" object:del.pushMessage userInfo:nil];
+    }
+    //加载搜索 头部
+    [self createNavTopView];
+    [self createTitleNavTopView];
+
+    //注册通知  按钮切换
+    NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(homeViewButtonIndexNotification:) name:HOMEVIEW_BUTTON_INDEX_NOTIFICATION object:nil];
+    self.currentOffestY = 0.0f;//当前位移
+}
+- (void)createNavTopView{
+    self.firstTopView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 104)];
+    self.firstTopView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+    [self.view addSubview:self.firstTopView];
+    
+    UIButton * leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [leftBtn setFrame:CGRectMake(10, 30, 25, 22)];
+    [leftBtn setImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(scanning) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.firstTopView addSubview:leftBtn];
+    
+    /*
     UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"shouyesaoyisao"] style:UIBarButtonItemStylePlain target:self action:@selector(scanning)];
-
     self.navigationItem.leftBarButtonItem = left;
-
+    */
+    
     //添加边框和提示
-    UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)] ;
+    UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(45, 25, MAIN_SCREEN_WIDTH-45-46, 28)] ;
     frameView.layer.borderWidth = 1;
     frameView.layer.borderColor = RGBA(38, 14, 0, 0.5).CGColor;
     frameView.layer.cornerRadius = 4.f;
@@ -110,50 +176,89 @@
     
     UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuo"]];
     
-    UITextField *searchText = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, textW, H)];
+    UITextField *searchText = [[UITextField alloc] initWithFrame:CGRectMake(imgW+6, 4, textW, H)];
     searchText.enabled = NO;
     
     [frameView addSubview:searchText];
     [frameView addSubview:searchImg];
-    searchImg.frame = CGRectMake(textW - 58 , 4, imgW, imgW);
+    searchImg.frame = CGRectMake(5 , 4, imgW, imgW);
     
     searchText.textColor = [UIColor grayColor];
     searchText.placeholder = @"寻找你想要的商品";
     searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
     
-    self.navigationItem.titleView = frameView;
+    //self.navigationItem.titleView = frameView;
+    [self.firstTopView addSubview:frameView];
     
     UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     [frameView addGestureRecognizer:singleTap];
     
-    _loadingSpinner.tintColor = [HFSUtility hexStringToColor:@"#ae8e5d"];
-    _loadingSpinner.lineWidth = 5;
+    UIButton * newsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [newsBtn setFrame:CGRectMake(SIZE_WIDTH-35, 30, 22, 19)];
+    [newsBtn setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
+    [newsBtn addTarget:self action:@selector(newsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.firstTopView addSubview:newsBtn];
+    
+}
 
+//消息按钮
+- (void)newsButtonAction:(UIButton *)sender{
+    NSLog(@"点击了消息按钮");
+
+}
+
+#pragma mark加载网页
+- (void)createWebView{
 
     
-    [_loadingBGView removeFromSuperview];
+
+}
+
+#pragma mark 头部 导航条
+
+- (void)createTitleNavTopView{
+
+    //不允许有重复的标题
+    self.titles = @[@"首页",@"全球购",@"美罗百货",@"婴天童地",@"搜狐",@"淘宝",@"京东",@"百度",@"有道",@"小米",@"华为",@"三星"];
     
-    /*
-    _interface = [MyJSInterface new];
+    self.cursor = [[HACursor alloc]init];
+    self.cursor.frame = CGRectMake(0, 64, SIZE_WIDTH, 40);
+    self.cursor.titles = self.titles;
+    self.cursor.pageViews = [self createPageViews];
+    //设置根滚动视图的高度
+    self.cursor.rootScrollViewHeight = SIZE_HEIGHT - 104 - 49;
+    //默认值是白色197 159 142
+    self.cursor.titleNormalColor = [UIColor colorWithRed:197.0f/255.0f green:159.0f/255.0f blue:142.0f/255.0f alpha:1.0];
+    self.cursor.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+    //默认值是白色
+    self.cursor.titleSelectedColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
+    self.cursor.showSortbutton = YES;
+    //默认的最小值是5，小于默认值的话按默认值设置
+    self.cursor.minFontSize = 15;
+    //默认的最大值是25，小于默认值的话按默认值设置，大于默认值按设置的值处理
+    self.cursor.maxFontSize = 15;
+    self.cursor.isGraduallyChangFont = NO;
+    //在isGraduallyChangFont为NO的时候，isGraduallyChangColor不会有效果
+    //cursor.isGraduallyChangColor = NO;
+    [self.cursor setShowSortbutton:NO];
+
+    [self.view addSubview:self.cursor];
     
-    _interface.delegate = self;
-    */
-    //[self.webView addJavascriptInterfaces:_interface WithName:@"_native"];
-    //self.webView.delegate = self;
-    NSString *path = [[DOCUMENT_FOLDER_PATH stringByAppendingPathComponent:ZIP_FILE_NAME] stringByAppendingPathComponent:@"home_html/index.html"];
-    NSURL *url = [NSURL fileURLWithPath:path];
-    
-    NSURL * url2 = [NSURL URLWithString:HomeHTML_URLString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url2 cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3000];
-    self.webView.delegate = self;
-    self.webView.scrollView.delegate = self;
-    [self.webView loadRequest:request];
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushMessage:) name:@"PUSHMESSAGE" object:nil];
-    AppDelegate *del = [UIApplication sharedApplication].delegate;
-    if (del.pushMessage) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"PUSHMESSAGE" object:del.pushMessage userInfo:nil];
+    //UIView * secondView = [UIView alloc]initWithFrame:CGRectMake(0, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>);
+
+}
+
+- (NSMutableArray *)createPageViews{
+    self.pageViews = [NSMutableArray array];
+    for (NSInteger i = 0; i < self.titles.count; i++) {
+        HATestView *textView = [[HATestView alloc]initWithFrame:CGRectMake(0, 104, SIZE_WIDTH, SIZE_HEIGHT)];
+        textView.offestYDelegate = self;
+        //textView.label.text = self.titles[i];
+        //[textView createWebViewWith:@"http://www.baidu.com"];
+        [self.pageViews addObject:textView];
     }
+<<<<<<< Updated upstream
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleSingleTap:) name:@"PushToSearchCenter" object:nil];
     
@@ -163,8 +268,25 @@
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
+=======
+    return self.pageViews;
+>>>>>>> Stashed changes
+}
+#pragma end mark 头部导航条 结束
+
+#pragma mark 接收按钮 切换按钮通知
+- (void)homeViewButtonIndexNotification:(NSNotification *)sender{
+
+    NSString * tagString = sender.userInfo[@"tag"];
+    int tag = [tagString intValue];
+    NSLog(@"首页点击了第几个按钮：%d",tag);
+    HATestView * textView = (HATestView *)[self.pageViews objectAtIndex:tag];
+    //http://www.baidu.com
+    [textView createWebViewWith:@"http://61.155.212.146:3000/index/"];
 }
 
+
+/*
 #pragma mark UIScrollView代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     NSLog(@"scrollViewDidScroll方法");
@@ -180,9 +302,52 @@
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
     NSLog(@"scrollViewDidScrollToTop");
 }
-
+*/
 
 #pragma end UIScrollView代理方法结束
+
+#pragma mark HATestViewDelegate代理方法
+
+- (void)hatestView:(HATestView *)haView withBeginOffest:(float)haViewOffestY{
+    self.currentOffestY = haViewOffestY;
+
+}
+
+- (void)hatestView:(HATestView *)haView withContentOffest:(float)haViewOffestY{
+    
+
+    if (haViewOffestY < 54.0f && haViewOffestY > 0) {
+        self.currentOffestY = haViewOffestY;
+        NSLog(@"打印haViewOffestY值为：%g",haViewOffestY);
+        //[self.firstTopView setFrame:CGRectMake(0, 0.0-haViewOffestY, SIZE_WIDTH, 64.0f)];
+        //[self.cursor setFrame:CGRectMake(0, 64.0-haViewOffestY, SIZE_WIDTH, 40.0f)];
+        //CGPoint points = CGPointMake(0, 0.0-haViewOffestY);
+        self.view.frame = CGRectMake(0, 0.0-haViewOffestY, SIZE_WIDTH, SIZE_HEIGHT+haViewOffestY);
+    }
+    else if (haViewOffestY < 0){
+        if (self.currentOffestY < 54.0 && self.currentOffestY  > 0) {
+            self.currentOffestY = self.currentOffestY+haViewOffestY;
+            self.view.frame = CGRectMake(0, self.currentOffestY+haViewOffestY, SIZE_WIDTH, SIZE_HEIGHT+haViewOffestY);
+            
+        }
+    
+    
+    }
+    /*
+     historyY = scrollView.contentOffset.y;
+     
+     if (scrollView.contentOffset.y<historyY) {
+     NSLog(@"down");
+     
+     } else if (scrollView.contentOffset.y>historyY) {
+     NSLog(@"up");
+     
+     }
+     
+     */
+}
+
+#pragma end mark
 
 
 - (IBAction)actCancel:(id)sender {
@@ -283,7 +448,7 @@
 
 #pragma js点击回调
 
-
+#pragma mark WebView的代理方法
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     NSLog(@"网页开始加载");
 }
