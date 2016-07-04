@@ -10,10 +10,11 @@
 #import "CPStepper.h"
 #import "MLShopingCartlistModel.h"
 #import "MLCheckBoxButton.h"
+#import "OffLlineShopCart.h"
 
 
 typedef void(^ShopCartDelBlock)();
-typedef void(^ShopCartCheckBoxBlock)();
+typedef void(^ShopCartCheckBoxBlock)(BOOL);
 #define kShopCartCollectionViewCell   @"shopCartCollectionViewCell"
 @interface MLShopCartCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *goodImgView;
@@ -25,6 +26,11 @@ typedef void(^ShopCartCheckBoxBlock)();
 @property (nonatomic,strong)MLProlistModel *prolistModel;
 @property (nonatomic,copy)ShopCartCheckBoxBlock shopCartCheckBoxBlock;
 @property (nonatomic,copy)ShopCartDelBlock shopCartDelBlock;
+@property (nonatomic,strong)OffLlineShopCart *offlineCart;
+
+
+
+
 @property (weak, nonatomic) IBOutlet UILabel *manjianLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *delBtn;

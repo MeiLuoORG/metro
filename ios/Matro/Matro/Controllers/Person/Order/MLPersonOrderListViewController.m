@@ -121,8 +121,9 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     }];
     [self.tableView.header beginRefreshing];
     [self.view configBlankPage:EaseBlankPageTypeDingdan hasData:(self.orderList.count>0)];
+    __weak typeof(self)weakself = self;
     self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
-        NSLog(@"去逛逛吧");
+        [weakself.tabBarController setSelectedIndex:0];
     };
 }
 

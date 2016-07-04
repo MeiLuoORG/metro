@@ -18,8 +18,8 @@
 - (void)addButtonClicked:(NSDictionary *)param count:(int)textCount;
 - (void)subButtonClicked:(NSDictionary *)param count:(int)textCount;
 
-- (void)addButtonClick:(MLProlistModel *)prolist count:(int)textCount;
-- (void)subButtonClick:(MLProlistModel *)prolist count:(int)textCount;
+- (void)addButtonClick:(id)prolist count:(int)textCount;
+- (void)subButtonClick:(id)prolist count:(int)textCount;
 
 
 
@@ -33,7 +33,7 @@
 @property (nonatomic) NSUInteger value;
 @property (nonatomic,strong) NSDictionary *paramDic;
 
-@property (nonatomic,strong)MLProlistModel *proList;
+@property (nonatomic,strong)id proList;
 
 -(void)setTextValue:(int)value;
 

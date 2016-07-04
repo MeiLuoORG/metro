@@ -10,4 +10,8 @@
 
 @interface MLShopInfoViewController : MLBaseViewController
 
+@property (nonatomic,copy)NSString *store_link;
+
+
+
 @end

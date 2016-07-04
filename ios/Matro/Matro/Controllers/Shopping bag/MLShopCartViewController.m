@@ -30,10 +30,16 @@
 #import "MLGuessLikeModel.h"
 #import "MLGoodsDetailsViewController.h"
 #import "MLShopCartFootView.h"
-
 #import "MLHttpManager.h"
 #import "LingQuYouHuiQuanView.h"
 #import "MLCommitOrderViewController.h"
+#import <MagicalRecord/MagicalRecord.h>
+#import "OffLlineShopCart.h"
+#import "CompanyInfo.h"
+#import "MLOffLineShopCart.h"
+
+
+
 
 @interface MLShopCartViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,CPStepperDelegate>
 
@@ -43,6 +49,10 @@
 @property (nonatomic,strong)MLShopingCartlistModel *shopCart;
 @property (nonatomic,strong)MLShopCartFootView *footView;
 @property (nonatomic,strong)LingQuYouHuiQuanView *lingQuQuanView;
+@property (nonatomic,strong)NSMutableArray *offlineCart;
+@property (nonatomic,assign)BOOL isLogin;
+
+
 
 @end
 
@@ -131,11 +141,11 @@ static NSInteger pageIndex = 0;
         make.bottom.mas_equalTo(self.footView.mas_top);
     }];
     
-    [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
-    self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self getDataSource];
-    }];
+//    self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        [self getDataSource];
+//    }];
     
+    [self configBlankPage];
     [self ctreateYOUHUIQuanView];
     
 }
@@ -180,26 +190,54 @@ static NSInteger pageIndex = 0;
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     NSString  *loginid = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
+    [self.likeArray removeAllObjects];
+    [self.offlineCart removeAllObjects];
+    [self.collectionView reloadData];
     if (loginid) { //已登录情况
-        [self showOrHiddenLoginView:NO];
+        self.isLogin = YES;
+        NSArray *tmp = [OffLlineShopCart MR_findAll];
+        if (tmp.count > 0) {
+            for (OffLlineShopCart *cart in tmp) {
+                [cart MR_deleteEntity];
+            }
+        }
+ 
+        NSArray *cpAry = [CompanyInfo MR_findAll];
+        if (cpAry.count > 0) {
+            for (CompanyInfo *cp in cpAry) {
+                [cp MR_deleteEntity];
+            }
+        }
+        [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
         [self getDataSource];
     }
     else{ //未登录情况
-        [self showOrHiddenLoginView:YES];
-        self.shopCart = nil;
-        [self.likeArray removeAllObjects];
+        self.isLogin = NO;
+        NSArray *allCart = [CompanyInfo MR_findAll];
+        NSMutableArray *tmp = [NSMutableArray array];
+        for (CompanyInfo *cp in allCart) {
+            MLOffLineShopCart *ofCart = [[MLOffLineShopCart alloc]init];
+            ofCart.cpInfo = cp;
+            [tmp addObject:ofCart];
+        }
+        self.offlineCart = nil;
+        self.offlineCart = tmp;
+        if (self.offlineCart.count > 0) {
+            [self guessYourLike];
+        }
         [self.collectionView reloadData];
-        [self configBlankPage];
     }
+    [self configBlankPage];
+    self.loginView.hidden = self.isLogin;
+    [self countAllPrice];
 }
 
 - (void)getDataSource{
-
+    
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",MATROJP_BASE_URL];
     [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
         [self.collectionView.header endRefreshing];
         NSDictionary *result = (NSDictionary *)responseObject;
-        NSLog(@"result===%@",result);
         if ([[result objectForKey:@"code"] isEqual:@0]) {
             self.shopCart = [MLShopingCartlistModel mj_objectWithKeyValues:result[@"data"][@"cart_list"]];
             [self countAllPrice];
@@ -223,19 +261,27 @@ static NSInteger pageIndex = 0;
 }
 
 - (void)configBlankPage{
-    [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.shopCart.cart.count>0)];
-    if (self.shopCart.cart > 0) { //如果有数据就显示 foot
+    __weak typeof(self) weakself = self;
+    [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.isLogin? self.shopCart.cart.count>0:self.offlineCart.count>0)];
+    self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType curType){
+        [weakself.tabBarController setSelectedIndex:0];
+    };
+    
+    if (self.shopCart.cart.count >0||self.offlineCart.count>0){ //如果有数据就显示 foot
         self.footView.hidden = NO;
         [self.collectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.top.equalTo(self.view);
+            make.top.mas_equalTo(self.isLogin? self.view:self.loginView.mas_bottom).offset(8);
+            make.left.right.mas_equalTo(self.view);
             make.bottom.mas_equalTo(self.footView.mas_top);
         }];
     }else{ //没数据就不显示
         self.footView.hidden = YES;
         [self.collectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.right.bottom.mas_equalTo(self.view);
+            make.top.mas_equalTo(self.isLogin? self.view:self.loginView.mas_bottom).offset(8);
+            make.left.right.bottom.mas_equalTo(self.view);
         }];
     }
+
 }
 
 
@@ -243,15 +289,29 @@ static NSInteger pageIndex = 0;
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (section == self.shopCart.cart.count) {
-        return self.likeArray.count;
-    }
-    else{
-        MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:section];
-        if (cart.isMore && !cart.isOpen) {
-            return 3;
+    if (self.isLogin) {
+        if (section == self.shopCart.cart.count) {
+            return self.likeArray.count;
         }
-        return cart.prolist.count;
+        else{
+            MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:section];
+            if (cart.isMore && !cart.isOpen) {
+                return 3;
+            }
+            return cart.prolist.count;
+        }
+
+    }else{
+        if (section == self.offlineCart.count) {
+            return self.likeArray.count;
+        }
+        else{
+            MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:section];
+            if (cart.isMore && !cart.isOpen) {
+                return 3;
+            }
+            return cart.goodsArray.count;
+        }
     }
     
 }
@@ -259,62 +319,153 @@ static NSInteger pageIndex = 0;
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     //如果是购物车里面有东西就显示猜你喜欢
-    return  self.shopCart.cart.count > 0?self.shopCart.cart.count + 1:0;
+    if (self.isLogin) {
+        return  self.shopCart.cart.count > 0?self.shopCart.cart.count + 1:0;
+    }else{
+        return self.offlineCart.count;
+    }
+    
 }
 //每个UICollectionView展示的内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == self.shopCart.cart.count) {
-        MLGoodsLikeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kGoodsLikeCollectionViewCell forIndexPath:indexPath];
-        MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
-        cell.likeModel = model;
-        return cell;
-    }
-    else{
-         MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
-        if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
-            MLShopCartMoreCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MoreCell" forIndexPath:indexPath];
-            [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%li件",cart.prolist.count-2] forState:UIControlStateNormal];
-            cell.moreActionBlock = ^(){
-                cart.isOpen = YES;
-                [self.collectionView reloadData];
-            };
-            
+    if (self.isLogin) {
+        if (indexPath.section == self.shopCart.cart.count) {
+            MLGoodsLikeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kGoodsLikeCollectionViewCell forIndexPath:indexPath];
+            MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
+            cell.likeModel = model;
             return cell;
-            
         }
-        MLShopCartCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kShopCartCollectionViewCell forIndexPath:indexPath];
-        MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
-        cell.prolistModel = model;
-        cell.checkBox.cartSelected = (model.is_check == 1);
-        cell.countField.value = model.num;
-        cell.countField.stepperDelegate = self;
-        cell.countField.proList = model;
-        cell.shopCartCheckBoxBlock = ^(){
-            [self countAllPrice];
-        };
-        cell.shopCartDelBlock = ^(){ //购物车删除
-            [self deleteGoods:model];
-            [self.shopCart.cart removeObject:model];
-            [self.collectionView reloadData];
-            
-        };
-        return cell;
+        else{
+            MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
+            if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
+                MLShopCartMoreCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MoreCell" forIndexPath:indexPath];
+                [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%li件",cart.prolist.count-2] forState:UIControlStateNormal];
+                cell.moreActionBlock = ^(){
+                    cart.isOpen = YES;
+                    [self.collectionView reloadData];
+                };
+                
+                return cell;
+                
+            }
+            MLShopCartCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kShopCartCollectionViewCell forIndexPath:indexPath];
+            MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
+            cell.prolistModel = model;
+            cell.checkBox.cartSelected = (model.is_check == 1);
+            cell.countField.value = model.num;
+            cell.countField.stepperDelegate = self;
+            cell.countField.proList = model;
+            cell.shopCartCheckBoxBlock = ^(BOOL isCheck){
+                model.is_check = isCheck?1:0;
+                if (isCheck) {//如果是选中 检测其他是否都为已选中状态
+                    BOOL check_all = YES;
+                    for (MLProlistModel *model in cart.prolist) {
+                        if (model.is_check != 1) {
+                            check_all = NO;
+                        }
+                    }
+                    cart.select_All = check_all;
+                }
+                else{//如果是未选中状态 检测头部是否是未选中  如果是已选中 需要
+                    
+                }
+                [self countAllPrice];
+            };
+            cell.shopCartDelBlock = ^(){ //购物车删除
+                [self deleteGoods:model];
+                [self.shopCart.cart removeObject:model];
+                [self.collectionView reloadData];
+                
+            };
+            return cell;
+        }
+
+    }else
+    {  //离线购物车
+        if (indexPath.section == self.offlineCart.count) {
+            MLGoodsLikeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kGoodsLikeCollectionViewCell forIndexPath:indexPath];
+            MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
+            cell.likeModel = model;
+            return cell;
+        }
+        else{
+            MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:indexPath.section];
+            if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
+                MLShopCartMoreCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MoreCell" forIndexPath:indexPath];
+                [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%li件",cart.goodsArray.count-2] forState:UIControlStateNormal];
+                cell.moreActionBlock = ^(){
+                    cart.isOpen = YES;
+                    [self.collectionView reloadData];
+                };
+                
+                return cell;
+            }
+            MLShopCartCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kShopCartCollectionViewCell forIndexPath:indexPath];
+            OffLlineShopCart *goods = [cart.goodsArray objectAtIndex:indexPath.row];
+            cell.offlineCart = goods;
+            cell.checkBox.cartSelected = (goods.is_check == 1);
+            cell.countField.value = goods.num;
+            cell.countField.stepperDelegate = self;
+            cell.countField.proList = goods;
+            cell.shopCartCheckBoxBlock = ^(BOOL isCheck){
+                goods.is_check = isCheck?1:0;
+                [self countAllPrice];
+            };
+            cell.shopCartDelBlock = ^(){ //购物车删除
+                //先删除店铺下的 cart记录
+                NSMutableArray *pids = [[cart.cpInfo.shopCart componentsSeparatedByString:@","] mutableCopy];
+                [pids removeObject:goods.pid];
+                if (pids.count > 0) { //说明还有其他商品
+                    cart.isMore = pids.count>2;
+                    cart.cpInfo.shopCart = [pids componentsJoinedByString:@","];
+                    [cart.goodsArray removeObject:goods];
+                }else{//没有其他商品 直接删除记录
+                    [self.offlineCart removeObject:cart];
+                    [cart.cpInfo MR_deleteEntity];
+                }
+                [goods MR_deleteEntity];
+                [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+                [self countAllPrice];
+                [self.collectionView reloadData];
+                [self configBlankPage];
+            };
+            return cell;
+        }
+
     }
-
+   
 }
 
 
 
-- (void)addButtonClick:(MLProlistModel *)prolist count:(int)textCount{
+- (void)addButtonClick:(id)prolist count:(int)textCount{
 
-    [self changeNum:prolist AndCount:textCount];
-    
+    if (self.isLogin) {//已登录
+        [self changeNum:prolist AndCount:textCount];
+    }
+    else{//离线购物车
+        OffLlineShopCart *model = (OffLlineShopCart *)prolist;
+        model.num = textCount;
+        [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+        [self.collectionView reloadData];
+        [self countAllPrice];
+    }
     
     
 }
-- (void)subButtonClick:(MLProlistModel *)prolist count:(int)textCount{
-    [self changeNum:prolist AndCount:textCount];
+- (void)subButtonClick:(id)prolist count:(int)textCount{
+    
+    if (self.isLogin) {//已登录
+        [self changeNum:prolist AndCount:textCount];
+    }
+    else{//离线购物车
+        OffLlineShopCart *model = (OffLlineShopCart *)prolist;
+        model.num = textCount;
+        [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+        [self.collectionView reloadData];
+        [self countAllPrice];
+    }
 }
 
 
@@ -324,6 +475,7 @@ static NSInteger pageIndex = 0;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     //如果购物车里有数据
+    if (self.isLogin) {
         if (indexPath.section == self.shopCart.cart.count) {
             CGFloat cellW = (MAIN_SCREEN_WIDTH - 8)/2;
             return CGSizeMake(cellW,cellW*1.4);
@@ -335,6 +487,20 @@ static NSInteger pageIndex = 0;
             }
             return CGSizeMake(MAIN_SCREEN_WIDTH, 117);
         }
+    }else{
+        if (indexPath.section == self.offlineCart.count) {
+            CGFloat cellW = (MAIN_SCREEN_WIDTH - 8)/2;
+            return CGSizeMake(cellW,cellW*1.4);
+        }
+        else{
+            MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:indexPath.section];
+            if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
+                return CGSizeMake(MAIN_SCREEN_WIDTH, 40);
+            }
+            return CGSizeMake(MAIN_SCREEN_WIDTH, 117);
+        }
+    }
+    
     
 }
 //定义每个UICollectionView 的间距
@@ -359,14 +525,26 @@ static NSInteger pageIndex = 0;
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == self.shopCart.cart.count) {  //猜你喜欢点击
-        MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
-        MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
-        NSDictionary *params = @{@"id":model.ID};
-        vc.paramDic = params;
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
+    if (self.isLogin) { //已登录点击猜你喜欢
+        if (indexPath.section == self.shopCart.cart.count) {  //猜你喜欢点击
+            MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
+            MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+            NSDictionary *params = @{@"id":model.ID};
+            vc.paramDic = params;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }else{//未登录点击猜你喜欢
+        if (indexPath.section  == self.offlineCart.count) {
+            MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
+            MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+            NSDictionary *params = @{@"id":model.ID};
+            vc.paramDic = params;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
+
 }
 //返回这个UICollectionView是否可以被选择
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -377,55 +555,105 @@ static NSInteger pageIndex = 0;
 //头部显示的内容
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == self.shopCart.cart.count && [kind isEqualToString:UICollectionElementKindSectionHeader]) { //猜你喜欢
-        MLLikeHeadCollectionReusableView *likeHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kLikeHeadCollectionReusableView forIndexPath:indexPath];
-        
-        return likeHead;
-    }
-    else if([kind isEqualToString:UICollectionElementKindSectionHeader]){
-        MLCartHeadCollectionReusableView *cartHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kCartHeadCollectionReusableView forIndexPath:indexPath];
-        MLShopingCartModel *model = [self.shopCart.cart objectAtIndex:indexPath.section];
-        cartHead.checkBox.cartSelected = model.select_All;
-        cartHead.shopingCart = model;
-        cartHead.cartHeadBlock = ^(BOOL isSelect){
-            [self countAllPrice];
-        };
-        __weak typeof(self) weakself = self;
-        cartHead.youHuiBlock = ^(){ //展示优惠券列表
+    if (self.isLogin) {
+        if (indexPath.section == self.shopCart.cart.count && [kind isEqualToString:UICollectionElementKindSectionHeader]) { //猜你喜欢
+            MLLikeHeadCollectionReusableView *likeHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kLikeHeadCollectionReusableView forIndexPath:indexPath];
             
-            [self.lingQuQuanView.quanARR removeAllObjects];
-            //创建数据数组
-            for (NSDictionary * quanDic in model.dpyhq) {
-                YouHuiQuanModel * model = [[YouHuiQuanModel alloc]init];
-                model.startTime = quanDic[@"YXQ_B"];
-                model.endTime = quanDic[@"YXQ_E"];
-                model.mingChengStr = quanDic[@"YHQMC"];
-                model.flag = quanDic[@"FLAG"];
-                model.jinE = quanDic[@"JE"];
-                model.quanBH = quanDic[@"JLBH"];
-                model.quanID = quanDic[@"YHQID"];
-                model.quanType = quanDic[@"CXLX"];
-                [self.lingQuQuanView.quanARR addObject:model];
-            }
-            [self.lingQuQuanView.tablieview reloadData];
-            [UIView animateWithDuration:0.2f animations:^{
-                weakself.lingQuQuanView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT);
-            } completion:^(BOOL finished) {
-                [weakself.tabBarController.tabBar setHidden:YES];
-            }];
-        };
-        return cartHead;
+            return likeHead;
+        }
+        else if([kind isEqualToString:UICollectionElementKindSectionHeader]){
+            MLCartHeadCollectionReusableView *cartHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kCartHeadCollectionReusableView forIndexPath:indexPath];
+            MLShopingCartModel *model = [self.shopCart.cart objectAtIndex:indexPath.section];
+            cartHead.checkBox.cartSelected = model.select_All;
+            cartHead.shopingCart = model;
+            cartHead.cartHeadBlock = ^(BOOL isSelect){
+                
+                [self countAllPrice];
+                [self.collectionView reloadData];
+                
+            };
+            __weak typeof(self) weakself = self;
+            cartHead.youHuiBlock = ^(){ //展示优惠券列表
+                
+                [self.lingQuQuanView.quanARR removeAllObjects];
+                //创建数据数组
+                for (NSDictionary * quanDic in model.dpyhq) {
+                    YouHuiQuanModel * model = [[YouHuiQuanModel alloc]init];
+                    model.startTime = quanDic[@"YXQ_B"];
+                    model.endTime = quanDic[@"YXQ_E"];
+                    model.mingChengStr = quanDic[@"YHQMC"];
+                    model.flag = quanDic[@"FLAG"];
+                    model.jinE = quanDic[@"JE"];
+                    model.quanBH = quanDic[@"JLBH"];
+                    model.quanID = quanDic[@"YHQID"];
+                    model.quanType = quanDic[@"CXLX"];
+                    [self.lingQuQuanView.quanARR addObject:model];
+                }
+                [self.lingQuQuanView.tablieview reloadData];
+                [UIView animateWithDuration:0.2f animations:^{
+                    weakself.lingQuQuanView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT);
+                } completion:^(BOOL finished) {
+                    [weakself.tabBarController.tabBar setHidden:YES];
+                }];
+            };
+            return cartHead;
+        }
+
+    }
+    else{
+        if (indexPath.section == self.offlineCart.count && [kind isEqualToString:UICollectionElementKindSectionHeader]) { //猜你喜欢
+            MLLikeHeadCollectionReusableView *likeHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kLikeHeadCollectionReusableView forIndexPath:indexPath];
+            
+            return likeHead;
+        }
+        else if([kind isEqualToString:UICollectionElementKindSectionHeader]){
+            MLCartHeadCollectionReusableView *cartHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kCartHeadCollectionReusableView forIndexPath:indexPath];
+            MLOffLineShopCart *model = [self.offlineCart objectAtIndex:indexPath.section];
+            cartHead.titleLabel.text = model.cpInfo.company;
+            cartHead.cartHeadBlock = ^(BOOL isSelect){
+                [self countAllPrice];
+                [self.collectionView reloadData];
+            };
+            cartHead.youhuiBtn.hidden = YES;
+            return cartHead;
+        }
     }
     return nil;
     
 }
 
+//返回头headerView的大小
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    if (self.isLogin) {//在线状态
+        if (section <= self.shopCart.cart.count) {
+            CGSize size={MAIN_SCREEN_WIDTH,45};
+            return size;
+        }
+    }
+    else{//离线状态
+        if (section<=self.offlineCart.count) {
+            CGSize size={MAIN_SCREEN_WIDTH,45};
+            return size;
+        }
+    }
+     return CGSizeZero;
+}
+
+
+
 - (void)selectAllGoods:(MLCheckBoxButton *)sender{
     sender.cartSelected = !sender.cartSelected;
     
-    for (MLShopingCartModel *model in self.shopCart.cart) {
-        model.select_All = sender.cartSelected;
+    if (self.isLogin) {//已登录
+        for (MLShopingCartModel *model in self.shopCart.cart) {
+            model.select_All = sender.cartSelected;
+        }
+    }else{ //未登录
+        for (MLOffLineShopCart *model in self.offlineCart) {
+            model.checkAll = sender.cartSelected;
+        }
     }
+    [self.collectionView reloadData];
     [self countAllPrice];
     
 }
@@ -433,75 +661,51 @@ static NSInteger pageIndex = 0;
 
 
 - (void)clearingAction{//结算操作
-  
-    NSMutableArray *temp = [NSMutableArray array];
-   
-    
-    for (MLShopingCartModel *model in self.shopCart.cart) {
-        for (MLProlistModel *prolist in model.prolist) {
-            if (prolist.is_check == 1) {
-                NSDictionary *dic = @{@"product_id":prolist.ID};
-                [temp addObject:dic];
+    if (self.isLogin) { //如果已登录 直接提交结算 未登录提示登录
+        NSMutableArray *temp = [NSMutableArray array];
+        for (MLShopingCartModel *model in self.shopCart.cart) {
+            for (MLProlistModel *prolist in model.prolist) {
+                if (prolist.is_check == 1) {
+                    NSDictionary *dic = @{@"product_id":prolist.ID};
+                    [temp addObject:dic];
+                }
             }
         }
-    }
-    if (temp.count == 0) {
-        NSLog(@"还没有商品加入购物车");
-        [MBProgressHUD showMessag:@"您还没有选择商品" toView:self.view];
-    }
-    else{ //发送下单请求
-         NSMutableDictionary *tempdic = [NSMutableDictionary dictionary ];
-        for (int i=0; i < temp.count; i++) {
-            NSMutableArray *product_id = [NSMutableArray array];
-            NSString *productid = temp[i][@"product_id"];
-            [product_id addObject:productid];
-            NSString *cart_list = [NSString stringWithFormat:@"product_id[%d]",i];
-            [tempdic setObject:product_id forKey:cart_list];
-            
+        if (temp.count == 0) {
+            NSLog(@"还没有商品加入购物车");
+            [MBProgressHUD showMessag:@"您还没有选择商品" toView:self.view];
         }
-        NSLog(@"tempdic === %@",tempdic);
-        MLCommitOrderViewController *vc = [[MLCommitOrderViewController alloc]init];
-        vc.paramsDic = tempdic;
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-        
-        [self confirmOrderWithProducts:[temp copy]];
+        else{ //发送下单请求
+            NSMutableDictionary *tempdic = [NSMutableDictionary dictionary ];
+            for (int i=0; i < temp.count; i++) {
+                NSMutableArray *product_id = [NSMutableArray array];
+                NSString *productid = temp[i][@"product_id"];
+                [product_id addObject:productid];
+                NSString *cart_list = [NSString stringWithFormat:@"product_id[%d]",i];
+                [tempdic setObject:product_id forKey:cart_list];
+                
+            }
+            NSLog(@"tempdic === %@",tempdic);
+            MLCommitOrderViewController *vc = [[MLCommitOrderViewController alloc]init];
+            vc.paramsDic = tempdic;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+//            [self confirmOrderWithProducts:[temp copy]];
+        }
+
+    }else{
+        [self loginAction:nil];
     }
 }
-
-
-
-
-
-
-//返回头headerView的大小
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    if (section <= self.shopCart.cart.count) {
-        CGSize size={MAIN_SCREEN_WIDTH,45};
-        return size;
-    }
-    return CGSizeZero;
-   
-}
-
-
 
 - (void)loginAction:(id)sender{
-    
     MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
     loginVc.isLogin = YES;
-    [self presentViewController:loginVc animated:YES completion:nil];
-    
+    [self presentViewController:loginVc animated:YES completion:nil]; 
 }
 
 
-- (void)showOrHiddenLoginView:(BOOL)isShow{
-    self.loginView.hidden = !isShow;
-    [self.collectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(isShow? self.loginView.mas_bottom:self.view).offset(0);
-        make.left.right.bottom.mas_equalTo(self.view);
-    }];
-}
 
 
 
@@ -516,19 +720,27 @@ static NSInteger pageIndex = 0;
 
 
 - (void)countAllPrice{
-    goodsCount = 0;
     allPrice = 0.f;
-    for (MLShopingCartModel *model in self.shopCart.cart) {
-        for (MLProlistModel *prolist in model.prolist) {
-            if (prolist.is_check == 1) {
-                goodsCount ++;
-                allPrice+= prolist.pro_price * prolist.num;
+    if (self.isLogin) {
+        for (MLShopingCartModel *model in self.shopCart.cart) {
+            for (MLProlistModel *prolist in model.prolist) {
+                if (prolist.is_check == 1) {
+                    allPrice+= prolist.pro_price * prolist.num;
+                }
+            }
+        }
+    }else{
+        for (MLOffLineShopCart *model in self.offlineCart) {
+            for (OffLlineShopCart *prolist in model.goodsArray) {
+                if (prolist.is_check == 1) {
+                    allPrice+= prolist.pro_price * prolist.num;
+                }
             }
         }
     }
-    NSString *attr = [NSString stringWithFormat:@"<font  size = \"13\">合计：<color value = \"#FF4E26\">￥%.2f</><font  size = \"11\"><color value = \"#999999\"> 共%li件，不含运费</></></>",allPrice,(long)goodsCount];
+
+    NSString *attr = [NSString stringWithFormat:@"<font  size = \"14\">合计：<color value = \"#FF4E26\">￥%.2f</><font  size = \"12\"><color value = \"#999999\"> 不含运费</></></>",allPrice];
     self.footView.detailLabel.attributedText = [attr createAttributedString];
-    [self.collectionView reloadData];
 }
 
 - (void)deleteGoods:(MLProlistModel *)goods{
@@ -613,7 +825,13 @@ static NSInteger pageIndex = 0;
 }
 
 
-
+- (NSMutableArray *)offlineCart{
+    if (!_offlineCart) {
+        _offlineCart = [NSMutableArray array];
+        
+    }
+    return _offlineCart;
+}
 
 
 

@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+    <entity name="CompanyInfo" representedClassName="CompanyInfo" syncable="YES">
+        <attribute name="checkAll" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="cid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shopCart" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="LoginHistory" representedClassName="LoginHistory" syncable="YES">
         <attribute name="loginkeyword" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="OffLlineShopCart" representedClassName="OffLlineShopCart" syncable="YES">
+        <attribute name="company_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_check" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="mjtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="num" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="pic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pro_price" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="setmeal" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sku" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="SearchHistory" representedClassName="SearchHistory" syncable="YES">
         <attribute name="keywork" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SearchHistory" positionX="-63" positionY="-18" width="128" height="60"/>
         <element name="LoginHistory" positionX="-63" positionY="-9" width="128" height="60"/>
+        <element name="SearchHistory" positionX="-63" positionY="-18" width="128" height="60"/>
+        <element name="OffLlineShopCart" positionX="-63" positionY="-9" width="128" height="210"/>
+        <element name="CompanyInfo" positionX="-45" positionY="72" width="128" height="105"/>
     </elements>
 </model>

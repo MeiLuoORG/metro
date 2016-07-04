@@ -38,6 +38,8 @@
 #import "MJExtension.h"
 
 #import "MLActiveWebViewController.h"
+#import "OffLlineShopCart.h"
+#import "CompanyInfo.h"
 
 
 @interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>
@@ -161,6 +163,7 @@
 
 - (void)autoLogin{
     if ([[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID] &&[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN] ) {
+
         [self renZhengLiJiaWithPhone:[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID] withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN]];
     }
 }

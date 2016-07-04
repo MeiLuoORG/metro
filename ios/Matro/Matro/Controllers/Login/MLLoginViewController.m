@@ -26,7 +26,9 @@
 #import "MNNModifyPasswordViewController.h"
 #import "YMNavigationController.h"
 #import "JPUSHService.h"
-
+#import <MagicalRecord/MagicalRecord.h>
+#import "OffLlineShopCart.h"
+#import "MLHttpManager.h"
 
 #define CODE_TIME_KEY @"CODE_TIME_KEY"
 
@@ -1813,6 +1815,9 @@
                                                           model1.firstDate = [NSDate date];
                                                           [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
                                                           
+                                                          //批量添加购物车
+                                                          [self addShopCart];
+                                                          
                                                       }
                                                   }
                                                   NSLog(@"%@",result);
@@ -2486,14 +2491,37 @@
 }
 
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+//同步购物车
+- (void)addShopCart{
+    NSArray *cartArray = [OffLlineShopCart MR_findAll];
+    if (cartArray.count>0) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [cartArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            OffLlineShopCart *cart = (OffLlineShopCart *)obj;
+            NSString *str = [NSString stringWithFormat:@"%@,%hi,%@,%@",cart.pid,cart.num,cart.sid,cart.sku];
+            NSString *key = [NSString stringWithFormat:@"cart_list[%li]",idx];
+            [dic setValue:str forKey:key];
+            [cart MR_deleteEntity];
+            [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+            
+        }];
+        NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=mul_add_cart",MATROJP_BASE_URL];
+        [MLHttpManager post:url params:dic m:@"product" s:@"cart" success:^(id responseObject) {
+            NSDictionary *result = (NSDictionary *)responseObject;
+            if ([result[@"code"] isEqual:@0]) {
+                
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+}
+
+
+
+- (void)dealloc{
+    NSLog(@"%@",@"已销毁内存");
+}
+
 
 @end

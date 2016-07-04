@@ -40,6 +40,10 @@
 #import "MLHttpManager.h"
 #import "MLShopInfoViewController.h"
 #import "MLHelpCenterDetailController.h"
+#import "OffLlineShopCart.h"
+#import "MBProgressHUD+Add.h"
+#import "CompanyInfo.h"
+
 
 
 @interface UIImage (SKTagView)
@@ -50,6 +54,7 @@
 @interface MLGoodsDetailsViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIAlertViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,YAScrollSegmentControlDelegate,DWTagListDelegate>{
     
     NSDictionary *pDic;//商品详情信息
+    NSDictionary *dPDic;//店铺详情信息
     
     NSMutableArray *_imageArray;//轮播图数组
     
@@ -740,6 +745,7 @@
         NSLog(@"responseObject===%@",responseObject);
         if ([responseObject[@"code"] isEqual:@0]) {
             NSDictionary *shop_info = responseObject[@"data"][@"shop_info"];
+            dPDic = shop_info;
             NSString *logo = shop_info[@"logo"];
             if (![logo isKindOfClass:[NSNull class]]) {
                 [self.dianpuimage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://bbctest.matrojp.com%@",logo]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
@@ -878,13 +884,13 @@
      
     */
     
-    if ([self.kuncuntisLabel.text isEqualToString:@"售罄"]) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"此商品已售罄";
-        [_hud hide:YES afterDelay:1];
-        return;
-    }
+//    if ([self.kuncuntisLabel.text isEqualToString:@"售罄"]) {
+//        [_hud show:YES];
+//        _hud.mode = MBProgressHUDModeText;
+//        _hud.labelText = @"此商品已售罄";
+//        [_hud hide:YES afterDelay:1];
+//        return;
+//    }
     
     
     if (userid) {
@@ -917,8 +923,6 @@
             _hud.labelText = @"加入购物车成功";
             [_hud hide:YES afterDelay:2];
         }
-        NSLog(@"请求成功 result====%@",result);
-
     } failure:^(NSError *error) {
         NSLog(@"请求失败 error===%@",error);
         [_hud show:YES];
@@ -927,71 +931,69 @@
         [_hud hide:YES afterDelay:2];
     }];
         
+    }else{ //离线情况下 本地缓存
         
-        
-//    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
-//        
-//        
-//    } success:^(AFHTTPRequestOperation *operation, id responseObject)
-//     {
-//         
-//         NSDictionary *result = (NSDictionary *)responseObject;
-//         NSString *code = result[@"code"];
-//         if ([code isEqual:@0]) {
-//             [_hud show:YES];
-//             _hud.mode = MBProgressHUDModeText;
-//             _hud.labelText = @"加入购物车成功";
-//             [_hud hide:YES afterDelay:2];
-//         }
-//         NSLog(@"请求成功 result====%@",result);
-//         
-//     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//         NSLog(@"请求失败 error===%@",error);
-//         [_hud show:YES];
-//         _hud.mode = MBProgressHUDModeText;
-//         _hud.labelText = @"加入购物车失败";
-//         [_hud hide:YES afterDelay:2];
-//     }];
-    
-    }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        
-        [alert show];
-    }
-    
-    
-    /*
-    if (userid) {
-        NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/products.ashx?op=addcart&jmsp_id=%@&spsl=%ld&userid=%@",SERVICE_GETBASE_URL,spid,(unsigned long)_shuliangStepper.value, userid];
-        
-        [[HFSServiceClient sharedClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"加入购物袋成功";
-            [_hud hide:YES afterDelay:1];
-            NSDictionary *dic = (NSDictionary *)responseObject;
-                    NSLog(@"%@",dic);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"请求失败";
-            [_hud hide:YES afterDelay:2];
-        }];
-        
-        
-        if (!sender) {
-            [self getAppDelegate].tabBarController.selectedIndex = 2;
-            [self.navigationController popToRootViewControllerAnimated:YES];
+        if (dPDic&&pDic) { //已经有店铺名称的和商品详情的情况
+            //店铺id
+            NSString *cid = _paramDic[@"userid"];
+            NSString *pid = pDic[@"pinfo"][@"id"];
+            //根据店铺id去查记录
+            NSPredicate *cPre = [NSPredicate predicateWithFormat:@"cid == %@",cid];
+            CompanyInfo *cp = [CompanyInfo MR_findFirstWithPredicate:cPre];
+            if (cp) {//如果能查到店铺
+                NSString *pids = cp.shopCart;
+                //是否包含该记录
+                if([pids rangeOfString:pid].location == NSNotFound)
+                {//如果已经包含  查出该记录  记录Nums++
+                    NSString *pids = cp.shopCart;
+                    NSMutableArray *tmp = [[pids componentsSeparatedByString:@","] mutableCopy];
+                    [tmp addObject:pid];
+                    cp.shopCart = [tmp componentsJoinedByString:@","];
+                    [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+                }
+            }else{ //如果查不到记录
+                //添加一条店铺记录
+                CompanyInfo *cp = [CompanyInfo MR_createEntity];
+                cp.company = dPDic[@"company"];
+                cp.cid = self.paramDic[@"userid"];
+                cp.shopCart = pid;
+                cp.checkAll = 0;
+             }
+           [self saveShopCartWithPid:pid];
+            
         }
     }
-    else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        
-        [alert show];
-    }
-   */
-   
+    
 }
+
+
+- (void)saveShopCartWithPid:(NSString *)pid{
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"pid == %@",pid];
+    OffLlineShopCart *model2 = (OffLlineShopCart *)[OffLlineShopCart MR_findFirstWithPredicate:pre];
+    if (model2) { //说明已经存在了 Num加
+        model2.num ++;
+        [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+        [MBProgressHUD showMessag:@"加入购物车成功" toView:self.view];
+    }
+    else{ //如果没有就直接加进去
+        OffLlineShopCart  *model = [OffLlineShopCart MR_createEntity];
+        model.pid = pDic[@"pinfo"][@"id"];
+        model.pname = pDic[@"pinfo"][@"pname"];
+        model.pic = pDic[@"pinfo"][@"pic"];
+        model.pro_price = [pDic[@"pinfo"][@"price"] floatValue];
+        model.num = 1;
+        model.company_id= _paramDic[@"userid"];
+        model.sid = pDic[@"pinfo"][@"property"][@"id"]?:@"0";
+        model.sku = pDic[@"pinfo"][@"property"][@"sku"]?:pDic[@"pinfo"][@"code"];
+        [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+            [MBProgressHUD showMessag:@"加入购物车成功" toView:self.view];
+        }];
+        
+    }
+
+}
+
+
 
 #pragma alertview delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -1497,6 +1499,8 @@
 
 - (IBAction)actDianpu:(id)sender {
     MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
+    NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
+    vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",_paramDic[@"userid"],phone];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

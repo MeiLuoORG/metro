@@ -36,7 +36,7 @@
         [self.view addSubview:webView];
         webView;
     });
-    NSString *url = [NSString stringWithFormat:@"%@/h5/store.index.html",MATROJP_BASE_URL];
+    NSString *url = [NSString stringWithFormat:@"http://192.168.19.247:3000/store?sid=20505&uid=1111"];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
 }
@@ -50,9 +50,10 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     self.context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     self.context[@"_native"] = self;
-//    self.context[@"storeProductClick"] = ^(NSString *productid,NSString *type){
-//        NSLog(@"%@   %@",productid,type);
-//    };
+    __weak typeof(self) weakself = self;
+    self.context[@"store_product_click"] = ^(NSString *productid){
+            [weakself performSelectorOnMainThread:@selector(pushToGoodsDetail:) withObject:productid waitUntilDone:YES];
+    };
     self.context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
         context.exception = exceptionValue;
         NSLog(@"异常信息：%@", exceptionValue);

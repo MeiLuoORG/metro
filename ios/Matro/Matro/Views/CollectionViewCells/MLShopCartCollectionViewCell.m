@@ -84,7 +84,20 @@
     }
 }
 
-
+- (void)setOfflineCart:(OffLlineShopCart *)offlineCart{
+    if (_offlineCart != offlineCart) {
+        _offlineCart = offlineCart;
+        self.showDel = NO;
+        self.countL.constant = 8;
+        self.checkBoxL.constant = 16;
+        [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_offlineCart.pic]];
+        self.goodName.text = _offlineCart.pname;
+        self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _offlineCart.pro_price];
+        self.checkBox.cartSelected = NO;
+        self.manjianLabel.hidden = !(_offlineCart.mjtitle.length > 0);
+        [self.countField setTextValue:_offlineCart.num];
+    }
+}
 
 
 - (IBAction)delAction:(id)sender {
@@ -99,11 +112,14 @@
 - (IBAction)changeCheckBox:(id)sender {
     MLCheckBoxButton *btn = (MLCheckBoxButton *)sender;
     btn.cartSelected = !btn.cartSelected;
-    self.prolistModel.is_check = btn.cartSelected?1:0;
+//    self.prolistModel.is_check = btn.cartSelected?1:0;
     if (self.shopCartCheckBoxBlock) {
-        self.shopCartCheckBoxBlock();
+        self.shopCartCheckBoxBlock(btn.cartSelected);
     }
 }
+
+
+
 
 
 @end
