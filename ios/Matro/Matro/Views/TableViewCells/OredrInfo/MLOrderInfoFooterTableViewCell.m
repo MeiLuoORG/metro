@@ -34,6 +34,7 @@
     if (_orderList != orderList) {
         _orderList = orderList;
         self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderList.product_price];
+        
         switch (self.orderList.status) {
             case OrderStatusQuxiao:
             {

@@ -40,8 +40,17 @@
     _addressTBView.sectionFooterHeight = 0.1f;
     [self.addBtn addTarget:self action:@selector(addAddress:) forControlEvents:UIControlEventTouchUpInside];
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
+    
+    
     [self loadDateAddressList];
 
+}
+
+
+- (void)goback{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate

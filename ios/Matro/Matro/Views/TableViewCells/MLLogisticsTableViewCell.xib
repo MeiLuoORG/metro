@@ -71,8 +71,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3S-Xk-lXF">
-                        <rect key="frame" x="40" y="38" width="371" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <rect key="frame" x="40" y="46" width="371" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -90,6 +90,7 @@
                     <constraint firstItem="gfs-no-nHV" firstAttribute="leading" secondItem="E5A-xc-LRB" secondAttribute="trailing" constant="8" id="E3k-Z8-n0q"/>
                     <constraint firstItem="E5A-xc-LRB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="22" id="JYh-cf-bCy"/>
                     <constraint firstItem="r3S-Xk-lXF" firstAttribute="width" secondItem="ujp-qa-HkQ" secondAttribute="width" id="Klx-Rs-YuB"/>
+                    <constraint firstItem="r3S-Xk-lXF" firstAttribute="top" secondItem="ujp-qa-HkQ" secondAttribute="bottom" constant="8" id="Ozy-Pm-KOF"/>
                     <constraint firstItem="HK5-5O-vx9" firstAttribute="centerX" secondItem="sNI-su-ehi" secondAttribute="centerX" id="UIU-yf-pl4"/>
                     <constraint firstItem="0F7-MT-TvR" firstAttribute="centerY" secondItem="HK5-5O-vx9" secondAttribute="centerY" id="Vj4-Tg-ALC"/>
                     <constraint firstItem="ujp-qa-HkQ" firstAttribute="leading" secondItem="HK5-5O-vx9" secondAttribute="trailing" constant="4" id="bkv-bt-vhO"/>
@@ -109,6 +110,7 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="BMU-OO-mSX"/>
                         <exclude reference="yaH-8n-8HG"/>
                     </mask>
                 </variation>

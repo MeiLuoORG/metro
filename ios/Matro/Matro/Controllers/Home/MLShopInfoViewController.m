@@ -10,6 +10,7 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "HFSConstants.h"
 #import "MLGoodsDetailsViewController.h"
+#import "Masonry.h"
 
 @protocol JSObjectDelegate <JSExport>
 - (void)navigationProduct:(NSString *)productId;
@@ -31,11 +32,14 @@
     
     self.title = @"店铺详情";
     _webView = ({
-        UIWebView *webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
+        UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectZero];
         webView.delegate = self;
         [self.view addSubview:webView];
         webView;
     });
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(0);
+    }];
     NSString *url = [NSString stringWithFormat:@"http://61.155.212.146:3000/store/index?sid=20505&uid=1111"];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
@@ -50,10 +54,10 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     self.context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     self.context[@"_native"] = self;
-//    __weak typeof(self) weakself = self;
-//    self.context[@"store_product_click"] = ^(NSString *productid){
-//            [weakself performSelectorOnMainThread:@selector(pushToGoodsDetail:) withObject:productid waitUntilDone:YES];
-//    };
+    __weak typeof(self) weakself = self;
+    self.context[@"store_collect_click"] = ^(NSString *productid){
+            [weakself performSelectorOnMainThread:@selector(collectClick:) withObject:productid waitUntilDone:YES];
+    };
     self.context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
         context.exception = exceptionValue;
         NSLog(@"异常信息：%@", exceptionValue);
@@ -64,6 +68,11 @@
 
 - (void)navigationProduct:(NSString *)productId{
     [self performSelectorOnMainThread:@selector(pushToGoodsDetail:) withObject:productId waitUntilDone:YES];
+}
+
+
+- (void)collectClick:(NSString *)collectId{
+    NSLog(@"%@",collectId);
 }
 
 - (void)storeProductClick:(NSString *)productId{

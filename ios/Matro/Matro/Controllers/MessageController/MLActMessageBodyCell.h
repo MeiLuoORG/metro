@@ -10,9 +10,12 @@
 
 
 #define kActMessageBodyCell  @"actMessageBodyCell"
+
+typedef void(^DelAction)();
 @interface MLActMessageBodyCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *actImage;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
+@property (nonatomic,copy)DelAction delAction;
 
 @end

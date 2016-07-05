@@ -203,10 +203,18 @@ static MLShippingaddress *province,*city,*area;
 
 //保存使用新地址
 - (IBAction)sureButtonAction:(id)sender {
+    
     if ([self.nameTextField.text isEqualToString:@""]) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"姓名不能为空";
+        [_hud hide:YES afterDelay:1];
+        return;
+    }
+    if (self.nameTextField.text.length > 10) {
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"姓名长度不能超过10";
         [_hud hide:YES afterDelay:1];
         return;
     }
@@ -228,8 +236,6 @@ static MLShippingaddress *province,*city,*area;
     }
     
      NSString  *urlStr = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=%@",MATROJP_BASE_URL,_isNewAddress?@"add":@"upd"];
-    
-    
     NSDictionary *params ;
     if (_isNewAddress) {
         params =@{@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:@"",@"data[area]":self.selTextField.text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:@"",@"data[cityid]":city.ID?:@"",@"data[mobile]":self.phoneTextField.text};

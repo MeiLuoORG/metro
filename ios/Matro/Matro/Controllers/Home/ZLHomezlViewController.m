@@ -73,10 +73,15 @@
     [self createNavTopView];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushMessage:) name:@"PUSHMESSAGE" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleSingleTap:) name:@"PushToSearchCenter" object:nil];
+    
     AppDelegate *del = (AppDelegate *)[UIApplication sharedApplication].delegate;
     if (del.pushMessage) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PUSHMESSAGE" object:del.pushMessage userInfo:nil];
     }
+    
+    
+    
     /*
     //注册通知  按钮切换
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];

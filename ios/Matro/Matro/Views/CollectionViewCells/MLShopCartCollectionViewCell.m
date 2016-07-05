@@ -78,7 +78,10 @@
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.pro_price];
         self.checkBox.cartSelected = (_prolistModel.is_check == 1);
         self.manjianLabel.hidden = !(_prolistModel.mjtitle.length > 0);
-        
+        if (_prolistModel.setmealname.length > 0) {
+            self.goodDesc.text = [NSString stringWithFormat:@"%@：%@",_prolistModel.setmealname,_prolistModel.setmeal];
+        }
+
         [self.countField setTextValue:_prolistModel.num];
         
     }
@@ -94,6 +97,7 @@
         self.goodName.text = _offlineCart.pname;
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _offlineCart.pro_price];
         self.checkBox.cartSelected = NO;
+        self.goodDesc.hidden = YES;
         self.manjianLabel.hidden = !(_offlineCart.mjtitle.length > 0);
         [self.countField setTextValue:_offlineCart.num];
     }

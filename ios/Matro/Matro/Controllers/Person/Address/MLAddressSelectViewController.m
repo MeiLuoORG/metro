@@ -117,10 +117,6 @@ static MLAddressListModel *selAddress;
         [weakself.navigationController pushViewController:vc animated:YES];
         
     };
-//    cell.checkBoxBlock = ^(BOOL isSel){
-//        selAddress = isSel?model:nil;
-//        [weakself.tableView reloadData];
-//    };
     
     
     
@@ -147,8 +143,6 @@ static MLAddressListModel *selAddress;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     MLAddressListModel *address = [self.addressList objectAtIndex:indexPath.row];
-//    MLSelAddressTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//    selAddress = cell.checkBox.addSelected?nil:address;
     selAddress = address;
     [self.tableView reloadData];
     if (!selAddress) {

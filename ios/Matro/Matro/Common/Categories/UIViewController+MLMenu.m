@@ -33,7 +33,6 @@
                 break;
             case 1: //搜索 跳到搜索页
             {
-                [self.navigationController popToRootViewControllerAnimated:NO];
                 [self.tabBarController setSelectedIndex:0];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"PushToSearchCenter" object:nil];
                 

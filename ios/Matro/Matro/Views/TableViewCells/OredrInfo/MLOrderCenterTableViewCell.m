@@ -28,7 +28,11 @@
         self.goodsName.text = _productOrder.name;
         self.goodsPrice.text = [NSString stringWithFormat:@"￥%.2f",_productOrder.price];
         self.goodsCount.text = [NSString stringWithFormat:@"*%@",_productOrder.num];
-        self.goodsDesc.text = @"暂无数据";
+
+        if (_productOrder.setmeal_str.length > 0) {
+            self.goodsDesc.text = _productOrder.setmeal_str;
+        }
+        self.goodsDesc.text = [NSString stringWithFormat:@"%@",_productOrder.setmeal_str];
         [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productOrder.pic] placeholderImage:PLACEHOLDER_IMAGE];
         
     }

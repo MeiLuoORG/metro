@@ -56,7 +56,15 @@
     }];
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(getActMessages)];
     [self.tableView.header beginRefreshing];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
+    
+    
+    
     [self addMenuButton];
+}
+
+- (void)goback{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -81,6 +89,18 @@
         cell.titleLabel.text = message.title;
         [cell.actImage sd_setImageWithURL:[NSURL URLWithString:message.pic] placeholderImage:PLACEHOLDER_IMAGE];
         cell.descLabel.text = message.desc;
+        __weak typeof(self) weakself = self;
+        cell.delAction = ^(){
+            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"确定删除？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self deleteMessage:message];
+                
+            }];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [alertVc addAction:done];
+            [alertVc addAction:cancel];
+            [weakself presentViewController:alertVc animated:YES completion:nil];
+        };
         return cell;
     }
     else{
@@ -127,6 +147,9 @@
             NSDictionary *data = result[@"data"];
             NSArray *list = data[@"list"];
             NSString *total = data[@"total"];
+            if (self.pageIndex == 1) {
+                [self.messageArray removeAllObjects];
+            }
             if (self.messageArray.count < [total integerValue]) {
                 [self.messageArray addObjectsFromArray:[MLActiveMessageModel mj_objectArrayWithKeyValuesArray:list]];
                 [self.tableView reloadData];
@@ -153,6 +176,26 @@
         _messageArray = [NSMutableArray array];
     }
     return _messageArray;
+}
+
+- (void)deleteMessage:(MLActiveMessageModel *)message{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=delete",MATROJP_BASE_URL];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSDictionary *params = @{@"type":@"2",@"delete_id":message.ID?:@""};
+    [MLHttpManager post:url params:params m:@"push" s:@"delete" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            [MBProgressHUD showMessag:@"删除成功" toView:self.view];
+            [self.tableView.header beginRefreshing];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
 }
 
 

@@ -2501,9 +2501,6 @@
             NSString *str = [NSString stringWithFormat:@"%@,%hi,%@,%@",cart.pid,cart.num,cart.sid,cart.sku];
             NSString *key = [NSString stringWithFormat:@"cart_list[%li]",idx];
             [dic setValue:str forKey:key];
-            [cart MR_deleteEntity];
-            [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
-            
         }];
         NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=mul_add_cart",MATROJP_BASE_URL];
         [MLHttpManager post:url params:dic m:@"product" s:@"cart" success:^(id responseObject) {

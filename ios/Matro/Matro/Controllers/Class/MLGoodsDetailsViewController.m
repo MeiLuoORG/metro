@@ -304,7 +304,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&test_phone=18949151936",@"http://bbctest.matrojp.com",_paramDic[@"id"]];
     //测试链接
-   // NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
+//    NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
     
     [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
@@ -884,14 +884,13 @@
      
     */
     
-//    if ([self.kuncuntisLabel.text isEqualToString:@"售罄"]) {
-//        [_hud show:YES];
-//        _hud.mode = MBProgressHUDModeText;
-//        _hud.labelText = @"此商品已售罄";
-//        [_hud hide:YES afterDelay:1];
-//        return;
-//    }
-    
+    if ([self.kuncuntisLabel.text isEqualToString:@"售罄"]) {
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"此商品已售罄";
+        [_hud hide:YES afterDelay:1];
+        return;
+    }
     
     if (userid) {
         
@@ -1254,13 +1253,6 @@
     return UIEdgeInsetsMake(0, 10, 0, 0);
 }
 
-//-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section  {
-//
-//    return 5.f;
-//}
-//-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-//    return 5.f;
-//}
 
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
@@ -1366,29 +1358,6 @@
           NSLog(@"请求失败 error===%@",error);
           
       }];
-       
-            
-            
-       /*
-      [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
-       } success:^(AFHTTPRequestOperation *operation, id responseObject){
-           
-        NSDictionary *result = (NSDictionary *)responseObject;
-        NSString *share_add = result[@"data"][@"share_add"];
-        if (share_add) {
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"收藏成功";
-            [_hud hide:YES afterDelay:2];
-        }
-        NSLog(@"请求成功 result====%@",result);
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败 error===%@",error);
-        
-        }];
-        */
     }else{
         self.shoucangButton.selected = NO;
         [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
@@ -1445,31 +1414,6 @@
                 NSLog(@"请求失败 error===%@",error);
                 
             }];
-            
-            /*
-            [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
-                
-                
-            } success:^(AFHTTPRequestOperation *operation, id responseObject)
-             {
-                 NSDictionary *result = (NSDictionary *)responseObject;
-                 NSString *share_add = result[@"data"][@"ads_del"];
-                 if (share_add) {
-                     [_hud show:YES];
-                     _hud.mode = MBProgressHUDModeText;
-                     _hud.labelText = @"取消收藏成功";
-                     [_hud hide:YES afterDelay:2];
-                 }else{
-                     
-                 }
-                 NSLog(@"请求成功 result====%@",result);
-                
-                 
-             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 NSLog(@"请求失败 error===%@",error);
-                 
-             }];
-             */
         }else{
             self.shoucangButton.selected = NO;
             [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];

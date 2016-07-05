@@ -128,7 +128,6 @@
         [str appendFormat:@"%@,",url];
     }
     NSDictionary *params = @{@"pid":self.pid,@"comment_text":self.headView.textView.text,@"stars":[NSNumber numberWithInteger:self.comScore],@"pic":str};
-    
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=product_submit",MATROJP_BASE_URL];
     [MLHttpManager post:url params:params m:@"product" s:@"comment_submit" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;

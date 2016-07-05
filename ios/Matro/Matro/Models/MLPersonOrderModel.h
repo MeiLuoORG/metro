@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,assign)float price;
 @property (nonatomic,copy)NSString *num;
 @property (nonatomic,copy)NSString *time;
-@property (nonatomic,copy)NSString *setmeal;
+@property (nonatomic,strong)NSArray *setmeal;
 @property (nonatomic,copy)NSString *code;
 @property (nonatomic,copy)NSString *rebate;
 @property (nonatomic,copy)NSString *numOrder;
@@ -118,6 +118,10 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,copy)NSString *way;
 @property (nonatomic,copy)NSString *recomment_cash;
 @property (nonatomic,copy)NSString *buy_cash;
+
+
+@property (nonatomic,copy)NSString *setmeal_str;
+
 
 @end
 

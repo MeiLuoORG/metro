@@ -17,7 +17,6 @@
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    
 }
 
 
@@ -55,7 +54,6 @@
 
 #pragma mark 选中
 -(void)IMJIETagView:(NSArray *)tagArray{
-    
     if (self.wenTiBiaoQianSelBlock) {
         self.wenTiBiaoQianSelBlock(tagArray);
     }

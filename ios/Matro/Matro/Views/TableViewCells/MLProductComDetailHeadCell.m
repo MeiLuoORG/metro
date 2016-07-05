@@ -35,7 +35,7 @@
         
         [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",MATROJP_BASE_URL,_productModel.pic]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
         self.goodsName.text = _productModel.pname;
-        [self.scoreView setStaticScore:_productModel.goodbad];   
+        [self.scoreView setStaticScore:_productModel.stars];
     }
 }
 

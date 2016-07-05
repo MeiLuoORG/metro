@@ -188,9 +188,6 @@
     } failure:^(NSError *error) {
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
-    
-    
-    
 }
 
 
