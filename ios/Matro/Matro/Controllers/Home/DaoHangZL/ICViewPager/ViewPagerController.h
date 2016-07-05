@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 typedef NS_ENUM(NSUInteger, ViewPagerOption) {
     ViewPagerOptionTabHeight,
     ViewPagerOptionTabOffset,
@@ -21,6 +22,7 @@ typedef NS_ENUM(NSUInteger, ViewPagerComponent) {
     ViewPagerTabsView,
     ViewPagerContent
 };
+
 @protocol ViewPagerDataSource;
 @protocol ViewPagerDelegate;
 
@@ -28,6 +30,10 @@ typedef NS_ENUM(NSUInteger, ViewPagerComponent) {
 
 @property id<ViewPagerDataSource> dataSource;
 @property id<ViewPagerDelegate> delegate;
+
+
+@property UIScrollView *tabsView;
+
 
 #pragma mark ViewPagerOptions
 // Tab bar's height, defaults to 49.0

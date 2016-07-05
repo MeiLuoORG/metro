@@ -27,6 +27,9 @@
 #import "ZhengZePanDuan.h"
 #import "MLGoodsListViewController.h"
 
+#import "PinPaiSPListViewController.h"
+
 @interface PinPaiZLViewController : MLBaseViewController<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource>
+
 
 @end

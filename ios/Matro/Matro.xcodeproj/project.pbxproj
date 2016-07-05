@@ -321,6 +321,9 @@
 		3C13F2F21D1D19C70069A8F6 /* ShiMingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13F2F01D1D19C70069A8F6 /* ShiMingViewController.m */; };
 		3C13F2F31D1D19C70069A8F6 /* ShiMingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */; };
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
+		3C36713A1D2A165100BC5680 /* ZLLabelCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3671391D2A165100BC5680 /* ZLLabelCustom.m */; };
+		3C36713F1D2A550C00BC5680 /* PinPaiSPListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C36713E1D2A550C00BC5680 /* PinPaiSPListViewController.m */; };
+		3C3671411D2A555700BC5680 /* PinPaiSPListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C3671401D2A555700BC5680 /* PinPaiSPListViewController.xib */; };
 		3C5B0C801CFC37E3003FFD25 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C751CFC37E3003FFD25 /* CustomButton.m */; };
 		3C5B0C811CFC37E3003FFD25 /* CustomeColorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C771CFC37E3003FFD25 /* CustomeColorObject.m */; };
 		3C5B0C821CFC37E3003FFD25 /* UIView+MJAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B0C7A1CFC37E3003FFD25 /* UIView+MJAlertView.m */; };
@@ -340,6 +343,7 @@
 		3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04961D06DDD5004504EA /* GCDQueue.m */; };
 		3CAE049F1D06DDD5004504EA /* GCDSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04981D06DDD5004504EA /* GCDSemaphore.m */; };
 		3CAE04A01D06DDD5004504EA /* GCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE049A1D06DDD5004504EA /* GCDTimer.m */; };
+		3CC5F7721D2B50DE00E1A5B5 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5F7711D2B50DE00E1A5B5 /* ViewPagerController.m */; };
 		3CE4B0D51D1A5F3A0084156C /* BingPhoneZlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0D41D1A5F3A0084156C /* BingPhoneZlViewController.m */; };
 		3CE4B0D81D1A6D010084156C /* LingQuYouHuiQuanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0D71D1A6D000084156C /* LingQuYouHuiQuanView.m */; };
 		3CE4B0DE1D1A6DAC0084156C /* LingQuQuanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0DD1D1A6DAC0084156C /* LingQuQuanCell.m */; };
@@ -353,11 +357,10 @@
 		3CEDAD7E1D13ECFB00990DA8 /* page.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7B1D13ECFB00990DA8 /* page.png */; };
 		3CEDAD7F1D13ECFB00990DA8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */; };
 		3CEDAD821D14128C00990DA8 /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDAD811D14128C00990DA8 /* VipCardModel.m */; };
-		3CF2A08B1D27668C00ACCDD6 /* HomeSubViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A0891D27668C00ACCDD6 /* HomeSubViewViewController.m */; };
-		3CF2A08C1D27668C00ACCDD6 /* HomeSubViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A08A1D27668C00ACCDD6 /* HomeSubViewViewController.xib */; };
-		3CF2A08F1D276F4600ACCDD6 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A08E1D276F4600ACCDD6 /* ViewPagerController.m */; };
-		3CF2A0931D276F8900ACCDD6 /* ZLHomezlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A0911D276F8900ACCDD6 /* ZLHomezlViewController.m */; };
-		3CF2A0941D276F8900ACCDD6 /* ZLHomezlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A0921D276F8900ACCDD6 /* ZLHomezlViewController.xib */; };
+		3CF2A09C1D27731100ACCDD6 /* ZLHomezlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A09A1D27731100ACCDD6 /* ZLHomezlViewController.m */; };
+		3CF2A09D1D27731100ACCDD6 /* ZLHomezlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A09B1D27731100ACCDD6 /* ZLHomezlViewController.xib */; };
+		3CF2A0A11D27733000ACCDD6 /* ZLHomeSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A09F1D27733000ACCDD6 /* ZLHomeSubViewController.m */; };
+		3CF2A0A21D27733000ACCDD6 /* ZLHomeSubViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A0A01D27733000ACCDD6 /* ZLHomeSubViewController.xib */; };
 		3CF538F41D213AA800395779 /* YouHuiQuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF538F31D213AA800395779 /* YouHuiQuanModel.m */; };
 		3CF8CF761D0E72FA00C548AC /* SettingMoCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */; };
 		3CFC2A4C1D127C5C00C43BFF /* b54504436257.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3CFC2A4B1D127C5C00C43BFF /* b54504436257.jpg */; };
@@ -1234,6 +1237,11 @@
 		3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShiMingViewController.xib; sourceTree = "<group>"; };
 		3C2E204C1D0ABDAF00184D48 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
+		3C3671381D2A165100BC5680 /* ZLLabelCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLLabelCustom.h; sourceTree = "<group>"; };
+		3C3671391D2A165100BC5680 /* ZLLabelCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLLabelCustom.m; sourceTree = "<group>"; };
+		3C36713D1D2A550C00BC5680 /* PinPaiSPListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinPaiSPListViewController.h; sourceTree = "<group>"; };
+		3C36713E1D2A550C00BC5680 /* PinPaiSPListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinPaiSPListViewController.m; sourceTree = "<group>"; };
+		3C3671401D2A555700BC5680 /* PinPaiSPListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinPaiSPListViewController.xib; sourceTree = "<group>"; };
 		3C5B0C731CFC37E3003FFD25 /* CommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
 		3C5B0C741CFC37E3003FFD25 /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
 		3C5B0C751CFC37E3003FFD25 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
@@ -1271,6 +1279,8 @@
 		3CAE04991D06DDD5004504EA /* GCDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDTimer.h; sourceTree = "<group>"; };
 		3CAE049A1D06DDD5004504EA /* GCDTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDTimer.m; sourceTree = "<group>"; };
 		3CAE049B1D06DDD5004504EA /* HYGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYGCD.h; sourceTree = "<group>"; };
+		3CC5F7701D2B50DE00E1A5B5 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
+		3CC5F7711D2B50DE00E1A5B5 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
 		3CE4B0D31D1A5F3A0084156C /* BingPhoneZlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BingPhoneZlViewController.h; sourceTree = "<group>"; };
 		3CE4B0D41D1A5F3A0084156C /* BingPhoneZlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BingPhoneZlViewController.m; sourceTree = "<group>"; };
 		3CE4B0D61D1A6D000084156C /* LingQuYouHuiQuanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LingQuYouHuiQuanView.h; sourceTree = "<group>"; };
@@ -1290,14 +1300,12 @@
 		3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		3CEDAD801D14128C00990DA8 /* VipCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipCardModel.h; sourceTree = "<group>"; };
 		3CEDAD811D14128C00990DA8 /* VipCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipCardModel.m; sourceTree = "<group>"; };
-		3CF2A0881D27668C00ACCDD6 /* HomeSubViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSubViewViewController.h; sourceTree = "<group>"; };
-		3CF2A0891D27668C00ACCDD6 /* HomeSubViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeSubViewViewController.m; sourceTree = "<group>"; };
-		3CF2A08A1D27668C00ACCDD6 /* HomeSubViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeSubViewViewController.xib; sourceTree = "<group>"; };
-		3CF2A08D1D276F4600ACCDD6 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
-		3CF2A08E1D276F4600ACCDD6 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
-		3CF2A0901D276F8900ACCDD6 /* ZLHomezlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLHomezlViewController.h; sourceTree = "<group>"; };
-		3CF2A0911D276F8900ACCDD6 /* ZLHomezlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLHomezlViewController.m; sourceTree = "<group>"; };
-		3CF2A0921D276F8900ACCDD6 /* ZLHomezlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLHomezlViewController.xib; sourceTree = "<group>"; };
+		3CF2A0991D27731100ACCDD6 /* ZLHomezlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLHomezlViewController.h; sourceTree = "<group>"; };
+		3CF2A09A1D27731100ACCDD6 /* ZLHomezlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLHomezlViewController.m; sourceTree = "<group>"; };
+		3CF2A09B1D27731100ACCDD6 /* ZLHomezlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLHomezlViewController.xib; sourceTree = "<group>"; };
+		3CF2A09E1D27733000ACCDD6 /* ZLHomeSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLHomeSubViewController.h; sourceTree = "<group>"; };
+		3CF2A09F1D27733000ACCDD6 /* ZLHomeSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLHomeSubViewController.m; sourceTree = "<group>"; };
+		3CF2A0A01D27733000ACCDD6 /* ZLHomeSubViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLHomeSubViewController.xib; sourceTree = "<group>"; };
 		3CF538F21D213AA800395779 /* YouHuiQuanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouHuiQuanModel.h; sourceTree = "<group>"; };
 		3CF538F31D213AA800395779 /* YouHuiQuanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouHuiQuanModel.m; sourceTree = "<group>"; };
 		3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardCell.m; sourceTree = "<group>"; };
@@ -2872,12 +2880,14 @@
 				3C05567C1D239F150092D140 /* PinPaiVCZL */,
 				687703E81CCF40A30008ED46 /* MyJSInterface.h */,
 				687703E91CCF40A30008ED46 /* MyJSInterface.m */,
-				3CF2A0901D276F8900ACCDD6 /* ZLHomezlViewController.h */,
-				3CF2A0911D276F8900ACCDD6 /* ZLHomezlViewController.m */,
-				3CF2A0921D276F8900ACCDD6 /* ZLHomezlViewController.xib */,
-				3CF2A0881D27668C00ACCDD6 /* HomeSubViewViewController.h */,
-				3CF2A0891D27668C00ACCDD6 /* HomeSubViewViewController.m */,
-				3CF2A08A1D27668C00ACCDD6 /* HomeSubViewViewController.xib */,
+				3CF2A0991D27731100ACCDD6 /* ZLHomezlViewController.h */,
+				3CF2A09A1D27731100ACCDD6 /* ZLHomezlViewController.m */,
+				3CF2A09B1D27731100ACCDD6 /* ZLHomezlViewController.xib */,
+				3CF2A09E1D27733000ACCDD6 /* ZLHomeSubViewController.h */,
+				3CF2A09F1D27733000ACCDD6 /* ZLHomeSubViewController.m */,
+				3CF2A0A01D27733000ACCDD6 /* ZLHomeSubViewController.xib */,
+				3C3671381D2A165100BC5680 /* ZLLabelCustom.h */,
+				3C3671391D2A165100BC5680 /* ZLLabelCustom.m */,
 				3A16DC5D1CA15BB7007AE4A2 /* Search */,
 				7A01A8431D24C1050067F4E9 /* MLShopInfoViewController.h */,
 				7A01A8441D24C1050067F4E9 /* MLShopInfoViewController.m */,
@@ -3305,6 +3315,9 @@
 				3C0556821D23AA820092D140 /* ZLCollectionViewCell.h */,
 				3C0556831D23AA820092D140 /* ZLCollectionViewCell.m */,
 				3C0556841D23AA820092D140 /* ZLCollectionViewCell.xib */,
+				3C36713D1D2A550C00BC5680 /* PinPaiSPListViewController.h */,
+				3C36713E1D2A550C00BC5680 /* PinPaiSPListViewController.m */,
+				3C3671401D2A555700BC5680 /* PinPaiSPListViewController.xib */,
 			);
 			path = PinPaiVCZL;
 			sourceTree = "<group>";
@@ -3345,7 +3358,7 @@
 		3C1306C01D260BA1005CFCEC /* DaoHangZL */ = {
 			isa = PBXGroup;
 			children = (
-				3CF2A0841D27663800ACCDD6 /* ICViewPager */,
+				3CC5F76F1D2B50DE00E1A5B5 /* ICViewPager */,
 				3C1306C11D260BBC005CFCEC /* HACursor */,
 			);
 			path = DaoHangZL;
@@ -3573,6 +3586,15 @@
 			path = HYGCD;
 			sourceTree = "<group>";
 		};
+		3CC5F76F1D2B50DE00E1A5B5 /* ICViewPager */ = {
+			isa = PBXGroup;
+			children = (
+				3CC5F7701D2B50DE00E1A5B5 /* ViewPagerController.h */,
+				3CC5F7711D2B50DE00E1A5B5 /* ViewPagerController.m */,
+			);
+			path = ICViewPager;
+			sourceTree = "<group>";
+		};
 		3CEDAD761D13E74E00990DA8 /* iCarousel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3583,15 +3605,6 @@
 				3CEDAD781D13E74E00990DA8 /* iCarousel.m */,
 			);
 			path = iCarousel;
-			sourceTree = "<group>";
-		};
-		3CF2A0841D27663800ACCDD6 /* ICViewPager */ = {
-			isa = PBXGroup;
-			children = (
-				3CF2A08D1D276F4600ACCDD6 /* ViewPagerController.h */,
-				3CF2A08E1D276F4600ACCDD6 /* ViewPagerController.m */,
-			);
-			path = ICViewPager;
 			sourceTree = "<group>";
 		};
 		3CF538F11D2139E800395779 /* YouHuiQuanModel */ = {
@@ -3848,6 +3861,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CF2A09D1D27731100ACCDD6 /* ZLHomezlViewController.xib in Resources */,
 				3A633B961C9EA85800C11FD5 /* MLPersonViewController.xib in Resources */,
 				7A272EBB1D1A265500242F24 /* MLReturnsDetailHeadCell.xib in Resources */,
 				7A0720321D17D43C00E0B58E /* MLTuiHuoFukuanTableViewCell.xib in Resources */,
@@ -3961,6 +3975,7 @@
 				3C78E1C31D225BED0016628C /* QuanListZLViewController.xib in Resources */,
 				3A16DC241C9FF423007AE4A2 /* MLVIPCardViewController.xib in Resources */,
 				283261A71D19364E00C9EE4E /* MLStoreFootView.xib in Resources */,
+				3C3671411D2A555700BC5680 /* PinPaiSPListViewController.xib in Resources */,
 				3A630BE91CA25C5B006E67F4 /* MLClassCollectionViewCell.xib in Resources */,
 				3CE4B0E01D1A6DCC0084156C /* LingQuQuanCell.xib in Resources */,
 				7A0720371D17D5D300E0B58E /* MLTuiHuoFooterView.xib in Resources */,
@@ -3987,6 +4002,7 @@
 				3AE768B11CA62BFB0097FEA2 /* MLListViewController.xib in Resources */,
 				7AEC88D01CE45D2200B43DD4 /* MLGoodsComHeadView.xib in Resources */,
 				28CF86081CEDC59A00E582EE /* UMSCommentInputControlleriPad.xib in Resources */,
+				3CF2A0A21D27733000ACCDD6 /* ZLHomeSubViewController.xib in Resources */,
 				D6D8036D1CAE6B62001C0FE0 /* MLFootprintViewController.xib in Resources */,
 				7ACFA6111D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.xib in Resources */,
 				28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */,
@@ -4009,7 +4025,6 @@
 				7ABB22461D210C5000529B2B /* MLActMessageBodyCell.xib in Resources */,
 				3ACF2D061CA53046003D1F67 /* MLAddTableViewCell.xib in Resources */,
 				7AEC88E71CE47A6A00B43DD4 /* MLGoodsSharePhotoViewController.xib in Resources */,
-				3CF2A0941D276F8900ACCDD6 /* ZLHomezlViewController.xib in Resources */,
 				7A09367F1D1BCB9B002325A2 /* MLProductComDetailHeadCell.xib in Resources */,
 				6839EF231CD6C4B600638B3D /* APPSettingCell.xib in Resources */,
 				28CF86091CEDC59A00E582EE /* UMShareEditViewController.xib in Resources */,
@@ -4018,7 +4033,6 @@
 				2CBAD64E1CA3B3AC0044601B /* MLBagZengpinTableViewCell.xib in Resources */,
 				2CBAD6441CA3AD4B0044601B /* MLBagActiveTableViewCell.xib in Resources */,
 				7A083FC21D193E67001F0256 /* MLTuiHuoChengGongViewController.xib in Resources */,
-				3CF2A08C1D27668C00ACCDD6 /* HomeSubViewViewController.xib in Resources */,
 				2869F68A1D221AF7003C4663 /* MLServiceViewController.xib in Resources */,
 				3A633B481C9EA36E00C11FD5 /* Documentation.html in Resources */,
 				6839EF191CD5A94700638B3D /* AddressManagerCell.xib in Resources */,
@@ -4112,12 +4126,10 @@
 				3C1306E11D260BBC005CFCEC /* UIColor+RGBA.m in Sources */,
 				3A633B4B1C9EA36E00C11FD5 /* AsyncSocket.m in Sources */,
 				3A633B2C1C9EA36E00C11FD5 /* UIBarButtonItem+Badge.m in Sources */,
-				3CF2A08F1D276F4600ACCDD6 /* ViewPagerController.m in Sources */,
 				7AEC88CE1CE45D1500B43DD4 /* MLGoodsComHeadView.m in Sources */,
 				7AFFC45A1D1A7A810038B176 /* MLReturnsDetailModel.m in Sources */,
 				3A633B3C1C9EA36E00C11FD5 /* SDCollectionViewCell.m in Sources */,
 				7A272EC91D1A437C00242F24 /* MLReturnsDetailPhototCell.m in Sources */,
-				3CF2A08B1D27668C00ACCDD6 /* HomeSubViewViewController.m in Sources */,
 				7A3A62721CDB874F00D265F2 /* MLOrderSubHeadCell.m in Sources */,
 				285326E71CFD3A5800FA2AB0 /* MLYHQOutdateCell.m in Sources */,
 				3A21486A1CB3A5CC007DF97D /* LoginHistory.m in Sources */,
@@ -4199,10 +4211,10 @@
 				7ACD3A7F1CE9669A004BAF8B /* MLWishlistModel.m in Sources */,
 				7AF15AFB1D126FE100F8CF03 /* MLAddressListModel.m in Sources */,
 				6839EF181CD5A94700638B3D /* AddressManagerCell.m in Sources */,
-				3CF2A0931D276F8900ACCDD6 /* ZLHomezlViewController.m in Sources */,
 				7AFDED3C1D265155008751B9 /* UIView+DownMenu.m in Sources */,
 				3A2148691CB3A5CC007DF97D /* LoginHistory+CoreDataProperties.m in Sources */,
 				7ABB222C1D20D85800529B2B /* MLMessagesViewController.m in Sources */,
+				3CC5F7721D2B50DE00E1A5B5 /* ViewPagerController.m in Sources */,
 				3CEA04CC1D0E820800E5C4B6 /* SettingMoCardCell.m in Sources */,
 				7AF15AF81D1247B600F8CF03 /* MLShippingaddress.m in Sources */,
 				7AF141631CE1FD50005DDE70 /* MLProductOrderCell.m in Sources */,
@@ -4286,6 +4298,7 @@
 				283261991D192D6E00C9EE4E /* MLStoreCollectViewController.m in Sources */,
 				280F7CE01CF829D600D42FA6 /* MLYHQViewController.m in Sources */,
 				3A633B611C9EA36E00C11FD5 /* UIViewController+Alert.m in Sources */,
+				3CF2A09C1D27731100ACCDD6 /* ZLHomezlViewController.m in Sources */,
 				3A633B671C9EA36E00C11FD5 /* ZLPhotoPickerCollectionViewCell.m in Sources */,
 				7ABB224A1D210D8000529B2B /* MLActMessageFootCell.m in Sources */,
 				3C05568A1D23ACB80092D140 /* PinPaiModelZl.m in Sources */,
@@ -4397,6 +4410,7 @@
 				3A633B791C9EA4E000C11FD5 /* MLNavigationController.m in Sources */,
 				3A633B541C9EA36E00C11FD5 /* ZLCameraView.m in Sources */,
 				7A0720351D17D5C300E0B58E /* MLTuiHuoFooterView.m in Sources */,
+				3C36713F1D2A550C00BC5680 /* PinPaiSPListViewController.m in Sources */,
 				7A8613DE1D14E6F600C75D5A /* MLPersonOrderDetailFootView.m in Sources */,
 				3A633B781C9EA4E000C11FD5 /* MLBaseViewController.m in Sources */,
 				7A0720401D17E98400E0B58E /* MLXuanZeTuPianTableViewCell.m in Sources */,
@@ -4437,6 +4451,7 @@
 				7A3A62761CDB874F00D265F2 /* MLRetrunsHeadCell.m in Sources */,
 				280F7CE51CF832C600D42FA6 /* MLYHQTableViewCell.m in Sources */,
 				3AA0E7AE1CA91E500079AA90 /* RSADataVerifier.m in Sources */,
+				3C36713A1D2A165100BC5680 /* ZLLabelCustom.m in Sources */,
 				3CEDAD821D14128C00990DA8 /* VipCardModel.m in Sources */,
 				3A633B3B1C9EA36E00C11FD5 /* TAPageControl.m in Sources */,
 				3AF01E5B1CBBAB94005830BD /* MLLogisticsViewController.m in Sources */,
@@ -4454,6 +4469,7 @@
 				7A40B49A1D18D8380026AFD2 /* MLTuiHuoModel.m in Sources */,
 				7A5DCF2F1CDA068C003030C7 /* Order.m in Sources */,
 				687704201CD34E4A0008ED46 /* NSObject+SBJSON.m in Sources */,
+				3CF2A0A11D27733000ACCDD6 /* ZLHomeSubViewController.m in Sources */,
 				3A1F72DD1CA3FC13000ECE08 /* HFSOrderInfoTableViewCell.m in Sources */,
 				3A633B681C9EA36E00C11FD5 /* ZLPhotoPickerFooterCollectionReusableView.m in Sources */,
 				3A633B571C9EA36E00C11FD5 /* ZLPhotoRect.m in Sources */,

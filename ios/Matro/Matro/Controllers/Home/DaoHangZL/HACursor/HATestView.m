@@ -25,7 +25,10 @@
         self.backgroundColor = [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1];
         */
         self.backgroundColor = [UIColor whiteColor];
+
         self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-64)];
+
+
         self.webView.delegate = self;
         self.webView.scrollView.delegate = self;
         [self addSubview:self.webView];

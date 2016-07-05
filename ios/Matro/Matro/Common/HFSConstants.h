@@ -191,6 +191,10 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 //http://61.155.212.146:3000
 #define HomeHTML_URLString @"http://61.155.212.146:3000"
 
+//请求标题数据
+
+#define HomeTitles_URLString @"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"
+
 /*zhouluEND*/
 
 

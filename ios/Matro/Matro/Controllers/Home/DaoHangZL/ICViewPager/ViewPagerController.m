@@ -8,9 +8,16 @@
 
 #import "ViewPagerController.h"
 
-#define kDefaultTabHeight 44.0 // Default tab height
+
+
+
+#import "HFSUtility.h"
+#import "CommonHeader.h"
+
+#define kDefaultTabHeight 40.0 // Default tab height
 #define kDefaultTabOffset 56.0 // Offset of the second and further tabs' from left
-#define kDefaultTabWidth 128.0
+#define kDefaultTabWidth 93.0
+
 
 #define kDefaultTabLocation 1.0 // 1.0: Top, 0.0: Bottom
 
@@ -21,8 +28,13 @@
 #define kPageViewTag 34
 
 #define kDefaultIndicatorColor [UIColor colorWithRed:178.0/255.0 green:203.0/255.0 blue:57.0/255.0 alpha:0.75]
-#define kDefaultTabsViewBackgroundColor [UIColor colorWithRed:234.0/255.0 green:234.0/255.0 blue:234.0/255.0 alpha:0.75]
-#define kDefaultContentViewBackgroundColor [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:248.0/255.0 alpha:0.75]
+
+
+#define kDefaultTabsViewBackgroundColor [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor]
+//[UIColor colorWithRed:234.0/255.0 green:234.0/255.0 blue:234.0/255.0 alpha:0.75]
+#define kDefaultContentViewBackgroundColor [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor]
+//[UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:248.0/255.0 alpha:0.75]
+
 
 // TabView for tabs, that provides un/selected state indicators
 @class TabView;
@@ -30,6 +42,7 @@
 @interface TabView : UIView
 @property (nonatomic, getter = isSelected) BOOL selected;
 @property (nonatomic) UIColor *indicatorColor;
+
 @end
 
 @implementation TabView
@@ -61,7 +74,18 @@
     bezierPath = [UIBezierPath bezierPath];
     [bezierPath moveToPoint:CGPointMake(0.0, rect.size.height)];
     [bezierPath addLineToPoint:CGPointMake(rect.size.width, rect.size.height)];
+
     [[UIColor colorWithWhite:197.0/255.0 alpha:0.75] setStroke];
+
+    
+
+    [[HFSUtility hexStringToColor:Main_home_jinse_backgroundColor] setStroke];
+    
+
+    
+    
+    //[[UIColor colorWithWhite:197.0/255.0 alpha:0.75] setStroke];
+
     [bezierPath setLineWidth:1.0];
     [bezierPath stroke];
     
@@ -73,7 +97,10 @@
         // Draw the indicator
         [bezierPath moveToPoint:CGPointMake(0.0, rect.size.height - 1.0)];
         [bezierPath addLineToPoint:CGPointMake(rect.size.width, rect.size.height - 1.0)];
-        [bezierPath setLineWidth:5.0];
+
+        [bezierPath setLineWidth:1.0];
+        //[[UIColor whiteColor] setStroke];
+
         [self.indicatorColor setStroke];
         [bezierPath stroke];
     }
@@ -87,7 +114,6 @@
 @property UIPageViewController *pageViewController;
 @property (assign) id<UIScrollViewDelegate> origPageScrollViewDelegate;
 
-@property UIScrollView *tabsView;
 @property UIView *contentView;
 
 @property NSMutableArray *tabs;
@@ -122,7 +148,9 @@
     
     [super viewDidLoad];
 	
-    [self reloadData];
+
+    //[self reloadData];
+
 }
 - (void)viewWillLayoutSubviews {
     
@@ -130,14 +158,18 @@
     
     frame = _tabsView.frame;
     frame.origin.x = 0.0;
-    frame.origin.y = self.tabLocation ? 0.0 : self.view.frame.size.height - self.tabHeight;
+
+    frame.origin.y = self.tabLocation ? 64.0 : self.view.frame.size.height - self.tabHeight;
+
     frame.size.width = self.view.bounds.size.width;
     frame.size.height = self.tabHeight;
     _tabsView.frame = frame;
     
     frame = _contentView.frame;
     frame.origin.x = 0.0;
-    frame.origin.y = self.tabLocation ? self.tabHeight : 0.0;
+
+    frame.origin.y = self.tabLocation ? self.tabHeight+64.0 : 0.0+64.0;
+
     frame.size.width = self.view.bounds.size.width;
     frame.size.height = self.view.frame.size.height - self.tabHeight;
     _contentView.frame = frame;
@@ -212,7 +244,7 @@
 - (void)setActiveTabIndex:(NSUInteger)activeTabIndex {
     
     TabView *activeTabView;
-    
+
     // Set to-be-inactive tab unselected
     activeTabView = [self tabViewAtIndex:self.activeTabIndex];
     activeTabView.selected = NO;

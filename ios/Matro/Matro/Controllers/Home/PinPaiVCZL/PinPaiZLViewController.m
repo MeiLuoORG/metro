@@ -31,8 +31,15 @@
     int _currentPageIndex;
 }
 
+- (void)backBtnAction{
+
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationController setNavigationBarHidden:NO];
     _pinPaiARR = [[NSMutableArray alloc]init];
     _sectionDic = [[NSMutableDictionary alloc]init];
     _sectionPinARR = [[NSMutableArray alloc]init];
@@ -488,7 +495,11 @@
     ZLCollectionViewCell * cell = (ZLCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
     //UICollectionViewCell * cell2 = [collectionView cellForItemAtIndexPath:indexPath];
 
-    NSURL * url = [NSURL URLWithString:@"http://61.155.212.169/img/SPXSM/o_1a6kr95qe19jmg057qc10m5169g5_M.jpg"];
+    PinPaiModelZl * model = [_pinPaiARR objectAtIndex:indexPath.row];
+    
+    //NSURL * url = [NSURL URLWithString:@"http://61.155.212.169/img/SPXSM/o_1a6kr95qe19jmg057qc10m5169g5_M.jpg"];
+    
+    NSURL * url = [NSURL URLWithString:model.logo];
     
     [cell.imageViewzl sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"login-left"]];
     
@@ -519,7 +530,14 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSLog(@"点击了第几个：%ld",indexPath.row);
-
+    PinPaiModelZl * model = [_pinPaiARR objectAtIndex:indexPath.row];
+     PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
+    self.hidesBottomBarWhenPushed = YES;
+    vc.searchString = model.id;
+    vc.title = model.name;
+    [self.navigationController pushViewController:vc animated:NO];
+    self.hidesBottomBarWhenPushed = YES;
+    
 }
 
 - (void)didReceiveMemoryWarning {
