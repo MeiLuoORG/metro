@@ -32,5 +32,5 @@ static NSString *base64_encode_data(NSData *data){
 
 - (void)showTransparentController:(UIViewController *)controller;
 
-
+- (void)backBtnAction;
 @end

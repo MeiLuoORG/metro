@@ -79,8 +79,6 @@
 
 }
 
-
-
 - (AppDelegate *)getAppDelegate {
     return (AppDelegate *)[UIApplication sharedApplication].delegate;
 }

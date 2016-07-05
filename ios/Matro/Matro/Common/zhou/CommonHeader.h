@@ -110,6 +110,13 @@
 //按钮正常颜色
 #define Main_ButtonNormel_backgroundColor @"ae8e5d"
 
+//首页 头部颜色 金色
+#define Main_home_jinse_backgroundColor @"625046"
+
+//首页 头部文字 灰色
+#define Main_home_huise_backgroundColor @"c29f8c"
+
+
 #define REQUEST_ERROR_ZL @"服务连接失败"
 
 #endif
