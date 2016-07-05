@@ -132,8 +132,8 @@
     
 }
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
-  
     if (_isTopHiden) {
         [UIView animateWithDuration:0.3f animations:^{
             [self.view setFrame:CGRectMake(0, 0.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0)];
@@ -148,6 +148,12 @@
         }];
     }
 
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = NO;
 }
 //二维码扫描 搜索  消息视图按钮
 - (void)createNavTopView{

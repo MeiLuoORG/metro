@@ -12,7 +12,7 @@
 #import "MLGoodsDetailsViewController.h"
 
 @protocol JSObjectDelegate <JSExport>
-- (void)navigationStoreProduct:(NSString *)productId;
+- (void)navigationProduct:(NSString *)productId;
 
 @end
 
@@ -36,7 +36,7 @@
         [self.view addSubview:webView];
         webView;
     });
-    NSString *url = [NSString stringWithFormat:@"http://192.168.19.247:3000/store?sid=20505&uid=1111"];
+    NSString *url = [NSString stringWithFormat:@"http://61.155.212.146:3000/store/index?sid=20505&uid=1111"];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
 }
@@ -50,10 +50,10 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     self.context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     self.context[@"_native"] = self;
-    __weak typeof(self) weakself = self;
-    self.context[@"store_product_click"] = ^(NSString *productid){
-            [weakself performSelectorOnMainThread:@selector(pushToGoodsDetail:) withObject:productid waitUntilDone:YES];
-    };
+//    __weak typeof(self) weakself = self;
+//    self.context[@"store_product_click"] = ^(NSString *productid){
+//            [weakself performSelectorOnMainThread:@selector(pushToGoodsDetail:) withObject:productid waitUntilDone:YES];
+//    };
     self.context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
         context.exception = exceptionValue;
         NSLog(@"异常信息：%@", exceptionValue);
@@ -62,7 +62,7 @@
 
 
 
-- (void)navigationStoreProduct:(NSString *)productId{
+- (void)navigationProduct:(NSString *)productId{
     [self performSelectorOnMainThread:@selector(pushToGoodsDetail:) withObject:productId waitUntilDone:YES];
 }
 

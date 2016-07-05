@@ -91,6 +91,8 @@
                 case ButtonActionTypeZhuizong://订单追踪
                 {
                     MLLogisticsViewController *vc = [[MLLogisticsViewController alloc]init];
+                    vc.express_number = self.orderDetail.deliver_code;
+                    vc.express_company = self.orderDetail.deliver_name;
                     [self.navigationController pushViewController:vc animated:YES];
                     
                 }

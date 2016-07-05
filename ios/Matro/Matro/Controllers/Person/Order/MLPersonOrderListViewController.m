@@ -197,6 +197,8 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
         };
         cell.zhuiZongAction = ^(){//订单追踪  跳到订单追踪页面
             MLLogisticsViewController *vc = [[MLLogisticsViewController alloc]init];
+            vc.express_number = order.deliver_code;
+            vc.express_company = order.deliver_name;
             [weakself.navigationController pushViewController:vc animated:YES];
         };
         cell.tuiHuoAction = ^(){//退货操作

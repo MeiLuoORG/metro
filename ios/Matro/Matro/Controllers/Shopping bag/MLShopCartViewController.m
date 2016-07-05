@@ -358,18 +358,18 @@ static NSInteger pageIndex = 0;
             cell.countField.proList = model;
             cell.shopCartCheckBoxBlock = ^(BOOL isCheck){
                 model.is_check = isCheck?1:0;
-                if (isCheck) {//如果是选中 检测其他是否都为已选中状态
-                    BOOL check_all = YES;
-                    for (MLProlistModel *model in cart.prolist) {
-                        if (model.is_check != 1) {
-                            check_all = NO;
-                        }
-                    }
-                    cart.select_All = check_all;
-                }
-                else{//如果是未选中状态 检测头部是否是未选中  如果是已选中 需要
-                    
-                }
+//                if (isCheck) {//如果是选中 检测其他是否都为已选中状态
+//                    BOOL check_all = YES;
+//                    for (MLProlistModel *model in cart.prolist) {
+//                        if (model.is_check != 1) {
+//                            check_all = NO;
+//                        }
+//                    }
+//                    cart.select_All = check_all;
+//                }
+//                else{//如果是未选中状态 检测头部是否是未选中  如果是已选中 需要
+//                    
+//                }
                 [self countAllPrice];
             };
             cell.shopCartDelBlock = ^(){ //购物车删除
@@ -378,8 +378,11 @@ static NSInteger pageIndex = 0;
                 [self.collectionView reloadData];
                 
             };
-            if ((cart.isMore && !cart.isOpen && indexPath.row == 2) || (indexPath.row == cart.prolist.count)) {
+            //设置底部线条
+            if ((cart.isMore && !cart.isOpen && indexPath.row == 1) || (indexPath.row == cart.prolist.count-1)) {
                 cell.line.hidden = YES;
+            }else{
+                cell.line.hidden = NO;
             }
             return cell;
         }
@@ -433,6 +436,13 @@ static NSInteger pageIndex = 0;
                 [self.collectionView reloadData];
                 [self configBlankPage];
             };
+            
+            //设置底部线条
+            if ((cart.isMore && !cart.isOpen && indexPath.row == 1) || (indexPath.row == cart.goodsArray.count-1)) {
+                cell.line.hidden = YES;
+            }else{
+                cell.line.hidden = NO;
+            }
             return cell;
         }
 
