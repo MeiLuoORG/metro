@@ -57,7 +57,6 @@
 @end
 
 static float allPrice = 0;
-static NSInteger goodsCount;
 static NSInteger pageIndex = 0;
 
 @implementation MLShopCartViewController
@@ -133,7 +132,7 @@ static NSInteger pageIndex = 0;
 
     [self.footView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.left.right.equalTo(self.view);
-        make.height.mas_equalTo(60);
+        make.height.mas_equalTo(45);
     }];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.loginView.mas_bottom).offset(8);
@@ -227,6 +226,7 @@ static NSInteger pageIndex = 0;
         }
         [self.collectionView reloadData];
     }
+    self.footView.checkBox.cartSelected = NO;
     [self configBlankPage];
     self.loginView.hidden = self.isLogin;
     [self countAllPrice];
@@ -378,6 +378,9 @@ static NSInteger pageIndex = 0;
                 [self.collectionView reloadData];
                 
             };
+            if ((cart.isMore && !cart.isOpen && indexPath.row == 2) || (indexPath.row == cart.prolist.count)) {
+                cell.line.hidden = YES;
+            }
             return cell;
         }
 
@@ -525,25 +528,38 @@ static NSInteger pageIndex = 0;
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.isLogin) { //已登录点击猜你喜欢
-        if (indexPath.section == self.shopCart.cart.count) {  //猜你喜欢点击
+    
+    NSString *pid = nil;
+    if (!self.isLogin) {
+        if (indexPath.section == self.offlineCart.count) { //点击猜你喜欢
             MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
-            MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
-            NSDictionary *params = @{@"id":model.ID};
-            vc.paramDic = params;
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+            pid = model.ID;
         }
-    }else{//未登录点击猜你喜欢
-        if (indexPath.section  == self.offlineCart.count) {
-            MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
-            MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
-            NSDictionary *params = @{@"id":model.ID};
-            vc.paramDic = params;
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+        else{
+            MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:indexPath.section];
+            OffLlineShopCart *model = [cart.goodsArray objectAtIndex:indexPath.row];
+            pid = model.pid;
         }
     }
+    else{
+        if (indexPath.section == self.shopCart.cart.count) { //点击猜你喜欢
+            MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
+            pid = model.ID;
+            
+        }
+        else{
+            MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
+            MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
+            pid = model.pid;
+        }
+    }
+    MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+    NSDictionary *params = @{@"id":pid?:@""};
+    vc.paramDic = params;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+
+
 
 }
 //返回这个UICollectionView是否可以被选择
@@ -739,7 +755,7 @@ static NSInteger pageIndex = 0;
         }
     }
 
-    NSString *attr = [NSString stringWithFormat:@"<font  size = \"14\">合计：<color value = \"#FF4E26\">￥%.2f</><font  size = \"12\"><color value = \"#999999\"> 不含运费</></></>",allPrice];
+    NSString *attr = [NSString stringWithFormat:@"<font  size = \"14\">合计：<color value = \"#FF4E26\">￥%.2f</><font  size = \"13\"><color value = \"#999999\"> 不含运费</></></>",allPrice];
     self.footView.detailLabel.attributedText = [attr createAttributedString];
 }
 

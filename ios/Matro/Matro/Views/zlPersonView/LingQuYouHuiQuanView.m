@@ -30,6 +30,12 @@
     bkView2.backgroundColor = [UIColor whiteColor];
     [self addSubview:bkView2];
     
+    UIView *topLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 1)];
+    topLine.backgroundColor = RGBA(220,220, 220, 1);
+    [bkView2 addSubview:topLine];
+    
+    
+    
     UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, 120, 21)];
     label.text = @"点击领取优惠券";
     label.textAlignment = NSTextAlignmentCenter;

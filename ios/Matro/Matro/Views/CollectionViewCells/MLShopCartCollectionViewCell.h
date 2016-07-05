@@ -29,6 +29,7 @@ typedef void(^ShopCartCheckBoxBlock)(BOOL);
 @property (nonatomic,strong)OffLlineShopCart *offlineCart;
 
 
+@property (weak, nonatomic) IBOutlet UIView *line;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *manjianLabel;

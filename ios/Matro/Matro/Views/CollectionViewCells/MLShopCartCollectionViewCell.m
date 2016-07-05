@@ -46,9 +46,9 @@
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)gestureRecognizer{
     if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         if (!_showDel) {
-            [UIView animateWithDuration:0.2 animations:^{
-                self.countL.constant = 8 + 80;
-                self.checkBoxL.constant = 16 - 80;
+            [UIView animateWithDuration:0.5 animations:^{
+                self.countL.constant = 8 + 60;
+                self.checkBoxL.constant = 16 - 60;
 
             } completion:^(BOOL finished) {
                 _showDel = YES;
@@ -57,7 +57,7 @@
 
     }
     else{//收齐
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.5 animations:^{
             self.countL.constant = 8;
             self.checkBoxL.constant = 16;
         } completion:^(BOOL finished) {
