@@ -42,7 +42,7 @@
     [rightBtn addTarget:self action:@selector(shiyongShuoMing) forControlEvents:UIControlEventTouchUpInside];
     [rightBtn setFrame:CGRectMake(SIZE_WIDTH-82, 35, 60, 22)];
     
-    [top addSubview:rightBtn];
+    //[top addSubview:rightBtn];
     
     _wuImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"defoult"]];
     [_wuImageView setFrame:CGRectMake((SIZE_WIDTH-125.0f)/2.0f, 100, 125.0, 125.0)];
@@ -69,6 +69,7 @@
 }
 
 - (void)loadTableView{
+    self.quanListARR = [[NSMutableArray alloc]init];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(22, 64, SIZE_WIDTH-44, SIZE_HEIGHT-64) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -78,27 +79,41 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // [self.tableView.header endRefreshing];
+        [self.quanListARR removeAllObjects];
+        [self loadData];
+    }];
+ 
+    [self loadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    /*
+    [super viewWillAppear:animated];
     if (self.quanListARR.count > 0) {
         [self.tableView reloadData];
         _wuImageView.hidden = YES;
         _titleLabel.hidden = YES;
     }
-    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self.tableView.header endRefreshing];
-        [self.quanListARR removeAllObjects];
-        [self loadData];
-    }];
-
+    else{
+        _wuImageView.hidden = NO;
+        _titleLabel.hidden = NO;
+    }
+*/
 }
 
 - (void)loadData{
 
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     [MLHttpManager get:YOUHUIQUANLIST_YiLingQu_URLString params:nil m:@"member" s:@"admin_coupons" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSLog(@"请求用户已领取的优惠券：%@",responseObject);
         NSDictionary * result = (NSDictionary *)responseObject;
         NSDictionary * dataDic = result[@"data"];
         NSArray * allCouponsARR = dataDic[@"b2c_allcoupons"];
-
+        
         if (allCouponsARR.count > 0) {
             
             for (NSDictionary * dic in allCouponsARR) {
@@ -109,16 +124,18 @@
                 model.quanID = dic[@"CouponType"];
                 [self.quanListARR addObject:model];
             }
-            [self.tableView reloadData];
+           
             
             _wuImageView.hidden = YES;
             _titleLabel.hidden = YES;
+            self.tableView.hidden = NO;
         }
         else{
             
             
             _wuImageView.hidden = NO;
             _titleLabel.hidden = NO;
+            self.tableView.hidden = YES;
             /*
             _hud = [[MBProgressHUD alloc]initWithView:self.view];
             [self.view addSubview:_hud];
@@ -128,10 +145,11 @@
             [_hud hide:YES afterDelay:1];
         */
         }
-        
+         [self.tableView reloadData];
         [self.tableView.header endRefreshing];
         
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         _hud = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
         [_hud show:YES];
@@ -146,7 +164,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.quanListARR.count;
-    //return 0;
 }
 - (CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 125.0f;

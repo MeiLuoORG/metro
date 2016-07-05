@@ -37,7 +37,6 @@
     NSMutableArray * _urlsARR;
     
     NSMutableArray * _labelARR;
-    
     BOOL _isTopHiden;
 }
 
@@ -131,10 +130,23 @@
 //消息按钮
 - (void)newsButtonAction:(UIButton *)sender{
     NSLog(@"点击了消息按钮");
+    /*
     PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
     pinVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:pinVC animated:YES];
+    */
     
+    MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
+    payResultVC.hidesBottomBarWhenPushed = YES;
+    payResultVC.isSuccess = YES;
+    [self.navigationController pushViewController:payResultVC animated:YES];
+     
+    /*
+    MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
+    shiBaiVC.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:shiBaiVC animated:YES];
+*/
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -212,7 +224,8 @@
     
     UIButton * newsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [newsBtn setFrame:CGRectMake(SIZE_WIDTH-35, 30, 22, 19)];
-    [newsBtn setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
+    //[newsBtn setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
+    [newsBtn setBackgroundImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
     [newsBtn addTarget:self action:@selector(newsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.firstTopView addSubview:newsBtn];

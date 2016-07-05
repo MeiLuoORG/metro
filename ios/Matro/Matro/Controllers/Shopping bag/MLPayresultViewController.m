@@ -40,16 +40,18 @@
     
     if (_isSuccess) {
         self.title = @"支付成功";
-        [self loadDateOrLike];
+        //[self loadDateOrLike];
     }else{
         self.title = @"支付失败";
     }
     
     _otherBgView.hidden = _isSuccess;
+    self.XuanZeQiTaButton.layer.cornerRadius = 4.0f;
+    self.XuanZeQiTaButton.layer.masksToBounds = YES;
     
     [_tableView registerNib:[UINib nibWithNibName:@"MLPayresultHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:HEADER_IDENTIFIER];
     [_tableView registerNib:[UINib nibWithNibName:@"HFSOrderListHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:HEADER_IDENTIFIER01];
-    
+    /*
     _likeArray = [[NSMutableArray alloc]initWithArray:@[@{
                                                             @"image":@"http://mg.soupingguo.com/bizhi/big/10/266/947/10266947.jpg"
                                                             },@{
@@ -62,6 +64,7 @@
                                                             } ]];
     
     _errTitleArray = @[@"订单编号：",@"支付金额：",@"支付方式：",@"失败原因："];
+     */
 }
 
 - (void)didReceiveMemoryWarning {
@@ -225,7 +228,7 @@
         return 36.0f;
     }else{
         if (_isSuccess) {
-            return 230;
+            return 290;
         }else{
             return 200;
         }
@@ -260,7 +263,10 @@
         return headerView;
     }else{
         MLPayresultHeader *headerView = [[MLPayresultHeader alloc]initWithReuseIdentifier:HEADER_IDENTIFIER];
-        
+        headerView.toHome.layer.cornerRadius = 4.0f;
+        headerView.toOrder.layer.cornerRadius = 4.0f;
+        headerView.toOrder.layer.masksToBounds = YES;
+        headerView.toHome.layer.masksToBounds = YES;
         if (_isSuccess) {
             headerView.tisLabel.text = @"支付成功";
             headerView.tisImageView.image = [UIImage imageNamed:@"zhifuchenggong-1"];

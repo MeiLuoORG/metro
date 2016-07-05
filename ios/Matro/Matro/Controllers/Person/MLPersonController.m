@@ -414,6 +414,15 @@
  
     _thirderHeight = 182.0f+(310.0f/750.0f)*SIZE_WIDTH;
 }
+#pragma mark 我的资产
+- (void)getMyZiChanAction{
+    
+    
+
+}
+
+
+
 #pragma mark 第三组按钮跳转 
 
 - (void)tiaoZhuanHuiYuanKa{
@@ -443,10 +452,12 @@
     if(![str isEqualToString:@""] && str ) {
         QuanListZLViewController *VC = [[QuanListZLViewController alloc]init];
         VC.hidesBottomBarWhenPushed = YES;
+        /*
         if (_youHuiQuanMuARR.count > 0) {
-            [VC.quanListARR removeAllObjects];
+            VC.quanListARR  = nil;
             VC.quanListARR = _youHuiQuanMuARR;
         }
+         */
         [self presentViewController:VC animated:YES completion:nil];
         //[memberVC loadData];
         //[self.navigationController pushViewController:VC animated:YES];
@@ -469,7 +480,7 @@
         [weakSelf chaXunYiLingQuQuanList];
         
         [weakSelf.tabBarController.tabBar setHidden:NO];
-        [UIView animateWithDuration:0.2f animations:^{
+        [UIView animateWithDuration:0.4f animations:^{
             weakSelf.lingQuQuanView.frame = CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT);
         } completion:^(BOOL finished) {
             [weakSelf.lingQuQuanView.quanARR removeAllObjects];
@@ -497,7 +508,7 @@
     [self qignQiuYouHuiQuan];
     
         NSLog(@"执行了加载了优惠圈视图");
-        [UIView animateWithDuration:0.2f animations:^{
+        [UIView animateWithDuration:0.4f animations:^{
             self.lingQuQuanView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT);
         
         } completion:^(BOOL finished) {

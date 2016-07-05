@@ -11,5 +11,6 @@
 @interface MLPayresultViewController : MLBaseViewController
 
 @property (nonatomic) BOOL isSuccess;
+@property (weak, nonatomic) IBOutlet UIButton *XuanZeQiTaButton;
 
 @end

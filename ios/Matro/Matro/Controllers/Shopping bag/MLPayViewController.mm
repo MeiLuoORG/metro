@@ -82,10 +82,10 @@
     [_payImageArray addObject:@"yinglian"];
     
     // 暂时隐藏
-//    if([PKPaymentAuthorizationViewController canMakePayments]) {
-//        [_payTitleArray addObject:@"Apple Pay"];
-//        [_payImageArray addObject:@"applepay"];
-//    }
+    if([PKPaymentAuthorizationViewController canMakePayments]) {
+        [_payTitleArray addObject:@"Apple Pay"];
+        [_payImageArray addObject:@"applepay"];
+    }
     
     
     _tableView.tableFooterView = [[UIView alloc]init];

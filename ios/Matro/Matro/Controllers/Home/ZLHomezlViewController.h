@@ -43,7 +43,9 @@
 #import "ZLLabelCustom.h"
 #import "UILabel+HeinQi.h"
 
-
+//测试 支付成功失败页
+#import "MLPayresultViewController.h"
+#import "MLPayShiBaiViewController.h"
 
 @interface ZLHomezlViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,ZLHomeSubVieDragProtocol>
 @property (strong, nonatomic) UIView * firstTopView;

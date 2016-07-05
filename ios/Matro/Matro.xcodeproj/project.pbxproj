@@ -344,6 +344,10 @@
 		3CAE049F1D06DDD5004504EA /* GCDSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04981D06DDD5004504EA /* GCDSemaphore.m */; };
 		3CAE04A01D06DDD5004504EA /* GCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE049A1D06DDD5004504EA /* GCDTimer.m */; };
 		3CC5F7721D2B50DE00E1A5B5 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5F7711D2B50DE00E1A5B5 /* ViewPagerController.m */; };
+		3CC5F7761D2B56C500E1A5B5 /* ShaiXuanZlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5F7751D2B56C500E1A5B5 /* ShaiXuanZlView.m */; };
+		3CC5F7781D2B56E500E1A5B5 /* ShaiXuanZlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5F7771D2B56E500E1A5B5 /* ShaiXuanZlView.xib */; };
+		3CC5F7801D2BC83200E1A5B5 /* MLPayShiBaiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5F77E1D2BC83200E1A5B5 /* MLPayShiBaiViewController.m */; };
+		3CC5F7811D2BC83200E1A5B5 /* MLPayShiBaiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5F77F1D2BC83200E1A5B5 /* MLPayShiBaiViewController.xib */; };
 		3CE4B0D51D1A5F3A0084156C /* BingPhoneZlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0D41D1A5F3A0084156C /* BingPhoneZlViewController.m */; };
 		3CE4B0D81D1A6D010084156C /* LingQuYouHuiQuanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0D71D1A6D000084156C /* LingQuYouHuiQuanView.m */; };
 		3CE4B0DE1D1A6DAC0084156C /* LingQuQuanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0DD1D1A6DAC0084156C /* LingQuQuanCell.m */; };
@@ -1281,6 +1285,12 @@
 		3CAE049B1D06DDD5004504EA /* HYGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYGCD.h; sourceTree = "<group>"; };
 		3CC5F7701D2B50DE00E1A5B5 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
 		3CC5F7711D2B50DE00E1A5B5 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
+		3CC5F7741D2B56C500E1A5B5 /* ShaiXuanZlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaiXuanZlView.h; sourceTree = "<group>"; };
+		3CC5F7751D2B56C500E1A5B5 /* ShaiXuanZlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaiXuanZlView.m; sourceTree = "<group>"; };
+		3CC5F7771D2B56E500E1A5B5 /* ShaiXuanZlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShaiXuanZlView.xib; sourceTree = "<group>"; };
+		3CC5F77D1D2BC83200E1A5B5 /* MLPayShiBaiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPayShiBaiViewController.h; sourceTree = "<group>"; };
+		3CC5F77E1D2BC83200E1A5B5 /* MLPayShiBaiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPayShiBaiViewController.m; sourceTree = "<group>"; };
+		3CC5F77F1D2BC83200E1A5B5 /* MLPayShiBaiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLPayShiBaiViewController.xib; sourceTree = "<group>"; };
 		3CE4B0D31D1A5F3A0084156C /* BingPhoneZlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BingPhoneZlViewController.h; sourceTree = "<group>"; };
 		3CE4B0D41D1A5F3A0084156C /* BingPhoneZlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BingPhoneZlViewController.m; sourceTree = "<group>"; };
 		3CE4B0D61D1A6D000084156C /* LingQuYouHuiQuanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LingQuYouHuiQuanView.h; sourceTree = "<group>"; };
@@ -2224,6 +2234,7 @@
 		3A633AA51C9EA36E00C11FD5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3CC5F7731D2B569A00E1A5B5 /* PinPaiView */,
 				3C5F123A1D17A03B001F66E1 /* zlPersonView */,
 				7AED645D1CDD9C3C008F55BD /* YMPhoneCondeButton.h */,
 				7AED645E1CDD9C3C008F55BD /* YMPhoneCondeButton.m */,
@@ -2966,6 +2977,7 @@
 		3A633B821C9EA7C900C11FD5 /* Shopping bag */ = {
 			isa = PBXGroup;
 			children = (
+				3CC5F7791D2BC7B400E1A5B5 /* ZLPayShiBaiVC */,
 				3A633B8D1C9EA83D00C11FD5 /* MLBagViewController.h */,
 				D6C6F5851CC0C8DF00809AC5 /* MLBagViewController.m */,
 				3A633B8F1C9EA83D00C11FD5 /* MLBagViewController.xib */,
@@ -3595,6 +3607,26 @@
 			path = ICViewPager;
 			sourceTree = "<group>";
 		};
+		3CC5F7731D2B569A00E1A5B5 /* PinPaiView */ = {
+			isa = PBXGroup;
+			children = (
+				3CC5F7741D2B56C500E1A5B5 /* ShaiXuanZlView.h */,
+				3CC5F7751D2B56C500E1A5B5 /* ShaiXuanZlView.m */,
+				3CC5F7771D2B56E500E1A5B5 /* ShaiXuanZlView.xib */,
+			);
+			path = PinPaiView;
+			sourceTree = "<group>";
+		};
+		3CC5F7791D2BC7B400E1A5B5 /* ZLPayShiBaiVC */ = {
+			isa = PBXGroup;
+			children = (
+				3CC5F77D1D2BC83200E1A5B5 /* MLPayShiBaiViewController.h */,
+				3CC5F77E1D2BC83200E1A5B5 /* MLPayShiBaiViewController.m */,
+				3CC5F77F1D2BC83200E1A5B5 /* MLPayShiBaiViewController.xib */,
+			);
+			path = ZLPayShiBaiVC;
+			sourceTree = "<group>";
+		};
 		3CEDAD761D13E74E00990DA8 /* iCarousel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3883,6 +3915,7 @@
 				280F7CE61CF832C600D42FA6 /* MLYHQTableViewCell.xib in Resources */,
 				3AA0E7C21CA920D20079AA90 /* MLPayTableViewCell.xib in Resources */,
 				3A633B911C9EA83D00C11FD5 /* MLBagViewController.xib in Resources */,
+				3CC5F7811D2BC83200E1A5B5 /* MLPayShiBaiViewController.xib in Resources */,
 				7A3A62771CDB874F00D265F2 /* MLRetrunsHeadCell.xib in Resources */,
 				7A07AC5E1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.xib in Resources */,
 				3AA0E7A31CA91E500079AA90 /* AlipaySDK.bundle in Resources */,
@@ -4003,6 +4036,7 @@
 				7AEC88D01CE45D2200B43DD4 /* MLGoodsComHeadView.xib in Resources */,
 				28CF86081CEDC59A00E582EE /* UMSCommentInputControlleriPad.xib in Resources */,
 				3CF2A0A21D27733000ACCDD6 /* ZLHomeSubViewController.xib in Resources */,
+				3CC5F7781D2B56E500E1A5B5 /* ShaiXuanZlView.xib in Resources */,
 				D6D8036D1CAE6B62001C0FE0 /* MLFootprintViewController.xib in Resources */,
 				7ACFA6111D11434F00987A03 /* MLOrderInfoHeaderTableViewCell.xib in Resources */,
 				28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */,
@@ -4126,6 +4160,7 @@
 				3C1306E11D260BBC005CFCEC /* UIColor+RGBA.m in Sources */,
 				3A633B4B1C9EA36E00C11FD5 /* AsyncSocket.m in Sources */,
 				3A633B2C1C9EA36E00C11FD5 /* UIBarButtonItem+Badge.m in Sources */,
+				3CC5F7761D2B56C500E1A5B5 /* ShaiXuanZlView.m in Sources */,
 				7AEC88CE1CE45D1500B43DD4 /* MLGoodsComHeadView.m in Sources */,
 				7AFFC45A1D1A7A810038B176 /* MLReturnsDetailModel.m in Sources */,
 				3A633B3C1C9EA36E00C11FD5 /* SDCollectionViewCell.m in Sources */,
@@ -4153,6 +4188,7 @@
 				7ACFA6151D11436200987A03 /* MLOrderInfoFooterTableViewCell.m in Sources */,
 				3A1F72CB1CA3F904000ECE08 /* HFSOrderListFooterView.m in Sources */,
 				284850D41D13F6DE003C2649 /* MLpingjiaViewController.m in Sources */,
+				3CC5F7801D2BC83200E1A5B5 /* MLPayShiBaiViewController.m in Sources */,
 				3AE02DB11CAB5F810016FA75 /* Model.xcdatamodeld in Sources */,
 				280F7CD01CF7F44800D42FA6 /* bitstream.c in Sources */,
 				3AE02DB61CAB60920016FA75 /* SearchHistory+CoreDataProperties.m in Sources */,

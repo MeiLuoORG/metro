@@ -79,7 +79,7 @@
     
     UIBarButtonItem *setting = [[UIBarButtonItem alloc]initWithCustomView:genDuoBtn];
     
-    self.navigationItem.rightBarButtonItems = @[setting,l,message];
+    //self.navigationItem.rightBarButtonItems = @[setting,l,message];
     
     
     
@@ -88,7 +88,7 @@
     [self createCollecttionView];
     [self createTableViews];
     [self loadSearchButton];
-    [self loadDataWithPageIndex:1 withPagesize:20];
+    [self loadDataWithPageIndex:1 withPagesize:15];
 }
 
 
@@ -112,7 +112,7 @@
         [self headerShuaXin];
     }];
     _collectionView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        
+        [self footerShuaXin];
     }];
 //close-2
 }
@@ -120,11 +120,11 @@
 - (void)headerShuaXin{
     _currentPageIndex = 1;
     [_pinPaiARR removeAllObjects];
-    [self loadDataWithPageIndex:1 withPagesize:20];
+    [self loadDataWithPageIndex:1 withPagesize:15];
 }
 - (void)footerShuaXin{
     _currentPageIndex++;
-    [self loadDataWithPageIndex:_currentPageIndex withPagesize:20];
+    [self loadDataWithPageIndex:_currentPageIndex withPagesize:15];
 }
 
 - (void)createTableViews{
@@ -237,12 +237,18 @@
     
     //首字母排序
     NSArray *keysArray = [_sectionDic allKeys];
-    _allKeysARR = [keysArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    _allKeysARR = [NSMutableArray arrayWithArray:[keysArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         
         return [obj1 compare:obj2 options:NSNumericSearch];
-    }];
+    }]];
     for (NSString *categoryId in _allKeysARR) {
         NSLog(@"字母排序结果：%@",categoryId);
+        /*
+        if ([categoryId isEqualToString:@"#"]) {
+            [_allKeysARR removeObject:categoryId];
+            [_allKeysARR insertObject:@"#" atIndex:_allKeysARR.count-1];
+        }
+        */
         //NSLog(@"[dict objectForKey:categoryId] === %@",[_sectionDic objectForKey:categoryId]);
     }
     
@@ -266,7 +272,7 @@
     return 40.0f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 40.0f;
+    return 50.0f;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 1.0f;
@@ -330,6 +336,20 @@
     view.backgroundColor = [UIColor colorWithRed:38.0/255.0f green:14.0f/255.0f blue:0.0 alpha:0.95];
     
     return view;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"点击了第几个：%ld",indexPath.row);
+    NSString * key = [_allKeysARR objectAtIndex:indexPath.section];
+    NSArray * arr = _sectionDic[key];
+    PinPaiModelZl * model = [arr objectAtIndex:indexPath.row];
+
+    PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
+    self.hidesBottomBarWhenPushed = YES;
+    vc.searchString = model.id;
+    vc.title = model.name;
+    [self.navigationController pushViewController:vc animated:NO];
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 //返回索引数组

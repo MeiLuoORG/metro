@@ -8,8 +8,8 @@
 
 #import "PinPaiSPListViewController.h"
 #import "MLGoodsDetailsViewController.h"
-#import "MLSXView.h"
-
+//#import "MLSXView.h"
+#import "ShaiXuanZlView.h"
 #import "HFSProductTableViewCell.h"
 #import "HFSProductCollectionViewCell.h"
 
@@ -36,7 +36,7 @@
     BOOL _isCardView;//判断是否当前显示的是tableView还是collectionView
     
     UIControl * _blackControl;//显示分类筛选的时候黑底背景
-    MLSXView * _sxView;//分类筛选的视图
+    ShaiXuanZlView * _sxView;//分类筛选的视图
     UITextField *searchText;
     NSDictionary *filterparamDic;
     NSManagedObjectContext *_context;
@@ -165,7 +165,7 @@ static NSInteger page = 1;
     
     UIBarButtonItem *setting = [[UIBarButtonItem alloc]initWithCustomView:genDuoBtn];
     
-    self.navigationItem.rightBarButtonItems = @[setting,l,message];
+    //self.navigationItem.rightBarButtonItems = @[setting,l,message];
     
     
     [_jiageButtton changeImageAndTitle];
@@ -187,7 +187,7 @@ static NSInteger page = 1;
     [_blackControl addTarget:self action:@selector(endEditingAction) forControlEvents:UIControlEventTouchUpInside];
     
     //    NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"MLSXView" owner:nil options:nil];
-    _sxView = [[MLSXView alloc]init];
+    _sxView = [[ShaiXuanZlView alloc]init];
     _sxView.frame = CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH - 60, MAIN_SCREEN_HEIGHT);
     _sxView.delegate = self;
     
@@ -195,8 +195,8 @@ static NSInteger page = 1;
     [currentWindow addSubview:_blackControl];
     [currentWindow addSubview:_sxView];
     
-    //_sxView.pinPaiButtonControl.hidden = YES;
-    //[_sxView.jiaGeTopConstraintValue setConstant:-45.0f];
+    _sxView.pinPaiButtonControl.hidden = YES;
+    [_sxView.jiaGeTopConstraintValue setConstant:-45.0f];
     
 
     
@@ -469,7 +469,7 @@ static NSInteger page = 1;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
         NSLog(@"error===%@",error);
     }];

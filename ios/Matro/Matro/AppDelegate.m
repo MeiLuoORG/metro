@@ -174,6 +174,7 @@
     [JPUSHService registerDeviceToken:deviceToken];
 }
 
+
 //调用 李佳重新认证接口
 - (void)renZhengLiJiaWithPhone:(NSString *)phoneString withAccessToken:(NSString *) accessTokenStr{
     //GCD异步实现
@@ -215,7 +216,8 @@
                                                       model1.timeInterval =[timestamp integerValue];
                                                       model1.firstDate = [NSDate date];
                                                       [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
-                                                      
+                                                      //认证成功后发送通知
+                                                      [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
                                                   }
                                               }
                                               NSLog(@"%@",result);

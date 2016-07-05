@@ -49,6 +49,9 @@
     [self.logoutBtn addTarget:self action:@selector(logout:) forControlEvents:UIControlEventTouchUpInside];
     
 
+    [self addMenuButton];
+    
+    /*
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
 
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 22)];
@@ -59,7 +62,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 
     [self createGengDuoImageView];
-    
+    */
      
 }
 - (void)createGengDuoImageView{
