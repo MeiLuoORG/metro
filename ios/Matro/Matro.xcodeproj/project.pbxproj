@@ -356,19 +356,13 @@
 		3CEDAD7E1D13ECFB00990DA8 /* page.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7B1D13ECFB00990DA8 /* page.png */; };
 		3CEDAD7F1D13ECFB00990DA8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */; };
 		3CEDAD821D14128C00990DA8 /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDAD811D14128C00990DA8 /* VipCardModel.m */; };
-<<<<<<< Updated upstream
-		3CF2A08B1D27668C00ACCDD6 /* HomeSubViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A0891D27668C00ACCDD6 /* HomeSubViewViewController.m */; };
-		3CF2A08C1D27668C00ACCDD6 /* HomeSubViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A08A1D27668C00ACCDD6 /* HomeSubViewViewController.xib */; };
-		3CF2A08F1D276F4600ACCDD6 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A08E1D276F4600ACCDD6 /* ViewPagerController.m */; };
-		3CF2A0931D276F8900ACCDD6 /* ZLHomezlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A0911D276F8900ACCDD6 /* ZLHomezlViewController.m */; };
-		3CF2A0941D276F8900ACCDD6 /* ZLHomezlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A0921D276F8900ACCDD6 /* ZLHomezlViewController.xib */; };
-=======
+
 		3CF2A0981D2772F500ACCDD6 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A0971D2772F500ACCDD6 /* ViewPagerController.m */; };
 		3CF2A09C1D27731100ACCDD6 /* ZLHomezlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A09A1D27731100ACCDD6 /* ZLHomezlViewController.m */; };
 		3CF2A09D1D27731100ACCDD6 /* ZLHomezlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A09B1D27731100ACCDD6 /* ZLHomezlViewController.xib */; };
 		3CF2A0A11D27733000ACCDD6 /* ZLHomeSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A09F1D27733000ACCDD6 /* ZLHomeSubViewController.m */; };
 		3CF2A0A21D27733000ACCDD6 /* ZLHomeSubViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A0A01D27733000ACCDD6 /* ZLHomeSubViewController.xib */; };
->>>>>>> Stashed changes
+
 		3CF538F41D213AA800395779 /* YouHuiQuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF538F31D213AA800395779 /* YouHuiQuanModel.m */; };
 		3CF8CF761D0E72FA00C548AC /* SettingMoCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */; };
 		3CFC2A4C1D127C5C00C43BFF /* b54504436257.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3CFC2A4B1D127C5C00C43BFF /* b54504436257.jpg */; };
@@ -1306,16 +1300,9 @@
 		3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		3CEDAD801D14128C00990DA8 /* VipCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipCardModel.h; sourceTree = "<group>"; };
 		3CEDAD811D14128C00990DA8 /* VipCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipCardModel.m; sourceTree = "<group>"; };
-<<<<<<< Updated upstream
-		3CF2A0881D27668C00ACCDD6 /* HomeSubViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeSubViewViewController.h; sourceTree = "<group>"; };
-		3CF2A0891D27668C00ACCDD6 /* HomeSubViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeSubViewViewController.m; sourceTree = "<group>"; };
-		3CF2A08A1D27668C00ACCDD6 /* HomeSubViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeSubViewViewController.xib; sourceTree = "<group>"; };
-		3CF2A08D1D276F4600ACCDD6 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
-		3CF2A08E1D276F4600ACCDD6 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
-		3CF2A0901D276F8900ACCDD6 /* ZLHomezlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLHomezlViewController.h; sourceTree = "<group>"; };
-		3CF2A0911D276F8900ACCDD6 /* ZLHomezlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLHomezlViewController.m; sourceTree = "<group>"; };
-		3CF2A0921D276F8900ACCDD6 /* ZLHomezlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLHomezlViewController.xib; sourceTree = "<group>"; };
-=======
+
+
+
 		3CF2A0961D2772F500ACCDD6 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
 		3CF2A0971D2772F500ACCDD6 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
 		3CF2A0991D27731100ACCDD6 /* ZLHomezlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLHomezlViewController.h; sourceTree = "<group>"; };
@@ -1324,7 +1311,7 @@
 		3CF2A09E1D27733000ACCDD6 /* ZLHomeSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLHomeSubViewController.h; sourceTree = "<group>"; };
 		3CF2A09F1D27733000ACCDD6 /* ZLHomeSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLHomeSubViewController.m; sourceTree = "<group>"; };
 		3CF2A0A01D27733000ACCDD6 /* ZLHomeSubViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLHomeSubViewController.xib; sourceTree = "<group>"; };
->>>>>>> Stashed changes
+
 		3CF538F21D213AA800395779 /* YouHuiQuanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouHuiQuanModel.h; sourceTree = "<group>"; };
 		3CF538F31D213AA800395779 /* YouHuiQuanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouHuiQuanModel.m; sourceTree = "<group>"; };
 		3CF8CF701D0E72FA00C548AC /* SettingMoCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardCell.m; sourceTree = "<group>"; };
@@ -2899,14 +2886,8 @@
 				3C05567C1D239F150092D140 /* PinPaiVCZL */,
 				687703E81CCF40A30008ED46 /* MyJSInterface.h */,
 				687703E91CCF40A30008ED46 /* MyJSInterface.m */,
-<<<<<<< Updated upstream
-				3CF2A0901D276F8900ACCDD6 /* ZLHomezlViewController.h */,
-				3CF2A0911D276F8900ACCDD6 /* ZLHomezlViewController.m */,
-				3CF2A0921D276F8900ACCDD6 /* ZLHomezlViewController.xib */,
-				3CF2A0881D27668C00ACCDD6 /* HomeSubViewViewController.h */,
-				3CF2A0891D27668C00ACCDD6 /* HomeSubViewViewController.m */,
-				3CF2A08A1D27668C00ACCDD6 /* HomeSubViewViewController.xib */,
-=======
+
+
 				3A633B831C9EA7F900C11FD5 /* MLHomeViewController.h */,
 				3A633B841C9EA7F900C11FD5 /* MLHomeViewController.m */,
 				3A633B851C9EA7F900C11FD5 /* MLHomeViewController.xib */,
@@ -2918,7 +2899,7 @@
 				3CF2A0A01D27733000ACCDD6 /* ZLHomeSubViewController.xib */,
 				3C3671381D2A165100BC5680 /* ZLLabelCustom.h */,
 				3C3671391D2A165100BC5680 /* ZLLabelCustom.m */,
->>>>>>> Stashed changes
+
 				3A16DC5D1CA15BB7007AE4A2 /* Search */,
 				7A01A8431D24C1050067F4E9 /* MLShopInfoViewController.h */,
 				7A01A8441D24C1050067F4E9 /* MLShopInfoViewController.m */,
@@ -3389,11 +3370,9 @@
 		3C1306C01D260BA1005CFCEC /* DaoHangZL */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< Updated upstream
+
 				3CF2A0841D27663800ACCDD6 /* ICViewPager */,
-=======
-				3CF2A0951D2772F500ACCDD6 /* ICViewPager */,
->>>>>>> Stashed changes
+
 				3C1306C11D260BBC005CFCEC /* HACursor */,
 			);
 			path = DaoHangZL;
@@ -3633,19 +3612,13 @@
 			path = iCarousel;
 			sourceTree = "<group>";
 		};
-<<<<<<< Updated upstream
-		3CF2A0841D27663800ACCDD6 /* ICViewPager */ = {
-			isa = PBXGroup;
-			children = (
-				3CF2A08D1D276F4600ACCDD6 /* ViewPagerController.h */,
-				3CF2A08E1D276F4600ACCDD6 /* ViewPagerController.m */,
-=======
+
 		3CF2A0951D2772F500ACCDD6 /* ICViewPager */ = {
 			isa = PBXGroup;
 			children = (
 				3CF2A0961D2772F500ACCDD6 /* ViewPagerController.h */,
 				3CF2A0971D2772F500ACCDD6 /* ViewPagerController.m */,
->>>>>>> Stashed changes
+
 			);
 			path = ICViewPager;
 			sourceTree = "<group>";
@@ -4271,10 +4244,9 @@
 				7ACFA5FD1D1125AF00987A03 /* MLPersonOrderListViewController.m in Sources */,
 				2CBAD64D1CA3B3AC0044601B /* MLBagZengpinTableViewCell.m in Sources */,
 				7A272EBA1D1A265500242F24 /* MLReturnsDetailHeadCell.m in Sources */,
-<<<<<<< Updated upstream
+
 				7A75C4541D2A4C8200E7F420 /* CompanyInfo+CoreDataProperties.m in Sources */,
-=======
->>>>>>> Stashed changes
+
 				3C1306DD1D260BBC005CFCEC /* HAScrollNavBar.m in Sources */,
 				7A01A8451D24C1050067F4E9 /* MLShopInfoViewController.m in Sources */,
 				687704241CD34E4A0008ED46 /* SBJsonParser.m in Sources */,
