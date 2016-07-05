@@ -396,10 +396,7 @@ fetchCompletionHandler:
 
 - (UITabBarController*)buildTabBarController
 {
-<<<<<<< Updated upstream
-    
-=======
->>>>>>> Stashed changes
+
     ZLHomezlViewController *homeViewController = [[ZLHomezlViewController alloc]init];
     homeViewController.title = @"首页";
     MLNavigationController *homeNavigationController = [[MLNavigationController alloc]initWithRootViewController:homeViewController];

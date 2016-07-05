@@ -195,8 +195,8 @@ static NSInteger page = 1;
     [currentWindow addSubview:_blackControl];
     [currentWindow addSubview:_sxView];
     
-    _sxView.pinPaiButtonControl.hidden = YES;
-    [_sxView.jiaGeTopConstraintValue setConstant:-45.0f];
+    //_sxView.pinPaiButtonControl.hidden = YES;
+    //[_sxView.jiaGeTopConstraintValue setConstant:-45.0f];
     
 
     

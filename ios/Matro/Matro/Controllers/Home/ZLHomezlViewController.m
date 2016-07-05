@@ -9,18 +9,7 @@
 #import "ZLHomezlViewController.h"
 
 @interface ZLHomezlViewController ()
-<<<<<<< Updated upstream
 
-@end
-
-@implementation ZLHomezlViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
-=======
 @property ( strong , nonatomic ) AVCaptureDevice * device;
 
 @property ( strong , nonatomic ) AVCaptureDeviceInput * input;
@@ -255,13 +244,12 @@
 
 
 
->>>>>>> Stashed changes
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-<<<<<<< Updated upstream
-=======
+
 #pragma mark - ViewPagerDataSource
 - (NSUInteger)numberOfTabsForViewPager:(ViewPagerController *)viewPager {
     return _titlesARR.count;
@@ -616,7 +604,7 @@
 }
 
 #pragma mark ZLHomeSubVieDragProtocol方法结束
->>>>>>> Stashed changes
+
 
 /*
 #pragma mark - Navigation

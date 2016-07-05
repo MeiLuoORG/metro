@@ -5,13 +5,10 @@
 //  Created by lang on 16/7/2.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
-<<<<<<< Updated upstream
+
 
 #import "ViewPagerController.h"
 
-@interface ZLHomezlViewController : ViewPagerController
-
-=======
 #import <QuartzCore/QuartzCore.h>
 #import "ViewPagerController.h"
 #import "ZLHomeSubViewController.h"
@@ -52,5 +49,5 @@
 @property (strong, nonatomic) UIView * firstTopView;
 @property(nonatomic,strong)JSContext *contextjs;
 @property (assign, nonatomic) float historyOffestY;
->>>>>>> Stashed changes
+
 @end
