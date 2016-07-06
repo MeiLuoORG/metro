@@ -54,6 +54,7 @@
 		284E36441D2B7C0D000CC90F /* MLPeisongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 284E36421D2B7C0D000CC90F /* MLPeisongTableViewCell.m */; };
 		284E36451D2B7C0D000CC90F /* MLPeisongTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284E36431D2B7C0D000CC90F /* MLPeisongTableViewCell.xib */; };
 		284E36481D2B96E1000CC90F /* MLCommitOrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 284E36471D2B96E1000CC90F /* MLCommitOrderListModel.m */; };
+		284E364C1D2C9A34000CC90F /* MLCommitOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284E364B1D2C9A34000CC90F /* MLCommitOrderViewController.xib */; };
 		285326E71CFD3A5800FA2AB0 /* MLYHQOutdateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285326E51CFD3A5800FA2AB0 /* MLYHQOutdateCell.m */; };
 		285326E81CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285326E61CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib */; };
 		285326EC1CFD3A7300FA2AB0 /* MLYHQUsedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285326EA1CFD3A7300FA2AB0 /* MLYHQUsedCell.m */; };
@@ -81,7 +82,6 @@
 		287C86DC1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C86DA1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.m */; };
 		287C86DD1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 287C86DB1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.xib */; };
 		2887EA031D239E54001FECFE /* MLCommitOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2887EA011D239E54001FECFE /* MLCommitOrderViewController.m */; };
-		2887EA041D239E54001FECFE /* MLCommitOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2887EA021D239E54001FECFE /* MLCommitOrderViewController.xib */; };
 		28CEFB1A1CF99C940070E2CA /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CEFB191CF99C940070E2CA /* JSBadgeView.m */; };
 		28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85CE1CEDC59900E582EE /* UMSocialLocalizable.strings */; };
 		28CF86051CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85DC1CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a */; };
@@ -702,6 +702,7 @@
 		284E36431D2B7C0D000CC90F /* MLPeisongTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLPeisongTableViewCell.xib; sourceTree = "<group>"; };
 		284E36461D2B96E1000CC90F /* MLCommitOrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCommitOrderListModel.h; sourceTree = "<group>"; };
 		284E36471D2B96E1000CC90F /* MLCommitOrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCommitOrderListModel.m; sourceTree = "<group>"; };
+		284E364B1D2C9A34000CC90F /* MLCommitOrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLCommitOrderViewController.xib; sourceTree = "<group>"; };
 		285326E41CFD3A5800FA2AB0 /* MLYHQOutdateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLYHQOutdateCell.h; sourceTree = "<group>"; };
 		285326E51CFD3A5800FA2AB0 /* MLYHQOutdateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLYHQOutdateCell.m; sourceTree = "<group>"; };
 		285326E61CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLYHQOutdateCell.xib; sourceTree = "<group>"; };
@@ -743,7 +744,6 @@
 		287C86DB1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLPinpaiCollectionViewCell.xib; sourceTree = "<group>"; };
 		2887EA001D239E54001FECFE /* MLCommitOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLCommitOrderViewController.h; path = ../Person/Order/MLCommitOrderViewController.h; sourceTree = "<group>"; };
 		2887EA011D239E54001FECFE /* MLCommitOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLCommitOrderViewController.m; path = ../Person/Order/MLCommitOrderViewController.m; sourceTree = "<group>"; };
-		2887EA021D239E54001FECFE /* MLCommitOrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MLCommitOrderViewController.xib; path = ../Person/Order/MLCommitOrderViewController.xib; sourceTree = "<group>"; };
 		28CEFB181CF99C940070E2CA /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
 		28CEFB191CF99C940070E2CA /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		28CF85CF1CEDC59900E582EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
@@ -3013,7 +3013,7 @@
 				3AA0E72E1CA8F0240079AA90 /* MLSureViewController.xib */,
 				2887EA001D239E54001FECFE /* MLCommitOrderViewController.h */,
 				2887EA011D239E54001FECFE /* MLCommitOrderViewController.m */,
-				2887EA021D239E54001FECFE /* MLCommitOrderViewController.xib */,
+				284E364B1D2C9A34000CC90F /* MLCommitOrderViewController.xib */,
 				3AA0E7311CA916A90079AA90 /* MLPayViewController.h */,
 				3AA0E7321CA916A90079AA90 /* MLPayViewController.mm */,
 				3AA0E7331CA916A90079AA90 /* MLPayViewController.xib */,
@@ -3955,6 +3955,7 @@
 				28CF86141CEDC59A00E582EE /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				287585711D210386000BDEF4 /* MLFootTableViewCell.xib in Resources */,
 				7AF6EEBF1CE4147B00ECFCAA /* MLPersonAccountCell.xib in Resources */,
+				284E364C1D2C9A34000CC90F /* MLCommitOrderViewController.xib in Resources */,
 				28CF860C1CEDC59A00E582EE /* UMSnsAccountViewController.xib in Resources */,
 				7A3BCB601CDC72BA00565E7C /* MLGoodsListViewController.xib in Resources */,
 				7AEC88E21CE4729900B43DD4 /* MLShareGoodsViewController.xib in Resources */,
@@ -4101,7 +4102,6 @@
 				2869F68A1D221AF7003C4663 /* MLServiceViewController.xib in Resources */,
 				3A633B481C9EA36E00C11FD5 /* Documentation.html in Resources */,
 				6839EF191CD5A94700638B3D /* AddressManagerCell.xib in Resources */,
-				2887EA041D239E54001FECFE /* MLCommitOrderViewController.xib in Resources */,
 				284E363B1D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.xib in Resources */,
 				7A4D9E001D13916C006E6AB2 /* MLZTextTableViewCell.xib in Resources */,
 				280F7D751CF981BA00D42FA6 /* MLMyPropertyViewController.xib in Resources */,

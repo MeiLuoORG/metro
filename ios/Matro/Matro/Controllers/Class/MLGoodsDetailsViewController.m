@@ -892,10 +892,7 @@
         [_hud hide:YES afterDelay:1];
         return;
     }
-<<<<<<< Updated upstream
-=======
-    
->>>>>>> Stashed changes
+
     
     if (userid) {
         
