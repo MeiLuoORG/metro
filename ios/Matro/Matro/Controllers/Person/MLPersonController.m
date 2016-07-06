@@ -848,8 +848,9 @@
  
        // MLCommitOrderViewController *vc = [[MLCommitOrderViewController alloc]init];
         
-        MLCusServiceController *vc = [[MLCusServiceController alloc]init];
-         
+       // MLCusServiceController *vc = [[MLCusServiceController alloc]init];
+        
+        MLServiceViewController *vc = [[MLServiceViewController alloc]init];
         
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:NO];

@@ -11,4 +11,5 @@
 @interface MLCommitOrderViewController : MLBaseViewController
 
 @property(nonatomic,retain)NSDictionary *paramsDic;
+@property(nonatomic) BOOL isGlobalShop;
 @end

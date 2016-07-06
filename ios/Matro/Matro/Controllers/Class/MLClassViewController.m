@@ -70,7 +70,9 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"shouyesaoyisao"] style:UIBarButtonItemStylePlain target:self action:@selector(scanning)];
      */
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"search"] style:UIBarButtonItemStylePlain target:self action:@selector(handleSingleTap:)];
-    
+    brandArr = [NSMutableArray array];
+    brandDic = [NSMutableDictionary dictionary];
+    _classSecondArray = [NSMutableArray array];
     //添加边框和提示
     /*
     UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)] ;
@@ -186,10 +188,7 @@
         NSLog(@"responseObject===%@",responseObject);
         
         NSArray *arr = responseObject[@"data"][@"ret"];
-        brandDic = responseObject[@"data"][@"brandtitle"];
-        brandArr = responseObject[@"data"][@"brand"];
-        
-        
+
         _classTitleArray = [MTLJSONAdapter modelsOfClass:[MLClass class] fromJSONArray:arr error:nil];
         NSMutableArray *tempTitleArr = [NSMutableArray array];
         for (MLClass *title in _classTitleArray) {
@@ -226,6 +225,9 @@
         [_classSecondArray removeAllObjects];
         NSArray *arr = responseObject[@"data"][@"ret"];
         
+        brandDic = responseObject[@"data"][@"brandtitle"];
+        brandArr = responseObject[@"data"][@"brand"];
+
          _classSecondArray = [[MTLJSONAdapter modelsOfClass:[MLSecondClass class] fromJSONArray:arr error:nil] mutableCopy];
         NSLog(@"9999%@",_classSecondArray);
         
@@ -261,15 +263,36 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return _classSecondArray.count ;//当前一级分类下有多少个二级分类就返回多少个Sections 并且加上一个品牌的section
+    if (brandArr.count > 0) {
+        return _classSecondArray.count+1;//当前一级分类下有多少个二级分类就返回多少个Sections 并且加上一个品牌的section
+    }
+     
+    return _classSecondArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;{
+    
+    if (section == _classSecondArray.count ) {
+        if (brandArr.count >0) {
+            return 1;
+        }else{
+            return 0;
+        }
+        
+    }else{
+        
+        MLSecondClass * secondClass = _classSecondArray[section];
+        
+        if (secondClass.ThreeClassificationList.count == 0 || !secondClass.ThreeClassificationList || [secondClass.ThreeClassificationList isEqual:[NSNull null]]) {
+            return 0;
+        }
+    }
+    /*
     MLSecondClass * secondClass = _classSecondArray[section];
+    
     if (secondClass.ThreeClassificationList.count == 0 || !secondClass.ThreeClassificationList || [secondClass.ThreeClassificationList isEqual:[NSNull null]]) {
         return 0;
-    }
-    
+    }*/
     return 1;//二级分下只有一个cell，当二级分类下没有三级分类的时候返回0
     
 }
@@ -286,6 +309,7 @@
     //三级分类的cell上是个collectionView，用tag==section来判断是哪一个collectionView
     cell.collectionView.delegate = self;
     cell.collectionView.dataSource = self;
+   
     cell.collectionView.tag = indexPath.section;
     
     [cell.collectionView registerNib:[UINib  nibWithNibName:@"MLClassCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:CCELL_IDENTIFIER];
@@ -300,6 +324,17 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == _classSecondArray.count) {
+        long int count = brandArr.count;
+        NSLog(@"count===%ld",count);
+        long int i;
+        i = count / 4;
+        NSLog(@"%li",i);
+        
+        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin + 1 * 5))/4);
+        float height = width * 3/2;
+        return (height*(i+1) + 5*i);
+    }
     MLSecondClass * secondClass = _classSecondArray[tableView.tag];
     long int count = secondClass.ThreeClassificationList.count;
     NSLog(@"count===%ld",count);
@@ -317,20 +352,34 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    MLClassHeader *headerView = [[MLClassHeader alloc]initWithReuseIdentifier:HEADER_IDENTIFIER];
-    MLSecondClass *headerClass = _classSecondArray[section];
-    MLClassInfo *headerinfo = headerClass.SecondaryClassification_Ggw;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerAction:)];
-    tap.cancelsTouchesInView = NO;
-    tap.delegate = self;
-    headerView.secondTitle.tag = section;
-    [headerView.secondTitle addGestureRecognizer:tap];
+    MLClassHeader *headerView = [[MLClassHeader alloc]initWithReuseIdentifier:HEADER_IDENTIFIER];
+//    MLSecondClass *headerClass = _classSecondArray[section];
+//    MLClassInfo *headerinfo = headerClass.SecondaryClassification_Ggw;
+//    
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerAction:)];
+//    tap.cancelsTouchesInView = NO;
+//    tap.delegate = self;
+//    headerView.secondTitle.tag = section;
+//    [headerView.secondTitle addGestureRecognizer:tap];
     
     if (section == _classSecondArray.count) {
+        
         headerView.secondTitle.text = brandDic[@"mc"];
+    }else{
+        
+        MLSecondClass *headerClass = _classSecondArray[section];
+        MLClassInfo *headerinfo = headerClass.SecondaryClassification_Ggw;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerAction:)];
+        tap.cancelsTouchesInView = NO;
+        tap.delegate = self;
+        headerView.secondTitle.tag = section;
+        [headerView.secondTitle addGestureRecognizer:tap];
+       headerView.secondTitle.text = headerinfo.mc;        
     }
-    headerView.secondTitle.text = headerinfo.mc;
+    
+    
     return headerView;
 }
 
@@ -348,12 +397,12 @@
 #pragma mark - UICollectionViewDataSource
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    NSLog(@"tag===%ld=====section===%ld",collectionView.tag,section);
+    if (collectionView.tag == _classSecondArray.count) {
+        return  brandArr.count;
+    }
     
     MLSecondClass * secondClass = _classSecondArray[collectionView.tag];
-    
-    if (section == secondClass.ThreeClassificationList.count ) {
-        return brandArr.count;
-    }
     
     return secondClass.ThreeClassificationList.count;
     
@@ -362,6 +411,17 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MLClassCollectionViewCell *cell = (MLClassCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CCELL_IDENTIFIER forIndexPath:indexPath];
     
+    if (collectionView.tag == _classSecondArray.count) {
+        for (NSDictionary *tempdic in brandArr) {
+            cell.CNameLabel.text = tempdic[@"name"];
+            
+            if (![tempdic[@"imgurl"] isKindOfClass:[NSNull class]]) {
+                [cell.classImageView sd_setImageWithURL:[NSURL URLWithString:tempdic[@"imgurl"]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+                
+            }
+        }
+        return cell;
+    }
     MLSecondClass * secondClass = _classSecondArray[collectionView.tag];
     NSDictionary *dic = secondClass.ThreeClassificationList[indexPath.row];
     MLClassInfo *iteminfo = [MTLJSONAdapter modelOfClass:[MLClassInfo class] fromJSONDictionary:dic error:nil];

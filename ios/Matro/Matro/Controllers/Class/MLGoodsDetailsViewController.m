@@ -43,7 +43,8 @@
 #import "OffLlineShopCart.h"
 #import "MBProgressHUD+Add.h"
 #import "CompanyInfo.h"
-
+#import "IMJIETagView.h"
+#import "IMJIETagFrame.h"
 
 
 @interface UIImage (SKTagView)
@@ -891,6 +892,10 @@
         [_hud hide:YES afterDelay:1];
         return;
     }
+<<<<<<< Updated upstream
+=======
+    
+>>>>>>> Stashed changes
     
     if (userid) {
         
@@ -1050,6 +1055,7 @@
         self.modalPresentationStyle=UIModalPresentationCurrentContext;
         
     }
+    
     [self presentViewController:vc  animated:YES completion:^(void)
      {
          vc.view.superview.backgroundColor = [UIColor clearColor];

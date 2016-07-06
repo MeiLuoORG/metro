@@ -11,12 +11,20 @@
 #import "MLAddressSelectViewController.h"
 #import "MLHttpManager.h"
 #import "MBProgressHUD+Add.h"
-#import "MLOrderListViewCell.h"
 #import "MLShopCartMoreCell.h"
-#import "MLOrderHeader.h"
 #import "MLAddressListModel.h"
+#import "MLOrderHeadCollectionReusableView.h"
+#import "MLOrderListCollectionViewCell.h"
+#import "MLPeisongTableViewCell.h"
+#import "MLCommitOrderListModel.h"
+#import "MJExtension.h"
 
-@interface MLCommitOrderViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface MLCommitOrderViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,InvoiceDelegate>
+{
+
+     NSDictionary *makeinvoice;//保存是否开发票信息
+    
+}
 
 @property (weak, nonatomic) IBOutlet UIScrollView *myscrollview;
 @property (weak, nonatomic) IBOutlet UIImageView *headimage;//用户头像
@@ -27,8 +35,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *baocunBtn;//保存按钮
 @property (weak, nonatomic) IBOutlet UITextField *idTextFiled;//输入身份证号码
 @property (weak, nonatomic) IBOutlet UILabel *idLab;//身份证号码
-@property (strong, nonatomic) IBOutlet UITableView *ProTableview;//订单商品
+@property (strong, nonatomic) IBOutlet UICollectionView *proCollection;//订单商品
 @property (weak, nonatomic) IBOutlet UILabel *suieLab;//税额
+@property (strong, nonatomic) IBOutlet UITableView *peisongTableview;//配送方式信息
 @property (weak, nonatomic) IBOutlet UILabel *peisongLab;//配送方式
 @property (weak, nonatomic) IBOutlet UILabel *quanqiugouFapiaoLab;//全球购发票问题
 @property (weak, nonatomic) IBOutlet UILabel *putongFapiaoLab;//普通发票
@@ -44,15 +53,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *shuifeiLab;//税费
 @property (weak, nonatomic) IBOutlet UILabel *yunfeiLab;//运费
 @property (weak, nonatomic) IBOutlet UILabel *priceLab;//实际付款
-
 @property (weak, nonatomic) IBOutlet UIView *peisongfangshiView;//配送方式
-@property (weak, nonatomic) IBOutlet UILabel *peisong1;
-@property (weak, nonatomic) IBOutlet UILabel *peisongStatus1;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *peisongH;
 
 
 @property (nonatomic,strong)MLInvoiceViewController *invoiceVc;
-
 @property (nonatomic,strong)MLAddressSelectViewController *addressVc;
+@property(nonatomic,strong)MLCommitOrderListModel *commitOrder;
 
 @end
 
@@ -76,21 +83,24 @@
     self.shiyongBtn.layer.borderColor = RGBA(174, 142, 93, 1).CGColor;
     self.shiyongBtn.layer.cornerRadius = 4.f;
     self.shiyongBtn.layer.masksToBounds = YES;
-    _ProTableview = ({
-        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
-        tableView.backgroundColor = RGBA(245, 245, 245, 1);
-        tableView.delegate = self;
-        tableView.dataSource = self;
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
-        [tableView registerNib:[UINib nibWithNibName:@"MLOrderListViewCell" bundle:nil] forCellReuseIdentifier:KMLOrderListViewCell];
-        [tableView registerNib:[UINib nibWithNibName:@"MLShopCartMoreCell" bundle:nil ] forCellReuseIdentifier:@"MoreCell"];
-        [tableView registerNib:[UINib nibWithNibName:@"MLOrderHeader" bundle:nil] forCellReuseIdentifier:@"MLOrderHeader"];
-        tableView.tableFooterView = [[UIView alloc]init];
-        [self.view addSubview:tableView];
-        tableView;
-    });
+    self.peisongH.constant = 0;
     
+   
+    self.proCollection.dataSource =self;
+    self.proCollection.delegate = self;
+    self.proCollection.backgroundColor = RGBA(245, 245, 245, 1);
+    [self.proCollection registerNib:[UINib nibWithNibName:@"MLOrderListCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:KMLOrderListCollectionViewCell];
+    [self.proCollection registerNib:[UINib nibWithNibName:@"MLOrderHeadCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:KMLOrderHeadCollectionReusableView];
+    [self.proCollection registerNib:[UINib nibWithNibName:@"MLShopCartMoreCell" bundle:nil] forCellWithReuseIdentifier:@"MoreCell"];
+    
+    
+    self.peisongTableview.backgroundColor = RGBA(245, 245, 245, 1);
+    self.peisongTableview.dataSource = self;
+    self.peisongTableview.delegate = self;
+   // self.peisongTableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.peisongTableview  registerNib:[UINib nibWithNibName:@"MLPeisongTableViewCell"  bundle:nil] forCellReuseIdentifier:@"MLPeisongTableViewCell"];
+    
+    makeinvoice = @{@"invoiceFlag":@"0"};//默认不开发票
     
     [self loadData];
 }
@@ -102,7 +112,6 @@
     
     NSLog(@"paramsdic===%@",_paramsDic);
     
-    
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=confirm_order",@"http://bbctest.matrojp.com"];
     [MLHttpManager post:urlStr params:_paramsDic m:@"product" s:@"confirm_order" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -110,7 +119,8 @@
         NSLog(@"result===%@",result);
         
         if ([result[@"code"] isEqual:@0]) {
-            
+            self.commitOrder = [MLCommitOrderListModel mj_objectWithKeyValues:result[@"data"]];
+            [self.proCollection reloadData];
            [MBProgressHUD showSuccess:@"请求成功" toView:self.view];
             
         }else{
@@ -126,22 +136,108 @@
     }];
 }
 
+
+#pragma mark 订单
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    
+   return  self.commitOrder.cart.count > 0?self.commitOrder.cart.count + 1:0;
+
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+
+    MLOrderCartModel *cart = [self.commitOrder.cart objectAtIndex:section];
+    if (cart.isMore && !cart.isOpen) {
+            return 3;
+        }
+    return cart.prolist.count;
+    
+}
+
+-(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+
+    MLOrderCartModel *cart = [self.commitOrder.cart objectAtIndex:indexPath.section];
+    if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
+        MLShopCartMoreCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MoreCell" forIndexPath:indexPath];
+        [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%li件",cart.prolist.count-2] forState:UIControlStateNormal];
+        cell.moreActionBlock = ^(){
+            cart.isOpen = YES;
+            [self.proCollection reloadData];
+        };
+            
+        return cell;
+            
+    }
+        MLOrderListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:KMLOrderListCollectionViewCell forIndexPath:indexPath];
+    
+        MLOrderProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
+        cell.prolistModel = model;
+    
+    return cell;
+}
+
+//定义每个UICollectionView 的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return CGSizeMake(MAIN_SCREEN_WIDTH, 120);
+    
+}
+//定义每个UICollectionView 的间距
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 10 , 10, 10);
+}
+
+//头部显示的内容
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    
+    MLOrderHeadCollectionReusableView *orderHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:KMLOrderHeadCollectionReusableView forIndexPath:indexPath];
+    
+    return orderHead;
+ 
+}
+
+//返回头headerView的大小
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+   
+    CGSize size={MAIN_SCREEN_WIDTH,45};
+    return size;
+}
+
+#pragma mark 配送方式
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
 
     return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-
-    return 2;
+    MLOrderCartModel *cart = [self.commitOrder.cart objectAtIndex:section];
+    
+    return cart.shipping.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MLOrderListViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:KMLOrderListViewCell];
     
+    MLPeisongTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:@"MLPeisongTableViewCell"];
+    if (cell == nil) {
+        NSArray *array = [[NSBundle mainBundle]loadNibNamed: @"MLPeisongTableViewCell" owner:self options:nil];
+        cell = [array objectAtIndex:0];
+    }
+    MLOrderCartModel *cart = [self.commitOrder.cart objectAtIndex:indexPath.section];
+    NSDictionary *tempdic = [cart.shipping objectAtIndex:indexPath.section];
+//    cell.peisongTitle.text = tempdic[];
+//    cell.peisongStatus.text = tempdic[];
     return cell;
     
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    MLOrderCartModel *cart = [self.commitOrder.cart objectAtIndex:indexPath.section];
+    NSDictionary *tempdic = [cart.shipping objectAtIndex:indexPath.section];
+    
+}
+
 
 //点击head进入地址
 - (IBAction)actDizhi:(id)sender {
@@ -152,6 +248,8 @@
 
 //点击配送
 - (IBAction)actPeisong:(id)sender {
+    
+    self.peisongH.constant = 176;
 }
 
 //点击发票选择
@@ -170,6 +268,7 @@
 
 
 - (MLAddressSelectViewController *)addressVc{
+    
     if (!_addressVc) {
         _addressVc = [[MLAddressSelectViewController alloc]init];
         __weak typeof(self) weakself = self;
@@ -181,6 +280,27 @@
         
     }
     return _addressVc;
+}
+
+#pragma mark- InvoiceDelegate 发票回调
+
+- (void)InvoiceDic:(NSDictionary *)dic{
+    
+    NSLog(@"dic==%@",dic);
+    if ([dic[@"invoice"] isEqualToString:@"YES"]) {
+        _putongFapiaoLab.text = @"普通发票";
+        if ([dic[@"gerenOrgongsi"] isEqualToString:@"YES"]) {
+            _fapiaoInfoLab.text = @"明细-个人";
+            
+        }else{
+            
+            _fapiaoInfoLab.text = [NSString stringWithFormat:@"明细-%@",dic[@"titleText"]];
+        }
+        
+    }else{
+        _putongFapiaoLab.text = @"不开发票";
+        _fapiaoInfoLab.hidden = YES;
+    }
 }
 
 - (MLInvoiceViewController *)invoiceVc{

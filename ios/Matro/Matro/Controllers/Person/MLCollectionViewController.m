@@ -364,12 +364,14 @@ static NSInteger page = 1;
         idstr = dicArr[i][@"pid"];
         sid = dicArr[i][@"setmeal"][0][@"sid"];
         sku = dicArr[i][@"setmeal"][0][@"code"];
-        [cart_listArr addObject:idstr];
-        [cart_listArr addObject:nums];
-        [cart_listArr addObject:sid];
-        [cart_listArr addObject:sku];
+//        [cart_listArr addObject:idstr];
+//        [cart_listArr addObject:nums];
+//        [cart_listArr addObject:sid];
+//        [cart_listArr addObject:sku];
+        NSString *paramstr = [NSString stringWithFormat:@"%@,%@,%@,%@",idstr,nums,sid,sku];
+       // [cart_listArr addObject:paramstr];
         NSString *cart_list = [NSString stringWithFormat:@"cart_list[%d]",i];
-        [cart_listDic setObject:cart_listArr forKey:cart_list];
+        [cart_listDic setObject:paramstr forKey:cart_list];
        
     }
     

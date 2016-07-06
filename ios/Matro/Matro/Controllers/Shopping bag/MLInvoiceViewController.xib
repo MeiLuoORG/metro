@@ -12,6 +12,7 @@
                 <outlet property="geren" destination="VE7-hu-V4n" id="O79-OS-hef"/>
                 <outlet property="gongsi" destination="2bF-xP-5TB" id="zDW-67-ra1"/>
                 <outlet property="gongsiLabH" destination="4H2-yg-SCg" id="9Sr-HF-zfm"/>
+                <outlet property="gongsiTitle" destination="dDu-It-h5O" id="sTj-M8-WJ0"/>
                 <outlet property="gongsilab" destination="obj-j2-eix" id="Ih3-gT-irR"/>
                 <outlet property="kai" destination="4ZN-Ei-JIa" id="TAZ-Cg-ROe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -188,7 +189,7 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="明细" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGA-9W-XZ7">
                                     <rect key="frame" x="95" y="14" width="42" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>

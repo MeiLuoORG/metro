@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *gongsi;
 @property (weak, nonatomic) IBOutlet UIView *fapiaoInfo;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gongsiLabH;
+@property (weak, nonatomic) IBOutlet UITextField *gongsiTitle;
 
 @end
 
@@ -114,19 +115,20 @@
     
 }
 - (void)saveButtonAction:(id)sender {
-    /*
     
-    NSString *titou = _titouTextField.text;
-    if ([@"" isEqualToString:titou]) {
-        titou = @"个人";
-    }
+   
+    NSString *titou = _gongsiTitle.text;
+//    if ([@"" isEqualToString:titou]) {
+//        titou = @"个人";
+//    }
     
     [_delegate InvoiceDic:@{
                             @"invoice":_bukai.selected ? @"NO" : @"YES",
+                            @"gerenOrgongsi":_gongsi.selected ? @"NO" : @"YES",
                             @"titleText":titou
                             }];
     [self.navigationController popViewControllerAnimated:YES];
-     */
+    
 }
 
 
