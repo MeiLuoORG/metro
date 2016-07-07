@@ -893,6 +893,7 @@
         [_hud hide:YES afterDelay:1];
         return;
     }
+
     
     if (userid) {
         
