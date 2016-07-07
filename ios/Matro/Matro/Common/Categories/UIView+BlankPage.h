@@ -11,6 +11,7 @@
 typedef NS_ENUM(NSInteger,EaseBlankPageType){
     EaseBlankPageTypeTuihuo,
     EaseBlankPageTypeShouHou,
+    EaseBlankPageTypeXiaoxi,
     EaseBlankPageTypeZhuiZong,
     EaseBlankPageTypeShouCang,
     EaseBlankPageTypeShouCangstore,

@@ -54,6 +54,13 @@
 @property (nonatomic,assign)BOOL isMore;
 @property (nonatomic,assign)BOOL isOpen;
 
+@property (nonatomic,assign)BOOL fapiao;
+@property (nonatomic,assign)BOOL geren;
+@property (nonatomic,copy)NSString *mingxi;
+
+
+
+
 @end
 
 @interface MLOrderProlistModel : NSObject
@@ -62,7 +69,7 @@
 @property (nonatomic,copy)NSString *userid;
 @property (nonatomic,copy)NSString *pid;
 @property (nonatomic,copy)NSString *sell_userid;
-@property (nonatomic,copy)NSString *price;
+@property (nonatomic,assign)float price;
 @property (nonatomic,assign)NSInteger num;
 @property (nonatomic,copy)NSString *time;
 @property (nonatomic,copy)NSString *setmeal;

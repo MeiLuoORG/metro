@@ -17,5 +17,6 @@
 @property (nonatomic,assign)float price;
 @property (nonatomic,copy)NSString *catid;
 
+@property (nonatomic,copy)NSString *userid;
 
 @end

@@ -94,7 +94,7 @@
                     vc.express_number = self.orderDetail.deliver_code;
                     vc.express_company = self.orderDetail.deliver_name;
                     [self.navigationController pushViewController:vc animated:YES];
-                    
+
                 }
                     break;
                 case ButtonActionTypeQuerenshouhuo://确认收货

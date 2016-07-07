@@ -38,8 +38,11 @@
     }];
     
     //[self.view addSubview:navTop];
-    
 
+    
+    
+    
+    
     if (self.isRenZheng) {
         [self createView1];
     }
@@ -61,6 +64,7 @@
     }
 
 }
+
 
 - (void)viewWillAppear:(BOOL)animated{
     

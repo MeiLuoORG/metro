@@ -120,6 +120,12 @@ static char  BlankPageViewKey;
             tipStr = @"您暂时没有售后记录";
         }
             break;
+        case EaseBlankPageTypeXiaoxi://空收货
+        {
+            imageName = @"空消息";
+            tipStr = @"您还没有消息";
+        }
+            break;
         case EaseBlankPageTypeShouCang://空收藏
         {
             imageName = @"icon_shouhou_kong";

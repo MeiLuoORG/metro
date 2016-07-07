@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "MLClassViewController.h"
-#import "MLBagViewController.h"
 #import "MLPersonViewController.h"
 #import "MLPersonController.h"
 #import "ZLHomezlViewController.h"
@@ -31,7 +30,6 @@
 #import "UMSocialWechatHandler.h"
 
 #import "IQKeyboardManager.h"
-#import "MLShopCartViewController.h"
 #import "HFSUtility.h"
 #import "NSString+URLZL.h"
 #import "MLPushMessageModel.h"
@@ -40,6 +38,9 @@
 #import "MLActiveWebViewController.h"
 #import "OffLlineShopCart.h"
 #import "CompanyInfo.h"
+#import "MLShopBagViewController.h"
+
+
 
 
 @interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>
@@ -413,7 +414,7 @@ fetchCompletionHandler:
     classNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"fenleiSelect"];
     classNavigationController.tabBarItem.title = @"分类";
     
-    MLShopCartViewController *bagViewController = [[MLShopCartViewController alloc]init];
+    MLShopBagViewController *bagViewController = [[MLShopBagViewController alloc]init];
     bagViewController.title = @"购物袋";
     MLNavigationController *bagNavigationController = [[MLNavigationController alloc]initWithRootViewController:bagViewController];
     bagNavigationController.tabBarItem.image = [UIImage imageNamed:@"shopCar"];

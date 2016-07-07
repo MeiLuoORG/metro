@@ -24,7 +24,8 @@
 #import "HFSConstants.h"
 #import "MLLoginViewController.h"
 #import "MLSureViewController.h"
-#import "MLBagViewController.h"
+#import "MLShopBagViewController.h"
+
 #import "YMNavigationController.h"
 #import "MLHelpCenterDetailController.h"
 #import "NSString+GONMarkup.h"
@@ -892,10 +893,6 @@
         [_hud hide:YES afterDelay:1];
         return;
     }
-<<<<<<< Updated upstream
-=======
-    
->>>>>>> Stashed changes
     
     if (userid) {
         

@@ -121,12 +121,18 @@
 //    if ([@"" isEqualToString:titou]) {
 //        titou = @"个人";
 //    }
+
     
-    [_delegate InvoiceDic:@{
-                            @"invoice":_bukai.selected ? @"NO" : @"YES",
-                            @"gerenOrgongsi":_gongsi.selected ? @"NO" : @"YES",
-                            @"titleText":titou
-                            }];
+    
+//    [_delegate InvoiceDic:@{
+//                            @"invoice":_bukai.selected ? @"NO" : @"YES",
+//                            @"gerenOrgongsi":_gongsi.selected ? @"NO" : @"YES",
+//                            @"titleText":titou
+//                            }];
+    
+    if (self.invoiceBlock) {
+        self.invoiceBlock(!_bukai.selected,!_gongsi.selected,titou);
+    }
     [self.navigationController popViewControllerAnimated:YES];
     
 }

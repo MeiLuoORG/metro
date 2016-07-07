@@ -28,6 +28,10 @@
     
     
     
+//    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panAction:)];
+//    [self.contentView addGestureRecognizer:pan];
+    
+    
     UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
     
     [leftRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
@@ -42,26 +46,29 @@
 }
 
 
+- (void)panAction:(UIPanGestureRecognizer *)recognizer{
+    
+    
+    
+}
+
 
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)gestureRecognizer{
     if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         if (!_showDel) {
-            [UIView animateWithDuration:0.5 animations:^{
-                self.countL.constant = 8 + 60;
-                self.checkBoxL.constant = 16 - 60;
-
+            
+            [UIView animateWithDuration:1 delay:0.3 usingSpringWithDamping:0.4 initialSpringVelocity:10.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.contentView.center = CGPointMake(self.contentView.center.x-60, self.contentView.center.y);
             } completion:^(BOOL finished) {
                 _showDel = YES;
             }];
         }
-
     }
     else{//收齐
-        [UIView animateWithDuration:0.5 animations:^{
-            self.countL.constant = 8;
-            self.checkBoxL.constant = 16;
+        [UIView animateWithDuration:1 delay:0.3 usingSpringWithDamping:0.4 initialSpringVelocity:10.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.contentView.center = CGPointMake(self.contentView.center.x+60, self.contentView.center.y);
         } completion:^(BOOL finished) {
-            _showDel = NO;
+            _showDel = YES;
         }];
     }
 }

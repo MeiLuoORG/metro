@@ -16,6 +16,7 @@
 #import "MBProgressHUD+Add.h"
 #import "MJExtension.h"
 #import "MLPushConfigViewController.h"
+#import "UIView+BlankPage.h"
 
 
 
@@ -49,7 +50,7 @@
     [btn setBackgroundImage:[UIImage imageNamed:@"settingzl"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(actSettingAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    
+    [self.view configBlankPage:EaseBlankPageTypeXiaoxi hasData:NO];
     [self getDataSource];
 }
 
@@ -132,7 +133,7 @@
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
         }
-        
+         [self.view configBlankPage:EaseBlankPageTypeXiaoxi hasData:(self.messageArray.count>0)];
     } failure:^(NSError *error) {
         [MBProgressHUD showSuccess:NETWORK_ERROR_MESSAGE toView:self.view];
     }];

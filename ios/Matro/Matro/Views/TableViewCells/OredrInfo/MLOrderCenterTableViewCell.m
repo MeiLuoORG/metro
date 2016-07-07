@@ -50,6 +50,18 @@
     }
 }
 
+- (void)setOrder_submit_product:(MLOrderProlistModel *)order_submit_product{
+    if (_order_submit_product!=order_submit_product) {
+        _order_submit_product = order_submit_product;
+        self.goodsName.text = _order_submit_product.pname;
+        self.goodsPrice.text = [NSString stringWithFormat:@"￥%.2f",_order_submit_product.price];
+        self.goodsDesc.text = @"warning暂未修改";
+        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_order_submit_product.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        self.goodsCount.text = [NSString stringWithFormat:@"*%ld",(long)_order_submit_product.num];
+    }
+}
+
+
 
 
 

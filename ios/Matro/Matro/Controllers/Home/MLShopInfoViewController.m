@@ -14,7 +14,7 @@
 
 @protocol JSObjectDelegate <JSExport>
 - (void)navigationProduct:(NSString *)productId;
-
+- (void)skipPage:(NSString *)url;
 @end
 
 @interface MLShopInfoViewController ()<UIWebViewDelegate,JSObjectDelegate>
@@ -55,8 +55,9 @@
     self.context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     self.context[@"_native"] = self;
     __weak typeof(self) weakself = self;
-    self.context[@"store_collect_click"] = ^(NSString *productid){
-            [weakself performSelectorOnMainThread:@selector(collectClick:) withObject:productid waitUntilDone:YES];
+    self.context[@"skipUi"] = ^(NSString *productid){
+        NSLog(@"%@",productid);
+//            [weakself performSelectorOnMainThread:@selector(collectClick:) withObject:productid waitUntilDone:YES];
     };
     self.context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
         context.exception = exceptionValue;
@@ -67,6 +68,7 @@
 
 
 - (void)navigationProduct:(NSString *)productId{
+    
     [self performSelectorOnMainThread:@selector(pushToGoodsDetail:) withObject:productId waitUntilDone:YES];
 }
 
@@ -79,6 +81,10 @@
     NSLog(@"%@",productId);
 }
 
+
+- (void)skipPage:(NSString *)url{
+    NSLog(@"%@",url);
+}
 
 
 - (void)pushToGoodsDetail:(NSString *)productId{

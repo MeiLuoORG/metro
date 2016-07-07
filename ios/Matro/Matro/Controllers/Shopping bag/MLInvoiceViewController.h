@@ -8,6 +8,10 @@
 
 #import "MLBaseViewController.h"
 
+
+
+typedef void(^InvoiceBlock)(BOOL,BOOL,NSString*);
+
 @protocol InvoiceDelegate <NSObject>
 - (void)InvoiceDic:(NSDictionary *)dic;
 @end
@@ -17,5 +21,8 @@
 @property (nonatomic) BOOL isNeed;
 
 @property (assign,nonatomic,readwrite)id <InvoiceDelegate>delegate;
+
+@property (nonatomic,copy)InvoiceBlock  invoiceBlock;
+
 
 @end

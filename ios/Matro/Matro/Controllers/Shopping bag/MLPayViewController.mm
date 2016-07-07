@@ -19,7 +19,8 @@
 #import "HFSServiceClient.h"
 #import "GTMNSString+URLArguments.h"
 #import <PassKit/PassKit.h>
-#import "MLBagViewController.h"
+#import "MLShopBagViewController.h"
+
 //#import <PassKit/PassKit.h>
 
 @interface MLPayViewController ()<UITableViewDataSource,UITableViewDelegate,UPPayPluginDelegate
@@ -130,7 +131,7 @@
 
 - (void)goBack{
     UIViewController *vc = [self.navigationController.viewControllers firstObject];
-    if ([vc isKindOfClass:[MLBagViewController class]]) {
+    if ([vc isKindOfClass:[MLShopBagViewController class]]) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
     else{

@@ -283,7 +283,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
             break;
     }
     
-    [MLHttpManager post:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
+    [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
         [self.tableView.header endRefreshing];
         [self.tableView.footer endRefreshing];
         
