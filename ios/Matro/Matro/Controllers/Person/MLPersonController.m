@@ -47,7 +47,7 @@
 
 #import "MLSureViewController.h"
 #import "MLCommitOrderViewController.h"
-
+#import "MLVersionViewController.h"
 
 @interface MLPersonController ()<UITableViewDelegate,UITableViewDataSource>
 {

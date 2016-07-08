@@ -138,7 +138,7 @@
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IgE-L6-hzn">
                                                                     <rect key="frame" x="12" y="37" width="351" height="15"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <color key="textColor" red="0.68235294120000001" green="0.5568627451" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -175,7 +175,7 @@
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBw-Rx-gjB">
                                                                     <rect key="frame" x="12" y="0.0" width="351" height="32"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <color key="textColor" red="0.14901960784313725" green="0.054901960784313725" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -988,7 +988,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="促销信息：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfZ-hF-e3T">
-                                                                    <rect key="frame" x="10" y="10" width="75" height="20"/>
+                                                                    <rect key="frame" x="10" y="10" width="77" height="20"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="75" id="9II-Xb-P49"/>
                                                                     </constraints>
@@ -996,10 +996,9 @@
                                                                     <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="包邮活动，订单满260元" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ens-Yt-hRR">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="包邮活动，订单满260元" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ens-Yt-hRR">
                                                                     <rect key="frame" x="95" y="10" width="268" height="18"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="268" id="fLK-FM-bRU"/>
                                                                         <constraint firstAttribute="height" constant="18" id="fVG-o9-7aF"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -1009,6 +1008,7 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
+                                                                <constraint firstItem="ens-Yt-hRR" firstAttribute="leading" secondItem="OfZ-hF-e3T" secondAttribute="trailing" id="670-I4-ad0"/>
                                                                 <constraint firstAttribute="trailing" secondItem="ens-Yt-hRR" secondAttribute="trailing" constant="12" id="DzR-Th-pKg"/>
                                                                 <constraint firstItem="OfZ-hF-e3T" firstAttribute="top" secondItem="yDj-BO-lnt" secondAttribute="top" constant="10" id="LQG-fi-Z8y"/>
                                                                 <constraint firstAttribute="bottom" secondItem="WZI-bM-SEW" secondAttribute="bottom" id="TXT-67-Lz5"/>
@@ -1051,35 +1051,35 @@
                                                                     <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="xin" translatesAutoresizingMaskIntoConstraints="NO" id="bNr-ll-faX">
+                                                                <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Star_big1" translatesAutoresizingMaskIntoConstraints="NO" id="bNr-ll-faX">
                                                                     <rect key="frame" x="99" y="15" width="11" height="11"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="11" id="DlT-TD-rUg"/>
                                                                         <constraint firstAttribute="width" constant="11" id="vqU-2C-EOK"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <imageView userInteractionEnabled="NO" tag="102" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="xin" translatesAutoresizingMaskIntoConstraints="NO" id="ajQ-BO-nTa">
+                                                                <imageView userInteractionEnabled="NO" tag="102" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Star_big1" translatesAutoresizingMaskIntoConstraints="NO" id="ajQ-BO-nTa">
                                                                     <rect key="frame" x="118" y="15" width="11" height="11"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="11" id="VYN-0i-TPC"/>
                                                                         <constraint firstAttribute="height" constant="11" id="aDU-lg-Gao"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <imageView userInteractionEnabled="NO" tag="103" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="xin" translatesAutoresizingMaskIntoConstraints="NO" id="amD-gl-Mp5">
+                                                                <imageView userInteractionEnabled="NO" tag="103" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Star_big1" translatesAutoresizingMaskIntoConstraints="NO" id="amD-gl-Mp5">
                                                                     <rect key="frame" x="137" y="15" width="11" height="11"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="11" id="6uy-m7-hNa"/>
                                                                         <constraint firstAttribute="width" constant="11" id="rcl-mz-QsZ"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <imageView userInteractionEnabled="NO" tag="104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="xin" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-cQ-o58">
+                                                                <imageView userInteractionEnabled="NO" tag="104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Star_big1" translatesAutoresizingMaskIntoConstraints="NO" id="jbs-cQ-o58">
                                                                     <rect key="frame" x="156" y="15" width="11" height="11"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="11" id="YoU-OU-hxn"/>
                                                                         <constraint firstAttribute="width" constant="11" id="w9F-JL-bzd"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <imageView userInteractionEnabled="NO" tag="105" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="xin" translatesAutoresizingMaskIntoConstraints="NO" id="XE6-P1-nki">
+                                                                <imageView userInteractionEnabled="NO" tag="105" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Star_big1" translatesAutoresizingMaskIntoConstraints="NO" id="XE6-P1-nki">
                                                                     <rect key="frame" x="175" y="15" width="11" height="11"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="11" id="34e-PP-Bfd"/>
@@ -1537,6 +1537,7 @@
         <image name="0.JPG" width="194" height="145"/>
         <image name="4" width="15" height="15"/>
         <image name="41" width="15" height="15"/>
+        <image name="Star_big1" width="16" height="15"/>
         <image name="Star_big2" width="16" height="15"/>
         <image name="biaoqian" width="40" height="16"/>
         <image name="dianpu" width="20" height="20"/>
@@ -1545,7 +1546,6 @@
         <image name="shopCar" width="21" height="19"/>
         <image name="shouhou" width="21" height="21"/>
         <image name="xiayiye_arrow" width="9" height="17"/>
-        <image name="xin" width="15" height="13"/>
         <image name="youjian" width="9" height="17"/>
         <image name="zhengping" width="21" height="21"/>
     </resources>

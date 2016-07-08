@@ -119,27 +119,27 @@ static float height;
     switch (self.type) {
         case PingjiaType_All:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=12308&page_size=10&cur_page=%@&type=",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex]];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=",@"http://bbctest.matrojp.com",self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex]];
         }
             break;
         case PingjiaType_Haoping:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=12308&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex],@"good"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"good"];
         }
             break;
         case PingjiaType_Zhongping:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=12308&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex],@"normal"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"normal"];
         }
             break;
         case PingjiaType_Chaping:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=12308&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex],@"bad"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"bad"];
         }
             break;
         case PingjiaType_Shaitu:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=12308&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",[NSNumber numberWithInteger:pageIndex],@"picture"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"picture"];
         }
             break;
         default:

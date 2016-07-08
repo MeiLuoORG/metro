@@ -7,8 +7,13 @@
 //
 
 #import "ZLHomezlViewController.h"
+#import "MLVersionViewController.h"
 
 @interface ZLHomezlViewController ()
+{
+
+    NSString *version;
+}
 
 @property ( strong , nonatomic ) AVCaptureDevice * device;
 
@@ -42,6 +47,9 @@
 
 - (void)viewDidLoad {
     self.view.backgroundColor = [UIColor whiteColor];
+    [self getVersion];
+    [self loadVersion];
+    
     _titlesARR = [[NSMutableArray alloc]init];
     _urlsARR = [[NSMutableArray alloc]init];
     _labelARR = [[NSMutableArray alloc]init];
@@ -87,6 +95,67 @@
     [center addObserver:self selector:@selector(homeViewButtonIndexNotification:) name:HOMEVIEW_BUTTON_INDEX_NOTIFICATION object:nil];
      */
 }
+
+-(void)loadVersion{
+    
+    NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=upgrade&s=index&action=sel_upgrade";
+    NSDictionary *params = @{@"appverison":version,@"apptype":@"ios"};
+    
+    
+    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         
+         NSDictionary *result = (NSDictionary *)responseObject;
+         NSString *code = result[@"code"];
+         if ([code isEqual:@0]) {
+             NSString *loadversion = result[@"data"][@"sel_info"][@"appverison"];
+             NSString *downlink = result[@"data"][@"sel_info"][@"download_link"];
+             NSLog(@"version===%@ loadversion===%@ downlink===%@",version, loadversion,downlink);
+             
+             if (version < loadversion) {
+                 MLVersionViewController *vc = [[MLVersionViewController alloc]init];
+                 vc.versionLabel = loadversion;
+                 vc.downlink = downlink;
+                 NSString *labstr = result[@"data"][@"sel_info"][@"version_desc"];
+                 vc.versioninfoLabel = labstr;
+                 
+                 vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+                 if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+                     
+                     vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+                     
+                 }else{
+                     
+                     self.modalPresentationStyle=UIModalPresentationCurrentContext;
+                     
+                 }
+                 [self presentViewController:vc  animated:YES completion:^(void)
+                  {
+                      vc.view.superview.backgroundColor = [UIColor clearColor];
+                      
+                  }];
+             }
+             
+         }
+         NSLog(@"请求成功 result====%@",result);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"请求失败 error===%@",error);
+         
+     }];
+    
+}
+
+- (NSString*)getVersion
+{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSLog(@"version===%@",version);
+    return version;
+}
+
 
 - (void)pushMessage:(NSNotification *)not{
     MLPushMessageModel *message = not.object;

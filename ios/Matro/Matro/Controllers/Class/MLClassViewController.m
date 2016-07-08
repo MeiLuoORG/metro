@@ -30,6 +30,7 @@
 #import "SYQRCodeViewController.h"
 #import "MLGoodsDetailsViewController.h"
 #import "MLPinpaiCollectionViewCell.h"
+#import "PinPaiSPListViewController.h"
 
 
 #define HEADER_IDENTIFIER @"MLClassHeader"//第二大类用tableview的header来显示
@@ -412,6 +413,7 @@
     MLClassCollectionViewCell *cell = (MLClassCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CCELL_IDENTIFIER forIndexPath:indexPath];
     
     if (collectionView.tag == _classSecondArray.count) {
+        /*
         for (NSDictionary *tempdic in brandArr) {
             cell.CNameLabel.text = tempdic[@"name"];
             
@@ -420,8 +422,17 @@
                 
             }
         }
+         */
+        NSDictionary *tempdic = brandArr[indexPath.row];
+        cell.CNameLabel.text = tempdic[@"name"];
+        
+        if (![tempdic[@"imgurl"] isKindOfClass:[NSNull class]]) {
+            [cell.classImageView sd_setImageWithURL:[NSURL URLWithString:tempdic[@"imgurl"]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+            
+        }
         return cell;
     }
+    
     MLSecondClass * secondClass = _classSecondArray[collectionView.tag];
     NSDictionary *dic = secondClass.ThreeClassificationList[indexPath.row];
     MLClassInfo *iteminfo = [MTLJSONAdapter modelOfClass:[MLClassInfo class] fromJSONDictionary:dic error:nil];
@@ -444,6 +455,16 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    if (collectionView.tag == _classSecondArray.count) {
+        PinPaiSPListViewController * vc = [[PinPaiSPListViewController alloc]init];
+        NSDictionary *dic = brandArr[indexPath.row];
+        vc.title = dic[@"name"];
+        vc.searchString = dic[@"brand_id"];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+    }else{
+    
     MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
     MLSecondClass * secondClass = _classSecondArray[collectionView.tag];
     NSDictionary *dic = secondClass.ThreeClassificationList[indexPath.row];
@@ -452,7 +473,7 @@
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
-    
+    }
     
 }
 

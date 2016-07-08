@@ -14,15 +14,18 @@
 #import "MLShopCartMoreCell.h"
 #import "MLAddressListModel.h"
 #import "MLOrderHeadCollectionReusableView.h"
+#import "MLOrderFootCollectionReusableView.h"
 #import "MLOrderListCollectionViewCell.h"
 #import "MLPeisongTableViewCell.h"
 #import "MLCommitOrderListModel.h"
 #import "MJExtension.h"
+#import "UIImageView+WebCache.h"
 
 @interface MLCommitOrderViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,InvoiceDelegate>
 {
 
      NSDictionary *makeinvoice;//保存是否开发票信息
+     long shipcount;
     
 }
 
@@ -55,6 +58,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLab;//实际付款
 @property (weak, nonatomic) IBOutlet UIView *peisongfangshiView;//配送方式
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *peisongH;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *proCollectionH;
 
 
 @property (nonatomic,strong)MLInvoiceViewController *invoiceVc;
@@ -91,6 +95,7 @@
     self.proCollection.backgroundColor = RGBA(245, 245, 245, 1);
     [self.proCollection registerNib:[UINib nibWithNibName:@"MLOrderListCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:KMLOrderListCollectionViewCell];
     [self.proCollection registerNib:[UINib nibWithNibName:@"MLOrderHeadCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:KMLOrderHeadCollectionReusableView];
+    [self.proCollection registerNib:[UINib nibWithNibName:@"MLOrderFootCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:KMLOrderFootCollectionReusableView];
     [self.proCollection registerNib:[UINib nibWithNibName:@"MLShopCartMoreCell" bundle:nil] forCellWithReuseIdentifier:@"MoreCell"];
     
     
@@ -108,6 +113,7 @@
 
 //全部订单
 -(void)loadData{
+    
     //http://bbctest.matrojp.com/api.php?m=product&s=confirm_order
     
     NSLog(@"paramsdic===%@",_paramsDic);
@@ -120,6 +126,15 @@
         
         if ([result[@"code"] isEqual:@0]) {
             self.commitOrder = [MLCommitOrderListModel mj_objectWithKeyValues:result[@"data"]];
+            NSLog(@"commitOrder===%@",self.commitOrder);
+            self.userName.text = self.commitOrder.consignee[@"name"];
+            self.phoneNum.text = self.commitOrder.consignee[@"mobile"];
+            NSString *addressStr = self.commitOrder.consignee[@"address"];
+            NSString *areaStr = self.commitOrder.consignee[@"area"];
+            self.address.text = [NSString stringWithFormat:@"%@%@",areaStr,addressStr];
+            
+            NSLog(@"count===%ld",self.commitOrder.cart.count);
+            
             [self.proCollection reloadData];
            [MBProgressHUD showSuccess:@"请求成功" toView:self.view];
             
@@ -140,17 +155,21 @@
 #pragma mark 订单
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-   return  self.commitOrder.cart.count > 0?self.commitOrder.cart.count + 1:0;
+    return self.commitOrder.cart.count;
 
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
 
+    NSLog(@"cart===%@====%ld",self.commitOrder.cart,section);
+    
     MLOrderCartModel *cart = [self.commitOrder.cart objectAtIndex:section];
+    
     if (cart.isMore && !cart.isOpen) {
             return 3;
         }
-    return cart.prolist.count;
+    
+    return 1;
     
 }
 
@@ -171,8 +190,14 @@
         MLOrderListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:KMLOrderListCollectionViewCell forIndexPath:indexPath];
     
         MLOrderProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
-        cell.prolistModel = model;
-    
+       
+    if (![model.pic isKindOfClass:[NSNull class]]) {
+        [cell.orderImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+    }
+    cell.orderTitle.text = model.pname;
+    cell.orderNum.text = [NSString stringWithFormat:@"x%ld",model.num];
+    cell.orderPrice.text = [NSString stringWithFormat:@"￥%.2f",model.price.floatValue];
+    self.proCollectionH.constant = 45*self.commitOrder.cart.count + 125*cart.prolist.count ;
     return cell;
 }
 
@@ -186,16 +211,26 @@
 //定义每个UICollectionView 的间距
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(0, 10 , 10, 10);
+    return UIEdgeInsetsMake(0, 10 , 0, 10);
 }
 
 //头部显示的内容
+
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     
-    MLOrderHeadCollectionReusableView *orderHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:KMLOrderHeadCollectionReusableView forIndexPath:indexPath];
+    if([kind isEqualToString:UICollectionElementKindSectionHeader]){
+        
+        MLOrderHeadCollectionReusableView *orderHead = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:KMLOrderHeadCollectionReusableView forIndexPath:indexPath];
+        MLOrderCartModel *cart = [self.commitOrder.cart objectAtIndex:indexPath.section];
+        if (![cart.logo isKindOfClass:[NSNull class]]) {
+            [orderHead.headImg sd_setImageWithURL:[NSURL URLWithString:cart.logo] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        }
+        orderHead.headTitle.text = cart.company;
+        return orderHead;
+    }
     
-    return orderHead;
- 
+    
+    return nil;
 }
 
 //返回头headerView的大小
@@ -213,8 +248,10 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     MLOrderCartModel *cart = [self.commitOrder.cart objectAtIndex:section];
-    
-    return cart.shipping.count;
+    NSLog(@"%ld",cart.shipping.count);
+    shipcount = cart.shipping.count;
+    //return cart.shipping.count;
+    return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -226,18 +263,29 @@
     }
     MLOrderCartModel *cart = [self.commitOrder.cart objectAtIndex:indexPath.section];
     NSDictionary *tempdic = [cart.shipping objectAtIndex:indexPath.section];
-//    cell.peisongTitle.text = tempdic[];
-//    cell.peisongStatus.text = tempdic[];
+//    cell.peisongTitle.text = tempdic[@"company"];
+//    cell.peisongStatus.text = tempdic[@"price"];
+    cell.peisongTitle.text = @"顺丰";
+    cell.peisongStatus.text = @"$12.33";
     return cell;
     
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+   
     MLOrderCartModel *cart = [self.commitOrder.cart objectAtIndex:indexPath.section];
     NSDictionary *tempdic = [cart.shipping objectAtIndex:indexPath.section];
+     NSLog(@"111111%@",tempdic);
+    self.peisongLab.text = [NSString stringWithFormat:@"%@  %@",tempdic[@"price"] ,tempdic[@"mianfei"]];
+    self.peisongH.constant = 0;
     
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath  {
+    MLOrderCartModel *cart = [self.commitOrder.cart objectAtIndex:indexPath.section];
+    
+    return 44*cart.shipping.count;
+}
 
 //点击head进入地址
 - (IBAction)actDizhi:(id)sender {
@@ -248,8 +296,9 @@
 
 //点击配送
 - (IBAction)actPeisong:(id)sender {
-    
-    self.peisongH.constant = 176;
+    self.peisongfangshiView.hidden = NO;
+    shipcount = 1;
+    self.peisongH.constant = shipcount*44;
 }
 
 //点击发票选择

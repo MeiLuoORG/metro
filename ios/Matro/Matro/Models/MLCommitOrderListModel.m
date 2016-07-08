@@ -26,7 +26,8 @@
 
 
 + (NSDictionary *)objectClassInArray{
-    return @{@"prolist":[MLOrderProlistModel class]};
+    return @{@"prolist":[MLOrderProlistModel class]
+             };
 }
 
 

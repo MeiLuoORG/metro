@@ -24,11 +24,32 @@
                     <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icv-aH-IVY">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="pvU-2i-LhU"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xdV-SF-uJ0">
+                    <rect key="frame" x="0.0" y="49" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="UCO-Vg-4qH"/>
+                    </constraints>
+                </view>
             </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="xdV-SF-uJ0" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="BPG-kY-t9C"/>
+                <constraint firstAttribute="bottom" secondItem="xdV-SF-uJ0" secondAttribute="bottom" id="GuI-xa-ExB"/>
+                <constraint firstAttribute="trailing" secondItem="xdV-SF-uJ0" secondAttribute="trailing" id="HRQ-vh-vFy"/>
+                <constraint firstItem="icv-aH-IVY" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="UGc-0R-Lbl"/>
                 <constraint firstItem="Jkv-jP-1Y4" firstAttribute="leading" secondItem="Eqw-gi-bj8" secondAttribute="trailing" constant="10" id="hm7-sI-XyI"/>
+                <constraint firstItem="icv-aH-IVY" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="mg8-sn-dfy"/>
                 <constraint firstItem="Jkv-jP-1Y4" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="n98-FD-h4a"/>
                 <constraint firstAttribute="trailing" secondItem="Jkv-jP-1Y4" secondAttribute="trailing" constant="2" id="n9G-xS-2cX"/>
+                <constraint firstAttribute="trailing" secondItem="icv-aH-IVY" secondAttribute="trailing" id="oRs-Zz-g4z"/>
                 <constraint firstItem="Eqw-gi-bj8" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="10" id="pzz-Wi-06z"/>
                 <constraint firstItem="Eqw-gi-bj8" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="rOD-MF-1B4"/>
             </constraints>

@@ -236,13 +236,20 @@ static char  BlankPageViewKey;
                 titleStr=@"去逛逛";
                 break;
             }
-            case EaseBlankPageTypeDingdan:
+            case EaseBlankPageTypeDingdan:{
                 _tipLabel.textColor = RGBA(80, 80, 80, 1);
                 titleStr=@"去逛逛";
                 break;
-            case EaseBlankPageTypeShouhuodizhi:
+            }
+            case EaseBlankPageTypeShouhuodizhi:{
                 titleStr = @"新增收货地址";
                 break;
+            }
+            case EaseBlankPageTypePingjia:{
+                actionBtn.hidden = YES;
+                //titleStr = @"新增收货地址";
+                break;
+            }
             default:
                 break;
         }

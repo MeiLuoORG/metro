@@ -23,6 +23,7 @@
                 <outlet property="phoneNum" destination="5Pn-21-YF6" id="oWX-pj-WQC"/>
                 <outlet property="priceLab" destination="TAs-jN-Q4j" id="KbF-TM-C5n"/>
                 <outlet property="proCollection" destination="jYX-jn-wMF" id="vug-fI-ubK"/>
+                <outlet property="proCollectionH" destination="ZOb-Xz-T3b" id="vfB-U4-VU5"/>
                 <outlet property="putongFapiaoLab" destination="C6M-4p-xDE" id="LlK-OV-lgU"/>
                 <outlet property="quanqiugouFapiaoLab" destination="xnW-6F-30Z" id="aHr-ks-VdQ"/>
                 <outlet property="shangpinNum" destination="hgS-ay-Kfo" id="BtX-ZC-Ge4"/>
@@ -396,6 +397,7 @@
                                         <constraint firstItem="xnW-6F-30Z" firstAttribute="leading" secondItem="zFc-jy-Gl5" secondAttribute="leading" constant="10" id="Rjn-dP-iHQ"/>
                                         <constraint firstAttribute="trailing" secondItem="6RD-wH-FiX" secondAttribute="trailing" constant="10" id="S5H-uK-bI3"/>
                                         <constraint firstItem="C6M-4p-xDE" firstAttribute="centerY" secondItem="zFc-jy-Gl5" secondAttribute="centerY" id="WfA-CD-s46"/>
+                                        <constraint firstAttribute="height" constant="44" id="XxO-Ly-wGk"/>
                                         <constraint firstAttribute="bottom" secondItem="xnW-6F-30Z" secondAttribute="bottom" id="Z6Y-AI-rWc"/>
                                         <constraint firstItem="6RD-wH-FiX" firstAttribute="centerY" secondItem="zFc-jy-Gl5" secondAttribute="centerY" id="ZV9-d5-2wI"/>
                                         <constraint firstAttribute="trailing" secondItem="xnW-6F-30Z" secondAttribute="trailing" constant="10" id="hRZ-Jt-mGZ"/>
@@ -638,6 +640,10 @@
                                 </view>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="jYX-jn-wMF">
                                     <rect key="frame" x="0.0" y="192" width="375" height="165"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="165" id="ZOb-Xz-T3b"/>
+                                    </constraints>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="RSf-xt-h9e">
                                         <size key="itemSize" width="0.0" height="0.0"/>
                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
