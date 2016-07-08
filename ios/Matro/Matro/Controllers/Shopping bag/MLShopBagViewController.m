@@ -649,12 +649,12 @@ static NSInteger pageIndex = 0;
         }
         [self configBlankPage];
     } failure:^(NSError *error) {
-<<<<<<< Updated upstream:ios/Matro/Matro/Controllers/Shopping bag/MLShopBagViewController.m
+
         [self.tableView.header endRefreshing];
-=======
+
         NSLog(@"error===%@",error);
         [self.collectionView.header endRefreshing];
->>>>>>> Stashed changes:ios/Matro/Matro/Controllers/Shopping bag/MLShopCartViewController.m
+
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
 }
@@ -706,13 +706,11 @@ static NSInteger pageIndex = 0;
         else{ //发送下单请求
             NSMutableDictionary *tempdic = [NSMutableDictionary dictionary ];
             for (int i=0; i < temp.count; i++) {
-<<<<<<< Updated upstream:ios/Matro/Matro/Controllers/Shopping bag/MLShopBagViewController.m
+
                 NSString *productid = temp[i][@"product_id"];
-=======
                // NSMutableArray *product_id = [NSMutableArray array];
-                NSString *productid = temp[i][@"product_id"];
                // [product_id addObject:productid];
->>>>>>> Stashed changes:ios/Matro/Matro/Controllers/Shopping bag/MLShopCartViewController.m
+
                 NSString *cart_list = [NSString stringWithFormat:@"product_id[%d]",i];
                 [tempdic setObject:productid forKey:cart_list];
                 

@@ -15,15 +15,12 @@
 #import "UIView+DownMenu.h"
 #import "MLshopGoodsListViewController.h"
 #import "PinPaiSPListViewController.h"
-
+#import "MLGoodsListViewController.h"
+#import "MLshopFLViewController.h"
 @protocol JSObjectDelegate <JSExport>
-<<<<<<< Updated upstream
-- (void)navigationProduct:(NSString *)productId;
-- (void)skipPage:(NSString *)url;
-=======
+
 - (void)skip:(NSString *)index Ui:(NSString *)sender;
 
->>>>>>> Stashed changes
 @end
 
 @interface MLShopInfoViewController ()<UIWebViewDelegate,JSObjectDelegate,UITextFieldDelegate,UISearchBarDelegate,UIGestureRecognizerDelegate>
@@ -39,6 +36,7 @@
 @end
 
 @implementation MLShopInfoViewController
+@synthesize uid;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,7 +55,11 @@
      
      UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuo"]];
      searchText = [[UITextField alloc] initWithFrame:CGRectMake( 6, 4, textW, H)];
-     searchText.enabled = NO;
+     searchText.returnKeyType = UIReturnKeySearch;
+     searchText.enablesReturnKeyAutomatically = YES;
+     searchText.delegate = self;
+     searchText.enabled = YES;
+    
      [frameView addSubview:searchImg];
      [frameView addSubview:searchText];
      searchImg.frame = CGRectMake(textW - 58 - 60 , 4, imgW, imgW);
@@ -67,9 +69,6 @@
      searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
     
      self.navigationItem.titleView = frameView;
-     
-     UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-     [frameView addGestureRecognizer:singleTap];
     
     moreBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     moreBtn.frame = CGRectMake(0, 0, 20, 22);
@@ -86,6 +85,13 @@
     self.navigationItem.rightBarButtonItems = @[morebtnItem,sxuanbtnItem];
    
     
+    
+    [self loadWebView];
+   
+}
+
+-(void)loadWebView{
+
     _webView = ({
         UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectZero];
         webView.delegate = self;
@@ -95,33 +101,27 @@
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(0);
     }];
-    NSString *url = [NSString stringWithFormat:@"http://61.155.212.146:3000/store/index?sid=20505&uid=1111"];
+    NSString *url = [NSString stringWithFormat:@"http://61.155.212.146:3000/store/index?sid=20505&uid=%@",uid];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
+    
 }
 
-
--(void)handleSingleTap:(UITapGestureRecognizer *)sender
-{
-    NSLog(@"点击了。。。。");
-    [searchText becomeFirstResponder];
-    MLshopGoodsListViewController *vc = [[MLshopGoodsListViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-
-/*
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-//    [searchText becomeFirstResponder];
+    [searchText becomeFirstResponder];
+}
+//点击键盘上搜索按钮时
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    NSLog(@"%@",textField.text);
+    [searchText resignFirstResponder];
     
     MLshopGoodsListViewController *vc = [[MLshopGoodsListViewController alloc]init];
+    vc.filterParam = @{@"keyword":textField.text};
+    vc.uid = uid;
     [self.navigationController pushViewController:vc animated:YES];
-    
+    return YES;
 }
-*/
-
-
-
 
 
 -(void)actmore{
@@ -130,8 +130,11 @@
 }
 
 -(void)actsxuan{
-    NSLog(@"111111");
     
+    NSLog(@"111111");
+    MLshopFLViewController *vc = [[MLshopFLViewController alloc]init];
+    vc.uid = uid;
+    [self.navigationController  pushViewController:vc animated:YES];
     
 }
 
@@ -191,9 +194,8 @@
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             
-            PinPaiSPListViewController * vc = [[PinPaiSPListViewController alloc]init];
-            vc.title = @"品牌馆";
-            vc.searchString = sender;
+            MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
+            [vc.filterParam  setValue:sender forKey:@"flid"];
             [self.navigationController pushViewController:vc animated:YES];
             
         });
@@ -204,10 +206,9 @@
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             
-            PinPaiSPListViewController * vc = [[PinPaiSPListViewController alloc]init];
-            vc.title = @"品牌馆";
-            vc.searchString = sender;
-            [self.navigationController pushViewController:vc animated:YES];
+            NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
+            self.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",sender,phone];
+            [self loadWebView];
             
         });
         

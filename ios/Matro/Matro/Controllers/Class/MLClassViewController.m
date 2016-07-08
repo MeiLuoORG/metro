@@ -31,7 +31,7 @@
 #import "MLGoodsDetailsViewController.h"
 #import "MLPinpaiCollectionViewCell.h"
 #import "PinPaiSPListViewController.h"
-
+#import "MLPPCollectionViewCell.h"
 
 #define HEADER_IDENTIFIER @"MLClassHeader"//第二大类用tableview的header来显示
 #define CCELL_IDENTIFIER @"MLClassCollectionViewCell"//第三大类用tableview的cell来显示
@@ -121,8 +121,8 @@
     _topScrollSegmentControl.selectedIndex = 0;
     
    
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 242)];
-    imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 232)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 205)];
+    imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
     view.backgroundColor = [UIColor colorWithHexString:@"F1F1F1"];
     [view addSubview:imageview];
     self.tableView.tableHeaderView = view;
@@ -312,6 +312,10 @@
     cell.collectionView.dataSource = self;
    
     cell.collectionView.tag = indexPath.section;
+    if (indexPath.section == _classSecondArray.count) {
+        
+         [cell.collectionView registerNib:[UINib  nibWithNibName:@"MLPPCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"MLPPCollectionViewCell"];
+    }
     
     [cell.collectionView registerNib:[UINib  nibWithNibName:@"MLClassCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:CCELL_IDENTIFIER];
     
@@ -329,23 +333,30 @@
         long int count = brandArr.count;
         NSLog(@"count===%ld",count);
         long int i;
-        i = count / 4;
-        NSLog(@"%li",i);
-        
-        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin + 1 * 5))/4);
-        float height = width * 3/2;
-        return (height*(i+1) + 5*i);
+        if (count%4==0) {
+            i = count / 4;
+        }else{
+            i = (count+4) / 4;
+        }
+  
+        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
+        float height = width;
+        return (height*i + 5*i);
     }
     MLSecondClass * secondClass = _classSecondArray[tableView.tag];
     long int count = secondClass.ThreeClassificationList.count;
     NSLog(@"count===%ld",count);
     long int i;
-    i = count / 4;
-    NSLog(@"%li",i);
     
-    float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin + 1 * 5))/4);
-    float height = width * 3/2;
-    return (height*(i+1) + 5*i);
+    if (count%4==0) {
+        i = count / 4;
+    }else{
+        i = (count+4) / 4;
+    }
+
+    float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
+    float height = width ;
+    return (height*i + 5*i);
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -364,9 +375,14 @@
 //    headerView.secondTitle.tag = section;
 //    [headerView.secondTitle addGestureRecognizer:tap];
     
+    NSDictionary *attrs = @{NSFontAttributeName :[UIFont fontWithName:@"Helvetica" size:14],NSForegroundColorAttributeName:[UIColor greenColor]};
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:@"RECOMMEND" attributes:attrs];
+    CGAffineTransform matrix = CGAffineTransformMake(1, 0, tanf(-20 * (CGFloat)M_PI / 180), 1, 0, 0);
+    
     if (section == _classSecondArray.count) {
         
-        headerView.secondTitle.text = brandDic[@"mc"];
+        headerView.secondTitle.text = [NSString stringWithFormat:@"%@/%@",brandDic[@"mc"],str];
+        
     }else{
         
         MLSecondClass *headerClass = _classSecondArray[section];
@@ -377,7 +393,7 @@
         tap.delegate = self;
         headerView.secondTitle.tag = section;
         [headerView.secondTitle addGestureRecognizer:tap];
-       headerView.secondTitle.text = headerinfo.mc;        
+        headerView.secondTitle.text = [NSString stringWithFormat:@"%@/%@",headerinfo.mc,str];
     }
     
     
@@ -398,7 +414,7 @@
 #pragma mark - UICollectionViewDataSource
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSLog(@"tag===%ld=====section===%ld",collectionView.tag,section);
+  
     if (collectionView.tag == _classSecondArray.count) {
         return  brandArr.count;
     }
@@ -410,29 +426,21 @@
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    MLClassCollectionViewCell *cell = (MLClassCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CCELL_IDENTIFIER forIndexPath:indexPath];
+    
     
     if (collectionView.tag == _classSecondArray.count) {
-        /*
-        for (NSDictionary *tempdic in brandArr) {
-            cell.CNameLabel.text = tempdic[@"name"];
-            
-            if (![tempdic[@"imgurl"] isKindOfClass:[NSNull class]]) {
-                [cell.classImageView sd_setImageWithURL:[NSURL URLWithString:tempdic[@"imgurl"]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
-                
-            }
-        }
-         */
+        
+        MLPPCollectionViewCell *cell = (MLPPCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"MLPPCollectionViewCell" forIndexPath:indexPath];
+        
         NSDictionary *tempdic = brandArr[indexPath.row];
-        cell.CNameLabel.text = tempdic[@"name"];
         
         if (![tempdic[@"imgurl"] isKindOfClass:[NSNull class]]) {
-            [cell.classImageView sd_setImageWithURL:[NSURL URLWithString:tempdic[@"imgurl"]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+            [cell.ppImg sd_setImageWithURL:[NSURL URLWithString:tempdic[@"imgurl"]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
             
         }
         return cell;
     }
-    
+    MLClassCollectionViewCell *cell = (MLClassCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CCELL_IDENTIFIER forIndexPath:indexPath];
     MLSecondClass * secondClass = _classSecondArray[collectionView.tag];
     NSDictionary *dic = secondClass.ThreeClassificationList[indexPath.row];
     MLClassInfo *iteminfo = [MTLJSONAdapter modelOfClass:[MLClassInfo class] fromJSONDictionary:dic error:nil];
@@ -462,7 +470,7 @@
         vc.searchString = dic[@"brand_id"];
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
+        
     }else{
     
     MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
@@ -470,9 +478,10 @@
     NSDictionary *dic = secondClass.ThreeClassificationList[indexPath.row];
     NSString  *selectTitle = dic[@"mc"];
     vc.filterParam = @{@"keyword":selectTitle};
+        NSLog(@"%@",vc.filterParam);
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
+   
     }
     
 }
@@ -480,13 +489,36 @@
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
-    float height = width * 3/2;
-    return CGSizeMake(width, height);
+    if (collectionView.tag == _classSecondArray.count) {
+        
+        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
+        float height = width;
+        return CGSizeMake(width, height);
+    }
+    else{
+        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
+        float height = width;
+        return CGSizeMake(width, height);
+    }
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    if (collectionView.tag == _classSecondArray.count) {
+        
+        return UIEdgeInsetsMake(CollectionViewCellMargin, CollectionViewCellMargin*3, CollectionViewCellMargin*2, CollectionViewCellMargin*3);
+    }
     return UIEdgeInsetsMake(CollectionViewCellMargin, CollectionViewCellMargin, CollectionViewCellMargin, CollectionViewCellMargin);
+}
+
+- (CGFloat) collectionView:(UICollectionView *)collectionView
+                    layout:(UICollectionViewLayout *)collectionViewLayout
+minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    if (collectionView.tag == _classSecondArray.count) {
+        
+        return 5.0f;
+    }
+    return 0.f;
 }
 
 

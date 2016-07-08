@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MLPPCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="85" height="85"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="85" height="85"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wtr-8v-fKT">
+                        <rect key="frame" x="0.0" y="0.0" width="85" height="85"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="85" id="che-lA-YBK"/>
+                            <constraint firstAttribute="height" constant="85" id="ggM-aZ-uyB"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="wtr-8v-fKT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="E7B-tR-bu4"/>
+                <constraint firstItem="wtr-8v-fKT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="N9p-b3-OMT"/>
+                <constraint firstAttribute="bottom" secondItem="wtr-8v-fKT" secondAttribute="bottom" id="ZBL-wz-dyq"/>
+                <constraint firstAttribute="trailing" secondItem="wtr-8v-fKT" secondAttribute="trailing" id="sLn-ML-65L"/>
+            </constraints>
+            <size key="customSize" width="113" height="111"/>
+            <connections>
+                <outlet property="ppImg" destination="wtr-8v-fKT" id="7gJ-P4-XUb"/>
+            </connections>
+            <point key="canvasLocation" x="458.5" y="284.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

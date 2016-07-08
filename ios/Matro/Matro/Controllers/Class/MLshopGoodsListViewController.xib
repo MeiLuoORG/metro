@@ -48,6 +48,9 @@
                             <state key="selected" title="销量">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="listButtonAction:" destination="-1" eventType="touchUpInside" id="x0m-aZ-4fZ"/>
+                            </connections>
                         </button>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCc-mZ-c8Q">
                             <rect key="frame" x="68" y="1" width="56" height="44"/>
@@ -56,6 +59,9 @@
                             <state key="normal" title="价格" image="xiajian">
                                 <color key="titleColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="listButtonAction:" destination="-1" eventType="touchUpInside" id="UDh-3q-sj4"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6w-7f-JBr">
                             <rect key="frame" x="550" y="1" width="40" height="44"/>
@@ -73,8 +79,11 @@
                                     <exclude reference="QK3-45-YlQ"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <action selector="listButtonAction:" destination="-1" eventType="touchUpInside" id="jdc-v0-5Xm"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" tag="3" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G2z-Hk-mTn">
+                        <button hidden="YES" opaque="NO" tag="3" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G2z-Hk-mTn">
                             <rect key="frame" x="472" y="1" width="60" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="60" id="Nbv-7c-FGc"/>
@@ -123,6 +132,10 @@
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Zih-hH-Ydg"/>
+                        <outlet property="delegate" destination="-1" id="BlU-Ca-dMZ"/>
+                    </connections>
                 </collectionView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EgR-lx-LKk">
                     <rect key="frame" x="0.0" y="45" width="600" height="555"/>
@@ -130,6 +143,10 @@
                     <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <inset key="separatorInset" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="QFG-Ao-kvp"/>
+                        <outlet property="delegate" destination="-1" id="mLB-5V-QN0"/>
+                    </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l3g-Xn-K4D">
                     <rect key="frame" x="0.0" y="45" width="588" height="555"/>
@@ -179,8 +196,8 @@
             </constraints>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="jiu-g8-dyD"/>
                     <exclude reference="19v-FY-ulA"/>
+                    <exclude reference="jiu-g8-dyD"/>
                 </mask>
             </variation>
         </view>

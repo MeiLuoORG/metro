@@ -20,7 +20,7 @@
 #import "CommonHeader.h"
 #import "MJExtension.h"
 #import "MLHttpManager.h"
-
+#import "MLShopInfoViewController.h"
 @interface MLStoreCollectViewController ()<UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *_collectionArray;
     NSString *userid;
@@ -296,7 +296,14 @@ static NSInteger page = 1;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSDictionary *dic   = [self.dataSource[indexPath.section]mj_keyValues];
     
+    MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
+    NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
+    vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",dic[@"pid"],phone];
+    vc.uid = dic[@"pid"];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)changeEditState:(UIBarButtonItem *)sender

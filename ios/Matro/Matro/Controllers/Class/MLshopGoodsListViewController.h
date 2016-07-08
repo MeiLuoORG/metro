@@ -12,5 +12,5 @@
 
 @property (nonatomic) NSString *searchString;//上一个页面传过来的搜索文字
 @property (nonatomic,retain) NSDictionary *filterParam;
-
+@property (nonatomic,copy)NSString *uid;
 @end

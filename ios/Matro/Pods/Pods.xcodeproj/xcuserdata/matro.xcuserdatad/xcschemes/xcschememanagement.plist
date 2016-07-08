@@ -39,6 +39,11 @@
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
+		<key>MGSwipeTableCell.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>20</integer>
+		</dict>
 		<key>MJExtension.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -142,6 +147,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4E1263BFF45F6446CF3DE29AE234C893</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>57D51057A7A55084F9F083718798593F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6847254D016329D4A531D34ED2B6DF81</key>
 		<dict>
 			<key>primary</key>
@@ -173,6 +188,11 @@
 			<true/>
 		</dict>
 		<key>8EA7EB085A729BEBFA2E5C679A976D5E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9FC151FB7212B8D0DC3462A7DCC77D78</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -218,6 +238,11 @@
 			<true/>
 		</dict>
 		<key>D58D76EC529B4A92F3E5EDADE0A96661</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E22ABFFE2A1723A4D3F31507987ED0C5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

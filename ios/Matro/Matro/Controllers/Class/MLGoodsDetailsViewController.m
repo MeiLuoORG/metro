@@ -1443,9 +1443,11 @@
 }
 
 - (IBAction)actDianpu:(id)sender {
+    
     MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
     NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
     vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",_paramDic[@"userid"],phone];
+    vc.uid = _paramDic[@"userid"];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

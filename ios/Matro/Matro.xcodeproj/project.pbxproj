@@ -95,6 +95,10 @@
 		287C86DC1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 287C86DA1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.m */; };
 		287C86DD1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 287C86DB1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.xib */; };
 		2887EA031D239E54001FECFE /* MLCommitOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2887EA011D239E54001FECFE /* MLCommitOrderViewController.m */; };
+		28B3F8F31D2F454800F7E4C0 /* MLshopFLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B3F8F11D2F454800F7E4C0 /* MLshopFLViewController.m */; };
+		28B3F8F41D2F454800F7E4C0 /* MLshopFLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B3F8F21D2F454800F7E4C0 /* MLshopFLViewController.xib */; };
+		28B3F8F81D2FA40900F7E4C0 /* MLPPCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B3F8F61D2FA40900F7E4C0 /* MLPPCollectionViewCell.m */; };
+		28B3F8F91D2FA40900F7E4C0 /* MLPPCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B3F8F71D2FA40900F7E4C0 /* MLPPCollectionViewCell.xib */; };
 		28CEFB1A1CF99C940070E2CA /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CEFB191CF99C940070E2CA /* JSBadgeView.m */; };
 		28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85CE1CEDC59900E582EE /* UMSocialLocalizable.strings */; };
 		28CF86051CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85DC1CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a */; };
@@ -787,6 +791,12 @@
 		287C86DB1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLPinpaiCollectionViewCell.xib; sourceTree = "<group>"; };
 		2887EA001D239E54001FECFE /* MLCommitOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLCommitOrderViewController.h; path = ../Person/Order/MLCommitOrderViewController.h; sourceTree = "<group>"; };
 		2887EA011D239E54001FECFE /* MLCommitOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLCommitOrderViewController.m; path = ../Person/Order/MLCommitOrderViewController.m; sourceTree = "<group>"; };
+		28B3F8F01D2F454800F7E4C0 /* MLshopFLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLshopFLViewController.h; sourceTree = "<group>"; };
+		28B3F8F11D2F454800F7E4C0 /* MLshopFLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLshopFLViewController.m; sourceTree = "<group>"; };
+		28B3F8F21D2F454800F7E4C0 /* MLshopFLViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLshopFLViewController.xib; sourceTree = "<group>"; };
+		28B3F8F51D2FA40900F7E4C0 /* MLPPCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPPCollectionViewCell.h; sourceTree = "<group>"; };
+		28B3F8F61D2FA40900F7E4C0 /* MLPPCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPPCollectionViewCell.m; sourceTree = "<group>"; };
+		28B3F8F71D2FA40900F7E4C0 /* MLPPCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLPPCollectionViewCell.xib; sourceTree = "<group>"; };
 		28CEFB181CF99C940070E2CA /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
 		28CEFB191CF99C940070E2CA /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		28CF85CF1CEDC59900E582EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
@@ -2763,6 +2773,9 @@
 				284E363C1D2B615A000CC90F /* MLOrderListCollectionViewCell.h */,
 				284E363D1D2B615A000CC90F /* MLOrderListCollectionViewCell.m */,
 				284E363E1D2B615A000CC90F /* MLOrderListCollectionViewCell.xib */,
+				28B3F8F51D2FA40900F7E4C0 /* MLPPCollectionViewCell.h */,
+				28B3F8F61D2FA40900F7E4C0 /* MLPPCollectionViewCell.m */,
+				28B3F8F71D2FA40900F7E4C0 /* MLPPCollectionViewCell.xib */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -2967,15 +2980,12 @@
 				284E36411D2B7C0D000CC90F /* MLPeisongTableViewCell.h */,
 				284E36421D2B7C0D000CC90F /* MLPeisongTableViewCell.m */,
 				284E36431D2B7C0D000CC90F /* MLPeisongTableViewCell.xib */,
-<<<<<<< Updated upstream
 				7A12A0CD1D2D064900D0FF26 /* MLShopBagTableViewCell.h */,
 				7A12A0CE1D2D064900D0FF26 /* MLShopBagTableViewCell.m */,
 				7A12A0CF1D2D064900D0FF26 /* MLShopBagTableViewCell.xib */,
-=======
 				284073371D2E272D003A13AE /* MLOrderListTableViewCell.h */,
 				284073381D2E272D003A13AE /* MLOrderListTableViewCell.m */,
 				284073391D2E272D003A13AE /* MLOrderListTableViewCell.xib */,
->>>>>>> Stashed changes
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -3002,6 +3012,9 @@
 				2840733C1D2E5DF2003A13AE /* MLshopGoodsListViewController.h */,
 				2840733D1D2E5DF2003A13AE /* MLshopGoodsListViewController.m */,
 				2840733E1D2E5DF2003A13AE /* MLshopGoodsListViewController.xib */,
+				28B3F8F01D2F454800F7E4C0 /* MLshopFLViewController.h */,
+				28B3F8F11D2F454800F7E4C0 /* MLshopFLViewController.m */,
+				28B3F8F21D2F454800F7E4C0 /* MLshopFLViewController.xib */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -3120,15 +3133,10 @@
 				7AEC88E31CE47A6A00B43DD4 /* MLGoodsSharePhotoViewController.h */,
 				7AEC88E41CE47A6A00B43DD4 /* MLGoodsSharePhotoViewController.m */,
 				7AEC88E51CE47A6A00B43DD4 /* MLGoodsSharePhotoViewController.xib */,
-<<<<<<< Updated upstream
 				7A12A0C71D2CF09300D0FF26 /* MLShopBagViewController.h */,
 				7A12A0C81D2CF09300D0FF26 /* MLShopBagViewController.m */,
-=======
-				7A3486541D0EAD50002EE211 /* MLShopCartViewController.h */,
-				7A3486551D0EAD50002EE211 /* MLShopCartViewController.m */,
 				284073221D2DF24B003A13AE /* MLSureOrderViewController.h */,
 				284073231D2DF24B003A13AE /* MLSureOrderViewController.m */,
->>>>>>> Stashed changes
 			);
 			path = "Shopping bag";
 			sourceTree = "<group>";
@@ -4167,6 +4175,7 @@
 				3A16DC241C9FF423007AE4A2 /* MLVIPCardViewController.xib in Resources */,
 				283261A71D19364E00C9EE4E /* MLStoreFootView.xib in Resources */,
 				3C3671411D2A555700BC5680 /* PinPaiSPListViewController.xib in Resources */,
+				28B3F8F41D2F454800F7E4C0 /* MLshopFLViewController.xib in Resources */,
 				3A630BE91CA25C5B006E67F4 /* MLClassCollectionViewCell.xib in Resources */,
 				3CE4B0E01D1A6DCC0084156C /* LingQuQuanCell.xib in Resources */,
 				7A0720371D17D5D300E0B58E /* MLTuiHuoFooterView.xib in Resources */,
@@ -4182,6 +4191,7 @@
 				7A1DC2611D23A56C0094D751 /* MLPushConfigTableViewCell.xib in Resources */,
 				285808041D14F20B0097D334 /* MLCommentTableViewCell.xib in Resources */,
 				7ACD3A7C1CE86DA5004BAF8B /* MLReturnsHeader.xib in Resources */,
+				28B3F8F91D2FA40900F7E4C0 /* MLPPCollectionViewCell.xib in Resources */,
 				3A630BE41CA256CF006E67F4 /* MLClassHeader.xib in Resources */,
 				7A7672E11D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.xib in Resources */,
 				3A1F72E01CA3FC13000ECE08 /* HFSOrderListTableViewCell.xib in Resources */,
@@ -4297,6 +4307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28B3F8F31D2F454800F7E4C0 /* MLshopFLViewController.m in Sources */,
 				D642D85B1CAD00F000317AB6 /* MNNPurchaseHistoryTableViewCell.m in Sources */,
 				7A1DC2511D2379D60094D751 /* MLPushMessageModel.m in Sources */,
 				287C86CC1D1A35F30002E5E2 /* MLCollectstoresModel.m in Sources */,
@@ -4443,6 +4454,7 @@
 				3CEDAD791D13E74E00990DA8 /* iCarousel.m in Sources */,
 				3A633B5F1C9EA36E00C11FD5 /* ZLPhotoPickerDatas.m in Sources */,
 				3C1306DA1D260BBC005CFCEC /* HARootScrollView.m in Sources */,
+				28B3F8F81D2FA40900F7E4C0 /* MLPPCollectionViewCell.m in Sources */,
 				284E363F1D2B615A000CC90F /* MLOrderListCollectionViewCell.m in Sources */,
 				7AF15AFF1D12822700F8CF03 /* MLPersonOrderModel.m in Sources */,
 				3A633B5B1C9EA36E00C11FD5 /* ZLPhotoPickerBrowserPhotoScrollView.m in Sources */,

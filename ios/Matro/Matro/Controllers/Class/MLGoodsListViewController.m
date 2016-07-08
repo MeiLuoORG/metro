@@ -344,14 +344,16 @@ static NSInteger page = 1;
     if (self.filterParam) {
         NSString *keyword = self.filterParam[@"keyword"];
         keystr = [keyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
+        if (self.filterParam[@"flid"]) {
+            spflid  = self.filterParam[@"flid"];
+        }
     }else{
         keystr = [_searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     }
     
     
     
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,ppid];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@&id=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,ppid,spflid];
     NSLog(@"str====%@",str);
     
    

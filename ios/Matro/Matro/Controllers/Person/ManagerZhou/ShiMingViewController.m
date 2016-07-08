@@ -41,16 +41,15 @@
     
     //[self.view addSubview:navTop];
 
-<<<<<<< Updated upstream
+
     
     
     
     
-    if (self.isRenZheng) {
-=======
+
 
     if (self.isRenZheng == YES) {
->>>>>>> Stashed changes
+
         [self createView1];
     }
     else{
@@ -72,13 +71,12 @@
 
 }
 
-<<<<<<< Updated upstream
-=======
+
 - (void)backBtnAction{
     [self.navigationController popViewControllerAnimated:YES];
 
 }
->>>>>>> Stashed changes
+
 
 - (void)viewWillAppear:(BOOL)animated{
 

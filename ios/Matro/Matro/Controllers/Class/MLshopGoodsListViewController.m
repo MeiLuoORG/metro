@@ -25,13 +25,14 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "MLSearchViewController.h"
 #import "AppDelegate.h"
+#import "MLshopFLViewController.h"
 
 #define SEARCH_PAGE_SIZE @10
 #define HFSProductTableViewCellIdentifier @"HFSProductTableViewCellIdentifier"
 #define HFSProductCollectionViewCellIdentifier @"HFSProductCollectionViewCellIdentifier"
 #define CollectionViewCellMargin 5.0f
 
-@interface MLshopGoodsListViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,NNSXDelegate,UITextFieldDelegate,UISearchBarDelegate,SearchDelegate,UIGestureRecognizerDelegate>{
+@interface MLshopGoodsListViewController ()<UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,NNSXDelegate,UITextFieldDelegate,UISearchBarDelegate,SearchDelegate,UIGestureRecognizerDelegate,UITextFieldDelegate>{
     NSMutableArray *_productList;//当前商品列表的原数组，collectionView和tableView都共用
     BOOL _isCardView;//判断是否当前显示的是tableView还是collectionView
     
@@ -50,7 +51,7 @@
 @property (weak, nonatomic) IBOutlet UIView *blankView;
 @end
 
-static NSInteger page = 1;
+static NSInteger page = 0;
 
 @implementation MLshopGoodsListViewController
 
@@ -88,7 +89,7 @@ static NSInteger page = 1;
     _context = [NSManagedObjectContext MR_defaultContext];
     
 }
-
+/*
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     
     MLSearchViewController *searchViewController = [[MLSearchViewController alloc]init];
@@ -101,33 +102,9 @@ static NSInteger page = 1;
     [rootViewController.view addSubview:searchNavigationViewController.view];
     
 }
-
+*/
 -(void)getGoodsFromClass
-{// 美罗修改了接口
-    //    NSString *str = [NSString stringWithFormat:@"%@ajax/Common/WebFrame.ashx?op=products&webframecode=%@&spsl=20",SERVICE_GETBASE_URL,_filterParam[@"WebrameCode"]];
-    
-    //
-    //    [[HFSServiceClient sharedClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-    //
-    //
-    //        NSLog(@"%@",responseObject);
-    //        if (responseObject) {
-    //            NSArray *dic = (NSArray *)responseObject;
-    //
-    //            if (dic && dic.count>0) {
-    //                [_productList addObjectsFromArray:dic];
-    //
-    //            }
-    //            [self.tableView reloadData];
-    //        }
-    //
-    //
-    //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    //        [_hud show:YES];
-    //        _hud.mode = MBProgressHUDModeText;
-    //        _hud.labelText = @"请求失败";
-    //        [_hud hide:YES afterDelay:2];
-    //    }];
+{
     
     [self getGoodsList];
     
@@ -144,9 +121,7 @@ static NSInteger page = 1;
 - (void)goodsListUI{
     
     //添加边框和提示
-    UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)] ;
-    //    frameView.layer.borderWidth = 1;
-    //    frameView.layer.borderColor = RGBA(38, 14, 0, 0.5).CGColor;
+    UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)];
     frameView.layer.cornerRadius = 4.f;
     frameView.layer.masksToBounds = YES;
     frameView.backgroundColor = [UIColor whiteColor];
@@ -159,27 +134,36 @@ static NSInteger page = 1;
     UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuo"]];
     searchText = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, textW, H)];
     searchText.returnKeyType = UIReturnKeySearch;
+    searchText.enablesReturnKeyAutomatically = YES;
     searchText.delegate = self;
+    searchText.enabled = YES;
     [frameView addSubview:searchImg];
     [frameView addSubview:searchText];
-    
-    
-    
-    searchImg.frame = CGRectMake(textW - 45 , 4, imgW, imgW);
+
+    searchImg.frame = CGRectMake(textW - 45 - 30 , 4, imgW, imgW);
     searchText.textColor = [UIColor grayColor];
-    searchText.placeholder = @"寻找你想要的商品";
+    searchText.placeholder = @"搜索店内的商品";
     searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
     
+    /*
     if (_searchString) {
         searchText.text = _searchString;
+    }
+    */
+    
+    if (_filterParam) {
+        searchText.text = _filterParam[@"keyword"];
     }
     
     self.navigationItem.titleView = frameView;
     
     
-    //    UIBarButtonItem *button =[[UIBarButtonItem alloc]initWithTitle:@"  " style: UIBarButtonItemStylePlain target:self action:@selector(nothingAction)];
-    //
-    //    self.navigationItem.rightBarButtonItem = button;
+    UIButton *sxuanBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    sxuanBtn.frame = CGRectMake(0, 0, 20, 20);
+    [sxuanBtn setBackgroundImage:[UIImage imageNamed:@"fenlei1"] forState:UIControlStateNormal];
+    [sxuanBtn addTarget:self action:@selector(actsxuan) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *sxuanbtnItem = [[UIBarButtonItem alloc]initWithCustomView:sxuanBtn];
+    self.navigationItem.rightBarButtonItem = sxuanbtnItem;
     
     [_jiageButtton changeImageAndTitle];
     /*
@@ -198,7 +182,7 @@ static NSInteger page = 1;
     _blackControl.hidden = YES;
     [_blackControl addTarget:self action:@selector(endEditingAction) forControlEvents:UIControlEventTouchUpInside];
     
-    //    NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"MLSXView" owner:nil options:nil];
+    
     _sxView = [[MLSXView alloc]init];
     _sxView.frame = CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH - 60, MAIN_SCREEN_HEIGHT);
     _sxView.delegate = self;
@@ -226,10 +210,38 @@ static NSInteger page = 1;
     [self.view endEditing:YES];
 }
 
--(void)nothingAction{
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    [searchText becomeFirstResponder];
+    
+}
+//点击键盘上搜索按钮时
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    NSLog(@"%@",textField.text);
+    [searchText resignFirstResponder];
+    
+    _filterParam = @{@"keyword":textField.text};
+    
+    [_productList removeAllObjects];
+    [self getGoodsList];
+    
+    [self.collectionView reloadData];
+    [self.tableView reloadData];
+    
+    return YES;
+}
+
+-(void)actsxuan{
+    NSLog(@"11111");
+    MLshopFLViewController *vc = [[MLshopFLViewController alloc]init];
+    vc.uid = _filterParam[@"uid"];
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
+/*
 //搜索器的UIView的点击事件
 -(void)handleSingleTap:(UITapGestureRecognizer *)sender
 
@@ -244,7 +256,7 @@ static NSInteger page = 1;
     [rootViewController.view addSubview:searchNavigationViewController.view];
     
 }
-
+*/
 
 -(void)keyboardHide:(UITapGestureRecognizer*)tap{
     [_sxView endEditing:YES];
@@ -252,15 +264,16 @@ static NSInteger page = 1;
 }
 
 #pragma mark-SearchDelegate
+/*
 -(void)SearchText:(NSString *)text{
-    //    NSLog(@"%@",text);
+    
     MLshopGoodsListViewController *vc =[[MLshopGoodsListViewController alloc]init];
     self.hidesBottomBarWhenPushed = YES;
     vc.searchString = text;
     [self.navigationController pushViewController:vc animated:NO];
     self.hidesBottomBarWhenPushed = NO;
 }
-
+*/
 #pragma mark- 刷新相关
 //根据_isCardView来判断是_tableView还是_collectionView开始刷新
 -(void)reloadData {
@@ -338,22 +351,17 @@ static NSInteger page = 1;
         }
         
     }
-    NSString *keystr = @"奶粉";
-    /*
-    if (self.filterParam) {
+    NSString *keystr;
+    
+    if (_filterParam) {
+        
         NSString *keyword = self.filterParam[@"keyword"];
         keystr = [keyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-    }else{
-        keystr = [_searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+  
     }
-    */
     
-    
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@&userid=1111",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,ppid];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@&id=%@&userid=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,ppid,spflid,_uid];
     NSLog(@"str====%@",str);
-    
-    
     
     [[HFSServiceClient sharedJSONClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -374,7 +382,7 @@ static NSInteger page = 1;
             self.tableView.footer.hidden = NO;
             self.collectionView.footer.hidden = NO;
             
-            if (page==1) {
+            if (page==0) {
                 
                 [_productList removeAllObjects];
                 
@@ -743,6 +751,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 }
 
 #pragma mark-UITextFieldDelegate
+/*
 - (BOOL)textFieldShouldReturn:(UITextField *)aTextfield {
     [aTextfield resignFirstResponder];
     if (aTextfield.text.length>0) {
@@ -757,7 +766,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     
     return YES;
 }
-
+*/
 
 @end
 
