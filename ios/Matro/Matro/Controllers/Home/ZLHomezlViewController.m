@@ -31,7 +31,7 @@
 
 @protocol HomeJSObjectDelegate <JSExport>
 
-- (void)fourButtonAction:(NSString *)index;
+
 
 @end
 
@@ -221,7 +221,7 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
     if (_isTopHiden) {
-        [UIView animateWithDuration:0.3f animations:^{
+        [UIView animateWithDuration:0.0f animations:^{
             [self.view setFrame:CGRectMake(0, 0.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0)];
             self.tabsView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
             self.firstTopView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
@@ -547,29 +547,6 @@
                 [_hud hide:YES afterDelay:2];
             }
             
-            /*
-             if (qrString.length>0) {
-             NSString *JMSP_ID = [self jiexi:@"JMSP_ID" webaddress:qrString];
-             NSString *ZCSP = nil;
-             if([qrString rangeOfString:@"products_hwg"].location !=NSNotFound)//_roaldSearchText
-             {
-             ZCSP = @"5";
-             }
-             else
-             {
-             ZCSP = @"0";
-             }
-             
-             if (JMSP_ID.length>0&&ZCSP) {
-             MLGoodsDetailsViewController *detailVc = [[MLGoodsDetailsViewController alloc]init];
-             detailVc.paramDic = @{@"JMSP_ID":JMSP_ID?:@"",@"ZCSP":ZCSP};
-             detailVc.hidesBottomBarWhenPushed = YES;
-             [self.navigationController pushViewController:detailVc animated:YES];
-             }
-             
-             
-             }
-             */
         }];
     };
     qrcodevc.SYQRCodeFailBlock = ^(SYQRCodeViewController *aqrvc){//扫描失败
@@ -632,15 +609,111 @@
 
 #pragma end mark JSCore 方法结束
 #pragma mark ZLHomeSubVieDragProtocol代理方法
-- (void)homeSubViewController:(ZLHomeSubViewController *)subVC JavaScriptActionFourButton:(NSString *)index{
-    NSLog(@"点击了四个按钮：%@",index);
-    if ([index isEqualToString:@"60"]) {
-        PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
-        pinVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:pinVC animated:YES];
+
+
+- (void)homeSubViewController:(ZLHomeSubViewController *)subVC JavaScriptActionFourButton:(NSString *)type withUi:(NSString *)sender{
+    
+    if ([type isEqualToString:@"1"]) {
+        //商品
+        NSDictionary *params = @{@"id":sender?:@""};
+        MLGoodsDetailsViewController * vc = [[MLGoodsDetailsViewController alloc]init];
+        vc.paramDic = params;
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+    }
+    if ([type isEqualToString:@"2"]) {
+        //品牌
+        PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
+        self.hidesBottomBarWhenPushed = YES;
+        vc.searchString = sender;
+        vc.title = @"品牌馆";
+        [self.navigationController pushViewController:vc animated:NO];
+        self.hidesBottomBarWhenPushed = NO;
+        
+    }
+    if ([type isEqualToString:@"3"]) {
+        //分类
+        MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
+
+        vc.filterParam = @{@"flid":sender};
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+    }
+    if ([type isEqualToString:@"4"]) {
+        //链接
+        [self daKaQianDao];
+        /*
+        //打卡签到
+        MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
+        vc.title = @"热门活动";
+        vc.link = sender;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+         */
+    }
+    if ([type isEqualToString:@"5"]) {
+        //店铺
+        MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
+        NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
+        vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",sender,phone];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if ([type isEqualToString:@"9"]) {
+        //频道
+        NSLog(@"点击了四个按钮：%@",sender);
+        if ([sender isEqualToString:@"60"]) {
+            //品牌馆
+            PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
+            pinVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:pinVC animated:YES];
+        }
+        if ([sender isEqualToString:@"61"]) {
+            //积分查询
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
+            if (loginid && ![@"" isEqualToString:loginid]) {
+                MNNMemberViewController * pinVC = [[MNNMemberViewController alloc]init];
+                pinVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:pinVC animated:YES];
+            }
+            else{
+                MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
+                loginVC.isLogin = YES;
+                [self presentViewController:loginVC animated:NO completion:nil];
+            
+            }
+        }
+        if ([sender isEqualToString:@"62"]) {
+            //打卡签到
+            //积分查询
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
+            if (loginid && ![@"" isEqualToString:loginid]) {
+                [self daKaQianDao];
+            }
+            else{
+                MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
+                loginVC.isLogin = YES;
+                [self presentViewController:loginVC animated:NO completion:nil];
+                
+            }
+        }
+        if ([sender isEqualToString:@"63"]) {
+            //城市服务
+            MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
+            vc.title = @"热门活动";
+            vc.link = @"http://www.baidu.com";
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
     
+
 }
+
 
 - (void)homeSubViewController:(ZLHomeSubViewController *)subVC withBeginOffest:(float)haViewOffestY{
     self.historyOffestY = haViewOffestY;
@@ -698,6 +771,42 @@
 
 #pragma mark ZLHomeSubVieDragProtocol方法结束
 
+- (void)daKaQianDao{
+
+    //积分查询
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
+    if (loginid && ![@"" isEqualToString:loginid]) {
+        
+        [self getQianDaoInfo];
+//        MNNMemberViewController * pinVC = [[MNNMemberViewController alloc]init];
+//        pinVC.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:pinVC animated:YES];
+    }
+    else{
+        MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
+        loginVC.isLogin = YES;
+        [self presentViewController:loginVC animated:NO completion:nil];
+        
+    }
+    
+    
+}
+
+
+- (void)getQianDaoInfo{
+
+    NSDictionary * ret = @{@"sum":@"3"};
+    [MLHttpManager post:QianDao_URLString params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"打卡签到：%@",result);
+        
+    } failure:^(NSError *error) {
+        NSLog(@"打卡签到错误：%@",error);
+    }];
+        
+
+}
 
 /*
 #pragma mark - Navigation

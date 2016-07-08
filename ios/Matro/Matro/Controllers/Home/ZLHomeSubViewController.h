@@ -9,7 +9,7 @@
 #import "MLBaseViewController.h"
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "PinPaiZLViewController.h"
-
+#import "MLHttpManager.h"
 
 #import "CommonHeader.h"
 @class ZLHomeSubViewController;
@@ -17,13 +17,13 @@
 
 - (void)homeSubViewController:(ZLHomeSubViewController *)subVC withContentOffest:(float ) haViewOffestY;
 - (void)homeSubViewController:(ZLHomeSubViewController *)subVC withBeginOffest:(float)haViewOffestY;
-- (void)homeSubViewController:(ZLHomeSubViewController *)subVC JavaScriptActionFourButton:(NSString *)index;
+- (void)homeSubViewController:(ZLHomeSubViewController *)subVC JavaScriptActionFourButton:(NSString *)type withUi:(NSString *)sender;
 
 @end
 
 @protocol HomeSubJSObjectDelegate <JSExport>
 
-- (void)fourButtonAction:(NSString *)index;
+- (void)skip:(NSString *)index Ui:(NSString *)sender;
 
 @end
 

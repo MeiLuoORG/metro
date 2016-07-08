@@ -47,6 +47,13 @@
 #import "MLPayresultViewController.h"
 #import "MLPayShiBaiViewController.h"
 
+#import "MNNMemberViewController.h"
+#import "MLLoginViewController.h"
+#import "MLShopInfoViewController.h"
+#import "PinPaiSPListViewController.h"
+#import "MLGoodsListViewController.h"
+
+
 @interface ZLHomezlViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,ZLHomeSubVieDragProtocol>
 @property (strong, nonatomic) UIView * firstTopView;
 @property(nonatomic,strong)JSContext *contextjs;

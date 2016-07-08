@@ -18,6 +18,8 @@
 #import "MLLikeModel.h"
 #import "HFSServiceClient.h"
 #import "HFSConstants.h"
+#import "MJExtension.h"
+
 
 #define HEADER_IDENTIFIER @"MLPayresultHeader"
 #define HEADER_IDENTIFIER01 @"OrderListHeaderIdentifier"
@@ -37,20 +39,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    _likeArray = [[NSMutableArray alloc]init];
     if (_isSuccess) {
         self.title = @"支付成功";
         //[self loadDateOrLike];
-    }else{
-        self.title = @"支付失败";
     }
     
     _otherBgView.hidden = _isSuccess;
     self.XuanZeQiTaButton.layer.cornerRadius = 4.0f;
     self.XuanZeQiTaButton.layer.masksToBounds = YES;
     
-    [_tableView registerNib:[UINib nibWithNibName:@"MLPayresultHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:HEADER_IDENTIFIER];
-    [_tableView registerNib:[UINib nibWithNibName:@"HFSOrderListHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:HEADER_IDENTIFIER01];
+    //[_tableView registerNib:[UINib nibWithNibName:@"MLPayresultHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:HEADER_IDENTIFIER];
+    
+    //[_tableView registerNib:[UINib nibWithNibName:@"HFSOrderListHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:HEADER_IDENTIFIER01];
     /*
     _likeArray = [[NSMutableArray alloc]initWithArray:@[@{
                                                             @"image":@"http://mg.soupingguo.com/bizhi/big/10/266/947/10266947.jpg"
@@ -65,14 +66,55 @@
     
     _errTitleArray = @[@"订单编号：",@"支付金额：",@"支付方式：",@"失败原因："];
      */
+    [self guessYourLike];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+/*
+ [self getAppDelegate].tabBarController.selectedIndex = 0;
+ [self.navigationController popToRootViewControllerAnimated:YES];
+ */
 
 #pragma mark 获取猜你喜欢数据
+
+- (void)guessYourLike{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=10",MATROJP_BASE_URL];
+    [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"猜你喜欢数据为：%@",result);
+        if ([result[@"code"]isEqual:@0]) {
+            NSDictionary *data = result[@"data"];
+            NSArray *product = data[@"product"];
+            [MLGuessLikeModel mj_objectArrayWithKeyValuesArray:product];
+            [_likeArray addObjectsFromArray:[MLGuessLikeModel mj_objectArrayWithKeyValuesArray:product]];
+            [_tableView reloadData];
+        }
+        else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        
+        }
+        /*
+        if ([result[@"code"] isEqual:@0]) {
+            [self.likeArray removeAllObjects];
+            NSDictionary *data = result[@"data"];
+            NSArray *product = data[@"product"];
+            [self.likeArray addObjectsFromArray:[MLGuessLikeModel mj_objectArrayWithKeyValuesArray:product]];
+            [self.collectionView reloadData];
+        }else{
+         
+        }
+        */
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD showMessag:REQUEST_ERROR_ZL toView:self.view];
+
+    }];
+}
+
+/*
 - (void)loadDateOrLike {
     NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/order/shoppingcart.ashx?op=getcnxh&spsl=2",SERVICE_GETBASE_URL];
     [[HFSServiceClient sharedClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -90,19 +132,22 @@
         
     }];
 }
-
+*/
 
 - (void)likeAction:(id)sender{
     UIControl * control = ((UIControl *)sender);
 //
-//    [self getAppDelegate].tabBarController.selectedIndex = 0;
-//    [self.navigationController popViewControllerAnimated:NO];
+
     
     NSLog(@"%ld",control.tag);
-    NSDictionary *likeobjl = _likeArray[control.tag];
+    MLGuessLikeModel *likeobjl = _likeArray[control.tag];
 
+    NSString * pid  = likeobjl.ID;
+    
+    NSDictionary *params = @{@"id":pid?:@""};
+    [MLGuessLikeModel mj_keyValues];
     MLGoodsDetailsViewController * vc = [[MLGoodsDetailsViewController alloc]init];
-    vc.paramDic = likeobjl;
+    vc.paramDic = params;
     self.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     self.hidesBottomBarWhenPushed = NO;
@@ -124,12 +169,10 @@
     if (section == 1) {
         if(_isSuccess){
             return _likeArray.count%2 == 0 ? _likeArray.count/2 : (_likeArray.count + 1)/2;
-        }else{
-            return _errTitleArray.count;
         }
-    }else{
-        return 0;
     }
+    return 0;
+    
     
 }
 
@@ -147,15 +190,16 @@
         NSInteger lnum = indexPath.row * 2;
         NSInteger rnum = indexPath.row * 2 + 1;
         
-        MLLikeModel *likeobjl = _likeArray[lnum];
+        MLGuessLikeModel *likeobjl = _likeArray[lnum];
         
-            [cell.imageView01 sd_setImageWithURL:likeobjl.IMGURL placeholderImage:PLACEHOLDER_IMAGE];
+        NSURL * url = [NSURL URLWithString:likeobjl.pic];
+            [cell.imageView01 sd_setImageWithURL:url placeholderImage:PLACEHOLDER_IMAGE];
             cell.lBgView.tag = lnum;
-            cell.nameLabel01.text = likeobjl.SPNAME;
-            cell.priceLabel01.text = likeobjl.XJ;
+            cell.nameLabel01.text = likeobjl.pname;
+            cell.priceLabel01.text = [NSString stringWithFormat:@"%.2f",likeobjl.price];
         
        
-        
+        /*
         NSUInteger length = [likeobjl.LSDJ length];
         NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:likeobjl.LSDJ];
         [attri addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid |
@@ -163,19 +207,23 @@
         [attri addAttribute:NSStrikethroughColorAttributeName
                       value:cell.rpriceLabel01.textColor range:NSMakeRange(0, length)];
         [cell.rpriceLabel01 setAttributedText:attri];
+        */
+        
         [cell.lBgView addTarget:self action:@selector(likeAction:) forControlEvents:UIControlEventTouchUpInside];
         
         if (rnum >= _likeArray.count) {
             cell.rBgView.hidden = YES;
         }else{
-            MLLikeModel *likeobjr = _likeArray[rnum];
+            MLGuessLikeModel *likeobjr = _likeArray[rnum];
             
             cell.rBgView.hidden = NO;
-            [cell.imageView02 sd_setImageWithURL:likeobjr.IMGURL placeholderImage:PLACEHOLDER_IMAGE];
+            NSURL * url = [NSURL URLWithString:likeobjr.pic];
+            [cell.imageView02 sd_setImageWithURL:url placeholderImage:PLACEHOLDER_IMAGE];
             cell.rBgView.tag = rnum;
-            cell.nameLabel02.text = likeobjr.SPNAME;
-            cell.priceLabel02.text = likeobjr.XJ;
+            cell.nameLabel02.text = likeobjr.pname;
+            cell.priceLabel02.text = [NSString stringWithFormat:@"%.2f",likeobjr.price];
             
+            /*
             NSUInteger length = [likeobjr.LSDJ length];
             NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:likeobjr.LSDJ];
             [attri addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid |
@@ -183,22 +231,24 @@
             [attri addAttribute:NSStrikethroughColorAttributeName
                           value:cell.rpriceLabel02.textColor range:NSMakeRange(0, length)];
             [cell.rpriceLabel02 setAttributedText:attri];
-            
+            */
             [cell.rBgView addTarget:self action:@selector(likeAction:) forControlEvents:UIControlEventTouchUpInside];
         }
         
         return cell;
         
     }else{
+        
         static NSString *CellIdentifier = @"MLPayerrTableViewCell" ;
         MLPayerrTableViewCell *cell = (MLPayerrTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             NSArray *array = [[NSBundle mainBundle]loadNibNamed: CellIdentifier owner:self options:nil];
             cell = [array objectAtIndex:0];
         }
-        cell.peTitleLabel.text = _errTitleArray[indexPath.row];
+        //cell.peTitleLabel.text = _errTitleArray[indexPath.row];
         
         return cell;
+        
     }
     
 }
@@ -209,17 +259,10 @@
     if (indexPath.section == 1) {
         if (_isSuccess) {
             return MAIN_SCREEN_WIDTH * 280/489 + 24;
-        }else{
-            if (indexPath.row == 3) {
-                return 72;
-            }else{
-                return 36;
-            }
         }
-        
-    }else{
-        return 0;
     }
+    return 0;
+    
 }
 
 //设置头部的高度
@@ -227,11 +270,10 @@
     if (section == 1) {
         return 36.0f;
     }else{
-        if (_isSuccess) {
+        
             return 290;
-        }else{
-            return 200;
-        }
+            
+        
     }
 }
 
@@ -270,6 +312,10 @@
         if (_isSuccess) {
             headerView.tisLabel.text = @"支付成功";
             headerView.tisImageView.image = [UIImage imageNamed:@"zhifuchenggong-1"];
+            
+            [headerView.toHome addTarget:self action:@selector(toHomeAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            
         }else{
             headerView.tisLabel.text = @"支付失败了！";
             headerView.tisImageView.image = [UIImage imageNamed:@"zhifushibai-1"];
@@ -282,8 +328,22 @@
     }
     
 }
+- (void)toHomeAction:(UIButton *)sender{
+        [self getAppDelegate].tabBarController.selectedIndex = 0;
+        [self.navigationController popViewControllerAnimated:NO];
+}
 
+- (void)toOrderAction:(UIButton *)sender{
+    MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
+    vc.order_id = self.order_id;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+- (void)backBtnAction{
+    [self getAppDelegate].tabBarController.selectedIndex = 0;
+    [self.navigationController popViewControllerAnimated:NO];
 
+}
 /*
 #pragma mark - Navigation
 

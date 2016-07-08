@@ -139,6 +139,7 @@
     
     _headView = ({
         MLPersonHeadView *headView =[MLPersonHeadView personHeadView];
+        headView.biaoZhiImageView.hidden = YES;
         __weak typeof(self)weakself = self;
         headView.loginBlock = ^(){
             [self hideZLMessageBtnAndSetingBtn];
@@ -198,6 +199,8 @@
 - (void)renZhengAction:(id)sender{
     //查询实名认证
     [self chaXunISshiMingRenZheng];
+    //请求我的资产
+    [self getMyZiChanAction];
 }
 
 #pragma mark zhoulu 第二栏按钮组
@@ -416,14 +419,63 @@
 }
 #pragma mark 我的资产
 - (void)getMyZiChanAction{
+    //http://bbctest.matrojp.com/api.php?m=member&s=assets&action=sel_assets&test_phone=13771961207&card=0000000075&accessToken=e3b47520f508409593fb57f90c808756
+    NSDictionary * ret = @{@"mobile":[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERPHONE]};
     
-    
+    NSString * cardNO = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERCARDNO];
+    if (cardNO && ![cardNO isEqualToString:@""]) {
+        
+        NSString  * accessTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+        NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=assets&action=sel_assets&card=%@&accessToken=%@",cardNO,accessTokenStr];
+        
+        [MLHttpManager post:urlStr params:ret m:@"member" s:@"assets" success:^(id responseObject) {
+            NSLog(@"请求我的资产的结果：%@",responseObject);
+            NSDictionary * dataDic = responseObject[@"data"];
+            
+            //identity_list
+            NSDictionary * assets_dataDic = dataDic[@"assets_data"];
+            
+            if (assets_dataDic[@"xyx_num"] && ![assets_dataDic[@"xyx_num"] isEqualToString:@""]) {
+                NSString * xyx_numStr = assets_dataDic[@"xyx_num"];
+                _xingYunXingValueLabel.text = xyx_numStr;
+            }
+            else{
+                _xingYunXingValueLabel.text = @"0";
+            }
+            if (assets_dataDic[@"ye_num"]&& ![assets_dataDic[@"ye_num"] isEqualToString:@""]) {
+               NSString * yEStr = assets_dataDic[@"ye_num"];
+                _yuEValueLabel.text = yEStr;
+            }
+            else{
+                _yuEValueLabel.text = @"0";
+            }
+            if (assets_dataDic[@"jifen_num"]&&![assets_dataDic[@"jifen_num"] isEqualToString:@""]) {
+                 NSString * jiFenStr = assets_dataDic[@"jifen_num"];
+                _jiFenValueLabel.text = jiFenStr;
+            }
+            else{
+                _jiFenValueLabel.text =@"0";
+            }
+            if (assets_dataDic[@"yhq_num"]&&![assets_dataDic[@"yhq_num"] isEqualToString:@""]) {
+               NSString * yhqStr = assets_dataDic[@"yhq_num"];
+                _youhuiValueLabel.text = yhqStr;
+            }
+            else{
+                _youhuiValueLabel.text = @"0";
+            }
+
+        } failure:^(NSError *error) {
+           
+            NSLog(@"查询实名认证失败：%@",error);
+        }];
+
+    }
 
 }
 
 
 
-#pragma mark 第三组按钮跳转 
+#pragma mark 第三组按钮跳转
 
 - (void)tiaoZhuanHuiYuanKa{
     if (!loginid) {
@@ -477,7 +529,7 @@
     [self.lingQuQuanView createView];
     [self.lingQuQuanView setHideBlockAction:^(BOOL success) {
         //查询 用户已经领取的优惠券
-        [weakSelf chaXunYiLingQuQuanList];
+        //[weakSelf chaXunYiLingQuQuanList];
         
         [weakSelf.tabBarController.tabBar setHidden:NO];
         [UIView animateWithDuration:0.4f animations:^{
@@ -905,27 +957,25 @@
     
     [MLHttpManager post:CHAXUNRENZHENG_RENZHENG_URLStrign params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
         NSLog(@"查询实名认证：%@",responseObject);
-        NSDictionary * dataDic = responseObject[@"data"];
-        //identity_list
-
+        
+        NSDictionary * result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            
+            NSDictionary * dataDic = responseObject[@"data"];
+            //identity_list
             NSDictionary * identity_listDic = dataDic[@"identity_list"];
-        
-            
-            
-        
             NSString * trueStr = identity_listDic[@"identity_verify"];
-        if ([trueStr isEqualToString:@"true"]) {
-            _iS_identity_verify = YES;
-        }
-        else{
-            _iS_identity_verify = YES;
-        }
+            if ([trueStr isEqualToString:@"true"]) {
+                _iS_identity_verify = YES;
+            }
+            else{
+                _iS_identity_verify = NO;
+            }
             
-            if (_iS_identity_verify) {
-                
+            if (_iS_identity_verify == YES) {
                 _headView.renZhengLabel.text = @"已认证";
                 _isRenZheng = YES;
-                
+                _headView.biaoZhiImageView.hidden = NO;
                 _pay_id = identity_listDic[@"pay_id"];
                 _pay_mobile = identity_listDic[@"pay_mobile"];
                 _real_name = identity_listDic[@"real_name"];
@@ -934,16 +984,20 @@
             }
             else{
                 _isRenZheng = NO;
-                _headView.renZhengLabel.text = @"未认证";
+                _headView.biaoZhiImageView.hidden = YES;
+                _headView.renZhengLabel.text = @"";
             }
+            
+            _isRenZhengQequestSuc = YES;
+        }
 
-        _isRenZhengQequestSuc = YES;
     } failure:^(NSError *error) {
+        _headView.biaoZhiImageView.hidden = YES;
+        _headView.renZhengLabel.text = @"";
         _isRenZhengQequestSuc = NO;
         NSLog(@"查询实名认证失败：%@",error);
     }];
 }
-
 
 #pragma mark 隐藏消息按钮
 - (void)hideZLMessageBtnAndSetingBtn{
@@ -995,7 +1049,8 @@
             _backgroundScrollView.contentSize = CGSizeMake(SIZE_WIDTH, SIZE_HEIGHT-49.0-64.0);
         }
         
-
+        //请求我的资产
+        [self getMyZiChanAction];
         
     }
     else{
@@ -1049,14 +1104,14 @@
 
     
     [self.headView.headBtn sd_setImageWithURL:[NSURL URLWithString:avatorurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
-    
+    self.headView.biaoZhiImageView.hidden = YES;
     [self showZLMessageBtnAndSettingBtn];
     
     if ([userDefaults objectForKey:kUSERDEFAULT_USERPHONE]) {
         //查询实名认证
         [self chaXunISshiMingRenZheng];
         //查询 用户已经领取的优惠券
-        [self chaXunYiLingQuQuanList];
+        //[self chaXunYiLingQuQuanList];
     }
 }
 

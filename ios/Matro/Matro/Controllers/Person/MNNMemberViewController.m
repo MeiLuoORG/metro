@@ -58,14 +58,14 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
    // [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
-    self.title = @"我的会员卡";
+    self.title = @"会员卡";
     self.moRenIndex = 0;
     self.currentCardIndex = 0;
     self.cardARR = [[NSMutableArray alloc]init];
     
     _ValidCentSLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_WIDTH-100, 10,70 , 20)];
     _ValidCentSLabel.textAlignment = NSTextAlignmentRight;
-    _ValidCentSLabel.text = @"0001";
+    _ValidCentSLabel.text = @"0";
     _ValidCentSLabel.font = [UIFont systemFontOfSize:12];
     _ValidCentSLabel.alpha = 0.5;
 
@@ -107,7 +107,7 @@
         
         //configure carousel
         //configure carousel
-        self.carousel = [[iCarousel alloc]initWithFrame:CGRectMake(14, 20,SIZE_WIDTH-28, 227)];
+        self.carousel = [[iCarousel alloc]initWithFrame:CGRectMake(14, 20,SIZE_WIDTH-28, (227.0/347.0)*SIZE_WIDTH)];
         self.carousel.delegate = self;
         self.carousel.dataSource = self;
         self.carousel.type = iCarouselTypeRotary;
@@ -158,7 +158,7 @@
     {
         if (self.cardARR.count > 0) {
             VipCardModel * CardModel = [self.cardARR objectAtIndex:index];
-            view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, 227.0f)];
+            view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, (227.0/347.0)*SIZE_WIDTH)];
             //((UIImageView *)view).image = [UIImage imageNamed:VIPCARDIMG_DEFAULTNAME];
             [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:CardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
             //加阴影 zhou
@@ -166,6 +166,18 @@
             view.layer.shadowOffset = CGSizeMake(8,8);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
             view.layer.shadowOpacity = 0.5;//阴影透明度，默认0
             view.layer.shadowRadius = 7;//阴影半径，默认3
+            
+            UILabel * label = [UILabel new];
+            
+            label.text = CardModel.cardNo;
+            label.font = [UIFont systemFontOfSize:15.0f];
+            
+            [view addSubview:label];
+            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(view).offset(30);
+                make.bottom.mas_equalTo(view).offset(-30);
+            }];
+            
             //view.contentMode = UIViewContentModeCenter;
             /*
              label = [[UILabel alloc] initWithFrame:view.bounds];
@@ -212,7 +224,7 @@
             //this `if (view == nil) {...}` statement because the view will be
             //recycled and used with other index values later
             VipCardModel * CardModel = [self.cardARR objectAtIndex:index];
-            view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, 227.0f)];
+            view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, (227.0/347.0)*SIZE_WIDTH)];
             //((UIImageView *)view).image = [UIImage imageNamed:VIPCARDIMG_DEFAULTNAME];
             [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:CardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
             //加阴影 zhou
@@ -432,8 +444,7 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                             completionHandler:
                                   ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                      NSLog(@"原生错误error:%@",error);
-                                      
+   
                                       //请求没有错误
                                       if (!error) {
                                           if (data && data.length > 0) {
@@ -441,35 +452,43 @@
                                               // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                               NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                                               //NSLog(@"error原生数据登录：++： %@",yuanDic);
-                                              NSLog(@"设置默认卡%@",result);
-                                              NSDictionary * userDataDic = result[@"data"];
-                                              NSLog(@"获取单个会员卡详细信息%@",result);
-                                              if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-                                                  //vipCard
-                                                  //ValidCent
-                                                  //_ValidCentString = userDataDic[@"ValidCent"];
-                                                  _ValidCentSLabel.text = userDataDic[@"ValidCent"];
+                                              //NSLog(@"设置默认卡%@",result);
+                                              if ([result[@"succ"] isEqual:@1]) {
+                                                 
+                                                  NSDictionary * userDataDic = result[@"data"];
+                                                  NSLog(@"获取单个会员卡详细信息%@",result);
+                                                  if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+                                                      //vipCard
+                                                      //ValidCent
+                                                      //_ValidCentString = userDataDic[@"ValidCent"];
+                                                      
+                                                      
+                                                      self.currentCardModel = [VipCardModel new];
+                                                      self.currentCardModel.cardID = userDataDic[@"CardId"];
+                                                      self.currentCardModel.qrCode = userDataDic[@"QRCODE"];
+                                                      self.currentCardModel.validCent = userDataDic[@"ValidCent"];
+                                                      
+                                                      dispatch_sync(dispatch_get_main_queue(), ^{
+                                                          _ValidCentSLabel.text = userDataDic[@"ValidCent"];
+                                                      });
+                                                      
+                                                      //[_tableView reloadData];
+                                                      //[self.view layoutIfNeeded];
+                                                      //[self.view setNeedsLayout];
+                                                      //[self.view setNeedsDisplay];
+                                                  }else{
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                          [_hud show:YES];
+                                                          _hud.mode = MBProgressHUDModeText;
+                                                          _hud.labelText = result[@"errMsg"];
+                                                          [_hud hide:YES afterDelay:2];
+                                                      });
+                                                     
+
+                                                  }
                                                   
-                                                  self.currentCardModel = [VipCardModel new];
-                                                  self.currentCardModel.cardID = userDataDic[@"CardId"];
-                                                  self.currentCardModel.qrCode = userDataDic[@"QRCODE"];
-                                                  self.currentCardModel.validCent = userDataDic[@"ValidCent"];
-                                                  //[_tableView reloadData];
-                                                  //[self.view layoutIfNeeded];
-                                                  //[self.view setNeedsLayout];
-                                                  //[self.view setNeedsDisplay];
-                                              }else{
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [_hud show:YES];
-                                                  _hud.mode = MBProgressHUDModeText;
-                                                  _hud.labelText = result[@"errMsg"];
-                                                  [_hud hide:YES afterDelay:2];
-                                                  });
-                                                  /*
-                                                   UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
-                                                   [alert show];
-                                                   */
                                               }
+                                              
                                           }
                                       }
                                       else{
@@ -507,7 +526,7 @@
         
         for (int i=0; i<self.cardARR.count; i++) {
             VipCardModel * cardModel = [self.cardARR objectAtIndex:i];
-            UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, 227)];
+            UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, (227.0/347.0)*SIZE_WIDTH)];
             
             /*
             NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
@@ -543,19 +562,19 @@
 - (void)createTableView {
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-20) style:UITableViewStylePlain];
     _tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
-    _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 307)];
+    _backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, (307.0/375.0)*SIZE_WIDTH)];
     _backgroundView.backgroundColor = [UIColor whiteColor];
     //    _membershipCard = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, MAIN_SCREEN_WIDTH-40, 150)];
     //    [_backgroundView addSubview:_membershipCard];
     
-    scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 267)];
+    scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, (267.0/375.0)*SIZE_WIDTH)];
     scrollview.backgroundColor=[UIColor whiteColor];
     scrollview.showsVerticalScrollIndicator = NO;
     scrollview.showsHorizontalScrollIndicator = NO;
     scrollview.bounces = NO;
     scrollview.pagingEnabled=YES;
     scrollview.delegate=self;
-    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*1, 267);
+    scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*1, (267.0/375.0)*SIZE_WIDTH);
     
     
     /*
@@ -576,7 +595,7 @@
     //[scrollview addSubview:bkView];
 
     for (int i=0; i<1; i++) {
-        _defaultImageView = [[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, 227)];
+        _defaultImageView = [[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, (227.0/347.0)*SIZE_WIDTH)];
         
         //NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
         
@@ -680,64 +699,7 @@
     CGRect rect =[string boundingRectWithSize:CGSizeMake(394, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]} context:nil];//计算字符串所占的矩形区域的大小
     return rect.size.height;//返回高度
 }
-/*
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    //pageControl.currentPage = scrollView.contentOffset.x/(MAIN_SCREEN_WIDTH);
-    //动画过程中 一直执行
-    //NSLog(@"scrollViewDidScroll");
-    self.currentCardIndex = scrollview.contentOffset.x/MAIN_SCREEN_WIDTH;
-    //NSLog(@"scrollView正在+++拖拽：%d",self.currentCardIndex);
-    if (self.currentCardIndex == self.moRenIndex) {
-        
-        btnSelect.selected = YES;
-    }
-    else{
-        btnSelect.selected = NO;
-     
-    }
-    VipCardModel * firstCardModel = [self.cardARR objectAtIndex:self.currentCardIndex];
-    
-    _preferentialRules.text = firstCardModel.cardRule;
-    //NSLog(@"消费规则内容：%@",_preferentialRules.text);
-    CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
-    //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
-    _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
-    _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
-    
-    _tableView.tableFooterView = _guiZeView;
-    
-}
 
-*/
-/*
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    if (self.cardARR.count > 0) {
-        self.currentCardIndex = scrollview.contentOffset.x/MAIN_SCREEN_WIDTH;
-        //NSLog(@"scrollView正在+++拖拽：%d",self.currentCardIndex);
-        if (self.currentCardIndex == self.moRenIndex) {
-            
-            btnSelect.selected = YES;
-        }
-        else{
-            btnSelect.selected = NO;
-            
-        }
-        VipCardModel * firstCardModel = [self.cardARR objectAtIndex:self.currentCardIndex];
-        
-        _preferentialRules.text = firstCardModel.cardRule;
-        //NSLog(@"消费规则内容：%@",_preferentialRules.text);
-        CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
-        //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
-        _guiZeView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, rect.size.height+60);
-        _preferentialRules.frame = CGRectMake(20, 5, MAIN_SCREEN_WIDTH-40, rect.size.height);
-        _tableView.tableFooterView = _guiZeView;
-        
-        [self getCardInfowithcardNo:firstCardModel.cardNo];
-    }
-
-}
-*/
 
 
 
@@ -1002,7 +964,7 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                             completionHandler:
                                   ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                      NSLog(@"原生错误error:%@",error);
+                                      
                                       
                                       //请求没有错误
                                       if (!error) {
@@ -1068,8 +1030,11 @@
                                                    [_hud hide:YES afterDelay:2];
                                                    */
                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                  UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
-                                                  [alert show];
+                                                       [MBProgressHUD showMessag:@"没有会员卡信息" toView:self.view];
+                                                       /*
+                                                       UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"账户已过期" message:nil delegate:nil cancelButtonTitle:@"重新登录" otherButtonTitles:nil, nil];
+                                                        [alert show];
+                                                       */
                                                    });
                                               }
 
@@ -1098,57 +1063,7 @@
 
 
 #pragma end mark
-/*
-#pragma mark 原生注册方法 开始
 
-- (void) yuanShengRegisterAcrionWithRet2:(NSString *)ret2{
-    //GCD异步实现
-    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    //dispatch_sync(q1, ^{
-        NSString *urlStr = [NSString stringWithFormat:@"%@",Login_URLString];
-        NSURL * URL = [NSURL URLWithString:urlStr];
-        NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
-        [request setHTTPMethod:@"post"]; //指定请求方式
-        NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
-        [request setHTTPBody:data3];
-        [request setURL:URL]; //设置请求的地址
-        NSURLSession *session = [NSURLSession sharedSession];
-        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                                completionHandler:
-                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          NSLog(@"原生错误error:%@",error);
-                                          
-                                          //请求没有错误
-                                          if (!error) {
-                                              if (data && data.length > 0) {
-                                                  //JSON解析
-                                                  // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                                  NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
-                                                  
-                                                  
-                                              }
-                                          }
-                                          else{
-                                              //请求有错误
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  
-                                                  [_hud show:YES];
-                                                  _hud.mode = MBProgressHUDModeText;
-                                                  _hud.labelText = REQUEST_ERROR_ZL;
-                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
-                                                  [_hud hide:YES afterDelay:1];
-                                              });
-                                              
-                                          }
-                                          
-                                      }];
-        
-        [task resume];
-    //});
-}
-#pragma end mark 原生注册方法  结束
-*/
 
 
 - (void)didReceiveMemoryWarning {
@@ -1156,14 +1071,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

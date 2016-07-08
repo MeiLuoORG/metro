@@ -15,6 +15,4 @@
 @property (nonatomic,retain)MLOrderListModel *orderDetail;
 @property (nonatomic,assign)BOOL isGlobal;
 
-
-
 @end

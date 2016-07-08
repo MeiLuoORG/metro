@@ -339,6 +339,7 @@
 		3C1306E51D260BCB005CFCEC /* HATestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1306E41D260BCB005CFCEC /* HATestView.m */; };
 		3C13F2F21D1D19C70069A8F6 /* ShiMingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13F2F01D1D19C70069A8F6 /* ShiMingViewController.m */; };
 		3C13F2F31D1D19C70069A8F6 /* ShiMingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */; };
+		3C197A311D2E831D0087BAF1 /* app_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3C197A301D2E831D0087BAF1 /* app_bg.jpg */; };
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
 		3C36713A1D2A165100BC5680 /* ZLLabelCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3671391D2A165100BC5680 /* ZLLabelCustom.m */; };
 		3C36713F1D2A550C00BC5680 /* PinPaiSPListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C36713E1D2A550C00BC5680 /* PinPaiSPListViewController.m */; };
@@ -1297,6 +1298,7 @@
 		3C13F2EF1D1D19C70069A8F6 /* ShiMingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShiMingViewController.h; sourceTree = "<group>"; };
 		3C13F2F01D1D19C70069A8F6 /* ShiMingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShiMingViewController.m; sourceTree = "<group>"; };
 		3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShiMingViewController.xib; sourceTree = "<group>"; };
+		3C197A301D2E831D0087BAF1 /* app_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = app_bg.jpg; sourceTree = "<group>"; };
 		3C2E204C1D0ABDAF00184D48 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		3C3671381D2A165100BC5680 /* ZLLabelCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLLabelCustom.h; sourceTree = "<group>"; };
@@ -3612,6 +3614,7 @@
 		3C5B0C721CFC37E3003FFD25 /* zhou */ = {
 			isa = PBXGroup;
 			children = (
+				3C197A301D2E831D0087BAF1 /* app_bg.jpg */,
 				3C0556781D236F8A0092D140 /* xiaLacaiDan */,
 				3CEDAD761D13E74E00990DA8 /* iCarousel */,
 				3CAE048F1D06DDD5004504EA /* HYGCD */,
@@ -4127,6 +4130,7 @@
 				2832619A1D192D6E00C9EE4E /* MLStoreCollectViewController.xib in Resources */,
 				7ABB22391D20F96100529B2B /* MLSystemHeaderCell.xib in Resources */,
 				280AADB41CFEDC7500E7A2FA /* 3.JPG in Resources */,
+				3C197A311D2E831D0087BAF1 /* app_bg.jpg in Resources */,
 				3A16DC481CA0EB63007AE4A2 /* CPPhotoInfoViewController.xib in Resources */,
 				3ACF2CD41CA4D9DF003D1F67 /* WebViewJavascriptBridge.js.txt in Resources */,
 				7AEDD0D01CE5A913009B12F4 /* MLServiceTracksTableViewCell.xib in Resources */,

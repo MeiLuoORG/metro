@@ -932,7 +932,7 @@
                                                                           [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                       }
                                                                       else{
-                                                                          [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                          [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                       }
                                                                       
                                                                       //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
@@ -958,7 +958,7 @@
                                                                           [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                       }
                                                                       else{
-                                                                          [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                          [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                       }
                                                                       
                                                                       isDefault = YES;
@@ -1603,7 +1603,7 @@
                                                                       [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
                                                                   else{
-                                                                      [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                      [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
                                                                   
                                                                   //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
@@ -1680,7 +1680,7 @@
                                                                   [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                               }
                                                               else{
-                                                                  [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                  [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                               }
                                                               
                                                               //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]  forKey:kUSERDEFAULT_USERCARDNO];
@@ -2138,7 +2138,7 @@
                                                                       [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
                                                                   else{
-                                                                      [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                      [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
                                                                   //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
                                                                   isDefault = YES;
@@ -2169,7 +2169,7 @@
                                                                   [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                               }
                                                               else{
-                                                                  [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                  [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                               }
                                                               //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]  forKey:kUSERDEFAULT_USERCARDNO];
                                                               

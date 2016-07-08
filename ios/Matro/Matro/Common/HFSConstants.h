@@ -165,7 +165,7 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define VIPCARD_HISTORY_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
 
 //会员卡的默认名称
-#define VIPCARDIMG_DEFAULTNAME @"b54504436257.jpg"
+#define VIPCARDIMG_DEFAULTNAME @"quanqiugouka"
 
 //上传头像http://bbctest.matrojp.com/api.php?m=uploadimg&s=index
 #define UPLOADTOUXIANG_IMAGE_URLString  @"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index"
@@ -194,6 +194,11 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 //请求标题数据
 
 #define HomeTitles_URLString @"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"
+
+//更新头像
+#define GenXinTouXiang_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=update_img"
+
+#define QianDao_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=add_qd"
 
 /*zhouluEND*/
 

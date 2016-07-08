@@ -14,7 +14,6 @@
 
 @interface MLChangePhotoViewController : MLBaseViewController
 
-
 - (void)paiZhaoShangChuan;
 - (void)xiangceShangChuan;
 + (NSString *)md65:(NSString *)str;

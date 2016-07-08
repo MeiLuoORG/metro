@@ -119,4 +119,6 @@
 
 #define REQUEST_ERROR_ZL @"服务连接失败"
 
+#define vCFBundleShortVersionStr [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+
 #endif

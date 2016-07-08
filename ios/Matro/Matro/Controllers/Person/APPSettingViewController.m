@@ -301,6 +301,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 2){//点击清除缓存
+        /*
         UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"确定清除缓存?" message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [_hud show:YES];
@@ -319,6 +320,22 @@
         [alertVc addAction:alertAction];
         [alertVc addAction:cancel];
         [self presentViewController:alertVc animated:YES completion:nil];
+        */
+        _hud = [[MBProgressHUD alloc]initWithView:self.view];
+        [self.view addSubview:_hud];
+        //[_hud show:YES];
+        //_hud.mode = MBProgressHUDModeText;//MBProgressHUDModeIndeterminate
+        [[SDImageCache sharedImageCache]clearDiskOnCompletion:^{
+          //  [_hud hide:YES];
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"清除成功";
+            [_hud hide:YES afterDelay:2];
+            
+            [self.settingTable reloadData];
+        }];
+
+        
     }else if (indexPath.row == 1){
         MLPushConfigViewController *vc = [[MLPushConfigViewController alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
@@ -354,7 +371,7 @@
     switch (indexPath.row) {
         case 0:
             cell.lbname.text = @"版本";
-            cell.valueLB.text = @"2.0.0";
+            cell.valueLB.text = vCFBundleShortVersionStr;
             cell.descLB.hidden = YES;
             break;
         case 1:

@@ -261,6 +261,11 @@
 {
     
 }
+/*
+- (void)backBtnAction{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+*/
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];

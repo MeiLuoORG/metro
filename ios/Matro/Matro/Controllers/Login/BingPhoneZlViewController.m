@@ -756,7 +756,7 @@ static BOOL isPass = NO;
                                                                       [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
                                                                   else{
-                                                                      [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                      [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                       
                                                                   }
                                                                   
@@ -782,7 +782,7 @@ static BOOL isPass = NO;
                                                                       [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
                                                                   else{
-                                                                      [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                      [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
                                                                   //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
                                                                   isDefault = YES;
@@ -1050,7 +1050,7 @@ static BOOL isPass = NO;
             }
             else{
                 
-                [userDefault setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                [userDefault setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
             }
             _currentCardNOs = self.settingMoCardView.cardNoString;
             
@@ -1068,7 +1068,7 @@ static BOOL isPass = NO;
             }
             else{
                 
-                [userDefault setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                [userDefault setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
             }
             _currentCardNOs = cardModel.cardNo;
             [userDefault synchronize];
