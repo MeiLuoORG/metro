@@ -19,6 +19,12 @@
 #import "MLshopFLViewController.h"
 @protocol JSObjectDelegate <JSExport>
 
+<<<<<<< Updated upstream
+=======
+- (void)navigationProduct:(NSString *)productId;
+- (void)skipPage:(NSString *)url;
+
+>>>>>>> Stashed changes
 - (void)skip:(NSString *)index Ui:(NSString *)sender;
 
 @end

@@ -38,6 +38,7 @@
 
 
 - (void)dealloc{
+
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
@@ -58,7 +59,7 @@
         self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderDetail.DDJE];
 
     }
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"shangyiye_arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     
     self.navigationItem.leftBarButtonItem = item;
     
@@ -106,12 +107,20 @@
                 _hud.labelText = @"付款成功";
                 [_hud show:YES];
                 [_hud hide:YES afterDelay:1];
+                MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
+                payResultVC.hidesBottomBarWhenPushed = YES;
+                payResultVC.isSuccess = YES;
+                [self.navigationController pushViewController:payResultVC animated:YES];
             }
                 
                 break;
                 
             default:
             {
+                MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
+                shiBaiVC.hidesBottomBarWhenPushed = YES;
+                
+                [self.navigationController pushViewController:shiBaiVC animated:YES];
                 _hud.mode = MBProgressHUDModeText;
                 _hud.labelText = @"付款失败";
                 [_hud show:YES];
@@ -227,7 +236,7 @@
                           };
     
     
-    [[HFSServiceClient sharedPayClient] POST:@"app/alipay" parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[HFSServiceClient sharedPayClient] POST:ALIPAY_SERVICE_URL parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;
         NSLog(@"result %@",result);
@@ -266,12 +275,19 @@
                         _hud.mode = MBProgressHUDModeText;
                         _hud.labelText = resultDic[@"memo"];
                         [_hud hide:YES afterDelay:2];
-
+                        MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
+                        payResultVC.hidesBottomBarWhenPushed = YES;
+                        payResultVC.isSuccess = YES;
+                        [self.navigationController pushViewController:payResultVC animated:YES];
                         
                     }
                     else{
                         NSString *resultMes = resultDic[@"memo"];
                         resultMes = (resultMes.length<=0?@"支付失败":resultMes);
+                        MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
+                        shiBaiVC.hidesBottomBarWhenPushed = YES;
+                        
+                        [self.navigationController pushViewController:shiBaiVC animated:YES];
                     }
                     NSLog(@"reslut = %@",resultDic);
                 }];
@@ -405,7 +421,7 @@
     NSLog(@"%@",dict);
     
     
-    [[HFSServiceClient sharedPayClient] POST:@"app/wxpay" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[HFSServiceClient sharedPayClient] POST:WXPAY_SERVICE_URL parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *data = (NSDictionary *)responseObject;
         NSString *noncestr = [data objectForKey:@"noncestr"];
@@ -452,7 +468,7 @@
     }
     
     NSDictionary *dict = @{@"txnAmt":totalpay?:@"",@"orderId":outtradenum?:@"",@"orderDesc":@"美罗全球购"};
-    [[HFSServiceClient sharedPayClient]POST:@"app/unionpay" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[HFSServiceClient sharedPayClient]POST:UPPPAY_SERVICE_URL parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *tn = [responseObject objectForKey:@"tn"];
         [UPPayPlugin startPay:tn mode:@"01" viewController:self delegate:self];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

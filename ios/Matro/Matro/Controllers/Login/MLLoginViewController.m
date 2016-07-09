@@ -1040,7 +1040,9 @@
                                                       _registerTypeButton.selected = NO;
                                                       NSLog(@"注册成功");
                                                       if (isDefault) {
-                                                          [self dismissViewControllerAnimated:YES completion:nil];
+                                                          dispatch_sync(dispatch_get_main_queue(), ^{
+                                                              [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                                                          });
                                                       }
                                                       
                                                   }else{
@@ -1667,7 +1669,9 @@
                                                       
                 
                                                       if (isDefault) {
-                                                          [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                                                          dispatch_sync(dispatch_get_main_queue(), ^{
+                                                              [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                                                          });
                                                       }
                                                       else{
                                                           if (vipCardDic.count > 0) {
@@ -2156,7 +2160,10 @@
                                                       
                                                       
                                                       if (isDefault) {
-                                                          [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                                                          dispatch_sync(dispatch_get_main_queue(), ^{
+                                                              [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                                                          });
+                                                          
                                                       }
                                                       else{
                                                           if (vipCardDic.count > 0) {

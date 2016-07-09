@@ -16,8 +16,13 @@
 //http://app-test.matrojp.com
 //http://app.matrojp.com/P2MLinkCenter/
 #define SERVICE_BASE_URL @"http://app.matrojp.com/P2MLinkCenter/"
-//#define SERVICE_BASE_URL @"http://bbctest.matrojp.com/"
-#define SERVICE_BASEPAY_URL @"http://app.matrojp.com/PayCenter/"
+//#define SERVICE_BASE_URL @"http://bbctest.matrojp.com/"http://pay.matrojp.com/PayCenter/app/v200/alipay
+#define SERVICE_BASEPAY_URL @"http://pay.matrojp.com/PayCenter/"
+
+#define ALIPAY_SERVICE_URL  @"http://pay.matrojp.com/PayCenter/app/v200/alipay"
+
+#define WXPAY_SERVICE_URL   @"http://pay.matrojp.com/PayCenter/app/v200/wxpay"
+#define UPPPAY_SERVICE_URL  @"http://pay.matrojp.com/PayCenter/app/v200/unionpay"
 //http://www.matrojp.com/
 //#define SERVICE_GETBASE_URL @"http://app-test.matrojp.com/"
 #define SERVICE_GETBASE_URL @"http://bbctest.matrojp.com/"
@@ -96,25 +101,25 @@
 #define ZIP_FILE_NAME                      @"home_html"
 
 /*zhoulu*/
-#define KUSERDEFAULT_PASSWORD_ZL       @"USER_PASSWORD_ZL"
+#define KUSERDEFAULT_PASSWORD_ZL                @"USER_PASSWORD_ZL"
 
-#define KUSERDEFAULT_ISHAVE_DEFAULTCARD_BOOL @"ISHAVE_DEFAULTCARD_BOOL"
+#define KUSERDEFAULT_ISHAVE_DEFAULTCARD_BOOL    @"ISHAVE_DEFAULTCARD_BOOL"
 //身份证号
-#define KUSERDEFAULT_IDCARD_SHENFEN         @"USER_IDCARD_SHENFEN"
+#define KUSERDEFAULT_IDCARD_SHENFEN             @"USER_IDCARD_SHENFEN"
 //会员类型
-#define KUSERDEFAULT_CARDTYPE_CURRENT      @"USER_CARDTYPE_CURRENT"
+#define KUSERDEFAULT_CARDTYPE_CURRENT           @"USER_CARDTYPE_CURRENT"
 //李佳 BBCtoken
-#define KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA       @"USER_BBC_ACCESSTOKEN"
+#define KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA      @"USER_BBC_ACCESSTOKEN"
 //时间戳
-#define KUSERDEFAULT_TIMEINTERVAR_LIJIA  @"TIMEINTERVAR_LIJIA"
+#define KUSERDEFAULT_TIMEINTERVAR_LIJIA         @"TIMEINTERVAR_LIJIA"
 
-#define ZHAOHUIPASSWORD_CURRENT_PHONE  @"ZHAOHUIPASSWORD_PHONE"
+#define ZHAOHUIPASSWORD_CURRENT_PHONE           @"ZHAOHUIPASSWORD_PHONE"
 
 //李佳接口认证成功后 通知名
-#define RENZHENG_LIJIA_Notification @"renzheng_lijia_notification"
+#define RENZHENG_LIJIA_Notification             @"renzheng_lijia_notification"
 
 //首页切换  视图 按钮 通知名
-#define HOMEVIEW_BUTTON_INDEX_NOTIFICATION @"homeview_button_index_notification"
+#define HOMEVIEW_BUTTON_INDEX_NOTIFICATION      @"homeview_button_index_notification"
 
 
 /*zhoulu*/
@@ -132,73 +137,76 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define PLACEHOLDER_IMAGE [UIImage imageNamed:@"imageloading"]
 
 /*zhouluSTART*/
+
+#define HTTP_BASE_ZHOULU_URL            @"http://app-test.matrojp.com"
+
 //登录接口
-#define Login_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/login"
+#define Login_URLString                 @"http://app-test.matrojp.com/member/ajax/app/sso/login"
 //注册接口
-#define Regist_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/register"
+#define Regist_URLString                @"http://app-test.matrojp.com/member/ajax/app/sso/register"
 //验证码 接口
-#define Code_URLString @"http://app.matrojp.com/P2MLinkCenter/common/sendsms"
+#define Code_URLString                  @"http://app.matrojp.com/P2MLinkCenter/common/sendsms"
 //判断手机号是否注册过
-#define PhoneIsRegisted_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/phoneIsRegister"
+#define PhoneIsRegisted_URLString       @"http://app-test.matrojp.com/member/ajax/app/sso/phoneIsRegister"
 //退出登录
-#define Logout_URLString @"http://app-test.matrojp.com/member/ajax/app/access/loginOut"
+#define Logout_URLString                @"http://app-test.matrojp.com/member/ajax/app/access/loginOut"
 //第三方登录
-#define ThirdLogin_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/thirdPartyLogin"
+#define ThirdLogin_URLString            @"http://app-test.matrojp.com/member/ajax/app/sso/thirdPartyLogin"
 //第三方登录 绑定手机号
-#define ThirdLogin_BindPhone_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/thirdPartyLoginBind"
+#define ThirdLogin_BindPhone_URLString  @"http://app-test.matrojp.com/member/ajax/app/sso/thirdPartyLoginBind"
 //修改密码
-#define XiuGaiPassword_URLString @"http://app-test.matrojp.com/member/ajax/app/access/updatePsw"
+#define XiuGaiPassword_URLString        @"http://app-test.matrojp.com/member/ajax/app/access/updatePsw"
 //绑定会员卡
-#define BindCard_URLString @"http://app-test.matrojp.com/member/ajax/app/access/cardBind"
+#define BindCard_URLString              @"http://app-test.matrojp.com/member/ajax/app/access/cardBind"
 //忘记密码
-#define ForgetPassword_URLString @"http://app-test.matrojp.com/member/ajax/app/sso/forgetPsw"
+#define ForgetPassword_URLString        @"http://app-test.matrojp.com/member/ajax/app/sso/forgetPsw"
 //会员信息查询
-#define VIPInfo_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getUser"
+#define VIPInfo_URLString               @"http://app-test.matrojp.com/member/ajax/app/access/getUser"
 //会员卡可用积分
-#define VIPCardJiFen_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getOfflineVipCard"
+#define VIPCardJiFen_URLString          @"http://app-test.matrojp.com/member/ajax/app/access/getOfflineVipCard"
 //消费记录
-#define VIPCardJiLu_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
+#define VIPCardJiLu_URLString           @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
 //修改账户信息
-#define XiuGaiInfo_URLString @"http://app-test.matrojp.com/member/ajax/app/access/updateUserInfo"
+#define XiuGaiInfo_URLString            @"http://app-test.matrojp.com/member/ajax/app/access/updateUserInfo"
 
 //会员卡消费记录
-#define VIPCARD_HISTORY_URLString @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
+#define VIPCARD_HISTORY_URLString       @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
 
 //会员卡的默认名称
-#define VIPCARDIMG_DEFAULTNAME @"quanqiugouka"
+#define VIPCARDIMG_DEFAULTNAME          @"quanqiugouka"
 
-//上传头像http://bbctest.matrojp.com/api.php?m=uploadimg&s=index
+//上传头像
 #define UPLOADTOUXIANG_IMAGE_URLString  @"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index"
 
 //查询实名认证
 #define CHAXUNRENZHENG_RENZHENG_URLStrign @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=sel_identity_card"
 //上传认证信息
-#define SHANGCHUAN_RENZHENG_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=add_identity_card"
+#define SHANGCHUAN_RENZHENG_URLString   @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=add_identity_card"
 
 //请求所有优惠券 信息
-#define QingQiuYouHuiQuan_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons"
+#define QingQiuYouHuiQuan_URLString     @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons"
 //领取 优惠券 列表
-#define LingQuYouHuiQuan_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=coupons"
+#define LingQuYouHuiQuan_URLString      @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=coupons"
 //领取优惠券
-#define LingQuanAction_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=set_coupons"
+#define LingQuanAction_URLString        @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=set_coupons"
 
 //用户的优惠券
 #define YOUHUIQUANLIST_YiLingQu_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons"
 
 //品牌馆
-#define PinPaiGuanList_URLString @"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list"
+#define PinPaiGuanList_URLString        @"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list"
 //首页地址
 //http://61.155.212.146:3000
-#define HomeHTML_URLString @"http://61.155.212.146:3000"
+#define HomeHTML_URLString              @"http://61.155.212.146:3000"
 
 //请求标题数据
 
-#define HomeTitles_URLString @"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"
+#define HomeTitles_URLString            @"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"
 
 //更新头像
-#define GenXinTouXiang_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=update_img"
+#define GenXinTouXiang_URLString        @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=update_img"
 
-#define QianDao_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=add_qd"
+#define QianDao_URLString               @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=add_qd"
 
 /*zhouluEND*/
 

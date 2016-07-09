@@ -52,7 +52,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [self initializeHomePageData];
     MMMaterialDesignSpinner *_loadingSpinner = [[MMMaterialDesignSpinner alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width-80)/2, ([UIScreen mainScreen].bounds.size.height-80)/2, 80, 80)];
     _loadingSpinner.tintColor = [HFSUtility hexStringToColor:@"#ae8e5d"];

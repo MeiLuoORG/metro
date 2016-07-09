@@ -707,7 +707,10 @@ static NSInteger pageIndex = 0;
             NSMutableDictionary *tempdic = [NSMutableDictionary dictionary ];
             for (int i=0; i < temp.count; i++) {
 
+<<<<<<< Updated upstream
                 NSString *productid = temp[i][@"product_id"];
+=======
+>>>>>>> Stashed changes
                // NSMutableArray *product_id = [NSMutableArray array];
                // [product_id addObject:productid];
 

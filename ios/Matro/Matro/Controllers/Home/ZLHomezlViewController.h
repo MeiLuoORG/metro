@@ -52,11 +52,18 @@
 #import "MLShopInfoViewController.h"
 #import "PinPaiSPListViewController.h"
 #import "MLGoodsListViewController.h"
+#import "JSBadgeView.h"
+#import "MBProgressHUD+Add.h"
+#import "MLPayViewController.h"
+
 
 
 @interface ZLHomezlViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,ZLHomeSubVieDragProtocol>
 @property (strong, nonatomic) UIView * firstTopView;
 @property(nonatomic,strong)JSContext *contextjs;
 @property (assign, nonatomic) float historyOffestY;
+@property (strong, nonatomic) UIImageView * dakaImageView;
+@property (strong, nonatomic) JSBadgeView * messageBadgeView;
+@property (strong, nonatomic) UIButton * newsButton;
 
 @end

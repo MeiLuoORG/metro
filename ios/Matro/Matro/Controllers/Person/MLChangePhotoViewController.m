@@ -198,37 +198,35 @@
 - (void)uploadImageUrl2:(NSString *)imgUrl{
 
     //http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=update_img
-    NSString * urlStr = [NSString stringWithFormat:@"%@&header_img=%@",GenXinTouXiang_URLString,imgUrl];
-    NSLog(@"更新头像URL：%@",urlStr);
-        [MLHttpManager get:urlStr params:nil m:@"member" s:@"admin_member" success:^(id responseObject) {
-            NSLog(@"更新头像请求2:%@",responseObject);
-            NSDictionary * result = (NSDictionary *)responseObject;
-            if ([result[@"code"] isEqual:@0]) {
-                [[NSUserDefaults standardUserDefaults] setObject:imgUrl forKey:kUSERDEFAULT_USERAVATOR];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_CHANGEUSERINFO object:nil];
-            }else{
-               
-                    [_hud show:YES];
-                    _hud.mode = MBProgressHUDModeText;
-                    _hud.labelText = result[@"msg"];
-                    [_hud hide:YES afterDelay:2];
-
-            }
-            [self dismissViewControllerAnimated:NO completion:^{
-                
-            }];
+    NSDictionary *ret = @{@"header_img":imgUrl};
+    [MLHttpManager post:GenXinTouXiang_URLString params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
+        NSLog(@"更新头像请求2:%@",responseObject);
+        NSDictionary * result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            [[NSUserDefaults standardUserDefaults] setObject:imgUrl forKey:kUSERDEFAULT_USERAVATOR];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_CHANGEUSERINFO object:nil];
+        }else{
             
-            
-        } failure:^(NSError *error) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = REQUEST_ERROR_ZL;
-            _hud.labelFont = [UIFont systemFontOfSize:13];
-            [_hud hide:YES afterDelay:1];
-            [self dismissViewControllerAnimated:NO completion:nil];
+            _hud.labelText = result[@"msg"];
+            [_hud hide:YES afterDelay:2];
+            
+        }
+        [self dismissViewControllerAnimated:NO completion:^{
+            
         }];
-    
+
+    } failure:^(NSError *error) {
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = REQUEST_ERROR_ZL;
+        _hud.labelFont = [UIFont systemFontOfSize:13];
+        [_hud hide:YES afterDelay:1];
+        [self dismissViewControllerAnimated:NO completion:nil];
+
+    }];
 
 }
 

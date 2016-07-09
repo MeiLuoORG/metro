@@ -110,10 +110,14 @@
          NSDictionary *result = (NSDictionary *)responseObject;
          NSString *code = result[@"code"];
          if ([code isEqual:@0]) {
+<<<<<<< Updated upstream
              if ([result[@"data"][@"sel_info"] isKindOfClass:[NSString class]]) {
                  return ;
              }else{
              
+=======
+             NSLog(@"版本更新：%@",result);
+>>>>>>> Stashed changes
              NSString *loadversion = result[@"data"][@"sel_info"][@"appverison"];
              NSString *downlink = result[@"data"][@"sel_info"][@"download_link"];
              NSLog(@"version===%@ loadversion===%@ downlink===%@",version, loadversion,downlink);
@@ -203,23 +207,33 @@
 //消息按钮
 - (void)newsButtonAction:(UIButton *)sender{
     NSLog(@"点击了消息按钮");
+    self.messageBadgeView.hidden = YES;
+    MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
     /*
     PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
     pinVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:pinVC animated:YES];
     */
-    
+    /*
     MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
     payResultVC.hidesBottomBarWhenPushed = YES;
     payResultVC.isSuccess = YES;
     [self.navigationController pushViewController:payResultVC animated:YES];
-     
+     */
     /*
     MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
     shiBaiVC.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:shiBaiVC animated:YES];
-*/
+     */
+    /*
+    MLPayViewController *vc = [[MLPayViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    vc.paramDic = @{@"totalFee":@"0.1",@"order_trade_no":@"12346128458"};
+    [self.navigationController pushViewController:vc animated:YES];
+     */
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -256,6 +270,8 @@
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
     //[leftBtn setImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(scanning) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     
     [self.firstTopView addSubview:leftBtn];
     
@@ -295,13 +311,22 @@
     UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     [frameView addGestureRecognizer:singleTap];
     
-    UIButton * newsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [newsBtn setFrame:CGRectMake(SIZE_WIDTH-35, 30, 22, 19)];
-    //[newsBtn setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
-    [newsBtn setBackgroundImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
-    [newsBtn addTarget:self action:@selector(newsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+
+
     
-    [self.firstTopView addSubview:newsBtn];
+    self.newsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.newsButton setFrame:CGRectMake(SIZE_WIDTH-35, 30, 22, 19)];
+    //[newsBtn setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
+    [self.newsButton setBackgroundImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
+    [self.newsButton addTarget:self action:@selector(newsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.messageBadgeView = [[JSBadgeView alloc]initWithParentView:self.newsButton alignment:JSBadgeViewAlignmentTopRight];
+    self.messageBadgeView.badgeText = @"●";
+    [self.messageBadgeView setBadgeTextColor:[HFSUtility hexStringToColor:Main_textRedBackgroundColor]];
+    [self.messageBadgeView setBadgeBackgroundColor:[UIColor clearColor]];
+    
+    [self.firstTopView addSubview:self.newsButton];
+    
     
 }
 
@@ -647,15 +672,15 @@
     }
     if ([type isEqualToString:@"4"]) {
         //链接
-        [self daKaQianDao];
-        /*
+        //[self daKaQianDao];
+        
         //打卡签到
         MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
         vc.title = @"热门活动";
         vc.link = sender;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
-         */
+         
     }
     if ([type isEqualToString:@"5"]) {
         //店铺
@@ -699,6 +724,7 @@
                 [self daKaQianDao];
             }
             else{
+                //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(daKaQianDao) name:RENZHENG_LIJIA_Notification object:nil];
                 MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
                 loginVC.isLogin = YES;
                 [self presentViewController:loginVC animated:NO completion:nil];
@@ -787,13 +813,6 @@
 //        pinVC.hidesBottomBarWhenPushed = YES;
 //        [self.navigationController pushViewController:pinVC animated:YES];
     }
-    else{
-        MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
-        loginVC.isLogin = YES;
-        [self presentViewController:loginVC animated:NO completion:nil];
-        
-    }
-    
     
 }
 
@@ -804,14 +823,32 @@
     [MLHttpManager post:QianDao_URLString params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         NSLog(@"打卡签到：%@",result);
+        if ([result[@"code"] isEqual:@0]) {
+            self.dakaImageView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 250, SIZE_WIDTH-80, 35)];
+            self.dakaImageView.userInteractionEnabled = YES;
+            self.dakaImageView.hidden = NO;
+            self.dakaImageView.image = [UIImage imageNamed:@"app_bg.jpg"];
+            
+            [self.view addSubview:self.dakaImageView];
+            
+            [self performSelector:@selector(hideDakaImageView) withObject:self afterDelay:1.0f];
+            
+        }
+        else{
+         [MBProgressHUD showMessag:@"今日已打卡" toView:self.view];
+        }
         
     } failure:^(NSError *error) {
         NSLog(@"打卡签到错误：%@",error);
+        [MBProgressHUD showMessag:REQUEST_ERROR_ZL toView:self.view];
     }];
         
 
 }
+- (void)hideDakaImageView{
 
+    self.dakaImageView.hidden = YES;
+}
 /*
 #pragma mark - Navigation
 

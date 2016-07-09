@@ -336,8 +336,6 @@
 
 }
 
-
-
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     return [[UIView alloc]init];
 }

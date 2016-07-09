@@ -42,6 +42,7 @@
     [self.view addSubview:self.webView];
     [self createWebViewWith:self.urlstr];
 
+
 }
 //创建 webView
 - (void)createWebViewWith:(NSString *)urlString{

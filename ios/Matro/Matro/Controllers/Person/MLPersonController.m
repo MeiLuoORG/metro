@@ -119,6 +119,7 @@
     [_messageBadgeView setBadgeBackgroundColor:[UIColor clearColor]];
     
     UIBarButtonItem *message = [[UIBarButtonItem alloc]initWithCustomView:_messageButton];
+    
     UIView *s = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 22)];
     
     
@@ -934,13 +935,20 @@
             shiMingVC.hidesBottomBarWhenPushed = YES;
             NSLog(@"是否认证：%d",_isRenZheng);
             shiMingVC.isRenZheng = _isRenZheng;
-            if (_isRenZheng) {
+            if (_isRenZheng == YES) {
                 shiMingVC.pay_id = _pay_id;
                 shiMingVC.userPhone = _pay_mobile;
                 shiMingVC.userName = _real_name;
                 shiMingVC.userShenFenCardID = _identity_card;
                 shiMingVC.shenFenImageURLStr = _identity_picurl;
                  NSLog(@"姓名为：%@,身份证号为：%@,图片地址：%@",shiMingVC.userName,shiMingVC.userShenFenCardID,shiMingVC.shenFenImageURLStr);
+            }
+            else{
+                shiMingVC.pay_id = _pay_id;
+                shiMingVC.userPhone = _pay_mobile;
+                shiMingVC.userName = _real_name;
+                shiMingVC.userShenFenCardID = _identity_card;
+                shiMingVC.shenFenImageURLStr = _identity_picurl;
             }
             
             [self.navigationController pushViewController:shiMingVC animated:YES];
@@ -986,16 +994,47 @@
                 _isRenZheng = NO;
                 _headView.biaoZhiImageView.hidden = YES;
                 _headView.renZhengLabel.text = @"";
+                
+                if (![identity_listDic[@"pay_id"] isEqual:[NSNull null]]) {
+                    _pay_id = identity_listDic[@"pay_id"];
+                }
+                if (![identity_listDic[@"pay_mobile"]isEqual:[NSNull null]]) {
+                    _pay_mobile = identity_listDic[@"pay_mobile"];
+                }
+                if (![identity_listDic[@"real_name"] isEqual:[NSNull null]]) {
+                   _real_name = identity_listDic[@"real_name"];
+                }
+                if (![identity_listDic[@"identity_card"] isEqual:[NSNull null]]) {
+                     _identity_card = identity_listDic[@"identity_card"];
+                }
+                if (![identity_listDic[@"identity_pic"] isEqual:[NSNull null]]) {
+                    _identity_picurl = identity_listDic[@"identity_pic"];
+                }
+        
             }
             
             _isRenZhengQequestSuc = YES;
         }
+        else{
+            _pay_id = @"";
+            _pay_mobile = @"";
+            _real_name = @"";
+            _identity_card = @"";
+            _identity_picurl = @"";
+        }
 
     } failure:^(NSError *error) {
+        _pay_id = @"";
+        _pay_mobile = @"";
+        _real_name = @"";
+        _identity_card = @"";
+        _identity_picurl = @"";
         _headView.biaoZhiImageView.hidden = YES;
         _headView.renZhengLabel.text = @"";
         _isRenZhengQequestSuc = NO;
         NSLog(@"查询实名认证失败：%@",error);
+        
+        
     }];
 }
 
@@ -1460,6 +1499,7 @@
 
 -(void)actMessage{
     [self hideZLMessageBtnAndSetingBtn];
+    _messageBadgeView.hidden = YES;
     MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];

@@ -34,6 +34,9 @@
 @property (strong, nonatomic) UIWebView * webView;
 @property (strong, nonatomic) NSString * urlstr;
 
+@property (strong, nonatomic) UIImageView * dakaImageView;
+
+
 - (void)createWebViewWith:(NSString *)urlString;
 - (instancetype)initWithURL:(NSString * )urlStr;
 @end

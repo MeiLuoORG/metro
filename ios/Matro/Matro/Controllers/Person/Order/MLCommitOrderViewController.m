@@ -196,7 +196,11 @@
     }
     cell.orderTitle.text = model.pname;
     cell.orderNum.text = [NSString stringWithFormat:@"x%ld",model.num];
+<<<<<<< Updated upstream
    // cell.orderPrice.text = [NSString stringWithFormat:@"￥%.2f",model.price.floatValue];
+=======
+    //cell.orderPrice.text = [NSString stringWithFormat:@"￥%.2f",model.price.floatValue];
+>>>>>>> Stashed changes
     self.proCollectionH.constant = 45*self.commitOrder.cart.count + 125*cart.prolist.count ;
     return cell;
 }

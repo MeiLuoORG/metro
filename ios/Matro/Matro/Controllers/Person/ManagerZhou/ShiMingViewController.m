@@ -42,11 +42,14 @@
     //[self.view addSubview:navTop];
 
 
+<<<<<<< Updated upstream
     
     
     
     
 
+=======
+>>>>>>> Stashed changes
 
     if (self.isRenZheng == YES) {
 
@@ -65,6 +68,25 @@
         
         UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
         self.navigationItem.rightBarButtonItem = item;
+        
+        
+    }
+    
+    if (self.isRenZheng == YES) {
+    }
+    else{
+        
+        if (![self.userName isEqual:[NSNull null]]) {
+            _xingMingLabel.text = self.userName;
+        }
+        if (![self.userShenFenCardID isEqual:[NSNull null]]) {
+            _shenFenCardId.text = self.userShenFenCardID;
+        }
+        if (![self.shenFenImageURLStr isEqual:[NSNull null]]) {
+            [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
+            _isUploadIMG_OK = YES;
+            _uploadIMG_URLString = self.shenFenImageURLStr;
+        }
         
         
     }
@@ -90,6 +112,7 @@
         [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal];
     }
 
+
 }
 
 - (void)buttonAction1{
@@ -113,7 +136,7 @@
         [_hud hide:YES afterDelay:1];
         return;
     }
-    if (_isUploadIMG_OK == NO) {
+    if (_isUploadIMG_OK == NO ) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请上传身份证正面照";
@@ -257,6 +280,8 @@
     _xingMingLabel.leftView = kongView;
     _xingMingLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
     _xingMingLabel.leftViewMode = UITextFieldViewModeAlways;
+    
+    
     [self.view addSubview:_xingMingLabel];
 
     

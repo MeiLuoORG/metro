@@ -66,7 +66,18 @@
     
     _errTitleArray = @[@"订单编号：",@"支付金额：",@"支付方式：",@"失败原因："];
      */
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    
+    self.navigationItem.leftBarButtonItem = item;
     [self guessYourLike];
+}
+
+- (void)goBack{
+
+    [self getAppDelegate].tabBarController.selectedIndex = 0;
+    
+    //[self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -326,8 +337,9 @@
         
         return headerView;
     }
-    
 }
+
+
 - (void)toHomeAction:(UIButton *)sender{
         [self getAppDelegate].tabBarController.selectedIndex = 0;
         [self.navigationController popViewControllerAnimated:NO];
@@ -340,8 +352,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)backBtnAction{
-    [self getAppDelegate].tabBarController.selectedIndex = 0;
-    [self.navigationController popViewControllerAnimated:NO];
+
 
 }
 /*
