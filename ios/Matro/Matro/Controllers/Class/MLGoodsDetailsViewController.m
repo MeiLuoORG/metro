@@ -687,8 +687,6 @@
             [guige addObject:guigestr1];
             [guige addObject:guigestr2];
         }
-        
-        
         for (NSString *searchStr in guige) {
             if ([searchStr isEqualToString:tagName]) {
                 Searchdic = searchDic;
@@ -872,18 +870,12 @@
 - (IBAction)addShoppingBag:(id)sender {
     /*
      http://localbbc.matrojp.com/api.php?m=product&s=cart&action=add_cart
-     
      POST
-     
      id=12301 商品id    商品详情接口里的   pinfo  下的id
-     
      nums=1 商品数量
-     
      sid=12311 商品规格ID    没有规格的填0 有规格填 商品详情接口里的   pinfo  下的 property  下的 id 字段
      
      sku=0  商品货号   没有规格的时候填商品详情接口里的   pinfo  下的code,如果是带规格的那么填pinfo  下的 property  下的 sku字段
-     
-     
     */
     
     if ([self.kuncuntisLabel.text isEqualToString:@"售罄"]) {

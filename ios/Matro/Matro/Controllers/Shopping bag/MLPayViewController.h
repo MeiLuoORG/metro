@@ -16,5 +16,9 @@
 @property (nonatomic,assign)BOOL isGlobal;
 
 
+@property (nonatomic,copy)NSString *order_id;
+
+
+
 
 @end

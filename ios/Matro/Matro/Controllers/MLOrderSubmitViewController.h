@@ -11,5 +11,6 @@
 
 @interface MLOrderSubmitViewController : MLBaseViewController
 @property (nonatomic,strong)MLCommitOrderListModel *order_info;
+@property (nonatomic,strong)NSDictionary *params;
 
 @end

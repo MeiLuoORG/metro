@@ -27,6 +27,7 @@
 #import "HFSConstants.h"
 #import "MLHttpManager.h"
 #import "MLReturnRequestViewController.h"
+#import "MLPayViewController.h"
 
 
 typedef NS_ENUM(NSInteger,OrderActionType){
@@ -210,7 +211,9 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
             [weakself showTransparentController:vc];
         };
         cell.fuKuanAction = ^(){//跳到付款 页面
-            
+            MLPayViewController *vc = [[MLPayViewController alloc]init];
+            vc.order_id = order.order_id;
+            [self.navigationController pushViewController:vc animated:YES];
         };
         
         return cell;

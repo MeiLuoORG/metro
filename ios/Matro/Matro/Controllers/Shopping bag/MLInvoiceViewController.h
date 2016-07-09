@@ -10,7 +10,7 @@
 
 
 
-typedef void(^InvoiceBlock)(BOOL,BOOL,NSString*);
+typedef void(^InvoiceBlock)(BOOL,BOOL,NSString*,NSString*);
 
 @protocol InvoiceDelegate <NSObject>
 - (void)InvoiceDic:(NSDictionary *)dic;

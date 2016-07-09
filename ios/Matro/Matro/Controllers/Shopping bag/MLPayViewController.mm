@@ -13,17 +13,19 @@
 #import "UIColor+HeinQi.h"
 #import "MLPayresultViewController.h"
 #import "WXApi.h"
-#import "UPPayPlugin.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "AliPayOrder.h"
 #import "HFSServiceClient.h"
 #import "GTMNSString+URLArguments.h"
 #import <PassKit/PassKit.h>
 #import "MLShopBagViewController.h"
+#import "MBProgressHUD+Add.h"
 
+#import "UPAPayPlugin.h"
 //#import <PassKit/PassKit.h>
+#define kAppleMerchantID @"merchant.com.matro"
 
-@interface MLPayViewController ()<UITableViewDataSource,UITableViewDelegate,UPPayPluginDelegate
+@interface MLPayViewController ()<UITableViewDataSource,UITableViewDelegate,UPAPayPluginDelegate
 ,PKPaymentAuthorizationViewControllerDelegate
 >{
     NSMutableArray *_payTitleArray;
@@ -293,45 +295,21 @@
 #pragma mark apple pay delegate
 - (void)applepay
 {
-    // [Crittercism beginTransaction:@"checkout"];
-    
     if([PKPaymentAuthorizationViewController canMakePayments]) {
         
-        NSLog(@"Woo! Can make payments!");
+        [[HFSServiceClient sharedPayClient]POST:@"app/v200/unionpay" parameters:@{@"orderid":self.order_id?:@""} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+        }];
         
-        PKPaymentRequest *request = [[PKPaymentRequest alloc] init];
-        
-//        PKPaymentSummaryItem *widget1 = [PKPaymentSummaryItem summaryItemWithLabel:@"Widget 1"
-//                                                                            amount:[NSDecimalNumber decimalNumberWithString:@"0.99"]];
-//        
-//        PKPaymentSummaryItem *widget2 = [PKPaymentSummaryItem summaryItemWithLabel:@"Widget 2"
-//                                                                            amount:[NSDecimalNumber decimalNumberWithString:@"1.00"]];
-        
-        PKPaymentSummaryItem *total = [PKPaymentSummaryItem summaryItemWithLabel:@"总价"
-                                                                          amount:[NSDecimalNumber decimalNumberWithString:@"0.01"]];
-        
-        request.paymentSummaryItems = @[ total];
-        request.countryCode = @"CN";
-        request.currencyCode = @"CHW";
-        request.supportedNetworks = @[PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa];
-        request.merchantIdentifier = @"merchant.MatroApplePay";
-        request.merchantCapabilities = PKMerchantCapabilityEMV;
-        
-        PKPaymentAuthorizationViewController *paymentPane = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
-        paymentPane.delegate = self;
-        if (paymentPane) {
-            [self presentViewController:paymentPane animated:TRUE completion:nil];
-
-        }
-        else{
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"请先绑定您的银行卡";
-            [_hud hide:YES afterDelay:2];
-        }
-        
+//        if([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:@[PKPaymentNetworkChinaUnionPay]])
+//        {
+//            [UPAPayPlugin startPay:@"dingdan" mode:@"00" viewController:self delegate:self andAPMechantID:kAppleMerchantID];
+//        }
     } else {
-        NSLog(@"This device cannot make payments");
+        [MBProgressHUD showMessag:@"您的设备暂不支持ApplePay" toView:self.view];
     }
 }
 
@@ -454,7 +432,7 @@
     NSDictionary *dict = @{@"txnAmt":totalpay?:@"",@"orderId":outtradenum?:@"",@"orderDesc":@"美罗全球购"};
     [[HFSServiceClient sharedPayClient]POST:@"app/unionpay" parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *tn = [responseObject objectForKey:@"tn"];
-        [UPPayPlugin startPay:tn mode:@"01" viewController:self delegate:self];
+//        [UPPayPlugin startPay:tn mode:@"01" viewController:self delegate:self];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         NSLog(@"error kkkk %@",error);

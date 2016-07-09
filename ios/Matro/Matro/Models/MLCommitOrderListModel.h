@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class MLKuaiDiModel;
+@class MLConsigneeInfo;
 @interface MLCommitOrderListModel : NSObject
 
 @property(nonatomic,strong)NSMutableArray *cart;
-@property(nonatomic,strong)NSMutableDictionary *consignee;
+@property(nonatomic,strong)MLConsigneeInfo *consignee;
 @property(nonatomic,copy)NSString *identity_card;
 @property(nonatomic,copy)NSString *inv_info;
-@property(nonatomic,strong)NSArray *yhqdata;
+@property (nonatomic,assign)float sumtax;
 @property(nonatomic,assign)float sumprice;
 
 @end
@@ -44,19 +45,31 @@
 @property (nonatomic,copy)NSString *sumpromotion_reduce_price;
 @property (nonatomic,copy)NSString *sumprice;
 @property (nonatomic,copy)NSString *reduce_price;
-@property (nonatomic,copy)NSString *sumtax;
+@property (nonatomic,assign)float sumtax;
 @property (nonatomic,strong)NSArray *prolist;
 @property (nonatomic,strong)NSArray *shipping;
 @property (nonatomic,copy)NSString *prepayment_total;
 @property (nonatomic,copy)NSString *sublimit;
 @property (nonatomic,copy)NSString *discount;
 @property (nonatomic,copy)NSString *warehouse_nickname;
+@property(nonatomic,strong)NSArray *yhqdata;
 @property (nonatomic,assign)BOOL isMore;
 @property (nonatomic,assign)BOOL isOpen;
 
 @property (nonatomic,assign)BOOL fapiao;
 @property (nonatomic,assign)BOOL geren;
 @property (nonatomic,copy)NSString *mingxi;
+@property (nonatomic,copy)NSString *fapiao_ID;
+
+
+@property (nonatomic,strong)MLKuaiDiModel *kuaiDiFangshi;
+
+@property (nonatomic,assign)BOOL openKuaiDi;
+@property (nonatomic,assign)BOOL openYouHui;
+@property (nonatomic,assign)BOOL canOpenKuaiDi;
+@property (nonatomic,assign)BOOL canOpenYouHui;
+
+@property (nonatomic,assign)float youhuiMoney;
 
 
 
@@ -115,5 +128,51 @@
 @property (nonatomic,copy)NSString *taxprice;
 
 
+@end
+
+
+@interface MLKuaiDiModel : NSObject
+@property (nonatomic,assign)float sumtax;
+@property (nonatomic,assign)float s_tax;
+@property (nonatomic,copy)NSString *ID;
+@property (nonatomic,copy)NSString *logistics_type;
+@property (nonatomic,copy)NSString *company;
+@property (nonatomic,assign)float price;
+@property (nonatomic,strong)NSNumber *is_show;
+@property (nonatomic,assign)float mianfei;
+@property (nonatomic,assign)float is_free;
+
+@end
+
+
+
+
+@interface MLYouHuiQuanModel : NSObject
+@property (nonatomic,assign)float payable;
+@property (nonatomic,copy)NSString *ID;
+@property (nonatomic,copy)NSString *amount;
+@property (nonatomic,copy)NSString *end_date;
+@property (nonatomic,copy)NSString *value_m;
+@property (nonatomic,assign)float balance;
+@property (nonatomic,copy)NSString *diff_deduct;
+@property (nonatomic,copy)NSString *date_valid;
+@property (nonatomic,copy)NSString *code;
+@property (nonatomic,copy)NSString *stock_num;
+@property (nonatomic,copy)NSString *summary;
+@property (nonatomic,copy)NSString *begin_date;
+@property (nonatomic,copy)NSString *vip_id;
+@property (nonatomic,copy)NSString *validdate;
+@property (nonatomic,copy)NSString *name;
+
+@property (nonatomic,assign)float useSum;
+
+@end
+
+@interface MLConsigneeInfo : NSObject
+@property (nonatomic,copy)NSString *address;
+@property (nonatomic,copy)NSString *mobile;
+@property (nonatomic,copy)NSString *area;
+@property (nonatomic,copy)NSString *name;
+@property (nonatomic,copy)NSString *delivery_address_id;
 @end
 

@@ -27,6 +27,7 @@
 #import "MLReturnRequestViewController.h"
 #import "MLHttpManager.h"
 #import "MLLogisticsViewController.h"
+#import "MLPayViewController.h"
 
 @interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
@@ -80,7 +81,9 @@
                     break;
                 case ButtonActionTypeFukuan://付款  去付款操作
                 {
-                    
+                    MLPayViewController *vc = [[MLPayViewController alloc]init];
+                    vc.order_id = self.order_id;
+                    [self.navigationController pushViewController:vc animated:YES];
                 }
                     break;
                 case ButtonActionTypeQuxiao://订单取消

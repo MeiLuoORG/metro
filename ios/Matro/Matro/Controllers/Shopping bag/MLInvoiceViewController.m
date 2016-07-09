@@ -7,6 +7,8 @@
 //
 
 #import "MLInvoiceViewController.h"
+#import "MLHttpManager.h"
+#import "MBProgressHUD+Add.h"
 
 #import "UIButton+HeinQi.h"
 #import "HFSConstants.h"
@@ -118,24 +120,40 @@
     
    
     NSString *titou = _gongsiTitle.text;
-//    if ([@"" isEqualToString:titou]) {
-//        titou = @"个人";
-//    }
-
+    NSDictionary *params = @{@"do":@"1",@"data[content]":titou,@"data[type]":@"1",@"data[rise]":_gongsi.selected?@"公司":@"个人"};
+    
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=invoice",MATROJP_BASE_URL];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [MLHttpManager post:url params:params m:@"product" s:@"invoice" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary *data = result[@"data"];
+            NSArray *inv_add = data[@"inv_add"];
+            if (inv_add.count>0) {
+                NSDictionary *info = [inv_add firstObject];
+                NSString *ID = info[@"id"];
+                if (self.invoiceBlock) {
+                    self.invoiceBlock(!_bukai.selected,!_gongsi.selected,titou,ID);
+                }
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [MBProgressHUD showMessag:@"发票添加失败" toView:self.view];
+            }
+            
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
     
     
-//    [_delegate InvoiceDic:@{
-//                            @"invoice":_bukai.selected ? @"NO" : @"YES",
-//                            @"gerenOrgongsi":_gongsi.selected ? @"NO" : @"YES",
-//                            @"titleText":titou
-//                            }];
-    
-    if (self.invoiceBlock) {
-        self.invoiceBlock(!_bukai.selected,!_gongsi.selected,titou);
-    }
-    [self.navigationController popViewControllerAnimated:YES];
-    
+   
 }
+
+
+
+
+
 
 
 
