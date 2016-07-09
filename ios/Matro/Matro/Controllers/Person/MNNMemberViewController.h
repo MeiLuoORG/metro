@@ -12,8 +12,8 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "iCarousel.h"
-
-
+#import "MBProgressHUD+Add.h"
+#import "MBProgressHUD.h"
 
 @interface MNNMemberViewController : MLBaseViewController<iCarouselDataSource, iCarouselDelegate>
 

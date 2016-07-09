@@ -18,6 +18,7 @@
 #import "MLFootModel.h"
 #import "MJExtension.h"
 #import "MLHttpManager.h"
+#import "MLGoodsDetailsViewController.h"
 
 @interface MLFootMarkViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -205,6 +206,13 @@
     return 125.f;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *temp = [self.dataSource[indexPath.section] mj_keyValues];
+    MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+    vc.paramDic = temp;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
 
 - (void)removeAll:(id)sender{
     NSLog(@"删除所有");

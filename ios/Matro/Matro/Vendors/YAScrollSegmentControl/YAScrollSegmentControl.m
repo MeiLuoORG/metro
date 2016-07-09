@@ -162,6 +162,7 @@ static const CGFloat defaultGradientPercentage = 0.2;
     
     if (state == UIControlStateNormal) {
         self.buttonColor = color;
+        
     } else if (state == UIControlStateHighlighted) {
         self.buttonHighlightColor = color;
     } else if (state == UIControlStateSelected) {
@@ -199,7 +200,10 @@ static const CGFloat defaultGradientPercentage = 0.2;
     CGFloat x = 0;
     for (NSInteger i = 0; i < self.buttons.count; i++) {
         NSString *title = self.buttons[i];
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(x, 0, 20, self.frame.size.height)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(x, 0, 20, self.frame.size.height - 2)];
+        
+        UIView *xianView = [[UIView alloc]initWithFrame:CGRectMake(button.frame.origin.x, button.frame.size.height + 1, button.frame.size.width, 1)];
+        
         button.tag = i;
         [button setTitleColor:self.buttonColor forState:UIControlStateNormal];
         [button setTitle:title forState:UIControlStateNormal];
@@ -212,10 +216,13 @@ static const CGFloat defaultGradientPercentage = 0.2;
         
         if (self.buttonHighlightColor) {
             [button setTitleColor:self.buttonHighlightColor forState:UIControlStateHighlighted];
+            xianView.backgroundColor = [UIColor greenColor];
         }
         
         if (self.buttonSelectedColor) {
             [button setTitleColor:self.buttonSelectedColor forState:UIControlStateSelected];
+            xianView.backgroundColor = [UIColor greenColor];
+          
         }
         
         if (self.buttonBackgroundImage) {
@@ -229,9 +236,11 @@ static const CGFloat defaultGradientPercentage = 0.2;
         }
         
         button.frame = (CGRect){button.frame.origin, {button.frame.size.width + (self.edgeMargin * 2), self.frame.size.height}};
+        xianView.frame = (CGRect){button.frame.origin, 1};
         x = CGRectGetMaxX(button.frame);
         
         [self.scrollView addSubview:button];
+        [self.scrollView addSubview:xianView];
     }
     
     self.scrollView.contentSize = CGSizeMake(x, self.frame.size.height);

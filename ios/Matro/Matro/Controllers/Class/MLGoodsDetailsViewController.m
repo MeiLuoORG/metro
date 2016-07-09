@@ -261,6 +261,11 @@
 {
     
 }
+/*
+- (void)backBtnAction{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+*/
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -288,7 +293,7 @@
 
 - (IBAction)actPingjia:(id)sender {
     
-    NSLog(@"pingjia===");
+    NSLog(@"pingjia===%@",self.paramDic);
     
     MLpingjiaViewController *vc = [[MLpingjiaViewController alloc] init];
     vc.paramDic = self.paramDic;
@@ -326,6 +331,7 @@
             
             self.shoucangButton.selected = YES;
             [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
+            [self.shoucangButton setTitle:@"已收藏" forState:UIControlStateNormal];
             [self.shoucangButton setTitleColor:RGBA(174, 142, 93, 1) forState:UIControlStateNormal];
         }
         
@@ -337,7 +343,7 @@
                 
                 NSArray *setmealArr = tempdic[@"setmeal"];
                 if (setmealArr.count ==1) {
-                   
+                    self.guigeH.constant = 40;
                     NSDictionary *guigeDic1 = setmealArr[0];
                     NSString *guigestr1 = guigeDic1[@"name"];
                     if (i == 0) {
@@ -363,6 +369,7 @@
                         [huoyuanArray addObject:guigestr1];
                         
                     }else{
+                        
                     for (NSString *searchstr in huoyuanArray) {
                         if (![guigestr1 isEqualToString:searchstr]) {
                             [huoyuanArray addObject:guigestr1];
@@ -373,9 +380,6 @@
                     }
                     }
                     i++;
-                    /*
-                    [huoyuanArray addObject:guigestr1];
-                     */
                     [jieduanArray addObject:guigestr2];
                      
                 }
@@ -436,7 +440,7 @@
         
         NSString *count = dic[@"comment_score"];
        
-        UIImage *image1 = [UIImage imageNamed:@"xin2"];
+        UIImage *image1 = [UIImage imageNamed:@"Star_big2"];
         
         if (count.intValue == 0) {
             
@@ -889,19 +893,16 @@
     
     if (userid) {
         
-    NSLog(@"pDic===5555 %@",pDic);
-    NSLog(@"Searchdic===6666%@",Searchdic);
-        
     NSString *pid = pDic[@"pinfo"][@"id"];
     NSString *sid ;
     NSString *sku;
     if (_titleArray && _titleArray.count ==0) {
         sid = @"0";
-        sku = pDic[@"pinfo"][@"code"];
+        sku = pDic[@"pinfo"][@"code"]?:@"";
         
     }else{
-        sid = Searchdic[@"id"];
-        sku= Searchdic[@"sku"];
+        sid = Searchdic[@"id"]?:@"";
+        sku= Searchdic[@"sku"]?:@"";
     }
     
     
@@ -1111,14 +1112,7 @@
         NSInteger i = scrollView.contentOffset.x/scrollView.frame.size.width + 1;
         _pagecontrol.currentPage = i - 1;
     }
-    
-//    if (scrollView == _dataWebView.scrollView) {
-//        if (scrollView.contentOffset.y > _dataWebView.scrollView.frame.size.height) {
-//            _backToTopView.hidden = NO;
-//        } else {
-//            _backToTopView.hidden = YES;
-//        }
-//    }
+
 }
 
 - (IBAction)bagButtonAction:(id)sender {
@@ -1130,7 +1124,7 @@
 - (IBAction)xuzhiAction:(id)sender {
     
     MLHelpCenterDetailController *vc = [[MLHelpCenterDetailController alloc]init];
-    vc.webCode = @"0304010404";
+    vc.webCode = @"45";
     [self.navigationController pushViewController:vc animated:YES];
     
 }
@@ -1333,8 +1327,7 @@
         
         self.shoucangButton.selected = YES;
             
-        [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
-        [self.shoucangButton setTitleColor:RGBA(174, 142, 93, 1) forState:UIControlStateNormal];
+        
   
         NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com"];
         NSDictionary *params = @{@"do":@"add",@"pid":pid,@"uname":uname};
@@ -1348,6 +1341,10 @@
               _hud.mode = MBProgressHUDModeText;
               _hud.labelText = @"收藏成功";
               [_hud hide:YES afterDelay:2];
+              
+              [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
+              [self.shoucangButton setTitle:@"已收藏" forState:UIControlStateNormal];
+              [self.shoucangButton setTitleColor:RGBA(174, 142, 93, 1) forState:UIControlStateNormal];
           }
           NSLog(@"请求成功 result====%@",result);
       } failure:^(NSError *error) {
@@ -1357,6 +1354,7 @@
     }else{
         self.shoucangButton.selected = NO;
         [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
+        [self.shoucangButton setTitle:@"收藏" forState:UIControlStateNormal];
         [self.shoucangButton setTitleColor:RGBA(38, 14, 0, 1) forState:UIControlStateNormal];
         [self deleteClick:pid];
         
@@ -1436,11 +1434,12 @@
     
 }
 
-
 - (IBAction)actDianpu:(id)sender {
+    
     MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
     NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
     vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",_paramDic[@"userid"],phone];
+    vc.uid = _paramDic[@"userid"];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

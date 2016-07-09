@@ -36,6 +36,7 @@
             self.kuaiDiFangshi = [_shipping firstObject];
         }
     }
+
 }
 
 - (void)setYhqdata:(NSArray *)yhqdata{

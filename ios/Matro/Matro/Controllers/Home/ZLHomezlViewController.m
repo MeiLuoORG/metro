@@ -7,8 +7,13 @@
 //
 
 #import "ZLHomezlViewController.h"
+#import "MLVersionViewController.h"
 
 @interface ZLHomezlViewController ()
+{
+
+    NSString *version;
+}
 
 @property ( strong , nonatomic ) AVCaptureDevice * device;
 
@@ -26,7 +31,7 @@
 
 @protocol HomeJSObjectDelegate <JSExport>
 
-- (void)fourButtonAction:(NSString *)index;
+
 
 @end
 
@@ -42,6 +47,9 @@
 
 - (void)viewDidLoad {
     self.view.backgroundColor = [UIColor whiteColor];
+    [self getVersion];
+    [self loadVersion];
+    
     _titlesARR = [[NSMutableArray alloc]init];
     _urlsARR = [[NSMutableArray alloc]init];
     _labelARR = [[NSMutableArray alloc]init];
@@ -88,6 +96,70 @@
      */
 }
 
+-(void)loadVersion{
+    
+    NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=upgrade&s=index&action=sel_upgrade";
+    NSDictionary *params = @{@"appverison":version,@"apptype":@"ios"};
+    
+    
+    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         
+         NSDictionary *result = (NSDictionary *)responseObject;
+         NSString *code = result[@"code"];
+         if ([code isEqual:@0]) {
+             if ([result[@"data"][@"sel_info"] isKindOfClass:[NSString class]]) {
+                 return ;
+             }else{
+             NSString *loadversion = result[@"data"][@"sel_info"][@"appverison"];
+             NSString *downlink = result[@"data"][@"sel_info"][@"download_link"];
+             NSLog(@"version===%@ loadversion===%@ downlink===%@",version, loadversion,downlink);
+            
+             if (version < loadversion) {
+                 MLVersionViewController *vc = [[MLVersionViewController alloc]init];
+                 vc.versionLabel = loadversion;
+                 vc.downlink = downlink;
+                 NSString *labstr = result[@"data"][@"sel_info"][@"version_desc"];
+                 vc.versioninfoLabel = labstr;
+                 
+                 vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+                 if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+                     
+                     vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+                     
+                 }else{
+                     
+                     self.modalPresentationStyle=UIModalPresentationCurrentContext;
+                     
+                 }
+                 [self presentViewController:vc  animated:YES completion:^(void)
+                  {
+                      vc.view.superview.backgroundColor = [UIColor clearColor];
+                      
+                    }];
+                }
+             }
+         }
+         NSLog(@"请求成功 result====%@",result);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"请求失败 error===%@",error);
+         
+     }];
+    
+}
+
+- (NSString*)getVersion
+{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSLog(@"version===%@",version);
+    return version;
+}
+
+
 - (void)pushMessage:(NSNotification *)not{
     MLPushMessageModel *message = not.object;
     [self.tabBarController setSelectedIndex:0];
@@ -130,29 +202,39 @@
 //消息按钮
 - (void)newsButtonAction:(UIButton *)sender{
     NSLog(@"点击了消息按钮");
+    self.messageBadgeView.hidden = YES;
+    MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
     /*
     PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
     pinVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:pinVC animated:YES];
     */
-    
+    /*
     MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
     payResultVC.hidesBottomBarWhenPushed = YES;
     payResultVC.isSuccess = YES;
     [self.navigationController pushViewController:payResultVC animated:YES];
-     
+     */
     /*
     MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
     shiBaiVC.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:shiBaiVC animated:YES];
-*/
+     */
+    /*
+    MLPayViewController *vc = [[MLPayViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    vc.paramDic = @{@"totalFee":@"0.1",@"order_trade_no":@"12346128458"};
+    [self.navigationController pushViewController:vc animated:YES];
+     */
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
     if (_isTopHiden) {
-        [UIView animateWithDuration:0.3f animations:^{
+        [UIView animateWithDuration:0.0f animations:^{
             [self.view setFrame:CGRectMake(0, 0.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0)];
             self.tabsView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
             self.firstTopView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
@@ -183,6 +265,8 @@
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
     //[leftBtn setImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(scanning) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     
     [self.firstTopView addSubview:leftBtn];
     
@@ -222,13 +306,22 @@
     UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     [frameView addGestureRecognizer:singleTap];
     
-    UIButton * newsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [newsBtn setFrame:CGRectMake(SIZE_WIDTH-35, 30, 22, 19)];
-    //[newsBtn setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
-    [newsBtn setBackgroundImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
-    [newsBtn addTarget:self action:@selector(newsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+
+
     
-    [self.firstTopView addSubview:newsBtn];
+    self.newsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.newsButton setFrame:CGRectMake(SIZE_WIDTH-35, 30, 22, 19)];
+    //[newsBtn setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
+    [self.newsButton setBackgroundImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
+    [self.newsButton addTarget:self action:@selector(newsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.messageBadgeView = [[JSBadgeView alloc]initWithParentView:self.newsButton alignment:JSBadgeViewAlignmentTopRight];
+    self.messageBadgeView.badgeText = @"●";
+    [self.messageBadgeView setBadgeTextColor:[HFSUtility hexStringToColor:Main_textRedBackgroundColor]];
+    [self.messageBadgeView setBadgeBackgroundColor:[UIColor clearColor]];
+    
+    [self.firstTopView addSubview:self.newsButton];
+    
     
 }
 
@@ -478,29 +571,6 @@
                 [_hud hide:YES afterDelay:2];
             }
             
-            /*
-             if (qrString.length>0) {
-             NSString *JMSP_ID = [self jiexi:@"JMSP_ID" webaddress:qrString];
-             NSString *ZCSP = nil;
-             if([qrString rangeOfString:@"products_hwg"].location !=NSNotFound)//_roaldSearchText
-             {
-             ZCSP = @"5";
-             }
-             else
-             {
-             ZCSP = @"0";
-             }
-             
-             if (JMSP_ID.length>0&&ZCSP) {
-             MLGoodsDetailsViewController *detailVc = [[MLGoodsDetailsViewController alloc]init];
-             detailVc.paramDic = @{@"JMSP_ID":JMSP_ID?:@"",@"ZCSP":ZCSP};
-             detailVc.hidesBottomBarWhenPushed = YES;
-             [self.navigationController pushViewController:detailVc animated:YES];
-             }
-             
-             
-             }
-             */
         }];
     };
     qrcodevc.SYQRCodeFailBlock = ^(SYQRCodeViewController *aqrvc){//扫描失败
@@ -563,15 +633,112 @@
 
 #pragma end mark JSCore 方法结束
 #pragma mark ZLHomeSubVieDragProtocol代理方法
-- (void)homeSubViewController:(ZLHomeSubViewController *)subVC JavaScriptActionFourButton:(NSString *)index{
-    NSLog(@"点击了四个按钮：%@",index);
-    if ([index isEqualToString:@"60"]) {
-        PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
-        pinVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:pinVC animated:YES];
+
+
+- (void)homeSubViewController:(ZLHomeSubViewController *)subVC JavaScriptActionFourButton:(NSString *)type withUi:(NSString *)sender{
+    
+    if ([type isEqualToString:@"1"]) {
+        //商品
+        NSDictionary *params = @{@"id":sender?:@""};
+        MLGoodsDetailsViewController * vc = [[MLGoodsDetailsViewController alloc]init];
+        vc.paramDic = params;
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+    }
+    if ([type isEqualToString:@"2"]) {
+        //品牌
+        PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
+        self.hidesBottomBarWhenPushed = YES;
+        vc.searchString = sender;
+        vc.title = @"品牌馆";
+        [self.navigationController pushViewController:vc animated:NO];
+        self.hidesBottomBarWhenPushed = NO;
+        
+    }
+    if ([type isEqualToString:@"3"]) {
+        //分类
+        MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
+
+        vc.filterParam = @{@"flid":sender};
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+    }
+    if ([type isEqualToString:@"4"]) {
+        //链接
+        //[self daKaQianDao];
+        
+        //打卡签到
+        MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
+        vc.title = @"热门活动";
+        vc.link = sender;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+         
+    }
+    if ([type isEqualToString:@"5"]) {
+        //店铺
+        MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
+        NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
+        vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",sender,phone];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if ([type isEqualToString:@"9"]) {
+        //频道
+        NSLog(@"点击了四个按钮：%@",sender);
+        if ([sender isEqualToString:@"60"]) {
+            //品牌馆
+            PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
+            pinVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:pinVC animated:YES];
+        }
+        if ([sender isEqualToString:@"61"]) {
+            //积分查询
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
+            if (loginid && ![@"" isEqualToString:loginid]) {
+                MNNMemberViewController * pinVC = [[MNNMemberViewController alloc]init];
+                pinVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:pinVC animated:YES];
+            }
+            else{
+                MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
+                loginVC.isLogin = YES;
+                [self presentViewController:loginVC animated:NO completion:nil];
+            
+            }
+        }
+        if ([sender isEqualToString:@"62"]) {
+            //打卡签到
+            //积分查询
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
+            if (loginid && ![@"" isEqualToString:loginid]) {
+                [self daKaQianDao];
+            }
+            else{
+                //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(daKaQianDao) name:RENZHENG_LIJIA_Notification object:nil];
+                MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
+                loginVC.isLogin = YES;
+                [self presentViewController:loginVC animated:NO completion:nil];
+                
+            }
+        }
+        if ([sender isEqualToString:@"63"]) {
+            //城市服务
+            MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
+            vc.title = @"热门活动";
+            vc.link = @"http://www.baidu.com";
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
     
+
 }
+
 
 - (void)homeSubViewController:(ZLHomeSubViewController *)subVC withBeginOffest:(float)haViewOffestY{
     self.historyOffestY = haViewOffestY;
@@ -629,7 +796,54 @@
 
 #pragma mark ZLHomeSubVieDragProtocol方法结束
 
+- (void)daKaQianDao{
 
+    //积分查询
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
+    if (loginid && ![@"" isEqualToString:loginid]) {
+        
+        [self getQianDaoInfo];
+//        MNNMemberViewController * pinVC = [[MNNMemberViewController alloc]init];
+//        pinVC.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:pinVC animated:YES];
+    }
+    
+}
+
+
+- (void)getQianDaoInfo{
+
+    NSDictionary * ret = @{@"sum":@"3"};
+    [MLHttpManager post:QianDao_URLString params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"打卡签到：%@",result);
+        if ([result[@"code"] isEqual:@0]) {
+            self.dakaImageView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 250, SIZE_WIDTH-80, 35)];
+            self.dakaImageView.userInteractionEnabled = YES;
+            self.dakaImageView.hidden = NO;
+            self.dakaImageView.image = [UIImage imageNamed:@"app_bg.jpg"];
+            
+            [self.view addSubview:self.dakaImageView];
+            
+            [self performSelector:@selector(hideDakaImageView) withObject:self afterDelay:1.0f];
+            
+        }
+        else{
+         [MBProgressHUD showMessag:@"今日已打卡" toView:self.view];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"打卡签到错误：%@",error);
+        [MBProgressHUD showMessag:REQUEST_ERROR_ZL toView:self.view];
+    }];
+        
+
+}
+- (void)hideDakaImageView{
+
+    self.dakaImageView.hidden = YES;
+}
 /*
 #pragma mark - Navigation
 

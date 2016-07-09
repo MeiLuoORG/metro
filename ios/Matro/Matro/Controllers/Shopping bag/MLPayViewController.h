@@ -8,17 +8,12 @@
 
 #import "MLBaseViewController.h"
 #import "MLOrderListModel.h"
-
+#import "MLPayShiBaiViewController.h"
 @interface MLPayViewController : MLBaseViewController
 @property(nonatomic,retain) NSDictionary *paramDic;
 //@property(nonatomic,retain) NSString *orderId;
 @property (nonatomic,retain)MLOrderListModel *orderDetail;
 @property (nonatomic,assign)BOOL isGlobal;
-
-
 @property (nonatomic,copy)NSString *order_id;
-
-
-
 
 @end

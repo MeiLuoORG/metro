@@ -21,6 +21,8 @@
 #import "MLCheckBoxButton.h"
 #import "MJExtension.h"
 #import "MLHttpManager.h"
+#import "MLGoodsDetailsViewController.h"
+
 @interface MLCollectionViewController ()<UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *_collectionArray;
     NSString *userid;
@@ -325,6 +327,12 @@ static NSInteger page = 1;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+    NSDictionary *tempdic = [self.dataSource[indexPath.section] mj_keyValues];
+    
+    vc.paramDic = @{@"id":tempdic[@"pid"]};
+    
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 

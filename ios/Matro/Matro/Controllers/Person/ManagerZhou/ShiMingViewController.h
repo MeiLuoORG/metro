@@ -23,7 +23,7 @@
 
 
 
-@interface ShiMingViewController : MLBaseViewController<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UIActionSheetDelegate>
+@interface ShiMingViewController : MLBaseViewController<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UIActionSheetDelegate,UINavigationControllerDelegate>
 
 @property (strong, nonatomic) NSString * pay_id;
 @property (strong, nonatomic) NSString * userPhone;

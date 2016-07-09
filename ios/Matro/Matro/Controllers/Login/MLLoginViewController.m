@@ -932,7 +932,7 @@
                                                                           [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                       }
                                                                       else{
-                                                                          [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                          [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                       }
                                                                       
                                                                       //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
@@ -958,7 +958,7 @@
                                                                           [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                       }
                                                                       else{
-                                                                          [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                          [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                       }
                                                                       
                                                                       isDefault = YES;
@@ -1040,7 +1040,9 @@
                                                       _registerTypeButton.selected = NO;
                                                       NSLog(@"注册成功");
                                                       if (isDefault) {
-                                                          [self dismissViewControllerAnimated:YES completion:nil];
+                                                          dispatch_sync(dispatch_get_main_queue(), ^{
+                                                              [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                                                          });
                                                       }
                                                       
                                                   }else{
@@ -1603,7 +1605,7 @@
                                                                       [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
                                                                   else{
-                                                                      [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                      [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
                                                                   
                                                                   //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
@@ -1667,7 +1669,9 @@
                                                       
                 
                                                       if (isDefault) {
-                                                          [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                                                          dispatch_sync(dispatch_get_main_queue(), ^{
+                                                              [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                                                          });
                                                       }
                                                       else{
                                                           if (vipCardDic.count > 0) {
@@ -1680,7 +1684,7 @@
                                                                   [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                               }
                                                               else{
-                                                                  [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                  [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                               }
                                                               
                                                               //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]  forKey:kUSERDEFAULT_USERCARDNO];
@@ -2138,7 +2142,7 @@
                                                                       [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
                                                                   else{
-                                                                      [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                      [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
                                                                   //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
                                                                   isDefault = YES;
@@ -2156,7 +2160,10 @@
                                                       
                                                       
                                                       if (isDefault) {
-                                                          [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                                                          dispatch_sync(dispatch_get_main_queue(), ^{
+                                                              [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                                                          });
+                                                          
                                                       }
                                                       else{
                                                           if (vipCardDic.count > 0) {
@@ -2169,7 +2176,7 @@
                                                                   [userDefaults setObject:cardTypeName forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                               }
                                                               else{
-                                                                  [userDefaults setObject:@"普通会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                                  [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                               }
                                                               //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]  forKey:kUSERDEFAULT_USERCARDNO];
                                                               

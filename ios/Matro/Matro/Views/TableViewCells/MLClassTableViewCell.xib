@@ -15,9 +15,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bcS-o6-t8G">
-                        <rect key="frame" x="5" y="0.0" width="398" height="182"/>
+                        <rect key="frame" x="0.0" y="0.0" width="403" height="182"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XJ0-Zm-DJQ">
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="5"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="XJ0-Zm-DJQ">
                             <size key="itemSize" width="0.0" height="0.0"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -28,7 +29,7 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="bcS-o6-t8G" secondAttribute="bottom" id="PLv-3L-6kp"/>
                     <constraint firstAttribute="bottom" secondItem="bcS-o6-t8G" secondAttribute="bottom" id="Sto-Qc-pFk"/>
-                    <constraint firstItem="bcS-o6-t8G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="VCB-Hz-mqn"/>
+                    <constraint firstItem="bcS-o6-t8G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="VCB-Hz-mqn"/>
                     <constraint firstAttribute="trailing" secondItem="bcS-o6-t8G" secondAttribute="trailing" id="o93-M9-lmg"/>
                     <constraint firstItem="bcS-o6-t8G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="t5b-ra-TRL"/>
                     <constraint firstItem="bcS-o6-t8G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="usg-bk-ho8"/>

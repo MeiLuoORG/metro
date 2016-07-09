@@ -9,6 +9,8 @@
 #import "ShiMingViewController.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "GTMNSString+URLArguments.h"
+#import "KZPhotoManager.h"
+
 @interface ShiMingViewController ()
 
 @end
@@ -39,11 +41,9 @@
     
     //[self.view addSubview:navTop];
 
-    
-    
-    
-    
-    if (self.isRenZheng) {
+
+    if (self.isRenZheng == YES) {
+
         [self createView1];
     }
     else{
@@ -62,20 +62,47 @@
         
         
     }
+    
+    if (self.isRenZheng == YES) {
+    }
+    else{
+        
+        if (![self.userName isEqual:[NSNull null]]) {
+            _xingMingLabel.text = self.userName;
+        }
+        if (![self.userShenFenCardID isEqual:[NSNull null]]) {
+            _shenFenCardId.text = self.userShenFenCardID;
+        }
+        if (![self.shenFenImageURLStr isEqual:[NSNull null]]) {
+            [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
+            _isUploadIMG_OK = YES;
+            _uploadIMG_URLString = self.shenFenImageURLStr;
+        }
+        
+        
+    }
+
+}
+
+
+- (void)backBtnAction{
+    [self.navigationController popViewControllerAnimated:YES];
 
 }
 
 
 - (void)viewWillAppear:(BOOL)animated{
-    
 
-    if (self.isRenZheng) {
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
+    
+    if (self.isRenZheng == YES) {
         
         _xingMingLabel.text = self.userName;
         _shenFenCardId.text = self.userShenFenCardID;
         //[_shangChuanButton sd_setImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@""]];
         [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal];
     }
+
 
 }
 
@@ -100,7 +127,7 @@
         [_hud hide:YES afterDelay:1];
         return;
     }
-    if (!_isUploadIMG_OK) {
+    if (_isUploadIMG_OK == NO ) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请上传身份证正面照";
@@ -244,6 +271,8 @@
     _xingMingLabel.leftView = kongView;
     _xingMingLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
     _xingMingLabel.leftViewMode = UITextFieldViewModeAlways;
+    
+    
     [self.view addSubview:_xingMingLabel];
 
     
@@ -285,13 +314,99 @@
 
 
 - (void)shangChuanTuPian{
+//    
+//    [_xingMingLabel resignFirstResponder];
+//    [_shenFenCardId resignFirstResponder];
+//    //NSLog(@"点击了上传按钮");
+//    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"从相册上传" otherButtonTitles:@"拍照上传", nil];
+//    //sheet.destructiveButtonIndex = 1;
+//    [sheet showInView:self.view];
+    [KZPhotoManager getImage:^(UIImage *image) {
+        [self uploadImgWith:image];
+    } showIn:self AndActionTitle:@"选择照片"];
     
-    [_xingMingLabel resignFirstResponder];
-    [_shenFenCardId resignFirstResponder];
-    //NSLog(@"点击了上传按钮");
-    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"从相册上传" otherButtonTitles:@"拍照上传", nil];
-    //sheet.destructiveButtonIndex = 1;
-    [sheet showInView:self.view];
+
+}
+
+- (void)uploadImgWith:(UIImage *)img{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    NSString *accessTokenStr =[accessToken substringToIndex:12];
+    NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
+    NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
+    NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,@"uploadimg",timestamp,@"index"];
+    NSString *sign = [self md65:signStr];
+    
+    NSString *newUrl = [NSString stringWithFormat:@"%@&timestamp=%.f&bbc_token=%@&sign=%@",UPLOADTOUXIANG_IMAGE_URLString,timestamp,bbc_token,sign];
+    
+    
+    NSData *imgData = UIImageJPEGRepresentation(img, 0.3);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"avator.jpg"]];
+    
+    BOOL result = [UIImagePNGRepresentation(img)writeToFile: filePath atomically:YES]; // 保存成功会返回YES
+    NSLog(@"是否保存到本地:%d",result);
+    //picture: 上传的图片
+    //method: header（固定值）
+    //NSDictionary *params = @{@"method":@"refund_img",@"order_id":@"123456"};
+    NSDictionary *params = @{@"method":@"card_type"};
+    
+    
+    [MLHttpManager post:UPLOADTOUXIANG_IMAGE_URLString params:params m:@"uploadimg" s:@"index" sconstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
+    } success:^(id responseObject) {
+         NSLog(@"上传身份证++%@",responseObject);
+        NSDictionary *result = (NSDictionary *)responseObject;
+        
+        NSLog(@"上传身份证++%@",result);
+        NSDictionary * dataDic = result[@"data"];
+        if ([result[@"code"] isEqual:@0]) { //上传成功
+            
+            if (dataDic[@"pic_url"]) {
+                
+                _isUploadIMG_OK = YES;
+                _uploadIMG_URLString = dataDic[@"pic_url"];
+                [_shangChuanButton sd_setImageWithURL:[NSURL URLWithString:_uploadIMG_URLString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
+                //[self uploadImageUrl:dataDic[@"pic_url"]];
+            }
+            else{
+                _isUploadIMG_OK = NO;
+            }
+            
+        }else{
+            
+        }
+
+        
+    } failure:^(NSError *error) {
+         NSLog(@"上传身份证错误信息：%@",error);
+        _isUploadIMG_OK = NO;
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = REQUEST_ERROR_ZL;
+        [_hud hide:YES afterDelay:1];
+        NSLog(@"上传身份证错误信息：%@",error);
+    }];
+    
+    
+    /*
+     method: refund_img（固定值）
+     
+     order_id: 订单号
+     */
+    /*
+    [manager POST:newUrl parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        
+        //formData appendpar
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     
+    }];
+*/
+
 
 }
 
@@ -387,143 +502,11 @@
     NSLog(@"图片调用代理方法");
     [picker dismissViewControllerAnimated:YES completion:nil];
     if ([info[UIImagePickerControllerMediaType] isEqualToString:(__bridge NSString *)kUTTypeImage]) {
+        /*
         NSData *imageData = UIImageJPEGRepresentation([info[UIImagePickerControllerEditedImage] scaleToSize:CGSizeMake(256.0f, 256.0f)], 1);
         UIImage *avatorimg = [UIImage imageWithData:imageData];
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        
-        NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-        NSString *accessTokenStr =[accessToken substringToIndex:12];
-        NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
-        NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
-        NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,@"uploadimg",timestamp,@"index"];
-        NSString *sign = [self md65:signStr];
-        
-        NSString *newUrl = [NSString stringWithFormat:@"%@&timestamp=%.f&bbc_token=%@&sign=%@",UPLOADTOUXIANG_IMAGE_URLString,timestamp,bbc_token,sign];
-        
-        
-        NSData *imgData = UIImageJPEGRepresentation(avatorimg, 0.3);
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-        NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"avator.jpg"]];
-        
-        BOOL result = [UIImagePNGRepresentation(avatorimg)writeToFile: filePath atomically:YES]; // 保存成功会返回YES
-        NSLog(@"是否保存到本地:%d",result);
-        //picture: 上传的图片
-        //method: header（固定值）
-        //NSDictionary *params = @{@"method":@"refund_img",@"order_id":@"123456"};
-        NSDictionary *params = @{@"method":@"identity_pic"};
-        /*
-         method: refund_img（固定值）
-         
-         order_id: 订单号
-         */
-        [manager POST:newUrl parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
-            
-            //formData appendpar
-        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary *result = (NSDictionary *)responseObject;
-            
-            NSLog(@"上传身份证++%@",result);
-            NSDictionary * dataDic = result[@"data"];
-            if ([result[@"code"] isEqual:@0]) { //上传成功
-                
-                if (dataDic[@"pic_url"]) {
-                    
-                    _isUploadIMG_OK = YES;
-                    _uploadIMG_URLString = dataDic[@"pic_url"];
-                    [_shangChuanButton sd_setImageWithURL:[NSURL URLWithString:_uploadIMG_URLString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
-                    //[self uploadImageUrl:dataDic[@"pic_url"]];
-                }
-                else{
-                    _isUploadIMG_OK = NO;
-                }
-                /*
-                 NSDictionary *data = result[@"data"];
-                 NSString *url = data[@"pic_url"];
-                 [self.imgsUrlArray addObject:url];
-                 already++;
-                 if (already == uploadCount) { //图片上传完成  请求退货操作
-                 [self submitTuihuoAction];
-                 
-                 }
-                 */
-            }else{//上传失败就跳过 少传一张
-                //uploadCount -- ;
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            _isUploadIMG_OK = NO;
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = REQUEST_ERROR_ZL;
-            [_hud hide:YES afterDelay:1];
-            NSLog(@"上传身份证错误信息：%@",error);
-        }];
-        
-        
-        
-        
-        
-        /*
-         NSData *imageData = UIImageJPEGRepresentation([info[UIImagePickerControllerEditedImage] scaleToSize:CGSizeMake(256.0f, 256.0f)], 1);
-         UIImage *avatorimg = [UIImage imageWithData:imageData];
-         */
-        
-        
-        //[self zlShangChuanTupianwith:avatorimg with:info];
-        /*
-         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-         NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"avator.jpg"]];
-         
-         BOOL result = [UIImagePNGRepresentation(avatorimg)writeToFile: filePath atomically:YES]; // 保存成功会返回YES
-         
-         if (result) {
-         NSData *imgdata = [NSData dataWithContentsOfFile:filePath];
-         
-         NSString *_encodedImageStr =[NSString stringWithFormat:@"data:image/jpeg;base64,%@",[imgdata base64EncodedStringWithOptions:0]];
-         NSDictionary *persondic = @{@"imgFileName":@"avator.jpg",@"imgType":@"ReduceResolution",@"imgContent":_encodedImageStr};
-         
-         SBJSON *sbjson = [SBJSON new];
-         NSString *sbstr = [sbjson stringWithObject:persondic error:nil];
-         
-         HFSServiceClient *_client = [[HFSServiceClient alloc]initWithBaseURL:[NSURL URLWithString:SERVICE_BASE_URL]];
-         
-         _client.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json", @"text/javascript", nil];
-         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-         NSString *accessToken = [userDefaults stringForKey:kUSERDEFAULT_ACCCESSTOKEN];
-         if (!accessToken) {
-         accessToken = @"";
-         }
-         [_client.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-         
-         //http://app.matrojp.com/P2MLinkCenter/"
-         [_client POST:@"http://app.matrojp.com/P2MLinkCenter/image/upload" parameters:sbstr success:^(AFHTTPRequestOperation *operation, id responseObject) {
-         NSLog(@"修改头像信息%@",responseObject);
-         if (responseObject) {
-         NSDictionary *result = (NSDictionary *)responseObject;
-         if(result) {
-         NSString *imgrurl = result[@"imgUrl"];
-         if (imgrurl) {
-         
-         [self uploadImageUrl:imgrurl];
-         
-         }
-         }
-         }
-         
-         
-         
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         [_hud show:YES];
-         _hud.mode = MBProgressHUDModeText;
-         _hud.labelText = REQUEST_ERROR_ZL;
-         [_hud hide:YES afterDelay:2];
-         [self dismissViewControllerAnimated:NO completion:nil];
-         }];
-         
-         }
-         */
-        
+        */
+    
     }
     
     
@@ -533,8 +516,8 @@
 - (void)uploadImageUrl:(NSString *)imgUrl{
     
     NSString *mphone = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERPHONE];
-    NSString *cardno = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERCARDNO];
-    NSString *nikeName = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERNAME];
+    //NSString *cardno = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERCARDNO];
+    //NSString *nikeName = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERNAME];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
@@ -552,30 +535,7 @@
     NSString *ret = base64_encode_data(data);
     [self yuanShengRegisterAcrionWithRet2:ret withUrl:imgUrl];
     
-    /*
-     HFSServiceClient  *_client = [[HFSServiceClient alloc]initWithBaseURL:[NSURL URLWithString:SERVICE_BASE_URL]];
-     
-     _client.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json", @"text/javascript",  @"text/plain",nil];
-     /*
-     if (!accessToken) {
-     accessToken = @"";
-     }
-     */
-    /*
-     [_client.requestSerializer setValue:@"text/json" forHTTPHeaderField:@"Content-Type"];
-     
-     
-     [_client POST:XiuGaiInfo_URLString parameters:ret success:^(AFHTTPRequestOperation *operation, id responseObject) {
-     
-     NSDictionary *result = (NSDictionary *)responseObject;
-     NSLog(@"修改头像imgUrl:%@",result);
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-     [_hud show:YES];
-     _hud.mode = MBProgressHUDModeText;
-     _hud.labelText = @"请求失败";
-     [_hud hide:YES afterDelay:2];
-     }];
-     */
+
 }
 
 - (void) yuanShengRegisterAcrionWithRet2:(NSString *)ret2 withUrl:(NSString *)imgUrl{
@@ -594,7 +554,7 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                             completionHandler:
                                   ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                      NSLog(@"修改头像 原生错误error:%@",error);
+                                      NSLog(@"实名认证 原生错误error:%@",error);
                                       
                                       //请求没有错误
                                       if (!error) {
