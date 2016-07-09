@@ -334,20 +334,27 @@
 - (void)UPAPayPluginResult:(UPPayResult *)result
 {
     if(result.paymentResultStatus == UPPaymentResultStatusSuccess) {
-        NSString *otherInfo = result.otherInfo?result.otherInfo:@"";
-        NSString *successInfo = [NSString stringWithFormat:@"支付成功\n%@",otherInfo];
+        MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
+        payResultVC.hidesBottomBarWhenPushed = YES;
+        payResultVC.isSuccess = YES;
+        payResultVC.order_id = self.order_id;
+        [self.navigationController pushViewController:payResultVC animated:YES];
     }
     else if(result.paymentResultStatus == UPPaymentResultStatusCancel){
-        
+        MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
+        shiBaiVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:shiBaiVC animated:YES];
     }
     else if (result.paymentResultStatus == UPPaymentResultStatusFailure) {
-        
-        NSString *errorInfo = [NSString stringWithFormat:@"%@",result.errorDescription];
+        MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
+        shiBaiVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:shiBaiVC animated:YES];
     }
     else if (result.paymentResultStatus == UPPaymentResultStatusUnknownCancel)  {
         
-        //TODO UPPAymentResultStatusUnknowCancel表示发起支付以后用户取消，导致支付状态不确认，需要查询商户后台确认真实的支付结果
-        NSString *errorInfo = [NSString stringWithFormat:@"支付过程中用户取消了，请查询后台确认订单"];
+        MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
+        shiBaiVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:shiBaiVC animated:YES];
         
     }
 }

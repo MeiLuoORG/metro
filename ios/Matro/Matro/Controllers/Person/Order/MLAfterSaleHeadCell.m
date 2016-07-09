@@ -45,6 +45,11 @@
     return [attStr createAttributedString];
 }
 
+- (IBAction)callClick:(id)sender {
+    if (self.callBlock) {
+        self.callBlock();
+    }
+}
 
 
 @end

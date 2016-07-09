@@ -27,6 +27,7 @@
 #import "MLReturnsDetailViewController.h"
 #import "HFSConstants.h"
 #import "MLHttpManager.h"
+#import "HFSConstants.h"
 
 
 @interface MLReturnsRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -97,6 +98,16 @@ static NSInteger pageIndex = 1;
     __weak typeof(self) weakself = self;
     if (indexPath.row == 0 ) {
         MLAfterSaleHeadCell *cell =[tableView dequeueReusableCellWithIdentifier:kMLAfterSaleHeadCell forIndexPath:indexPath];
+        cell.callBlock = ^(){
+            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"打电话给客服？" message:KeFuDianHua preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                tel(KeFuDianHua);
+            }];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [alertVc addAction:doneAction];
+            [alertVc addAction:cancel];
+            [weakself presentViewController:alertVc animated:YES completion:nil];
+        };
         cell.tuiHuoModel = model;
         return cell;
     }else if (indexPath.row==1){

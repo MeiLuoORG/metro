@@ -42,8 +42,11 @@
 #define APP_ID_ZHOU @"test0002"
 #define APP_Secrect_ZHOU @"123456"
 
+#define KeFuDianHua @"400-8850-668"
 
 #define MAIN_TINT_COLOR     @"#FFFFFF"
+
+#define tel(phoneNumber) ([[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",phoneNumber]]])
 
 #define MAIN_SCREEN_WIDTH   ([UIScreen mainScreen].bounds.size.width)
 #define MAIN_SCREEN_HEIGHT  ([UIScreen mainScreen].bounds.size.height)

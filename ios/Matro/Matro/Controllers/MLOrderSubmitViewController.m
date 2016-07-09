@@ -52,7 +52,6 @@ static float allPrice = 0;
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderSubArrowTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderSubArrowTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderSubTextTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderSubTextTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderSubFaPiaoTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderSubFaPiaoTableViewCell];
-//        [tableView registerNib:[UINib nibWithNibName:@"MLOrderSubLiuYanTableViewCell" bundle:nil] forCellReuseIdentifier:@"LiuYanFieldCell"];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tableView.delegate = self;
         tableView.dataSource = self;
@@ -147,7 +146,7 @@ static float allPrice = 0;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 2*self.order_info.cart.count+1) { //最后一行
-        return 4;
+        return 6;
     }else if (section == 2*self.order_info.cart.count){ //发票信息
         return 2;
     }
@@ -205,7 +204,17 @@ static float allPrice = 0;
                 youhui+=model.youhuiMoney;
             }
             cell.priceLabel.text = [NSString stringWithFormat:@"-￥%.2f",youhui];
-        }else if (indexPath.row == 2){//税费
+        }else if (indexPath.row == 2){
+            cell.titleLabel.text = @"满减";
+            cell.subLabel.hidden = YES;
+            float count = 0;
+            cell.priceLabel.text =  [NSString stringWithFormat:@"￥%.2f",count];
+        }else if (indexPath.row == 3){
+            cell.titleLabel.text = @"改价";
+            cell.subLabel.hidden = YES;
+            float count = 0;
+            cell.priceLabel.text =  [NSString stringWithFormat:@"￥%.2f",count];
+        }else if (indexPath.row == 4){//税费
             cell.titleLabel.text = @"税费";
             cell.subLabel.hidden = YES;
             float count = 0;
@@ -414,6 +423,7 @@ static float allPrice = 0;
     else if (indexPath.section == 2*self.order_info.cart.count){
     if (indexPath.row == 0) { //选发票
         MLInvoiceViewController *vc = [[MLInvoiceViewController alloc]init];
+        vc.isNeed = NO;
         vc.invoiceBlock = ^(BOOL xuyao,BOOL geren,NSString *mingxi,NSString *ID){
             self.order_info.fapiao = xuyao;
             self.order_info.geren = geren;

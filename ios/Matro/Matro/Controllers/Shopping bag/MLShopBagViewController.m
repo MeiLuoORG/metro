@@ -326,6 +326,13 @@ static NSInteger pageIndex = 0;
             }
             [goods MR_deleteEntity];
             [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+            
+            NSArray *all = [CompanyInfo MR_findAll];
+            if (all.count == 0) {
+                [self.likeArray removeAllObjects];
+                [self.collectionView reloadData];
+
+            }
             [self countAllPrice];
             [self.tableView reloadData];
             [self configBlankPage];

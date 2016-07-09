@@ -58,8 +58,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-//    _bukai.selected = !_isNeed;
-//    _kai.selected = _isNeed;
+    _bukai.selected = !_isNeed;
+    _kai.selected = _isNeed;
 //    _putong.selected = _isNeed;
 //    _mingxi.selected = _isNeed;
 //    _titouTextField.enabled = _isNeed;

@@ -54,6 +54,9 @@
                         <state key="normal" image="icon_erji">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <connections>
+                            <action selector="callClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZYE-5G-Scl"/>
+                        </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xiayiye_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="xcV-ye-Der">
                         <rect key="frame" x="295" y="51" width="9" height="17"/>
