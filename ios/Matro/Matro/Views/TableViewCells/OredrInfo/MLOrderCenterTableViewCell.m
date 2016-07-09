@@ -44,7 +44,8 @@
         _tuiHuoProduct = tuiHuoProduct;
         self.goodsName.text = _tuiHuoProduct.name;
         self.goodsPrice.text = [NSString stringWithFormat:@"￥%.2f",_tuiHuoProduct.price];
-        self.goodsDesc.text = @"暂无数据";
+#warning setmeal
+//        self.goodsDesc.text = @"暂无数据";
         [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_tuiHuoProduct.pic] placeholderImage:PLACEHOLDER_IMAGE];
         self.goodsCount.text = [NSString stringWithFormat:@"*%@",_tuiHuoProduct.num];
     }
@@ -55,7 +56,8 @@
         _order_submit_product = order_submit_product;
         self.goodsName.text = _order_submit_product.pname;
         self.goodsPrice.text = [NSString stringWithFormat:@"￥%.2f",_order_submit_product.price];
-        self.goodsDesc.text = @"warning暂未修改";
+#warning setmeal
+//        self.goodsDesc.text = @"warning暂未修改";
         [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_order_submit_product.pic] placeholderImage:PLACEHOLDER_IMAGE];
         self.goodsCount.text = [NSString stringWithFormat:@"*%ld",(long)_order_submit_product.num];
     }

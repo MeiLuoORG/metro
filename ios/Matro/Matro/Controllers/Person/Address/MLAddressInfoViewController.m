@@ -237,12 +237,16 @@ static MLShippingaddress *province,*city,*area;
     
      NSString  *urlStr = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=%@",MATROJP_BASE_URL,_isNewAddress?@"add":@"upd"];
     NSDictionary *params ;
+    
+    NSString *area_Text = [NSString stringWithFormat:@"%@ %@ %@",province.name,city.name,area.name];
+    
     if (_isNewAddress) {
-        params =@{@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:@"",@"data[area]":self.selTextField.text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:@"",@"data[cityid]":city.ID?:@"",@"data[mobile]":self.phoneTextField.text};
+        params =@{@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:@"",@"data[area]":area_Text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:@"",@"data[cityid]":city.ID?:@"",@"data[mobile]":self.phoneTextField.text};
     }
     else{
-        params =@{@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:self.addressDetail.areaid,@"data[area]":self.selTextField.text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:self.addressDetail.provinceid,@"data[cityid]":city.ID?:self.addressDetail.cityid,@"data[mobile]":self.phoneTextField.text,@"id":self.addressDetail.ID?:@""};
+        params =@{@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:self.addressDetail.areaid,@"data[area]":area_Text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:self.addressDetail.provinceid,@"data[cityid]":city.ID?:self.addressDetail.cityid,@"data[mobile]":self.phoneTextField.text,@"id":self.addressDetail.ID?:@""};
     }
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [MLHttpManager post:urlStr params:params m:@"member" s:@"admin_orderadder" success:^(id responseObject) {

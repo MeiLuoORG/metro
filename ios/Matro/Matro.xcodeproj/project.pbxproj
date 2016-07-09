@@ -45,7 +45,6 @@
 		2832619F1D192E4800C9EE4E /* MLstoreCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2832619D1D192E4800C9EE4E /* MLstoreCollectTableViewCell.xib */; };
 		283261A51D19361C00C9EE4E /* MLStoreFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 283261A41D19361C00C9EE4E /* MLStoreFootView.m */; };
 		283261A71D19364E00C9EE4E /* MLStoreFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283261A61D19364E00C9EE4E /* MLStoreFootView.xib */; };
-		284073241D2DF24B003A13AE /* MLSureOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284073231D2DF24B003A13AE /* MLSureOrderViewController.m */; };
 		2840732B1D2DF462003A13AE /* MLSureOrderHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 284073291D2DF462003A13AE /* MLSureOrderHeaderCell.m */; };
 		2840732C1D2DF462003A13AE /* MLSureOrderHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2840732A1D2DF462003A13AE /* MLSureOrderHeaderCell.xib */; };
 		284073301D2DF9A5003A13AE /* MLsehnfenzhengCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2840732E1D2DF9A5003A13AE /* MLsehnfenzhengCell.m */; };
@@ -513,6 +512,7 @@
 		7A40B4BA1D1911670026AFD2 /* IMJIETagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A40B4B81D1911670026AFD2 /* IMJIETagView.m */; };
 		7A40B4BD1D1929180026AFD2 /* KZPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A40B4BC1D1929180026AFD2 /* KZPhotoManager.m */; };
 		7A4869C81D0F9C73001FDE5C /* MLShopingCartlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4869C71D0F9C73001FDE5C /* MLShopingCartlistModel.m */; };
+		7A4A27B61D30BF24006F42E9 /* MLOrderSubLiuYanTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4A27B41D30BF24006F42E9 /* MLOrderSubLiuYanTableViewCell.m */; };
 		7A4D9DFF1D13916C006E6AB2 /* MLZTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D9DFD1D13916C006E6AB2 /* MLZTextTableViewCell.m */; };
 		7A4D9E001D13916C006E6AB2 /* MLZTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A4D9DFE1D13916C006E6AB2 /* MLZTextTableViewCell.xib */; };
 		7A4D9E031D13926E006E6AB2 /* MLPersonOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D9E021D13926E006E6AB2 /* MLPersonOrderDetailViewController.m */; };
@@ -719,8 +719,6 @@
 		283261A31D19361C00C9EE4E /* MLStoreFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLStoreFootView.h; path = CollectionViewCells/MLStoreFootView.h; sourceTree = "<group>"; };
 		283261A41D19361C00C9EE4E /* MLStoreFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLStoreFootView.m; path = CollectionViewCells/MLStoreFootView.m; sourceTree = "<group>"; };
 		283261A61D19364E00C9EE4E /* MLStoreFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLStoreFootView.xib; sourceTree = "<group>"; };
-		284073221D2DF24B003A13AE /* MLSureOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSureOrderViewController.h; sourceTree = "<group>"; };
-		284073231D2DF24B003A13AE /* MLSureOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSureOrderViewController.m; sourceTree = "<group>"; };
 		284073281D2DF462003A13AE /* MLSureOrderHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSureOrderHeaderCell.h; sourceTree = "<group>"; };
 		284073291D2DF462003A13AE /* MLSureOrderHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSureOrderHeaderCell.m; sourceTree = "<group>"; };
 		2840732A1D2DF462003A13AE /* MLSureOrderHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSureOrderHeaderCell.xib; sourceTree = "<group>"; };
@@ -1598,6 +1596,8 @@
 		7A40B4BC1D1929180026AFD2 /* KZPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KZPhotoManager.m; sourceTree = "<group>"; };
 		7A4869C61D0F9C73001FDE5C /* MLShopingCartlistModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLShopingCartlistModel.h; sourceTree = "<group>"; };
 		7A4869C71D0F9C73001FDE5C /* MLShopingCartlistModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLShopingCartlistModel.m; sourceTree = "<group>"; };
+		7A4A27B31D30BF24006F42E9 /* MLOrderSubLiuYanTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderSubLiuYanTableViewCell.h; sourceTree = "<group>"; };
+		7A4A27B41D30BF24006F42E9 /* MLOrderSubLiuYanTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderSubLiuYanTableViewCell.m; sourceTree = "<group>"; };
 		7A4D9DFC1D13916C006E6AB2 /* MLZTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLZTextTableViewCell.h; sourceTree = "<group>"; };
 		7A4D9DFD1D13916C006E6AB2 /* MLZTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLZTextTableViewCell.m; sourceTree = "<group>"; };
 		7A4D9DFE1D13916C006E6AB2 /* MLZTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLZTextTableViewCell.xib; sourceTree = "<group>"; };
@@ -3142,8 +3142,6 @@
 				7AEC88E51CE47A6A00B43DD4 /* MLGoodsSharePhotoViewController.xib */,
 				7A12A0C71D2CF09300D0FF26 /* MLShopBagViewController.h */,
 				7A12A0C81D2CF09300D0FF26 /* MLShopBagViewController.m */,
-				284073221D2DF24B003A13AE /* MLSureOrderViewController.h */,
-				284073231D2DF24B003A13AE /* MLSureOrderViewController.m */,
 			);
 			path = "Shopping bag";
 			sourceTree = "<group>";
@@ -3887,6 +3885,8 @@
 				7A03ABF81D2F761A0026F853 /* MLYouHuiEditTableViewCell.h */,
 				7A03ABF91D2F761A0026F853 /* MLYouHuiEditTableViewCell.m */,
 				7A03ABFA1D2F761A0026F853 /* MLYouHuiEditTableViewCell.xib */,
+				7A4A27B31D30BF24006F42E9 /* MLOrderSubLiuYanTableViewCell.h */,
+				7A4A27B41D30BF24006F42E9 /* MLOrderSubLiuYanTableViewCell.m */,
 			);
 			name = DingDanQueRen;
 			sourceTree = "<group>";
@@ -4385,6 +4385,7 @@
 				7A09367A1D1BC419002325A2 /* MLProductComDetailViewController.m in Sources */,
 				7AF1415D1CE1DB13005DDE70 /* MLGoodsListViewController.m in Sources */,
 				3A633B4A1C9EA36E00C11FD5 /* GCDAsyncUdpSocket.m in Sources */,
+				7A4A27B61D30BF24006F42E9 /* MLOrderSubLiuYanTableViewCell.m in Sources */,
 				687704221CD34E4A0008ED46 /* SBJSON.m in Sources */,
 				280F7D741CF981BA00D42FA6 /* MLMyPropertyViewController.m in Sources */,
 				280F7CD61CF7F44800D42FA6 /* rscode.c in Sources */,
@@ -4680,7 +4681,6 @@
 				3ACF2D051CA53046003D1F67 /* MLAddTableViewCell.m in Sources */,
 				3ABF64571C9EAC0600C10056 /* HFSUtility.m in Sources */,
 				D6D8036C1CAE6B62001C0FE0 /* MLFootprintViewController.m in Sources */,
-				284073241D2DF24B003A13AE /* MLSureOrderViewController.m in Sources */,
 				3AE02DB71CAB60920016FA75 /* SearchHistory.m in Sources */,
 				287C86D81D1D1FBA0002E5E2 /* MLLoginViewController.m in Sources */,
 				283261941D18EFC700C9EE4E /* MLCollectionTableViewCell.m in Sources */,

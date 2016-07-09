@@ -65,6 +65,14 @@
 }
 
 
+- (float)dingdanXiaoji{
+    float count = 0;
+    count = self.sumtax + self.sumprice - self.youhuiMoney + _kuaiDiFangshi.price;
+    return count;
+    
+}
+
+
 
 @end
 

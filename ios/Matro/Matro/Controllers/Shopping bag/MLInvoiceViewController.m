@@ -118,10 +118,16 @@
 }
 - (void)saveButtonAction:(id)sender {
     
-   
+    if (self.bukai.selected) { //不开发票 直接返回
+        //开发票
+        if (self.invoiceBlock) {
+            self.invoiceBlock(_bukai.selected,_gongsi.selected,@"",@"");
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
     NSString *titou = _gongsiTitle.text;
     NSDictionary *params = @{@"do":@"1",@"data[content]":titou,@"data[type]":@"1",@"data[rise]":_gongsi.selected?@"公司":@"个人"};
-    
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=invoice",MATROJP_BASE_URL];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [MLHttpManager post:url params:params m:@"product" s:@"invoice" success:^(id responseObject) {

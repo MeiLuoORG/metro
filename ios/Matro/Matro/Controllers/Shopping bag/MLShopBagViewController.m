@@ -298,7 +298,7 @@ static NSInteger pageIndex = 0;
             
             return cell;
         }
-        MLShopBagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
+        MLShopBagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kShopBagTableViewCell forIndexPath:indexPath];
         OffLlineShopCart *goods = [cart.goodsArray objectAtIndex:indexPath.row];
         cell.offlineCart = goods;
         cell.checkBox.cartSelected = (goods.is_check == 1);
@@ -587,20 +587,7 @@ static NSInteger pageIndex = 0;
     [self.collectionView reloadData];
     if (loginid) { //已登录情况
         self.isLogin = YES;
-        NSArray *tmp = [OffLlineShopCart MR_findAll];
-        if (tmp.count > 0) {
-            for (OffLlineShopCart *cart in tmp) {
-                [cart MR_deleteEntity];
-            }
-        }
-        
-        NSArray *cpAry = [CompanyInfo MR_findAll];
-        if (cpAry.count > 0) {
-            for (CompanyInfo *cp in cpAry) {
-                [cp MR_deleteEntity];
-            }
-        }
-        [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+        [self addShopCart];
         [self getDataSource];
     }
     else{ //未登录情况
@@ -648,12 +635,7 @@ static NSInteger pageIndex = 0;
         }
         [self configBlankPage];
     } failure:^(NSError *error) {
-
         [self.tableView.header endRefreshing];
-
-        NSLog(@"error===%@",error);
-        [self.collectionView.header endRefreshing];
-
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
 }
@@ -684,9 +666,6 @@ static NSInteger pageIndex = 0;
  *  结算按钮点击操作
  */
 - (void)clearingAction{//结算操作
-//    MLOrderSubmitViewController *vc = [[MLOrderSubmitViewController alloc]init];
-//    vc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:vc animated:YES];
     
     if (self.isLogin) { //如果已登录 直接提交结算 未登录提示登录
         NSMutableArray *temp = [NSMutableArray array];
@@ -705,19 +684,11 @@ static NSInteger pageIndex = 0;
         else{ //发送下单请求
             NSMutableDictionary *tempdic = [NSMutableDictionary dictionary ];
             for (int i=0; i < temp.count; i++) {
-
                 NSString *productid = temp[i][@"product_id"];
-               // NSMutableArray *product_id = [NSMutableArray array];
-               // [product_id addObject:productid];
                 NSString *cart_list = [NSString stringWithFormat:@"product_id[%d]",i];
                 [tempdic setObject:productid forKey:cart_list];
                 
             }
-            NSLog(@"tempdic === %@",tempdic);
-            //            MLCommitOrderViewController *vc = [[MLCommitOrderViewController alloc]init];
-            //            vc.paramsDic = tempdic;
-            //            vc.hidesBottomBarWhenPushed = YES;
-            //            [self.navigationController pushViewController:vc animated:YES];
             
             [self confirmOrderWithProducts:tempdic];
         }
@@ -798,6 +769,7 @@ static NSInteger pageIndex = 0;
             MLCommitOrderListModel *model = [MLCommitOrderListModel mj_objectWithKeyValues:data];
             MLOrderSubmitViewController *vc = [[MLOrderSubmitViewController alloc]init];
             vc.order_info = model;
+            vc.params = products;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }else{
@@ -808,8 +780,6 @@ static NSInteger pageIndex = 0;
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
-    
-    
 }
 
 
@@ -832,5 +802,38 @@ static NSInteger pageIndex = 0;
     return _likeArray;
 }
 
-
+//同步购物车
+- (void)addShopCart{
+    NSArray *cartArray = [OffLlineShopCart MR_findAll];
+    if (cartArray.count>0) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [cartArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            OffLlineShopCart *cart = (OffLlineShopCart *)obj;
+            NSString *str = [NSString stringWithFormat:@"%@,%hi,%@,%@",cart.pid,cart.num,cart.sid,cart.sku];
+            NSString *key = [NSString stringWithFormat:@"cart_list[%li]",idx];
+            [dic setValue:str forKey:key];
+        }];
+        NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=mul_add_cart",MATROJP_BASE_URL];
+        [MLHttpManager post:url params:dic m:@"product" s:@"cart" success:^(id responseObject) {
+            NSDictionary *result = (NSDictionary *)responseObject;
+            if ([result[@"code"] isEqual:@0]) {
+                NSArray *tmp = [OffLlineShopCart MR_findAll];
+                if (tmp.count > 0) {
+                    for (OffLlineShopCart *cart in tmp) {
+                        [cart MR_deleteEntity];
+                    }
+                }
+                NSArray *cpAry = [CompanyInfo MR_findAll];
+                if (cpAry.count > 0) {
+                    for (CompanyInfo *cp in cpAry) {
+                        [cp MR_deleteEntity];
+                    }
+                }
+                [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+}
 @end

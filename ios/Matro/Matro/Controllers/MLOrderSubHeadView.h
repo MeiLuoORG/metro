@@ -11,6 +11,7 @@
 
 
 typedef void(^AddressHeadClick)();
+typedef void(^OrderSubChangeInfo)(BOOL);
 
 @interface MLOrderSubHeadView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -22,8 +23,9 @@ typedef void(^AddressHeadClick)();
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sfLeading;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fieldLeading;
 @property (weak, nonatomic) IBOutlet UIControl *addressControl;
-
+@property (nonatomic,copy)OrderSubChangeInfo orderSubChangeInfo;
 @property (nonatomic,copy)AddressHeadClick addressHeadClick;
+- (IBAction)saveClick:(id)sender;
 
 + (MLOrderSubHeadView *)headView;
 

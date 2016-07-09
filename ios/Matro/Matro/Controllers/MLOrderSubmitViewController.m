@@ -23,16 +23,20 @@
 #import "NSString+GONMarkup.h"
 #import "MLHttpManager.h"
 #import "MBProgressHUD+Add.h"
+#import "MJExtension.h"
+#import "MLPayViewController.h"
+#import "MLOrderSubLiuYanTableViewCell.h"
 
 
 @interface MLOrderSubmitViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)UIView *footView;
 @property (nonatomic,strong)MLOrderSubHeadView *headView;
-
 @property (nonatomic,strong)UILabel *sumLabel;
 
 @end
+
+static float allPrice = 0;
 
 @implementation MLOrderSubmitViewController
 
@@ -48,7 +52,7 @@
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderSubArrowTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderSubArrowTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderSubTextTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderSubTextTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderSubFaPiaoTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderSubFaPiaoTableViewCell];
-        
+//        [tableView registerNib:[UINib nibWithNibName:@"MLOrderSubLiuYanTableViewCell" bundle:nil] forCellReuseIdentifier:@"LiuYanFieldCell"];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tableView.delegate = self;
         tableView.dataSource = self;
@@ -116,29 +120,39 @@
 - (void)showAddress:(id)sender{  //重新向服务器拉数据
     MLAddressSelectViewController *vc = [[MLAddressSelectViewController alloc]init];
     vc.addressSelectBlock = ^(MLAddressListModel *address){ //返回后设置当前地址为默认地址 然后重新拉取数据
-        
-        
-        
+        [self confirmOrder];
     };
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)refreshHeadView{
+    if (self.order_info.identity_card.length>0) { //如果有身份证直接显示
+        self.headView.shenfenzhengField.text = self.order_info.identity_card;
+        [self.headView saveClick:nil];
+    }
     self.headView.nameLabel.text = self.order_info.consignee.name;
     self.headView.phoneLabel.text = self.order_info.consignee.mobile;
     self.headView.addressLabel.text = [NSString stringWithFormat:@"%@%@",self.order_info.consignee.area,self.order_info.consignee.address];
     self.headView.shenfenzhengField.text = self.order_info.identity_card;
-    NSString *attrPrice = [NSString stringWithFormat:@"<font size=\"16\"><color value=\"000000\">实付金额：</><color value=\"#FF4E25\">￥%.2f</></>",self.order_info.sumprice];
+    CGFloat sumPrice = 0;
+    for (MLOrderCartModel *model in self.order_info.cart) {
+        sumPrice += model.dingdanXiaoji;
+    }
+    allPrice = sumPrice;
+    NSString *attrPrice = [NSString stringWithFormat:@"<font size=\"16\"><color value=\"000000\">实付金额：</><color value=\"#FF4E25\">￥%.2f</></>",sumPrice];
     self.sumLabel.attributedText = [attrPrice createAttributedString];
 }
 
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 3*self.order_info.cart.count) { //最后一行
+    if (section == 2*self.order_info.cart.count+1) { //最后一行
         return 4;
-    }else{
-        switch (section%3) {
+    }else if (section == 2*self.order_info.cart.count){ //发票信息
+        return 2;
+    }
+    else{
+        switch (section%2) {
             case 0:   //商品展示
             {
                 NSInteger index = section/2;
@@ -156,11 +170,6 @@
                 return 5;
             }
                 break;
-            case 2: //发票信息
-            {
-                return 2;
-            }
-                break;
                 
             default:
                 break;
@@ -171,39 +180,70 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3*self.order_info.cart.count+1;
+    return 2*self.order_info.cart.count+2;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    if (indexPath.section == 3*self.order_info.cart.count) {
+    if (indexPath.section == 2*self.order_info.cart.count+1) { //最后一行
         MLOrderSubTextTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderSubTextTableViewCell forIndexPath:indexPath];
         if (indexPath.row == 0) {//商品金额
             cell.titleLabel.text = @"商品金额";
-            cell.subLabel.text = @"(共10件商品)";
+            NSInteger count = 0;
+            for (MLOrderCartModel *model in self.order_info.cart) {
+                count+= model.prolist.count;
+            }
+            cell.subLabel.text = [NSString stringWithFormat:@"(共%li件商品)",count];
             cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",self.order_info.sumprice];
             cell.subLabel.hidden = NO;
         }else if (indexPath.row == 1){//优惠
             cell.titleLabel.text = @"优惠";
             cell.subLabel.hidden = YES;
-            cell.priceLabel.text = @"-￥20";
+            float youhui = 0;
+            for (MLOrderCartModel *model in self.order_info.cart) {
+                youhui+=model.youhuiMoney;
+            }
+            cell.priceLabel.text = [NSString stringWithFormat:@"-￥%.2f",youhui];
         }else if (indexPath.row == 2){//税费
             cell.titleLabel.text = @"税费";
             cell.subLabel.hidden = YES;
-            cell.priceLabel.text =  [NSString stringWithFormat:@"￥%.2f",self.order_info.sumtax];
+            float count = 0;
+            for (MLOrderCartModel *cart in self.order_info.cart) {
+                count += cart.sumtax;
+            }
+            cell.priceLabel.text =  [NSString stringWithFormat:@"￥%.2f",count];
         }else{//运费
+            CGFloat yunfei = 0;
+            for (MLOrderCartModel *model in self.order_info.cart) {
+                yunfei += model.kuaiDiFangshi.price;
+            }
             cell.titleLabel.text = @"运费";
             cell.subLabel.hidden = YES;
-            cell.priceLabel.text = @"￥0.00";
+            cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",yunfei];
         }
         cell.titleLabel.hidden = NO;
         cell.priceLabel.hidden = NO;
         return cell;
-    }else{
-         __block MLOrderCartModel *cart = [self.order_info.cart objectAtIndex:indexPath.section/3];
-        switch (indexPath.section%3) {
-             
+    }else if (indexPath.section == 2*self.order_info.cart.count){
+        if (indexPath.row == 0) {
+            MLOrderSubArrowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderSubArrowTableViewCell forIndexPath:indexPath];
+            cell.titleLabel.text = @"发票信息";
+            cell.subLabel.hidden = YES;
+            cell.rightLabel.hidden = YES;
+            cell.titleLabel.hidden = NO;
+            return cell;
+        }else{
+            MLOrderSubFaPiaoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderSubFaPiaoTableViewCell forIndexPath:indexPath];
+            cell.shifouKai = self.order_info.fapiao;
+            cell.company.text = [NSString stringWithFormat:@"%@-%@",self.order_info.geren?@"个人":@"公司",self.order_info.geren?@"明细":self.order_info.mingxi];
+            return cell;
+            
+        }
+    }
+    else{
+         __block MLOrderCartModel *cart = [self.order_info.cart objectAtIndex:indexPath.section/2];
+        switch (indexPath.section%2) {
             case 0: //店铺商品信息
             {
                 if (indexPath.row == 0) { //店铺头
@@ -228,7 +268,7 @@
             }
                 break;
             case 1:{ //发票信息
-                if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 4) {//税费
+                if (indexPath.row == 0 || indexPath.row == 4) {//税费
                     MLOrderSubTextTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderSubTextTableViewCell forIndexPath:indexPath];
                     if (indexPath.row == 0) {
                         cell.titleLabel.text = @"税费";
@@ -238,18 +278,21 @@
                         cell.priceLabel.hidden = NO;
                         cell.titleLabel.hidden = NO;
                         cell.subLabel.hidden = NO;
-                    }else if (indexPath.row == 3){
-                        cell.titleLabel.text = @"给卖家留言：";
-                        cell.subLabel.hidden = YES;
-                        cell.priceLabel.hidden = YES;
-                        cell.titleLabel.hidden = NO;
                     }else if (indexPath.row == 4){
-                        NSString *attr = [NSString stringWithFormat:@"<font size =\"14\"><color value=\"#000000\">订单小计</><color value=\"#999999\">  (含运费和税费)</><color value=\"#FF4E25\">  ￥%.2f</></>",2.00];
+                        NSString *attr = [NSString stringWithFormat:@"<font size =\"14\"><color value=\"#000000\">订单小计</><color value=\"#999999\">  (含运费和税费)</><color value=\"#FF4E25\">  ￥%.2f</></>",cart.dingdanXiaoji];
                         cell.priceLabel.attributedText = [attr createAttributedString];
                         cell.priceLabel.hidden = NO;
                         cell.titleLabel.hidden = YES;
                         cell.subLabel.hidden = YES;
                     }
+                    return cell;
+                }else if (indexPath.row == 3){
+                     NSString *cellId = [NSString stringWithFormat:@"cell_%@",cart.ID];
+                    MLOrderSubLiuYanTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+                    if (!cell) {
+                        cell = [[MLOrderSubLiuYanTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                    }
+                    cart.liuYan = cell.liuYanField;
                     return cell;
                 }
                 else if (indexPath.row == 1){//配送方式
@@ -270,6 +313,7 @@
                         cart.kuaiDiFangshi = [cart.shipping objectAtIndex:index];
                         cart.openKuaiDi = !cart.openKuaiDi;
                         [self.tableView reloadData];
+                        [self refreshHeadView];
                     };
                     return cell;
                 }else{ //优惠券
@@ -294,10 +338,9 @@
                     else{//没有优惠券
                         cell.rightLabel.hidden = YES;
                     }
-                    
-                   
                     cell.useClick = ^(){
                         [self.tableView reloadData];
+                        [self refreshHeadView];
                     };
                     cell.dataSource = cart.yhqdata;
                     return cell;
@@ -305,22 +348,6 @@
             }
   
                 break;
-            case 2:{ //发票信息
-                if (indexPath.row == 0) {
-                    MLOrderSubArrowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderSubArrowTableViewCell forIndexPath:indexPath];
-                    cell.titleLabel.text = @"发票信息";
-                    cell.subLabel.hidden = YES;
-                    cell.rightLabel.hidden = YES;
-                    cell.titleLabel.hidden = NO;
-                    return cell;
-                }else{
-                    MLOrderSubFaPiaoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderSubFaPiaoTableViewCell forIndexPath:indexPath];
-                    cell.shifouKai = cart.fapiao;
-                    cell.company.text = [NSString stringWithFormat:@"%@-%@",cart.geren?@"个人":@"公司",cart.geren?@"明细":cart.mingxi];
-                    return cell;
-                    
-                }
-            }
             default:
                 break;
         }
@@ -330,12 +357,25 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 3*self.order_info.cart.count) {
+    if (indexPath.section == 2*self.order_info.cart.count + 1) {
         return 44;
     }
+    else if (indexPath.section == 2*self.order_info.cart.count){
+
+        if (indexPath.row == 0) {
+            return 44;
+        }else{
+            if (self.order_info.fapiao) {
+                return 60;
+            }
+            else{
+                return 35;
+            }
+            }
+    }
     else{
-        MLOrderCartModel *cart = [self.order_info.cart objectAtIndex:indexPath.section/3];
-        switch (indexPath.section%3) {
+        MLOrderCartModel *cart = [self.order_info.cart objectAtIndex:indexPath.section/2];
+        switch (indexPath.section%2) {
         case 0:
         {
             if (indexPath.row == 0) {
@@ -358,20 +398,6 @@
             return 44;
         }
         break;
-        case 2:
-        {
-            if (indexPath.row == 0) {
-                return 44;
-            }else{
-                if (cart.fapiao) {
-                    return 60;
-                }
-                else{
-                    return 35;
-                }
-            }
-        }
-            break;
         default:
         break;
         }
@@ -382,12 +408,28 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 3*self.order_info.cart.count) {
+    if (indexPath.section == 2*self.order_info.cart.count+1) {
         return;
     }
+    else if (indexPath.section == 2*self.order_info.cart.count){
+    if (indexPath.row == 0) { //选发票
+        MLInvoiceViewController *vc = [[MLInvoiceViewController alloc]init];
+        vc.invoiceBlock = ^(BOOL xuyao,BOOL geren,NSString *mingxi,NSString *ID){
+            self.order_info.fapiao = xuyao;
+            self.order_info.geren = geren;
+            self.order_info.mingxi = mingxi;
+            self.order_info.fapiao_ID = ID;
+            [self.tableView reloadData];
+            [self refreshHeadView];
+        };
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+        
+    }
     else{
-         __block  MLOrderCartModel *cart = [self.order_info.cart objectAtIndex:indexPath.section/3];
-        switch (indexPath.section%3) {
+         __block  MLOrderCartModel *cart = [self.order_info.cart objectAtIndex:indexPath.section/2];
+        switch (indexPath.section%2) {
             case 0:
             {
                 
@@ -398,28 +440,14 @@
                 if (indexPath.row == 1 && cart.canOpenKuaiDi) {
                     cart.openKuaiDi = !cart.openKuaiDi;
                     [self.tableView reloadData];
+                    
                 }else if (indexPath.row == 2 && cart.canOpenYouHui){
                     cart.openYouHui = !cart.openYouHui;
                     [self.tableView reloadData];
                 }
             }
                 break;
-            case 2:
-            {
-                if (indexPath.row == 0) { //选发票
-                    MLInvoiceViewController *vc = [[MLInvoiceViewController alloc]init];
-                    vc.invoiceBlock = ^(BOOL xuyao,BOOL geren,NSString *mingxi,NSString *ID){
-                        cart.fapiao = xuyao;
-                        cart.geren = geren;
-                        cart.mingxi = mingxi;
-                        cart.fapiao_ID = ID;
-                        [self.tableView reloadData];
-                    };
-                    vc.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-            }
-                break;
+
             default:
                 break;
         }
@@ -439,61 +467,88 @@
 
 - (void)gotoPay:(id)sender{
     NSLog(@"去支付");
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    for (MLOrderCartModel *cart in self.order_info.cart) {
-        [self confirmOrderParams:cart AndParams:params];
+    [self.order_info.cart enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        MLOrderCartModel *cart = (MLOrderCartModel *)obj;
+        [self confirmOrderParams:cart AndParams:params AndIndex:idx];
+    }];
+    for (MLOrderCartModel *cart in self.order_info.cart) { //检查优惠券使用情况
+        for (MLYouHuiQuanModel *model in cart.yhqdata) {
+            if (model.useSum > 0) { //说明被使用过
+                NSString *key = [NSString stringWithFormat:@"yhquse[%@][%@]",cart.sell_userid,model.ID];
+                params[key] = [NSNumber numberWithFloat:model.useSum];
+            }
+        }
     }
-    params[@"s_sumprice"] = [NSNumber numberWithFloat:self.order_info.sumprice];
+    params[@"s_sumprice"] = [NSNumber numberWithFloat:allPrice];
     params[@"hidden_consignee_id"] = self.order_info.consignee.delivery_address_id;
-    params[@"invoice_id"] = @"";
-    params[@"yhquse"] = @"";
-    
+    params[@"invoice_id"] = self.order_info.fapiao?self.order_info.fapiao_ID:@"";
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=confirm_order_submit",MATROJP_BASE_URL];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [MLHttpManager post:url params:params m:@"product" s:@"confirm_order_submit" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
+        
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSString *order_id = data[@"order_id"];
-            
+            MLPayViewController *vc = [[MLPayViewController alloc]init];
+            vc.order_id = order_id;
+            vc.order_sum = allPrice;
+            [self.navigationController pushViewController:vc animated:YES];
         }
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
 }
 
 
-- (void )confirmOrderParams:(MLOrderCartModel *)model AndParams:(NSMutableDictionary *)params{
-    NSString *cartKey = [NSString stringWithFormat:@"product_id[]"];
+- (void )confirmOrderParams:(MLOrderCartModel *)model AndParams:(NSMutableDictionary *)params AndIndex:(NSInteger)index{
+    NSString *cartKey = [NSString stringWithFormat:@"product_id[%li]",index];
     NSString *msgKey = [NSString stringWithFormat:@"msg_%@",model.ID];
     NSString *logTypeKey = [NSString stringWithFormat:@"logistics_type_%@",model.ID];
     NSString *logPriceKey = [NSString stringWithFormat:@"logistics_price_%@",model.ID];
     NSString *logTaxKey = [NSString stringWithFormat:@"logistics_tax_%@",model.ID];
-    NSString *disIDKey = [NSString stringWithFormat:@"discount_id_%@",model.ID];
-    NSString *disPriceKey = [NSString stringWithFormat:@"discount_price_%@",model.ID];
     params[logTypeKey] = model.kuaiDiFangshi.company;
     params[logPriceKey] = [NSNumber numberWithFloat: model.kuaiDiFangshi.price];
     params[logTaxKey] = [NSNumber numberWithFloat:model.kuaiDiFangshi.sumtax];
-    params[disPriceKey] = [NSNumber numberWithFloat:model.youhuiMoney];
-    params[msgKey]=@"留言";
-    params[disIDKey]=@"";
+    params[msgKey]= model.liuYan.text;
     params[cartKey] = model.ID;
+    
 }
 
 
+/**
+ *  重新获取订单信息
+ *
+ *  @param products
+ */
+- (void)confirmOrder{//创建订单
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=confirm_order",MATROJP_BASE_URL];
+    [MLHttpManager post:urlStr params:self.params m:@"product" s:@"confirm_order" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            //订单提交成功   后续操作
+            NSDictionary *data = result[@"data"];
+            MLCommitOrderListModel *model = [MLCommitOrderListModel mj_objectWithKeyValues:data];
+            self.order_info = model;
+            [self.tableView reloadData];
+            [self refreshHeadView];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+}
 
-//msg_39189=快递麻烦快一点哦，我要红色    留言
-//
-//logistics_type_39189=顺丰物流 物流方式
-//
-//logistics_price_39189=6 物流价格
-//
-//logistics_tax_39189=0 税费
-//
-//discount_id_39189=73 优惠券ID
-//
-//discount_price_39189=100 优惠券面额
+
 
 
 @end

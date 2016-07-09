@@ -1819,9 +1819,7 @@
                                                           model1.firstDate = [NSDate date];
                                                           [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
                                                           
-                                                          //批量添加购物车
-                                                          [self addShopCart];
-                                                          
+    
                                                       }
                                                   }
                                                   NSLog(@"%@",result);
@@ -2498,28 +2496,7 @@
 }
 
 
-//同步购物车
-- (void)addShopCart{
-    NSArray *cartArray = [OffLlineShopCart MR_findAll];
-    if (cartArray.count>0) {
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [cartArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            OffLlineShopCart *cart = (OffLlineShopCart *)obj;
-            NSString *str = [NSString stringWithFormat:@"%@,%hi,%@,%@",cart.pid,cart.num,cart.sid,cart.sku];
-            NSString *key = [NSString stringWithFormat:@"cart_list[%li]",idx];
-            [dic setValue:str forKey:key];
-        }];
-        NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=mul_add_cart",MATROJP_BASE_URL];
-        [MLHttpManager post:url params:dic m:@"product" s:@"cart" success:^(id responseObject) {
-            NSDictionary *result = (NSDictionary *)responseObject;
-            if ([result[@"code"] isEqual:@0]) {
-                
-            }
-        } failure:^(NSError *error) {
-            
-        }];
-    }
-}
+
 
 
 

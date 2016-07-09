@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 @class MLKuaiDiModel;
 @class MLConsigneeInfo;
 @interface MLCommitOrderListModel : NSObject
@@ -18,6 +20,10 @@
 @property (nonatomic,assign)float sumtax;
 @property(nonatomic,assign)float sumprice;
 
+@property (nonatomic,assign)BOOL fapiao;
+@property (nonatomic,assign)BOOL geren;
+@property (nonatomic,copy)NSString *mingxi;
+@property (nonatomic,copy)NSString *fapiao_ID;
 @end
 
 @interface MLOrderCartModel : NSObject
@@ -43,7 +49,7 @@
 @property (nonatomic,copy)NSString *sumpackage_price;
 @property (nonatomic,copy)NSString *summacth_price;
 @property (nonatomic,copy)NSString *sumpromotion_reduce_price;
-@property (nonatomic,copy)NSString *sumprice;
+@property (nonatomic,assign)float sumprice;
 @property (nonatomic,copy)NSString *reduce_price;
 @property (nonatomic,assign)float sumtax;
 @property (nonatomic,strong)NSArray *prolist;
@@ -56,10 +62,10 @@
 @property (nonatomic,assign)BOOL isMore;
 @property (nonatomic,assign)BOOL isOpen;
 
-@property (nonatomic,assign)BOOL fapiao;
-@property (nonatomic,assign)BOOL geren;
-@property (nonatomic,copy)NSString *mingxi;
-@property (nonatomic,copy)NSString *fapiao_ID;
+
+
+
+@property (nonatomic,assign)float dingdanXiaoji;
 
 
 @property (nonatomic,strong)MLKuaiDiModel *kuaiDiFangshi;
@@ -71,6 +77,7 @@
 
 @property (nonatomic,assign)float youhuiMoney;
 
+@property (nonatomic,strong)UITextField *liuYan;
 
 
 

@@ -149,10 +149,8 @@ static MLAddressListModel *selAddress;
         [MBProgressHUD showMessag:@"请选择联系人" toView:self.view];
         return;
     }
-    if (self.addressSelectBlock) {
-        self.addressSelectBlock(selAddress);
-    }
-    [self.navigationController popViewControllerAnimated:YES];
+    [self addressAction:address WithAction:@"setdef"];
+
     
 }
 
@@ -192,6 +190,34 @@ static MLAddressListModel *selAddress;
     }
     return _addressList;
 }
+
+- (void)addressAction:(MLAddressListModel *)model WithAction:(NSString *)action{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=%@",MATROJP_BASE_URL,action];
+    NSDictionary *params = @{@"id":model.ID?:@""};
+    
+    [MLHttpManager post:url params:params m:@"member" s:@"admin_orderadder" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            if (self.addressSelectBlock) {
+                self.addressSelectBlock(selAddress);
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+}
+
 
 
 @end

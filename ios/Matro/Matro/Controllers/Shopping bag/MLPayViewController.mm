@@ -48,19 +48,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"收银台";
-    
     UIBarButtonItem * button = [[UIBarButtonItem alloc]initWithTitle:@"我的订单" style:UIBarButtonItemStylePlain target:self action:@selector(productlistsAction)];
     button.tintColor = [UIColor colorWithHexString:@"AE8E5D"];
     self.navigationItem.rightBarButtonItem = button;
-    if (_paramDic) {
-        self.priceLabel.text = _paramDic[@"totalFee"];
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%@",_paramDic[@"totalFee"]];
-    }
-    else
-    {
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderDetail.DDJE];
 
-    }
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",self.order_sum];
+    
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     
     self.navigationItem.leftBarButtonItem = item;
@@ -312,70 +305,51 @@
 - (void)applepay
 {
     if([PKPaymentAuthorizationViewController canMakePayments]) {
+        NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
         
-        [[HFSServiceClient sharedPayClient]POST:@"app/v200/unionpay" parameters:@{@"orderid":self.order_id?:@""} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            
+        [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSString *tn = [responseObject objectForKey:@"tn"];
+ 
+            [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
+            [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
         }];
         
-//        if([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:@[PKPaymentNetworkChinaUnionPay]])
-//        {
-//            [UPAPayPlugin startPay:@"dingdan" mode:@"00" viewController:self delegate:self andAPMechantID:kAppleMerchantID];
-//        }
     } else {
         [MBProgressHUD showMessag:@"您的设备暂不支持ApplePay" toView:self.view];
     }
 }
 
-#pragma mark apple pay delegate
-- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
-                       didAuthorizePayment:(PKPayment *)payment
-                                completion:(void (^)(PKPaymentAuthorizationStatus status))completion
-{
-    NSLog(@"Payment was authorized: %@", payment);
-    
-    // do an async call to the server to complete the payment.
-    // See PKPayment class reference for object parameters that can be passed
-    BOOL asyncSuccessful = FALSE;
-    
-    // When the async call is done, send the callback.
-    // Available cases are:
-    //    PKPaymentAuthorizationStatusSuccess, // Merchant auth'd (or expects to auth) the transaction successfully.
-    //    PKPaymentAuthorizationStatusFailure, // Merchant failed to auth the transaction.
-    //
-    //    PKPaymentAuthorizationStatusInvalidBillingPostalAddress,  // Merchant refuses service to this billing address.
-    //    PKPaymentAuthorizationStatusInvalidShippingPostalAddress, // Merchant refuses service to this shipping address.
-    //    PKPaymentAuthorizationStatusInvalidShippingContact        // Supplied contact information is insufficient.
-    
-    if(asyncSuccessful) {
-        completion(PKPaymentAuthorizationStatusSuccess);
-        
-        // do something to let the user know the status
-        
-        NSLog(@"Payment was successful");
-        
-        //        [Crittercism endTransaction:@"checkout"];
-        
-    } else {
-        completion(PKPaymentAuthorizationStatusFailure);
-        
-        // do something to let the user know the status
-        
-        NSLog(@"Payment was unsuccessful");
-        
-        //        [Crittercism failTransaction:@"checkout"];
+
+- (void)applePayWithTn:(NSString *)tn{
+    if([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:@[PKPaymentNetworkChinaUnionPay]])
+    {
+        [UPAPayPlugin startPay:tn mode:@"00" viewController:self delegate:self andAPMechantID:kAppleMerchantID];
     }
-    
 }
 
-- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller
+#pragma mark apple pay delegate
+#pragma mark 响应控件返回的支付结果
+#pragma mark -
+- (void)UPAPayPluginResult:(UPPayResult *)result
 {
-    NSLog(@"Finishing payment view controller");
-    
-    // hide the payment window
-    [controller dismissViewControllerAnimated:TRUE completion:nil];
+    if(result.paymentResultStatus == UPPaymentResultStatusSuccess) {
+        NSString *otherInfo = result.otherInfo?result.otherInfo:@"";
+        NSString *successInfo = [NSString stringWithFormat:@"支付成功\n%@",otherInfo];
+    }
+    else if(result.paymentResultStatus == UPPaymentResultStatusCancel){
+        
+    }
+    else if (result.paymentResultStatus == UPPaymentResultStatusFailure) {
+        
+        NSString *errorInfo = [NSString stringWithFormat:@"%@",result.errorDescription];
+    }
+    else if (result.paymentResultStatus == UPPaymentResultStatusUnknownCancel)  {
+        
+        //TODO UPPAymentResultStatusUnknowCancel表示发起支付以后用户取消，导致支付状态不确认，需要查询商户后台确认真实的支付结果
+        NSString *errorInfo = [NSString stringWithFormat:@"支付过程中用户取消了，请查询后台确认订单"];
+        
+    }
 }
 
 
