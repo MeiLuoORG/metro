@@ -297,6 +297,7 @@
     
     MLpingjiaViewController *vc = [[MLpingjiaViewController alloc] init];
     vc.paramDic = self.paramDic;
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:NO];
     
 }

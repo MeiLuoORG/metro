@@ -63,50 +63,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-//    _tableView.estimatedRowHeight = 44.0;
-//    _tableView.rowHeight = UITableViewAutomaticDimension;
+
     self.navigationItem.title = @"分类";
-    /*
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"shouyesaoyisao"] style:UIBarButtonItemStylePlain target:self action:@selector(scanning)];
-     */
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"search"] style:UIBarButtonItemStylePlain target:self action:@selector(handleSingleTap:)];
     brandArr = [NSMutableArray array];
     brandDic = [NSMutableDictionary dictionary];
     _classSecondArray = [NSMutableArray array];
-    //添加边框和提示
-    /*
-    UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)] ;
-    frameView.layer.borderWidth = 1;
-    frameView.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
-    frameView.layer.cornerRadius = 4.f;
-    frameView.layer.masksToBounds = YES;
-    frameView.backgroundColor = [UIColor whiteColor];
-    
-    CGFloat H = frameView.bounds.size.height - 8;
-    CGFloat imgW = H;
-    CGFloat textW = frameView.bounds.size.width - imgW - 6;
-    
-    UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuo"]];
-    searchText = [[UITextField alloc] initWithFrame:CGRectMake( 6, 4, textW, H)];
-    searchText.enabled = NO;
-    [frameView addSubview:searchImg];
-    [frameView addSubview:searchText];
-    searchImg.frame = CGRectMake(textW - 58 , 4, imgW, imgW);
-    
-    searchText.textColor = [UIColor grayColor];
-    searchText.placeholder = @"寻找你想要的商品";
-    searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
-//    searchText.layer.borderColor = RGBA(245, 245, 245, 1).CGColor;
-//    searchText.layer.borderWidth = 1.f;
-//    searchText.layer.masksToBounds = YES;
-    
-    self.navigationItem.titleView = frameView;
-    
-    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-    [frameView addGestureRecognizer:singleTap];
-     */
-    
+
     [_tableView registerNib:[UINib nibWithNibName:@"MLClassHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:HEADER_IDENTIFIER];
     
     //头部类别设置
@@ -153,9 +117,8 @@
     MLSecondClass *headerClass = _classSecondArray[tap.view.tag];
     NSString *keyword = headerClass.SecondaryClassification_Ggw.mc;
     vc.filterParam = @{@"keyword":keyword};
-    self.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
   
 }
 
@@ -336,7 +299,7 @@
         if (count%4==0) {
             i = count / 4;
         }else{
-            i = (count+4) / 4;
+            i = (count+3) / 4;
         }
   
         float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
@@ -351,16 +314,12 @@
     if (count%4==0) {
         i = count / 4;
     }else{
-        i = (count+4) / 4;
+        i = (count+3) / 4;
     }
 
     float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
     float height = width ;
     return (height*i + 5*i);
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-       return 1;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -375,13 +334,20 @@
 //    headerView.secondTitle.tag = section;
 //    [headerView.secondTitle addGestureRecognizer:tap];
     
-    NSDictionary *attrs = @{NSFontAttributeName :[UIFont fontWithName:@"Helvetica" size:14],NSForegroundColorAttributeName:[UIColor greenColor]};
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:@"RECOMMEND" attributes:attrs];
-    CGAffineTransform matrix = CGAffineTransformMake(1, 0, tanf(-20 * (CGFloat)M_PI / 180), 1, 0, 0);
     
+//    CGAffineTransform matrix = CGAffineTransformMake(1, 0, tanf(-20 * (CGFloat)M_PI / 180), 1, 0, 0);
+    
+    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize:14 ]. fontName matrix :matrix];
+    UIFont *font = [ UIFont fontWithDescriptor :desc size :14];
+    
+    headerView.commentLab.text = @"|RECOMMEND ";
+    headerView.commentLab.font = font;
+
     if (section == _classSecondArray.count) {
         
-        headerView.secondTitle.text = [NSString stringWithFormat:@"%@/%@",brandDic[@"mc"],str];
+        headerView.secondTitle.text = [NSString stringWithFormat:@"%@",brandDic[@"mc"]];
+        
         
     }else{
         
@@ -393,7 +359,7 @@
         tap.delegate = self;
         headerView.secondTitle.tag = section;
         [headerView.secondTitle addGestureRecognizer:tap];
-        headerView.secondTitle.text = [NSString stringWithFormat:@"%@/%@",headerinfo.mc,str];
+        headerView.secondTitle.text = [NSString stringWithFormat:@"%@",headerinfo.mc];
     }
     
     
@@ -403,8 +369,14 @@
 
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView * view = [[UIView alloc]init];
     
-    return [[UIView alloc]init];
+    view.backgroundColor = RGBA(245, 245, 245, 1);
+    return view;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+
+    return 5.f;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -468,8 +440,9 @@
         NSDictionary *dic = brandArr[indexPath.row];
         vc.title = dic[@"name"];
         vc.searchString = dic[@"brand_id"];
-        self.hidesBottomBarWhenPushed = YES;
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
+        
         
     }else{
     
@@ -478,8 +451,7 @@
     NSDictionary *dic = secondClass.ThreeClassificationList[indexPath.row];
     NSString  *selectTitle = dic[@"mc"];
     vc.filterParam = @{@"keyword":selectTitle};
-        NSLog(@"%@",vc.filterParam);
-    self.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
    
     }
@@ -538,8 +510,8 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 }
 
 #pragma mark-SearchDelegate
+
 -(void)SearchText:(NSString *)text{
-    NSLog(@"%@",text);
     MLGoodsListViewController *vc =[[MLGoodsListViewController alloc]init];
     self.hidesBottomBarWhenPushed = YES;
     vc.searchString = text;

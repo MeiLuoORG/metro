@@ -30,8 +30,6 @@
 @interface MLShopInfoViewController ()<UIWebViewDelegate,JSObjectDelegate,UITextFieldDelegate,UISearchBarDelegate,UIGestureRecognizerDelegate>
 {
     UITextField *searchText;
-    UIButton *moreBtn;
-    UIButton *sxuanBtn;
 
 }
 @property(nonatomic,strong)UIWebView *webView;
@@ -74,14 +72,13 @@
     
      self.navigationItem.titleView = frameView;
     
-    moreBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    moreBtn.frame = CGRectMake(0, 0, 20, 22);
+    UIButton *moreBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 22)];
+    moreBtn.imageEdgeInsets = UIEdgeInsetsMake(8, 0, 8, 0);
     [moreBtn setImage:[UIImage imageNamed:@"gengduozl"] forState:UIControlStateNormal];
     [moreBtn addTarget:self action:@selector(actmore) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *morebtnItem = [[UIBarButtonItem alloc]initWithCustomView:moreBtn];
   
-    sxuanBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    sxuanBtn.frame = CGRectMake(0, 0, 20, 20);
+    UIButton *sxuanBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 22)];
     [sxuanBtn setBackgroundImage:[UIImage imageNamed:@"fenlei1"] forState:UIControlStateNormal];
     [sxuanBtn addTarget:self action:@selector(actsxuan) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *sxuanbtnItem = [[UIBarButtonItem alloc]initWithCustomView:sxuanBtn];

@@ -12,11 +12,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="个人护理" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLr-I5-zEo">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <rect key="frame" x="0.0" y="0.0" width="71" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="yv5-1Z-fbS"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -34,10 +34,17 @@
                         <constraint firstAttribute="height" constant="1" id="N5f-zI-Sfs"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alc-bO-Tho">
+                    <rect key="frame" x="79" y="0.0" width="296" height="44"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.68235294120000001" green="0.5568627451" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="FLr-I5-zEo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="2Nw-Fw-dee"/>
+                <constraint firstItem="alc-bO-Tho" firstAttribute="centerY" secondItem="FLr-I5-zEo" secondAttribute="centerY" id="8EQ-Ya-nVG"/>
                 <constraint firstItem="FLr-I5-zEo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Fni-mp-Ok1"/>
                 <constraint firstItem="9M8-x4-JYl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="LOB-n5-RjZ"/>
                 <constraint firstAttribute="bottom" secondItem="FLr-I5-zEo" secondAttribute="bottom" id="Z04-v5-TcI"/>
@@ -46,10 +53,11 @@
                 <constraint firstItem="9M8-x4-JYl" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gWb-Gd-FFm"/>
                 <constraint firstAttribute="bottom" secondItem="r46-FY-Gxu" secondAttribute="bottom" id="hv3-hQ-IOp"/>
                 <constraint firstAttribute="trailing" secondItem="r46-FY-Gxu" secondAttribute="trailing" id="i5K-Oj-RSn"/>
-                <constraint firstAttribute="trailing" secondItem="FLr-I5-zEo" secondAttribute="trailing" id="oKa-Zt-QF3"/>
+                <constraint firstItem="alc-bO-Tho" firstAttribute="leading" secondItem="FLr-I5-zEo" secondAttribute="trailing" id="tYc-wo-Op7"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="commentLab" destination="alc-bO-Tho" id="ia6-Ns-iVK"/>
                 <outlet property="secondTitle" destination="FLr-I5-zEo" id="hs7-Ej-jUc"/>
             </connections>
             <point key="canvasLocation" x="235.5" y="-81"/>
