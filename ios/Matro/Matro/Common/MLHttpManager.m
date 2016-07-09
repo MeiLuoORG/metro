@@ -11,7 +11,7 @@
 #import "HFSUtility.h"
 #import "HFSConstants.h"
 #import "NSDatezlModel.h"
-
+#import "NSString+URLZL.h"
 
 
 @implementation MLHttpManager
@@ -21,11 +21,16 @@
     // 1.创建请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-    NSString *accessTokenStr =[accessToken substringToIndex:12];
+    
+    NSString * accessTokenStrEncode = [accessToken URLEncodedString];
+    NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
     NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
+    NSLog(@"加密前的accessToken为：%@",accessToken);
+    NSLog(@"MD5加密之前：%@",signStr);
     NSString *sign = [self md5:signStr];
+    NSLog(@"MD5加密之后：%@",sign);
     NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
 
     // 2.发送请求
@@ -46,7 +51,9 @@
 + (void)post:(NSString *)url params:(id)params  m:(NSString *)m  s:(NSString *)s sconstructingBodyWithBlock:(void(^)(id<AFMultipartFormData> formData))block  success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure{
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-    NSString *accessTokenStr =[accessToken substringToIndex:12];
+    
+    NSString * accessTokenStrEncode = [accessToken URLEncodedString];
+    NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
     NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
 
@@ -75,13 +82,15 @@
     // 1.创建请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-    NSString *accessTokenStr =[accessToken substringToIndex:12];
+    
+    NSString * accessTokenStrEncode = [accessToken URLEncodedString];
+    NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
     NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
     NSString *sign = [self md5:signStr];
     NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
-    NSLog(@"查询实名认证 测试：URL:%@",newUrl);
+    
     // 2.发送请求
     [mgr GET:newUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

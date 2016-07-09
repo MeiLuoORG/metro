@@ -11,5 +11,6 @@
 @interface MLClassHeader : UITableViewHeaderFooterView
 //@property (strong, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (weak, nonatomic) IBOutlet UILabel *secondTitle;
+@property (weak, nonatomic) IBOutlet UILabel *commentLab;
 
 @end
