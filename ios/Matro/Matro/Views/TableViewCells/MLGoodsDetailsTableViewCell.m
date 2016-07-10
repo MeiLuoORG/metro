@@ -28,8 +28,8 @@
     if (_tags != tags) {
         _tags = tags;
         IMJIETagFrame *frame = [[IMJIETagFrame alloc] init];
-        frame.tagsMinPadding = 5;
-        frame.tagsMargin = 5;
+        frame.tagsMinPadding = 10;
+        frame.tagsMargin = 10;
         frame.tagsLineSpacing = 5;
         frame.tagsArray = _tags;
         

@@ -178,7 +178,9 @@
 //    uname=ml_13771961207
 //        
 //    shopname=嘻呗全球购
-
+    
+    NSLog(@"shopparamDic===%@",_shopparamDic);
+    
     NSLog(@"type==%@",type);
     if ([type isEqualToString:@"1"]) {
         NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_shop"];
@@ -209,6 +211,18 @@
             
         }];
     }else{
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"取消收藏成功";
+            [_hud hide:YES afterDelay:1];
+            
+            
+        });
+ 
+        /*
         NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_shop"];
         NSDictionary *params = @{@"do":@"del",@"id":@""};
         [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
@@ -235,7 +249,7 @@
             [_hud hide:YES afterDelay:1];
             
         }];
-        
+        */
     }
     
 }

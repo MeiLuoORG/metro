@@ -426,18 +426,22 @@ static NSInteger pageIndex = 0;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *pid = nil;
+    NSString *sell_userid = nil;
     if (!self.isLogin) {
         MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:indexPath.section];
         OffLlineShopCart *model = [cart.goodsArray objectAtIndex:indexPath.row];
         pid = model.pid;
+        sell_userid = model.company_id;
+       
     }
     else{
         MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
         MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
         pid = model.pid;
+        sell_userid = model.sell_userid;
     }
     MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
-    NSDictionary *params = @{@"id":pid?:@""};
+    NSDictionary *params = @{@"id":pid?:@"",@"userid":sell_userid?:@""};
     vc.paramDic = params;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];

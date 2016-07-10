@@ -374,12 +374,13 @@
                         
                     for (NSString *searchstr in huoyuanArray) {
                         if (![guigestr1 isEqualToString:searchstr]) {
+                            
                             [huoyuanArray addObject:guigestr1];
                             
                         }else{
                             
+                            }
                         }
-                    }
                     }
                     i++;
                     [jieduanArray addObject:guigestr2];
@@ -509,53 +510,68 @@
             [dateFormatter setDateFormat:@"yyyy-MM-dd-HH:mm"];
             NSString *nowdate= [dateFormatter stringFromDate:[NSDate date]];
             NSDate *date=[dateFormatter dateFromString:nowdate];
+            NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];
+            NSLog(@"timeSp:%@",timeSp);
             
             if ([promition_start_time isEqual:@0] || [promition_end_time isEqual:@0] ) {
                 
-                float pricef = [dic[@"pinfo"][@"market_price"] floatValue];
+                float pricef = [dic[@"pinfo"][@"price"] floatValue];
                 self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+                float  originprice= [dic[@"pinfo"][@"market_price"] floatValue];
                 
+                NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
+                
+                NSAttributedString *attrStr =
+                [[NSAttributedString alloc]initWithString:pricestr
+                                               attributes:
+                 @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+                   NSForegroundColorAttributeName:[UIColor grayColor],
+                   NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+                   NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+                self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
+     
             }else if (![promition_start_time isEqual:@0] && ![promition_end_time isEqual:@0] ){
-                NSDate *date1=[dateFormatter dateFromString:promition_start_time];
-                NSDate *date2=[dateFormatter dateFromString:promition_end_time];
-                
-                NSComparisonResult result1 = [date1 compare:date];
-                NSComparisonResult result2 = [date2 compare:date];
-                
+
                 NSString *is_promotion = dic[@"pinfo"][@"is_promotion"];
-                if ([is_promotion isEqual:@1] && !result1 && result2) {
+                NSLog(@"%f===111%f===222%f",timeSp.doubleValue,promition_start_time.doubleValue,promition_end_time.doubleValue);
+                
+                if ([is_promotion isEqualToString:@"1"] && promition_start_time.doubleValue < timeSp.doubleValue && promition_end_time.doubleValue > timeSp.doubleValue) {
                     
                     float pricef = [dic[@"pinfo"][@"promotion_price"]floatValue] ;
                     self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+                    float  originprice= [dic[@"pinfo"][@"market_price"] floatValue];
                     
+                    NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
+                    
+                    NSAttributedString *attrStr =
+                    [[NSAttributedString alloc]initWithString:pricestr
+                                                   attributes:
+                     @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+                       NSForegroundColorAttributeName:[UIColor grayColor],
+                       NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+                       NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+                    self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
                     
                 }else{
                     
-                    float pricef = [dic[@"pinfo"][@"market_price"] floatValue];
+                    float pricef = [dic[@"pinfo"][@"price"] floatValue];
                     self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+                    float  originprice= [dic[@"pinfo"][@"market_price"] floatValue];
+                    
+                    NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
+                    
+                    NSAttributedString *attrStr =
+                    [[NSAttributedString alloc]initWithString:pricestr
+                                                   attributes:
+                     @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+                       NSForegroundColorAttributeName:[UIColor grayColor],
+                       NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+                       NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+                    self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
                 }
             }
+            
             /*
-            NSDate *date1=[dateFormatter dateFromString:promition_start_time];
-            NSDate *date2=[dateFormatter dateFromString:promition_end_time];
-            
-            NSComparisonResult result1 = [date1 compare:date];
-            NSComparisonResult result2 = [date2 compare:date];
-            
-            NSString *is_promotion = dic[@"pinfo"][@"is_promotion"];
-            if ([is_promotion isEqual:@1] && !result1 && result2) {
-                
-                float pricef = [dic[@"pinfo"][@"promotion_price"]floatValue] ;
-                self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-                
-                
-            }else{
-                
-                float pricef = [dic[@"pinfo"][@"market_price"] floatValue];
-                self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-            }
-            */
-            
             float pricef = [dic[@"pinfo"][@"price"] floatValue];
             self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
             float  originprice= [dic[@"pinfo"][@"market_price"] floatValue];
@@ -570,7 +586,7 @@
                NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
                NSStrikethroughColorAttributeName:[UIColor grayColor]}];
             self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-            
+            */
             
             
             self.shuliangStepper.paramDic = dic;
@@ -749,11 +765,14 @@
 -(void)loaddataDianpu{
     
     //  http://bbctest.matrojp.com/api.php?m=shop&s=shop&uid=20505
+    NSLog(@"paramDic==%@",_paramDic);
     
     NSString *dpid = self.paramDic[@"userid"];
+   
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@",@"http://bbctest.matrojp.com",dpid];
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
+        
         if ([responseObject[@"code"] isEqual:@0]) {
             NSDictionary *shop_info = responseObject[@"data"][@"shop_info"];
             dPDic = shop_info;
@@ -1309,8 +1328,8 @@
                 for (NSString *searchStr in guige) {
                     if ([searchStr isEqualToString:str]) {
                         Searchdic = searchDic;
-                        price = searchDic[@"market_price"];
-                        market_price = searchDic[@"price"];
+                        price = searchDic[@"price"];
+                        market_price = searchDic[@"market_price"];
                         stock = searchDic[@"stock"];
                         safe_stock = searchDic[@"safe_stock"];
                         
@@ -1408,8 +1427,8 @@
                 for (NSString *searchStr in guige) {
                     if ([searchStr isEqualToString:str]) {
                         Searchdic = searchDic;
-                        price = searchDic[@"market_price"];
-                        market_price = searchDic[@"price"];
+                        price = searchDic[@"price"];
+                        market_price = searchDic[@"market_price"];
                         stock = searchDic[@"stock"];
                         safe_stock = searchDic[@"safe_stock"];
                         
@@ -1467,11 +1486,7 @@
         jieduanList.alwaysBounceHorizontal = NO;
          */
     }
-    
-    
-    
-    
-    
+
     return cell;
 }
 
@@ -1624,7 +1639,8 @@
     vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",_paramDic[@"userid"],phone];
     vc.uid = _paramDic[@"userid"];
     vc.shopparamDic = dPDic;
-    NSLog(@"dpdic===%@",vc.shopparamDic);
+    NSLog(@"dpdic===111%@===222%@",dPDic,vc.shopparamDic);
+    
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

@@ -30,6 +30,7 @@
 
     _tagsFrame = tagsFrame;
     for (NSInteger i=0; i<tagsFrame.tagsArray.count; i++) {
+        
         UIButton *tagsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [tagsBtn setTitle:tagsFrame.tagsArray[i] forState:UIControlStateNormal];
         [tagsBtn setTitleColor:UIColorRGBA(68,68,68,1) forState:UIControlStateNormal];
