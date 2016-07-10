@@ -498,7 +498,7 @@ static float allPrice = 0;
     [MLHttpManager post:url params:params m:@"product" s:@"confirm_order_submit" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
-        
+        NSLog(@"提交订单为：%@",result);
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSString *order_id = data[@"order_id"];

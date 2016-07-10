@@ -111,6 +111,7 @@
                 MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
                 payResultVC.hidesBottomBarWhenPushed = YES;
                 payResultVC.isSuccess = YES;
+                payResultVC.order_id = self.order_id;
                 [self.navigationController pushViewController:payResultVC animated:YES];
             }
                 
@@ -230,10 +231,10 @@
         totalpay=[NSString stringWithFormat:@"%.2f",_orderDetail.DDJE];
         outtradenum =_orderDetail.JLBH?:@"";
     }
-    NSDictionary *dic = @{@"out_trade_no":outtradenum,
+    NSDictionary *dic = @{@"out_trade_no":self.order_id,
                           @"subject":@"美罗全球精品购",
                           @"body":@"美罗全球精品购",
-                          @"total_fee":totalpay
+                          @"total_fee":[NSString stringWithFormat:@"%.2f",self.order_sum]
                           };
     
     
@@ -279,6 +280,7 @@
                         MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
                         payResultVC.hidesBottomBarWhenPushed = YES;
                         payResultVC.isSuccess = YES;
+                        payResultVC.order_id = self.order_id;
                         [self.navigationController pushViewController:payResultVC animated:YES];
                         
                     }
@@ -382,7 +384,11 @@
         outtradenum =_orderDetail.JLBH?:@"";
     }
 
-    NSDictionary *dict = @{@"orderid":outtradenum?:@"",@"goods_name":@"美罗全球购",@"totalfee":totalpay?:@"",@"ip":@"",@"wxid":@"6"};
+    NSDictionary *dict = @{@"orderid":self.order_id?:@"",
+                           @"goods_name":@"美罗全球购",
+                           @"totalfee":[NSString stringWithFormat:@"%.2f",self.order_sum]?:@"",
+                           @"ip":@"",
+                           @"wxid":@"6"};
     NSLog(@"%@",dict);
     
     
@@ -432,15 +438,12 @@
         outtradenum =_orderDetail.JLBH?:@"";
     }
     //txnAmt  orderId
-    NSDictionary *dict = @{@"txnAmt":totalpay?:@"",@"orderId":outtradenum?:@"",@"orderDesc":@"美罗全球购"};
+    NSDictionary *dict = @{@"txnAmt":[NSString stringWithFormat:@"%.2f",self.order_sum]?:@"",@"orderId":self.order_id?:@"",@"orderDesc":@"美罗全球购"};
     [[HFSServiceClient sharedPayClient]POST:UPPPAY_SERVICE_URL parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *tn = [responseObject objectForKey:@"tn"];
         NSLog(@"银联请求：%@",responseObject);
         [[UPPaymentControl defaultControl] startPay:tn fromScheme:@"wx5aced428a6ce270e" mode:@"00" viewController:self];
-        
-        
-        //[UPAPayPlugin startPay:tn mode:@"01" viewController:self delegate:self andAPMechantID:nil];
-        //[UPAPayPlugin startPay:tn mode:@"01" viewController:self delegate:self];
+
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         NSLog(@"error kkkk %@",error);
@@ -454,9 +457,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     NSLog(@"执行了视图即将显示按钮");
-
-    
-    
+ 
 }
 
 
@@ -503,7 +504,6 @@
     
     [self.navigationController pushViewController:shiBaiVC animated:YES];
 }
-
 
 - (void)showHudString:(NSString *)hud{
     _hud.mode = MBProgressHUDModeText;

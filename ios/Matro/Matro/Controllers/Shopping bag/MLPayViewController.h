@@ -13,6 +13,7 @@
 @property(nonatomic,retain) NSDictionary *paramDic;
 @property (nonatomic,retain)MLOrderListModel *orderDetail;
 @property (nonatomic,assign)BOOL isGlobal;
+
 @property (nonatomic,copy)NSString *order_id;
 @property (nonatomic,assign)float order_sum;
 

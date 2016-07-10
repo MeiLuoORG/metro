@@ -213,6 +213,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
         cell.fuKuanAction = ^(){//跳到付款 页面
             MLPayViewController *vc = [[MLPayViewController alloc]init];
             vc.order_id = order.order_id;
+            vc.order_sum = order.order_price;
             [self.navigationController pushViewController:vc animated:YES];
         };
         
@@ -249,6 +250,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     MLPersonOrderModel *order = [self.orderList objectAtIndex:indexPath.section];
     MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
     vc.order_id = order.order_id;
+    vc.order_price = order.order_price;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -291,6 +293,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
         [self.tableView.footer endRefreshing];
         
         NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"获取订单信息：%@",result);
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSDictionary *order_list = data[@"order_list"];

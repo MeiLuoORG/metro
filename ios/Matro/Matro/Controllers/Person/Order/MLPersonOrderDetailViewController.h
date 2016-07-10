@@ -11,6 +11,6 @@
 
 @interface MLPersonOrderDetailViewController : MLBaseViewController
 @property (nonatomic,copy)NSString *order_id;
-
+@property (assign, nonatomic) float order_price;
 
 @end

@@ -83,6 +83,7 @@
                 {
                     MLPayViewController *vc = [[MLPayViewController alloc]init];
                     vc.order_id = self.order_id;
+                    vc.order_sum = self.order_price;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                     break;

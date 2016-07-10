@@ -207,12 +207,12 @@
 //消息按钮
 - (void)newsButtonAction:(UIButton *)sender{
     NSLog(@"点击了消息按钮");
-    /*
+    
     self.messageBadgeView.hidden = YES;
     MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
-     */
+     
     /*
     PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
     pinVC.hidesBottomBarWhenPushed = YES;
@@ -230,12 +230,12 @@
     
     [self.navigationController pushViewController:shiBaiVC animated:YES];
      */
-    
+    /*
     MLPayViewController *vc = [[MLPayViewController alloc]init];
     vc.hidesBottomBarWhenPushed = YES;
     vc.paramDic = @{@"totalFee":@"0.1",@"order_trade_no":@"1206500002698"};
     [self.navigationController pushViewController:vc animated:YES];
-    
+    */
 }
 
 

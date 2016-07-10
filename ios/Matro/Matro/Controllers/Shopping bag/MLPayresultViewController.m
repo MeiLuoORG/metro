@@ -73,10 +73,8 @@
 }
 
 - (void)goBack{
-
+    [self.navigationController popViewControllerAnimated:NO];
     [self getAppDelegate].tabBarController.selectedIndex = 0;
-    
-    //[self.navigationController popViewControllerAnimated:YES];
 
 }
 
@@ -323,7 +321,7 @@
         if (_isSuccess) {
             headerView.tisLabel.text = @"支付成功";
             headerView.tisImageView.image = [UIImage imageNamed:@"zhifuchenggong-1"];
-            
+            [headerView.toOrder addTarget:self action:@selector(toOrderAction:) forControlEvents:UIControlEventTouchUpInside];
             [headerView.toHome addTarget:self action:@selector(toHomeAction:) forControlEvents:UIControlEventTouchUpInside];
             
             
@@ -341,13 +339,14 @@
 
 
 - (void)toHomeAction:(UIButton *)sender{
-        [self getAppDelegate].tabBarController.selectedIndex = 0;
-        [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:NO];
+    [self getAppDelegate].tabBarController.selectedIndex = 0;
 }
 
 - (void)toOrderAction:(UIButton *)sender{
     MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
     vc.order_id = self.order_id;
+    
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -355,14 +354,6 @@
 
 
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
