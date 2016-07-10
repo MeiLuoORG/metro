@@ -200,13 +200,21 @@ static const CGFloat defaultGradientPercentage = 0.2;
     CGFloat x = 0;
     for (NSInteger i = 0; i < self.buttons.count; i++) {
         NSString *title = self.buttons[i];
+//        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:self.buttons[i]];
+//        NSRange strRange = {0,[str length]};
+//        [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];
+        
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(x, 0, 20, self.frame.size.height - 2)];
         
-        UIView *xianView = [[UIView alloc]initWithFrame:CGRectMake(button.frame.origin.x, button.frame.size.height + 1, button.frame.size.width, 1)];
+//        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 21, button.titleLabel.text.length, 1)];
+//        view.backgroundColor = [UIColor redColor];
+        
         
         button.tag = i;
         [button setTitleColor:self.buttonColor forState:UIControlStateNormal];
         [button setTitle:title forState:UIControlStateNormal];
+        //[button setAttributedTitle:str forState:UIControlStateNormal];
+        
         [button addTarget:self action:@selector(buttonSelect:) forControlEvents:UIControlEventTouchUpInside];
         [button sizeToFit];
         
@@ -216,17 +224,18 @@ static const CGFloat defaultGradientPercentage = 0.2;
         
         if (self.buttonHighlightColor) {
             [button setTitleColor:self.buttonHighlightColor forState:UIControlStateHighlighted];
-            xianView.backgroundColor = [UIColor greenColor];
+            
         }
         
         if (self.buttonSelectedColor) {
             [button setTitleColor:self.buttonSelectedColor forState:UIControlStateSelected];
-            xianView.backgroundColor = [UIColor greenColor];
+            
           
         }
         
         if (self.buttonBackgroundImage) {
             [button setBackgroundImage:self.buttonBackgroundImage forState:UIControlStateNormal];
+            
         }
         if (self.buttonSelectedBackgroundImage) {
             [button setBackgroundImage:self.buttonSelectedBackgroundImage forState:UIControlStateSelected];
@@ -236,11 +245,12 @@ static const CGFloat defaultGradientPercentage = 0.2;
         }
         
         button.frame = (CGRect){button.frame.origin, {button.frame.size.width + (self.edgeMargin * 2), self.frame.size.height}};
-        xianView.frame = (CGRect){button.frame.origin, 1};
+        
         x = CGRectGetMaxX(button.frame);
         
         [self.scrollView addSubview:button];
-        [self.scrollView addSubview:xianView];
+       // [self.scrollView addSubview:view];
+        
     }
     
     self.scrollView.contentSize = CGSizeMake(x, self.frame.size.height);

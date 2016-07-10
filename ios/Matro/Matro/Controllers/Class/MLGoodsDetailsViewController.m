@@ -53,7 +53,7 @@
 + (UIImage *)imageWithColor: (UIColor *)color;
 @end
 
-@interface MLGoodsDetailsViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIAlertViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,YAScrollSegmentControlDelegate,DWTagListDelegate>{
+@interface MLGoodsDetailsViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIAlertViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,YAScrollSegmentControlDelegate,DWTagListDelegate,IMJIETagViewDelegate>{
     
     NSDictionary *pDic;//商品详情信息
     NSDictionary *dPDic;//店铺详情信息
@@ -312,7 +312,7 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&test_phone=18949151936",@"http://bbctest.matrojp.com",_paramDic[@"id"]];
     //测试链接
-//    NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
+    //NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
     
     [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
@@ -350,13 +350,14 @@
                     if (i == 0) {
                         [huoyuanArray addObject:guigestr1];
                     }else{
+                        
                     for (NSString *searchstr in huoyuanArray) {
                         if (![guigestr1 isEqualToString:searchstr]) {
                             [huoyuanArray addObject:guigestr1];
                         }else{
                             
+                            }
                         }
-                    }
                     }
                     i++;
                     
@@ -388,7 +389,9 @@
             }
             
             [_tableView reloadData];
-        }else{
+        }
+        else{
+            
             self.guigeH.constant = 0;
 
         }
@@ -622,9 +625,10 @@
                     
                 }
                 
-                float shuiliv = [dic[@"pinfo"][@"tax"] floatValue];
-                float pricef = [dic[@"pinfo"][@"market_price"] floatValue];
-                float shuifei = (shuiliv * pricef)/100;
+                float xiaofeishuilv = [dic[@"pinfo"][@"tax"] floatValue];
+                float pricef = [dic[@"pinfo"][@"price"] floatValue];
+                float zengzhishuilv = [dic[@"tax"][@"vat"] floatValue];
+                float shuifei =(((xiaofeishuilv + zengzhishuilv)/(1 - xiaofeishuilv)) * 0.7) * pricef;
                 self.shuilvLabel.text =[NSString stringWithFormat:@"预计￥%.2f",shuifei];
                 
                 
@@ -661,10 +665,11 @@
     }];
 }
 
+
+/*
 - (void)selectedTag:(NSString *)tagName{
     
-    NSLog(@"点击了====%@",tagName);
-    NSLog(@"array====%@",porpertyArray);
+    
     NSString *price;
     NSString *market_price;
     NSString *stock;
@@ -739,10 +744,11 @@
     }
     
 }
+*/
 
 -(void)loaddataDianpu{
     
-      //  http://bbctest.matrojp.com/api.php?m=shop&s=shop&uid=20505
+    //  http://bbctest.matrojp.com/api.php?m=shop&s=shop&uid=20505
     
     NSString *dpid = self.paramDic[@"userid"];
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@",@"http://bbctest.matrojp.com",dpid];
@@ -827,15 +833,15 @@
                 [_recommendArray addObjectsFromArray:arr];
             }
         }
-        //NSInteger row = (((_recommendArray.count / 3) >= 1 ? (_recommendArray.count / 3) + ((_recommendArray.count % 3 == 0)? 0 : 1) : 1));
-        
-//        CGRect rect = [UIScreen mainScreen].bounds;
+
         NSInteger row = 2;
         if (_recommendArray.count != 0) {
             _likeH.constant = 170*row;
-//            _likeH.constant = (row + 1) * 10 + row *((MAIN_SCREEN_WIDTH - 5 * 10)/3/(rect.size.width/3)*157);
+            
         }else{
+            
             _likeH.constant = 0;
+            
         }
         [_collectionView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -846,7 +852,6 @@
         
     }];
 }
-
 
 
 - (void)didReceiveMemoryWarning {
@@ -1252,7 +1257,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;{
-    
+    __weak typeof(self) weakself = self;
     static NSString *CellIdentifier = @"MLGoodsDetailsTableViewCell" ;
     MLGoodsDetailsTableViewCell *cell = (MLGoodsDetailsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
@@ -1266,6 +1271,91 @@
     
     if (indexPath.row == 0) {
         
+        cell.tags = huoyuanArray;
+        cell.goodsBiaoQianSelBlock = ^(NSArray *tagsIndex){
+            
+            NSString *indexStr = [tagsIndex firstObject];
+            NSInteger index = [indexStr integerValue];
+            NSString *str = [huoyuanArray objectAtIndex:index];
+            NSLog(@"%@",str);
+            
+            NSString *price;
+            NSString *market_price;
+            NSString *stock;
+            NSString *safe_stock;
+            
+            
+            for (NSDictionary *searchDic in porpertyArray) {
+                NSMutableArray *guige = [[NSMutableArray alloc] init];
+                NSArray *setmealArr = searchDic[@"setmeal"];
+                if (setmealArr.count == 1) {
+                    NSDictionary *guigeDic1 = setmealArr[0];
+                    
+                    NSString *guigestr1 = guigeDic1[@"name"];
+                    
+                    
+                    [guige addObject:guigestr1];
+                    
+                }else{
+                    
+                    NSDictionary *guigeDic1 = setmealArr[0];
+                    NSDictionary *guigeDic2 = setmealArr[1];
+                    NSString *guigestr1 = guigeDic1[@"name"];
+                    NSString *guigestr2 = guigeDic2[@"name"];
+                    
+                    [guige addObject:guigestr1];
+                    [guige addObject:guigestr2];
+                }
+                for (NSString *searchStr in guige) {
+                    if ([searchStr isEqualToString:str]) {
+                        Searchdic = searchDic;
+                        price = searchDic[@"market_price"];
+                        market_price = searchDic[@"price"];
+                        stock = searchDic[@"stock"];
+                        safe_stock = searchDic[@"safe_stock"];
+                        
+                    }
+                }
+            }
+            
+            NSLog(@"%@  %@  %@  %@",price,market_price,stock,safe_stock);
+            
+            float pricef = price.floatValue;
+            self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+            
+            NSAttributedString *attrStr =
+            [[NSAttributedString alloc]initWithString:market_price
+                                           attributes:
+             @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+               NSForegroundColorAttributeName:[UIColor grayColor],
+               NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+               NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+            self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
+            
+            
+            [self.shuliangStepper setTextValue:1];
+            UIButton *leftbtn = (UIButton*)self.shuliangStepper.leftView;
+            UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
+            
+            
+            if (stock.floatValue >= safe_stock.floatValue) {
+                self.kuncuntisLabel.text = @"库存充足";
+            }else if(stock.floatValue < safe_stock.floatValue){
+                
+                self.kuncuntisLabel.text = [NSString stringWithFormat:@"%@",stock];
+            }
+            
+            if (stock.floatValue == 0) {
+                [self.shuliangStepper setTextValue:0];
+                leftbtn.enabled=NO;
+                rightbtn.enabled = NO;
+                self.kuncuntisLabel.text = @"售罄";
+            }
+            
+            
+        };
+        
+        /*
         huoyuanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
         huoyuanList.tagDelegate = self;
         //huoyuanList = [self styleTagList:huoyuanList];
@@ -1277,8 +1367,93 @@
         huoyuanList.frame = CGRectMake(0, 5, cell.tagView.bounds.size.width, cell.tagView.bounds.size.height - 10);
         huoyuanList.alwaysBounceVertical = NO;
         huoyuanList.alwaysBounceHorizontal = NO;
+         */
     }else{
     
+        cell.tags = jieduanArray;
+        cell.goodsBiaoQianSelBlock = ^(NSArray *tagsIndex){
+            
+            NSString *indexStr = [tagsIndex firstObject];
+            NSInteger index = [indexStr integerValue];
+            NSString *str = [jieduanArray objectAtIndex:index];
+            NSLog(@"%@",str);
+            
+            NSString *price;
+            NSString *market_price;
+            NSString *stock;
+            NSString *safe_stock;
+            
+            
+            for (NSDictionary *searchDic in porpertyArray) {
+                NSMutableArray *guige = [[NSMutableArray alloc] init];
+                NSArray *setmealArr = searchDic[@"setmeal"];
+                if (setmealArr.count == 1) {
+                    NSDictionary *guigeDic1 = setmealArr[0];
+                    
+                    NSString *guigestr1 = guigeDic1[@"name"];
+                    
+                    
+                    [guige addObject:guigestr1];
+                    
+                }else{
+                    
+                    NSDictionary *guigeDic1 = setmealArr[0];
+                    NSDictionary *guigeDic2 = setmealArr[1];
+                    NSString *guigestr1 = guigeDic1[@"name"];
+                    NSString *guigestr2 = guigeDic2[@"name"];
+                    
+                    [guige addObject:guigestr1];
+                    [guige addObject:guigestr2];
+                }
+                for (NSString *searchStr in guige) {
+                    if ([searchStr isEqualToString:str]) {
+                        Searchdic = searchDic;
+                        price = searchDic[@"market_price"];
+                        market_price = searchDic[@"price"];
+                        stock = searchDic[@"stock"];
+                        safe_stock = searchDic[@"safe_stock"];
+                        
+                    }
+                }
+            }
+            
+            NSLog(@"%@  %@  %@  %@",price,market_price,stock,safe_stock);
+            
+            float pricef = price.floatValue;
+            self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+            
+            NSAttributedString *attrStr =
+            [[NSAttributedString alloc]initWithString:market_price
+                                           attributes:
+             @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+               NSForegroundColorAttributeName:[UIColor grayColor],
+               NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+               NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+            self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
+            
+            
+            [self.shuliangStepper setTextValue:1];
+            UIButton *leftbtn = (UIButton*)self.shuliangStepper.leftView;
+            UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
+            
+            
+            if (stock.floatValue >= safe_stock.floatValue) {
+                self.kuncuntisLabel.text = @"库存充足";
+            }else if(stock.floatValue < safe_stock.floatValue){
+                
+                self.kuncuntisLabel.text = [NSString stringWithFormat:@"%@",stock];
+            }
+            
+            if (stock.floatValue == 0) {
+                [self.shuliangStepper setTextValue:0];
+                leftbtn.enabled=NO;
+                rightbtn.enabled = NO;
+                self.kuncuntisLabel.text = @"售罄";
+            }
+            
+        };
+        
+        /*
         jieduanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
         jieduanList.tagDelegate = self;
         jieduanList.horizontalPadding = 10.0f;
@@ -1290,6 +1465,7 @@
         jieduanList.frame = CGRectMake(0, 5, cell.tagView.bounds.size.width, cell.tagView.bounds.size.height - 10);
         jieduanList.alwaysBounceVertical = NO;
         jieduanList.alwaysBounceHorizontal = NO;
+         */
     }
     
     
@@ -1300,10 +1476,16 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    /*
+    IMJIETagFrame *frame = [[IMJIETagFrame alloc] init];
+    frame.tagsMinPadding = 4;
+    frame.tagsMargin = 10;
+    frame.tagsLineSpacing = 10;
+    frame.tagsArray = huoyuanArray;
+    */
+    
     return 40;
 }
-
-
 
 
 #pragma Mark 收藏
@@ -1441,6 +1623,8 @@
     NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
     vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",_paramDic[@"userid"],phone];
     vc.uid = _paramDic[@"userid"];
+    vc.shopparamDic = dPDic;
+    NSLog(@"dpdic===%@",vc.shopparamDic);
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

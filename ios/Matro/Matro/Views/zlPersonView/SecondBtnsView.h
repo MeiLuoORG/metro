@@ -26,6 +26,10 @@ typedef void(^QuanBuBlock)(BOOL success);
 @property (copy, nonatomic) TuiHuoBlock tuiHuoBLock;
 @property (copy, nonatomic) QuanBuBlock quanBuBLock;
 @property (weak, nonatomic) IBOutlet UIButton *daiFuButton;
+@property (weak, nonatomic) IBOutlet UIButton *daiShouButton;
+@property (weak, nonatomic) IBOutlet UIButton *daiPingButton;
+@property (weak, nonatomic) IBOutlet UIButton *tuiHuoButton;
+@property (weak, nonatomic) IBOutlet UIButton *allOrderButton;
 
 
 

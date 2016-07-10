@@ -30,7 +30,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                             <state key="normal" image="daifuzl">
-                                <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="daiFuButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="UWI-Fv-9Mi"/>
@@ -65,7 +65,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                             <state key="normal" image="daishouzl">
-                                <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="daifaButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="1sh-NI-Thb"/>
@@ -99,7 +99,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                             <state key="normal" image="daipingzl">
-                                <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="daiPingButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="ja3-6C-ZQE"/>
@@ -133,7 +133,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                             <state key="normal" image="tuihuozl">
-                                <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="tuiHuoButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Zjg-CZ-esb"/>
@@ -167,7 +167,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                             <state key="normal" image="quanbuzl">
-                                <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="quanBuAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="P8N-Xv-zwI"/>
@@ -218,7 +218,11 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="allOrderButton" destination="0Uw-hf-1UE" id="g6B-Wt-Tng"/>
                 <outlet property="daiFuButton" destination="Dum-r5-I4u" id="UTl-zs-kNT"/>
+                <outlet property="daiPingButton" destination="Dt4-TE-TtP" id="3LH-4d-MJv"/>
+                <outlet property="daiShouButton" destination="WdM-8U-hLT" id="bou-4F-0Zq"/>
+                <outlet property="tuiHuoButton" destination="PDb-lF-3ki" id="Kj5-vj-jpq"/>
                 <outlet property="view2CenterX" destination="C1u-ri-FAI" id="OM6-Xb-95a"/>
                 <outlet property="view4CenterX" destination="QA6-ky-FoY" id="TSx-wr-VLl"/>
             </connections>

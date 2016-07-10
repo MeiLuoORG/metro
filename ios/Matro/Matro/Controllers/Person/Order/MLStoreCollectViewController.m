@@ -136,31 +136,35 @@ static NSInteger page = 1;
     [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
         NSLog(@"请求成功responseObject===%@",responseObject);
         
-        _collectionArray = responseObject[@"data"][@"shop_list"];
-        
-        __weak typeof(self) weakself = self;
-        
-        if (_collectionArray.count>0) {
-            if (page == 1) {
-                [self.dataSource removeAllObjects];
-            }
-            [self.dataSource addObjectsFromArray:[MLCollectstoresModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
-            
-            [self._tableView reloadData];
-            
-            
-            
-        }else{
+        if ([responseObject[@"data"][@"shop_list"] isKindOfClass:[NSString class]]) {
             
             [self.dataSource removeAllObjects];
             [self._tableView reloadData];
             [self.view configBlankPage:EaseBlankPageTypeShouCangstore hasData:(self.dataSource.count>0)];
-            self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
-                weakself.tabBarController.selectedIndex = 1;
-                [weakself.navigationController popToRootViewControllerAnimated:YES];
-            };
+           
+        }else{
+            _collectionArray = responseObject[@"data"][@"shop_list"];
             
+            __weak typeof(self) weakself = self;
+            
+            if (_collectionArray.count>0) {
+                if (page == 1) {
+                    [self.dataSource removeAllObjects];
+                }
+                [self.dataSource addObjectsFromArray:[MLCollectstoresModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
+                
+                [self._tableView reloadData];
+       
+                
+            }else{
+                
+                [self.dataSource removeAllObjects];
+                [self._tableView reloadData];
+                [self.view configBlankPage:EaseBlankPageTypeShouCangstore hasData:(self.dataSource.count>0)];
+               
+            }
         }
+       
     } failure:^(NSError *error) {
         NSLog(@"请求失败 error===%@",error);
         [_hud show:YES];

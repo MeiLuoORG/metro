@@ -82,6 +82,14 @@
     NSString * _youHuiQuanCount;
     NSString * _youHuiQuanYuE;
     NSMutableArray * _youHuiQuanMuARR;
+    NSDictionary *orderStatusNumDic;
+    
+    JSBadgeView *daiFubadgeView;
+    JSBadgeView *daiShoubadgeView;
+    JSBadgeView *daiPingbadgeView;
+    JSBadgeView *tuiHuobadgeView;
+    JSBadgeView *allOrderbadgeView;
+    
 }
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)MLPersonHeadView *headView;
@@ -96,7 +104,7 @@
     _youHuiQuanMuARR = [[NSMutableArray alloc]init];
      self.navigationItem.title = @"个人中心";
     self.navigationItem.leftBarButtonItem = nil;
-    
+    orderStatusNumDic = [NSDictionary dictionary];
     //加载背景图
     _backgroundScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-64-49)];
     _backgroundScrollView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
@@ -166,6 +174,7 @@
         headView;
     });
     [_backgroundScrollView addSubview:_headView];
+    
     [self loadSecondButtonsView];
     [self loadThirdButtonsView];
     [self loadFourButtonsView];
@@ -199,10 +208,95 @@
 }
 
 #pragma mark zhoulu 第二栏按钮组
+
+-(void)loadNum{
+    
+    [MLHttpManager get:@"http://bbctest.matrojp.com/api.php?m=shop&s=status&action=sel" params:nil m:@"shop" s:@"status" success:^(id responseObject) {
+        NSLog(@"订单状态%@",responseObject);
+        if ([responseObject[@"code"] isEqual:@0]) {
+            
+            NSDictionary * result = (NSDictionary *)responseObject;
+            orderStatusNumDic = result[@"data"][@"count"];
+            NSLog(@"orderStatusNumDic===%@",orderStatusNumDic);
+            
+            SecondBtnsView *headView =[SecondBtnsView personHeadView];
+            
+            daiFubadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiFuButton alignment:JSBadgeViewAlignmentTopRight];
+            NSLog(@"%@",orderStatusNumDic[@"dfh"]);
+            
+            NSString *dfh = orderStatusNumDic[@"dfh"];
+            daiFubadgeView.badgeText = dfh;
+    
+            daiShoubadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiShouButton alignment:JSBadgeViewAlignmentTopRight];
+            NSString *dsh = orderStatusNumDic[@"dsh"];
+            daiShoubadgeView.badgeText = dsh;
+            
+            
+            daiPingbadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiPingButton alignment:JSBadgeViewAlignmentTopRight];
+            NSString *dpj = orderStatusNumDic[@"dpj"];
+            daiPingbadgeView.badgeText = dpj;
+            
+            
+            tuiHuobadgeView = [[JSBadgeView alloc]initWithParentView:headView.tuiHuoButton alignment:JSBadgeViewAlignmentTopRight];
+            NSString *th = orderStatusNumDic[@"th"];
+            tuiHuobadgeView.badgeText = th;
+            
+            
+            allOrderbadgeView = [[JSBadgeView alloc]initWithParentView:headView.allOrderButton alignment:JSBadgeViewAlignmentTopRight];
+            NSString *all = orderStatusNumDic[@"all"];
+            allOrderbadgeView.badgeText = all;
+        }
+        else{
+        
+            
+        }
+        
+    } failure:^(NSError *error) {
+        _hud = [[MBProgressHUD alloc]initWithView:self.view];
+        [self.view addSubview:_hud];
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = REQUEST_ERROR_ZL;
+        [_hud hide:YES afterDelay:1];
+    }];
+
+
+}
+
 - (void)loadSecondButtonsView{
+
+    NSLog(@"22222%@",orderStatusNumDic);
     
     self.secondBtnsView = ({
         SecondBtnsView *headView =[SecondBtnsView personHeadView];
+        daiFubadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiFuButton alignment:JSBadgeViewAlignmentTopRight];
+        NSLog(@"%@",orderStatusNumDic[@"dfh"]);
+        
+       // NSString *dfh = orderStatusNumDic[@"dfh"];
+        daiFubadgeView.badgeText = @"10";
+        
+        
+        
+        daiShoubadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiShouButton alignment:JSBadgeViewAlignmentTopRight];
+        NSString *dsh = orderStatusNumDic[@"dsh"];
+        daiShoubadgeView.badgeText = dsh;
+        
+        
+        daiPingbadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiPingButton alignment:JSBadgeViewAlignmentTopRight];
+        NSString *dpj = orderStatusNumDic[@"dpj"];
+        daiPingbadgeView.badgeText = dpj;
+        
+        
+        tuiHuobadgeView = [[JSBadgeView alloc]initWithParentView:headView.tuiHuoButton alignment:JSBadgeViewAlignmentTopRight];
+        NSString *th = orderStatusNumDic[@"th"];
+        tuiHuobadgeView.badgeText = th;
+        
+        
+        allOrderbadgeView = [[JSBadgeView alloc]initWithParentView:headView.allOrderButton alignment:JSBadgeViewAlignmentTopRight];
+        NSString *all = orderStatusNumDic[@"all"];
+        allOrderbadgeView.badgeText = all;
+        
+        
          __weak typeof(self)weakself = self;
         headView.frame = CGRectMake(0, 110, SIZE_WIDTH, 67);
         headView.view2CenterX.constant = -((SIZE_WIDTH/2)-56)/2;
@@ -280,6 +374,7 @@
         
         headView;
     });
+     
     [_backgroundScrollView addSubview:self.secondBtnsView];
 
 }
@@ -1084,6 +1179,7 @@
         
         //请求我的资产
         [self getMyZiChanAction];
+        [self loadNum];
         
     }
     else{

@@ -17,6 +17,7 @@
 #import "PinPaiSPListViewController.h"
 #import "MLGoodsListViewController.h"
 #import "MLshopFLViewController.h"
+#import "MLHttpManager.h"
 @protocol JSObjectDelegate <JSExport>
 
 
@@ -24,6 +25,7 @@
 - (void)skipPage:(NSString *)url;
 
 - (void)skip:(NSString *)index Ui:(NSString *)sender;
+- (void)storeCollect:(NSString*)type;
 
 @end
 
@@ -162,6 +164,82 @@
 }
 
 #pragma mark js回调
+-(void)storeCollect:(NSString *)type{
+    
+//http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_shop
+//    
+//   【post】
+//    
+//    do=add
+//        
+//    shopid=13911
+//        
+//    uname=ml_13771961207
+//        
+//    shopname=嘻呗全球购
+
+    NSLog(@"type==%@",type);
+    if ([type isEqualToString:@"1"]) {
+        NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_shop"];
+        NSDictionary *params = @{@"do":@"add",@"shopid":_shopparamDic[@"userid"],@"uname":@"ml_13771961207",@"shopname":_shopparamDic[@"company"]};
+        
+        [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
+            NSLog(@"请求成功responseObject===%@",responseObject);
+            if ([responseObject[@"code"]isEqual:@0]) {
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"收藏成功";
+                [_hud hide:YES afterDelay:1];
+            }else{
+            
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"您的网络不给力啊";
+                [_hud hide:YES afterDelay:1];
+            }
+            
+            
+        } failure:^(NSError *error) {
+            NSLog(@"请求失败 error===%@",error);
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"请求失败";
+            [_hud hide:YES afterDelay:1];
+            
+        }];
+    }else{
+        NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_shop"];
+        NSDictionary *params = @{@"do":@"del",@"id":@""};
+        [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
+            NSLog(@"请求成功responseObject===%@",responseObject);
+            if ([responseObject[@"code"]isEqual:@0]) {
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"取消收藏成功";
+                [_hud hide:YES afterDelay:1];
+            }else{
+                
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"您的网络不给力啊";
+                [_hud hide:YES afterDelay:1];
+            }
+            
+            
+        } failure:^(NSError *error) {
+            NSLog(@"请求失败 error===%@",error);
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"请求失败";
+            [_hud hide:YES afterDelay:1];
+            
+        }];
+        
+    }
+    
+}
+
+
 - (void)skip:(NSString *)index Ui:(NSString *)sender{
     
     NSLog(@"点击了网页：%@++++++%@",index,sender);
