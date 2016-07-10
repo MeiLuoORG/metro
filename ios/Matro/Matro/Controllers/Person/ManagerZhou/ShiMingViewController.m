@@ -41,7 +41,6 @@
     
     //[self.view addSubview:navTop];
 
-
     if (self.isRenZheng == YES) {
 
         [self createView1];

@@ -376,6 +376,7 @@
 		3CEA04CF1D0E879600E5C4B6 /* SettingMoCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CEA04CE1D0E879600E5C4B6 /* SettingMoCardCell.xib */; };
 		3CEAC66D1D1E799B00E953A7 /* XiuGaiPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAC66B1D1E799B00E953A7 /* XiuGaiPasswordViewController.m */; };
 		3CEAC66E1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CEAC66C1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib */; };
+		3CEC51CD1D30ECB200D0CA8C /* libPaymentControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CEC51CC1D30ECB200D0CA8C /* libPaymentControl.a */; };
 		3CEDAD791D13E74E00990DA8 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDAD781D13E74E00990DA8 /* iCarousel.m */; };
 		3CEDAD7D1D13ECFB00990DA8 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7A1D13ECFB00990DA8 /* background.png */; };
 		3CEDAD7E1D13ECFB00990DA8 /* page.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7B1D13ECFB00990DA8 /* page.png */; };
@@ -1368,6 +1369,8 @@
 		3CEAC66A1D1E799B00E953A7 /* XiuGaiPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiuGaiPasswordViewController.h; sourceTree = "<group>"; };
 		3CEAC66B1D1E799B00E953A7 /* XiuGaiPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiuGaiPasswordViewController.m; sourceTree = "<group>"; };
 		3CEAC66C1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XiuGaiPasswordViewController.xib; sourceTree = "<group>"; };
+		3CEC51CA1D30ECB200D0CA8C /* UPPaymentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPaymentControl.h; sourceTree = "<group>"; };
+		3CEC51CC1D30ECB200D0CA8C /* libPaymentControl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPaymentControl.a; sourceTree = "<group>"; };
 		3CEDAD771D13E74E00990DA8 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		3CEDAD781D13E74E00990DA8 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		3CEDAD7A1D13ECFB00990DA8 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
@@ -1850,6 +1853,7 @@
 				3AA0E7B51CA91ECD0079AA90 /* CoreGraphics.framework in Frameworks */,
 				3AA0E7BD1CA91F6F0079AA90 /* SystemConfiguration.framework in Frameworks */,
 				3AA0E7BB1CA91F520079AA90 /* CoreTelephony.framework in Frameworks */,
+				3CEC51CD1D30ECB200D0CA8C /* libPaymentControl.a in Frameworks */,
 				7AB90FF71D1CCADF00FB9EE7 /* CoreFoundation.framework in Frameworks */,
 				7AB90FF51D1CCAD700FB9EE7 /* CFNetwork.framework in Frameworks */,
 				3C5B0C8C1CFC4348003FFD25 /* libsqlite3.0.tbd in Frameworks */,
@@ -3600,6 +3604,7 @@
 		3C5B0C721CFC37E3003FFD25 /* zhou */ = {
 			isa = PBXGroup;
 			children = (
+				3CEC51C81D30ECB200D0CA8C /* paymentcontrol */,
 				3C197A301D2E831D0087BAF1 /* app_bg.jpg */,
 				3C0556781D236F8A0092D140 /* xiaLacaiDan */,
 				3CEDAD761D13E74E00990DA8 /* iCarousel */,
@@ -3737,6 +3742,31 @@
 				3CC5F77F1D2BC83200E1A5B5 /* MLPayShiBaiViewController.xib */,
 			);
 			path = ZLPayShiBaiVC;
+			sourceTree = "<group>";
+		};
+		3CEC51C81D30ECB200D0CA8C /* paymentcontrol */ = {
+			isa = PBXGroup;
+			children = (
+				3CEC51C91D30ECB200D0CA8C /* inc */,
+				3CEC51CB1D30ECB200D0CA8C /* libs */,
+			);
+			path = paymentcontrol;
+			sourceTree = "<group>";
+		};
+		3CEC51C91D30ECB200D0CA8C /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				3CEC51CA1D30ECB200D0CA8C /* UPPaymentControl.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		3CEC51CB1D30ECB200D0CA8C /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				3CEC51CC1D30ECB200D0CA8C /* libPaymentControl.a */,
+			);
+			path = libs;
 			sourceTree = "<group>";
 		};
 		3CEDAD761D13E74E00990DA8 /* iCarousel */ = {
@@ -4890,6 +4920,7 @@
 					"$(PROJECT_DIR)/Matro/Vendors/UMeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/Matro/Vendors/JPush",
 					"$(PROJECT_DIR)/Matro/Vendors/applePaySDK/libs",
+					"$(PROJECT_DIR)/Matro/Common/zhou/paymentcontrol/libs",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4945,6 +4976,7 @@
 					"$(PROJECT_DIR)/Matro/Vendors/UMeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 					"$(PROJECT_DIR)/Matro/Vendors/JPush",
 					"$(PROJECT_DIR)/Matro/Vendors/applePaySDK/libs",
+					"$(PROJECT_DIR)/Matro/Common/zhou/paymentcontrol/libs",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -20,7 +20,7 @@
 #import <PassKit/PassKit.h>
 #import "MLShopBagViewController.h"
 #import "MBProgressHUD+Add.h"
-
+#import "UPPaymentControl.h"
 #import "UPAPayPlugin.h"
 //#import <PassKit/PassKit.h>
 #define kAppleMerchantID @"merchant.com.matro"
@@ -86,6 +86,12 @@
     
     
     _tableView.tableFooterView = [[UIView alloc]init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yinLianPaySuccess:) name:YinLianPay_NOTICIFICATION_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yinLianPayFail:) name:YinLianPay_NOTICIFICATION_FAIL object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yinLianPanCancel:) name:YinLianPay_NOTICIFICATION_CANCEL object:nil];
+    
+    
 }
 
 
@@ -425,11 +431,16 @@
         totalpay=[NSString stringWithFormat:@"%.2f",_orderDetail.DDJE];
         outtradenum =_orderDetail.JLBH?:@"";
     }
-    
+    //txnAmt  orderId
     NSDictionary *dict = @{@"txnAmt":totalpay?:@"",@"orderId":outtradenum?:@"",@"orderDesc":@"美罗全球购"};
     [[HFSServiceClient sharedPayClient]POST:UPPPAY_SERVICE_URL parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *tn = [responseObject objectForKey:@"tn"];
-//        [UPPayPlugin startPay:tn mode:@"01" viewController:self delegate:self];
+        NSLog(@"银联请求：%@",responseObject);
+        [[UPPaymentControl defaultControl] startPay:tn fromScheme:@"wx5aced428a6ce270e" mode:@"00" viewController:self];
+        
+        
+        //[UPAPayPlugin startPay:tn mode:@"01" viewController:self delegate:self andAPMechantID:nil];
+        //[UPAPayPlugin startPay:tn mode:@"01" viewController:self delegate:self];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         NSLog(@"error kkkk %@",error);
@@ -440,7 +451,13 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    NSLog(@"执行了视图即将显示按钮");
 
+    
+    
+}
 
 
 #pragma mark - UPPayPluginDelegate
@@ -464,7 +481,28 @@
         [_hud hide:YES afterDelay:1];
     }
 }
-
+/*zhoulu银联*/
+- (void)yinLianPaySuccess:(id)sender{
+    NSLog(@"银联支付成功");
+    MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
+    payResultVC.hidesBottomBarWhenPushed = YES;
+    payResultVC.isSuccess = YES;
+    [self.navigationController pushViewController:payResultVC animated:YES];
+}
+- (void)yinLianPayFail:(id)sender{
+    NSLog(@"银联支付失败");
+    MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
+    shiBaiVC.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:shiBaiVC animated:YES];
+}
+- (void)yinLianPanCancel:(id)sender{
+    NSLog(@"银联支付取消");
+    MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
+    shiBaiVC.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:shiBaiVC animated:YES];
+}
 
 
 - (void)showHudString:(NSString *)hud{

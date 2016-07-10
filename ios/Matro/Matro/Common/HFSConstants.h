@@ -123,8 +123,10 @@
 
 //首页切换  视图 按钮 通知名
 #define HOMEVIEW_BUTTON_INDEX_NOTIFICATION      @"homeview_button_index_notification"
-
-
+//银联支付回调通知
+#define YinLianPay_NOTICIFICATION_SUCCESS               @"YINLIAN_ZHIFU_NOTICIFICATION_SUCCESS"
+#define YinLianPay_NOTICIFICATION_FAIL               @"YINLIAN_ZHIFU_NOTICIFICATION_FAIL"
+#define YinLianPay_NOTICIFICATION_CANCEL               @"YINLIAN_ZHIFU_NOTICIFICATION_CANCEL"
 /*zhoulu*/
 
 #define LoadNibWithSelfClassName [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil]firstObject]
@@ -210,6 +212,8 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define GenXinTouXiang_URLString        @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=update_img"
 
 #define QianDao_URLString               @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=add_qd"
+
+#define ZiChan_URLString                @"http://bbctest.matrojp.com/api.php?m=member&s=assets&action=sel_assets"
 
 /*zhouluEND*/
 

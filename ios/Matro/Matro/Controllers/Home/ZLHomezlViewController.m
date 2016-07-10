@@ -110,9 +110,14 @@
          NSDictionary *result = (NSDictionary *)responseObject;
          NSString *code = result[@"code"];
          if ([code isEqual:@0]) {
+
+
              if ([result[@"data"][@"sel_info"] isKindOfClass:[NSString class]]) {
                  return ;
              }else{
+             
+             NSLog(@"版本更新：%@",result);
+
              NSString *loadversion = result[@"data"][@"sel_info"][@"appverison"];
              NSString *downlink = result[@"data"][@"sel_info"][@"download_link"];
              NSLog(@"version===%@ loadversion===%@ downlink===%@",version, loadversion,downlink);
@@ -202,10 +207,12 @@
 //消息按钮
 - (void)newsButtonAction:(UIButton *)sender{
     NSLog(@"点击了消息按钮");
+    /*
     self.messageBadgeView.hidden = YES;
     MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+     */
     /*
     PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
     pinVC.hidesBottomBarWhenPushed = YES;
@@ -223,13 +230,15 @@
     
     [self.navigationController pushViewController:shiBaiVC animated:YES];
      */
-    /*
+    
     MLPayViewController *vc = [[MLPayViewController alloc]init];
     vc.hidesBottomBarWhenPushed = YES;
-    vc.paramDic = @{@"totalFee":@"0.1",@"order_trade_no":@"12346128458"};
+    vc.paramDic = @{@"totalFee":@"0.1",@"order_trade_no":@"1206500002698"};
     [self.navigationController pushViewController:vc animated:YES];
-     */
+    
 }
+
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
@@ -819,12 +828,19 @@
         NSDictionary *result = (NSDictionary *)responseObject;
         NSLog(@"打卡签到：%@",result);
         if ([result[@"code"] isEqual:@0]) {
-            self.dakaImageView = [[UIImageView alloc]initWithFrame:CGRectMake(40, 250, SIZE_WIDTH-80, 35)];
+            self.dakaImageView = [[UIImageView alloc]init];
             self.dakaImageView.userInteractionEnabled = YES;
             self.dakaImageView.hidden = NO;
-            self.dakaImageView.image = [UIImage imageNamed:@"app_bg.jpg"];
+            self.dakaImageView.image = [UIImage imageNamed:@"Sun"];
             
             [self.view addSubview:self.dakaImageView];
+            
+            [self.dakaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.mas_equalTo(self.view);
+                make.centerY.mas_equalTo(self.view).offset(-30);
+                make.size.mas_equalTo(CGSizeMake(213, 38));
+            }];
+            
             
             [self performSelector:@selector(hideDakaImageView) withObject:self afterDelay:1.0f];
             

@@ -516,7 +516,7 @@
     if (cardNO && ![cardNO isEqualToString:@""]) {
         
         NSString  * accessTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-        NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=assets&action=sel_assets&card=%@&accessToken=%@",cardNO,accessTokenStr];
+        NSString * urlStr = [NSString stringWithFormat:@"%@&card=%@",ZiChan_URLString,cardNO];
         
         [MLHttpManager post:urlStr params:ret m:@"member" s:@"assets" success:^(id responseObject) {
             NSLog(@"请求我的资产的结果：%@",responseObject);

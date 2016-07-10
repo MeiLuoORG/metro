@@ -10,7 +10,7 @@
 
 
 #import "MLPushMessageModel.h"
-
+#import "UPPaymentControl.h"
 
 static NSString *appKey = @"beddefb33f6e5abc8d411c2b";
 static NSString *channel = @"Publish channel";

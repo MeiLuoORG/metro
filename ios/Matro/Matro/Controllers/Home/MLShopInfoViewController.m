@@ -24,6 +24,7 @@
 - (void)navigationProduct:(NSString *)productId;
 - (void)skipPage:(NSString *)url;
 
+
 - (void)skip:(NSString *)index Ui:(NSString *)sender;
 - (void)storeCollect:(NSString*)type;
 

@@ -247,7 +247,7 @@
 
 -(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
 {
-    
+    NSLog(@"银联支付回调：%@",url.host);
     //如果极简开发包不可用，会跳转支付宝钱包进行支付，需要将支付宝钱包的支付结果回传给开发包
     if ([url.host isEqualToString:@"safepay"]) {
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -269,11 +269,64 @@
     else if ([url.host isEqualToString:@"oauth"]) {
         return  [UMSocialSnsService handleOpenURL:url wxApiDelegate:nil];
     }
+    else if([url.host isEqualToString:@"uppayresult"]){
+        NSLog(@"银联支付返回URL：%@",url);
+        [[UPPaymentControl defaultControl] handlePaymentResult:url completeBlock:^(NSString *code, NSDictionary *data) {
+            
+            //结果code为成功时，先校验签名，校验成功后做后续处理
+            if([code isEqualToString:@"success"]) {
+                
+                //数据从NSDictionary转换为NSString
+                
+                NSData *signData = [NSJSONSerialization dataWithJSONObject:data
+                                                                   options:0
+                                                                     error:nil];
+                NSString *sign = [[NSString alloc] initWithData:signData encoding:NSUTF8StringEncoding];
+                
+                //判断签名数据是否存在
+                if(data == nil){
+                    //如果没有签名数据，建议商户app后台查询交易结果
+                    return;
+                }
+                /*
+                 //验签证书同后台验签证书
+                 //此处的verify，商户需送去商户后台做验签
+                 if([self verify:sign]) {
+                 //支付成功且验签成功，展示支付成功提示
+                 }
+                 else {
+                 //验签失败，交易结果数据被篡改，商户app后台查询交易结果
+                 }
+                 */
+                    [[NSNotificationCenter defaultCenter]postNotificationName:YinLianPay_NOTICIFICATION_SUCCESS object:nil userInfo:nil];
+                
+            }
+            else if([code isEqualToString:@"fail"]) {
+                //交易失败
+                    [[NSNotificationCenter defaultCenter]postNotificationName:YinLianPay_NOTICIFICATION_FAIL object:nil userInfo:nil];
+            }
+            else if([code isEqualToString:@"cancel"]) {
+                //交易取消
+                    [[NSNotificationCenter defaultCenter]postNotificationName:YinLianPay_NOTICIFICATION_CANCEL object:nil userInfo:nil];
+            }
+        }];
+    
+    }
     else {
         return [UMSocialSnsService handleOpenURL:url];
     }
+
+
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+        /*zhoulu*/
+
+
+    return YES;
+}
+
 - (BOOL)application:(UIApplication *)application
       handleOpenURL:(NSURL *)url
 {
