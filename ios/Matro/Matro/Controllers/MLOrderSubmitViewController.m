@@ -2,7 +2,7 @@
 //  MLOrderSubmitViewController.m
 //  Matro
 //
-//  Created by 黄裕华 on 16/7/7.
+//  Created by MR.Huang on 16/7/7.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
@@ -71,7 +71,7 @@ static BOOL idCardOk = NO;
         self.headView = headView;
         [head addSubview:headView];
         [headView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(head).insets(UIEdgeInsetsMake(0, 0, 0, 0));
+            make.edges.mas_equalTo(0);
         }];
         tableView.tableHeaderView = head;
         [self.view addSubview:tableView];

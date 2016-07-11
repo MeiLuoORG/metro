@@ -76,16 +76,13 @@
  */
 - (void)sendComDetail:(id)sender{
     if (self.comScore == 0) {
-        NSLog(@"请选择评分");
         [MBProgressHUD showMessag:@"请选择评分" toView:self.view];
         return;
     }
     if (self.headView.textView.text.length == 0) {
-        NSLog(@"请输入评价内容");
         [MBProgressHUD showMessag:@"请输入评价内容" toView:self.view];
         return;
     }
-    
     if (self.imgsArray.count > 0) {
         __block  NSInteger already = 0;
         __block  NSInteger uploadCount = self.imgsArray.count;
