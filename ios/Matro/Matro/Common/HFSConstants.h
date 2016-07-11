@@ -124,9 +124,13 @@
 //首页切换  视图 按钮 通知名
 #define HOMEVIEW_BUTTON_INDEX_NOTIFICATION      @"homeview_button_index_notification"
 //银联支付回调通知
-#define YinLianPay_NOTICIFICATION_SUCCESS               @"YINLIAN_ZHIFU_NOTICIFICATION_SUCCESS"
-#define YinLianPay_NOTICIFICATION_FAIL               @"YINLIAN_ZHIFU_NOTICIFICATION_FAIL"
-#define YinLianPay_NOTICIFICATION_CANCEL               @"YINLIAN_ZHIFU_NOTICIFICATION_CANCEL"
+#define YinLianPay_NOTICIFICATION_SUCCESS       @"YINLIAN_ZHIFU_NOTICIFICATION_SUCCESS"
+#define YinLianPay_NOTICIFICATION_FAIL          @"YINLIAN_ZHIFU_NOTICIFICATION_FAIL"
+#define YinLianPay_NOTICIFICATION_CANCEL        @"YINLIAN_ZHIFU_NOTICIFICATION_CANCEL"
+
+//所有支付成功
+#define PaySuccess_NOTIFICATION_SUCCESS         @"PaySuccess_NOTIFICATION_SUCCESS"
+
 /*zhoulu*/
 
 #define LoadNibWithSelfClassName [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil]firstObject]

@@ -207,12 +207,25 @@
 //消息按钮
 - (void)newsButtonAction:(UIButton *)sender{
     NSLog(@"点击了消息按钮");
-    NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
-    [userdefaults setObject:@"0" forKey:Message_badge_num];
-    self.messageBadgeView.hidden = YES;
-    MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
+    if (loginid && ![@"" isEqualToString:loginid]) {
+
+        [userDefaults setObject:@"0" forKey:Message_badge_num];
+        self.messageBadgeView.hidden = YES;
+        MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else{
+        MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
+        loginVC.isLogin = YES;
+        [self presentViewController:loginVC animated:NO completion:nil];
+        
+    }
+
+
      
     /*
     PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];

@@ -313,35 +313,36 @@
         //NSLog(@"%@",orderStatusNumDic[@"dfh"]);
         
        // NSString *dfh = orderStatusNumDic[@"dfh"];
-        _daiFubadgeView.badgeText = @"10";
+        //_daiFubadgeView.badgeText = @"10";
         
         
         
         _daiShoubadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiShouButton alignment:JSBadgeViewAlignmentTopRight];
-        NSString *dsh = _orderStatusNumDic[@"dsh"];
-        _daiShoubadgeView.badgeText = dsh;
+//        NSString *dsh = _orderStatusNumDic[@"dsh"];
+//        _daiShoubadgeView.badgeText = dsh;
         
         
         _daiPingbadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiPingButton alignment:JSBadgeViewAlignmentTopRight];
-        NSString *dpj = _orderStatusNumDic[@"dpj"];
-        _daiPingbadgeView.badgeText = dpj;
+//        NSString *dpj = _orderStatusNumDic[@"dpj"];
+//        _daiPingbadgeView.badgeText = dpj;
         
         
         _tuiHuobadgeView = [[JSBadgeView alloc]initWithParentView:headView.tuiHuoButton alignment:JSBadgeViewAlignmentTopRight];
-        NSString *th = _orderStatusNumDic[@"th"];
-        _tuiHuobadgeView.badgeText = th;
+//        NSString *th = _orderStatusNumDic[@"th"];
+//        _tuiHuobadgeView.badgeText = th;
         
         
         _allOrderbadgeView = [[JSBadgeView alloc]initWithParentView:headView.allOrderButton alignment:JSBadgeViewAlignmentTopRight];
-        NSString *all = _orderStatusNumDic[@"all"];
-        _allOrderbadgeView.badgeText = all;
+//        NSString *all = _orderStatusNumDic[@"all"];
+//        _allOrderbadgeView.badgeText = all;
         
         
          __weak typeof(self)weakself = self;
         headView.frame = CGRectMake(0, 110, SIZE_WIDTH, 67);
+        /*
         headView.view2CenterX.constant = -((SIZE_WIDTH/2)-56)/2;
         headView.view4CenterX.constant = ((SIZE_WIDTH/2)-56)/2;
-        
+        */
         headView.daiFuBLock = ^(BOOL success){
             //待付款
             NSLog(@"待付款");
@@ -1648,12 +1649,25 @@
 
 -(void)actMessage{
     [self hideZLMessageBtnAndSetingBtn];
-    _messageBadgeView.hidden = YES;
-    NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
-    [userdefaults setObject:@"0" forKey:Message_badge_num];
-    MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
+    if (loginid && ![@"" isEqualToString:loginid]) {
+        
+        _messageBadgeView.hidden = YES;
+        [userDefaults setObject:@"0" forKey:Message_badge_num];
+        MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else{
+        MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
+        loginVC.isLogin = YES;
+        [self presentViewController:loginVC animated:NO completion:nil];
+        
+    }
+    
    
 }
 //设置
