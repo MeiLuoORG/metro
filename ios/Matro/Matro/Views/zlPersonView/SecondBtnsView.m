@@ -26,39 +26,54 @@
     //[self.daiFuButton addTarget:self action:@selector(butonAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (IBAction)daiFuButtonAction:(UIButton *)sender {
+- (IBAction)daiFuButtonsAction:(UIButton *)sender {
    
+    
+}
+
+- (IBAction)daFuControlAction:(UIControl *)sender {
+    NSLog(@"点击了待付款Control");
     if (self.daiFuBLock) {
         self.daiFuBLock(YES);
     }
-    
 }
-    
-    
-- (IBAction)daifaButtonAction:(UIButton *)sender {
-     NSLog(@"+++++");
+
+- (IBAction)daiFaControlAction:(UIControl *)sender {
+    NSLog(@"+++++");
     if (self.daiFaHuoBLock) {
         self.daiFaHuoBLock(YES);
     }
+    
 }
-- (IBAction)daiPingButtonAction:(UIButton *)sender {
-     NSLog(@"+++++");
+
+
+
+- (IBAction)daiPingControlAction:(UIControl *)sender {
+    
+    NSLog(@"+++++");
     if (self.daiPingBLock) {
         self.daiPingBLock(YES);
     }
 }
-- (IBAction)tuiHuoButtonAction:(UIButton *)sender {
-     NSLog(@"+++++");
+
+
+- (IBAction)tuiHuoControlAction:(UIControl *)sender {
+    
+    NSLog(@"+++++");
     if (self.tuiHuoBLock) {
         self.tuiHuoBLock(YES);
     }
 }
-- (IBAction)quanBuAction:(UIButton *)sender {
-     NSLog(@"+++++");
+
+
+- (IBAction)quanBuControlAction:(UIControl *)sender {
+    NSLog(@"+++++");
     if (self.quanBuBLock) {
         self.quanBuBLock(YES);
     }
+    
 }
+
 
 + (SecondBtnsView *)personHeadView{
     return LoadNibWithSelfClassName;

@@ -155,7 +155,6 @@ static float height;
            commentList = data[@"list"];
             
             NSNumber *count = data[@"count"];
-            NSLog(@"count====%@",count);
             if ([count isEqualToNumber:@0] ) {
                 MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.commentTableView.footer;
                 MJRefreshAutoNormalFooter *footer1 = (MJRefreshAutoNormalFooter *)self.commentCollectionView.footer;
@@ -258,15 +257,13 @@ static float height;
     }
     picstr = tempDic[@"pic"];
    
-    //CGSize theSize = [cell.pingjiaLab.text sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(MAIN_SCREEN_WIDTH, 999999.0f) lineBreakMode:UILineBreakModeWordWrap];
-    
     NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
     
     CGSize theSize = [cell.pingjiaLab.text boundingRectWithSize:CGSizeMake(MAIN_SCREEN_WIDTH, 999999.0f) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
     
     height = theSize.height;
     NSLog(@"%f",height);
-    if ([picstr isKindOfClass:[NSNull class]]) {
+    if (imageList.count == 0) {
         Hight = 100 + height;
         cell.collectH.constant = 0;
     }
@@ -287,14 +284,23 @@ static float height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if ([picstr isKindOfClass:[NSNull class]]) {
-//        return 100+height;
-//    }
-//    
-//    float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin + 1 * 5))/5);
-//    float height1 = width;
-//    
-//    return  height1 +100 + height;
+    /*
+    NSDictionary *dic = commentList[indexPath.row];
+   
+    NSArray *tempArr = dic[@"photos"];
+     NSLog(@"dic==%@,temparr==%@",dic,tempArr);
+    
+    float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin + 1 * 5))/5);
+    float height1 = width;
+    
+    if (tempArr.count == 0) {
+        MLCommentTableViewCell *cell = [[MLCommentTableViewCell alloc]init];
+        cell.collectH.constant = 0;
+        return  100 + height;
+    }
+    return  height1 +100 + height;;
+    */
+    
     return Hight;
 }
 

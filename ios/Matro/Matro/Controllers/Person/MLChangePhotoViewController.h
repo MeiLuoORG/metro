@@ -10,7 +10,7 @@
 #import "MLBaseViewController.h"
 #import "MLHttpManager.h"
 #import "NSDatezlModel.h"
-
+#import "NSString+URLZL.h"
 
 @interface MLChangePhotoViewController : MLBaseViewController
 

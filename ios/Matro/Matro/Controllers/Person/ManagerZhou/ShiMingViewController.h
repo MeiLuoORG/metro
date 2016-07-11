@@ -15,6 +15,7 @@
 #import <SDWebImage/UIButton+WebCache.h>
 #import "MLHttpManager.h"
 #import "NSDatezlModel.h"
+#import "NSString+URLZL.h"
 
 #import "HFSServiceClient.h"
 #import <SDWebImage/UIImageView+WebCache.h>

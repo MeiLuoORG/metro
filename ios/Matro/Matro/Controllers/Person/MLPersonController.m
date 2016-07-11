@@ -82,13 +82,13 @@
     NSString * _youHuiQuanCount;
     NSString * _youHuiQuanYuE;
     NSMutableArray * _youHuiQuanMuARR;
-    NSDictionary *orderStatusNumDic;
+    NSDictionary * _orderStatusNumDic;
     
-    JSBadgeView *daiFubadgeView;
-    JSBadgeView *daiShoubadgeView;
-    JSBadgeView *daiPingbadgeView;
-    JSBadgeView *tuiHuobadgeView;
-    JSBadgeView *allOrderbadgeView;
+    JSBadgeView * _daiFubadgeView;
+    JSBadgeView * _daiShoubadgeView;
+    JSBadgeView * _daiPingbadgeView;
+    JSBadgeView * _tuiHuobadgeView;
+    JSBadgeView * _allOrderbadgeView;
     
 }
 @property (nonatomic,strong)UITableView *tableView;
@@ -104,7 +104,7 @@
     _youHuiQuanMuARR = [[NSMutableArray alloc]init];
      self.navigationItem.title = @"个人中心";
     self.navigationItem.leftBarButtonItem = nil;
-    orderStatusNumDic = [NSDictionary dictionary];
+
     //加载背景图
     _backgroundScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-64-49)];
     _backgroundScrollView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
@@ -205,53 +205,94 @@
     [self chaXunISshiMingRenZheng];
     //请求我的资产
     [self getMyZiChanAction];
+    //请求订单数目
+    [self loadNum];
 }
 
 #pragma mark zhoulu 第二栏按钮组
 
 -(void)loadNum{
-    
-    [MLHttpManager get:@"http://bbctest.matrojp.com/api.php?m=shop&s=status&action=sel" params:nil m:@"shop" s:@"status" success:^(id responseObject) {
-        NSLog(@"订单状态%@",responseObject);
+
+    //http://bbctest.matrojp.com/api.php?m=shop&s=status&action=sel
+    [MLHttpManager get:OrderNum_URLString params:nil m:@"shop" s:@"status" success:^(id responseObject) {
+        NSLog(@"订单状态数目%@",responseObject);
         if ([responseObject[@"code"] isEqual:@0]) {
             
             NSDictionary * result = (NSDictionary *)responseObject;
-            orderStatusNumDic = result[@"data"][@"count"];
-            NSLog(@"orderStatusNumDic===%@",orderStatusNumDic);
+            _orderStatusNumDic = [[NSDictionary alloc]init];
+            _orderStatusNumDic = result[@"data"][@"count"];
+            NSLog(@"orderStatusNumDic===%@",_orderStatusNumDic);
             
-            SecondBtnsView *headView =[SecondBtnsView personHeadView];
+            //SecondBtnsView *headView =[SecondBtnsView personHeadView];
             
-            daiFubadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiFuButton alignment:JSBadgeViewAlignmentTopRight];
-            NSLog(@"%@",orderStatusNumDic[@"dfh"]);
+            //_daiFubadgeView = [[JSBadgeView alloc]initWithParentView:self.secondBtnsView.daiFuButton alignment:JSBadgeViewAlignmentTopRight];
+            NSLog(@"%@",_orderStatusNumDic[@"dfh"]);
             
-            NSString *dfh = orderStatusNumDic[@"dfh"];
-            daiFubadgeView.badgeText = dfh;
+            NSString *dfh = _orderStatusNumDic[@"dfh"];
+            if ([dfh isEqualToString:@"0"]) {
+                _daiFubadgeView.hidden = YES;
+            }
+            else{
+                _daiFubadgeView.hidden = NO;
+                _daiFubadgeView.badgeText = dfh;
+            }
+            
     
-            daiShoubadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiShouButton alignment:JSBadgeViewAlignmentTopRight];
-            NSString *dsh = orderStatusNumDic[@"dsh"];
-            daiShoubadgeView.badgeText = dsh;
+           // _daiShoubadgeView = [[JSBadgeView alloc]initWithParentView:self.secondBtnsView.daiShouButton alignment:JSBadgeViewAlignmentTopRight];
+            NSString *dsh = _orderStatusNumDic[@"dsh"];
+            if ([dsh isEqualToString:@"0"]) {
+                _daiShoubadgeView.hidden = YES;
+            }
+            else{
+                _daiShoubadgeView.hidden = NO;
+                _daiShoubadgeView.badgeText = dsh;
+            
+            }
             
             
-            daiPingbadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiPingButton alignment:JSBadgeViewAlignmentTopRight];
-            NSString *dpj = orderStatusNumDic[@"dpj"];
-            daiPingbadgeView.badgeText = dpj;
+            
+            //_daiPingbadgeView = [[JSBadgeView alloc]initWithParentView:self.secondBtnsView.daiPingButton alignment:JSBadgeViewAlignmentTopRight];
+            NSString *dpj = _orderStatusNumDic[@"dpj"];
+            if ([dpj isEqualToString:@"0"]) {
+                _daiPingbadgeView.hidden = YES;
+            }
+            else{
+                _daiPingbadgeView.hidden = NO;
+                _daiPingbadgeView.badgeText = dpj;
+            }
             
             
-            tuiHuobadgeView = [[JSBadgeView alloc]initWithParentView:headView.tuiHuoButton alignment:JSBadgeViewAlignmentTopRight];
-            NSString *th = orderStatusNumDic[@"th"];
-            tuiHuobadgeView.badgeText = th;
+            
+           // _tuiHuobadgeView = [[JSBadgeView alloc]initWithParentView:self.secondBtnsView.tuiHuoButton alignment:JSBadgeViewAlignmentTopRight];
+            NSString *th = _orderStatusNumDic[@"th"];
+            if ([th isEqualToString:@"0"]) {
+                _tuiHuobadgeView.hidden = YES;
+            }
+            else{
+                _tuiHuobadgeView.hidden = NO;
+                _tuiHuobadgeView.badgeText = th;
+            }
             
             
-            allOrderbadgeView = [[JSBadgeView alloc]initWithParentView:headView.allOrderButton alignment:JSBadgeViewAlignmentTopRight];
-            NSString *all = orderStatusNumDic[@"all"];
-            allOrderbadgeView.badgeText = all;
+            
+            //_allOrderbadgeView = [[JSBadgeView alloc]initWithParentView:self.secondBtnsView.allOrderButton alignment:JSBadgeViewAlignmentTopRight];
+            NSString *all = _orderStatusNumDic[@"all"];
+            if ([all isEqualToString:@"0"]) {
+                _allOrderbadgeView.hidden = YES;
+            }
+            else{
+                _allOrderbadgeView.hidden = NO;
+                _allOrderbadgeView.badgeText = all;
+            }
+            
         }
         else{
-        
+            
             
         }
         
     } failure:^(NSError *error) {
+        NSLog(@"请求订单数目错误：%@",error);
         _hud = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
         [_hud show:YES];
@@ -265,36 +306,35 @@
 
 - (void)loadSecondButtonsView{
 
-    NSLog(@"22222%@",orderStatusNumDic);
     
     self.secondBtnsView = ({
         SecondBtnsView *headView =[SecondBtnsView personHeadView];
-        daiFubadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiFuButton alignment:JSBadgeViewAlignmentTopRight];
-        NSLog(@"%@",orderStatusNumDic[@"dfh"]);
+        _daiFubadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiFuButton alignment:JSBadgeViewAlignmentTopRight];
+        //NSLog(@"%@",orderStatusNumDic[@"dfh"]);
         
        // NSString *dfh = orderStatusNumDic[@"dfh"];
-        daiFubadgeView.badgeText = @"10";
+        _daiFubadgeView.badgeText = @"10";
         
         
         
-        daiShoubadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiShouButton alignment:JSBadgeViewAlignmentTopRight];
-        NSString *dsh = orderStatusNumDic[@"dsh"];
-        daiShoubadgeView.badgeText = dsh;
+        _daiShoubadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiShouButton alignment:JSBadgeViewAlignmentTopRight];
+        NSString *dsh = _orderStatusNumDic[@"dsh"];
+        _daiShoubadgeView.badgeText = dsh;
         
         
-        daiPingbadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiPingButton alignment:JSBadgeViewAlignmentTopRight];
-        NSString *dpj = orderStatusNumDic[@"dpj"];
-        daiPingbadgeView.badgeText = dpj;
+        _daiPingbadgeView = [[JSBadgeView alloc]initWithParentView:headView.daiPingButton alignment:JSBadgeViewAlignmentTopRight];
+        NSString *dpj = _orderStatusNumDic[@"dpj"];
+        _daiPingbadgeView.badgeText = dpj;
         
         
-        tuiHuobadgeView = [[JSBadgeView alloc]initWithParentView:headView.tuiHuoButton alignment:JSBadgeViewAlignmentTopRight];
-        NSString *th = orderStatusNumDic[@"th"];
-        tuiHuobadgeView.badgeText = th;
+        _tuiHuobadgeView = [[JSBadgeView alloc]initWithParentView:headView.tuiHuoButton alignment:JSBadgeViewAlignmentTopRight];
+        NSString *th = _orderStatusNumDic[@"th"];
+        _tuiHuobadgeView.badgeText = th;
         
         
-        allOrderbadgeView = [[JSBadgeView alloc]initWithParentView:headView.allOrderButton alignment:JSBadgeViewAlignmentTopRight];
-        NSString *all = orderStatusNumDic[@"all"];
-        allOrderbadgeView.badgeText = all;
+        _allOrderbadgeView = [[JSBadgeView alloc]initWithParentView:headView.allOrderButton alignment:JSBadgeViewAlignmentTopRight];
+        NSString *all = _orderStatusNumDic[@"all"];
+        _allOrderbadgeView.badgeText = all;
         
         
          __weak typeof(self)weakself = self;
@@ -1150,6 +1190,19 @@
 
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    
+    //消息
+    NSString * message_num = [userDefaults objectForKey:Message_badge_num];
+    if ([message_num isEqualToString:@"1"]) {
+        _messageBadgeView.badgeText = @"●";
+    }
+    else{
+    
+        _messageBadgeView.hidden = YES;
+    }
+    
+    
     loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
     NSString *avatorurl = [userDefaults objectForKey:kUSERDEFAULT_USERAVATOR];
     if (loginid && ![@"" isEqualToString:loginid]) {
@@ -1206,6 +1259,12 @@
         else{
             _backgroundScrollView.contentSize = CGSizeMake(SIZE_WIDTH, SIZE_HEIGHT-49.0-64.0);
         }
+        
+        _daiFubadgeView.hidden  = YES;
+        _daiShoubadgeView.hidden = YES;
+        _daiPingbadgeView.hidden = YES;
+        _tuiHuobadgeView.hidden = YES;
+        _allOrderbadgeView.hidden =YES;
         
     }
     NSString *nickname = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];
@@ -1590,6 +1649,8 @@
 -(void)actMessage{
     [self hideZLMessageBtnAndSetingBtn];
     _messageBadgeView.hidden = YES;
+    NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+    [userdefaults setObject:@"0" forKey:Message_badge_num];
     MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];

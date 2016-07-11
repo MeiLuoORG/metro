@@ -148,7 +148,7 @@
                                         <constraint firstAttribute="width" constant="40" id="Nzi-8U-Vp9"/>
                                         <constraint firstAttribute="height" constant="40" id="aWf-I2-nQ6"/>
                                     </constraints>
-                                    <state key="normal" image="icon_pengyouquan"/>
+                                    <state key="normal" image="图层-24"/>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="Nzi-8U-Vp9"/>
@@ -165,7 +165,7 @@
                                         <action selector="pengyouquanClick:" destination="-1" eventType="touchUpInside" id="eZO-Ym-BTa"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="朋友圈" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVT-b0-8Gm">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QQ好友" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVT-b0-8Gm">
                                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -514,8 +514,8 @@
     </objects>
     <resources>
         <image name="close-2" width="15" height="15"/>
-        <image name="icon_pengyouquan" width="40" height="40"/>
         <image name="icon_weixing" width="40" height="40"/>
         <image name="loadinghome" width="360" height="640"/>
+        <image name="图层-24" width="40" height="40"/>
     </resources>
 </document>

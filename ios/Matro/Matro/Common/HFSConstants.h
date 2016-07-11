@@ -215,6 +215,9 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 
 #define ZiChan_URLString                @"http://bbctest.matrojp.com/api.php?m=member&s=assets&action=sel_assets"
 
+//请求订单  数量
+#define OrderNum_URLString              @"http://bbctest.matrojp.com/api.php?m=shop&s=status&action=sel"
+
 /*zhouluEND*/
 
 
