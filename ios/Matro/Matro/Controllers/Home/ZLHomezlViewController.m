@@ -207,7 +207,8 @@
 //消息按钮
 - (void)newsButtonAction:(UIButton *)sender{
     NSLog(@"点击了消息按钮");
-    
+    NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+    [userdefaults setObject:@"0" forKey:Message_badge_num];
     self.messageBadgeView.hidden = YES;
     MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
     vc.hidesBottomBarWhenPushed = YES;
@@ -325,7 +326,7 @@
     [self.newsButton addTarget:self action:@selector(newsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     self.messageBadgeView = [[JSBadgeView alloc]initWithParentView:self.newsButton alignment:JSBadgeViewAlignmentTopRight];
-    self.messageBadgeView.badgeText = @"●";
+    //self.messageBadgeView.badgeText = @"●";
     [self.messageBadgeView setBadgeTextColor:[HFSUtility hexStringToColor:Main_textRedBackgroundColor]];
     [self.messageBadgeView setBadgeBackgroundColor:[UIColor clearColor]];
     
@@ -677,8 +678,6 @@
     if ([type isEqualToString:@"4"]) {
         //链接
         //[self daKaQianDao];
-        
-        //打卡签到
         MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
         vc.title = @"热门活动";
         vc.link = sender;
@@ -691,6 +690,7 @@
         MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
         NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
         vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",sender,phone];
+        NSLog(@"店铺：%@",vc.store_link);
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -721,7 +721,6 @@
         }
         if ([sender isEqualToString:@"62"]) {
             //打卡签到
-            //积分查询
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
             if (loginid && ![@"" isEqualToString:loginid]) {
@@ -828,25 +827,31 @@
         NSDictionary *result = (NSDictionary *)responseObject;
         NSLog(@"打卡签到：%@",result);
         if ([result[@"code"] isEqual:@0]) {
-            self.dakaImageView = [[UIImageView alloc]init];
-            self.dakaImageView.userInteractionEnabled = YES;
-            self.dakaImageView.hidden = NO;
-            self.dakaImageView.image = [UIImage imageNamed:@"Sun"];
+            NSDictionary * dataDic = result[@"data"];
+            NSString * qd_info = dataDic[@"qd_info"];
             
-            [self.view addSubview:self.dakaImageView];
+            if ([qd_info isEqualToString:@"1"]) {
+                 [MBProgressHUD showMessag:@"今日已打卡" toView:self.view];
+            }
+            else{
             
-            [self.dakaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.mas_equalTo(self.view);
-                make.centerY.mas_equalTo(self.view).offset(-30);
-                make.size.mas_equalTo(CGSizeMake(213, 38));
-            }];
-            
-            
-            [self performSelector:@selector(hideDakaImageView) withObject:self afterDelay:1.0f];
-            
+                self.dakaImageView = [[UIImageView alloc]init];
+                self.dakaImageView.userInteractionEnabled = YES;
+                self.dakaImageView.hidden = NO;
+                self.dakaImageView.image = [UIImage imageNamed:@"Sun"];
+                
+                [self.view addSubview:self.dakaImageView];
+                
+                [self.dakaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.centerX.mas_equalTo(self.view);
+                    make.centerY.mas_equalTo(self.view).offset(-30);
+                    make.size.mas_equalTo(CGSizeMake(213, 38));
+                }];
+                [self performSelector:@selector(hideDakaImageView) withObject:self afterDelay:1.0f];
+            }
         }
         else{
-         [MBProgressHUD showMessag:@"今日已打卡" toView:self.view];
+            [MBProgressHUD showMessag:@"今日已打卡" toView:self.view];
         }
         
     } failure:^(NSError *error) {
@@ -860,6 +865,43 @@
 
     self.dakaImageView.hidden = YES;
 }
+
+- (void)getMessageDataSource{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=message_center",MATROJP_BASE_URL];
+    [MLHttpManager get:url params:nil m:@"push" s:@"message_center" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary *data = result[@"data"];
+            NSArray *list = data[@"list"];
+            if (list.count > 0) {
+                self.messageBadgeView.badgeText = @"●";
+                
+                NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+                [userdefaults setObject:@"1" forKey:Message_badge_num];
+                
+            }
+            else{
+                self.messageBadgeView.hidden = YES;
+                NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+                [userdefaults setObject:@"0" forKey:Message_badge_num];
+            }
+        }else{
+            NSString *msg = result[@"msg"];
+            self.messageBadgeView.hidden = YES;
+            NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+            [userdefaults setObject:@"0" forKey:Message_badge_num];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+       
+    } failure:^(NSError *error) {
+        self.messageBadgeView.hidden = YES;
+        NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+        [userdefaults setObject:@"0" forKey:Message_badge_num];
+        [MBProgressHUD showSuccess:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+    
+}
+
 /*
 #pragma mark - Navigation
 

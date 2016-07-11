@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="67"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BzO-ax-qnT" userLabel="View1">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BzO-ax-qnT" userLabel="View1" customClass="UIControl">
                     <rect key="frame" x="26" y="0.0" width="60" height="67"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="待付款" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9r3-gj-vqh">
@@ -32,9 +32,6 @@
                             <state key="normal" image="daifuzl">
                                 <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <connections>
-                                <action selector="daiFuButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="UWI-Fv-9Mi"/>
-                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -46,8 +43,11 @@
                         <constraint firstItem="9r3-gj-vqh" firstAttribute="top" secondItem="Dum-r5-I4u" secondAttribute="bottom" constant="5" id="rWd-0v-Zck"/>
                         <constraint firstItem="Dum-r5-I4u" firstAttribute="top" secondItem="BzO-ax-qnT" secondAttribute="top" constant="15" id="vfz-Pb-sCD"/>
                     </constraints>
+                    <connections>
+                        <action selector="daFuControlAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="RTI-kt-Xr3"/>
+                    </connections>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crI-H4-gMJ" userLabel="View2">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crI-H4-gMJ" userLabel="View2" customClass="UIControl">
                     <rect key="frame" x="108" y="0.0" width="60" height="67"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="待收货" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcC-6v-Qsp" userLabel="待收货">
@@ -67,9 +67,6 @@
                             <state key="normal" image="daishouzl">
                                 <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <connections>
-                                <action selector="daifaButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="1sh-NI-Thb"/>
-                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -80,8 +77,11 @@
                         <constraint firstItem="WdM-8U-hLT" firstAttribute="top" secondItem="crI-H4-gMJ" secondAttribute="top" constant="15" id="J4R-IY-Uk1"/>
                         <constraint firstItem="KcC-6v-Qsp" firstAttribute="top" secondItem="WdM-8U-hLT" secondAttribute="bottom" constant="5" id="tBS-fc-JMT"/>
                     </constraints>
+                    <connections>
+                        <action selector="daiFaControlAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="UcA-Hu-Ozy"/>
+                    </connections>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="753-S8-urL" userLabel="View3">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="753-S8-urL" userLabel="View3" customClass="UIControl">
                     <rect key="frame" x="157" y="0.0" width="60" height="67"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="待评价" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2UU-Ou-rgg">
@@ -101,9 +101,6 @@
                             <state key="normal" image="daipingzl">
                                 <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <connections>
-                                <action selector="daiPingButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="ja3-6C-ZQE"/>
-                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -114,8 +111,11 @@
                         <constraint firstAttribute="height" constant="67" id="ed2-Wv-tr5"/>
                         <constraint firstItem="2UU-Ou-rgg" firstAttribute="top" secondItem="Dt4-TE-TtP" secondAttribute="bottom" constant="5" id="oOe-sr-9p8"/>
                     </constraints>
+                    <connections>
+                        <action selector="daiPingControlAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="WYl-f6-SOv"/>
+                    </connections>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MU9-td-CwY" userLabel="View4">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MU9-td-CwY" userLabel="View4" customClass="UIControl">
                     <rect key="frame" x="207" y="0.0" width="60" height="67"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="退货" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wyM-xG-BXU">
@@ -135,9 +135,6 @@
                             <state key="normal" image="tuihuozl">
                                 <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <connections>
-                                <action selector="tuiHuoButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Zjg-CZ-esb"/>
-                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -148,8 +145,11 @@
                         <constraint firstItem="PDb-lF-3ki" firstAttribute="top" secondItem="MU9-td-CwY" secondAttribute="top" constant="15" id="uAj-cj-kqU"/>
                         <constraint firstItem="PDb-lF-3ki" firstAttribute="centerX" secondItem="MU9-td-CwY" secondAttribute="centerX" id="yLg-su-ven"/>
                     </constraints>
+                    <connections>
+                        <action selector="tuiHuoControlAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="2K8-ye-HHz"/>
+                    </connections>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yCS-LE-8ki" userLabel="View5">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yCS-LE-8ki" userLabel="View5" customClass="UIControl">
                     <rect key="frame" x="284" y="0.0" width="60" height="67"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="全部订单" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48L-kP-M2B">
@@ -169,9 +169,6 @@
                             <state key="normal" image="quanbuzl">
                                 <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <connections>
-                                <action selector="quanBuAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="P8N-Xv-zwI"/>
-                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -182,6 +179,9 @@
                         <constraint firstItem="48L-kP-M2B" firstAttribute="top" secondItem="0Uw-hf-1UE" secondAttribute="bottom" constant="5" id="kv2-sl-w9q"/>
                         <constraint firstAttribute="height" constant="67" id="zgb-md-0Pt"/>
                     </constraints>
+                    <connections>
+                        <action selector="quanBuControlAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="ouR-ph-KuF"/>
+                    </connections>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

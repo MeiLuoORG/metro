@@ -121,4 +121,7 @@
 
 #define vCFBundleShortVersionStr [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
+#define Message_badge_num   @"message_badge_num"
+
+
 #endif
