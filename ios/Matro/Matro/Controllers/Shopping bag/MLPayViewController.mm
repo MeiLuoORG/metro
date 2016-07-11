@@ -23,7 +23,9 @@
 #import "UPPaymentControl.h"
 #import "UPAPayPlugin.h"
 //#import <PassKit/PassKit.h>
-#define kAppleMerchantID @"merchant.com.matro"
+#import "MLHttpManager.h"
+
+#define kAppleMerchantID @"merchant.Matro"
 
 @interface MLPayViewController ()<UITableViewDataSource,UITableViewDelegate,UPAPayPluginDelegate
 ,PKPaymentAuthorizationViewControllerDelegate
@@ -313,15 +315,39 @@
 - (void)applepay
 {
     if([PKPaymentAuthorizationViewController canMakePayments]) {
-        NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
+//        NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
+//        
+//        NSDictionary *param = @{@"orderId":@"2016062805010141",@"txnAmt":@1,@"orderDesc":@"美罗全球购"};
+//        if([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:@[PKPaymentNetworkChinaUnionPay]]){
+//            [UPAPayPlugin startPay:@"201607111034354954418" mode:@"01" viewController:self delegate:self andAPMechantID:kAppleMerchantID];
+//        }
+//        
+        MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
+        payResultVC.hidesBottomBarWhenPushed = YES;
+        payResultVC.isSuccess = YES;
+        payResultVC.order_id = self.order_id;
+        [self.navigationController pushViewController:payResultVC animated:YES];
         
-        [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString *tn = [responseObject objectForKey:@"tn"];
- 
-            [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
-        }];
+        
+//            [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:@"201607110910464889938" waitUntilDone:YES];
+        
+//        AFHTTPRequestOperationManager *manager =  [AFHTTPRequestOperationManager manager];
+//        [manager POST:@"http://192.168.21.248:8080/PayCenter/app/v200/applepay" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSString *tn = [responseObject objectForKey:@"tn"];
+//            
+//
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//           
+//        }];
+        
+        
+//        [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSString *tn = [responseObject objectForKey:@"tn"];
+// 
+//            [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+//        }];
         
     } else {
         [MBProgressHUD showMessag:@"您的设备暂不支持ApplePay" toView:self.view];
@@ -330,15 +356,13 @@
 
 
 - (void)applePayWithTn:(NSString *)tn{
-    if([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:@[PKPaymentNetworkChinaUnionPay]])
-    {
-        [UPAPayPlugin startPay:tn mode:@"00" viewController:self delegate:self andAPMechantID:kAppleMerchantID];
-    }
+
 }
+
+
 
 #pragma mark apple pay delegate
 #pragma mark 响应控件返回的支付结果
-#pragma mark -
 - (void)UPAPayPluginResult:(UPPayResult *)result
 {
     if(result.paymentResultStatus == UPPaymentResultStatusSuccess) {

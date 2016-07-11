@@ -99,7 +99,7 @@ static NSInteger pageIndex = 1;
     if (indexPath.row == 0 ) {
         MLAfterSaleHeadCell *cell =[tableView dequeueReusableCellWithIdentifier:kMLAfterSaleHeadCell forIndexPath:indexPath];
         cell.callBlock = ^(){
-            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"打电话给客服？" message:KeFuDianHua preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"打电话给客服？" message:KeFuDianHua preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 tel(KeFuDianHua);
             }];

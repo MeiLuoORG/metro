@@ -32,7 +32,7 @@
 
 @end
 
-static NSInteger pageIndex = 0;
+static NSInteger pageIndex = 1;
 
 
 @implementation MLReturnsViewController
@@ -57,10 +57,10 @@ static NSInteger pageIndex = 0;
         tableView;
     });
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.left.top.bottom.mas_equalTo(self.view);
+        make.edges.mas_equalTo(0);
     }];
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        pageIndex = 0 ;
+        pageIndex = 1 ;
         [self getOrderDataSource];
     }];
     
@@ -166,7 +166,7 @@ static NSInteger pageIndex = 0;
         [self.tableView.footer endRefreshing];
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
-            if (pageIndex == 0) {
+            if (pageIndex == 1) {
                 [self.orderList removeAllObjects];
             }
             NSString *count = data[@"total"];

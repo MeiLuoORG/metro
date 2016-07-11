@@ -16,10 +16,10 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.leftBtn.layer.borderColor =RGBA(174, 142, 93, 1).CGColor;
+    self.leftBtn.layer.borderColor = RGBA(174, 142, 93, 1).CGColor;
     self.leftBtn.layer.borderWidth = 1.f;
     
-    self.rightBtn.layer.borderColor =RGBA(174, 142, 93, 1).CGColor;
+    self.rightBtn.layer.borderColor = RGBA(174, 142, 93, 1).CGColor;
     self.rightBtn.layer.borderWidth = 1.f;
     
 }
@@ -33,13 +33,13 @@
 - (void)setOrderList:(MLPersonOrderModel *)orderList{
     if (_orderList != orderList) {
         _orderList = orderList;
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderList.product_price];
-        
+        self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderList.order_price];
         switch (self.orderList.status) {
             case OrderStatusQuxiao:
             {
                 [self.rightBtn setTitle:@"删除订单" forState:UIControlStateNormal];
                 self.leftBtn.hidden = YES;
+                self.rightBtn.hidden = NO;
             }
                 break;
             case OrderStatusDaifukuan:
@@ -59,13 +59,13 @@
             case OrderStatusWancheng:
             {
                 if (self.orderList.buyer_comment == 0) { //未评价 去评价
-                    [self.leftBtn setTitle:@"评价" forState:UIControlStateNormal];
-                    [self.rightBtn setTitle:@"退货" forState:UIControlStateNormal];
+                    [self.rightBtn setTitle:@"评价" forState:UIControlStateNormal];
                 }  else{
-                    [self.leftBtn setTitle:@"查看评价" forState:UIControlStateNormal];
-                    [self.rightBtn setTitle:@"退货" forState:UIControlStateNormal];
+                    
+                    [self.rightBtn setTitle:@"查看评价" forState:UIControlStateNormal];
                 }
-                self.leftBtn.hidden = self.rightBtn.hidden = NO;
+                self.leftBtn.hidden = YES;
+                self.rightBtn.hidden = NO;
             }
                 break;
             default:
@@ -98,21 +98,21 @@
             }
         }
             break;
-        case OrderStatusWancheng:
-        {
-            if (self.orderList.buyer_comment == 0) { //未评价 去评价
-                if (self.pingJiaAction) {
-                    self.pingJiaAction();
-                }
-
-            }
-            else{
-                if (self.kanPingJiaAction) {
-                    self.kanPingJiaAction();
-                }
-            }
-        }
-            break;
+//        case OrderStatusWancheng:
+//        {
+//            if (self.orderList.buyer_comment == 0) { //未评价 去评价
+//                if (self.pingJiaAction) {
+//                    self.pingJiaAction();
+//                }
+//
+//            }
+//            else{
+//                if (self.kanPingJiaAction) {
+//                    self.kanPingJiaAction();
+//                }
+//            }
+//        }
+//            break;
         default:
             break;
     }
@@ -128,7 +128,7 @@
                 self.shanchuAction();
             }
         }
-            
+          break;
         case OrderStatusDaifukuan:
         {
             if (self.fuKuanAction) {
@@ -145,8 +145,16 @@
             break;
         case OrderStatusWancheng:
         {
-            if (self.tuiHuoAction) {
-                self.tuiHuoAction();
+            if (self.orderList.buyer_comment == 0) { //未评价 去评价
+                if (self.pingJiaAction) {
+                    self.pingJiaAction();
+                }
+                
+            }
+            else{
+                if (self.kanPingJiaAction) {
+                    self.kanPingJiaAction();
+                }
             }
         }
             break;

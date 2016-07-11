@@ -56,10 +56,11 @@
         tableView;
     });
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.left.bottom.mas_equalTo(self.view);
+        make.edges.mas_equalTo(0);
     }];
     [self getAllCommentProduct];
-    // Do any additional setup after loading the view.
+    
+    
 }
 
 
@@ -151,6 +152,7 @@
                 MLGoodsComViewController *vc = [[MLGoodsComViewController alloc]init];
                 vc.product = product;
                 vc.pid = product.pid;
+                vc.order_id = self.order_id;
                 vc.goodsComSuccess = ^(){
                     [weakself getAllCommentProduct];
                 };

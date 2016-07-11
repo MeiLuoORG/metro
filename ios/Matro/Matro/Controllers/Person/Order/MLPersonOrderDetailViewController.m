@@ -157,9 +157,8 @@
             NSDictionary *data = [result objectForKey:@"data"];
             NSDictionary *detail = data[@"detail"];
             self.orderDetail = [MLPersonOrderDetail mj_objectWithKeyValues:detail];
-            
             switch (self.orderDetail.status) {
-                case OrderStatusYishanchu:
+                case OrderStatusYishanchu: //已删除
                 {
                     self.footView.hidden = YES;
                     [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -168,7 +167,7 @@
                 }
                     break;
                     
-                case OrderStatusDaifukuan:  //启用倒计时
+                case OrderStatusDaifukuan:  //启用倒计时  //待付款
                 {
                     self.footView.footerType = FooterTypeDaifukuan;
                     NSDate *now = [NSDate new];
@@ -176,12 +175,7 @@
                     [self compareDate:since currentDate:now];
                 }
                     break;
-                case OrderStatusDaifahuo:
-                {
-                    self.footView.footerType = FooterTypeDaifahuo;
-                }
-                    break;
-                case OrderStatusDaiqueren:
+                case OrderStatusDaifahuo:  //待发货
                 {
                     self.footView.hidden = YES;
                     [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -189,12 +183,26 @@
                     }];
                 }
                     break;
-                case OrderStatusWancheng:
+                case OrderStatusDaiqueren:  //待确认
                 {
-                    self.footView.footerType = FooterTypeJiaoyichenggong;
+                    self.footView.hidden = YES;
+                    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.right.top.bottom.equalTo(self.view);
+                    }];
                 }
                     break;
-                case OrderStatusQuxiao:
+                case OrderStatusWancheng:  //已完成
+                {
+                    
+                    self.footView.footerType = FooterTypeJiaoyichenggong;
+                    if (self.orderDetail.buyer_comment == 0) {
+                        [self.footView.payBtn setTitle:@"评价" forState:UIControlStateNormal];
+                    }else{
+                        [self.footView.payBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+                    }
+                }
+                    break;
+                case OrderStatusQuxiao:   //取消
                 {
                     self.footView.hidden = YES;
                     [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {

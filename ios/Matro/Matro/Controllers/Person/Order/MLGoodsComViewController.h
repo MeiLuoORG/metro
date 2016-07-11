@@ -16,6 +16,6 @@ typedef void(^GoodsComSuccess)();
 @property (nonatomic,strong)MLCommentProductModel *product;
 @property (nonatomic,copy)NSString *pid;
 @property (nonatomic,copy)GoodsComSuccess goodsComSuccess;
-
+@property (nonatomic,copy)NSString *order_id;
 
 @end

@@ -37,6 +37,7 @@
 @end
 
 static float allPrice = 0;
+static BOOL idCardOk = NO;
 
 @implementation MLOrderSubmitViewController
 
@@ -60,6 +61,12 @@ static float allPrice = 0;
         
         UIView *head = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 160)];
         MLOrderSubHeadView *headView = [MLOrderSubHeadView headView];
+        headView.orderSubChangeInfo = ^(NSString *msg){
+            [MBProgressHUD showMessag:msg toView:self.view];
+        };
+        headView.idcardisOk = ^(BOOL ok){
+            idCardOk = ok;
+        };
         [headView.addressControl addTarget:self action:@selector(showAddress:) forControlEvents:UIControlEventTouchUpInside];
         self.headView = headView;
         [head addSubview:headView];
@@ -127,7 +134,8 @@ static float allPrice = 0;
 - (void)refreshHeadView{
     if (self.order_info.identity_card.length>0) { //如果有身份证直接显示
         self.headView.shenfenzhengField.text = self.order_info.identity_card;
-        [self.headView saveClick:nil];
+        [self.headView haveIdCardSave];
+        idCardOk = YES;
     }
     self.headView.nameLabel.text = self.order_info.consignee.name;
     self.headView.phoneLabel.text = self.order_info.consignee.mobile;
@@ -245,7 +253,7 @@ static float allPrice = 0;
         }else{
             MLOrderSubFaPiaoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderSubFaPiaoTableViewCell forIndexPath:indexPath];
             cell.shifouKai = self.order_info.fapiao;
-            cell.company.text = [NSString stringWithFormat:@"%@-%@",self.order_info.geren?@"个人":@"公司",self.order_info.geren?@"明细":self.order_info.mingxi];
+             cell.company.text = [NSString stringWithFormat:@"%@-%@",self.order_info.geren?@"个人":@"公司",self.order_info.geren?@"明细":self.order_info.mingxi];
             return cell;
             
         }
@@ -423,7 +431,9 @@ static float allPrice = 0;
     else if (indexPath.section == 2*self.order_info.cart.count){
     if (indexPath.row == 0) { //选发票
         MLInvoiceViewController *vc = [[MLInvoiceViewController alloc]init];
-        vc.isNeed = NO;
+        vc.isNeed = self.order_info.fapiao;
+        vc.isGeren = self.order_info.geren;
+        vc.mingxi = self.order_info.mingxi;
         vc.invoiceBlock = ^(BOOL xuyao,BOOL geren,NSString *mingxi,NSString *ID){
             self.order_info.fapiao = xuyao;
             self.order_info.geren = geren;
@@ -477,6 +487,10 @@ static float allPrice = 0;
 
 - (void)gotoPay:(id)sender{
     NSLog(@"去支付");
+    if (!idCardOk){//身份证是否ok了
+        [MBProgressHUD showMessag:@"请输入身份证号码" toView:self.view];
+        return;
+    }
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [self.order_info.cart enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         MLOrderCartModel *cart = (MLOrderCartModel *)obj;

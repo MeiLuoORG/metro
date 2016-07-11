@@ -76,10 +76,9 @@
                 self.shengyufukuanLb.hidden = YES;
                 self.daojishiLb.hidden = YES;
                 self.payBtn.hidden = NO;
-                self.cancelBtn.hidden = NO;
+                self.cancelBtn.hidden = YES;
                 self.shenyuLb.hidden = YES;
-                [self.cancelBtn setTitle:@"评价" forState:UIControlStateNormal];
-                [self.payBtn setTitle:@"退货" forState:UIControlStateNormal];
+                [self.payBtn setTitle:@"评价" forState:UIControlStateNormal];
             }
                 break;
             default:
@@ -107,17 +106,6 @@
         {
             if (self.orderDetailButtonActionBlock) {
                 self.orderDetailButtonActionBlock(ButtonActionTypeZhuizong);
-            }
-        }
-            break;
-        case FooterTypeJiaoyiguanbi:
-        {
-        }
-            break;
-        case FooterTypeJiaoyichenggong:
-        {
-            if (self.orderDetailButtonActionBlock) {
-                self.orderDetailButtonActionBlock(ButtonActionTypePingJia);
             }
         }
             break;
@@ -156,7 +144,7 @@
         case FooterTypeJiaoyichenggong:
         {
             if (self.orderDetailButtonActionBlock) {
-                self.orderDetailButtonActionBlock(ButtonActionTypeTuiHuo);
+                self.orderDetailButtonActionBlock(ButtonActionTypePingJia);
             }
         }
             break;

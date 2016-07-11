@@ -63,10 +63,10 @@
                             <action selector="editAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="v7s-ts-lEj"/>
                         </connections>
                     </button>
-                    <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur " selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7TO-9B-5mP">
+                    <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetau" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7TO-9B-5mP">
                         <rect key="frame" x="48" y="33" width="214" height="50"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                 </subviews>

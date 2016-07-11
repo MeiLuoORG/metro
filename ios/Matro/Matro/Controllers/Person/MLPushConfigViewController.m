@@ -109,6 +109,9 @@
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             [MBProgressHUD showMessag:@"删除成功" toView:self.view];
+            if (self.removeAllMessage) {
+                self.removeAllMessage();
+            }
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];

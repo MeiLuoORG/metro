@@ -127,9 +127,11 @@
     for (NSString *url in self.imgUrlArray) {
         [str appendFormat:@"%@,",url];
     }
-    NSDictionary *params = @{@"pid":self.pid,@"comment_text":self.headView.textView.text,@"stars":[NSNumber numberWithInteger:self.comScore],@"pic":str};
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSDictionary *params = @{@"pid":self.pid,@"comment_text":self.headView.textView.text,@"stars":[NSNumber numberWithInteger:self.comScore],@"pic":str,@"order_id":self.order_id?:@""};
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=product_submit",MATROJP_BASE_URL];
     [MLHttpManager post:url params:params m:@"product" s:@"comment_submit" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             if (self.goodsComSuccess) {
@@ -144,6 +146,7 @@
         }
 
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     

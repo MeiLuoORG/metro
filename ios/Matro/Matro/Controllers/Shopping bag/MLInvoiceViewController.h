@@ -20,6 +20,11 @@ typedef void(^InvoiceBlock)(BOOL,BOOL,NSString*,NSString*);
 
 @property (nonatomic) BOOL isNeed;
 
+@property (nonatomic,assign)BOOL isGeren;
+@property (nonatomic,copy)NSString *mingxi;
+
+
+
 @property (assign,nonatomic,readwrite)id <InvoiceDelegate>delegate;
 
 @property (nonatomic,copy)InvoiceBlock  invoiceBlock;

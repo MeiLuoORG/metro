@@ -57,13 +57,21 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    _bukai.selected = !_isNeed;
-    _kai.selected = _isNeed;
-//    _putong.selected = _isNeed;
-//    _mingxi.selected = _isNeed;
-//    _titouTextField.enabled = _isNeed;
-//    _titouTextField.text = _isNeed ? @"" : @"";//传入数据
+//    _bukai.selected = !_isNeed;
+//    _kai.selected = _isNeed;
+    if (!self.isNeed) {
+        [self invoiceButtonAction:self.bukai];
+    }
+    else{
+         [self invoiceButtonAction:self.kai];
+        if (self.isGeren) {
+             [self taitouButtonAction:self.geren];
+        }
+        else{
+            [self taitouButtonAction:self.gongsi];
+            self.gongsiTitle.text = self.mingxi;
+        }
+    }
 }
 
 - (void)invoiceUI{
@@ -82,9 +90,7 @@
     if (button.selected) {
         return;
     }
-    
     button.selected = YES;
-    
     if ([button isEqual:_geren]) {
         _gongsi.selected = NO;
         _gongsiLabH.constant = 0;
@@ -121,7 +127,7 @@
     if (self.bukai.selected) { //不开发票 直接返回
         //开发票
         if (self.invoiceBlock) {
-            self.invoiceBlock(_bukai.selected,_gongsi.selected,@"",@"");
+            self.invoiceBlock(NO,_gongsi.selected,@"",@"");
         }
         [self.navigationController popViewControllerAnimated:YES];
         return;
@@ -139,7 +145,7 @@
                 NSDictionary *info = [inv_add firstObject];
                 NSString *ID = info[@"id"];
                 if (self.invoiceBlock) {
-                    self.invoiceBlock(!_bukai.selected,!_gongsi.selected,titou,ID);
+                    self.invoiceBlock(YES,!_gongsi.selected,titou,ID);
                 }
                 [self.navigationController popViewControllerAnimated:YES];
             }else{

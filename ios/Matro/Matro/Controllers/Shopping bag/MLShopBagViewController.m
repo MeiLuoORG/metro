@@ -264,6 +264,7 @@ static NSInteger pageIndex = 0;
         MGSwipeButton * button = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell * sender){
             [self deleteGoods:model];
             [self.shopCart.cart removeObject:model];
+            self.footView.checkBox.cartSelected = NO;
             [self.tableView reloadData];
             return YES;
         }];

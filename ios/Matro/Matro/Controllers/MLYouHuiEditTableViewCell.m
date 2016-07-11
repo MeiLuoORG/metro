@@ -34,7 +34,12 @@
         NSString *attr =[NSString stringWithFormat:@"<font size=\"14\"><color value=\"#999999\">可用余额</><color value=\"#FF4E25\">￥%.1f</></>",_youHuiQuan.payable];
         self.yuLabel.attributedText = [attr createAttributedString];
         self.nameLabel.text = _youHuiQuan.name;
-        self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",_youHuiQuan.useSum];
+        if (_youHuiQuan.useSum > 0) {
+           self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",_youHuiQuan.useSum];
+        }else{
+            self.priceLabel.text = @"￥";
+        }
+
     }
 }
 

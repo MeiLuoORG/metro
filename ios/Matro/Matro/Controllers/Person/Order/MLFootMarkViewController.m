@@ -52,7 +52,7 @@
     });
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.left.bottom.mas_equalTo(self.view);
+        make.edges.mas_equalTo(0);
     }];
     
     

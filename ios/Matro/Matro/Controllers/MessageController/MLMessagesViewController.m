@@ -60,6 +60,9 @@
 
 - (void)actSettingAction{
     MLPushConfigViewController *vc = [[MLPushConfigViewController alloc]init];
+    vc.removeAllMessage = ^(){
+        [self getDataSource];
+    };
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -137,9 +140,6 @@
     } failure:^(NSError *error) {
         [MBProgressHUD showSuccess:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
-    
-    
-    
     
 }
 

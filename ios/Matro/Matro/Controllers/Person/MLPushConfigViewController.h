@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MLBaseViewController.h"
+
+
+typedef void(^RemoveAllMessage)();
+
 @interface MLPushConfigViewController : MLBaseViewController
+@property (nonatomic,copy)RemoveAllMessage removeAllMessage;
 
 @end
