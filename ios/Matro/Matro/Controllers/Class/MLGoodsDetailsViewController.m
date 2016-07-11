@@ -207,6 +207,7 @@
         }];
         
     }];
+    
     [footer setTitle:@"点击或继续拖动，查看图文详情" forState:MJRefreshStateIdle];
     [footer setTitle:@"加载中..." forState:MJRefreshStateRefreshing];
     [footer setTitle:@"加载失败" forState:MJRefreshStateNoMoreData];
@@ -1197,7 +1198,6 @@
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     NSLog(@"%@", error);
-//    _infoBgviewHConstraint.constant = 30;
 }
 
 
@@ -1328,7 +1328,7 @@
                 for (NSString *searchStr in guige) {
                     if ([searchStr isEqualToString:str]) {
                         Searchdic = searchDic;
-                        price = searchDic[@"price"];
+                        price = searchDic[@"promotion_price"];
                         market_price = searchDic[@"market_price"];
                         stock = searchDic[@"stock"];
                         safe_stock = searchDic[@"safe_stock"];
@@ -1427,7 +1427,7 @@
                 for (NSString *searchStr in guige) {
                     if ([searchStr isEqualToString:str]) {
                         Searchdic = searchDic;
-                        price = searchDic[@"price"];
+                        price = searchDic[@"promotion_price"];
                         market_price = searchDic[@"market_price"];
                         stock = searchDic[@"stock"];
                         safe_stock = searchDic[@"safe_stock"];

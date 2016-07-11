@@ -145,9 +145,7 @@ static NSInteger page = 1;
 - (void)goodsListUI{
     
     //添加边框和提示
-    UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)] ;
-//    frameView.layer.borderWidth = 1;
-//    frameView.layer.borderColor = RGBA(38, 14, 0, 0.5).CGColor;
+    UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 28)];
     frameView.layer.cornerRadius = 4.f;
     frameView.layer.masksToBounds = YES;
     frameView.backgroundColor = [UIColor whiteColor];
@@ -183,9 +181,13 @@ static NSInteger page = 1;
 //    self.navigationItem.rightBarButtonItem = button;
     
     [_jiageButtton changeImageAndTitle];
+    
+    _jiageButtton.imageView.hidden = YES;
+    
     /*
-    [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateNormal];
-    [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
+    [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateNormal];
+    
+    [_jiageButtton setImage:[UIImage imageNamed:@"jgshangjian"] forState:UIControlStateSelected];
     */
     [_shaixuanButton changeImageAndTitle];
     [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
@@ -309,7 +311,7 @@ static NSInteger page = 1;
     //sum: 不分页查询总条数
     
     NSString *listtepy=@"";
-    //NSString *sort=@"";//排列方式
+    NSString *sort=@"";//排列方式
     NSString *orderby =@"amount";//默认销量
     NSString *spflid = @"";//商品分类id
     NSString *jgs = @"";
@@ -336,6 +338,8 @@ static NSInteger page = 1;
         }
         if ([filterparamDic objectForKey:@"brandid"]) {
             ppid =[filterparamDic objectForKey:@"brandid"];
+        }if ([filterparamDic objectForKey:@"sort"]) {
+            sort =[filterparamDic objectForKey:@"sort"];
         }
         
     }
@@ -353,7 +357,7 @@ static NSInteger page = 1;
     
     
     
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@&id=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,ppid,spflid];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=%@&brand_id=%@&id=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,sort,ppid,spflid];
     NSLog(@"str====%@",str);
     
    
@@ -479,6 +483,7 @@ static NSInteger page = 1;
 }
 
 #pragma mark- 功能按钮  销量、价格、筛选、切换
+
 - (IBAction)listButtonAction:(id)sender {
     UIButton *button  = (UIButton * )sender;
     if (!filterparamDic) {
@@ -491,47 +496,41 @@ static NSInteger page = 1;
         if (button.selected) {
             
             [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-            [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateSelected];
+            _jiageButtton.imageView.hidden= YES;
             [filterparamDic setValue:@"amount" forKey:@"orderby"];
             
         }else{
             
-         [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+            _jiageButtton.imageView.hidden= YES;
+            [filterparamDic setValue:@"amount" forKey:@"orderby"];
+            
         }
         
         page = 1;
         [self getGoodsList];
-    }/*
-    else if ([typeStr isEqualToString:@"品牌"]){
-        button.selected = !button.selected;
-        NSString *urlStr = [NSString stringWithFormat:@"http://www.matrojp.com/Ajax/search/search.ashx?op=5&spflcode=&jgcount=5"];
-        [[HFSServiceClient sharedClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"价格筛选 请求成功");
-            NSDictionary *result = (NSDictionary *)responseObject;
-            NSLog(@"%@",result);
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"价格筛选 请求失败");
-            
-        }];
-        [self reloadData];
-    }*/
+    }
     else if([typeStr isEqualToString:@"价格"])
     {
+        _jiageButtton.imageView.hidden = NO;
         button.selected = !button.selected;
         if (button.selected) {
            
             [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
             [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
-            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
             [filterparamDic setValue:@"price" forKey:@"orderby"];
-            
+            [filterparamDic setValue:@"desc" forKey:@"sort"];
 
         }else{
         
-            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [_jiageButtton setImage:[UIImage imageNamed:@"jgshangjian"] forState:UIControlStateNormal];
+            [filterparamDic setValue:@"price" forKey:@"orderby"];
+            [filterparamDic setValue:@"asc" forKey:@"sort"];
         }
         page = 1;
         [self getGoodsList];

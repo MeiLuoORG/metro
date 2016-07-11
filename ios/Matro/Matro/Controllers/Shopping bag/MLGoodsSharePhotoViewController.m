@@ -64,7 +64,21 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 - (IBAction)pengyouquanClick:(id)sender {
+    
+    self.closeBtn.hidden = YES;
+    UIImage *img =  [self getImage];
+    self.closeBtn.hidden = NO;
+    [UMSocialData defaultData].extConfig.qqData.url = share_Url;
+    [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:self.titleLabel.text image:img location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            [MBProgressHUD showMessag:@"分享成功" toView:self.view];
+        }
+    }];
+    
+    /*
     self.closeBtn.hidden = YES;
     UIImage *img =  [self getImage];
     self.closeBtn.hidden = NO;
@@ -74,7 +88,7 @@
             [MBProgressHUD showMessag:@"分享成功" toView:self.view];
         }
     }];
-    
+    */
 }
 - (IBAction)weixinClick:(id)sender {
     
