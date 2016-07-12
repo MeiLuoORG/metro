@@ -222,6 +222,11 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 //请求订单  数量
 #define OrderNum_URLString              @"http://bbctest.matrojp.com/api.php?m=shop&s=status&action=sel"
 
+//获取支付流水
+#define ZhiFu_LIUSHUI_URLString         @"http://bbctest.matrojp.com/api.php?m=product&s=pay"
+
+
+#define ZHOULU_ML_BASE_URLString        @"http://bbctest.matrojp.com"
 /*zhouluEND*/
 
 

@@ -233,6 +233,7 @@
         totalpay=[NSString stringWithFormat:@"%.2f",_orderDetail.DDJE];
         outtradenum =_orderDetail.JLBH?:@"";
     }
+<<<<<<< Updated upstream
     NSDictionary *dic = @{@"out_trade_no":self.order_id,
                           @"subject":@"美罗全球精品购",
                           @"body":@"美罗全球精品购",
@@ -266,43 +267,106 @@
                                orderSpec, signedString, @"RSA"];
                 NSLog(@"%@",orderString);
                 [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+=======
+    //http://bbctest.matrojp.com/api.php?m=product&s=pay
+    
+    NSDictionary * ret = @{@"order_id":self.order_id,@"payment_type":@"alipay"};
+    [MLHttpManager post:ZhiFu_LIUSHUI_URLString params:ret m:@"product" s:@"pay" success:^(id responseObject) {
+        NSDictionary * results = (NSDictionary *)responseObject;
+        NSLog(@"请求订单流水：%@",results);
+        if ([results[@"code"] isEqual:@0]) {
+            NSDictionary *dic = @{@"out_trade_no":self.order_id,
+                                  @"subject":@"美罗全球精品购",
+                                  @"body":@"美罗全球精品购",
+                                  @"total_fee":[NSString stringWithFormat:@"%.2f",self.order_sum]
+                                  };
+            
+            
+            [[HFSServiceClient sharedPayClient] POST:ALIPAY_SERVICE_URL parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                NSDictionary *result = (NSDictionary *)responseObject;
+                NSLog(@"result %@",result);
+                
+                if (result) {
+>>>>>>> Stashed changes
                     
-                    if ([resultDic[@"resultStatus"] intValue]==9000) {
-                        [_hud show:YES];
-                        _hud.mode = MBProgressHUDModeText;
-                        _hud.labelText = resultDic[@"memo"];
-                        [_hud hide:YES afterDelay:2];
-                        MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
-                        payResultVC.hidesBottomBarWhenPushed = YES;
-                        payResultVC.isSuccess = YES;
-                        payResultVC.order_id = self.order_id;
-                        [self.navigationController pushViewController:payResultVC animated:YES];
+                    AliPayOrder *order = [[AliPayOrder alloc] init];
+                    order.partner = result[@"partner"];
+                    order.seller = result[@"seller_id"];
+                    order.tradeNO = result[@"out_trade_no"];
+                    order.productName = result[@"subject"];
+                    order.productDescription = result[@"body"];
+                    order.amount = result[@"total_fee"];
+                    order.notifyURL = result[@"notify_url"];
+                    order.service = result[@"service"];
+                    order.paymentType = result[@"payment_type"];
+                    order.inputCharset = result[@"_input_charset"];
+                    order.itBPay = result[@"it_b_pay"];
+                    
+                    //将商品信息拼接成字符串
+                    NSString *orderSpec = [order description];
+                    NSString *signedString =result[@"sign"];
+                    //将签名成功字符串格式化为订单字符串,请严格按照该格式
+                    NSString *orderString = nil;
+                    NSString *appScheme = @"Matro";
+                    if (signedString != nil) {
+                        signedString = [signedString gtm_stringByEscapingForURLArgument];
                         
+                        orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
+                                       orderSpec, signedString, @"RSA"];
+                        NSLog(@"%@",orderString);
+                        [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                            
+                            if ([resultDic[@"resultStatus"] intValue]==9000) {
+                                [_hud show:YES];
+                                _hud.mode = MBProgressHUDModeText;
+                                _hud.labelText = resultDic[@"memo"];
+                                [_hud hide:YES afterDelay:2];
+                                MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
+                                payResultVC.hidesBottomBarWhenPushed = YES;
+                                payResultVC.isSuccess = YES;
+                                payResultVC.order_id = self.order_id;
+                                [self.navigationController pushViewController:payResultVC animated:YES];
+                                
+                            }
+                            else{
+                                NSString *resultMes = resultDic[@"memo"];
+                                resultMes = (resultMes.length<=0?@"支付失败":resultMes);
+                                MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
+                                shiBaiVC.hidesBottomBarWhenPushed = YES;
+                                
+                                [self.navigationController pushViewController:shiBaiVC animated:YES];
+                            }
+                            NSLog(@"reslut = %@",resultDic);
+                        }];
                     }
-                    else{
-                        NSString *resultMes = resultDic[@"memo"];
-                        resultMes = (resultMes.length<=0?@"支付失败":resultMes);
-                        MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
-                        shiBaiVC.hidesBottomBarWhenPushed = YES;
-                        
-                        [self.navigationController pushViewController:shiBaiVC animated:YES];
-                    }
-                    NSLog(@"reslut = %@",resultDic);
-                }];
-            }
+                }
+                
+                
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [_hud show:YES];
+                NSLog(@"error kkkk %@",error);
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = REQUEST_ERROR_ZL;
+                [_hud hide:YES afterDelay:2];
+            }];
+
+            
         }
         
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [_hud show:YES];
         NSLog(@"error kkkk %@",error);
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
     }];
     
+    
 }
+
+
 
 #pragma mark apple pay delegate
 - (void)applepay
@@ -377,45 +441,60 @@
         totalpay=[NSString stringWithFormat:@"%.2f",_orderDetail.DDJE];
         outtradenum =_orderDetail.JLBH?:@"";
     }
+    NSDictionary * ret = @{@"order_id":self.order_id,@"payment_type":@"weixin"};
+    [MLHttpManager post:ZhiFu_LIUSHUI_URLString params:ret m:@"product" s:@"pay" success:^(id responseObject) {
+        NSDictionary * results = (NSDictionary *)responseObject;
+        NSLog(@"请求订单流水：%@",results);
+        if ([results[@"code"] isEqual:@0]) {
+            NSDictionary *dict = @{@"orderid":self.order_id?:@"",
+                                   @"goods_name":@"美罗全球购",
+                                   @"totalfee":[NSString stringWithFormat:@"%.2f",self.order_sum]?:@"",
+                                   @"ip":@"",
+                                   @"wxid":@"6"};
+            NSLog(@"%@",dict);
+            
+            
+            [[HFSServiceClient sharedPayClient] POST:WXPAY_SERVICE_URL parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                NSDictionary *data = (NSDictionary *)responseObject;
+                NSString *noncestr = [data objectForKey:@"noncestr"];
+                NSString *partnerid = [data objectForKey:@"partnerid"];
+                NSString *prepayid = [data objectForKey:@"prepayid"];
+                NSString *timestamp = [data objectForKey:@"timestamp"];
+                NSString *sign = [data objectForKey:@"sign"];
+                NSString *package = [data objectForKey:@"package"];
+                
+                PayReq *req             = [[PayReq alloc] init];
+                req.partnerId           = partnerid;
+                req.prepayId            = prepayid;
+                req.nonceStr            = noncestr;
+                req.timeStamp           = [timestamp intValue];
+                req.package             = package;
+                req.sign                = sign;
+                [WXApi sendReq:req];
+                
+                NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [_hud show:YES];
+                NSLog(@"error kkkk %@",error);
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"请求失败";
+                [_hud hide:YES afterDelay:2];
+            }];
 
-    NSDictionary *dict = @{@"orderid":self.order_id?:@"",
-                           @"goods_name":@"美罗全球购",
-                           @"totalfee":[NSString stringWithFormat:@"%.2f",self.order_sum]?:@"",
-                           @"ip":@"",
-                           @"wxid":@"6"};
-    NSLog(@"%@",dict);
-    
-    
-    [[HFSServiceClient sharedPayClient] POST:WXPAY_SERVICE_URL parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        }
         
-        NSDictionary *data = (NSDictionary *)responseObject;
-        NSString *noncestr = [data objectForKey:@"noncestr"];
-        NSString *partnerid = [data objectForKey:@"partnerid"];
-        NSString *prepayid = [data objectForKey:@"prepayid"];
-        NSString *timestamp = [data objectForKey:@"timestamp"];
-        NSString *sign = [data objectForKey:@"sign"];
-        NSString *package = [data objectForKey:@"package"];
-        
-        PayReq *req             = [[PayReq alloc] init];
-        req.partnerId           = partnerid;
-        req.prepayId            = prepayid;
-        req.nonceStr            = noncestr;
-        req.timeStamp           = [timestamp intValue];
-        req.package             = package;
-        req.sign                = sign;
-        [WXApi sendReq:req];
-
-        NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [_hud show:YES];
         NSLog(@"error kkkk %@",error);
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
     }];
     
 }
+
 
 
 #pragma mark 银联支付
@@ -431,20 +510,37 @@
         totalpay=[NSString stringWithFormat:@"%.2f",_orderDetail.DDJE];
         outtradenum =_orderDetail.JLBH?:@"";
     }
-    //txnAmt  orderId
-    NSDictionary *dict = @{@"txnAmt":[NSString stringWithFormat:@"%.2f",self.order_sum]?:@"",@"orderId":self.order_id?:@"",@"orderDesc":@"美罗全球购"};
-    [[HFSServiceClient sharedPayClient]POST:UPPPAY_SERVICE_URL parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *tn = [responseObject objectForKey:@"tn"];
-        NSLog(@"银联请求：%@",responseObject);
-        [[UPPaymentControl defaultControl] startPay:tn fromScheme:@"wx5aced428a6ce270e" mode:@"00" viewController:self];
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    
+    NSDictionary * ret = @{@"order_id":self.order_id,@"payment_type":@"union"};
+    [MLHttpManager post:ZhiFu_LIUSHUI_URLString params:ret m:@"product" s:@"pay" success:^(id responseObject) {
+        NSDictionary * results = (NSDictionary *)responseObject;
+        NSLog(@"请求订单流水：%@",results);
+        if ([results[@"code"] isEqual:@0]) {
+            //txnAmt  orderId
+            NSDictionary *dict = @{@"txnAmt":[NSString stringWithFormat:@"%.2f",self.order_sum]?:@"",@"orderId":self.order_id?:@"",@"orderDesc":@"美罗全球购"};
+            [[HFSServiceClient sharedPayClient]POST:UPPPAY_SERVICE_URL parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSString *tn = [responseObject objectForKey:@"tn"];
+                NSLog(@"银联请求：%@",responseObject);
+                [[UPPaymentControl defaultControl] startPay:tn fromScheme:@"wx5aced428a6ce270e" mode:@"00" viewController:self];
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [_hud show:YES];
+                NSLog(@"error kkkk %@",error);
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"请求失败";
+                [_hud hide:YES afterDelay:2];
+            }];
+        }
+        
+    } failure:^(NSError *error) {
         [_hud show:YES];
         NSLog(@"error kkkk %@",error);
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
     }];
+    
+
 
 }
 

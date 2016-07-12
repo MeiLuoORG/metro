@@ -21,7 +21,7 @@
     NSMutableArray * _pinPaiARR;
     
     UIButton * _indexButton;
-    
+    UIButton * _closeButton;
     //tableview
     NSMutableDictionary * _sectionDic;
     NSMutableArray * _sectionPinARR;
@@ -89,6 +89,7 @@
     [self createTableViews];
     [self loadSearchButton];
     [self loadDataWithPageIndex:1 withPagesize:15];
+    [self loadCloseButton];
 }
 
 
@@ -151,7 +152,7 @@
 - (void)loadTableViewData{
     
     //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=0",1,20000];
+    NSString * urlStr = [NSString stringWithFormat:@"%@/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=0",ZHOULU_ML_BASE_URLString,1,20000];
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
 
@@ -322,11 +323,7 @@
     
     
     if (section == 0) {
-        UIButton * closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [closeBtn setFrame:CGRectMake(SIZE_WIDTH-48, 8, 35, 35)];
-        [closeBtn setImage:[UIImage imageNamed:@"close-2"] forState:UIControlStateNormal];
-        [closeBtn addTarget:self action:@selector(closeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [bkView addSubview:closeBtn];
+
     }
     
     return bkView;
@@ -393,12 +390,25 @@
     _indexButton.hidden = YES;
 }
 
+- (void)loadCloseButton{
+
+    _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_closeButton setFrame:CGRectMake(SIZE_WIDTH-48, 15, 25, 25)];
+    [_closeButton setBackgroundImage:[UIImage imageNamed:@"close-2"] forState:UIControlStateNormal];
+    //[_closeButton setImage:[UIImage imageNamed:@"close-2"] forState:UIControlStateNormal];
+    [_closeButton addTarget:self action:@selector(closeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    _closeButton.hidden = YES;
+    [self.view addSubview:_closeButton];
+    
+}
+
 - (void)searchButtonAction:(UIButton *)sender{
     
     [UIView animateWithDuration:0.3f animations:^{
         _tableView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-64);
     } completion:^(BOOL finished) {
         _indexButton.hidden = YES;
+        _closeButton.hidden = NO;
     }];
 
 }
@@ -408,7 +418,7 @@
     [UIView animateWithDuration:0.3f animations:^{
         _tableView.frame  = CGRectMake(SIZE_WIDTH, 0, SIZE_WIDTH, SIZE_HEIGHT-64);
     } completion:^(BOOL finished) {
-        
+        _closeButton.hidden = YES;
         _indexButton.hidden = NO;
     }];
     //[_zongARR removeAllObjects];

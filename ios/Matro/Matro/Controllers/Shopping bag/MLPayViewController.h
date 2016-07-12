@@ -9,6 +9,8 @@
 #import "MLBaseViewController.h"
 #import "MLOrderListModel.h"
 #import "MLPayShiBaiViewController.h"
+#import "MLHttpManager.h"
+
 @interface MLPayViewController : MLBaseViewController
 @property(nonatomic,retain) NSDictionary *paramDic;
 @property (nonatomic,retain)MLOrderListModel *orderDetail;
