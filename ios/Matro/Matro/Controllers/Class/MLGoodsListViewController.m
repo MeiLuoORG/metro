@@ -357,7 +357,7 @@ static NSInteger page = 1;
     
     
     
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=%@&brand_id=%@&id=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,sort,ppid,spflid];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=%@&brand_id=%@&id=%@",MATROJP_BASE_URL,keystr,jgs,jge,(long)page,listtepy,orderby,sort,ppid,spflid];
     NSLog(@"str====%@",str);
     
    

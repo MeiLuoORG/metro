@@ -42,6 +42,7 @@ static NSInteger page = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"店铺收藏";
+    isEditing = NO;
     [self loadDate];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -130,11 +131,13 @@ static NSInteger page = 1;
      &test_phone=13771961207
      */
     
-    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_shop&test_phone=13771961207"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_shop",MATROJP_BASE_URL];
     NSDictionary *params = @{@"do":@"sel"};
     
     [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
         NSLog(@"请求成功responseObject===%@",responseObject);
+        [_hud show:YES];
+        [_hud hide:YES afterDelay:1];
         
         if ([responseObject[@"data"][@"shop_list"] isKindOfClass:[NSString class]]) {
             
@@ -148,7 +151,9 @@ static NSInteger page = 1;
             __weak typeof(self) weakself = self;
             
             if (_collectionArray.count>0) {
+                
                 if (page == 1) {
+                    
                     [self.dataSource removeAllObjects];
                 }
                 [self.dataSource addObjectsFromArray:[MLCollectstoresModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
@@ -173,48 +178,6 @@ static NSInteger page = 1;
         [_hud hide:YES afterDelay:1];
         
     }];
-    /*
-    [[HFSServiceClient sharedJSONClientNOT] POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData){
-        
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"responseObject===%@",responseObject);
-        _collectionArray = responseObject[@"data"][@"shop_list"];
-        
-        __weak typeof(self) weakself = self;
-        
-        if (_collectionArray.count>0) {
-            if (page == 1) {
-                [self.dataSource removeAllObjects];
-            }
-            [self.dataSource addObjectsFromArray:[MLCollectstoresModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
-            
-            [self._tableView reloadData];
-            
-            
-            
-        }else{
-            
-            [self.dataSource removeAllObjects];
-            [self._tableView reloadData];
-            [self.view configBlankPage:EaseBlankPageTypeShouCangstore hasData:(self.dataSource.count>0)];
-            self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
-                weakself.tabBarController.selectedIndex = 1;
-                [weakself.navigationController popToRootViewControllerAnimated:YES];
-            };
-            
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:1];
-        
-    }];
-    */
-    
     
 }
 
@@ -352,14 +315,14 @@ static NSInteger page = 1;
         dostr = @"del";
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_shop",@"http://bbctest.matrojp.com"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_shop",MATROJP_BASE_URL];
     NSDictionary *params = @{@"do":dostr,@"id":shopID};
     
     [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
         NSLog(@"请求成功responseObject===%@",responseObject);
         
         NSDictionary *result = (NSDictionary *)responseObject;
-        NSString *share_add = result[@"data"][@"ads_del"];
+        NSString *share_add = result[@"data"][@"shop_delall"];
         if (share_add) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
@@ -367,6 +330,7 @@ static NSInteger page = 1;
             [_hud hide:YES afterDelay:2];
             [self loadDate];
             [self._tableView reloadData];
+            isEditing = NO;
         }else{
             
         }

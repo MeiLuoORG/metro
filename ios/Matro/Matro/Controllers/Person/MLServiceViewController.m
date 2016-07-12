@@ -68,8 +68,8 @@
 
 -(void)loadData{
    // http://bbctest.matrojp.com/api.php?m=help&s=index 获取类别
-    NSString *url = @"http://bbctest.matrojp.com/api.php?m=help&s=index";
-    
+   // NSString *url = @"http://bbctest.matrojp.com/api.php?m=help&s=index";
+     NSString *url =  [NSString stringWithFormat:@"%@/api.php?m=help&s=index",MATROJP_BASE_URL];
     [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         NSArray *temparr = responseObject[@"data"][@"help_info"];
@@ -94,7 +94,7 @@
     
     // http://bbctest.matrojp.com/api.php?m=help&s=index&type=1 获取类别下的子类
     
-    NSString *url = @"http://bbctest.matrojp.com/api.php?m=help&s=index&type=1";
+    NSString *url =  [NSString stringWithFormat:@"%@/api.php?m=help&s=index&type=1",MATROJP_BASE_URL];
     
     [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
@@ -121,7 +121,7 @@
     
     // http://bbctest.matrojp.com/api.php?m=help&s=index&type=3 获取类别下的子类
     
-    NSString *url = @"http://bbctest.matrojp.com/api.php?m=help&s=index&type=3";
+     NSString *url =  [NSString stringWithFormat:@"%@/api.php?m=help&s=index&type=3",MATROJP_BASE_URL];
     
     [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
@@ -148,7 +148,7 @@
     
     // http://bbctest.matrojp.com/api.php?m=help&s=index&type=4 获取类别下的子类
     
-    NSString *url = @"http://bbctest.matrojp.com/api.php?m=help&s=index&type=4";
+    NSString *url =  [NSString stringWithFormat:@"%@/api.php?m=help&s=index&type=4",MATROJP_BASE_URL];
     
     [[HFSServiceClient sharedClient]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);

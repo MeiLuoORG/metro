@@ -40,9 +40,7 @@
     [_treeView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"TypeCellIdentifier"];
     spArray = [NSMutableArray array];
     secondArray = [NSMutableArray array];
-    
     [self addMenuButton];
-    
     [self loadretCat];
 }
 
@@ -52,9 +50,7 @@
     //（分类）
     // http://bbctest.matrojp.com/api.php?m=product&s=filter&key=&brandid=1853&searchType=1&userid=
     
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=&searchType=1&userid=%@",   @"http://bbctest.matrojp.com",uid];
-    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=&searchType=1&userid=%@",MATROJP_BASE_URL,uid];
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);
         NSDictionary *dataDic = responseObject[@"data"];
@@ -214,14 +210,10 @@
                 }
                 
                 _selectedItem = item;
-                
-                
+   
             }
         }
-        
-    
 
-    
 }
 
 -(NSInteger)treeView:(RATreeView *)treeView indentationLevelForRowForItem:(id)item {

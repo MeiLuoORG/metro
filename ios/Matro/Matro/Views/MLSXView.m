@@ -18,7 +18,7 @@
 
 #define PriceCellIdentifier @"PriceCellIdentifier"
 
-@interface MLSXView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>{
+@interface MLSXView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate>{
     
     //品牌分类相关数组，用treeview显示
 //
@@ -30,11 +30,8 @@
     NSMutableArray *ppArray;
     NSMutableArray *spArray;
     NSMutableArray *secondArray;
-    
     NSString *maxprice;
-    
-    
-    
+
     //价格的数组，用tableview显示
     NSMutableArray *_priceArray;
     NSIndexPath *_selectedIndexPath;
@@ -98,6 +95,11 @@ static BOOL selectPP = NO;
         //初始化背景视图，添加手势
         self.frame = frame ;
         self.userInteractionEnabled = YES;
+        
+        UISwipeGestureRecognizer *rightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backButtonAction:)];
+        
+        [rightRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+        [self addGestureRecognizer:rightRecognizer];
         
         _treeView.delegate = self;
         _treeView.dataSource = self;
@@ -174,6 +176,7 @@ static BOOL selectPP = NO;
     _pinpai.text = @"不限";
     _jiage.text  = @"不限";
     
+    
 
     return self;
 }
@@ -240,30 +243,6 @@ static BOOL selectPP = NO;
     }];
 }
 
-/*
-- (void)loadBrand:(NSString*)urlStr
-{
-    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *result = (NSArray *)responseObject;
-        NSLog(@"%@",result);
-        if (result) {
-            for (NSDictionary *temp in result) {
-                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:temp[@"SBID"] name:temp[@"NAME"] children:nil];
-                itemAll.level = @0;
-                itemAll.dataId = [NSNumber numberWithInt:1];
-                itemAll.selected = NO;
-                [ppArray addObject:itemAll];
-            }
-            [_treeView reloadData];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"价格筛选 请求失败");
-        
-    }];
-}
-*/
-
 //价格
 -(void)loadmaxPrice{
     //商品筛选（分类，品牌，价格）
@@ -293,7 +272,7 @@ static BOOL selectPP = NO;
     [priceDic6 setObject:@"5001" forKey:@"jgs"];
     [priceDic6 setObject:@"10000" forKey:@"jge"];
     [priceDic7 setObject:@"10001" forKey:@"jgs"];
-    [priceDic7 setObject:@"20000" forKey:@"jge"];
+    [priceDic7 setObject:@"99999" forKey:@"jge"];
     
     
     _priceArray = [[NSMutableArray alloc ] initWithObjects:@"不限", @"自定义", nil];
@@ -385,53 +364,6 @@ static BOOL selectPP = NO;
     
 }
 
-/*
-- (void)loadDatePrice {
-    _priceArray = [[NSMutableArray alloc ] initWithObjects:@"全部", @"自定义", nil];
-    
-    NSString *urlStr = [NSString stringWithFormat:@"http://www.matrojp.com/Ajax/search/search.ashx?op=jgcount&spflcode=%@&jgcount=5",self.spflCode?:@""];
-    
-    [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *array = (NSArray *)responseObject;
-        if (array && array.count>0) {
-            int i=1;
-            for (NSDictionary *temp in array) {
-                NSString *startprice = temp[@"jgs"];
-                NSString *endprice = temp[@"jge"];
-                NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
-                NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
-                HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
-                [_priceArray insertObject:tempPriceDataObject.description atIndex:i];
-                i++;
-            }
-            [self.tableView reloadData];
-
-            
-//            if (_postMaxPrice && _postMinPrice) {
-//                for (NSInteger i = 1; i < _priceArray.count - 1; i ++ ) {
-//                    HFSPriceDataObject *tempPriceDataObject = _priceArray[i];
-//                    if ([tempPriceDataObject.fromPrice isEqualToNumber:_postMinPrice]&&[tempPriceDataObject.toPrice isEqualToNumber:_postMaxPrice]) {
-//                        _selectedIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//                        break;
-//                    }else{
-//                        _selectedIndexPath = _customIndexPath;
-//                    }
-//                }
-//            }else{
-//                if (!_selectedIndexPath) {
-//                    _selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//                }
-//            }
-
-            
-        }
-        NSLog(@"请求成功");
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
-    }];
-}
-*/
- 
 //分类
 -(void)loadretCat{
     //商品筛选（分类，品牌，价格）
@@ -485,46 +417,6 @@ static BOOL selectPP = NO;
     }];
 
 }
-
-/*
-- (void)loadDateClass {
-    NSString *urlStr = nil;
-    
-    if (self.keywords) {
-        NSString *key = [self.keywords stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-        urlStr = [NSString stringWithFormat:@"http://www.matrojp.com/Ajax/search/search.ashx?op=getspfl&spflcode=&ppcode=&key=%@",key];
-    }
-    
-    if (self.spflCode) {
-        urlStr = [NSString stringWithFormat:@"http://www.matrojp.com/Ajax/search/search.ashx?op=getspfl&spflcode=%@&ppcode=&key=",self.spflCode];
-    }
-    
-    
-    [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSArray *result = (NSArray *)responseObject;
-        if (result) {
-            int i=0;
-            for (NSDictionary *temp in result) {
-                NSString *spfl = temp[@"SPFL"];
-                NSLog(@"spfl %@",spfl);
-
-                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:temp[@"SPFL"] name:temp[@"NAME"] children:nil];
-                itemAll.level = @0;
-                itemAll.dataId = [NSNumber numberWithInt:0];
-                itemAll.selected = NO;
-                [spArray addObject:itemAll];
-                i++;
-            }
-            [_treeView reloadData];
-        }
-
-        NSLog(@"请求成功");
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
-    }];
-}
-*/
-
 
 #pragma mark- 确定按钮
 /*

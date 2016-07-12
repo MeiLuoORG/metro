@@ -241,39 +241,13 @@ static NSInteger page = 0;
     
 }
 
-/*
-//搜索器的UIView的点击事件
--(void)handleSingleTap:(UITapGestureRecognizer *)sender
 
-{
-    MLSearchViewController *searchViewController = [[MLSearchViewController alloc]init];
-    searchViewController.delegate = self;
-    searchViewController.activeViewController = self;
-    MLNavigationController *searchNavigationViewController = [[MLNavigationController alloc]initWithRootViewController:searchViewController];
-    
-    UIViewController *rootViewController = ((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
-    [rootViewController addChildViewController:searchNavigationViewController];
-    [rootViewController.view addSubview:searchNavigationViewController.view];
-    
-}
-*/
 
 -(void)keyboardHide:(UITapGestureRecognizer*)tap{
     [_sxView endEditing:YES];
     
 }
 
-#pragma mark-SearchDelegate
-/*
--(void)SearchText:(NSString *)text{
-    
-    MLshopGoodsListViewController *vc =[[MLshopGoodsListViewController alloc]init];
-    self.hidesBottomBarWhenPushed = YES;
-    vc.searchString = text;
-    [self.navigationController pushViewController:vc animated:NO];
-    self.hidesBottomBarWhenPushed = NO;
-}
-*/
 #pragma mark- 刷新相关
 //根据_isCardView来判断是_tableView还是_collectionView开始刷新
 -(void)reloadData {
@@ -297,7 +271,7 @@ static NSInteger page = 0;
     
 }
 
-#warning 先加分页index，之后还会加别的  关键字搜索
+#warning   关键字搜索
 - (void)getGoodsList{
     
     //    http://bbctest.matrojp.com/api.php?m=product&s=list&key=水&startprice=0&endprice=60&pageindex=1&pagesize=20&listtype=1&searchType=1&orderby=amount&sort=desc&brand_id=1853
@@ -360,7 +334,7 @@ static NSInteger page = 0;
   
     }
     
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@&id=%@&userid=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,ppid,spflid,_uid];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@&id=%@&userid=%@",MATROJP_BASE_URL,keystr,jgs,jge,(long)page,listtepy,orderby,ppid,spflid,_uid];
     NSLog(@"str====%@",str);
     
     [[HFSServiceClient sharedJSONClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

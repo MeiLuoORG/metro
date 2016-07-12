@@ -53,7 +53,7 @@
 + (UIImage *)imageWithColor: (UIColor *)color;
 @end
 
-@interface MLGoodsDetailsViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIAlertViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,YAScrollSegmentControlDelegate,DWTagListDelegate,IMJIETagViewDelegate>{
+@interface MLGoodsDetailsViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIAlertViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,YAScrollSegmentControlDelegate,DWTagListDelegate,IMJIETagViewDelegate,UIGestureRecognizerDelegate>{
     
     NSDictionary *pDic;//商品详情信息
     NSDictionary *dPDic;//店铺详情信息
@@ -193,6 +193,17 @@
     _imageScrollView.delegate = self;
     _imageArray = [[NSMutableArray alloc] init];
     
+    UISwipeGestureRecognizer *rightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(rightbackButtonAction)];
+    
+    [rightRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.view addGestureRecognizer:rightRecognizer];
+    
+    UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(leftbackButtonAction)];
+    
+    [leftRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+    [self.view addGestureRecognizer:leftRecognizer];
+    
+    
     //设置SV1 上拉加载
     
     MJRefreshAutoStateFooter * footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -262,11 +273,19 @@
 {
     
 }
-/*
-- (void)backBtnAction{
-    [self.navigationController popViewControllerAnimated:YES];
+
+- (void)rightbackButtonAction{
+    [self didSelectItemAtIndex:0];
+    titleView.selectedIndex = 0;
+    
 }
-*/
+
+- (void)leftbackButtonAction{
+    
+    [self didSelectItemAtIndex:1];
+    titleView.selectedIndex = 1;
+}
+
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -274,23 +293,6 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
 }
-
-/*
--(DWTagList *)styleTagList:(DWTagList *)tagList {
-    
-    tagList.font = [UIFont systemFontOfSize:14.0f];
-    tagList.borderColor = [UIColor colorWithHexString:@"#EBEBEB"];
-    tagList.borderWidth = 1.f;
-    //tagList.textColor = [UIColor colorWithHexString:@"#260E00"];
-    tagList.labelMargin = 6.0f;
-    //[tagList setTagBackgroundColor:RGBA(255, 255, 255, 1)];
-    tagList.cornerRadius = 4.0f;
-    tagList.horizontalPadding = 6.0f;
-    tagList.verticalPadding = 6.0f;
-    
-    return tagList;
-}
-*/
 
 - (IBAction)actPingjia:(id)sender {
     
@@ -310,8 +312,9 @@
     //&test_phone=13771961207
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSLog(@"===%@",_paramDic);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&test_phone=18949151936",@"http://bbctest.matrojp.com",_paramDic[@"id"]];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@",MATROJP_BASE_URL,_paramDic[@"id"]];
     //测试链接
     //NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
     
@@ -488,11 +491,9 @@
             self.shareDic = tempdic;
             if (tempdic[@"jmsp_id"] && tempdic[@"jmsp_id"] !=[NSNull null]) {
                 spid = dic[@"pinfo"][@"jmsp_id"];
-                
-                
+    
             }
-            
-            
+
             //加载h5详情页
             if (dic[@"pinfo"][@"detail"]) {
                 NSString *htmlCode = [NSString stringWithFormat:@"<html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"><style type=\"text/css\">body{font-size : 0.9em;}img{width:%@ !important;}</style></head><body>%@</body></html>",@"100%",dic[@"pinfo"][@"detail"]];
@@ -571,25 +572,7 @@
                     self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
                 }
             }
-            
-            /*
-            float pricef = [dic[@"pinfo"][@"price"] floatValue];
-            self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-            float  originprice= [dic[@"pinfo"][@"market_price"] floatValue];
-            
-            NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
-            
-            NSAttributedString *attrStr =
-            [[NSAttributedString alloc]initWithString:pricestr
-                                           attributes:
-             @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-               NSForegroundColorAttributeName:[UIColor grayColor],
-               NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-               NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-            self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-            */
-            
-            
+    
             self.shuliangStepper.paramDic = dic;
             
             [self.shuliangStepper setTextValue:1];
@@ -770,7 +753,7 @@
     
     NSString *dpid = self.paramDic[@"userid"];
    
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@",@"http://bbctest.matrojp.com",dpid];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@",MATROJP_BASE_URL,dpid];
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         
@@ -841,7 +824,7 @@
 - (void)guessYLike {
    // http://bbctest.matrojp.com/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=20&catid=11080601,11080201&brandid=
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=",@"http://bbctest.matrojp.com"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=",MATROJP_BASE_URL];
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         
@@ -932,7 +915,7 @@
     }
     
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=add_cart",@"http://bbctest.matrojp.com"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=add_cart",MATROJP_BASE_URL];
     NSDictionary *params = @{@"id":pid,@"nums":[NSNumber numberWithInteger:_shuliangStepper.value],@"sid":sid,@"sku":sku};
     
     [MLHttpManager post:urlStr params:params m:@"product" s:@"cart" success:^(id responseObject) {
@@ -1529,7 +1512,7 @@
             
         
   
-        NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com"];
+        NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",MATROJP_BASE_URL];
         NSDictionary *params = @{@"do":@"add",@"pid":pid,@"uname":uname};
             
         
@@ -1584,7 +1567,7 @@
     if (userid) {
         if (!self.shoucangButton.selected) {
  
-            NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",@"http://bbctest.matrojp.com"];
+            NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",MATROJP_BASE_URL];
             NSDictionary *params = @{@"do":@"del",@"id":sender};
             self.shoucangButton.selected = NO;
             [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
@@ -1647,6 +1630,7 @@
     [self.navigationController pushViewController:vc animated:YES];
     
 }
+
 - (IBAction)actKefu:(id)sender {
     
     NSLog(@"联系客服%@",phoneNum);

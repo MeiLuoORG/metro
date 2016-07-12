@@ -29,14 +29,15 @@
     self.shareBgView.layer.cornerRadius = 4.f;
     self.quxiaoBtn.layer.cornerRadius = 4.f;
     self.quxiaoBtn.layer.masksToBounds = YES;
-    
+    share_Url = [NSString stringWithFormat:@"http://www.matrojp.com/?m=product&s=detail&id=%@",_paramDic[@"id"]];
+    /*
     if ([_paramDic[@"way"] isEqualToString:@"5"]) {
         share_Url = [NSString stringWithFormat:@"http://www.matrojp.com/?m=product&s=detail&id=%@",_paramDic[@"id"]];
     }
     else{
         share_Url = [NSString stringWithFormat:@"http://www.matrojp.com/?m=product&s=detail&id=%@",_paramDic[@"id"]];
     }
-    
+    */
     
 }
 

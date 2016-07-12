@@ -24,15 +24,15 @@
                         <rect key="frame" x="12" y="0.0" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="uTW-8e-j8e" secondAttribute="height" multiplier="1:1" id="0k8-rr-K31"/>
-                            <constraint firstAttribute="width" constant="60" id="gqU-lI-qp4"/>
-                            <constraint firstAttribute="height" constant="60" id="hkP-sF-rIC"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstItem="uTW-8e-j8e" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="53g-NC-zeE"/>
                 <constraint firstItem="Ckb-6i-WRu" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="C9C-nV-ruk"/>
+                <constraint firstAttribute="trailing" secondItem="uTW-8e-j8e" secondAttribute="trailing" constant="13" id="TvJ-kb-823"/>
                 <constraint firstItem="uTW-8e-j8e" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="VdN-2r-eQP"/>
                 <constraint firstItem="uTW-8e-j8e" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="dlq-At-QOI"/>
                 <constraint firstAttribute="trailing" secondItem="Ckb-6i-WRu" secondAttribute="trailing" id="hvp-IS-dt9"/>

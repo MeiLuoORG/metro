@@ -351,19 +351,15 @@
         [MLHttpManager post:ZhiFu_LIUSHUI_URLString params:ret m:@"product" s:@"pay" success:^(id responseObject) {
             NSDictionary * results = (NSDictionary *)responseObject;
             NSLog(@"请求订单流水：%@",results);
-<<<<<<< Updated upstream
-            if ([results[@"code"] isEqual:@0]) {   
-                NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
-                [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    NSString *tn = [responseObject objectForKey:@"tn"];
-=======
+
+
             if ([results[@"code"] isEqual:@0]) {
                 
                 NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
                 [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSString *tn = [responseObject objectForKey:@"tn"];
                     
->>>>>>> Stashed changes
+
                     [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];

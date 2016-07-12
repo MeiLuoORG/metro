@@ -146,7 +146,8 @@
    // NSString *urlStr = [NSString stringWithFormat:@"%@ajax/app/index.ashx?op=allfirst&webframecode=0303",SERVICE_GETBASE_URL];
     //http://bbctest.matrojp.com/api.php?m=category&s=list&method=top
     
-    NSString *urlStr =@"http://bbctest.matrojp.com/api.php?m=category&s=list&method=top" ;
+   
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=top",MATROJP_BASE_URL];
     
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
@@ -182,19 +183,15 @@
     
      MLClass *title = _classTitleArray[index];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=next&code=%@",@"http://bbctest.matrojp.com",title.CODE];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=next&code=%@",MATROJP_BASE_URL,title.CODE];
     
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         [_classSecondArray removeAllObjects];
         NSArray *arr = responseObject[@"data"][@"ret"];
-        
         brandDic = responseObject[@"data"][@"brandtitle"];
         brandArr = responseObject[@"data"][@"brand"];
-
          _classSecondArray = [[MTLJSONAdapter modelsOfClass:[MLSecondClass class] fromJSONArray:arr error:nil] mutableCopy];
-        NSLog(@"9999%@",_classSecondArray);
-        
         [MLSecondClass mj_setupObjectClassInArray:^NSDictionary *{
             return @{@"SecondaryClassification_Ggw":[MLClassInfo class]};
         }];

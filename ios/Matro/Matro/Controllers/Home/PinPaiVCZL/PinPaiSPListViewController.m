@@ -169,16 +169,17 @@ static NSInteger page = 1;
     
     
     [_jiageButtton changeImageAndTitle];
+    _jiageButtton.imageView.hidden = YES;
     /*
      [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateNormal];
      [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
      */
     [_shaixuanButton changeImageAndTitle];
     
-    /*
+    [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
      [_changeButton setImage:[UIImage imageNamed:@"liebiao1"] forState:UIControlStateNormal];
      [_changeButton setImage:[UIImage imageNamed:@"list"] forState:UIControlStateSelected];
-     */
+     
     
     _blackControl = [[UIControl alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH ,MAIN_SCREEN_HEIGHT)];
     _blackControl.backgroundColor = [UIColor blackColor];
@@ -354,7 +355,7 @@ static NSInteger page = 1;
     //sum: 不分页查询总条数
     
     NSString *listtepy=@"";
-    //NSString *sort=@"";//排列方式
+    NSString *sort=@"";//排列方式
     NSString *orderby =@"";
     NSString *spflid = @"";//商品分类id
     NSString *jgs = @"";
@@ -380,11 +381,11 @@ static NSInteger page = 1;
         if ([filterparamDic objectForKey:@"id"]) {
             spflid =[filterparamDic objectForKey:@"id"];
         }
-        /*
-        if ([filterparamDic objectForKey:@"brandid"]) {
-            ppid =[filterparamDic objectForKey:@"brandid"];
+        
+        if ([filterparamDic objectForKey:@"sort"]) {
+            sort =[filterparamDic objectForKey:@"sort"];
         }
-        */
+    
     }
     NSString *keystr = @"";
     
@@ -398,7 +399,7 @@ static NSInteger page = 1;
     
     
     
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,ppid];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=%@&brand_id=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,sort,ppid];
     NSLog(@"品牌str====%@",str);
     
     
@@ -536,6 +537,93 @@ static NSInteger page = 1;
         if (button.selected) {
             
             [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+            _jiageButtton.imageView.hidden= YES;
+            [filterparamDic setValue:@"amount" forKey:@"orderby"];
+            
+        }else{
+            
+            [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+            _jiageButtton.imageView.hidden= YES;
+            [filterparamDic setValue:@"amount" forKey:@"orderby"];
+            
+        }
+        
+        page = 1;
+        [self getGoodsList];
+    }
+    else if([typeStr isEqualToString:@"价格"])
+    {
+        _jiageButtton.imageView.hidden = NO;
+        button.selected = !button.selected;
+        if (button.selected) {
+            
+            [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+            [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
+            [filterparamDic setValue:@"price" forKey:@"orderby"];
+            [filterparamDic setValue:@"desc" forKey:@"sort"];
+            
+        }else{
+            
+            [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [_jiageButtton setImage:[UIImage imageNamed:@"jgshangjian"] forState:UIControlStateNormal];
+            [filterparamDic setValue:@"price" forKey:@"orderby"];
+            [filterparamDic setValue:@"asc" forKey:@"sort"];
+        }
+        page = 1;
+        [self getGoodsList];
+        
+    }
+    else if ([typeStr isEqualToString:@"筛选"]){
+        button.selected = !button.selected;
+        [UIView animateWithDuration:0.5 animations:^{
+            if (_sxView.frame.origin.x == MAIN_SCREEN_WIDTH) {
+                _sxView.frame = CGRectMake(60, 0, MAIN_SCREEN_WIDTH - 60, MAIN_SCREEN_HEIGHT);
+                _blackControl.hidden = NO;
+            }else{
+                _sxView.frame = CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH - 60, MAIN_SCREEN_HEIGHT);
+                _blackControl.hidden = YES;
+            }
+            if (searchText.text.length >0) {
+                _sxView.keywords = searchText.text;
+            }
+            
+            else{
+                _sxView.spflCode = _filterParam[@"spflcode"];
+            }
+            
+        }];
+    }else{//切换显示
+        button.selected = !button.selected;
+        if (_isCardView) {
+            _tableView.hidden = NO;
+            _collectionView.hidden = YES;
+        } else {
+            _tableView.hidden = YES;
+            _collectionView.hidden = NO;
+        }
+        _isCardView = !_isCardView;
+        [self reloadData];
+    }
+    
+    
+    
+    
+    /*
+    UIButton *button  = (UIButton * )sender;
+    if (!filterparamDic) {
+        filterparamDic = [NSMutableDictionary new];
+    }
+    NSString *typeStr = button.titleLabel.text;
+    
+    if ([typeStr isEqualToString:@"销量"]) {
+        button.selected = !button.selected;
+        if (button.selected) {
+            
+            [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
             [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
             [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateSelected];
             [filterparamDic setValue:@"amount" forKey:@"orderby"];
@@ -591,14 +679,7 @@ static NSInteger page = 1;
                 _sxView.frame = CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH - 60, MAIN_SCREEN_HEIGHT);
                 _blackControl.hidden = YES;
             }
-            /*
-            if (searchText.text.length >0) {
-                _sxView.keywords = searchText.text;
-            }
-            else{
-                _sxView.spflCode = _filterParam[@"spflcode"];
-            }
-            */
+     
             _sxView.keywords = self.searchString;
             
         }];
@@ -614,7 +695,7 @@ static NSInteger page = 1;
         _isCardView = !_isCardView;
         [self reloadData];
     }
-    
+*/
 }
 
 

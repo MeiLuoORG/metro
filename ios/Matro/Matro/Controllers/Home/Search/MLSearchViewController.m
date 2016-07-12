@@ -124,7 +124,7 @@ static CGFloat kHeight = 0;
     //http://bbctest.matrojp.com/api.php?m=product&s=recommend&method=input_recommend
     
     
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=input_recommend",@"http://bbctest.matrojp.com"];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=input_recommend",MATROJP_BASE_URL];
     
     [[HFSServiceClient sharedClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -164,7 +164,7 @@ static CGFloat kHeight = 0;
     //http://bbctest.matrojp.com/api.php?m=product&s=recommend&method=list_recommend&pageindex=1&pagesize=20
     
     
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=list_recommend&pageindex=1&pagesize=20",@"http://bbctest.matrojp.com"];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=list_recommend&pageindex=1&pagesize=20",MATROJP_BASE_URL];
     
     [[HFSServiceClient sharedClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (responseObject) {
@@ -213,6 +213,7 @@ static CGFloat kHeight = 0;
 - (void)loadSearchHistory {
     
     NSArray *historySearchArray = [SearchHistory MR_findAllInContext:_context];
+    
     _historySearchTextArray = [NSMutableArray array];
     if (historySearchArray.count == 0) {
         self.labsearch.hidden = YES;
@@ -220,6 +221,7 @@ static CGFloat kHeight = 0;
     }
     for (SearchHistory *searchHistory in historySearchArray) {
         [_historySearchTextArray addObject:searchHistory.keywork];
+        _historySearchTextArray = (NSMutableArray *)[[_historySearchTextArray reverseObjectEnumerator] allObjects];
     }
     _tbvH.constant = _historySearchTextArray.count * 30;
     
@@ -297,8 +299,6 @@ static CGFloat kHeight = 0;
     }else{
         _searchBar.text  = _searchBar.placeholder;
     }
-//    [_searchBar becomeFirstResponder];
-    //    searchBar.showsCancelButton = YES;
 }
 
 //点击取消
@@ -365,9 +365,6 @@ static CGFloat kHeight = 0;
     [_delegate SearchText:tagName];
     
 }
-
-
-
 - (void)dealloc{
      [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -389,9 +386,6 @@ static CGFloat kHeight = 0;
     
     
 }
-
-
-
 ///键盘显示事件
 - (void)keyboardWasShown:(NSNotification *)notification {
     //获取键盘高度，在不同设备上，以及中英文下是不同的
@@ -408,7 +402,6 @@ static CGFloat kHeight = 0;
     }
     
 }
-
 ///键盘消失事件
 - (void)keyboardWillBeHidden:(NSNotification *)notify {
     //视图下沉恢复原状
@@ -422,9 +415,5 @@ static CGFloat kHeight = 0;
     }
  
 }
-
-
-
-
 
 @end

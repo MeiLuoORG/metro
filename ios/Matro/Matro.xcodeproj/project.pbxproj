@@ -732,9 +732,9 @@
 		284073371D2E272D003A13AE /* MLOrderListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderListTableViewCell.h; sourceTree = "<group>"; };
 		284073381D2E272D003A13AE /* MLOrderListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderListTableViewCell.m; sourceTree = "<group>"; };
 		284073391D2E272D003A13AE /* MLOrderListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLOrderListTableViewCell.xib; sourceTree = "<group>"; };
-		2840733C1D2E5DF2003A13AE /* MLshopGoodsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLshopGoodsListViewController.h; sourceTree = "<group>"; };
-		2840733D1D2E5DF2003A13AE /* MLshopGoodsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLshopGoodsListViewController.m; sourceTree = "<group>"; };
-		2840733E1D2E5DF2003A13AE /* MLshopGoodsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLshopGoodsListViewController.xib; sourceTree = "<group>"; };
+		2840733C1D2E5DF2003A13AE /* MLshopGoodsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLshopGoodsListViewController.h; path = Class/MLshopGoodsListViewController.h; sourceTree = "<group>"; };
+		2840733D1D2E5DF2003A13AE /* MLshopGoodsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLshopGoodsListViewController.m; path = Class/MLshopGoodsListViewController.m; sourceTree = "<group>"; };
+		2840733E1D2E5DF2003A13AE /* MLshopGoodsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MLshopGoodsListViewController.xib; path = Class/MLshopGoodsListViewController.xib; sourceTree = "<group>"; };
 		284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsDetailsViewController.xib; sourceTree = "<group>"; };
 		284850D11D13F6DE003C2649 /* MLpingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLpingjiaViewController.h; sourceTree = "<group>"; };
 		284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLpingjiaViewController.m; sourceTree = "<group>"; };
@@ -791,9 +791,9 @@
 		287C86D91D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPinpaiCollectionViewCell.h; sourceTree = "<group>"; };
 		287C86DA1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPinpaiCollectionViewCell.m; sourceTree = "<group>"; };
 		287C86DB1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLPinpaiCollectionViewCell.xib; sourceTree = "<group>"; };
-		28B3F8F01D2F454800F7E4C0 /* MLshopFLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLshopFLViewController.h; sourceTree = "<group>"; };
-		28B3F8F11D2F454800F7E4C0 /* MLshopFLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLshopFLViewController.m; sourceTree = "<group>"; };
-		28B3F8F21D2F454800F7E4C0 /* MLshopFLViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLshopFLViewController.xib; sourceTree = "<group>"; };
+		28B3F8F01D2F454800F7E4C0 /* MLshopFLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLshopFLViewController.h; path = Class/MLshopFLViewController.h; sourceTree = "<group>"; };
+		28B3F8F11D2F454800F7E4C0 /* MLshopFLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLshopFLViewController.m; path = Class/MLshopFLViewController.m; sourceTree = "<group>"; };
+		28B3F8F21D2F454800F7E4C0 /* MLshopFLViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MLshopFLViewController.xib; path = Class/MLshopFLViewController.xib; sourceTree = "<group>"; };
 		28B3F8F51D2FA40900F7E4C0 /* MLPPCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPPCollectionViewCell.h; sourceTree = "<group>"; };
 		28B3F8F61D2FA40900F7E4C0 /* MLPPCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPPCollectionViewCell.m; sourceTree = "<group>"; };
 		28B3F8F71D2FA40900F7E4C0 /* MLPPCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLPPCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1443,8 +1443,8 @@
 		687705731CD35D100008ED46 /* GTMNSString+URLArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+URLArguments.h"; sourceTree = "<group>"; };
 		687705741CD35D100008ED46 /* GTMNSString+URLArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+URLArguments.m"; sourceTree = "<group>"; };
 		73C6CE0BB33E839F3EBF5309 /* Pods_Matro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Matro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A01A8431D24C1050067F4E9 /* MLShopInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLShopInfoViewController.h; path = ../Home/MLShopInfoViewController.h; sourceTree = "<group>"; };
-		7A01A8441D24C1050067F4E9 /* MLShopInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLShopInfoViewController.m; path = ../Home/MLShopInfoViewController.m; sourceTree = "<group>"; };
+		7A01A8431D24C1050067F4E9 /* MLShopInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLShopInfoViewController.h; path = Home/MLShopInfoViewController.h; sourceTree = "<group>"; };
+		7A01A8441D24C1050067F4E9 /* MLShopInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLShopInfoViewController.m; path = Home/MLShopInfoViewController.m; sourceTree = "<group>"; };
 		7A028D841CEAC294005D14BC /* MBProgressHUD+Add.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Add.m"; sourceTree = "<group>"; };
 		7A028D861CEAC2AF005D14BC /* MBProgressHUD+Add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Add.h"; sourceTree = "<group>"; };
 		7A03ABED1D2F32710026F853 /* MLOrderKuaidiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderKuaidiTableViewCell.h; sourceTree = "<group>"; };
@@ -1974,6 +1974,21 @@
 				280F7D531CF93E3200D42FA6 /* NSSet+HYBUnicodeReadable.m */,
 			);
 			path = HYBUnicodeReadable;
+			sourceTree = "<group>";
+		};
+		284B61D41D34C5300065AB2A /* Dianpu */ = {
+			isa = PBXGroup;
+			children = (
+				7A01A8431D24C1050067F4E9 /* MLShopInfoViewController.h */,
+				7A01A8441D24C1050067F4E9 /* MLShopInfoViewController.m */,
+				2840733C1D2E5DF2003A13AE /* MLshopGoodsListViewController.h */,
+				2840733D1D2E5DF2003A13AE /* MLshopGoodsListViewController.m */,
+				2840733E1D2E5DF2003A13AE /* MLshopGoodsListViewController.xib */,
+				28B3F8F01D2F454800F7E4C0 /* MLshopFLViewController.h */,
+				28B3F8F11D2F454800F7E4C0 /* MLshopFLViewController.m */,
+				28B3F8F21D2F454800F7E4C0 /* MLshopFLViewController.xib */,
+			);
+			name = Dianpu;
 			sourceTree = "<group>";
 		};
 		284E364D1D2C9F96000CC90F /* Downversion */ = {
@@ -2710,6 +2725,7 @@
 		3A633B6B1C9EA3B300C11FD5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				284B61D41D34C5300065AB2A /* Dianpu */,
 				7A12A0D21D2E303F00D0FF26 /* DingDanQueRen */,
 				3A633B811C9EA7C900C11FD5 /* Person */,
 				3C5B0C611CFC372D003FFD25 /* CardControllsers */,
@@ -3021,14 +3037,6 @@
 				287C86CD1D1BD6230002E5E2 /* MLPingjiaListViewController.h */,
 				287C86CE1D1BD6230002E5E2 /* MLPingjiaListViewController.m */,
 				287C86CF1D1BD6230002E5E2 /* MLPingjiaListViewController.xib */,
-				7A01A8431D24C1050067F4E9 /* MLShopInfoViewController.h */,
-				7A01A8441D24C1050067F4E9 /* MLShopInfoViewController.m */,
-				2840733C1D2E5DF2003A13AE /* MLshopGoodsListViewController.h */,
-				2840733D1D2E5DF2003A13AE /* MLshopGoodsListViewController.m */,
-				2840733E1D2E5DF2003A13AE /* MLshopGoodsListViewController.xib */,
-				28B3F8F01D2F454800F7E4C0 /* MLshopFLViewController.h */,
-				28B3F8F11D2F454800F7E4C0 /* MLshopFLViewController.m */,
-				28B3F8F21D2F454800F7E4C0 /* MLshopFLViewController.xib */,
 			);
 			path = Class;
 			sourceTree = "<group>";

@@ -83,7 +83,7 @@
     //http://bbctest.matrojp.com/api.php?m=product&s=detail_footprint&test_test_phone=13771961207&action=sel_footprint
     
     
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail_footprint&test_phone=13771961207&action=sel_footprint",@"http://bbctest.matrojp.com"];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail_footprint&test_phone=13771961207&action=sel_footprint",MATROJP_BASE_URL];
     
     [MLHttpManager get:url params:nil m:@"product" s:@"detail_footprint" success:^(id responseObject) {
         NSLog(@"请求成功 ==== %@",responseObject);
@@ -217,7 +217,7 @@
 - (void)removeAll:(id)sender{
     NSLog(@"删除所有");
     
-    NSString *str = @"http://bbctest.matrojp.com/api.php?m=product&s=detail_footprint&action=del_footprint";
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail_footprint&action=del_footprint",MATROJP_BASE_URL];
     [MLHttpManager get:str params:nil m:@"product" s:@"detail_footprint" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         NSLog(@"请求成功result===%@",result);

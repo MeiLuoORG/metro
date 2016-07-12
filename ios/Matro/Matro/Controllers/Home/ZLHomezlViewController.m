@@ -704,7 +704,8 @@
         MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
         NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
         vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",sender,phone];
-        NSLog(@"店铺：%@",vc.store_link);
+        vc.shopparamDic = @{@"userid":sender,@"company":@""};
+  
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
         

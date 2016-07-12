@@ -119,27 +119,27 @@ static float height;
     switch (self.type) {
         case PingjiaType_All:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=",@"http://bbctest.matrojp.com",self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex]];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=12308&page_size=10&cur_page=%@&type=",MATROJP_BASE_URL,[NSNumber numberWithInteger:pageIndex]];
         }
             break;
         case PingjiaType_Haoping:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"good"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"good"];
         }
             break;
         case PingjiaType_Zhongping:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"normal"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"normal"];
         }
             break;
         case PingjiaType_Chaping:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"bad"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"bad"];
         }
             break;
         case PingjiaType_Shaitu:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",@"http://bbctest.matrojp.com",self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"picture"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"picture"];
         }
             break;
         default:
@@ -284,23 +284,7 @@ static float height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    /*
-    NSDictionary *dic = commentList[indexPath.row];
-   
-    NSArray *tempArr = dic[@"photos"];
-     NSLog(@"dic==%@,temparr==%@",dic,tempArr);
-    
-    float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin + 1 * 5))/5);
-    float height1 = width;
-    
-    if (tempArr.count == 0) {
-        MLCommentTableViewCell *cell = [[MLCommentTableViewCell alloc]init];
-        cell.collectH.constant = 0;
-        return  100 + height;
-    }
-    return  height1 +100 + height;;
-    */
-    
+ 
     return Hight;
 }
 

@@ -18,6 +18,8 @@
 #import "MLGoodsListViewController.h"
 #import "MLshopFLViewController.h"
 #import "MLHttpManager.h"
+#import "HFSServiceClient.h"
+#import "MLLoginViewController.h"
 @protocol JSObjectDelegate <JSExport>
 
 
@@ -33,6 +35,9 @@
 @interface MLShopInfoViewController ()<UIWebViewDelegate,JSObjectDelegate,UITextFieldDelegate,UISearchBarDelegate,UIGestureRecognizerDelegate>
 {
     UITextField *searchText;
+    NSDictionary *dpDic;
+    NSString *userid;
+
 
 }
 @property(nonatomic,strong)UIWebView *webView;
@@ -53,7 +58,8 @@
      frameView.layer.cornerRadius = 4.f;
      frameView.layer.masksToBounds = YES;
      frameView.backgroundColor = [UIColor whiteColor];
-     
+     dpDic = [NSDictionary dictionary];
+    
      CGFloat H = frameView.bounds.size.height - 8;
      CGFloat imgW = H;
      CGFloat textW = frameView.bounds.size.width - imgW - 6;
@@ -67,7 +73,7 @@
     
      [frameView addSubview:searchImg];
      [frameView addSubview:searchText];
-     searchImg.frame = CGRectMake(textW - 58 - 60 , 4, imgW, imgW);
+     searchImg.frame = CGRectMake(textW - 58 - 65 , 4, imgW, imgW);
      
      searchText.textColor = [UIColor grayColor];
      searchText.placeholder = @"搜索店内的商品";
@@ -87,11 +93,20 @@
     UIBarButtonItem *sxuanbtnItem = [[UIBarButtonItem alloc]initWithCustomView:sxuanBtn];
     
     self.navigationItem.rightBarButtonItems = @[morebtnItem,sxuanbtnItem];
-   
-    
+
     
     [self loadWebView];
+    [self isshoucang];
+    [self loaddataDianpu];
    
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
 }
 
 -(void)loadWebView{
@@ -106,6 +121,7 @@
         make.edges.mas_equalTo(0);
     }];
     NSString *url = [NSString stringWithFormat:@"http://61.155.212.146:3000/store/index?sid=20505&uid=%@",uid];
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
     
@@ -114,6 +130,7 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     [searchText becomeFirstResponder];
 }
+
 //点击键盘上搜索按钮时
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
@@ -127,16 +144,18 @@
     return YES;
 }
 
-
+//快捷入口
 -(void)actmore{
+
     self.hidesBottomBarWhenPushed = NO;
+
     [self dianpushowDownMenu];
     
 }
 
+//店铺商品分类
 -(void)actsxuan{
     
-    NSLog(@"111111");
     MLshopFLViewController *vc = [[MLshopFLViewController alloc]init];
     vc.uid = uid;
     [self.navigationController  pushViewController:vc animated:YES];
@@ -146,8 +165,6 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     
 }
-
-
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     
@@ -166,93 +183,24 @@
 }
 
 #pragma mark js回调
+
 -(void)storeCollect:(NSString *)type{
     
-//http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_shop
-//    
-//   【post】
-//    
-//    do=add
-//        
-//    shopid=13911
-//        
-//    uname=ml_13771961207
-//        
-//    shopname=嘻呗全球购
+    NSLog(@"shopparamDic===%@type===%@",_shopparamDic,type);
     
-    NSLog(@"shopparamDic===%@",_shopparamDic);
-    
-    NSLog(@"type==%@",type);
     if ([type isEqualToString:@"1"]) {
-        NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_shop"];
-        NSDictionary *params = @{@"do":@"add",@"shopid":_shopparamDic[@"userid"],@"uname":@"ml_13771961207",@"shopname":_shopparamDic[@"company"]};
         
-        [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
-            NSLog(@"请求成功responseObject===%@",responseObject);
-            if ([responseObject[@"code"]isEqual:@0]) {
-                [_hud show:YES];
-                _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"收藏成功";
-                [_hud hide:YES afterDelay:1];
-            }else{
-            
-                [_hud show:YES];
-                _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"您的网络不给力啊";
-                [_hud hide:YES afterDelay:1];
-            }
-            
-            
-        } failure:^(NSError *error) {
-            NSLog(@"请求失败 error===%@",error);
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"请求失败";
-            [_hud hide:YES afterDelay:1];
-            
-        }];
+        [self shoucangDianpu:type];
+        
+        NSLog(@"1111");
+        
     }else{
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"取消收藏成功";
-            [_hud hide:YES afterDelay:1];
-            
-            
-        });
- 
-        /*
-        NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=sns&s=admin_share_shop"];
-        NSDictionary *params = @{@"do":@"del",@"id":@""};
-        [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
-            NSLog(@"请求成功responseObject===%@",responseObject);
-            if ([responseObject[@"code"]isEqual:@0]) {
-                [_hud show:YES];
-                _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"取消收藏成功";
-                [_hud hide:YES afterDelay:1];
-            }else{
-                
-                [_hud show:YES];
-                _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"您的网络不给力啊";
-                [_hud hide:YES afterDelay:1];
-            }
-            
-            
-        } failure:^(NSError *error) {
-            NSLog(@"请求失败 error===%@",error);
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"请求失败";
-            [_hud hide:YES afterDelay:1];
-            
-        }];
-        */
-    }
     
+        [self quxiaoshoucangDianpu:type];
+        
+        NSLog(@"0000");
+    }
+
 }
 
 
@@ -265,10 +213,9 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             
             MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc ]init];
-            [vc.paramDic setValue:sender forKey:@"id"];
+            vc.paramDic = @{@"id":sender};
             [self.navigationController pushViewController:vc animated:YES];
-
-            
+ 
         });
     }
     //品牌
@@ -321,6 +268,208 @@
         });
         
     }
+    
+}
+//收藏店铺
+-(void)shoucangDianpu:(NSString*)typeStr{
+    
+    NSLog(@"shopparamDic111===%@typeStr111===%@dpDic111===%@",_shopparamDic,typeStr,dpDic);
+    
+    
+    if ([_shopparamDic[@"company"] isEqualToString:@""]) {
+        
+        _shopparamDic = @{@"userid":dpDic[@"userid"],@"company":dpDic[@"company"]};
+ 
+    }
+        
+        NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_shop",MATROJP_BASE_URL];
+        NSDictionary *params = @{@"do":@"add",@"shopid":_shopparamDic[@"userid"],@"uname":@"ml_13771961207",@"shopname":_shopparamDic[@"company"]};
+        
+        [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
+            NSLog(@"请求成功responseObject===%@",responseObject);
+            
+            _hud = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
+
+            if ([responseObject[@"data"][@"shop_add"]isEqual:@1]) {
+    
+                 [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"收藏成功";
+                [_hud hide:YES afterDelay:2];
+                
+                NSString *alertJS=@"resStoreCollect(1)"; //准备执行的js代码
+                [self.context evaluateScript:alertJS];//通过oc方法调用js的方法
+                
+ 
+            }else{
+                
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"收藏失败";
+                [_hud hide:YES afterDelay:1];
+                
+            }
+            
+            
+        } failure:^(NSError *error) {
+            
+            NSLog(@"请求失败 error===%@",error);
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"请求失败";
+            [_hud hide:YES afterDelay:1];
+            
+            
+        }];
+
+}
+
+//取消收藏店铺
+-(void)quxiaoshoucangDianpu:(NSString*)typeStr{
+    
+    NSLog(@"shopparamDic000===%@typeStr000===%@dpDic000===%@",_shopparamDic,typeStr,dpDic);
+    
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_shop",MATROJP_BASE_URL];
+    NSDictionary *params = @{@"do":@"sel"};
+    
+    [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
+        NSLog(@"请求成功responseObject===%@",responseObject);
+        
+        if ([responseObject[@"data"][@"shop_list"] isKindOfClass:[NSString class]]) {
+            
+            
+        }else{
+            
+            NSString *shopid = _shopparamDic[@"userid"];
+            for (NSDictionary *tempdic in responseObject[@"data"][@"shop_list"]) {
+                if ([shopid isEqualToString:tempdic[@"shopid"]]) {
+                    
+                    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_shop",MATROJP_BASE_URL];
+                    NSDictionary *params = @{@"do":@"del",@"id":tempdic[@"id"]};
+                    [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
+                        NSLog(@"请求成功responseObject===%@",responseObject);
+                        
+                        _hud = [[MBProgressHUD alloc]initWithView:self.view];
+                        [self.view addSubview:_hud];
+                        
+                        if ([responseObject[@"data"][@"shop_del"]isEqual:@1]) {
+             
+                            [_hud show:YES];
+                            _hud.mode = MBProgressHUDModeText;
+                            _hud.labelText = @"取消收藏成功";
+                            [_hud hide:YES afterDelay:2];
+                            
+                            NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
+                            [self.context evaluateScript:alertJS];//通过oc方法调用js的alert
+                            
+                        }else{
+                            
+                            [_hud show:YES];
+                            _hud.mode = MBProgressHUDModeText;
+                            _hud.labelText = @"您的网络不给力啊";
+                            [_hud hide:YES afterDelay:1];
+                        }
+                        
+                        
+                    } failure:^(NSError *error) {
+                        NSLog(@"请求失败 error===%@",error);
+                        [_hud show:YES];
+                        _hud.mode = MBProgressHUDModeText;
+                        _hud.labelText = @"请求失败";
+                        [_hud hide:YES afterDelay:1];
+                        
+                    }];
+                }
+            }
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"请求失败 error===%@",error);
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
+    }];
+    
+}
+
+
+//店铺信息
+-(void)loaddataDianpu{
+    NSString *dpid = _shopparamDic[@"userid"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@",MATROJP_BASE_URL,dpid];
+   
+    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"responseObject===%@",responseObject);
+        
+        if ([responseObject[@"code"] isEqual:@0] && ![responseObject[@"data"][@"shop_info"] isKindOfClass:[NSNull class]]) {
+            dpDic = responseObject[@"data"][@"shop_info"];
+            NSLog(@"%@",dpDic);
+            
+        }
+ 
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:2];
+        
+    }];
+    
+}
+
+//店铺是否收藏
+-(void)isshoucang{
+
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_shop",MATROJP_BASE_URL];
+    NSDictionary *params = @{@"do":@"sel"};
+    
+    [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
+        NSLog(@"请求成功responseObject===%@",responseObject);
+        
+        if ([responseObject[@"data"][@"shop_list"] isKindOfClass:[NSString class]]) {
+            
+            NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
+            [self.context evaluateScript:alertJS];//通过oc方法调用js的方法
+            
+        }else{
+            
+            NSString *shopid = _shopparamDic[@"userid"];
+            
+            for (NSDictionary *tempdic in responseObject[@"data"][@"shop_list"]) {
+                
+                if ([shopid isEqualToString:tempdic[@"shopid"]]) {
+                    
+                        NSString *alertJS=@"resStoreCollect(1)"; //准备执行的js代码
+                        [self.context evaluateScript:alertJS];//通过oc方法调用js的alert
+                            
+                }else{
+                            
+                    NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
+                    [self.context evaluateScript:alertJS];//通过oc方法调用js的alert
+                }
+
+            }
+        }
+    
+    } failure:^(NSError *error) {
+        
+        NSLog(@"请求失败 error===%@",error);
+  
+    }];
+
+}
+
+//去登录
+-(void)showError
+{
+    MLLoginViewController *vc = [[MLLoginViewController alloc]init];
+    vc.isLogin = YES;
+    [self presentViewController:vc animated:YES completion:nil];
     
 }
 
