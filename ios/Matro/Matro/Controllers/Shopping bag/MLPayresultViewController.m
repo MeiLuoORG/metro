@@ -73,9 +73,21 @@
 }
 
 - (void)goBack{
+    /*
     [self.navigationController popViewControllerAnimated:NO];
     [self getAppDelegate].tabBarController.selectedIndex = 0;
-
+     */
+     /*
+    UIViewController *vc = [self.navigationController.viewControllers firstObject];
+    if ([vc isKindOfClass:[MLShopBagViewController class]]) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    */
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -339,21 +351,20 @@
 
 
 - (void)toHomeAction:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:NO];
+    //[self.navigationController popViewControllerAnimated:NO];
+    //self.hidesBottomBarWhenPushed = NO;
+    [self.navigationController popToRootViewControllerAnimated:NO];
+    [self.tabBarController.tabBar setHidden:NO];
     [self getAppDelegate].tabBarController.selectedIndex = 0;
 }
 
 - (void)toOrderAction:(UIButton *)sender{
     MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
     vc.order_id = self.order_id;
-    
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
-- (void)backBtnAction{
 
-
-}
 
 
 @end

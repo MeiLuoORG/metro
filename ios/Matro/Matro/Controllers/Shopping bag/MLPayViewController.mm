@@ -208,9 +208,12 @@
                 [self wxPayPost];
             }
             else{
+                [MBProgressHUD showMessag:@"请安装微信" toView:self.view];
+                /*
                 _hud.mode = MBProgressHUDModeText;
                 _hud.labelText = @"请安装微信";
                 [_hud hide:YES afterDelay:2];
+                 */
             }
             
         }
@@ -348,10 +351,19 @@
         [MLHttpManager post:ZhiFu_LIUSHUI_URLString params:ret m:@"product" s:@"pay" success:^(id responseObject) {
             NSDictionary * results = (NSDictionary *)responseObject;
             NSLog(@"请求订单流水：%@",results);
+<<<<<<< Updated upstream
             if ([results[@"code"] isEqual:@0]) {   
                 NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
                 [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSString *tn = [responseObject objectForKey:@"tn"];
+=======
+            if ([results[@"code"] isEqual:@0]) {
+                
+                NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
+                [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSString *tn = [responseObject objectForKey:@"tn"];
+                    
+>>>>>>> Stashed changes
                     [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
@@ -466,7 +478,7 @@
                 [_hud show:YES];
                 NSLog(@"error kkkk %@",error);
                 _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"请求失败";
+                _hud.labelText = REQUEST_ERROR_ZL;
                 [_hud hide:YES afterDelay:2];
             }];
 
@@ -514,7 +526,7 @@
                 [_hud show:YES];
                 NSLog(@"error kkkk %@",error);
                 _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"请求失败";
+                _hud.labelText = REQUEST_ERROR_ZL;
                 [_hud hide:YES afterDelay:2];
             }];
         }
@@ -571,7 +583,6 @@
     NSLog(@"银联支付失败");
     MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
     shiBaiVC.hidesBottomBarWhenPushed = YES;
-    
     [self.navigationController pushViewController:shiBaiVC animated:YES];
 }
 - (void)yinLianPanCancel:(id)sender{

@@ -75,12 +75,12 @@
     [bezierPath moveToPoint:CGPointMake(0.0, rect.size.height)];
     [bezierPath addLineToPoint:CGPointMake(rect.size.width, rect.size.height)];
 
-    [[UIColor colorWithWhite:197.0/255.0 alpha:0.75] setStroke];
+    //[[UIColor colorWithWhite:197.0/255.0 alpha:0.75] setStroke];
 
     
 
-    [[HFSUtility hexStringToColor:Main_home_jinse_backgroundColor] setStroke];
-    
+    //[[HFSUtility hexStringToColor:Main_home_jinse_backgroundColor] setStroke];
+    [[UIColor clearColor] setStroke];
 
     
     

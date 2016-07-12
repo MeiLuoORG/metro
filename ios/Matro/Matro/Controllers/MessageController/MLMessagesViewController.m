@@ -54,6 +54,10 @@
     [self getDataSource];
 }
 
+- (void)backBtnAction{
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.messageArray.count;
 }

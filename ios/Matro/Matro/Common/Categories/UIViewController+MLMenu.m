@@ -85,6 +85,7 @@
                 break;
             case 3: //收藏 跳到收藏页
             {
+                
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 [self.tabBarController setSelectedIndex:3];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"PushToStore" object:nil];

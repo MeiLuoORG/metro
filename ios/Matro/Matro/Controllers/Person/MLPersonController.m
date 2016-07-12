@@ -87,8 +87,8 @@
     JSBadgeView * _daiFubadgeView;
     JSBadgeView * _daiShoubadgeView;
     JSBadgeView * _daiPingbadgeView;
-    JSBadgeView * _tuiHuobadgeView;
-    JSBadgeView * _allOrderbadgeView;
+    //JSBadgeView * _tuiHuobadgeView;
+    //JSBadgeView * _allOrderbadgeView;
     
 }
 @property (nonatomic,strong)UITableView *tableView;
@@ -274,11 +274,11 @@
            // _tuiHuobadgeView = [[JSBadgeView alloc]initWithParentView:self.secondBtnsView.tuiHuoButton alignment:JSBadgeViewAlignmentTopRight];
             NSString *th = _orderStatusNumDic[@"th"];
             if ([th isEqualToString:@"0"]) {
-                _tuiHuobadgeView.hidden = YES;
+                //_tuiHuobadgeView.hidden = YES;
             }
             else{
-                _tuiHuobadgeView.hidden = NO;
-                _tuiHuobadgeView.badgeText = th;
+                //_tuiHuobadgeView.hidden = NO;
+                //_tuiHuobadgeView.badgeText = th;
             }
             
             
@@ -286,11 +286,11 @@
             //_allOrderbadgeView = [[JSBadgeView alloc]initWithParentView:self.secondBtnsView.allOrderButton alignment:JSBadgeViewAlignmentTopRight];
             NSString *all = _orderStatusNumDic[@"all"];
             if ([all isEqualToString:@"0"]) {
-                _allOrderbadgeView.hidden = YES;
+                //_allOrderbadgeView.hidden = YES;
             }
             else{
-                _allOrderbadgeView.hidden = NO;
-                _allOrderbadgeView.badgeText = all;
+                //_allOrderbadgeView.hidden = NO;
+                //_allOrderbadgeView.badgeText = all;
             }
             
         }
@@ -335,12 +335,12 @@
 //        _daiPingbadgeView.badgeText = dpj;
         
         
-        _tuiHuobadgeView = [[JSBadgeView alloc]initWithParentView:headView.tuiHuoButton alignment:JSBadgeViewAlignmentTopRight];
+        //_tuiHuobadgeView = [[JSBadgeView alloc]initWithParentView:headView.tuiHuoButton alignment:JSBadgeViewAlignmentTopRight];
 //        NSString *th = _orderStatusNumDic[@"th"];
 //        _tuiHuobadgeView.badgeText = th;
         
         
-        _allOrderbadgeView = [[JSBadgeView alloc]initWithParentView:headView.allOrderButton alignment:JSBadgeViewAlignmentTopRight];
+        //_allOrderbadgeView = [[JSBadgeView alloc]initWithParentView:headView.allOrderButton alignment:JSBadgeViewAlignmentTopRight];
 //        NSString *all = _orderStatusNumDic[@"all"];
 //        _allOrderbadgeView.badgeText = all;
         
@@ -1272,8 +1272,8 @@
         _daiFubadgeView.hidden  = YES;
         _daiShoubadgeView.hidden = YES;
         _daiPingbadgeView.hidden = YES;
-        _tuiHuobadgeView.hidden = YES;
-        _allOrderbadgeView.hidden =YES;
+        //_tuiHuobadgeView.hidden = YES;
+        //_allOrderbadgeView.hidden =YES;
         
     }
     NSString *nickname = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];

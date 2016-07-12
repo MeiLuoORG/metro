@@ -129,6 +129,7 @@
 
 
 -(void)actmore{
+    self.hidesBottomBarWhenPushed = NO;
     [self dianpushowDownMenu];
     
 }

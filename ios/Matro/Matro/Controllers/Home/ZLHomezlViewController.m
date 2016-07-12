@@ -256,6 +256,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
+    [self.tabBarController.tabBar setHidden:NO];
     if (_isTopHiden) {
         [UIView animateWithDuration:0.0f animations:^{
             [self.view setFrame:CGRectMake(0, 0.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0)];
@@ -706,6 +707,8 @@
         NSLog(@"店铺：%@",vc.store_link);
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
+        
+        
     }
     if ([type isEqualToString:@"9"]) {
         //频道
