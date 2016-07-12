@@ -73,6 +73,7 @@ static NSInteger pageIndex = 1;
     }];
     
     [self.tableView.header beginRefreshing];
+
     
     
     // Do any additional setup after loading the view.

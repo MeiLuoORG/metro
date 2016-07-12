@@ -16,6 +16,32 @@
     return @{@"cart":[MLOrderCartModel class]};
 }
 
+- (float)realTax{
+    float taxCount = 0;
+    for (MLOrderCartModel *model in self.cart) {
+        taxCount += (model.sumtax + model.kuaiDiFangshi.sumtax);
+    }
+    return taxCount;
+}
+
+- (float)realYunFei{
+    float count = 0;
+    for (MLOrderCartModel *model in self.cart) {
+        count += model.kuaiDiFangshi.price;
+    }
+    return count;
+}
+
+- (float)realYouHui{
+    float count = 0;
+    for (MLOrderCartModel *model in self.cart) {
+        count += model.youhuiMoney;
+    }
+    return count;
+}
+
+
+
 @end
 @implementation MLOrderCartModel
 
@@ -71,6 +97,7 @@
     return count;
     
 }
+
 
 
 

@@ -67,14 +67,8 @@
     [super viewDidLoad];
     self.title = @"退货";
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
     
-    UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
-    
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@""  style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
-    item.title = @"";
-    item.image = backButtonImage;
-    item.width = -20;
-    self.navigationItem.leftBarButtonItem = item;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -238,15 +238,9 @@
                           @"body":@"美罗全球精品购",
                           @"total_fee":[NSString stringWithFormat:@"%.2f",self.order_sum]
                           };
-    
-    
     [[HFSServiceClient sharedPayClient] POST:ALIPAY_SERVICE_URL parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
         NSDictionary *result = (NSDictionary *)responseObject;
-        NSLog(@"result %@",result);
-        
         if (result) {
-            
             AliPayOrder *order = [[AliPayOrder alloc] init];
             order.partner = result[@"partner"];
             order.seller = result[@"seller_id"];
@@ -259,7 +253,6 @@
             order.paymentType = result[@"payment_type"];
             order.inputCharset = result[@"_input_charset"];
             order.itBPay = result[@"it_b_pay"];
-            
             //将商品信息拼接成字符串
             NSString *orderSpec = [order description];
             NSString *signedString =result[@"sign"];
@@ -315,39 +308,14 @@
 - (void)applepay
 {
     if([PKPaymentAuthorizationViewController canMakePayments]) {
-//        NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
-//        
-//        NSDictionary *param = @{@"orderId":@"2016062805010141",@"txnAmt":@1,@"orderDesc":@"美罗全球购"};
-//        if([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:@[PKPaymentNetworkChinaUnionPay]]){
-//            [UPAPayPlugin startPay:@"201607111034354954418" mode:@"01" viewController:self delegate:self andAPMechantID:kAppleMerchantID];
-//        }
-//        
-        MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
-        payResultVC.hidesBottomBarWhenPushed = YES;
-        payResultVC.isSuccess = YES;
-        payResultVC.order_id = self.order_id;
-        [self.navigationController pushViewController:payResultVC animated:YES];
-        
-        
-//            [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:@"201607110910464889938" waitUntilDone:YES];
-        
-//        AFHTTPRequestOperationManager *manager =  [AFHTTPRequestOperationManager manager];
-//        [manager POST:@"http://192.168.21.248:8080/PayCenter/app/v200/applepay" parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            NSString *tn = [responseObject objectForKey:@"tn"];
-//            
-//
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//           
-//        }];
-        
-        
-//        [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            NSString *tn = [responseObject objectForKey:@"tn"];
-// 
-//            [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
-//        }];
+        NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
+        [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSString *tn = [responseObject objectForKey:@"tn"];
+ 
+            [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+        }];
         
     } else {
         [MBProgressHUD showMessag:@"您的设备暂不支持ApplePay" toView:self.view];
@@ -356,7 +324,9 @@
 
 
 - (void)applePayWithTn:(NSString *)tn{
-
+    if([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:@[PKPaymentNetworkChinaUnionPay]]){
+        [UPAPayPlugin startPay:tn mode:@"00" viewController:self delegate:self andAPMechantID:kAppleMerchantID];
+    }
 }
 
 

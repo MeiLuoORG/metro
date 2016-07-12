@@ -207,11 +207,7 @@ static BOOL idCardOk = NO;
         }else if (indexPath.row == 1){//优惠
             cell.titleLabel.text = @"优惠";
             cell.subLabel.hidden = YES;
-            float youhui = 0;
-            for (MLOrderCartModel *model in self.order_info.cart) {
-                youhui+=model.youhuiMoney;
-            }
-            cell.priceLabel.text = [NSString stringWithFormat:@"-￥%.2f",youhui];
+            cell.priceLabel.text = [NSString stringWithFormat:@"-￥%.2f",self.order_info.realYouHui];
         }else if (indexPath.row == 2){
             cell.titleLabel.text = @"满减";
             cell.subLabel.hidden = YES;
@@ -225,19 +221,12 @@ static BOOL idCardOk = NO;
         }else if (indexPath.row == 4){//税费
             cell.titleLabel.text = @"税费";
             cell.subLabel.hidden = YES;
-            float count = 0;
-            for (MLOrderCartModel *cart in self.order_info.cart) {
-                count += cart.sumtax;
-            }
-            cell.priceLabel.text =  [NSString stringWithFormat:@"￥%.2f",count];
+            cell.priceLabel.text =  [NSString stringWithFormat:@"￥%.2f",self.order_info.realTax];
+
         }else{//运费
-            CGFloat yunfei = 0;
-            for (MLOrderCartModel *model in self.order_info.cart) {
-                yunfei += model.kuaiDiFangshi.price;
-            }
             cell.titleLabel.text = @"运费";
             cell.subLabel.hidden = YES;
-            cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",yunfei];
+            cell.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",self.order_info.realYunFei];
         }
         cell.titleLabel.hidden = NO;
         cell.priceLabel.hidden = NO;
@@ -291,7 +280,8 @@ static BOOL idCardOk = NO;
                         cell.titleLabel.text = @"税费";
                         cell.subLabel.text = @"(含消费税和增值税)";
                         cell.subLabel.hidden = NO;
-                        cell.priceLabel.text =[NSString stringWithFormat:@"￥%.2f",cart.sumtax];
+                        float shuifei = cart.sumtax + cart.kuaiDiFangshi.s_tax;
+                        cell.priceLabel.text =[NSString stringWithFormat:@"￥%.2f",shuifei];
                         cell.priceLabel.hidden = NO;
                         cell.titleLabel.hidden = NO;
                         cell.subLabel.hidden = NO;

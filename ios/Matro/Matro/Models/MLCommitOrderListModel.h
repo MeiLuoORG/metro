@@ -17,6 +17,9 @@
 @property(nonatomic,strong)MLConsigneeInfo *consignee;
 @property(nonatomic,copy)NSString *identity_card;
 @property(nonatomic,copy)NSString *inv_info;
+@property (nonatomic,assign)float discount_price;
+@property (nonatomic,assign)float change_price;
+
 @property (nonatomic,assign)float sumtax;
 @property(nonatomic,assign)float sumprice;
 
@@ -24,6 +27,18 @@
 @property (nonatomic,assign)BOOL geren;
 @property (nonatomic,copy)NSString *mingxi;
 @property (nonatomic,copy)NSString *fapiao_ID;
+
+
+
+
+@property (nonatomic,assign)float realTax;
+@property (nonatomic,assign)float realYunFei;
+@property (nonatomic,assign)float realYouHui;
+
+
+
+
+
 @end
 
 @interface MLOrderCartModel : NSObject
