@@ -2,7 +2,7 @@
 //  OffLlineShopCart+CoreDataProperties.m
 //  Matro
 //
-//  Created by MR.Huang on 16/7/4.
+//  Created by 黄裕华 on 16/7/12.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,16 +13,17 @@
 
 @implementation OffLlineShopCart (CoreDataProperties)
 
-@dynamic pid;
-@dynamic setmeal;
+@dynamic company_id;
+@dynamic is_check;
+@dynamic mjtitle;
+@dynamic num;
 @dynamic pic;
+@dynamic pid;
 @dynamic pname;
 @dynamic pro_price;
-@dynamic mjtitle;
-@dynamic is_check;
-@dynamic num;
-@dynamic company_id;
+@dynamic setmeal;
 @dynamic sid;
 @dynamic sku;
+@dynamic amount;
 
 @end

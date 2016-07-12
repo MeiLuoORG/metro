@@ -17,6 +17,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "MBProgressHUD+Add.h"
 #import "MLHttpManager.h"
+#import "HFSUtility.h"
 
 @interface MLAddressInfoViewController ()<UIPickerViewDataSource,UIPickerViewDelegate>{
     UIControl *_blackView;
@@ -203,7 +204,10 @@ static MLShippingaddress *province,*city,*area;
 
 //保存使用新地址
 - (IBAction)sureButtonAction:(id)sender {
-    
+    if ([HFSUtility isHaveSpaceString:self.nameTextField.text] || [HFSUtility isHaveSpaceString:self.phoneTextField.text] ||[HFSUtility isHaveSpaceString:self.inputTextField.text]) {
+        [MBProgressHUD showMessag:@"请不要输入空格" toView:self.view];
+        return;
+    }
     if ([self.nameTextField.text isEqualToString:@""]) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;

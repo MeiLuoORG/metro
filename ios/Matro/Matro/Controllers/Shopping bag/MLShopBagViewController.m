@@ -107,7 +107,6 @@ static NSInteger pageIndex = 0;
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-       
         [self.view addSubview:tableView];
         tableView;
     });
@@ -246,7 +245,7 @@ static NSInteger pageIndex = 0;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.isLogin) {
-        MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
+       __block  MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
         if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
             MLMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MoreCell" forIndexPath:indexPath];
             [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%li件",cart.prolist.count-2] forState:UIControlStateNormal];
@@ -257,7 +256,7 @@ static NSInteger pageIndex = 0;
             return cell;
         }
         MLShopBagTableViewCell *cell = [tableView  dequeueReusableCellWithIdentifier:kShopBagTableViewCell forIndexPath:indexPath];
-        MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
+        __block  MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
         cell.rightSwipeSettings.transition = MGSwipeTransitionBorder;
         cell.rightExpansion.buttonIndex = -1;
         cell.rightExpansion.fillOnTrigger = YES;
@@ -274,9 +273,25 @@ static NSInteger pageIndex = 0;
         cell.countField.value = model.num;
         cell.countField.stepperDelegate = self;
         cell.countField.proList = model;
-        cell.shopCartCheckBoxBlock = ^(BOOL isCheck){
+        cell.shopCartCheckBoxBlock = ^(BOOL isCheck){ //添加反向选择
             model.is_check = isCheck?1:0;
+            BOOL isAll = YES;
+            for (MLProlistModel *model in cart.prolist) {
+                if (model.is_check == 0) {
+                    isAll = NO;
+                    break;
+                }
+            }
+            cart.select_All = isAll;
+            BOOL isCartAll = YES;
+            for (MLShopingCartModel *cart in self.shopCart.cart) {
+                if (cart.select_All == NO) {
+                    isCartAll = NO;
+                }
+            }
+            self.footView.checkBox.cartSelected = isCartAll;
             [self countAllPrice];
+            [self.tableView reloadData];
         };
         //设置底部线条
         
@@ -354,9 +369,6 @@ static NSInteger pageIndex = 0;
 
 
 
-
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 8.f;
 }
@@ -371,38 +383,73 @@ static NSInteger pageIndex = 0;
     if (!cartHead) {
         cartHead = [[MLShopBagHeaderView alloc]initWithReuseIdentifier:@"headView"];
     }
-    MLShopingCartModel *model = [self.shopCart.cart objectAtIndex:section];
-    cartHead.checkBox.cartSelected = model.select_All;
-    cartHead.shopingCart = model;
-    cartHead.cartHeadBlock = ^(BOOL isSelect){
-        [self countAllPrice];
-        [self.tableView reloadData];
+    if (self.isLogin) {
+        MLShopingCartModel *model = [self.shopCart.cart objectAtIndex:section];
+        cartHead.checkBox.cartSelected = model.select_All;
+        cartHead.shopingCart = model;
+        cartHead.cartHeadBlock = ^(BOOL isSelect){
+            model.select_All = isSelect;
+            for (MLProlistModel *sek in model.prolist) {
+                sek.is_check = isSelect?1:0;
+            }
+            BOOL isCartAll = YES;
+            for (MLShopingCartModel *cart in self.shopCart.cart) {
+                if (cart.select_All == NO) {
+                    isCartAll = NO;
+                }
+            }
+            self.footView.checkBox.cartSelected = isCartAll;
+            [self countAllPrice];
+            [self.tableView reloadData];
+            
+        };
+        __weak typeof(self) weakself = self;
+        cartHead.youHuiBlock = ^(){ //展示优惠券列表
+            [self.lingQuQuanView.quanARR removeAllObjects];
+            //创建数据数组
+            for (NSDictionary * quanDic in model.dpyhq) {
+                YouHuiQuanModel * model = [[YouHuiQuanModel alloc]init];
+                model.startTime = quanDic[@"YXQ_B"];
+                model.endTime = quanDic[@"YXQ_E"];
+                model.mingChengStr = quanDic[@"YHQMC"];
+                model.flag = quanDic[@"FLAG"];
+                model.jinE = quanDic[@"JE"];
+                model.quanBH = quanDic[@"JLBH"];
+                model.quanID = quanDic[@"YHQID"];
+                model.quanType = quanDic[@"CXLX"];
+                [self.lingQuQuanView.quanARR addObject:model];
+            }
+            [self.lingQuQuanView.tablieview reloadData];
+            [UIView animateWithDuration:0.2f animations:^{
+                weakself.lingQuQuanView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT);
+            } completion:^(BOOL finished) {
+                [weakself.tabBarController.tabBar setHidden:YES];
+            }];
+        };
         
-    };
-    __weak typeof(self) weakself = self;
-    cartHead.youHuiBlock = ^(){ //展示优惠券列表
-        [self.lingQuQuanView.quanARR removeAllObjects];
-        //创建数据数组
-        for (NSDictionary * quanDic in model.dpyhq) {
-            YouHuiQuanModel * model = [[YouHuiQuanModel alloc]init];
-            model.startTime = quanDic[@"YXQ_B"];
-            model.endTime = quanDic[@"YXQ_E"];
-            model.mingChengStr = quanDic[@"YHQMC"];
-            model.flag = quanDic[@"FLAG"];
-            model.jinE = quanDic[@"JE"];
-            model.quanBH = quanDic[@"JLBH"];
-            model.quanID = quanDic[@"YHQID"];
-            model.quanType = quanDic[@"CXLX"];
-            [self.lingQuQuanView.quanARR addObject:model];
-        }
-        [self.lingQuQuanView.tablieview reloadData];
-        [UIView animateWithDuration:0.2f animations:^{
-            weakself.lingQuQuanView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT);
-        } completion:^(BOOL finished) {
-            [weakself.tabBarController.tabBar setHidden:YES];
-        }];
-    };
-    return cartHead;
+    }else{
+         MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:section];
+        cartHead.titleLabel.text = cart.cpInfo.company;
+        cartHead.arrow.hidden = YES;
+        cartHead.youhuiBtn.hidden = YES;
+        cartHead.checkBox.cartSelected = cart.checkAll;
+        cartHead.cartHeadBlock = ^(BOOL isSelect){
+            cart.checkAll = isSelect;
+            for (OffLlineShopCart *model in cart.goodsArray) {
+                model.is_check = isSelect?1:0;
+            }
+            BOOL isCartAll = YES;
+            for (MLShopingCartModel *cart in self.shopCart.cart) {
+                if (cart.select_All == NO) {
+                    isCartAll = NO;
+                }
+            }
+            self.footView.checkBox.cartSelected = isCartAll;
+            [self countAllPrice];
+            [self.tableView reloadData];
+        };
+    }
+       return cartHead;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -469,7 +516,7 @@ static NSInteger pageIndex = 0;
     }
 }
 - (void)subButtonClick:(id)prolist count:(int)textCount{
-    
+
     if (self.isLogin) {//已登录
         [self changeNum:prolist AndCount:textCount];
     }
@@ -493,10 +540,16 @@ static NSInteger pageIndex = 0;
     if (self.isLogin) {//已登录
         for (MLShopingCartModel *model in self.shopCart.cart) {
             model.select_All = sender.cartSelected;
+            for (MLProlistModel *pro in model.prolist) {
+                pro.is_check = sender.cartSelected;
+            }
         }
     }else{ //未登录
         for (MLOffLineShopCart *model in self.offlineCart) {
             model.checkAll = sender.cartSelected;
+            for (OffLlineShopCart *prolist in model.goodsArray) {
+                prolist.is_check = sender.cartSelected;
+            }
         }
     }
     [self.tableView reloadData];
@@ -507,6 +560,7 @@ static NSInteger pageIndex = 0;
 
 - (void)countAllPrice{
     allPrice = 0.f;
+    
     if (self.isLogin) {
         for (MLShopingCartModel *model in self.shopCart.cart) {
             for (MLProlistModel *prolist in model.prolist) {
@@ -752,6 +806,8 @@ static NSInteger pageIndex = 0;
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             [MBProgressHUD showMessag:@"删除成功" toView:self.view];
+            [self.likeArray removeAllObjects];
+            [self.collectionView reloadData];
             [self getDataSource];
         }else{
             NSString *msg = result[@"msg"];

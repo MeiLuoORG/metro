@@ -22,8 +22,8 @@
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     
-    _minValue = 0;
-    _maxValue = 100000;
+//    _minValue = 1;
+//    _maxValue = 100000;
     
     self.keyboardType = UIKeyboardTypeNumberPad;
     
@@ -31,7 +31,7 @@
     self.rightViewMode = UITextFieldViewModeAlways;
     
     UIButton *subButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    subButton.frame = CGRectMake(0, 0, 25, rect.size.height);
+    subButton.frame = CGRectMake(0, 0, 30, rect.size.height);
     
     [subButton setTitle:@"- |" forState:UIControlStateNormal];
     subButton.titleLabel.font = [UIFont systemFontOfSize:20.0f];
@@ -41,7 +41,7 @@
     self.leftView = subButton;
     
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    addButton.frame = CGRectMake(0, 0, 25, rect.size.height);
+    addButton.frame = CGRectMake(0, 0, 30, rect.size.height);
     [addButton setTitle:@"| +" forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:20.0f];
     [addButton setTintColor:[UIColor colorWithHexString:@"#C9C9C9"]];

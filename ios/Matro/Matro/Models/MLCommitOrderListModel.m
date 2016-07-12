@@ -10,16 +10,25 @@
 @class MLOrderCartModel;
 @class MLOrderProlistModel;
 @class MLYouHuiQuanModel;
+//@class MLTaxInfo;
+
 @implementation MLCommitOrderListModel
 
+
++ (NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{@"taxinfo":@"tax"};
+}
+
+
 + (NSDictionary *)objectClassInArray{
-    return @{@"cart":[MLOrderCartModel class]};
+    return @{@"cart":[MLOrderCartModel class],@"tax":[MLTaxInfo class]};
 }
 
 - (float)realTax{
     float taxCount = 0;
     for (MLOrderCartModel *model in self.cart) {
-        taxCount += (model.sumtax + model.kuaiDiFangshi.sumtax);
+        taxCount += model.realShuiFei;
     }
     return taxCount;
 }
@@ -39,6 +48,15 @@
     }
     return count;
 }
+
+- (float)realPrice{
+    float count = 0;
+    count = self.realTax + self.sumprice - self.realYouHui + self.realYunFei;
+    return count;
+    
+}
+
+
 
 
 
@@ -93,10 +111,11 @@
 
 - (float)dingdanXiaoji{
     float count = 0;
-    count = self.sumtax + self.sumprice - self.youhuiMoney + _kuaiDiFangshi.price;
+    count = self.realShuiFei + self.sumprice - self.youhuiMoney + _kuaiDiFangshi.price;
     return count;
     
 }
+
 
 
 
@@ -129,6 +148,13 @@
 @end
 
 @implementation MLConsigneeInfo
+
+
+
+@end
+
+
+@implementation MLTaxInfo
 
 
 

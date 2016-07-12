@@ -10,6 +10,7 @@
         <attribute name="loginkeyword" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="OffLlineShopCart" representedClassName="OffLlineShopCart" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="company_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="is_check" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="mjtitle" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,9 +27,9 @@
         <attribute name="keywork" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="LoginHistory" positionX="-63" positionY="-9" width="128" height="60"/>
-        <element name="SearchHistory" positionX="-63" positionY="-18" width="128" height="60"/>
-        <element name="OffLlineShopCart" positionX="-63" positionY="-9" width="128" height="210"/>
         <element name="CompanyInfo" positionX="-45" positionY="72" width="128" height="105"/>
+        <element name="LoginHistory" positionX="-63" positionY="-9" width="128" height="60"/>
+        <element name="OffLlineShopCart" positionX="-63" positionY="-9" width="128" height="225"/>
+        <element name="SearchHistory" positionX="-63" positionY="-18" width="128" height="60"/>
     </elements>
 </model>

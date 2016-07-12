@@ -27,10 +27,10 @@
 
 @interface CPStepper : UITextField
 
-@property (nonatomic) NSUInteger minValue;
-@property (nonatomic) NSUInteger maxValue;
+@property (nonatomic,assign) NSUInteger minValue;
+@property (nonatomic,assign) NSUInteger maxValue;
 
-@property (nonatomic) NSUInteger value;
+@property (nonatomic,assign) NSUInteger value;
 @property (nonatomic,strong) NSDictionary *paramDic;
 
 @property (nonatomic,strong)id proList;

@@ -979,6 +979,7 @@
                 cp.cid = self.paramDic[@"userid"];
                 cp.shopCart = pid;
                 cp.checkAll = 0;
+                [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
              }
            [self saveShopCartWithPid:pid];
             
@@ -1002,6 +1003,7 @@
         model.pname = pDic[@"pinfo"][@"pname"];
         model.pic = pDic[@"pinfo"][@"pic"];
         model.pro_price = [pDic[@"pinfo"][@"price"] floatValue];
+        model.amount = [pDic[@"pinfo"][@"amount"] integerValue];
         model.num = 1;
         model.company_id= _paramDic[@"userid"];
         model.sid = pDic[@"pinfo"][@"property"][@"id"]?:@"0";

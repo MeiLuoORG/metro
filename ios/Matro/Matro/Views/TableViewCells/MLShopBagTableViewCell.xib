@@ -14,17 +14,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="124"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GNG-WE-61k" customClass="MLCheckBoxButton">
-                        <rect key="frame" x="16" y="53" width="18" height="18"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="18" id="quy-NO-Sgp"/>
-                            <constraint firstAttribute="height" constant="18" id="yO4-Wy-s2N"/>
-                        </constraints>
-                        <state key="normal" image="zSelectBtn"/>
-                        <connections>
-                            <action selector="changeCheckBox:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="K2v-U7-kpg"/>
-                        </connections>
-                    </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ppj-o0-XSS">
                         <rect key="frame" x="42" y="12" width="100" height="100"/>
                         <constraints>
@@ -32,20 +21,20 @@
                             <constraint firstAttribute="height" constant="100" id="Xwo-ub-zMD"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bjn-7R-9X9">
-                        <rect key="frame" x="150" y="12" width="162" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bjn-7R-9X9">
+                        <rect key="frame" x="150" y="12" width="162" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3LP-pG-0Gs">
-                        <rect key="frame" x="150" y="33" width="162" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3LP-pG-0Gs">
+                        <rect key="frame" x="150" y="16" width="162" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZuE-NG-MCb">
-                        <rect key="frame" x="150" y="95" width="36" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZuE-NG-MCb">
+                        <rect key="frame" x="150" y="112" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="1" green="0.30588235289999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -62,8 +51,8 @@
                             <constraint firstAttribute="height" constant="1" id="ejN-Li-WPr"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="满减" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrh-J4-yQe">
-                        <rect key="frame" x="150" y="56" width="45" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="满减" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrh-J4-yQe">
+                        <rect key="frame" x="150" y="24" width="45" height="21"/>
                         <color key="backgroundColor" red="1" green="0.30588235289999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="45" id="HST-c2-Yc6"/>
@@ -79,6 +68,17 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GNG-WE-61k" customClass="MLCheckBoxButton">
+                        <rect key="frame" x="0.0" y="41" width="42" height="42"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="42" id="quy-NO-Sgp"/>
+                            <constraint firstAttribute="height" constant="42" id="yO4-Wy-s2N"/>
+                        </constraints>
+                        <state key="normal" image="zSelectBtn"/>
+                        <connections>
+                            <action selector="changeCheckBox:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="K2v-U7-kpg"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Bjn-7R-9X9" secondAttribute="trailing" constant="8" id="5YV-YB-aMf"/>
@@ -89,6 +89,8 @@
                     <constraint firstItem="Bjn-7R-9X9" firstAttribute="leading" secondItem="ppj-o0-XSS" secondAttribute="trailing" constant="8" id="GJw-w7-pBt"/>
                     <constraint firstItem="3LP-pG-0Gs" firstAttribute="top" secondItem="Bjn-7R-9X9" secondAttribute="bottom" id="JGc-dl-bQG"/>
                     <constraint firstItem="ZuE-NG-MCb" firstAttribute="leading" secondItem="ppj-o0-XSS" secondAttribute="trailing" constant="8" id="PHT-Xy-tKw"/>
+                    <constraint firstItem="GNG-WE-61k" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Srv-2g-Qxa"/>
+                    <constraint firstItem="ppj-o0-XSS" firstAttribute="leading" secondItem="GNG-WE-61k" secondAttribute="trailing" id="UMe-cL-Jt2"/>
                     <constraint firstAttribute="bottom" secondItem="vXb-0M-sOx" secondAttribute="bottom" constant="12" id="UP6-x0-2sg"/>
                     <constraint firstAttribute="trailing" secondItem="nwA-ng-en5" secondAttribute="trailing" id="VVO-mv-udP"/>
                     <constraint firstItem="nwA-ng-en5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ZAc-jg-cP6"/>
@@ -104,6 +106,8 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="Fqh-cn-dT0"/>
+                        <exclude reference="G4q-Zt-TSk"/>
                         <exclude reference="JGc-dl-bQG"/>
                     </mask>
                 </variation>
@@ -118,6 +122,7 @@
                 <outlet property="line" destination="nwA-ng-en5" id="o62-SS-sf5"/>
                 <outlet property="manjianLabel" destination="Wrh-J4-yQe" id="gg7-Ys-HiQ"/>
             </connections>
+            <point key="canvasLocation" x="8" y="335.5"/>
         </tableViewCell>
     </objects>
     <resources>

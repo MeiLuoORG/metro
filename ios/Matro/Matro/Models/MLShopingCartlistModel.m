@@ -37,9 +37,6 @@
 - (void)setSelect_All:(BOOL)select_All{
     if (_select_All != select_All) {
         _select_All = select_All;
-        for (MLProlistModel *model in self.prolist) {
-            model.is_check = _select_All?1:0;
-        } 
     }
 }
 

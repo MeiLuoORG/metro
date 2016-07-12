@@ -14,20 +14,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="普通发票" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAV-90-jCJ">
-                        <rect key="frame" x="16" y="12" width="52" height="16"/>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="普通发票" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAV-90-jCJ">
+                        <rect key="frame" x="16" y="13" width="144" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="明细-苏州函数集团" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlJ-HW-Dto">
-                        <rect key="frame" x="193" y="12" width="111" height="16"/>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="明细-苏州函数集团" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlJ-HW-Dto">
+                        <rect key="frame" x="160" y="13" width="144" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="提示：全球购商品不支持发票，非美罗自营商品的发票有商家开具" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihq-Rr-yFF">
-                        <rect key="frame" x="16" y="36" width="288" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提示：全球购商品不支持发票，非美罗自营商品的发票有商家开具" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihq-Rr-yFF">
+                        <rect key="frame" x="16" y="37" width="288" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -37,7 +37,9 @@
                     <constraint firstAttribute="trailing" secondItem="WlJ-HW-Dto" secondAttribute="trailing" constant="16" id="2mU-fr-na8"/>
                     <constraint firstItem="ihq-Rr-yFF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ITd-Cw-4x0"/>
                     <constraint firstItem="WlJ-HW-Dto" firstAttribute="centerY" secondItem="MAV-90-jCJ" secondAttribute="centerY" id="TA0-GI-XkC"/>
+                    <constraint firstItem="WlJ-HW-Dto" firstAttribute="width" secondItem="MAV-90-jCJ" secondAttribute="width" id="TKD-B7-Ggn"/>
                     <constraint firstItem="MAV-90-jCJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="WfC-Rx-yte"/>
+                    <constraint firstItem="WlJ-HW-Dto" firstAttribute="leading" secondItem="MAV-90-jCJ" secondAttribute="trailing" id="YQI-AB-yJv"/>
                     <constraint firstItem="ihq-Rr-yFF" firstAttribute="top" secondItem="WlJ-HW-Dto" secondAttribute="bottom" constant="8" id="deO-hM-RIj"/>
                     <constraint firstAttribute="bottom" secondItem="ihq-Rr-yFF" secondAttribute="bottom" constant="8" id="fh3-Hg-aaA"/>
                     <constraint firstAttribute="trailing" secondItem="ihq-Rr-yFF" secondAttribute="trailing" constant="16" id="hZW-he-mkP"/>

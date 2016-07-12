@@ -14,8 +14,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.countField.maxValue = 10;
-    self.countField.minValue = 1;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -27,6 +26,9 @@
 - (void)setProlistModel:(MLProlistModel *)prolistModel{
     if (_prolistModel != prolistModel) {
         _prolistModel = prolistModel;
+        [self.countField setTextValue:_prolistModel.num];
+        self.countField.maxValue = _prolistModel.amount;
+        self.countField.minValue = 1;
         [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic]];
         self.goodName.text = _prolistModel.pname;
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.pro_price];
@@ -35,8 +37,7 @@
         if (_prolistModel.setmealname.length > 0) {
             self.goodDesc.text = [NSString stringWithFormat:@"%@：%@",_prolistModel.setmealname,_prolistModel.setmeal];
         }
-        [self.countField setTextValue:_prolistModel.num];
-        
+
     }
 }
 
@@ -50,6 +51,9 @@
         self.goodDesc.hidden = YES;
         self.manjianLabel.hidden = !(_offlineCart.mjtitle.length > 0);
         [self.countField setTextValue:_offlineCart.num];
+        self.countField.maxValue = _offlineCart.amount;
+        self.countField.minValue = 1;
+        
     }
 }
 

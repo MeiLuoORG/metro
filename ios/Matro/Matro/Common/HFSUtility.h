@@ -31,4 +31,9 @@
 -(NSData *)sectionRSASecret:(NSData*)tempstr;
 +(UIColor *) hexStringToColor: (NSString *) stringToConvert;
 + (NSString *)SIGNStrign:(NSDictionary *)dic;
+
++ (BOOL)isHaveSpaceString:(NSString *)str;
+
+
+
 @end

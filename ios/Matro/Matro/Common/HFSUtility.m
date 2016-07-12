@@ -380,6 +380,19 @@ NSString* const public_key_string = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAYv
 }
 
 
+
++ (BOOL)isHaveSpaceString:(NSString *)str{
+    if([str rangeOfString:@" "].location !=NSNotFound)//_roaldSearchText
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
+
+
 //+(NSString *)JSONString:(NSString *)aString {
 //    NSMutableString *s = [NSMutableString stringWithString:aString];
 //    [s replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];

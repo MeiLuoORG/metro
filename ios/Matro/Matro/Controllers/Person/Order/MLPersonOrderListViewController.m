@@ -30,6 +30,7 @@
 #import "MLPayViewController.h"
 
 
+
 typedef NS_ENUM(NSInteger,OrderActionType){
     OrderActionTypeDel,
     OrderActionTypeCancel,
@@ -249,6 +250,10 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     
     MLPersonOrderModel *order = [self.orderList objectAtIndex:indexPath.section];
     MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
+    vc.orderHandleBlock = ^(){
+        pageIndex = 1;
+        [self.tableView.header beginRefreshing];
+    };
     vc.order_id = order.order_id;
     vc.order_price = order.order_price;
     vc.hidesBottomBarWhenPushed = YES;
@@ -293,7 +298,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
         [self.tableView.footer endRefreshing];
         
         NSDictionary *result = (NSDictionary *)responseObject;
-        NSLog(@"获取订单信息：%@",result);
+        
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSDictionary *order_list = data[@"order_list"];
@@ -307,12 +312,17 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
                 if (list.count>0 && self.orderList.count < [count integerValue]) {
                     [self.orderList addObjectsFromArray:[MLPersonOrderModel mj_objectArrayWithKeyValuesArray:list]];
                     pageIndex ++;
-                    [self.tableView reloadData];
+                   
                 }
                 else{
                     [MBProgressHUD showMessag:@"暂无更多数据" toView:self.view];
                 }
+            }else{
+                if (pageIndex == 1) {
+                    [self.orderList removeAllObjects];
+                }
             }
+             [self.tableView reloadData];
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];

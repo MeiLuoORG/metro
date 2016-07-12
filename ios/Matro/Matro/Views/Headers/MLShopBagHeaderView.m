@@ -54,13 +54,13 @@
     
     [checkBox mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
-        make.height.width.mas_equalTo(18);
-        make.left.mas_equalTo(self).offset(16);
+        make.height.width.mas_equalTo(42);
+        make.left.mas_equalTo(self).offset(0);
         
     }];
     [titleLb mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
-        make.left.mas_equalTo(checkBox.mas_right).offset(8);
+        make.left.mas_equalTo(checkBox.mas_right).offset(0);
     }];
     [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
@@ -83,8 +83,6 @@
 - (void)checkBoxChange:(id)sender {
     MLCheckBoxButton *btn = (MLCheckBoxButton *)sender;
     btn.cartSelected = !btn.cartSelected;
-    self.shopingCart.select_All = btn.cartSelected;
-    
     if (self.cartHeadBlock) {
         self.cartHeadBlock(btn.cartSelected);
     }
@@ -99,7 +97,7 @@
 - (void)setShopingCart:(MLShopingCartModel *)shopingCart{
     if (_shopingCart != shopingCart) {
         _shopingCart = shopingCart;
-        self.titleLabel.text = _shopingCart.warehouse_nickname;
+        self.titleLabel.text = _shopingCart.company;
         self.checkBox.cartSelected = _shopingCart.select_All;
         self.youhuiBtn.hidden = !(_shopingCart.dpyhq.count>0);
     }

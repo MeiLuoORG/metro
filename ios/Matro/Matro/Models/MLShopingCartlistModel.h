@@ -74,7 +74,7 @@
 @property (nonatomic,copy)NSString *package_id;
 @property (nonatomic,copy)NSString *pack_up_time;
 @property (nonatomic,copy)NSString *invoice;
-@property (nonatomic,copy)NSString *amount;
+@property (nonatomic,assign)NSInteger amount;
 @property (nonatomic,copy)NSString *catid;
 @property (nonatomic,copy)NSString *pname;
 @property (nonatomic,copy)NSString *number;

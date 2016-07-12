@@ -12,6 +12,7 @@
 
 #import "UIButton+HeinQi.h"
 #import "HFSConstants.h"
+#import "HFSUtility.h"
 
 @interface MLInvoiceViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *kai;
@@ -130,6 +131,11 @@
             self.invoiceBlock(NO,_gongsi.selected,@"",@"");
         }
         [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+    
+    if ([HFSUtility isHaveSpaceString:_gongsiTitle.text]) {
+        [MBProgressHUD showMessag:@"请不要输入空格" toView:self.view];
         return;
     }
     NSString *titou = _gongsiTitle.text;

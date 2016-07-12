@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "MLBaseViewController.h"
 
+
+typedef void(^OrderHandleBlock)();
 @interface MLPersonOrderDetailViewController : MLBaseViewController
 @property (nonatomic,copy)NSString *order_id;
 @property (assign, nonatomic) float order_price;
+
+@property (nonatomic,copy)OrderHandleBlock orderHandleBlock;
 
 @end

@@ -29,10 +29,6 @@
 - (void)setCheckAll:(BOOL)checkAll{
     if (_checkAll != checkAll) {
         _checkAll = checkAll;
-        for (OffLlineShopCart *model in self.goodsArray) {
-            model.is_check = checkAll?1:0;
-        }
-//        [[NSManagedObjectContext MR_defaultContext]MR_saveOnlySelfAndWait];
     }
 }
 

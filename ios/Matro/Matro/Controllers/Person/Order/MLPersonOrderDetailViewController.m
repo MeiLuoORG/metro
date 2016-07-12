@@ -272,9 +272,11 @@
     NSString *url= [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@",MATROJP_BASE_URL,action,self.orderDetail.order_id];
     [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
          NSDictionary *result = (NSDictionary *)responseObject;
-        if ([result[@"code"] isEqual:@0]) { //操作成功
-            [MBProgressHUD showSuccess:@"操作成功" toView:self.view];
-            
+        if ([result[@"code"] isEqual:@0]) { //操作成功  重新获取信息
+            if (self.orderHandleBlock) {
+                self.orderHandleBlock();
+            }
+            [self getOrderDetail];
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
@@ -537,14 +539,14 @@
 -(void)compareDate:(NSDate*)startdate currentDate:(NSDate*)endDate
 {
     float restm =  [endDate timeIntervalSinceDate:startdate ];
-    if (restm/60/60>2) { //小时   如果倒计时超过2小时 不显示倒计时
+    if (restm/60/60>24) { //小时   如果倒计时超过2小时 不显示倒计时
         self.footView.daojishiLb.hidden = YES;
         self.footView.shenyuLb.hidden = YES;
         self.footView.payBtn.backgroundColor = [UIColor grayColor];
         self.footView.payBtn.enabled = NO;
     }
     else{
-        restm = 60*60*2-restm;
+        restm = 60*60*24-restm;
         [self startTime:restm];
     }
 }

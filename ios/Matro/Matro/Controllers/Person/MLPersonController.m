@@ -184,8 +184,16 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(renZhengAction:) name:RENZHENG_LIJIA_Notification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(actMessage) name:@"PushToMessage" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushToStoreCenter) name:@"PushToStore" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(PushToOrderCenter) name:@"PushToOrderCenter" object:nil];
+    
 }
 
+
+- (void)PushToOrderCenter{
+    MLPersonOrderListViewController *vc = [[MLPersonOrderListViewController alloc]initWithOrderType:OrderType_Fukuan];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 - (void)pushToStoreCenter{
     MLStoreCollectViewController *vc = [[MLStoreCollectViewController alloc]init];

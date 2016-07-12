@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -78,8 +78,8 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXV-Fh-GoO" customClass="MLCheckBoxButton">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="18" id="fIi-Hl-hjo"/>
-                        <constraint firstAttribute="height" constant="18" id="ooG-mu-t1S"/>
+                        <constraint firstAttribute="width" constant="42" id="fIi-Hl-hjo"/>
+                        <constraint firstAttribute="height" constant="42" id="ooG-mu-t1S"/>
                     </constraints>
                     <state key="normal" image="zSelectBtn"/>
                     <variation key="default">
@@ -100,9 +100,11 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="8At-Jd-lOg" secondAttribute="trailing" id="0qg-c9-mXC"/>
                 <constraint firstItem="KuD-az-O47" firstAttribute="leading" secondItem="TXV-Fh-GoO" secondAttribute="trailing" constant="8" id="6V7-5g-o4e"/>
+                <constraint firstItem="TXV-Fh-GoO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="73m-BU-OlN"/>
                 <constraint firstItem="TXV-Fh-GoO" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Agz-6m-1Zj"/>
                 <constraint firstItem="HLL-OD-8v1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Gdv-Ci-hFa"/>
                 <constraint firstAttribute="trailing" secondItem="HLL-OD-8v1" secondAttribute="trailing" id="MEJ-S5-11v"/>
+                <constraint firstItem="KuD-az-O47" firstAttribute="leading" secondItem="TXV-Fh-GoO" secondAttribute="trailing" id="NQl-9e-0oS"/>
                 <constraint firstItem="HLL-OD-8v1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Oaz-Co-XtB"/>
                 <constraint firstAttribute="bottom" secondItem="8At-Jd-lOg" secondAttribute="bottom" id="PDM-NL-aOU"/>
                 <constraint firstItem="TXV-Fh-GoO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="PTp-en-ptT"/>
@@ -125,21 +127,23 @@
                     <exclude reference="TXV-Fh-GoO"/>
                 </mask>
                 <mask key="constraints">
+                    <exclude reference="Gdv-Ci-hFa"/>
+                    <exclude reference="MEJ-S5-11v"/>
+                    <exclude reference="Oaz-Co-XtB"/>
+                    <exclude reference="73m-BU-OlN"/>
+                    <exclude reference="Agz-6m-1Zj"/>
+                    <exclude reference="PTp-en-ptT"/>
+                    <exclude reference="6V7-5g-o4e"/>
+                    <exclude reference="NQl-9e-0oS"/>
+                    <exclude reference="as7-PT-PGc"/>
+                    <exclude reference="Zt5-rE-CT6"/>
+                    <exclude reference="wXe-SH-dIv"/>
                     <exclude reference="0qg-c9-mXC"/>
                     <exclude reference="PDM-NL-aOU"/>
                     <exclude reference="Rdc-6i-4IE"/>
                     <exclude reference="azI-Tc-2Cr"/>
                     <exclude reference="rjj-kX-f7c"/>
                     <exclude reference="zni-Lf-hnk"/>
-                    <exclude reference="Agz-6m-1Zj"/>
-                    <exclude reference="PTp-en-ptT"/>
-                    <exclude reference="6V7-5g-o4e"/>
-                    <exclude reference="as7-PT-PGc"/>
-                    <exclude reference="Zt5-rE-CT6"/>
-                    <exclude reference="wXe-SH-dIv"/>
-                    <exclude reference="Gdv-Ci-hFa"/>
-                    <exclude reference="MEJ-S5-11v"/>
-                    <exclude reference="Oaz-Co-XtB"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -151,21 +155,23 @@
                     <include reference="TXV-Fh-GoO"/>
                 </mask>
                 <mask key="constraints">
+                    <include reference="Gdv-Ci-hFa"/>
+                    <include reference="MEJ-S5-11v"/>
+                    <include reference="Oaz-Co-XtB"/>
+                    <include reference="73m-BU-OlN"/>
+                    <include reference="Agz-6m-1Zj"/>
+                    <exclude reference="PTp-en-ptT"/>
+                    <exclude reference="6V7-5g-o4e"/>
+                    <include reference="NQl-9e-0oS"/>
+                    <include reference="as7-PT-PGc"/>
+                    <include reference="Zt5-rE-CT6"/>
+                    <include reference="wXe-SH-dIv"/>
                     <include reference="0qg-c9-mXC"/>
                     <include reference="PDM-NL-aOU"/>
                     <include reference="Rdc-6i-4IE"/>
                     <include reference="azI-Tc-2Cr"/>
                     <include reference="rjj-kX-f7c"/>
                     <include reference="zni-Lf-hnk"/>
-                    <include reference="Agz-6m-1Zj"/>
-                    <include reference="PTp-en-ptT"/>
-                    <include reference="6V7-5g-o4e"/>
-                    <include reference="as7-PT-PGc"/>
-                    <include reference="Zt5-rE-CT6"/>
-                    <include reference="wXe-SH-dIv"/>
-                    <include reference="Gdv-Ci-hFa"/>
-                    <include reference="MEJ-S5-11v"/>
-                    <include reference="Oaz-Co-XtB"/>
                 </mask>
             </variation>
             <connections>
