@@ -249,7 +249,6 @@
 		3AA0E72B1CA8C2990079AA90 /* MLLikeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0E7291CA8C2990079AA90 /* MLLikeTableViewCell.xib */; };
 		3AA0E72F1CA8F0240079AA90 /* MLSureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0E72D1CA8F0240079AA90 /* MLSureViewController.m */; };
 		3AA0E7301CA8F0240079AA90 /* MLSureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0E72E1CA8F0240079AA90 /* MLSureViewController.xib */; };
-		3AA0E7341CA916A90079AA90 /* MLPayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0E7321CA916A90079AA90 /* MLPayViewController.mm */; };
 		3AA0E7351CA916A90079AA90 /* MLPayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0E7331CA916A90079AA90 /* MLPayViewController.xib */; };
 		3AA0E7A21CA91E500079AA90 /* AliPayOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0E7381CA91E4F0079AA90 /* AliPayOrder.m */; };
 		3AA0E7A31CA91E500079AA90 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0E7391CA91E4F0079AA90 /* AlipaySDK.bundle */; };
@@ -639,6 +638,7 @@
 		7AFFC45D1D1A88BB0038B176 /* MLHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFFC45C1D1A88BB0038B176 /* MLHttpManager.m */; };
 		7AFFDEF31D34CE8A00A6C1E5 /* OffLlineShopCart+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFFDEF01D34CE8A00A6C1E5 /* OffLlineShopCart+CoreDataProperties.m */; };
 		7AFFDEF41D34CE8A00A6C1E5 /* OffLlineShopCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFFDEF21D34CE8A00A6C1E5 /* OffLlineShopCart.m */; };
+		7AFFDEF71D34F1E400A6C1E5 /* MLPayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7AFFDEF61D34F1E400A6C1E5 /* MLPayViewController.mm */; };
 		D642D8571CAD009D00317AB6 /* MNNMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D67181861CABB2D100D5F6C2 /* MNNMemberViewController.m */; };
 		D642D8581CAD00B600317AB6 /* MNNBindCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D60C795D1CABD68C004FF33C /* MNNBindCardViewController.m */; };
 		D642D8591CAD00CE00317AB6 /* MNNPurchaseHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D65C9BDC1CABC16B00D212E7 /* MNNPurchaseHistoryViewController.m */; };
@@ -1081,8 +1081,6 @@
 		3AA0E72C1CA8F0240079AA90 /* MLSureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSureViewController.h; sourceTree = "<group>"; };
 		3AA0E72D1CA8F0240079AA90 /* MLSureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSureViewController.m; sourceTree = "<group>"; };
 		3AA0E72E1CA8F0240079AA90 /* MLSureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSureViewController.xib; sourceTree = "<group>"; };
-		3AA0E7311CA916A90079AA90 /* MLPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPayViewController.h; sourceTree = "<group>"; };
-		3AA0E7321CA916A90079AA90 /* MLPayViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MLPayViewController.mm; sourceTree = "<group>"; };
 		3AA0E7331CA916A90079AA90 /* MLPayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLPayViewController.xib; sourceTree = "<group>"; };
 		3AA0E7371CA91E4F0079AA90 /* AliPayOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliPayOrder.h; sourceTree = "<group>"; };
 		3AA0E7381CA91E4F0079AA90 /* AliPayOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliPayOrder.m; sourceTree = "<group>"; };
@@ -1808,6 +1806,8 @@
 		7AFFDEF01D34CE8A00A6C1E5 /* OffLlineShopCart+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OffLlineShopCart+CoreDataProperties.m"; sourceTree = "<group>"; };
 		7AFFDEF11D34CE8A00A6C1E5 /* OffLlineShopCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffLlineShopCart.h; sourceTree = "<group>"; };
 		7AFFDEF21D34CE8A00A6C1E5 /* OffLlineShopCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffLlineShopCart.m; sourceTree = "<group>"; };
+		7AFFDEF51D34F1D500A6C1E5 /* MLPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPayViewController.h; sourceTree = "<group>"; };
+		7AFFDEF61D34F1E400A6C1E5 /* MLPayViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MLPayViewController.mm; sourceTree = "<group>"; };
 		D60C795C1CABD68C004FF33C /* MNNBindCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNNBindCardViewController.h; sourceTree = "<group>"; };
 		D60C795D1CABD68C004FF33C /* MNNBindCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNNBindCardViewController.m; sourceTree = "<group>"; };
 		D638387B1CAB723F00E5E3F5 /* MNNAboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNNAboutUsViewController.h; sourceTree = "<group>"; };
@@ -3129,8 +3129,8 @@
 				3AA0E72C1CA8F0240079AA90 /* MLSureViewController.h */,
 				3AA0E72D1CA8F0240079AA90 /* MLSureViewController.m */,
 				3AA0E72E1CA8F0240079AA90 /* MLSureViewController.xib */,
-				3AA0E7311CA916A90079AA90 /* MLPayViewController.h */,
-				3AA0E7321CA916A90079AA90 /* MLPayViewController.mm */,
+				7AFFDEF51D34F1D500A6C1E5 /* MLPayViewController.h */,
+				7AFFDEF61D34F1E400A6C1E5 /* MLPayViewController.mm */,
 				3AA0E7331CA916A90079AA90 /* MLPayViewController.xib */,
 				3A1AA8CA1CAA7ACE00AF73C2 /* MLPayresultViewController.h */,
 				3A1AA8CB1CAA7ACE00AF73C2 /* MLPayresultViewController.m */,
@@ -4489,7 +4489,6 @@
 				3A633B4E1C9EA36E00C11FD5 /* SSKeychain.m in Sources */,
 				3C0556851D23AA820092D140 /* ZLCollectionViewCell.m in Sources */,
 				3AA0E7A21CA91E500079AA90 /* AliPayOrder.m in Sources */,
-				3AA0E7341CA916A90079AA90 /* MLPayViewController.mm in Sources */,
 				7ABB22411D210C0B00529B2B /* MLActMessageViewController.m in Sources */,
 				7A03ABF71D2F746B0026F853 /* MLOrderYouHuiTableViewCell.m in Sources */,
 				7ADC401C1D17863900CBD683 /* VIPCardHistoryModel.m in Sources */,
@@ -4580,6 +4579,7 @@
 				2814D6191D2657B000F8ECB8 /* MLOrderListModel.m in Sources */,
 				7ACD3A7A1CE86D97004BAF8B /* MLReturnsHeader.m in Sources */,
 				3CEAC66D1D1E799B00E953A7 /* XiuGaiPasswordViewController.m in Sources */,
+				7AFFDEF71D34F1E400A6C1E5 /* MLPayViewController.mm in Sources */,
 				7AF0D7D61CE5957E00A8F913 /* MLSaleServiceViewController.m in Sources */,
 				3AA0E7AD1CA91E500079AA90 /* RSADataSigner.m in Sources */,
 				3C5F123D1D17A075001F66E1 /* SecondBtnsView.m in Sources */,

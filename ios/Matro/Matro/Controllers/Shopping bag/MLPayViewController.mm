@@ -143,6 +143,7 @@
 
 
 - (void)goBack{
+    
     UIViewController *vc = [self.navigationController.viewControllers firstObject];
     if ([vc isKindOfClass:[MLShopBagViewController class]]) {
         [self.navigationController popToRootViewControllerAnimated:YES];
@@ -155,15 +156,20 @@
 
 - (void)productlistsAction{
     
+    MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
+    vc.order_id = self.order_id;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    /*
     if ([self getAppDelegate].tabBarController.selectedIndex == 3) {
         [self.navigationController popViewControllerAnimated:YES];
     }else{
         [self getAppDelegate].tabBarController.selectedIndex = 3;
         [self.navigationController popToRootViewControllerAnimated:NO];
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_GOTO_ODRE_LISTS object:nil];
     }
-
+     */
 }
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
@@ -190,8 +196,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    
+
     if (indexPath.row == 0) {
         [self alipayPost];
     }
@@ -233,41 +238,7 @@
         totalpay=[NSString stringWithFormat:@"%.2f",_orderDetail.DDJE];
         outtradenum =_orderDetail.JLBH?:@"";
     }
-<<<<<<< Updated upstream
-    NSDictionary *dic = @{@"out_trade_no":self.order_id,
-                          @"subject":@"美罗全球精品购",
-                          @"body":@"美罗全球精品购",
-                          @"total_fee":[NSString stringWithFormat:@"%.2f",self.order_sum]
-                          };
-    [[HFSServiceClient sharedPayClient] POST:ALIPAY_SERVICE_URL parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *result = (NSDictionary *)responseObject;
-        if (result) {
-            AliPayOrder *order = [[AliPayOrder alloc] init];
-            order.partner = result[@"partner"];
-            order.seller = result[@"seller_id"];
-            order.tradeNO = result[@"out_trade_no"];
-            order.productName = result[@"subject"];
-            order.productDescription = result[@"body"];
-            order.amount = result[@"total_fee"];
-            order.notifyURL = result[@"notify_url"];
-            order.service = result[@"service"];
-            order.paymentType = result[@"payment_type"];
-            order.inputCharset = result[@"_input_charset"];
-            order.itBPay = result[@"it_b_pay"];
-            //将商品信息拼接成字符串
-            NSString *orderSpec = [order description];
-            NSString *signedString =result[@"sign"];
-            //将签名成功字符串格式化为订单字符串,请严格按照该格式
-            NSString *orderString = nil;
-            NSString *appScheme = @"Matro";
-            if (signedString != nil) {
-                signedString = [signedString gtm_stringByEscapingForURLArgument];
 
-                orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
-                               orderSpec, signedString, @"RSA"];
-                NSLog(@"%@",orderString);
-                [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-=======
     //http://bbctest.matrojp.com/api.php?m=product&s=pay
     
     NSDictionary * ret = @{@"order_id":self.order_id,@"payment_type":@"alipay"};
@@ -288,7 +259,6 @@
                 NSLog(@"result %@",result);
                 
                 if (result) {
->>>>>>> Stashed changes
                     
                     AliPayOrder *order = [[AliPayOrder alloc] init];
                     order.partner = result[@"partner"];
@@ -372,14 +342,31 @@
 - (void)applepay
 {
     if([PKPaymentAuthorizationViewController canMakePayments]) {
-        NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
-        [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString *tn = [responseObject objectForKey:@"tn"];
- 
-            [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+        
+        
+        NSDictionary * ret = @{@"order_id":self.order_id,@"payment_type":@"weixin"};
+        [MLHttpManager post:ZhiFu_LIUSHUI_URLString params:ret m:@"product" s:@"pay" success:^(id responseObject) {
+            NSDictionary * results = (NSDictionary *)responseObject;
+            NSLog(@"请求订单流水：%@",results);
+            if ([results[@"code"] isEqual:@0]) {   
+                NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
+                [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSString *tn = [responseObject objectForKey:@"tn"];
+                    [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+                }];
+                
+            }
+            
+        } failure:^(NSError *error) {
+            [_hud show:YES];
+            NSLog(@"error kkkk %@",error);
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = REQUEST_ERROR_ZL;
+            [_hud hide:YES afterDelay:2];
         }];
+
         
     } else {
         [MBProgressHUD showMessag:@"您的设备暂不支持ApplePay" toView:self.view];
