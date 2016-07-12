@@ -82,7 +82,6 @@
     // 1.创建请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-    
     NSString * accessTokenStrEncode = [accessToken URLEncodedString];
     NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];

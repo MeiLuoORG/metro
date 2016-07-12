@@ -27,7 +27,10 @@
 }
 
 - (IBAction)daiFuButtonsAction:(UIButton *)sender {
-   
+    NSLog(@"点击了待付款Control");
+    if (self.daiFuBLock) {
+        self.daiFuBLock(YES);
+    }
     
 }
 
