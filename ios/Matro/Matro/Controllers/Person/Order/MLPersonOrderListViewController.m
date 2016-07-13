@@ -168,21 +168,21 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
         MLOrderInfoFooterTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kOrderInfoFooterTableViewCell forIndexPath:indexPath];
         cell.orderList = order;
         cell.cancelAction = ^(){ //取消操作
-            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定取消此订单吗？" AndAlertDoneAction:^{
+            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定取消此订单？" AndAlertDoneAction:^{
                 [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.order_id];
             }];
             [weakself showTransparentController:vc];
         };
         
         cell.shanchuAction =^(){//删除订单操作
-            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定删除此订单吗？" AndAlertDoneAction:^{
+            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定删除此订单？" AndAlertDoneAction:^{
                 [weakself OrderActionWithButtonType:ButtonActionTypeShanchu AndOrder:order.order_id];
             }];
             [weakself showTransparentController:vc];
         };
         
         cell.shouHuoAction = ^(){//确认收货操作
-            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定确认收货吗？" AndAlertDoneAction:^{
+            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定确认收货？" AndAlertDoneAction:^{
                 [weakself OrderActionWithButtonType:ButtonActionTypeQuerenshouhuo AndOrder:order.order_id];
             }];
             [weakself showTransparentController:vc];
@@ -190,6 +190,9 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
         cell.pingJiaAction = ^(){//评价  调到评价页面
             MLOrderComViewController *vc = [[MLOrderComViewController alloc]init];
             vc.order_id = order.order_id;
+            vc.pingjiachenggong = ^(){
+                [weakself.tableView.header beginRefreshing];
+            };
             [weakself.navigationController pushViewController: vc animated:YES];
         };
         cell.kanPingJiaAction= ^(){//查看订单评价  跳到查看订单评价页面
@@ -204,7 +207,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
             [weakself.navigationController pushViewController:vc animated:YES];
         };
         cell.tuiHuoAction = ^(){//退货操作
-            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定退货吗？" AndAlertDoneAction:^{
+            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定退货？" AndAlertDoneAction:^{
                 MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
                 vc.order_id = order.order_id;
                 [weakself.navigationController pushViewController:vc animated:YES];
@@ -296,9 +299,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
         [self.tableView.header endRefreshing];
         [self.tableView.footer endRefreshing];
-        
         NSDictionary *result = (NSDictionary *)responseObject;
-        
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSDictionary *order_list = data[@"order_list"];

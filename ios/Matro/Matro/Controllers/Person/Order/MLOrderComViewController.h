@@ -10,9 +10,12 @@
 #import "MLBaseViewController.h"
 #import "MLPersonOrderDetail.h"
 
-@interface MLOrderComViewController : MLBaseViewController
 
+typedef void(^PingJiaChengGong)();
+
+@interface MLOrderComViewController : MLBaseViewController
 @property (nonatomic,copy)NSString *order_id;
+@property (nonatomic,copy)PingJiaChengGong pingjiachenggong;
 
 
 @end

@@ -1,4 +1,4 @@
-
+    
 //
 //  MLOrderSubHeadView.m
 //  Matro
@@ -12,6 +12,7 @@
 #import "MLHttpManager.h"
 #import "HFSConstants.h"
 #import "NSString+URLZL.h"
+#import "Masonry.h"
 
 @interface MLOrderSubHeadView ()
 @property (nonatomic,assign)BOOL isFirst;
@@ -66,6 +67,9 @@
 
 
 - (void)saveShenFenzheng{
+    if (self.shenfenzhengField.text.length > 0) { //
+        
+    }
     NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_member&action=edit_identity_card&accessToken=%@",MATROJP_BASE_URL,[token URLEncodedString]];
     NSDictionary *params = @{@"identity_card":self.shenfenzhengField.text,@"mobile":self.phoneLabel.text};
@@ -91,7 +95,16 @@
     }];
 }
 
-
+- (void)setIsShowSFZ:(BOOL)isShowSFZ{
+        _isShowSFZ  = isShowSFZ;
+        if (!_isShowSFZ) {
+            [self.addressBgView removeFromSuperview];
+            [self.addressControl mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.top.equalTo(self);
+                make.bottom.equalTo(self).offset(-8);
+            }];
+        }
+}
 
 
 

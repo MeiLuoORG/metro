@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,copy)NSString *logistics_type;
 @property (nonatomic,assign)float logistics_price;
 @property (nonatomic,assign)float tax_price;
-@property (nonatomic,copy)NSString *change_price;
+@property (nonatomic,assign)float change_price;
 @property (nonatomic,assign)float discount_price;
 @property (nonatomic,assign)OrderStatus status;
 @property (nonatomic,copy)NSString *des;
@@ -59,7 +59,7 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,copy)NSString *deliver_time;
 @property (nonatomic,copy)NSString *deliver_addr_id;
 @property (nonatomic,copy)NSString *time_expand;
-@property (nonatomic,copy)NSString *way;
+@property (nonatomic,assign)NSInteger way;
 @property (nonatomic,copy)NSString *payment_name;
 @property (nonatomic,copy)NSString *payment_id;
 @property (nonatomic,copy)NSString *from_module;

@@ -206,8 +206,6 @@
 
 //消息按钮
 - (void)newsButtonAction:(UIButton *)sender{
-    NSLog(@"点击了消息按钮");
-    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
     if (loginid && ![@"" isEqualToString:loginid]) {
@@ -479,7 +477,6 @@
     if (_isTopHiden) {
         for (ZLLabelCustom * lab in _labelARR) {
             lab.spView.hidden = YES;
-            
             lab.textColor = [HFSUtility hexStringToColor:Main_home_huise_backgroundColor];
         }
     }

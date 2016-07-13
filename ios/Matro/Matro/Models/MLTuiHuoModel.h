@@ -28,7 +28,7 @@
 @property (nonatomic,copy)NSString *pic;
 @property (nonatomic,copy)NSString *num;
 @property (nonatomic,assign)float price;
-@property (nonatomic,strong)NSArray *setmeal;
+@property (nonatomic,copy)NSString *setmeal;
 @property (nonatomic,copy)NSString *pid;
 
 @end

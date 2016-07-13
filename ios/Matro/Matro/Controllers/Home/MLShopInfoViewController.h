@@ -12,6 +12,8 @@
 
 @property (nonatomic,copy)NSString *store_link;
 @property (nonatomic,copy)NSString *uid;
-@property(nonatomic,retain) NSDictionary *shopparamDic;
+
+
+@property(nonatomic,retain)NSDictionary *shopparamDic;
 
 @end

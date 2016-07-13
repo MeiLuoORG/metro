@@ -47,6 +47,18 @@
                 
             }
                 break;
+            case FooterTypeDaiQueren:
+            {
+                self.orderTime.hidden = YES;
+                self.shengyufukuanLb.hidden = YES;
+                self.daojishiLb.hidden = YES;
+                self.payBtn.hidden = NO;
+                self.cancelBtn.hidden = NO;
+                self.shenyuLb.hidden = YES;
+                [self.cancelBtn setTitle:@"订单追踪" forState:UIControlStateNormal];
+                [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+            }
+                break;
             case FooterTypeDaishouhuo:
             {
                 self.orderTime.hidden = YES;
@@ -95,6 +107,12 @@
         {
         }
             break;
+        case FooterTypeDaiQueren:{
+            if (self.orderDetailButtonActionBlock) {
+                self.orderDetailButtonActionBlock(ButtonActionTypeZhuizong);
+            }
+        }
+        break;
         case FooterTypeDaifukuan:
         {
             if (self.orderDetailButtonActionBlock) {
@@ -134,6 +152,12 @@
             }
         }
             break;
+        case FooterTypeDaiQueren:{
+            if (self.orderDetailButtonActionBlock) {
+                self.orderDetailButtonActionBlock(ButtonActionTypeQuerenshouhuo);
+            }
+        }
+           break;
         case FooterTypeJiaoyiguanbi:
         {
             if (self.orderDetailButtonActionBlock) {

@@ -12,16 +12,21 @@
 
 
 typedef void(^CartHeadBlock)(BOOL);
-
 typedef void(^YouHuiBlock)();
+typedef void(^ShopHeadClick)();
+
+
+
+
 @interface MLShopBagHeaderView : UITableViewHeaderFooterView
 
 @property (nonatomic,strong)UILabel *titleLabel;
-@property (nonatomic,strong)UILabel *arrow;
+@property (nonatomic,strong)UIImageView *arrow;
 @property (nonatomic,strong)MLCheckBoxButton *checkBox;
 @property (nonatomic,copy)CartHeadBlock cartHeadBlock;
 @property (nonatomic,strong)MLShopingCartModel *shopingCart;
 @property (weak, nonatomic)UIButton *youhuiBtn;
 @property (nonatomic,copy)YouHuiBlock youHuiBlock;
+@property (nonatomic,copy)ShopHeadClick shopClick;
 
 @end

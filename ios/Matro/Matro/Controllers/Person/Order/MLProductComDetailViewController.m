@@ -104,6 +104,7 @@
         cell.delBtn.hidden = YES;
         
         MLProductCommentImage *imageModel = [self.commentDetail.comment_detail.photos objectAtIndex:indexPath.row - 3];
+        
         [cell.myImageView sd_setImageWithURL:[NSURL URLWithString:imageModel.data_src] placeholderImage:PLACEHOLDER_IMAGE];
         
         return cell;

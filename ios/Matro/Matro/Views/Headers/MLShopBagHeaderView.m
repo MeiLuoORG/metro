@@ -32,14 +32,15 @@
     titleLb.font = [UIFont systemFontOfSize:15];
     self.titleLabel = titleLb;
     [self addSubview:titleLb];
-    UILabel *arrow = [[UILabel alloc]initWithFrame:CGRectZero];
-    arrow.backgroundColor = [UIColor redColor];
-    arrow.textColor = [UIColor whiteColor];
-    arrow.font = [UIFont systemFontOfSize:12];
-    arrow.text = @">";
-    arrow.hidden = YES;
+    UIImageView *arrow = [[UIImageView alloc]initWithFrame:CGRectZero];
+    arrow.image = [UIImage imageNamed:@"跳转箭头"];
     self.arrow = arrow;
     [self addSubview:arrow];
+    UIButton *shopBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+    [shopBtn addTarget:self action:@selector(shopClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:shopBtn];
+    
+    
     UIView *downLine = [[UIView alloc]initWithFrame:CGRectZero];
     downLine.backgroundColor = RGBA(245, 245, 245, 1);
     [self addSubview:downLine];
@@ -65,8 +66,13 @@
     [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.left.mas_equalTo(titleLb.mas_right).offset(8);
-        make.width.mas_equalTo(15);
-        make.height.mas_equalTo(8);
+        make.width.mas_equalTo(12);
+        make.height.mas_equalTo(12);
+    }];
+    [shopBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(titleLb);
+        make.right.equalTo(arrow);
+        make.top.bottom.equalTo(self);
     }];
     [downLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
@@ -100,6 +106,12 @@
         self.titleLabel.text = _shopingCart.company;
         self.checkBox.cartSelected = _shopingCart.select_All;
         self.youhuiBtn.hidden = !(_shopingCart.dpyhq.count>0);
+    }
+}
+
+- (void)shopClick:(id)sender{
+    if (self.shopClick) {
+        self.shopClick();
     }
 }
 

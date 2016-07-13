@@ -108,7 +108,7 @@
 @property (nonatomic,copy)NSString *summatch_price;
 @property (nonatomic,copy)NSString *taxprice;
 @property (nonatomic,copy)NSString *mjtitle;
-
+@property (nonatomic,assign)NSInteger safe_amount;
 
 @end
 

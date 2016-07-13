@@ -19,8 +19,6 @@
 @property(nonatomic,strong)MLConsigneeInfo *consignee;
 @property (nonatomic,strong)MLTaxInfo *taxinfo;
 
-
-
 @property(nonatomic,copy)NSString *identity_card;
 @property(nonatomic,copy)NSString *inv_info;
 
@@ -37,8 +35,12 @@
 @property (nonatomic,assign)float realTax;
 @property (nonatomic,assign)float realYunFei;
 @property (nonatomic,assign)float realYouHui;
-@property (nonatomic,assign)float  realPrice;
+@property (nonatomic,assign)float realPrice;
+@property (nonatomic,assign)float realManJian;
 
+
+
+@property (nonatomic,assign)BOOL isHaveHaiWai;
 
 
 @end
@@ -65,7 +67,7 @@
 @property (nonatomic,copy)NSString *company;
 @property (nonatomic,copy)NSString *logo;
 @property (nonatomic,copy)NSString *tel;
-@property (nonatomic,copy)NSString *way;
+@property (nonatomic,assign)NSInteger way;
 @property (nonatomic,copy)NSString *supplier;
 @property (nonatomic,copy)NSString *shipfree;
 @property (nonatomic,copy)NSString *warehousecode;
@@ -77,7 +79,7 @@
 @property (nonatomic,copy)NSString *summacth_price;
 @property (nonatomic,copy)NSString *sumpromotion_reduce_price;
 @property (nonatomic,assign)float sumprice;
-@property (nonatomic,copy)NSString *reduce_price;
+@property (nonatomic,assign)float reduce_price;
 @property (nonatomic,assign)float sumtax;
 @property (nonatomic,strong)NSArray *prolist;
 @property (nonatomic,strong)NSArray *shipping;
@@ -108,6 +110,8 @@
 @property (nonatomic,assign)float youhuiMoney;
 
 @property (nonatomic,strong)UITextField *liuYan;
+
+
 
 
 
@@ -211,5 +215,8 @@
 @property (nonatomic,copy)NSString *area;
 @property (nonatomic,copy)NSString *name;
 @property (nonatomic,copy)NSString *delivery_address_id;
+@property (nonatomic,assign)BOOL isOk;
+
+
 @end
 

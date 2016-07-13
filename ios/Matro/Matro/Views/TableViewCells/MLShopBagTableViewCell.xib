@@ -106,8 +106,8 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
-                        <exclude reference="Fqh-cn-dT0"/>
                         <exclude reference="G4q-Zt-TSk"/>
+                        <exclude reference="Fqh-cn-dT0"/>
                         <exclude reference="JGc-dl-bQG"/>
                     </mask>
                 </variation>

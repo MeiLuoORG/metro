@@ -11,5 +11,6 @@
 @interface MLPayTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *payImageView;
 @property (strong, nonatomic) IBOutlet UILabel *payLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *appleImage;
 
 @end

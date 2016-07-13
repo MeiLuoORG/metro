@@ -9,6 +9,7 @@
 #import "MLAllOrdersViewController.h"
 #import "HFSConstants.h"
 #import "MLPersonOrderListViewController.h"
+#import "UIViewController+MLMenu.h"
 
 @interface MLAllOrdersViewController ()
 
@@ -85,6 +86,8 @@
     item.image = backButtonImage;
     item.width = -20;
     self.navigationItem.leftBarButtonItem = item;
+    [self addMenuButton];
+    
 }
 
 

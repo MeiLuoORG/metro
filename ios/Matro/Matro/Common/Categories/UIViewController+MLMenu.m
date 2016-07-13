@@ -65,6 +65,7 @@
         switch (index) {
             case 0: //首页 跳到首页
             {
+                [self.navigationController popToRootViewControllerAnimated:YES];
                 [self.tabBarController setSelectedIndex:0];
             }
                 break;

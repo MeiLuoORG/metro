@@ -1624,7 +1624,6 @@
     vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",_paramDic[@"userid"],phone];
     vc.uid = _paramDic[@"userid"];
     vc.shopparamDic = dPDic;
-    NSLog(@"dpdic===111%@===222%@",dPDic,vc.shopparamDic);
     
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];

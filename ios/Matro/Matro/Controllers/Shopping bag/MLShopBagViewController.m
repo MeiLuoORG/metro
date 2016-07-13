@@ -39,6 +39,7 @@
 #import "MLLikeHeadCollectionReusableView.h"
 #import "MLOrderSubmitViewController.h"
 #import "MLCommitOrderListModel.h"
+#import "MLShopInfoViewController.h"
 
 @interface MLShopBagViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,CPStepperDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
 @property (nonatomic,strong)UITableView *tableView;
@@ -387,6 +388,12 @@ static NSInteger pageIndex = 0;
         MLShopingCartModel *model = [self.shopCart.cart objectAtIndex:section];
         cartHead.checkBox.cartSelected = model.select_All;
         cartHead.shopingCart = model;
+        cartHead.shopClick = ^(){ //点击店铺事件
+            MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
+            vc.uid = model.sell_userid;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        };
         cartHead.cartHeadBlock = ^(BOOL isSelect){
             model.select_All = isSelect;
             for (MLProlistModel *sek in model.prolist) {
@@ -428,11 +435,17 @@ static NSInteger pageIndex = 0;
         };
         
     }else{
-         MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:section];
+        MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:section];
         cartHead.titleLabel.text = cart.cpInfo.company;
         cartHead.arrow.hidden = YES;
         cartHead.youhuiBtn.hidden = YES;
         cartHead.checkBox.cartSelected = cart.checkAll;
+        cartHead.shopClick = ^(){ //点击店铺事件
+            MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
+            vc.uid = cart.cpInfo.cid;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        };
         cartHead.cartHeadBlock = ^(BOOL isSelect){
             cart.checkAll = isSelect;
             for (OffLlineShopCart *model in cart.goodsArray) {

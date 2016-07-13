@@ -22,6 +22,7 @@
 @property (nonatomic,copy)NSString *shipping_tel;
 @property (nonatomic,copy)NSString *remainder;
 @property (nonatomic,copy)NSString *process;
+@property (nonatomic,assign)float b2cyhq;
 
 @property (nonatomic,strong)MLOrderDetailSellerinfo *sellerinfo;
 

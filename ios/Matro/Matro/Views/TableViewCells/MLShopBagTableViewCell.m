@@ -8,6 +8,7 @@
 
 #import "MLShopBagTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "HFSConstants.h"
 
 @implementation MLShopBagTableViewCell
 
@@ -27,24 +28,24 @@
     if (_prolistModel != prolistModel) {
         _prolistModel = prolistModel;
         [self.countField setTextValue:_prolistModel.num];
-        self.countField.maxValue = _prolistModel.amount;
+        self.countField.maxValue = _prolistModel.amount - _prolistModel.safe_amount;
         self.countField.minValue = 1;
-        [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic]];
+        [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic] placeholderImage:PLACEHOLDER_IMAGE];
         self.goodName.text = _prolistModel.pname;
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.pro_price];
         self.checkBox.cartSelected = (_prolistModel.is_check == 1);
         self.manjianLabel.hidden = !(_prolistModel.mjtitle.length > 0);
-        if (_prolistModel.setmealname.length > 0) {
-            self.goodDesc.text = [NSString stringWithFormat:@"%@：%@",_prolistModel.setmealname,_prolistModel.setmeal];
+        if (_prolistModel.setmealname.length> 0 ) {
+             self.goodDesc.text = [NSString stringWithFormat:@"%@",_prolistModel.setmealname];
         }
-
+    
     }
 }
 
 - (void)setOfflineCart:(OffLlineShopCart *)offlineCart{
     if (_offlineCart != offlineCart) {
         _offlineCart = offlineCart;
-        [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_offlineCart.pic]];
+        [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_offlineCart.pic] placeholderImage:PLACEHOLDER_IMAGE];
         self.goodName.text = _offlineCart.pname;
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _offlineCart.pro_price];
         self.checkBox.cartSelected = NO;
@@ -60,7 +61,6 @@
 - (IBAction)changeCheckBox:(id)sender {
     MLCheckBoxButton *btn = (MLCheckBoxButton *)sender;
     btn.cartSelected = !btn.cartSelected;
-    //    self.prolistModel.is_check = btn.cartSelected?1:0;
     if (self.shopCartCheckBoxBlock) {
         self.shopCartCheckBoxBlock(btn.cartSelected);
     }

@@ -63,20 +63,15 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(wxPayResult:) name:kNOTIFICATIONWXPAY object:nil];
     
-    
-    
-
     _payImageArray = [NSMutableArray array];
     _payTitleArray = [NSMutableArray array];
     
     [_payTitleArray addObject:@"支付宝"];
     [_payImageArray addObject:@"zhifubao-1"];
-    
-    if (!_isGlobal) {
+    if (!_isGlobal){
         [_payTitleArray addObject:@"微信支付"];
         [_payImageArray addObject:@"weixin"];
     }
-    
     [_payTitleArray addObject:@"银联支付"];
     [_payImageArray addObject:@"yinglian"];
     
@@ -187,6 +182,11 @@
     }
     cell.payImageView.image = [UIImage imageNamed:_payImageArray[indexPath.row]];
     cell.payLabel.text = _payTitleArray[indexPath.row];
+    if (indexPath.row == _payImageArray.count - 1) {
+        cell.appleImage.hidden = NO;
+    }else{
+        cell.appleImage.hidden = YES;
+    }
     return cell;
 }
 
@@ -350,16 +350,13 @@
         NSDictionary * ret = @{@"order_id":self.order_id,@"payment_type":@"weixin"};
         [MLHttpManager post:ZhiFu_LIUSHUI_URLString params:ret m:@"product" s:@"pay" success:^(id responseObject) {
             NSDictionary * results = (NSDictionary *)responseObject;
-            NSLog(@"请求订单流水：%@",results);
-
-
             if ([results[@"code"] isEqual:@0]) {
                 
                 NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
-                [[HFSServiceClient sharedPayClient]POST:@"http://pay.matrojp.com/PayCenter/app/v200/unionpay" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSString *url = @"http://pay.matrojp.com/PayCenter/app/v200/unionpay";
+                
+                [[HFSServiceClient sharedPayClient]POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSString *tn = [responseObject objectForKey:@"tn"];
-                    
-
                     [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];

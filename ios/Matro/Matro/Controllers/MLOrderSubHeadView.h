@@ -27,7 +27,11 @@ typedef void(^IDCardIsOK)(BOOL);
 @property (nonatomic,copy)OrderSubChangeInfo orderSubChangeInfo;
 @property (nonatomic,copy)AddressHeadClick addressHeadClick;
 
+@property (weak, nonatomic) IBOutlet UIView *addressBgView;
 @property (nonatomic,copy)IDCardIsOK   idcardisOk;
+
+
+@property (nonatomic,assign)BOOL isShowSFZ;
 
 
 - (IBAction)saveClick:(id)sender;

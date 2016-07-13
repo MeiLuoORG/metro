@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -22,7 +22,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnl-ss-IxV">
-                        <rect key="frame" x="60" y="11" width="227" height="21"/>
+                        <rect key="frame" x="60" y="11" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -30,18 +30,23 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhifubao-1" translatesAutoresizingMaskIntoConstraints="NO" id="pZI-fY-bbp">
                         <rect key="frame" x="12" y="11" width="27" height="22"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="闪付" translatesAutoresizingMaskIntoConstraints="NO" id="zwx-Mu-BEN">
+                        <rect key="frame" x="128" y="14" width="56" height="16"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="yuF-iT-kco" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="0Os-Fa-aSZ"/>
                     <constraint firstItem="pZI-fY-bbp" firstAttribute="centerY" secondItem="cnl-ss-IxV" secondAttribute="centerY" id="37I-Yc-PtH"/>
+                    <constraint firstItem="zwx-Mu-BEN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Bnc-ZH-StB"/>
                     <constraint firstItem="pZI-fY-bbp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Cyf-YU-jwn"/>
                     <constraint firstItem="cnl-ss-IxV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="FSm-1i-v4l"/>
+                    <constraint firstItem="zwx-Mu-BEN" firstAttribute="leading" secondItem="cnl-ss-IxV" secondAttribute="trailing" constant="26" id="SLa-k2-B2D"/>
                     <constraint firstItem="cnl-ss-IxV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="VY7-Wb-TzL"/>
                     <constraint firstAttribute="trailing" secondItem="yuF-iT-kco" secondAttribute="trailing" constant="12" id="aar-bG-9o7"/>
-                    <constraint firstItem="yuF-iT-kco" firstAttribute="leading" secondItem="cnl-ss-IxV" secondAttribute="trailing" constant="12" id="z48-aT-Bn4"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="appleImage" destination="zwx-Mu-BEN" id="9qf-0v-Ccv"/>
                 <outlet property="payImageView" destination="pZI-fY-bbp" id="0sD-qR-rvK"/>
                 <outlet property="payLabel" destination="cnl-ss-IxV" id="0UF-DQ-Rfj"/>
             </connections>
@@ -50,5 +55,6 @@
     <resources>
         <image name="xiayiye_arrow" width="9" height="17"/>
         <image name="zhifubao-1" width="27" height="22"/>
+        <image name="闪付" width="56" height="16"/>
     </resources>
 </document>

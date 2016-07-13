@@ -51,11 +51,30 @@
 
 - (float)realPrice{
     float count = 0;
-    count = self.realTax + self.sumprice - self.realYouHui + self.realYunFei;
+    count = self.realTax + self.sumprice - self.realYouHui + self.realYunFei - self.realManJian;
     return count;
     
 }
 
+- (float)realManJian{
+    float count = 0;
+    for (MLOrderCartModel *model in self.cart) {
+        count += model.reduce_price;
+    }
+    return count;
+}
+
+
+- (BOOL)isHaveHaiWai{
+    BOOL isHave = NO;
+    for (MLOrderCartModel *model in self.cart) {
+        if (model.way == 2) {
+            isHave = YES;
+            break;
+        }
+    }
+    return isHave;
+}
 
 
 
@@ -111,11 +130,18 @@
 
 - (float)dingdanXiaoji{
     float count = 0;
-    count = self.realShuiFei + self.sumprice - self.youhuiMoney + _kuaiDiFangshi.price;
+    count = self.realShuiFei + self.sumprice - self.youhuiMoney + _kuaiDiFangshi.price - self.reduce_price;
     return count;
     
 }
 
+
+- (float)realShuiFei{
+    float count = 0;
+    count = self.sumtax + self.kuaiDiFangshi.s_tax;
+    return count;
+    
+}
 
 
 
@@ -149,7 +175,10 @@
 
 @implementation MLConsigneeInfo
 
-
+- (BOOL)isOk{
+    return (self.address.length > 0 && self.mobile.length>0 && self.name.length > 0);
+    
+}
 
 @end
 
