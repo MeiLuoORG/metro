@@ -32,7 +32,7 @@
 #import "MLPinpaiCollectionViewCell.h"
 #import "PinPaiSPListViewController.h"
 #import "MLPPCollectionViewCell.h"
-
+#import "MLShopInfoViewController.h"
 #define HEADER_IDENTIFIER @"MLClassHeader"//第二大类用tableview的header来显示
 #define CCELL_IDENTIFIER @"MLClassCollectionViewCell"//第三大类用tableview的cell来显示
 
@@ -41,6 +41,7 @@
 @interface MLClassViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,YAScrollSegmentControlDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SearchDelegate>{
     
     NSArray *_classTitleArray;//第一大类数组
+    NSDictionary *actimageDic;//第一大类大图片字典
     NSMutableArray *_classSecondArray;//第二大类数组
     
     NSMutableDictionary *brandDic;
@@ -48,12 +49,14 @@
     
     UITextField *searchText;
     UIImageView *imageview;
+    
 }
 
 @property (strong, nonatomic) UISearchBar *searchBar;
 
 
 @property (strong, nonatomic) IBOutlet YAScrollSegmentControl *topScrollSegmentControl;
+
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
 
@@ -70,6 +73,7 @@
     brandArr = [NSMutableArray array];
     brandDic = [NSMutableDictionary dictionary];
     _classSecondArray = [NSMutableArray array];
+    actimageDic = [NSDictionary dictionary];
 
     [_tableView registerNib:[UINib nibWithNibName:@"MLClassHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:HEADER_IDENTIFIER];
     
@@ -78,8 +82,9 @@
     _topScrollSegmentControl.tintColor = [UIColor whiteColor];
     [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateSelected];
     [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"C29F8C"] forState:UIControlStateNormal];
-    [_topScrollSegmentControl setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:self.view.frame.size] forState:UIControlStateSelected];
-    [_topScrollSegmentControl setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:self.view.frame.size] forState:UIControlStateNormal];
+    [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_g1"] forState:UIControlStateSelected];
+    [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_w"]  forState:UIControlStateNormal];
+    
     _topScrollSegmentControl.delegate = self;
     [_topScrollSegmentControl setFont:[UIFont fontWithName:@"Helvetica" size:18.0f]];
     _topScrollSegmentControl.selectedIndex = 0;
@@ -90,6 +95,9 @@
     view.backgroundColor = [UIColor colorWithHexString:@"F1F1F1"];
     [view addSubview:imageview];
     self.tableView.tableHeaderView = view;
+    
+    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerAction:)];
+    [view addGestureRecognizer:singleTap];
     
     UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action:@selector(nothing)];
     self.navigationItem.leftBarButtonItem = left;
@@ -110,15 +118,49 @@
 
 //分类点击事件（大图片）
 -(void)headerAction:(UITapGestureRecognizer *)tap{
+    NSLog(@"actimageDic1111===%@",actimageDic);
+    if (![actimageDic isEqual:@0]) {
+        NSString *ggtype = actimageDic[@"ggtype"];
+        NSString *ggv = actimageDic[@"ggv"];
+        if ([ggtype isEqualToString:@"1"]) {
+            MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+            vc.paramDic = @{@"id":ggv};
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if([ggtype isEqualToString:@"2"]){
+            
+            PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
+            self.hidesBottomBarWhenPushed = YES;
+            vc.searchString = ggv;
+            vc.title = @"品牌馆";
+            [self.navigationController pushViewController:vc animated:NO];
+            self.hidesBottomBarWhenPushed = NO;
+            
+        }else if([ggtype isEqualToString:@"3"]){
+            
+            MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
+            vc.filterParam = @{@"flid":ggv};
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }else if([ggtype isEqualToString:@"4"]){
+            
+            
+        }else if([ggtype isEqualToString:@"5"]){
+            
+            MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
+            NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
+            vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",ggv,phone];
+            vc.uid = ggv;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        }
+    }else{
+        
+        
+    }
     
-    
-    MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
-  
-    MLSecondClass *headerClass = _classSecondArray[tap.view.tag];
-    NSString *keyword = headerClass.SecondaryClassification_Ggw.mc;
-    vc.filterParam = @{@"keyword":keyword};
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
   
 }
 
@@ -188,6 +230,24 @@
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         [_classSecondArray removeAllObjects];
+        
+        actimageDic = responseObject[@"data"][@"advertise"];
+        if (![actimageDic isEqual:@0]) {
+            NSString *imgurl = actimageDic[@"imgurl"];
+            if (![imgurl isKindOfClass:[NSNull class]]) {
+                [imageview sd_setImageWithURL:[NSURL URLWithString:imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+            }else{
+            
+                imageview.image = [UIImage imageNamed:@"icon_default"];
+            }
+            
+        }else{
+            
+            imageview.image = [UIImage imageNamed:@"icon_default"];
+        }
+
+        
+        
         NSArray *arr = responseObject[@"data"][@"ret"];
         brandDic = responseObject[@"data"][@"brandtitle"];
         brandArr = responseObject[@"data"][@"brand"];
@@ -495,13 +555,14 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 - (void)didSelectItemAtIndex:(NSInteger)index;{
 
     NSLog(@"%@",_topScrollSegmentControl.buttons[index]);
+    /*
     for (MLClass *title in _classTitleArray) {
         if ([_topScrollSegmentControl.buttons[index] isEqualToString:title.MC]) {
-            [imageview sd_setImageWithURL:[NSURL URLWithString:title.imgurl] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+            [imageview sd_setImageWithURL:[NSURL URLWithString:title.imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
             
         }
     }
-    
+    */
     //根据所选的一级大类来刷新二三级大类
     [self loadDateSubClass:index];
 }

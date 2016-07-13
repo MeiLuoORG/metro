@@ -43,6 +43,7 @@
     
     NSMutableArray * _labelARR;
     BOOL _isTopHiden;
+    NSMutableArray *verInfoArr;
 }
 
 - (void)viewDidLoad {
@@ -701,6 +702,7 @@
         MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
         NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
         vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",sender,phone];
+        vc.uid = sender;
         vc.shopparamDic = @{@"userid":sender,@"company":@""};
   
         vc.hidesBottomBarWhenPushed = YES;

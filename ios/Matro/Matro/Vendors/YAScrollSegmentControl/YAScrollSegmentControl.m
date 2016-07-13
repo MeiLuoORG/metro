@@ -204,12 +204,14 @@ static const CGFloat defaultGradientPercentage = 0.2;
 //        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:self.buttons[i]];
 //        NSRange strRange = {0,[str length]};
 //        [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];
+       // UIView *view = [[UIView alloc]initWithFrame:CGRectMake(x, 0, 20, self.frame.size.height)];
+        
         
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(x, 0, 20, self.frame.size.height - 2)];
         
 
 //        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 21, button.titleLabel.text.length, 1)];
-//        view.backgroundColor = [UIColor redColor];
+       // view.backgroundColor = [UIColor redColor];
         
         
         button.tag = i;
@@ -247,6 +249,7 @@ static const CGFloat defaultGradientPercentage = 0.2;
         }
         
         button.frame = (CGRect){button.frame.origin, {button.frame.size.width + (self.edgeMargin * 2), self.frame.size.height}};
+
         
         //button.spView = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(button.frame)-7, button.frame.size.width + (self.edgeMargin * 2)-40, 1.5)];
         //button.spView.backgroundColor = [UIColor colorWithHexString:@"260E00"];
@@ -255,10 +258,14 @@ static const CGFloat defaultGradientPercentage = 0.2;
         
         //[button addSubview:button.spView];
         
+
+       // view.frame = (CGRect){button.frame.origin, {button.frame.size.width + (self.edgeMargin * 2), self.frame.size.height}};
+
         x = CGRectGetMaxX(button.frame);
         
         [self.scrollView addSubview:button];
-       // [self.scrollView addSubview:view];
+//        [view addSubview:button];
+//        [self.scrollView addSubview:view];
         
     }
     

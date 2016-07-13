@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
+#define SCREENWIDTH [UIScreen mainScreen].bounds.size.width
 
 @interface MLVersionViewController : UIViewController
 

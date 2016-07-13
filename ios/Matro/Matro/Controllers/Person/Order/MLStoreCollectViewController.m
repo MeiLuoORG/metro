@@ -236,6 +236,13 @@ static NSInteger page = 1;
      else{
          [weakself.storeslistArray removeObject:model];
         }
+    if (weakself.storeslistArray.count == self.dataSource.count) {
+             _footView.checkBoxBtn.isSelected = YES;
+        
+        }else{
+             _footView.checkBoxBtn.isSelected = NO;
+        
+        }
      };
 
     return cell;

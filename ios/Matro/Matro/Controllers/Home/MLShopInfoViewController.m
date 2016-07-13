@@ -32,7 +32,7 @@
 
 @end
 
-@interface MLShopInfoViewController ()<UIWebViewDelegate,JSObjectDelegate,UITextFieldDelegate,UISearchBarDelegate,UIGestureRecognizerDelegate>
+@interface MLShopInfoViewController ()<UIWebViewDelegate,JSObjectDelegate,UITextFieldDelegate,UISearchBarDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate>
 {
     UITextField *searchText;
     NSDictionary *dpDic;
@@ -95,8 +95,9 @@
     self.navigationItem.rightBarButtonItems = @[morebtnItem,sxuanbtnItem];
 
     
+    
     [self loadWebView];
-    [self isshoucang];
+    
     [self loaddataDianpu];
    
 }
@@ -104,6 +105,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self isshoucang];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
@@ -120,7 +122,8 @@
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(0);
     }];
-    NSString *url = [NSString stringWithFormat:@"http://61.155.212.146:3000/store/index?sid=20505&uid=%@",uid];
+    
+    NSString *url = [NSString stringWithFormat:@"http://61.155.212.146:3000/store/index?sid=%@&uid=%@",uid,userid];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
@@ -188,21 +191,37 @@
     
     NSLog(@"shopparamDic===%@type===%@",_shopparamDic,type);
     
-    if ([type isEqualToString:@"1"]) {
+    if (userid) {
         
-        [self shoucangDianpu:type];
-        
-        NSLog(@"1111");
-        
+        if ([type isEqualToString:@"1"]) {
+            
+            [self shoucangDianpu:type];
+            
+            NSLog(@"1111");
+            
+        }else{
+            
+            [self quxiaoshoucangDianpu:type];
+            
+            NSLog(@"0000");
+        }
     }else{
-    
-        [self quxiaoshoucangDianpu:type];
         
-        NSLog(@"0000");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [alert show];
+        return;
     }
+    
 
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    MLLoginViewController *vc = [[MLLoginViewController alloc] init];
+    vc.isLogin = YES;
+    [self presentViewController:vc animated:YES completion:nil];
+}
 
 - (void)skip:(NSString *)index Ui:(NSString *)sender{
     
@@ -445,12 +464,12 @@
                 if ([shopid isEqualToString:tempdic[@"shopid"]]) {
                     
                         NSString *alertJS=@"resStoreCollect(1)"; //准备执行的js代码
-                        [self.context evaluateScript:alertJS];//通过oc方法调用js的alert
+                        [self.context evaluateScript:alertJS];//通过oc方法调用js的
                             
                 }else{
                             
                     NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
-                    [self.context evaluateScript:alertJS];//通过oc方法调用js的alert
+                    [self.context evaluateScript:alertJS];//通过oc方法调用js的
                 }
 
             }

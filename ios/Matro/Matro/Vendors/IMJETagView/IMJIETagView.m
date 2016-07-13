@@ -30,20 +30,38 @@
 
     _tagsFrame = tagsFrame;
     for (NSInteger i=0; i<tagsFrame.tagsArray.count; i++) {
-        
-        UIButton *tagsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [tagsBtn setTitle:tagsFrame.tagsArray[i] forState:UIControlStateNormal];
-        [tagsBtn setTitleColor:UIColorRGBA(68,68,68,1) forState:UIControlStateNormal];
-        tagsBtn.titleLabel.font = TagTitleFont;
-        tagsBtn.tag = i;
-        tagsBtn.backgroundColor = UIColorRGBA(245,245,245,1);
-        tagsBtn.layer.masksToBounds = YES;
-        tagsBtn.layer.cornerRadius = 3.f;
-        [self makeCorner:self.borderSize view:tagsBtn color:UIColorRGBA(221, 221, 221, 1)];
-        tagsBtn.frame = CGRectFromString(tagsFrame.tagsFrames[i]);
-        [tagsBtn addTarget:self action:@selector(TagsBtn:) forControlEvents:UIControlEventTouchDown];
-        tagsBtn.enabled = _clickbool;
-        [self addSubview:tagsBtn];
+        if (i == 0) {
+            
+            UIButton *tagsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [tagsBtn setTitle:tagsFrame.tagsArray[i] forState:UIControlStateNormal];
+            [tagsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            tagsBtn.titleLabel.font = TagTitleFont;
+            tagsBtn.tag = i;
+            tagsBtn.backgroundColor = UIColorRGBA(255,78,37,1);
+            tagsBtn.layer.masksToBounds = YES;
+            tagsBtn.layer.cornerRadius = 3.f;
+            [self makeCorner:self.borderSize view:tagsBtn color:UIColorRGBA(221, 221, 221, 1)];
+            tagsBtn.frame = CGRectFromString(tagsFrame.tagsFrames[i]);
+            [tagsBtn addTarget:self action:@selector(TagsBtn:) forControlEvents:UIControlEventTouchDown];
+            tagsBtn.enabled = _clickbool;
+            [self addSubview:tagsBtn];
+        }
+        else{
+            
+            UIButton *tagsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [tagsBtn setTitle:tagsFrame.tagsArray[i] forState:UIControlStateNormal];
+            [tagsBtn setTitleColor:UIColorRGBA(68,68,68,1) forState:UIControlStateNormal];
+            tagsBtn.titleLabel.font = TagTitleFont;
+            tagsBtn.tag = i;
+            tagsBtn.backgroundColor = UIColorRGBA(245,245,245,1);
+            tagsBtn.layer.masksToBounds = YES;
+            tagsBtn.layer.cornerRadius = 3.f;
+            [self makeCorner:self.borderSize view:tagsBtn color:UIColorRGBA(221, 221, 221, 1)];
+            tagsBtn.frame = CGRectFromString(tagsFrame.tagsFrames[i]);
+            [tagsBtn addTarget:self action:@selector(TagsBtn:) forControlEvents:UIControlEventTouchDown];
+            tagsBtn.enabled = _clickbool;
+            [self addSubview:tagsBtn];
+        }
     }
 
 }

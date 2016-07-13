@@ -21,7 +21,7 @@
     // Do any additional setup after loading the view from its nib.
     
     _webView = ({
-        UIWebView *webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
+        UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-64)];
         webView.delegate = self;
         [self.view addSubview:webView];
         webView;
