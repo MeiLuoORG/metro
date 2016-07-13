@@ -350,11 +350,9 @@
         NSDictionary * ret = @{@"order_id":self.order_id,@"payment_type":@"weixin"};
         [MLHttpManager post:ZhiFu_LIUSHUI_URLString params:ret m:@"product" s:@"pay" success:^(id responseObject) {
             NSDictionary * results = (NSDictionary *)responseObject;
-<<<<<<< Updated upstream
-=======
+
             NSLog(@"请求订单流水：%@",results);
 
->>>>>>> Stashed changes
             if ([results[@"code"] isEqual:@0]) {
                 
                 NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
@@ -362,10 +360,7 @@
                 
                 [[HFSServiceClient sharedPayClient]POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSString *tn = [responseObject objectForKey:@"tn"];
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
                     [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];

@@ -65,11 +65,10 @@
         switch (index) {
             case 0: //首页 跳到首页
             {
-<<<<<<< Updated upstream
+
                 [self.navigationController popToRootViewControllerAnimated:YES];
-=======
-                [self.navigationController popViewControllerAnimated:NO];
->>>>>>> Stashed changes
+
+
                 [self.tabBarController setSelectedIndex:0];
                 
             }
