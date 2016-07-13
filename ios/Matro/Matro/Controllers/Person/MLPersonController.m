@@ -185,7 +185,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(actMessage) name:@"PushToMessage" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushToStoreCenter) name:@"PushToStore" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(PushToOrderCenter) name:@"PushToOrderCenter" object:nil];
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getMyZiChanAction) name:LingQuYouHuiQuan_NOTIFICATION_SUCCESS object:nil];
 }
 
 
@@ -196,9 +196,22 @@
 }
 
 - (void)pushToStoreCenter{
-    MLStoreCollectViewController *vc = [[MLStoreCollectViewController alloc]init];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:NO];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * loginid = (NSString *)[userDefaults objectForKey:kUSERDEFAULT_USERID];
+    if (loginid && [loginid isEqualToString:@""]) {
+
+        MLStoreCollectViewController *vc = [[MLStoreCollectViewController alloc]init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:NO];
+    }
+    else{
+        MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
+        loginVC.isLogin = YES;
+        [self presentViewController:loginVC animated:YES completion:nil];
+        
+    }
+
 }
 
 - (void)dealloc{
@@ -680,7 +693,7 @@
     }];
     [self.lingQuQuanView selectQuanBlockAction:^(BOOL success, YouHuiQuanModel *ret) {
         if (ret) {
-
+            [self getMyZiChanAction];
         }
     }];
     
@@ -1030,16 +1043,6 @@
     }
     if (sender.tag == 104) {
          NSLog(@"3客服");
-
-        if (!loginid) {
-            [self showError];
-            return;
-        }
-        [self hideZLMessageBtnAndSetingBtn];
- 
-       // MLCommitOrderViewController *vc = [[MLCommitOrderViewController alloc]init];
-        
-       // MLCusServiceController *vc = [[MLCusServiceController alloc]init];
         
         MLServiceViewController *vc = [[MLServiceViewController alloc]init];
         
@@ -1196,7 +1199,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-
+    [self.tabBarController.tabBar setHidden:NO];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -1667,12 +1670,12 @@
         [userDefaults setObject:@"0" forKey:Message_badge_num];
         MLMessagesViewController *vc = [[MLMessagesViewController alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController pushViewController:vc animated:NO];
     }
     else{
         MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
         loginVC.isLogin = YES;
-        [self presentViewController:loginVC animated:NO completion:nil];
+        [self presentViewController:loginVC animated:YES completion:nil];
         
     }
     

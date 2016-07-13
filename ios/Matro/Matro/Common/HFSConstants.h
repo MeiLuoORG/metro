@@ -132,6 +132,9 @@
 //所有支付成功
 #define PaySuccess_NOTIFICATION_SUCCESS         @"PaySuccess_NOTIFICATION_SUCCESS"
 
+//领取优惠券  成功
+#define LingQuYouHuiQuan_NOTIFICATION_SUCCESS   @"LingQuYouHuiQuan_NOTIFICATION_SUCCESS"
+
 /*zhoulu*/
 
 #define LoadNibWithSelfClassName [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil]firstObject]
