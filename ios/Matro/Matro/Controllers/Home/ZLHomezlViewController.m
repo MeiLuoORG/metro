@@ -768,6 +768,8 @@
 }
 
 - (void)homeSubViewController:(ZLHomeSubViewController *)subVC withContentOffest:(float)haViewOffestY{
+
+    
     if (haViewOffestY < self.historyOffestY) {
         
         if (self.historyOffestY > haViewOffestY + 25) {
@@ -814,6 +816,7 @@
         
     }
 
+    
 }
 
 #pragma mark ZLHomeSubVieDragProtocol方法结束

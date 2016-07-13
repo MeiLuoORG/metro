@@ -452,7 +452,7 @@
                                               // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                               NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                                               //NSLog(@"error原生数据登录：++： %@",yuanDic);
-                                              //NSLog(@"设置默认卡%@",result);
+                                              //NSLog(@"默认卡详细信息：%@",result);
                                               if ([result[@"succ"] isEqual:@1]) {
                                                  
                                                   NSDictionary * userDataDic = result[@"data"];
@@ -768,6 +768,7 @@
             NSString *ret2 = base64_encode_data(data2);
             
             [self yuanShengMoRenKaWithRet2:ret2];
+            
             /*
             //@"vip/AuthUserInfo"
             [[HFSServiceClient sharedClient] POST:BindCard_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -823,7 +824,7 @@
                                                   _hud.labelText = @"默认卡设置成功！";
                                                   [_hud hide:YES afterDelay:1.0f];
                                                   });
-                                                  NSString * cardTypeStr = [NSString stringWithFormat:@"%@",moCard.cardTypeIdString];
+                                                  NSString * cardTypeStr = [NSString stringWithFormat:@"%@",moCard.cardTypeName];
                                                   NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
                                                   [userDefault setObject:cardTypeStr forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                   [userDefault synchronize];

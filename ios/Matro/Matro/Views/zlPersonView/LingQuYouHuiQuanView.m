@@ -170,6 +170,7 @@
                 cell.yiLingQuImageView.hidden = NO;
                 NSString * indexRowStr = [NSString stringWithFormat:@"%ld",indexPath.row];
                 [_yilingQuCellDIC setObject:cell forKey:indexRowStr];
+                self.selectQuanBlock(YES,model);
                 
             }
             else{

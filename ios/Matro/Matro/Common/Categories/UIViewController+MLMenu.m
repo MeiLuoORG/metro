@@ -40,7 +40,7 @@
                 break;
             case 2: //消息 跳到消息页
             {
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:NO];
                 
                 [self.tabBarController setSelectedIndex:3];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"PushToMessage" object:nil];
@@ -48,7 +48,7 @@
                 break;
             case 3: //收藏 跳到收藏页
             {
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popToRootViewControllerAnimated:NO];
                 [self.tabBarController setSelectedIndex:3];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"PushToStore" object:nil];
             }

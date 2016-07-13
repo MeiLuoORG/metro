@@ -87,7 +87,7 @@
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 5;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellId = @"cellID";
@@ -136,14 +136,17 @@
         UIView * kongView = [[UIView alloc]init];
         cell.accessoryView = kongView;
         [cell.contentView addSubview:lable];
-    }else if (indexPath.row == 3) {
+    }
+    /*else if (indexPath.row == 3) {
         cell.textLabel.text = @"  身份证号";
 
         [cell addSubview:self.shenFenLabel];
-    }else if (indexPath.row == 4) {
+    }
+     */
+    else if (indexPath.row == 3) {
         cell.textLabel.text = @"  收货地址";
     }
-    else if(indexPath.row == 5){
+    else if(indexPath.row == 4){
         cell.textLabel.text = @"  修改密码";
     }
     if (indexPath.row != 2 || indexPath.row != 0) {
@@ -252,14 +255,14 @@
         [self.navigationController pushViewController:modifyNameVC animated:YES];
     }
     //收货地址
-    if (indexPath.row == 4) {
+    if (indexPath.row == 3) {
         MyAddressManagerViewController *vc = [[MyAddressManagerViewController alloc]init];
 //        vc.delegate = nil;
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
     //修改密码
-    if (indexPath.row == 5) {
+    if (indexPath.row == 4) {
         self.hidesBottomBarWhenPushed = YES;
         
         XiuGaiPasswordViewController * VC = [[XiuGaiPasswordViewController alloc]init];
@@ -272,6 +275,7 @@
          */
         //[self.navigationController pushViewController:modifyPasswordVC animated:YES];
     }
+    /*
     //身份证号码
     if (indexPath.row == 3) {
         self.hidesBottomBarWhenPushed = YES;
@@ -284,6 +288,7 @@
         }];
         [self.navigationController pushViewController:modifyPasswordVC animated:YES];
     }
+     */
 }
 - (BOOL) isCameraAvailable
 {

@@ -71,7 +71,11 @@
         context.exception = exceptionValue;
         NSLog(@"JavaScript异常信息：%@", exceptionValue);
     };
-    
+
+    /*
+    NSString *alertJS=@"alert('test js OC')"; //准备执行的js代码
+    [self.contextjs evaluateScript:alertJS];//通过oc方法调用js的alert
+    */
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     NSLog(@"HATestView.h网页加载错误：%@",error);
@@ -83,6 +87,9 @@
 #pragma mark UIScrollView代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     //NSLog(@"scrollViewDidScroll方法:%g",scrollView.contentOffset.y);
+//    float g = scrollView.contentOffset.y;
+    //NSString *alertJS=@"indexScroll()"; //准备执行的js代码
+    //[self.contextjs evaluateScript:alertJS];//通过oc方法调用js的alert
     if (self.homeSubDelegate && [self.homeSubDelegate respondsToSelector:@selector(homeSubViewController:withContentOffest:)]) {
         [self.homeSubDelegate homeSubViewController:self withContentOffest:scrollView.contentOffset.y];
     }
