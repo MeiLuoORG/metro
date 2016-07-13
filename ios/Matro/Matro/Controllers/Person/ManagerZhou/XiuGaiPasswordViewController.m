@@ -75,7 +75,10 @@
     }
     else if ([self.SecondField.text isEqualToString:@""]||[self.ThirdField.text isEqualToString:@""]) {
         errStr = @"请输入新密码";
-    }else if (![self.SecondField.text isEqualToString:self.ThirdField.text]){
+    }else if([self.oldField.text isEqualToString:self.SecondField.text]){
+        errStr = @"新密码不能与旧密码一致";
+    }
+    else if (![self.SecondField.text isEqualToString:self.ThirdField.text]){
         errStr = @"两次密码输入不一致，请确认。";
     } else if (self.SecondField.text.length < 6 || self.ThirdField.text.length > 20){
         errStr = @"请使用6-20位字母或数字。";

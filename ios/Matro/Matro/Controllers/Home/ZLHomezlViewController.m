@@ -711,13 +711,13 @@
     if ([type isEqualToString:@"9"]) {
         //频道
         NSLog(@"点击了四个按钮：%@",sender);
-        if ([sender isEqualToString:@"60"]) {
+        if ([sender isEqualToString:@"0"]) {
             //品牌馆
             PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
             pinVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:pinVC animated:YES];
         }
-        if ([sender isEqualToString:@"61"]) {
+        if ([sender isEqualToString:@"3"]) {
             //积分查询
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
@@ -733,7 +733,7 @@
             
             }
         }
-        if ([sender isEqualToString:@"62"]) {
+        if ([sender isEqualToString:@"2"]) {
             //打卡签到
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
@@ -748,7 +748,7 @@
                 
             }
         }
-        if ([sender isEqualToString:@"63"]) {
+        if ([sender isEqualToString:@"1"]) {
             //城市服务
             MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
             vc.title = @"热门活动";

@@ -10,7 +10,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "GTMNSString+URLArguments.h"
 #import "KZPhotoManager.h"
-
+#import "ZhengZePanDuan.h"
 @interface ShiMingViewController ()
 
 @end
@@ -111,7 +111,7 @@
     
     _hud = [[MBProgressHUD alloc]initWithView:self.view];
     [self.view addSubview:_hud];
-    if([_xingMingLabel.text isEqualToString:@""]){
+    if([_xingMingLabel.text isEqualToString:@""] || ![ZhengZePanDuan checkZhongWen:_xingMingLabel.text]){
     
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
@@ -119,6 +119,7 @@
         [_hud hide:YES afterDelay:1];
         return;
     }
+    
     if (_shenFenCardId.text.length != 18) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;

@@ -11,6 +11,7 @@
 #import "PinPaiZLViewController.h"
 #import "MLHttpManager.h"
 
+#import "MJRefresh.h"
 #import "CommonHeader.h"
 @class ZLHomeSubViewController;
 @protocol ZLHomeSubVieDragProtocol <NSObject>

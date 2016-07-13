@@ -26,5 +26,6 @@
 @property (strong, nonatomic) NSString * cardRule;
 @property (strong, nonatomic) NSString * cardImg;
 @property (strong, nonatomic) NSString * validCent;
+@property (strong, nonatomic) NSString * yuE;
 
 @end

@@ -199,7 +199,7 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * loginid = (NSString *)[userDefaults objectForKey:kUSERDEFAULT_USERID];
-    if (loginid && [loginid isEqualToString:@""]) {
+    if (loginid && ![loginid isEqualToString:@""]) {
 
         MLStoreCollectViewController *vc = [[MLStoreCollectViewController alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
@@ -575,6 +575,7 @@
     NSDictionary * ret = @{@"mobile":[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERPHONE]};
     
     NSString * cardNO = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERCARDNO];
+    NSLog(@"请求我的资产的默认卡号为：%@",cardNO);
     if (cardNO && ![cardNO isEqualToString:@""]) {
         
         NSString  * accessTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];

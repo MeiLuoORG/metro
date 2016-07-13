@@ -12,13 +12,44 @@
 
 @end
 
-@implementation MNNQRCodeViewController
+@implementation MNNQRCodeViewController{
+    
+    UILabel * _label1;
+    UILabel * _label2;
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"会员卡二维码";
+    
+    //vipCard
+    _label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 20)];
+    _label1.text = @"使用时向服务员出示二维码";
+    _label1.font = [UIFont systemFontOfSize:12];
+    _label1.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_label1];
+    // Do any additional setup after loading the view, typically from a nib.
+
+    
+    // set shadow
+    self.qrcodeView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-200)/2, CGRectGetMaxY(_label1.frame)+20, 200, 200)];
+    //self.qrcodeView.layer.shadowOffset = CGSizeMake(0, 2);
+    //self.qrcodeView.layer.shadowRadius = 2;
+    //self.qrcodeView.layer.shadowColor = [UIColor blackColor].CGColor;
+    //self.qrcodeView.layer.shadowOpacity = 0.5;
+    [self.view addSubview:self.qrcodeView];
+    
+    _label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.qrcodeView.frame)+10, self.view.frame.size.width, 20)];
+    _label2.text = @"每60秒刷新";
+    _label2.textAlignment = NSTextAlignmentCenter;
+    _label2.alpha = 0.5;
+    _label2.font = [UIFont systemFontOfSize:12];
+    [self.view addSubview:_label2];
+    
     //[self createViews];
     // Do any additional setup after loading the view.
+    [NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(getCardInfo) userInfo:nil repeats:YES];
     [self getCardInfo];
 }
 
@@ -45,10 +76,10 @@
     /*
     //@"vip/AuthUserInfo"
     [[HFSServiceClient sharedClient] POST:VIPCardJiFen_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+     
         NSDictionary *result = (NSDictionary *)responseObject;
 
-        
+     
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
@@ -87,31 +118,18 @@
                                                   if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
                                                       dispatch_async(dispatch_get_main_queue(), ^{
                                                       //vipCard
-                                                      UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 20)];
-                                                      label.text = @"使用时向服务员出示二维码";
-                                                      label.font = [UIFont systemFontOfSize:12];
-                                                      label.textAlignment = NSTextAlignmentCenter;
-                                                      [self.view addSubview:label];
                                                       // Do any additional setup after loading the view, typically from a nib.
                                                       NSString * erWeiMaString = userDataDic[@"QRCODE"];
                                                       UIImage *qrcode = [self createNonInterpolatedUIImageFormCIImage:[self createQRForString:erWeiMaString] withSize:200.0f];
                                                       UIImage *customQrcode = [self imageBlackToTransparent:qrcode withRed:60.0f andGreen:74.0f andBlue:89.0f];
                                                       
                                                       // set shadow
-                                                      self.qrcodeView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-200)/2, CGRectGetMaxY(label.frame)+20, 200, 200)];
                                                       self.qrcodeView.image = customQrcode;
                                                       //self.qrcodeView.layer.shadowOffset = CGSizeMake(0, 2);
                                                       //self.qrcodeView.layer.shadowRadius = 2;
                                                       //self.qrcodeView.layer.shadowColor = [UIColor blackColor].CGColor;
                                                       //self.qrcodeView.layer.shadowOpacity = 0.5;
-                                                      [self.view addSubview:self.qrcodeView];
-                                                      
-                                                      UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.qrcodeView.frame)+10, self.view.frame.size.width, 20)];
-                                                      label1.text = @"每30分钟刷新";
-                                                      label1.textAlignment = NSTextAlignmentCenter;
-                                                      label1.alpha = 0.5;
-                                                      label1.font = [UIFont systemFontOfSize:12];
-                                                      [self.view addSubview:label1];
+
                                                       });
                                                       
                                                   }else{
@@ -159,7 +177,7 @@
     imageView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:imageView];
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imageView.frame)+10, self.view.frame.size.width, 20)];
-    label1.text = @"每30分钟刷新";
+    label1.text = @"每60秒刷新";
     label1.textAlignment = NSTextAlignmentCenter;
     label1.alpha = 0.5;
     label1.font = [UIFont systemFontOfSize:12];

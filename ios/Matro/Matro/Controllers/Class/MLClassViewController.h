@@ -8,6 +8,7 @@
 
 #import "MLBaseViewController.h"
 
+
 @interface MLClassViewController : MLBaseViewController
 
 @end

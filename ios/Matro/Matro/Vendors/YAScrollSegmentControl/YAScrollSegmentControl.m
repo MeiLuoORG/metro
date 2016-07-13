@@ -13,6 +13,7 @@
  */
 
 #import "YAScrollSegmentControl.h"
+//#import "ZLCustomButton.h"
 
 IB_DESIGNABLE
 
@@ -206,6 +207,7 @@ static const CGFloat defaultGradientPercentage = 0.2;
         
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(x, 0, 20, self.frame.size.height - 2)];
         
+
 //        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 21, button.titleLabel.text.length, 1)];
 //        view.backgroundColor = [UIColor redColor];
         
@@ -246,6 +248,13 @@ static const CGFloat defaultGradientPercentage = 0.2;
         
         button.frame = (CGRect){button.frame.origin, {button.frame.size.width + (self.edgeMargin * 2), self.frame.size.height}};
         
+        //button.spView = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(button.frame)-7, button.frame.size.width + (self.edgeMargin * 2)-40, 1.5)];
+        //button.spView.backgroundColor = [UIColor colorWithHexString:@"260E00"];
+        
+        //button.spView.hidden  = YES;
+        
+        //[button addSubview:button.spView];
+        
         x = CGRectGetMaxX(button.frame);
         
         [self.scrollView addSubview:button];
@@ -275,9 +284,11 @@ static const CGFloat defaultGradientPercentage = 0.2;
     for (UIButton *button in self.scrollView.subviews) {
         if (![button isKindOfClass:[UIButton class]]) continue;
         button.selected = NO;
+        //button.spView.hidden = YES;
     }
     
     sender.selected = YES;
+    //sender.spView.hidden = NO;
     
     if ([self.delegate respondsToSelector:@selector(didSelectItemAtIndex:)]) {
         [self.delegate didSelectItemAtIndex:sender.tag];

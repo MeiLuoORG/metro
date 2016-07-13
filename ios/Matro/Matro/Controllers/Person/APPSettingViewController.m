@@ -192,12 +192,12 @@
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;{
-    return 3;
+    return 4;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 1){//点击清除缓存
+    if (indexPath.row == 2){//点击清除缓存
         _hud = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
         [[SDImageCache sharedImageCache]clearDiskOnCompletion:^{
@@ -210,7 +210,7 @@
 
         
     }
-    else if (indexPath.row == 2){//关于我们
+    else if (indexPath.row == 3){//关于我们
         MNNAboutUsViewController *vc = [[MNNAboutUsViewController alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
@@ -221,7 +221,12 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    if (indexPath.row==1) {
+        return 80;
+    }
+    else{
+        return 40;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;{
     
@@ -239,13 +244,26 @@
             cell.descLB.hidden = YES;
             break;
         case 1:
+            
+            cell.lbname.text = @"接收通知";
+            cell.valueLB.text = [NSString stringWithFormat:@"%.1fM",[[SDImageCache sharedImageCache]getSize]/1024.0/1024.0];
+            if ([[UIApplication sharedApplication] currentUserNotificationSettings].types == 0) {
+                cell.valueLB.text = @"已关闭";
+            }
+            else{
+                
+                cell.valueLB.text = @"已开启";
+            }
+            cell.descLB.text = @"如需关闭或开启新消息通知，请在手机设置-通知功能中，找到“苏州美罗精品”进行更改";
+            break;
+        case 2:
             cell.lbname.text = @"清除缓存";
             cell.valueLB.text = [NSString stringWithFormat:@"%.1fM",[[SDImageCache sharedImageCache]getSize]/1024.0/1024.0];
             cell.valueLB.hidden = !([[SDImageCache sharedImageCache]getSize]>0);
             cell.descLB.hidden = YES;
             
             break;
-        case 2:
+        case 3:
             {
             cell.lbname.text = @"关于我们";
             cell.descLB.hidden = YES;

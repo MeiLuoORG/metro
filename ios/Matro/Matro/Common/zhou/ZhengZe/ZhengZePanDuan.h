@@ -25,4 +25,6 @@
 + (BOOL)checkPasswordMeiLuo:(NSString *)password;
 #pragma 英文字母
 + (BOOL)checkEnglishZiMu:(NSString *)string;
+#pragma 中文判断
++ (BOOL)checkZhongWen:(NSString *)zhongWen;
 @end
