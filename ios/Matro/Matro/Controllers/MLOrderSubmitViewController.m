@@ -355,7 +355,6 @@ static BOOL idCardOk = NO;
                     return cell;
                 }
             }
-  
                 break;
             default:
                 break;

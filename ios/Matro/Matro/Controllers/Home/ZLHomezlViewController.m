@@ -688,7 +688,7 @@
             [self.navigationController pushViewController:vc animated:NO];
             self.hidesBottomBarWhenPushed = NO;
             
-        }
+        }   
         
 
         
@@ -696,10 +696,11 @@
     if ([type isEqualToString:@"3"]) {
         //分类
         if ([sender isEqualToString:@"all"]) {
+//
+//            UITabBarController *rootViewController = (UITabBarController *)((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
+//            [rootViewController setSelectedIndex:1];
             
-            UITabBarController *rootViewController = (UITabBarController *)((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
-            [rootViewController setSelectedIndex:1];
-            //[self.tabBarController setSelectedIndex:1];
+            [self.tabBarController setSelectedIndex:3];
         }else{
             
             MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];

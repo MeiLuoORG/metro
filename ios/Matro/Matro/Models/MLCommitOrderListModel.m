@@ -52,9 +52,12 @@
 - (float)realPrice{
     float count = 0;
     count = self.realTax + self.sumprice - self.realYouHui + self.realYunFei - self.realManJian;
-    return count;
-    
+    if (count > 0) {
+        return count;
+    }
+    return 0;
 }
+
 
 - (float)realManJian{
     float count = 0;
@@ -76,6 +79,15 @@
     return isHave;
 }
 
+
+- (void)setIdentity_card:(NSString *)identity_card{
+    if (_identity_card != identity_card) {
+        _identity_card = identity_card;
+        if ([_identity_card isEqualToString:@"0"]) {
+            _identity_card = nil;
+        }
+    }
+}
 
 
 

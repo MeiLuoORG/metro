@@ -144,14 +144,9 @@
 #pragma mark JS回调方法
 
 - (void)skip:(NSString *)index Ui:(NSString *)sender{
-    
-    NSLog(@"点击了网页：%@++++++%@",index,sender);
-    //[self performSelectorOnMainThread:@selector(pushToGoodsDetail:withUi:) withObject:index waitUntilDone:YES];
-    dispatch_sync(dispatch_get_main_queue(), ^{
-       
+       dispatch_sync(dispatch_get_main_queue(), ^{
         [self pushToGoodsDetail:index withUi:sender];
-        
-    });
+       });
 }
 
 - (void)pushToGoodsDetail:(NSString *)index withUi:(NSString *)sender{

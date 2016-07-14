@@ -21,6 +21,9 @@ typedef void(^ShopHeadClick)();
 @interface MLShopBagHeaderView : UITableViewHeaderFooterView
 
 @property (nonatomic,strong)UILabel *titleLabel;
+
+
+
 @property (nonatomic,strong)UIImageView *arrow;
 @property (nonatomic,strong)MLCheckBoxButton *checkBox;
 @property (nonatomic,copy)CartHeadBlock cartHeadBlock;

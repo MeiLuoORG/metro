@@ -55,7 +55,7 @@
                 self.payBtn.hidden = NO;
                 self.cancelBtn.hidden = NO;
                 self.shenyuLb.hidden = YES;
-                [self.cancelBtn setTitle:@"订单追踪" forState:UIControlStateNormal];
+                [self.cancelBtn setTitle:@"退款" forState:UIControlStateNormal];
                 [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
             }
                 break;
@@ -67,7 +67,7 @@
                 self.payBtn.hidden = NO;
                 self.cancelBtn.hidden = NO;
                 self.shenyuLb.hidden = YES;
-                [self.cancelBtn setTitle:@"订单追踪" forState:UIControlStateNormal];
+                [self.cancelBtn setTitle:@"退款" forState:UIControlStateNormal];
                 [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
             }
                 break;
@@ -120,7 +120,7 @@
             break;
         case FooterTypeDaiQueren:{
             if (self.orderDetailButtonActionBlock) {
-                self.orderDetailButtonActionBlock(ButtonActionTypeZhuizong);
+                self.orderDetailButtonActionBlock(ButtonActionTypeTuiKuan);
             }
         }
         break;
@@ -134,7 +134,7 @@
         case FooterTypeDaishouhuo:
         {
             if (self.orderDetailButtonActionBlock) {
-                self.orderDetailButtonActionBlock(ButtonActionTypeZhuizong);
+                self.orderDetailButtonActionBlock(ButtonActionTypeTuiKuan);
             }
         }
             break;

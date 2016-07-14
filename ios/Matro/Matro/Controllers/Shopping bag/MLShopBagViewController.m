@@ -324,7 +324,23 @@ static NSInteger pageIndex = 0;
         cell.countField.proList = goods;
         cell.shopCartCheckBoxBlock = ^(BOOL isCheck){
             goods.is_check = isCheck?1:0;
+            BOOL isAll = YES;
+            for (OffLlineShopCart *good in cart.goodsArray) {
+                if (good.is_check == 0) {
+                    isAll = NO;
+                    break;
+                }
+            }
+            cart.checkAll = isAll;
+            BOOL isCartAll = YES;
+            for (MLOffLineShopCart *cart in self.offlineCart) {
+                if (cart.checkAll == NO) {
+                    isCartAll = NO;
+                }
+            }
+            self.footView.checkBox.cartSelected = isCartAll;
             [self countAllPrice];
+            [self.tableView reloadData];
         };
         cell.rightSwipeSettings.transition = MGSwipeTransitionBorder;
         cell.rightExpansion.buttonIndex = -1;
@@ -446,14 +462,15 @@ static NSInteger pageIndex = 0;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         };
+        
         cartHead.cartHeadBlock = ^(BOOL isSelect){
             cart.checkAll = isSelect;
             for (OffLlineShopCart *model in cart.goodsArray) {
                 model.is_check = isSelect?1:0;
             }
             BOOL isCartAll = YES;
-            for (MLShopingCartModel *cart in self.shopCart.cart) {
-                if (cart.select_All == NO) {
+            for (MLOffLineShopCart *cart in self.offlineCart) {
+                if (cart.checkAll == NO) {
                     isCartAll = NO;
                 }
             }
@@ -686,6 +703,13 @@ static NSInteger pageIndex = 0;
         [self.tableView reloadData];
     }
     self.footView.checkBox.cartSelected = NO;
+    if (!self.isLogin) {  //遍历所有商品  取消选中
+        for (MLOffLineShopCart *cp in self.offlineCart) {
+            for (OffLlineShopCart *cart in cp.goodsArray) {
+                cart.is_check = 0;
+            }
+        }
+    }
     [self configBlankPage];
     self.loginView.hidden = self.isLogin;
     [self countAllPrice];

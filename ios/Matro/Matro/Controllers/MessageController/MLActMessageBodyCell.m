@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     UILongPressGestureRecognizer * longPressGr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(delAction:)];
     longPressGr.minimumPressDuration = 1.0;
     [self addGestureRecognizer:longPressGr];
@@ -24,7 +24,6 @@
     if (self.delAction) {
         self.delAction();
     }
-    NSLog(@"长按删除");
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

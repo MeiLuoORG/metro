@@ -142,6 +142,18 @@
                     [weakself.navigationController pushViewController:vc animated:YES];
                 }
                     break;
+                case ButtonActionTypeTuiKuan://退款
+                {
+                    
+                    if (self.orderDetail.way == 2) { //跨境购
+                        [MBProgressHUD showMessag:@"跨境购商品不支持退款" toView:self.view];
+                    }else{
+                        MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
+                        vc.order_id =weakself.order_id;
+                        [weakself.navigationController pushViewController:vc animated:YES];
+                    }
+                }
+                    break;
                     
                 default:
                     break;
@@ -590,6 +602,7 @@
     if (restm/60/60>24) { //小时   如果倒计时超过2小时 不显示倒计时
         self.footView.daojishiLb.hidden = YES;
         self.footView.shenyuLb.hidden = YES;
+        [self.footView.payBtn setTitle:@"订单已超时" forState:UIControlStateNormal];
         self.footView.payBtn.backgroundColor = [UIColor grayColor];
         self.footView.payBtn.enabled = NO;
     }
@@ -610,7 +623,11 @@
             dispatch_source_cancel(_timer);
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置界面的按钮显示 根据自己需求设置
+                self.footView.daojishiLb.hidden = YES;
+                self.footView.shenyuLb.hidden = YES;
                 self.footView.payBtn.enabled = NO;
+                [self.footView.payBtn setTitle:@"订单已超时" forState:UIControlStateNormal];
+                
                 [self.footView.payBtn setBackgroundColor:[UIColor grayColor]];
             });
         }else{

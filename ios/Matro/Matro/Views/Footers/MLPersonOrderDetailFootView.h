@@ -16,8 +16,8 @@ typedef NS_ENUM(NSInteger,FooterType){
     FooterTypeJiaoyiguanbi,
     FooterTypeJiaoyichenggong,
     FooterTypeQitazhuangtai,
-    FooterTypeQuxiao
-    
+    FooterTypeQuxiao,
+   
 };
 typedef NS_ENUM(NSInteger,ButtonActionType){
     ButtonActionTypeShanchu,
@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     ButtonActionTypeQuerenshouhuo,
     ButtonActionTypePingJia,
     ButtonActionTypeTuiHuo,
+    ButtonActionTypeTuiKuan
 };
 
 

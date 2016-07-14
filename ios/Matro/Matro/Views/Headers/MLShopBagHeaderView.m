@@ -34,6 +34,7 @@
     [self addSubview:titleLb];
     UIImageView *arrow = [[UIImageView alloc]initWithFrame:CGRectZero];
     arrow.image = [UIImage imageNamed:@"跳转箭头"];
+    
     self.arrow = arrow;
     [self addSubview:arrow];
     UIButton *shopBtn = [[UIButton alloc]initWithFrame:CGRectZero];
@@ -56,16 +57,16 @@
     [checkBox mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.height.width.mas_equalTo(42);
-        make.left.mas_equalTo(self).offset(0);
+        make.left.mas_equalTo(self);
         
     }];
     [titleLb mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
-        make.left.mas_equalTo(checkBox.mas_right).offset(0);
+        make.left.mas_equalTo(checkBox.mas_right);
     }];
     [arrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
-        make.left.mas_equalTo(titleLb.mas_right).offset(8);
+        make.left.mas_equalTo(titleLb.mas_right);
         make.width.mas_equalTo(12);
         make.height.mas_equalTo(12);
     }];
@@ -103,9 +104,38 @@
 - (void)setShopingCart:(MLShopingCartModel *)shopingCart{
     if (_shopingCart != shopingCart) {
         _shopingCart = shopingCart;
-        self.titleLabel.text = _shopingCart.company;
+        
         self.checkBox.cartSelected = _shopingCart.select_All;
         self.youhuiBtn.hidden = !(_shopingCart.dpyhq.count>0);
+        NSString *way = nil;
+        switch (_shopingCart.way) {
+            case 1:
+            {
+                way = @"海外直邮";
+            }
+                break;
+            case 2:
+            {
+                way = @"跨境购";
+            }
+                break;
+            case 3:
+            {
+                way = @"一般贸易";
+                
+            }
+                break;
+            default:
+                break;
+        }
+        NSString *warehouse = nil;
+        if (_shopingCart.warehouse_nickname.length > 0) {
+            warehouse = [NSString stringWithFormat:@"【%@】",_shopingCart.warehouse_nickname];
+        }else{
+            warehouse = @"";
+        }
+        self.titleLabel.text = _shopingCart.company;
+        self.titleLabel.text = [NSString stringWithFormat:@"%@【%@】%@",_shopingCart.company,way,warehouse];
     }
 }
 

@@ -37,9 +37,11 @@
         if (_youHuiQuan.useSum > 0) {
            self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",_youHuiQuan.useSum];
         }else{
+            self.editField.text = @""; //清空之前输入的金额
+            self.editField.hidden= NO;
             self.priceLabel.text = @"￥";
+            [self.editBtn setTitle:@"使用" forState:UIControlStateNormal];
         }
-
     }
 }
 
@@ -68,6 +70,10 @@
     }
 
 }
+
+
+
+
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     if (textField == self.editField) {

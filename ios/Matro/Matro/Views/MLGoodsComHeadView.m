@@ -27,7 +27,6 @@
     };
     [self.scoreBgView addSubview:scoreView];
     
-    
 }
 
 

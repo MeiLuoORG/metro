@@ -21,6 +21,7 @@
 #import "MBProgressHUD+Add.h"
 #import "UIViewController+MLMenu.h"
 #import "MLActWebViewController.h"
+#import "MLPersonAlertViewController.h"
 
 @interface MLActMessageViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)NSMutableArray *messageArray;
@@ -58,8 +59,6 @@
     [self.tableView.header beginRefreshing];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
     
-    
-    
     [self addMenuButton];
 }
 
@@ -91,15 +90,10 @@
         cell.descLabel.text = message.desc;
         __weak typeof(self) weakself = self;
         cell.delAction = ^(){
-            UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"确定删除？" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self deleteMessage:message];
-                
+            MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定删除此消息？" AndAlertDoneAction:^{
+                [weakself deleteMessage:message];
             }];
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-            [alertVc addAction:done];
-            [alertVc addAction:cancel];
-            [weakself presentViewController:alertVc animated:YES completion:nil];
+            [weakself showTransparentController:vc];
         };
         return cell;
     }
@@ -119,7 +113,7 @@
     if (indexPath.row == 0) {
         return 30;
     }else if (indexPath.row == 1){
-        return 210;
+        return 240;
     }
     else{
         return 30;
@@ -151,11 +145,11 @@
                 [self.messageArray removeAllObjects];
             }
             if (self.messageArray.count < [total integerValue]) {
-                [self.messageArray addObjectsFromArray:[MLActiveMessageModel mj_objectArrayWithKeyValuesArray:list]];
-                [self.tableView reloadData];
+               [self.messageArray addObjectsFromArray:[MLActiveMessageModel mj_objectArrayWithKeyValuesArray:list]]; 
             }else{
                 [MBProgressHUD showMessag:@"暂无更多数据" toView:self.view];
             }
+            [self.tableView reloadData];
         }
         else{
             NSString *msg = result[@"msg"];

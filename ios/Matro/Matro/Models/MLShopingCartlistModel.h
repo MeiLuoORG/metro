@@ -28,7 +28,7 @@
 @property (nonatomic,copy)NSString *company;
 @property (nonatomic,copy)NSString *logo;
 @property (nonatomic,copy)NSString *tel;
-@property (nonatomic,copy)NSString *way;
+@property (nonatomic,assign)NSInteger way;
 @property (nonatomic,copy)NSString *supplier;
 @property (nonatomic,copy)NSString *shipfree;
 @property (nonatomic,copy)NSString *warehousecode;

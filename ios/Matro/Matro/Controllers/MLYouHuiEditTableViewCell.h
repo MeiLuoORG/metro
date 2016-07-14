@@ -11,11 +11,9 @@
 
 
 typedef void(^YouHuiEditBlock)();
+
 #define kYouHuiEditTableViewCell @"youHuiEditTableViewCell"
 @interface MLYouHuiEditTableViewCell : UITableViewCell <UITextFieldDelegate>
-
-
-
 @property (weak, nonatomic) IBOutlet UILabel *yuLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UITextField *editField;
