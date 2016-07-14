@@ -397,9 +397,14 @@ static NSInteger page = 1;
         //keystr = [_searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     }
     
+    /*
+     
+     client_type=[android|ios]
+     语言的力量  11:45:15
+     app_version=1.0
+     */
     
-    
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=%@&brand_id=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,sort,ppid];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=%@&brand_id=%@&client_type=ios&app_version=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,sort,ppid,vCFBundleShortVersionStr];
     NSLog(@"品牌str====%@",str);
     
     

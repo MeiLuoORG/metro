@@ -27,8 +27,6 @@
         webView;
     });
 
-    
-    
     [self getWebContent];
     
     

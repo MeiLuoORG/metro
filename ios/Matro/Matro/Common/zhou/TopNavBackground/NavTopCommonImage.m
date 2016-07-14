@@ -64,12 +64,12 @@
 - (void)loadLeftBackButtonwith:(int)index{
     if (index == 0) {
         UIButton * backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [backBtn setFrame:CGRectMake(12, 36, 30, 17)];
+        [backBtn setFrame:CGRectMake(12, 36, 40, 17)];
         //[backBtn setBackgroundColor:[UIColor redColor]];
         [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         //[backBtn setBackgroundImage:[UIImage imageNamed:@"Left_Arrow"] forState:UIControlStateNormal];
         [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-        backBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
+        backBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);
         [self addSubview:backBtn];
     }
 

@@ -91,7 +91,7 @@
     
     for (int i = 0; i < self.bigPhotoImageArray.count; i++) {
         UIImageView *imageView = [[UIImageView alloc]init];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:self.bigPhotoImageArray[i][@"URL"]] placeholderImage:[UIImage imageNamed:@"imageloading"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [imageView sd_setImageWithURL:[NSURL URLWithString:self.bigPhotoImageArray[i]] placeholderImage:[UIImage imageNamed:@"icon_default"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
             CGSize maxSize = CGSizeMake(MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT);
             CGFloat widthRatio = maxSize.width / image.size.width;

@@ -36,21 +36,26 @@
         self.menuBGColor                     = [UIColor whiteColor];
         NSMutableArray *viewControllers = [[NSMutableArray alloc] init];
         NSMutableArray *titles = [[NSMutableArray alloc] init];
+        
         for (int i = 0; i < 5; i++) {
             Class vcClass;
             NSString *title;
+            
             switch (i) {
                 case 0:
                     vcClass = [MLPingjiaListViewController class];
                     title = @"全部";
+
                     break;
                 case 1:
                     vcClass = [MLPingjiaListViewController class];
                     title = @"好评";
+                    
                     break;
                 case 2:
                     vcClass = [MLPingjiaListViewController class];
                     title = @"中评";
+                    
                     break;
                 case 3:
                     vcClass = [MLPingjiaListViewController class];
@@ -59,16 +64,17 @@
                 case 4:
                     vcClass = [MLPingjiaListViewController class];
                     title = @"晒图";
+                    
                     break;
                 default:
                     break;
             }
             [viewControllers addObject:vcClass];
-            [titles addObject:title];
+            [titles addObject:title];     
         }
         self.viewControllerClasses = viewControllers;
         self.titles = titles;
-        
+   
     }
     return self;
 }
@@ -82,11 +88,12 @@
     self.viewFrame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-64);
     UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
     
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@""  style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
     item.title = @"";
     item.image = backButtonImage;
     item.width = -20;
     
+
     self.navigationItem.leftBarButtonItem = item;
 }
 

@@ -40,7 +40,7 @@
 #import "MLOrderSubmitViewController.h"
 #import "MLCommitOrderListModel.h"
 #import "MLShopInfoViewController.h"
-
+#import "CommonHeader.h"
 @interface MLShopBagViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,CPStepperDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)MLShopCartFootView *footView;
@@ -407,6 +407,7 @@ static NSInteger pageIndex = 0;
         cartHead.shopClick = ^(){ //点击店铺事件
             MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
             vc.uid = model.sell_userid;
+            vc.shopparamDic = @{@"userid":model.sell_userid,@"company":@""};
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         };

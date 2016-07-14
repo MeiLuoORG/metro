@@ -28,7 +28,10 @@
     NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
     NSString *sign = [self md5:signStr];
-    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
+
+    NSLog(@"MD5加密之后：%@",sign);
+    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr];
+
 
     // 2.发送请求
     [mgr POST:newUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -57,7 +60,7 @@
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
 
     NSString *sign = [self md5:signStr];
-    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
+    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr];
     [mgr POST:newUrl parameters:params constructingBodyWithBlock:block success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success(responseObject);
@@ -67,12 +70,8 @@
             failure(error);
         }
     }];
-    
-    
-    
+
 }
-
-
 
 + (void)get:(NSString *)url params:(id)params m:(NSString *)m s:(NSString *)s success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure
 {

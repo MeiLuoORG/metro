@@ -123,5 +123,6 @@
 
 #define Message_badge_num   @"message_badge_num"
 
+#define SelectSecondVC_NOTIFICATION     @"SelectSecondVC_NOTIFICATION"
 
 #endif

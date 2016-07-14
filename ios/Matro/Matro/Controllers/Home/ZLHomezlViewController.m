@@ -289,8 +289,8 @@
     [self.view addSubview:self.firstTopView];
     
     UIButton * leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftBtn setFrame:CGRectMake(10, 30, 22, 19)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
+    [leftBtn setFrame:CGRectMake(10, 27, 25, 25)];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"saomiaozhou"] forState:UIControlStateNormal];
     //[leftBtn setImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(scanning) forControlEvents:UIControlEventTouchUpInside];
     
@@ -305,24 +305,25 @@
     
     //添加边框和提示
     UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(45, 25, MAIN_SCREEN_WIDTH-45-46, 28)] ;
-    frameView.layer.borderWidth = 1;
-    frameView.layer.borderColor = RGBA(38, 14, 0, 0.5).CGColor;
-    frameView.layer.cornerRadius = 4.f;
-    frameView.layer.masksToBounds = YES;
+    frameView.backgroundColor = [UIColor whiteColor];
+    //frameView.layer.borderWidth = 1;
+    //frameView.layer.borderColor = RGBA(38, 14, 0, 0.5).CGColor;
+    //frameView.layer.cornerRadius = 4.f;
+    //frameView.layer.masksToBounds = YES;
     
     CGFloat H = frameView.bounds.size.height - 8;
     CGFloat imgW = H;
     CGFloat textW = frameView.bounds.size.width - imgW - 6;
     NSLog(@"textW===%f",textW);
     
-    UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuo"]];
+    UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuozhou"]];
     
     UITextField *searchText = [[UITextField alloc] initWithFrame:CGRectMake(imgW+6, 4, textW, H)];
     searchText.enabled = NO;
     
     [frameView addSubview:searchText];
     [frameView addSubview:searchImg];
-    searchImg.frame = CGRectMake(5 , 4, imgW, imgW);
+    searchImg.frame = CGRectMake(5 , 6, imgW-5, imgW-5);
     
     searchText.textColor = [UIColor grayColor];
     searchText.placeholder = @"寻找你想要的商品";
@@ -338,9 +339,9 @@
 
     
     self.newsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.newsButton setFrame:CGRectMake(SIZE_WIDTH-35, 30, 22, 19)];
+    [self.newsButton setFrame:CGRectMake(SIZE_WIDTH-35, 30, 22, 22)];
     //[newsBtn setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
-    [self.newsButton setBackgroundImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
+    [self.newsButton setBackgroundImage:[UIImage imageNamed:@"xiaoxizhoulu"] forState:UIControlStateNormal];
     [self.newsButton addTarget:self action:@selector(newsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     self.messageBadgeView = [[JSBadgeView alloc]initWithParentView:self.newsButton alignment:JSBadgeViewAlignmentTopRight];
@@ -515,8 +516,15 @@
 - (void)getRequestTitleARR{
 
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    /*
+     语言的力量  11:45:07
+     client_type=[android|ios]
+     语言的力量  11:45:15
+     app_version=1.0
+     */
     //NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"];
-    [[HFSServiceClient sharedJSONClient] GET:HomeTitles_URLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString * urls = [NSString stringWithFormat:@"%@&client_type=ios&app_version=%@",HomeTitles_URLString,vCFBundleShortVersionStr];
+    [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
 
         
@@ -681,6 +689,7 @@
             [self.navigationController pushViewController:pinVC animated:YES];
         }
         else{
+<<<<<<< Updated upstream
             PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
             self.hidesBottomBarWhenPushed = YES;
             vc.searchString = sender;
@@ -692,22 +701,44 @@
         
 
         
+=======
+            [self toPinPaiGuanDetailList:sender];
+        }
+>>>>>>> Stashed changes
     }
     if ([type isEqualToString:@"3"]) {
         //分类
         if ([sender isEqualToString:@"all"]) {
+<<<<<<< Updated upstream
 //
 //            UITabBarController *rootViewController = (UITabBarController *)((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
 //            [rootViewController setSelectedIndex:1];
             
             [self.tabBarController setSelectedIndex:3];
+=======
+            /*
+            UITabBarController *rootViewController = (UITabBarController *)((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
+            [rootViewController setSelectedIndex:1];
+            */
+            /*
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                [self.tabBarController setSelectedIndex:1];
+                
+            });
+            */
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [self performSelector:@selector(selectedSecondNotificationAction) withObject:self afterDelay:1.0f];
+            
+            
+>>>>>>> Stashed changes
         }else{
             
             MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
             vc.filterParam = @{@"flid":sender};
-            self.hidesBottomBarWhenPushed = YES;
+            vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
+            //self.hidesBottomBarWhenPushed = NO;
 
         }
 
@@ -787,7 +818,72 @@
     
 
 }
+//品牌馆标题
+- (void)toPinPaiGuanDetailList:(NSString *)sender{
 
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    /*
+     语言的力量  11:45:07
+     client_type=[android|ios]
+     语言的力量  11:45:15
+     app_version=1.0
+     */
+    //NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"];
+    //api.php?m=brand&s=brand&method=GetBrandByID&brandid="
+    NSString * urls = [NSString stringWithFormat:@"%@%@&client_type=ios&app_version=%@",PinPaiGuanTitle_URLString,sender,vCFBundleShortVersionStr];
+    [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSDictionary * result = (NSDictionary *)responseObject;
+        NSLog(@"获取品牌馆的标题数据：%@",result);
+        if ([result[@"code"] isEqual:@0]) {
+             NSDictionary * dataDic = result[@"data"];
+            if ([dataDic[@"ret"] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary * ret = dataDic[@"ret"];
+                NSString * name = ret[@"name"];
+                if (![name isEqualToString:@""]) {
+                    PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    vc.searchString = sender;
+                    vc.title = name;
+                    [self.navigationController pushViewController:vc animated:NO];
+                    //self.hidesBottomBarWhenPushed = NO;
+                }
+            }
+            else{
+                _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+                [self.view addSubview:_hud];
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"没有品牌信息";
+                [_hud hide:YES afterDelay:2];
+            }
+        }
+        else{
+            _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"没有品牌信息";
+            [_hud hide:YES afterDelay:2];
+        
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+        [self.view addSubview:_hud];
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = REQUEST_ERROR_ZL;
+        [_hud hide:YES afterDelay:2];
+    }];
+
+}
+
+- (void)selectedSecondNotificationAction{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [[NSNotificationCenter defaultCenter]postNotificationName:SelectSecondVC_NOTIFICATION object:nil];
+}
 
 - (void)homeSubViewController:(ZLHomeSubViewController *)subVC withBeginOffest:(float)haViewOffestY{
     self.historyOffestY = haViewOffestY;

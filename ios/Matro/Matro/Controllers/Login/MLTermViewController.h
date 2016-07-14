@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "CommonHeader.h"
 #import "NavTopCommonImage.h"
-
+#import "HFSConstants.h"
+#import "HFSServiceClient.h"
 @interface MLTermViewController : UIViewController
 
 @end

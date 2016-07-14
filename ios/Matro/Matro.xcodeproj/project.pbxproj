@@ -37,6 +37,7 @@
 		2814D6111D26512700F8ECB8 /* MLOrderHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2814D6101D26512600F8ECB8 /* MLOrderHeader.m */; };
 		2814D6131D26514000F8ECB8 /* MLOrderHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2814D6121D26514000F8ECB8 /* MLOrderHeader.xib */; };
 		2814D6191D2657B000F8ECB8 /* MLOrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2814D6181D2657B000F8ECB8 /* MLOrderListModel.m */; };
+		281D67501D378BD900D15ACB /* MLBuyKnowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281D674F1D378BD900D15ACB /* MLBuyKnowViewController.m */; };
 		283261941D18EFC700C9EE4E /* MLCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 283261921D18EFC700C9EE4E /* MLCollectionTableViewCell.m */; };
 		283261951D18EFC700C9EE4E /* MLCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283261931D18EFC700C9EE4E /* MLCollectionTableViewCell.xib */; };
 		283261991D192D6E00C9EE4E /* MLStoreCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283261971D192D6E00C9EE4E /* MLStoreCollectViewController.m */; };
@@ -715,6 +716,8 @@
 		2814D6121D26514000F8ECB8 /* MLOrderHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLOrderHeader.xib; sourceTree = "<group>"; };
 		2814D6171D2657B000F8ECB8 /* MLOrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderListModel.h; sourceTree = "<group>"; };
 		2814D6181D2657B000F8ECB8 /* MLOrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderListModel.m; sourceTree = "<group>"; };
+		281D674E1D378BD900D15ACB /* MLBuyKnowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBuyKnowViewController.h; sourceTree = "<group>"; };
+		281D674F1D378BD900D15ACB /* MLBuyKnowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLBuyKnowViewController.m; sourceTree = "<group>"; };
 		283261911D18EFC700C9EE4E /* MLCollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionTableViewCell.h; sourceTree = "<group>"; };
 		283261921D18EFC700C9EE4E /* MLCollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionTableViewCell.m; sourceTree = "<group>"; };
 		283261931D18EFC700C9EE4E /* MLCollectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLCollectionTableViewCell.xib; sourceTree = "<group>"; };
@@ -3051,6 +3054,8 @@
 				287C86CD1D1BD6230002E5E2 /* MLPingjiaListViewController.h */,
 				287C86CE1D1BD6230002E5E2 /* MLPingjiaListViewController.m */,
 				287C86CF1D1BD6230002E5E2 /* MLPingjiaListViewController.xib */,
+				281D674E1D378BD900D15ACB /* MLBuyKnowViewController.h */,
+				281D674F1D378BD900D15ACB /* MLBuyKnowViewController.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -4602,6 +4607,7 @@
 				3A633B671C9EA36E00C11FD5 /* ZLPhotoPickerCollectionViewCell.m in Sources */,
 				7ABB224A1D210D8000529B2B /* MLActMessageFootCell.m in Sources */,
 				3C05568A1D23ACB80092D140 /* PinPaiModelZl.m in Sources */,
+				281D67501D378BD900D15ACB /* MLBuyKnowViewController.m in Sources */,
 				3A633B631C9EA36E00C11FD5 /* ZLPhotoPickerAssetsViewController.m in Sources */,
 				3CE4B0DE1D1A6DAC0084156C /* LingQuQuanCell.m in Sources */,
 				7A50BA301D1E35C900E76AC5 /* MLGuessLikeModel.m in Sources */,

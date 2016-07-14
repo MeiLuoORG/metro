@@ -234,7 +234,11 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 
 //余额 会员卡的优惠券余额
 #define YOUHUIQUAN_YUE_CARD_URLString   @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons"
+//注册协议
+#define ZHUCEXIEYI_URLString            ZHOULU_ML_BASE_URLString@"/api.php?m=setinfo&s=setinfo&method=GetRegConfig"
 
+//请求品牌馆标题
+#define PinPaiGuanTitle_URLString       ZHOULU_ML_BASE_URLString@"/api.php?m=brand&s=brand&method=GetBrandByID&brandid="
 
 /*zhouluEND*/
 

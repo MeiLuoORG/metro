@@ -23,10 +23,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self loadTopView];
     self.title = @"用户协议";
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"declare" ofType:@"html"];
-    NSURL* url = [NSURL fileURLWithPath:path];
-    NSURLRequest* request = [NSURLRequest requestWithURL:url] ;
-    [self.termWebview loadRequest:request];
+    //NSString* path = [[NSBundle mainBundle] pathForResource:@"declare" ofType:@"html"];
+    //NSURL* url = [NSURL fileURLWithPath:path];
+    //NSURL * urlStr = [NSURL URLWithString:ZHUCEXIEYI_URLString];
+    //NSURLRequest* request = [NSURLRequest requestWithURL:urlStr] ;
+    //[self.termWebview loadRequest:request];
 
 
 //    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"term" ofType:@"html"];
@@ -34,7 +35,24 @@
 //    NSString *body = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
 //    [_termWebview loadHTMLString:body baseURL:nil];
     
-    
+    [[HFSServiceClient sharedClient] GET:ZHUCEXIEYI_URLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"responseObject==%@",responseObject);
+        
+        NSDictionary *result = [responseObject objectForKey:@"data"];
+        NSNumber *resultCode = [responseObject objectForKey:@"code"];
+        
+        if ([resultCode isEqual:@0]) {
+            NSString *dic = [result objectForKey:@"ret"];
+            [self.termWebview loadHTMLString:dic baseURL:nil];
+        }
+        else{
+
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+    }];
+
 }
 - (void)loadTopView{
     NavTopCommonImage * navTop = [[NavTopCommonImage alloc]initWithTitle:@"用户协议"];

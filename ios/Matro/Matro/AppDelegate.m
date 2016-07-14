@@ -153,10 +153,17 @@
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectSecondVC:) name:SelectSecondVC_NOTIFICATION object:nil];
+    
     return YES;
 }
 
-
+- (void)selectSecondVC:(id)sender{
+    NSLog(@"调用通知方法");
+    [self.tabBarController setSelectedIndex:1];
+    
+}
 
 
 
