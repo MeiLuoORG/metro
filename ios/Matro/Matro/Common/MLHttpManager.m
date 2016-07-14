@@ -12,7 +12,7 @@
 #import "HFSConstants.h"
 #import "NSDatezlModel.h"
 #import "NSString+URLZL.h"
-
+#import "CommonHeader.h"
 
 @implementation MLHttpManager
 
@@ -79,6 +79,10 @@
 
 + (void)get:(NSString *)url params:(id)params m:(NSString *)m s:(NSString *)s success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure
 {
+    /*
+     client_type=[android|ios]
+     app_version=1.0
+     */
     // 1.创建请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
@@ -88,7 +92,7 @@
     NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
     NSString *sign = [self md5:signStr];
-    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
+    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr];
     
     // 2.发送请求
     [mgr GET:newUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -88,8 +88,6 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PUSHMESSAGE" object:del.pushMessage userInfo:nil];
     }
     
-    
-    
     /*
     //注册通知  按钮切换
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
@@ -670,22 +668,41 @@
     }
     if ([type isEqualToString:@"2"]) {
         //品牌
-        PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
-        self.hidesBottomBarWhenPushed = YES;
-        vc.searchString = sender;
-        vc.title = @"品牌馆";
-        [self.navigationController pushViewController:vc animated:NO];
-        self.hidesBottomBarWhenPushed = NO;
+        if ([sender isEqualToString:@"all"]) {
+            PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
+            pinVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:pinVC animated:YES];
+        }
+        else{
+            PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
+            self.hidesBottomBarWhenPushed = YES;
+            vc.searchString = sender;
+            vc.title = @"品牌馆";
+            [self.navigationController pushViewController:vc animated:NO];
+            self.hidesBottomBarWhenPushed = NO;
+            
+        }
+        
+
         
     }
     if ([type isEqualToString:@"3"]) {
         //分类
-        MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
+        if ([sender isEqualToString:@"all"]) {
+            
+            UITabBarController *rootViewController = (UITabBarController *)((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
+            [rootViewController setSelectedIndex:1];
+            //[self.tabBarController setSelectedIndex:1];
+        }else{
+            
+            MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
+            vc.filterParam = @{@"flid":sender};
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
 
-        vc.filterParam = @{@"flid":sender};
-        self.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
+        }
+
     }
     if ([type isEqualToString:@"4"]) {
         //链接
