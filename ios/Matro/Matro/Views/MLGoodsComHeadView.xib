@@ -132,6 +132,11 @@
                             <exclude reference="pGf-sp-Qgk"/>
                         </mask>
                         <mask key="constraints">
+                            <exclude reference="MAv-jF-zrp"/>
+                            <exclude reference="j1T-iL-Roh"/>
+                            <exclude reference="q4c-3f-3Yl"/>
+                            <exclude reference="qax-7B-RKo"/>
+                            <exclude reference="sts-Bo-SPw"/>
                             <exclude reference="GlY-rr-Blb"/>
                             <exclude reference="lzC-63-z8F"/>
                             <exclude reference="v7c-Kt-dqQ"/>
@@ -140,11 +145,6 @@
                             <exclude reference="qTk-Jt-RBx"/>
                             <exclude reference="rT1-QD-xSg"/>
                             <exclude reference="yIK-rf-g40"/>
-                            <exclude reference="MAv-jF-zrp"/>
-                            <exclude reference="j1T-iL-Roh"/>
-                            <exclude reference="q4c-3f-3Yl"/>
-                            <exclude reference="qax-7B-RKo"/>
-                            <exclude reference="sts-Bo-SPw"/>
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
@@ -152,6 +152,11 @@
                             <include reference="pGf-sp-Qgk"/>
                         </mask>
                         <mask key="constraints">
+                            <include reference="MAv-jF-zrp"/>
+                            <include reference="j1T-iL-Roh"/>
+                            <include reference="q4c-3f-3Yl"/>
+                            <include reference="qax-7B-RKo"/>
+                            <include reference="sts-Bo-SPw"/>
                             <include reference="GlY-rr-Blb"/>
                             <exclude reference="lzC-63-z8F"/>
                             <include reference="v7c-Kt-dqQ"/>
@@ -160,11 +165,6 @@
                             <exclude reference="qTk-Jt-RBx"/>
                             <include reference="rT1-QD-xSg"/>
                             <include reference="yIK-rf-g40"/>
-                            <include reference="MAv-jF-zrp"/>
-                            <include reference="j1T-iL-Roh"/>
-                            <include reference="q4c-3f-3Yl"/>
-                            <include reference="qax-7B-RKo"/>
-                            <include reference="sts-Bo-SPw"/>
                         </mask>
                     </variation>
                 </view>
@@ -284,7 +284,7 @@
                 <outlet property="textView" destination="QPU-Tp-KrU" id="gKy-5r-mXy"/>
                 <outlet property="titleLabel" destination="tAl-Di-FZj" id="ooW-7M-doU"/>
             </connections>
-            <point key="canvasLocation" x="237" y="331"/>
+            <point key="canvasLocation" x="57" y="338"/>
         </view>
     </objects>
     <resources>

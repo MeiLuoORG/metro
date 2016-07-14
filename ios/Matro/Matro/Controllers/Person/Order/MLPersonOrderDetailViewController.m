@@ -13,7 +13,7 @@
 #import "MLRPayTableViewCell.h"
 #import "MLZTextTableViewCell.h"
 #import "HFSConstants.h"
-#import "masonry.h"
+#import "Masonry.h"
 #import "MLOrderInfoHeaderTableViewCell.h"
 #import "MLMoreTableViewCell.h"
 #import "MLOrderCenterTableViewCell.h"
@@ -29,13 +29,18 @@
 #import "MLLogisticsViewController.h"
 #import "MLPayViewController.h"
 #import "MLPersonAlertViewController.h"
+#import "MLLogisticsModel.h"
 
-@interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>{
+    MLLogisticsModel *logisticModel;
+    
+}
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)MLPersonOrderDetailFootView *footView;
 
 @property (nonatomic,strong)MLPersonOrderDetail *orderDetail;
 
+@property (nonatomic,strong)NSMutableArray *logisticsArray;
 
 
 
@@ -45,12 +50,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Do any additional setup after loading the view.
-    
     self.title = @"订单详情";
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
-    
     _tableView = ({
         UITableView *tableView =[[UITableView alloc]initWithFrame:CGRectZero];
         tableView.backgroundColor = RGBA(245, 245, 245, 1);
@@ -173,9 +174,7 @@
             NSDictionary *data = [result objectForKey:@"data"];
             NSDictionary *detail = data[@"detail"];
             self.orderDetail = [MLPersonOrderDetail mj_objectWithKeyValues:detail];
-            
-            switch (self.orderDetail.status) {
-                    
+            switch (self.orderDetail.status) {    
                 case OrderStatusYishanchu: //已删除
                 {
                     self.footView.hidden = YES;
@@ -219,10 +218,7 @@
                     break;
                 case OrderStatusQuxiao:   //取消
                 {
-                    self.footView.hidden = YES;
-                    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.right.top.bottom.equalTo(self.view);
-                    }];
+                    self.footView.footerType = FooterTypeQuxiao;
                     
                 }
                     break;
@@ -249,6 +245,10 @@
             }
             
             [self.tableView reloadData];
+            
+            if (self.orderDetail.deliver_code.length > 0 && self.orderDetail.deliver_name.length > 0) {
+                [self downLoadLogTrackWithCompany:self.orderDetail.deliver_name AndNum:self.orderDetail.deliver_code];
+            }
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
@@ -359,16 +359,19 @@
     }
     else if (indexPath.section == 1){
         MLTisTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTisTableViewCell forIndexPath:indexPath];
-        cell.tisLabel.text = @"订单已通过审核，仓库配送中.....";
-        if (self.orderDetail.deliver_time != 0) {
-            NSDate *time = [NSDate dateWithTimeIntervalSince1970:[self.orderDetail.deliver_time floatValue]];
+        if (logisticModel) { //如果有第一条记录
+            cell.tisLabel.text = logisticModel.context;
+            cell.timeLabel.text = logisticModel.time;
+            cell.contentView.hidden = !(self.orderDetail.deliver_name.length>0 && self.orderDetail.deliver_code.length > 0);
+            
+        }else{
+            cell.tisLabel.text = @"订单已通过审核，仓库配送中.....";
+            NSDate *time = [NSDate dateWithTimeIntervalSince1970:self.orderDetail.deliver_time];
             NSDateFormatter *fm = [[NSDateFormatter alloc]init];
             [fm setDateFormat:@"yyy-MM-dd HH:mm"];
             cell.timeLabel.text = [fm stringFromDate:time];
-        }else{
-            cell.timeLabel.hidden = YES;
+            cell.contentView.hidden = !(self.orderDetail.deliver_name.length>0 && self.orderDetail.deliver_code.length > 0);
         }
-        cell.contentView.hidden = !(self.orderDetail.deliver_name.length>0 && self.orderDetail.deliver_code.length > 0);
         return cell;
     }
     else if (indexPath.section == 2){
@@ -398,11 +401,17 @@
         MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
         if (indexPath.row == 0) {
             cell.titleLabel.text = @"支付方式";
-            cell.subLabel.text = @"在线支付";
+            cell.subLabel.text = self.orderDetail.payment_name?:@"在线支付";
         }
         else{
             cell.titleLabel.text = @"配送方式";
-            cell.subLabel.text = self.orderDetail.logistics_type;
+            if (self.orderDetail.logistics_type.length > 2) {
+                cell.subLabel.text = self.orderDetail.logistics_type;
+            }
+            else{
+                cell.subLabel.text = @"快递配送";
+            }
+            
         }
         return cell;
     }else if (indexPath.section == 5){
@@ -426,12 +435,10 @@
                 cell.titleLabel.textColor = RGBA(153, 153,153, 1);
                 
             }
-
+            cell.contentView.hidden = NO;
             return cell;
         }
-
     }
-    
     else if (indexPath.section == 6){
         if (indexPath.row <5) {
             MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
@@ -632,7 +639,36 @@
 
 
 
+- (void)downLoadLogTrackWithCompany:(NSString *)company AndNum:(NSString *)num{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=getkd",MATROJP_BASE_URL];
+    NSDictionary *params = @{@"express_company":company?:@"",@"express_number":num?:@""};
+    [MLHttpManager post:url params:params m:@"member" s:@"getkd" success:^(id responseObject) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) { //下载记录  如果有记录就显示第一条
+            NSDictionary *data = result[@"data"];
+            NSArray *time_line = data[@"timeline"];
+            [self.logisticsArray addObjectsFromArray:[MLLogisticsModel mj_objectArrayWithKeyValuesArray:time_line]];
+            if (self.logisticsArray.count > 0) {
+                logisticModel = [self.logisticsArray firstObject];
+                [self.tableView reloadData];
+            }
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+    
+}
 
+
+- (NSMutableArray *)logisticsArray{
+    if (!_logisticsArray) {
+        _logisticsArray = [NSMutableArray array];
+    }
+    return _logisticsArray;
+}
 
 
 

@@ -30,6 +30,7 @@
 #import "MLHttpManager.h"
 #import "MJPhotoBrowser.h"
 
+#import "MLPersonAlertViewController.h"
 
 
 
@@ -82,6 +83,7 @@
 }
 
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
@@ -110,9 +112,12 @@
                 [weakself.navigationController pushViewController:vc animated:YES];
             };
             cell.returnsDetailQuxiaoAction = ^(){ //取消退货
-                [weakself returnsCancelAction];
+                MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定取消退货？" AndAlertDoneAction:^{
+                     [weakself returnsCancelAction];
+                }];
+                [self presentViewController:vc animated:YES completion:nil];
+                
             };
-            
             return cell;
         }else if (indexPath.row == 1){
             MLOrderInfoHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderInfoHeaderTableViewCell forIndexPath:indexPath];
@@ -164,7 +169,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return 140;
+            if ([self.returnsDetail.return_status isEqualToString:@"审核中"]) {
+                return 140;
+            }
+            return 100;
         }else if (indexPath.row == 1){
             return 40;
         }

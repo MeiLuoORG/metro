@@ -83,6 +83,10 @@
         [MBProgressHUD showMessag:@"请输入评价内容" toView:self.view];
         return;
     }
+    if (self.headView.textView.text.length> 1000) {
+        [MBProgressHUD showMessag:@"评价内容过长，请不要超过1000字" toView:self.view];
+        return;
+    }
     if (self.imgsArray.count > 0) {
         __block  NSInteger already = 0;
         __block  NSInteger uploadCount = self.imgsArray.count;

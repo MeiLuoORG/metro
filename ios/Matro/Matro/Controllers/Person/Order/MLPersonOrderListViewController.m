@@ -126,6 +126,8 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     __weak typeof(self)weakself = self;
     self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
         [weakself.tabBarController setSelectedIndex:0];
+        [weakself.navigationController popToRootViewControllerAnimated:NO];
+        
     };
 }
 

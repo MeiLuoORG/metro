@@ -93,6 +93,17 @@
                 [self.payBtn setTitle:@"评价" forState:UIControlStateNormal];
             }
                 break;
+            case FooterTypeQuxiao:
+            {
+                self.orderTime.hidden = YES;
+                self.shengyufukuanLb.hidden = YES;
+                self.daojishiLb.hidden = YES;
+                self.payBtn.hidden = NO;
+                self.cancelBtn.hidden = YES;
+                self.shenyuLb.hidden = YES;
+                [self.payBtn setTitle:@"删除订单" forState:UIControlStateNormal];
+            }
+                break;
             default:
                 self.hidden = YES;
                 break;
@@ -169,6 +180,13 @@
         {
             if (self.orderDetailButtonActionBlock) {
                 self.orderDetailButtonActionBlock(ButtonActionTypePingJia);
+            }
+        }
+            break;
+        case FooterTypeQuxiao:
+        {
+            if (self.orderDetailButtonActionBlock) {
+                self.orderDetailButtonActionBlock(ButtonActionTypeShanchu);
             }
         }
             break;

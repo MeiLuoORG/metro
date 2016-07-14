@@ -36,7 +36,7 @@
         UIButton *btn = [UIButton new];
         btn.bounds = CGRectMake(0, 0, btnW, btnH);
         btn.center = CGPointMake(btnCenterX, btnCenterY);
-        [btn setImage:[UIImage imageNamed:@"Star_small1"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"Star_small2"] forState:UIControlStateNormal];
         btn.tag = 100+i;
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];

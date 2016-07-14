@@ -56,7 +56,7 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,copy)NSString *deliver_id;
 @property (nonatomic,copy)NSString *deliver_name;
 @property (nonatomic,copy)NSString *deliver_code;
-@property (nonatomic,copy)NSString *deliver_time;
+@property (nonatomic,assign)NSInteger deliver_time;
 @property (nonatomic,copy)NSString *deliver_addr_id;
 @property (nonatomic,copy)NSString *time_expand;
 @property (nonatomic,assign)NSInteger way;

@@ -8,6 +8,7 @@
 
 #import "MLCommentDetailUserTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "HFSConstants.h"
 
 @implementation MLCommentDetailUserTableViewCell
 
@@ -28,7 +29,7 @@
 - (void)setBuyUser:(MLProductCommentDetailByuser *)buyUser{
     if (_buyUser != buyUser) {
         _buyUser = buyUser;
-        [self.headImg sd_setImageWithURL:[NSURL URLWithString:_buyUser.logo]];
+        [self.headImg sd_setImageWithURL:[NSURL URLWithString:_buyUser.logo] placeholderImage:PLACEHOLDER_IMAGE];
         self.userName.text = _buyUser.user;
         self.timeLabel.text = _buyUser.uptime;
     }

@@ -28,12 +28,19 @@
 
 - (void)setTuiHuoModel:(MLReturnsDetailModel *)tuiHuoModel{
     if (_tuiHuoModel != tuiHuoModel) {
-        
         _tuiHuoModel = tuiHuoModel;
         self.shouHouLabel.attributedText = [self attributedStringWithTitle:@"订单状态" AndValue:self.tuiHuoModel.return_status];
         self.tuiHuoLabel.attributedText = [self attributedStringWithTitle:@"退货单号" AndValue:self.tuiHuoModel.return_code];
         self.timeLabel.attributedText = [self attributedStringWithTitle:@"申请时间" AndValue:self.tuiHuoModel.return_add_time];
         self.orderIdLabel.attributedText = [self attributedStringWithTitle:@"订单单号" AndValue:self.tuiHuoModel.order_id];
+        if ([self.tuiHuoModel.return_status isEqualToString:@"审核中"]) {
+            self.quxiaoBtn.hidden = NO;
+            self.bianjiBtn.hidden = NO;
+        }else{
+            self.bianjiBtn.hidden = YES;
+            self.quxiaoBtn.hidden = YES;
+        }
+        
     }
 }
 

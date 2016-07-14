@@ -78,7 +78,7 @@
     // 暂时隐藏
     if([PKPaymentAuthorizationViewController canMakePayments]) {
         [_payTitleArray addObject:@"Apple Pay"];
-        [_payImageArray addObject:@"applepay"];
+        [_payImageArray addObject:@"apple_pay"];
     }
     
     
@@ -242,7 +242,6 @@
         outtradenum =_orderDetail.JLBH?:@"";
     }
 
-    //http://bbctest.matrojp.com/api.php?m=product&s=pay
     
     NSDictionary * ret = @{@"order_id":self.order_id,@"payment_type":@"alipay"};
     [MLHttpManager post:ZhiFu_LIUSHUI_URLString params:ret m:@"product" s:@"pay" success:^(id responseObject) {
@@ -353,7 +352,7 @@
             if ([results[@"code"] isEqual:@0]) {
                 
                 NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
-                NSString *url = @"http://pay.matrojp.com/PayCenter/app/v200/unionpay";
+                NSString *url = @"http://pay.matrojp.com/PayCenter/app/v200/applepay";
                 
                 [[HFSServiceClient sharedPayClient]POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSString *tn = [responseObject objectForKey:@"tn"];
@@ -361,12 +360,9 @@
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
                 }];
-                
             }
-            
         } failure:^(NSError *error) {
             [_hud show:YES];
-            NSLog(@"error kkkk %@",error);
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = REQUEST_ERROR_ZL;
             [_hud hide:YES afterDelay:2];
@@ -380,12 +376,12 @@
 
 
 - (void)applePayWithTn:(NSString *)tn{
+    
+    
     if([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:@[PKPaymentNetworkChinaUnionPay]]){
         [UPAPayPlugin startPay:tn mode:@"00" viewController:self delegate:self andAPMechantID:kAppleMerchantID];
     }
 }
-
-
 
 #pragma mark apple pay delegate
 #pragma mark 响应控件返回的支付结果
