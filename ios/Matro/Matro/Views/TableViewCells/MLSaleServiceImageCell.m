@@ -51,7 +51,7 @@
                 make.centerY.equalTo(self.imgBaseView);
             }];
             NSString *imgUrl = [_imgUrlArray objectAtIndex:i];
-            [btn sd_setImageWithURL:[NSURL URLWithString:imgUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"imageloading"]];
+            [btn sd_setImageWithURL:[NSURL URLWithString:imgUrl] forState:UIControlStateNormal placeholderImage:PLACEHOLDER_IMAGE];
             
         }
 

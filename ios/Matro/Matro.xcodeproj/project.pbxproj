@@ -616,7 +616,6 @@
 		7AEDD0ED1CE5EE9A009B12F4 /* MLWishlistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEDD0EB1CE5EE9A009B12F4 /* MLWishlistTableViewCell.xib */; };
 		7AF0BDAE1CDCA84D0093E2AF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AF0BDAD1CDCA84D0093E2AF /* AVFoundation.framework */; };
 		7AF0D7CD1CE581E400A8F913 /* UIView+BlankPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0D7CC1CE581E400A8F913 /* UIView+BlankPage.m */; };
-		7AF0D7D61CE5957E00A8F913 /* MLSaleServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0D7D51CE5957E00A8F913 /* MLSaleServiceViewController.m */; };
 		7AF1415D1CE1DB13005DDE70 /* MLGoodsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF1415C1CE1DB13005DDE70 /* MLGoodsListViewController.m */; };
 		7AF1415F1CE1E5BC005DDE70 /* HFSProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF1415E1CE1E5BC005DDE70 /* HFSProductTableViewCell.xib */; };
 		7AF141631CE1FD50005DDE70 /* MLProductOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF141611CE1FD50005DDE70 /* MLProductOrderCell.m */; };
@@ -1775,8 +1774,6 @@
 		7AF0BDAD1CDCA84D0093E2AF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7AF0D7CB1CE581E400A8F913 /* UIView+BlankPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BlankPage.h"; sourceTree = "<group>"; };
 		7AF0D7CC1CE581E400A8F913 /* UIView+BlankPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BlankPage.m"; sourceTree = "<group>"; };
-		7AF0D7D41CE5957E00A8F913 /* MLSaleServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSaleServiceViewController.h; sourceTree = "<group>"; };
-		7AF0D7D51CE5957E00A8F913 /* MLSaleServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSaleServiceViewController.m; sourceTree = "<group>"; };
 		7AF1415C1CE1DB13005DDE70 /* MLGoodsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsListViewController.m; sourceTree = "<group>"; };
 		7AF1415E1CE1E5BC005DDE70 /* HFSProductTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HFSProductTableViewCell.xib; sourceTree = "<group>"; };
 		7AF141601CE1FD50005DDE70 /* MLProductOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLProductOrderCell.h; sourceTree = "<group>"; };
@@ -3969,8 +3966,6 @@
 				7A3A62661CDB874F00D265F2 /* MLServiceMainController.m */,
 				7AEC88D11CE4617700B43DD4 /* MLGoodsComViewController.h */,
 				7AEC88D21CE4617700B43DD4 /* MLGoodsComViewController.m */,
-				7AF0D7D41CE5957E00A8F913 /* MLSaleServiceViewController.h */,
-				7AF0D7D51CE5957E00A8F913 /* MLSaleServiceViewController.m */,
 				7AEDD0D61CE5C498009B12F4 /* MLReturnRequestViewController.h */,
 				7AEDD0D71CE5C498009B12F4 /* MLReturnRequestViewController.m */,
 				7AEDD0DE1CE5D64A009B12F4 /* MLFootMarkViewController.h */,
@@ -4622,7 +4617,6 @@
 				7ACD3A7A1CE86D97004BAF8B /* MLReturnsHeader.m in Sources */,
 				3CEAC66D1D1E799B00E953A7 /* XiuGaiPasswordViewController.m in Sources */,
 				7AFFDEF71D34F1E400A6C1E5 /* MLPayViewController.mm in Sources */,
-				7AF0D7D61CE5957E00A8F913 /* MLSaleServiceViewController.m in Sources */,
 				3AA0E7AD1CA91E500079AA90 /* RSADataSigner.m in Sources */,
 				3C5F123D1D17A075001F66E1 /* SecondBtnsView.m in Sources */,
 				3A633B651C9EA36E00C11FD5 /* ZLPhotoPickerViewController.m in Sources */,

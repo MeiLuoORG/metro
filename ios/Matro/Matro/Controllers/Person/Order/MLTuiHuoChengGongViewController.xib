@@ -18,7 +18,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="客服人员将在24小时内进行审核，审核结果会以短信形式告知您。您也可在-&gt;退货记录中查询退货进度。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMA-Lh-BTf">
                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6k9-B5-Z1l">
@@ -79,6 +79,9 @@
                     <exclude reference="mn6-lD-yiR"/>
                 </mask>
                 <mask key="constraints">
+                    <exclude reference="YMe-3I-m0W"/>
+                    <exclude reference="esa-qM-84T"/>
+                    <exclude reference="w5q-Jf-bjL"/>
                     <exclude reference="Zfg-OA-0Ve"/>
                     <exclude reference="lWE-4A-yob"/>
                     <exclude reference="t4l-yV-UYn"/>
@@ -86,9 +89,6 @@
                     <exclude reference="EJs-8p-7lw"/>
                     <exclude reference="a9v-eY-AKy"/>
                     <exclude reference="bWc-Ba-doG"/>
-                    <exclude reference="YMe-3I-m0W"/>
-                    <exclude reference="esa-qM-84T"/>
-                    <exclude reference="w5q-Jf-bjL"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -98,6 +98,9 @@
                     <include reference="mn6-lD-yiR"/>
                 </mask>
                 <mask key="constraints">
+                    <include reference="YMe-3I-m0W"/>
+                    <include reference="esa-qM-84T"/>
+                    <include reference="w5q-Jf-bjL"/>
                     <include reference="Zfg-OA-0Ve"/>
                     <include reference="lWE-4A-yob"/>
                     <include reference="t4l-yV-UYn"/>
@@ -105,9 +108,6 @@
                     <include reference="EJs-8p-7lw"/>
                     <include reference="a9v-eY-AKy"/>
                     <include reference="bWc-Ba-doG"/>
-                    <include reference="YMe-3I-m0W"/>
-                    <include reference="esa-qM-84T"/>
-                    <include reference="w5q-Jf-bjL"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="-18" y="-57"/>

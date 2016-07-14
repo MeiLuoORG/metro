@@ -18,6 +18,7 @@
 #import "MJExtension.h"
 #import "MBProgressHUD+Add.h"
 #import "MLHttpManager.h"
+#import "MLPersonAlertViewController.h"
 
 
 @interface MyAddressManagerViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
@@ -86,21 +87,17 @@
         };
         vc.addressDetail = model;
         vc.isNewAddress = NO;
-        weakself.hidesBottomBarWhenPushed = YES;
+        vc.hidesBottomBarWhenPushed = YES;
         [weakself.navigationController pushViewController:vc animated:YES];
     };
     cell.addressDefault = ^(){
         [weakself addressAction:model WithAction:@"setdef"];
     };
     cell.addressManagerDel = ^(){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定删除此记录" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancel =[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) { //调接口删除
+        MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定删除此记录" AndAlertDoneAction:^{
             [weakself addressAction:model WithAction:@"del"];
         }];
-        [alert addAction:done];
-        [alert addAction:cancel];
-        [weakself presentViewController:alert animated:YES completion:nil];
+        [weakself showTransparentController:vc];
     };
     
     return cell;
@@ -115,18 +112,13 @@
     vc.addressSuccess = ^(){
         [self loadDateAddressList];
     };
-    self.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 130;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
 }
 
 

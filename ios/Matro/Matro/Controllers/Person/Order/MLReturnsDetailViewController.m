@@ -47,9 +47,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = RGBA(245, 245, 245, 1);
     
     self.title = @"退货单详情";
+    self.view.backgroundColor = RGBA(245, 245, 245, 1);
     _tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -115,7 +115,7 @@
                 MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定取消退货？" AndAlertDoneAction:^{
                      [weakself returnsCancelAction];
                 }];
-                [self presentViewController:vc animated:YES completion:nil];
+                [self showTransparentController:vc];
                 
             };
             return cell;

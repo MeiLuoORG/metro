@@ -180,7 +180,7 @@ static NSInteger pageIndex = 1;
             if (self.orderList.count < [count integerValue]) {
                 [self.orderList addObjectsFromArray:[MLTuiHuoModel mj_objectArrayWithKeyValuesArray:data[@"order_list"]]];
                 pageIndex ++;
-                [self.tableView reloadData];
+                
             }else{
                 [MBProgressHUD showMessag:@"已没有更多记录" toView:self.view];
             }
@@ -189,6 +189,7 @@ static NSInteger pageIndex = 1;
             NSString *str = result[@"msg"];
             [MBProgressHUD showMessag:str toView:self.view];
         }
+        [self.tableView reloadData];
         [self.view configBlankPage:EaseBlankPageTypeTuihuo hasData:(self.orderList.count>0)];
     } failure:^(NSError *error) {
         [self.tableView.header endRefreshing];

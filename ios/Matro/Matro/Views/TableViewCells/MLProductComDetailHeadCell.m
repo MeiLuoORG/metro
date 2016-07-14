@@ -32,8 +32,7 @@
 - (void)setProductModel:(MLProductCommentDetailProduct *)productModel{
     if (_productModel != productModel) {
         _productModel = productModel;
-        
-        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productModel.pic] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productModel.pic] placeholderImage:PLACEHOLDER_IMAGE];
         self.goodsName.text = _productModel.pname;
         [self.scoreView setStaticScore:_productModel.stars];
     }

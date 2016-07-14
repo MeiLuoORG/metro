@@ -23,16 +23,10 @@
         webView;
     });
     
-    
-    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.link]];
     [self.webView loadRequest:request];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 
 @end

@@ -27,10 +27,7 @@
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
     NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
-    NSLog(@"加密前的accessToken为：%@",accessToken);
-    NSLog(@"MD5加密之前：%@",signStr);
     NSString *sign = [self md5:signStr];
-    NSLog(@"MD5加密之后：%@",sign);
     NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f",url,bbc_token,sign,timestamp];
 
     // 2.发送请求

@@ -253,10 +253,8 @@
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
         }
-        
-
     } failure:^(NSError *error) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     

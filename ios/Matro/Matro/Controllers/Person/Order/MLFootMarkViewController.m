@@ -86,8 +86,6 @@
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail_footprint&action=sel_footprint",MATROJP_BASE_URL];
     
     [MLHttpManager get:url params:nil m:@"product" s:@"detail_footprint" success:^(id responseObject) {
-        NSLog(@"请求成功 ==== %@",responseObject);
-        
         __weak typeof(self) weakself = self;
         
         if ([responseObject[@"data"][@"sel_footprint"] isKindOfClass:[NSString class]]) {

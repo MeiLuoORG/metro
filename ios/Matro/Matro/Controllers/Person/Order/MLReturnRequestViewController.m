@@ -45,7 +45,6 @@
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,assign)BOOL fapiao;
 @property (nonatomic,strong)NSMutableArray *imgsUrlArray;
-
 @property (nonatomic,strong)MLReturnsDetailModel *returnsDetail;
 @property (nonatomic,strong)MLReturnsReturnInfo  *returnInfo;
 
@@ -57,7 +56,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     self.title = @"申请退货";
     _tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
