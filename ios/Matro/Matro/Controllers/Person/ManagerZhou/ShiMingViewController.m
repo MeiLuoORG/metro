@@ -71,6 +71,7 @@
         }
         if (![self.userShenFenCardID isEqual:[NSNull null]]) {
             _shenFenCardId.text = self.userShenFenCardID;
+
         }
         if (![self.shenFenImageURLStr isEqual:[NSNull null]]) {
             [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
@@ -97,7 +98,17 @@
     if (self.isRenZheng == YES) {
         
         _xingMingLabel.text = self.userName;
-        _shenFenCardId.text = self.userShenFenCardID;
+       
+        
+        if (self.userShenFenCardID.length == 18) {
+            NSString * str = [self.userShenFenCardID stringByReplacingCharactersInRange:NSMakeRange(4, 10) withString:@"**********"];
+            _shenFenCardId.text = str;
+            
+        }else{
+        
+             _shenFenCardId.text = self.userShenFenCardID;
+        }
+        
         //[_shangChuanButton sd_setImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@""]];
         [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal];
     }

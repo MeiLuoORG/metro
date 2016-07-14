@@ -1079,25 +1079,36 @@
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"请求余额：%@",result);
         if ([result[@"code"] isEqual:@0]) {
-            NSDictionary * dataDic = result[@"data"];
-            NSArray * allCouponsARR = dataDic[@"b2c_allcoupons"];
-            if (allCouponsARR.count > 0) {
-                int sum = 0;
-                for (NSDictionary * dics in allCouponsARR) {
-                    int balance = [dics[@"Balance"] intValue];
-                    sum = sum + balance;
-                    
+            
+            if ([result[@"data"] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary * dataDic = result[@"data"];
+                NSLog(@"请求余额测试：%@",dataDic);
+                NSArray * allCouponsARR = dataDic[@"b2c_allcoupons"];
+                if (allCouponsARR.count > 0) {
+                    int sum = 0;
+                    for (NSDictionary * dics in allCouponsARR) {
+                        int balance = [dics[@"Balance"] intValue];
+                        sum = sum + balance;
+                        
+                        
+                    }
+                    NSString * sumStr = [NSString stringWithFormat:@"%d",sum];
+                    _yuELabel.text = sumStr;
                     
                 }
-                NSString * sumStr = [NSString stringWithFormat:@"%d",sum];
-                _yuELabel.text = sumStr;
-                
+                else{
+                    _yuELabel.text = @"0";
+                }
             }
             else{
+            
                 _yuELabel.text = @"0";
+                
             }
             
-            
+        }
+        else{
+            _yuELabel.text = @"0";
         }
         
     } failure:^(NSError *error) {

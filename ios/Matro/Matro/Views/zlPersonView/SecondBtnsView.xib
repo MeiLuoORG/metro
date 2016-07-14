@@ -31,7 +31,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
-                            <state key="normal" image="daifuzl">
+                            <state key="normal" image="daifukuanlu">
                                 <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -84,7 +84,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
-                            <state key="normal" image="daishouzl">
+                            <state key="normal" image="daishouhuolu">
                                 <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -133,7 +133,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
-                            <state key="normal" image="daipingzl">
+                            <state key="normal" image="pingjialu">
                                 <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -186,7 +186,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
-                            <state key="normal" image="tuihuozl">
+                            <state key="normal" image="uihuolu">
                                 <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -239,7 +239,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
-                            <state key="normal" image="quanbuzl">
+                            <state key="normal" image="allorderlu">
                                 <color key="titleColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -367,10 +367,10 @@
         </view>
     </objects>
     <resources>
-        <image name="daifuzl" width="38" height="38"/>
-        <image name="daipingzl" width="44" height="44"/>
-        <image name="daishouzl" width="38" height="38"/>
-        <image name="quanbuzl" width="38" height="47"/>
-        <image name="tuihuozl" width="47" height="47"/>
+        <image name="allorderlu" width="22" height="22"/>
+        <image name="daifukuanlu" width="22" height="22"/>
+        <image name="daishouhuolu" width="22" height="22"/>
+        <image name="pingjialu" width="22" height="22"/>
+        <image name="uihuolu" width="22" height="22"/>
     </resources>
 </document>

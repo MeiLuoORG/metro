@@ -429,7 +429,13 @@
 - (void)loadDataWithPageIndex:(int) pageIndex withPagesize:(int) pageSize{
     //http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list&pageindex=1&pagesize=20
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=1",pageIndex,pageSize];
+    /*
+     HFSServiceClient
+     client_type=[android|ios]
+     语言的力量  11:45:15
+     app_version=1.0
+     */
+        NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=1&client_type=ios&app_version=%@",pageIndex,pageSize,vCFBundleShortVersionStr];
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [_collectionView.header endRefreshing];

@@ -114,7 +114,7 @@
 
     _messageButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _messageButton.frame = CGRectMake(0, 0, 22, 22);
-    [_messageButton setBackgroundImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
+    [_messageButton setBackgroundImage:[UIImage imageNamed:@"xiaoxizhoulu"] forState:UIControlStateNormal];
     [_messageButton addTarget:self action:@selector(actMessage) forControlEvents:UIControlEventTouchUpInside];
 
 
@@ -135,7 +135,7 @@
 
     _settingButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _settingButton.frame = CGRectMake(0, 0, 22, 22);
-    [_settingButton setBackgroundImage:[UIImage imageNamed:@"settingzl"] forState:UIControlStateNormal];
+    [_settingButton setBackgroundImage:[UIImage imageNamed:@"shezhizhoulu"] forState:UIControlStateNormal];
     [_settingButton addTarget:self action:@selector(actSettingAction) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *setting = [[UIBarButtonItem alloc]initWithCustomView:_settingButton];
     
@@ -851,7 +851,7 @@
             [_fourButtonsBackView addSubview:btn];
             
             if (k == 0) {
-                imageview.image = [UIImage imageNamed:@"shoucangzl"];
+                imageview.image = [UIImage imageNamed:@"shangpinlu"];
                 label.text = @"商品收藏";
                 [btn setFrame:CGRectMake(0, 0, btnHW ,btnHW)];
                 btn.tag = 101;
@@ -875,7 +875,7 @@
             }
             
             if (k == 1) {
-                imageview.image = [UIImage imageNamed:@"dianpuzl"];
+                imageview.image = [UIImage imageNamed:@"dianpuzhou"];
                 label.text = @"店铺收藏";
                 [btn setFrame:CGRectMake(btnHW, 0, btnHW ,btnHW)];
                 [btn addSubview:imageview];
@@ -895,7 +895,7 @@
                 }];
             }
             if (k == 2) {
-                imageview.image = [UIImage imageNamed:@"huiyuankazl"];
+                imageview.image = [UIImage imageNamed:@"huiyuankazhou"];
                 label.text = @"会员卡";
                 [btn setFrame:CGRectMake(btnHW*2, 0, btnHW ,btnHW)];
                 [btn addSubview:imageview];
@@ -916,7 +916,7 @@
             }
             
             if (k == 3) {
-                imageview.image = [UIImage imageNamed:@"kefuzl"];
+                imageview.image = [UIImage imageNamed:@"kefulu"];
                 label.text = @"客服";
                 [btn setFrame:CGRectMake(0, btnHW, btnHW ,btnHW)];
                 [btn addSubview:imageview];
@@ -936,7 +936,7 @@
                 }];
             }
             if (k == 4) {
-                imageview.image = [UIImage imageNamed:@"zujizl"];
+                imageview.image = [UIImage imageNamed:@"zujilu"];
                 label.text = @"足迹";
                 [btn setFrame:CGRectMake(btnHW, btnHW, btnHW ,btnHW)];
                 [btn addSubview:imageview];
@@ -956,7 +956,7 @@
                 }];
             }
             if (k == 5) {
-                imageview.image = [UIImage imageNamed:@"renzhengzl"];
+                imageview.image = [UIImage imageNamed:@"shimingrenzhegnzhou"];
                 label.text = @"实名认证";
                 [btn setFrame:CGRectMake(btnHW*2, btnHW, btnHW ,btnHW)];
                 [btn addSubview:imageview];
