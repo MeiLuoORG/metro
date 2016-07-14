@@ -12,6 +12,7 @@
                 <outlet property="VerssionLab" destination="cOn-os-R0s" id="OhB-7a-TMo"/>
                 <outlet property="cancelBtn" destination="d6v-Ub-Bxh" id="Vw6-Vm-tGz"/>
                 <outlet property="downloadBtn" destination="9LY-tT-S06" id="6ur-wa-UQG"/>
+                <outlet property="qzdownloadBtn" destination="a5I-bk-gv4" id="SN7-Gs-wLP"/>
                 <outlet property="versionView" destination="bhs-th-hpG" id="fD2-le-QWj"/>
                 <outlet property="versionViewH" destination="zec-i9-Tbq" id="Vnp-Tm-vbo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -72,18 +73,30 @@
                                         <action selector="actDownload:" destination="-1" eventType="touchUpInside" id="E5z-kB-7dU"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5I-bk-gv4">
+                                    <rect key="frame" x="114" y="12" width="46" height="30"/>
+                                    <color key="backgroundColor" red="0.68235294120000001" green="0.5568627451" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" title="下载更新"/>
+                                    <connections>
+                                        <action selector="actDownload:" destination="-1" eventType="touchUpInside" id="UeR-4o-5IF"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="d6v-Ub-Bxh" firstAttribute="centerY" secondItem="DwO-7o-pYJ" secondAttribute="centerY" id="1en-Jh-FVY"/>
                                 <constraint firstItem="d6v-Ub-Bxh" firstAttribute="top" secondItem="DwO-7o-pYJ" secondAttribute="top" id="7nS-uQ-vqj"/>
+                                <constraint firstItem="a5I-bk-gv4" firstAttribute="top" secondItem="DwO-7o-pYJ" secondAttribute="top" id="DUh-om-9oV"/>
+                                <constraint firstAttribute="bottom" secondItem="a5I-bk-gv4" secondAttribute="bottom" id="ImK-nz-ltj"/>
                                 <constraint firstAttribute="bottom" secondItem="9LY-tT-S06" secondAttribute="bottom" id="Vtd-Pn-b0u"/>
                                 <constraint firstItem="9LY-tT-S06" firstAttribute="leading" secondItem="d6v-Ub-Bxh" secondAttribute="trailing" constant="10" id="Vvg-U5-xBl"/>
                                 <constraint firstItem="9LY-tT-S06" firstAttribute="centerY" secondItem="DwO-7o-pYJ" secondAttribute="centerY" id="ZpL-xe-e5m"/>
+                                <constraint firstItem="a5I-bk-gv4" firstAttribute="leading" secondItem="DwO-7o-pYJ" secondAttribute="leading" constant="10" id="doY-vx-od7"/>
                                 <constraint firstItem="d6v-Ub-Bxh" firstAttribute="leading" secondItem="DwO-7o-pYJ" secondAttribute="leading" constant="10" id="m2Q-jJ-qIL"/>
                                 <constraint firstAttribute="bottom" secondItem="d6v-Ub-Bxh" secondAttribute="bottom" id="rQ8-67-Wew"/>
                                 <constraint firstItem="9LY-tT-S06" firstAttribute="top" secondItem="DwO-7o-pYJ" secondAttribute="top" id="s2d-F1-IGj"/>
                                 <constraint firstAttribute="trailing" secondItem="9LY-tT-S06" secondAttribute="trailing" constant="10" id="tGg-gl-c66"/>
+                                <constraint firstAttribute="trailing" secondItem="a5I-bk-gv4" secondAttribute="trailing" constant="10" id="ubm-R9-uq6"/>
                             </constraints>
                         </view>
                     </subviews>

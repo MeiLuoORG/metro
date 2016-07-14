@@ -9,7 +9,7 @@
 #import "MLHelpCenterDetailController.h"
 #import "HFSServiceClient.h"
 #import "Masonry.h"
-
+#import "CommonHeader.h"
 @interface MLHelpCenterDetailController ()<UIWebViewDelegate>
 @property (nonatomic,strong)UIWebView *webView;
 @end
@@ -38,7 +38,7 @@
    
    // http://bbctest.matrojp.com/api.php?m=help&s=index&id=45
     
-    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=help&s=index&id=%@",_webCode?:@""];
+    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=help&s=index&id=%@&client_type=ios&app_version=%@",_webCode?:@"",vCFBundleShortVersionStr];
     
     NSLog(@"%@",urlStr);
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

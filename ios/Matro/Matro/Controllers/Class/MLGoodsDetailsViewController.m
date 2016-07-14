@@ -46,6 +46,7 @@
 #import "CompanyInfo.h"
 #import "IMJIETagView.h"
 #import "IMJIETagFrame.h"
+#import "CommonHeader.h"
 
 @interface UIImage (SKTagView)
 
@@ -313,7 +314,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSLog(@"===%@",_paramDic);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@",MATROJP_BASE_URL,_paramDic[@"id"]];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,_paramDic[@"id"],vCFBundleShortVersionStr];
     //测试链接
    // NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
     
@@ -896,7 +897,7 @@
     
     NSString *dpid = self.paramDic[@"userid"];
    
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@",MATROJP_BASE_URL,dpid];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,dpid,vCFBundleShortVersionStr];
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         
@@ -905,10 +906,10 @@
             dPDic = shop_info;
             NSString *logo = shop_info[@"logo"];
             if (![logo isKindOfClass:[NSNull class]]) {
-                [self.dianpuimage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://bbctest.matrojp.com%@",logo]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+                [self.dianpuimage sd_setImageWithURL:[NSURL URLWithString:logo] placeholderImage:[UIImage imageNamed:@"icon_default"]];
             }else{
             
-                self.dianpuimage.image = [UIImage imageNamed:@"imageloading"];
+                self.dianpuimage.image = [UIImage imageNamed:@"icon_default"];
             }
             NSArray *csarr = shop_info[@"cs"];
             for (NSDictionary *tempdic in csarr) {
@@ -967,7 +968,7 @@
 - (void)guessYLike {
    // http://bbctest.matrojp.com/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=20&catid=11080601,11080201&brandid=
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=",MATROJP_BASE_URL];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         
@@ -1224,7 +1225,7 @@
         }
     for (int i=0; i<_imageArray.count; i++) {
         UIImageView *imageview =[[UIImageView alloc]initWithFrame:CGRectMake(imageScrollViewWidth*i, 0, imageScrollViewWidth,imageScrollViewHeight)];
-        [imageview sd_setImageWithURL:[NSURL URLWithString:_imageArray[i]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        [imageview sd_setImageWithURL:[NSURL URLWithString:_imageArray[i]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
         NSLog(@"imageview == %@",imageview.sd_imageURL);
         
         imageview.contentMode = UIViewContentModeScaleAspectFit;
@@ -1353,10 +1354,10 @@
     cell.productNameLabel.text = paramdic[@"pname"];
     NSString *picstr = paramdic[@"pic"];
     if (![picstr isKindOfClass:[NSNull class]]) {
-        [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:paramdic[@"pic"]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:paramdic[@"pic"]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
     }else{
     
-        cell.productImageView .image = [UIImage imageNamed:@"imageloading"];
+        cell.productImageView .image = [UIImage imageNamed:@"icon_default"];
     }
     
     NSString *pricestr = paramdic[@"price"];

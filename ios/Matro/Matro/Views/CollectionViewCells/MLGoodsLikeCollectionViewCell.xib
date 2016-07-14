@@ -17,7 +17,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qy7-li-WHP">
                         <rect key="frame" x="0.0" y="0.0" width="145" height="220"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageloading" translatesAutoresizingMaskIntoConstraints="NO" id="EhP-GQ-eZC">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_default" translatesAutoresizingMaskIntoConstraints="NO" id="EhP-GQ-eZC">
                                 <rect key="frame" x="0.0" y="0.0" width="145" height="145"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="EhP-GQ-eZC" secondAttribute="height" multiplier="1:1" id="sng-wb-r3n"/>
@@ -67,6 +67,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="imageloading" width="354" height="354"/>
+        <image name="icon_default" width="256" height="256"/>
     </resources>
 </document>

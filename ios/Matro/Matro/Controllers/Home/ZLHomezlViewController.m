@@ -43,7 +43,7 @@
     
     NSMutableArray * _labelARR;
     BOOL _isTopHiden;
-    NSMutableArray *verInfoArr;
+  
 }
 
 - (void)viewDidLoad {
@@ -88,8 +88,6 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PUSHMESSAGE" object:del.pushMessage userInfo:nil];
     }
     
-    
-    
     /*
     //注册通知  按钮切换
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
@@ -120,32 +118,39 @@
              NSLog(@"版本更新：%@",result);
 
              NSString *loadversion = result[@"data"][@"sel_info"][@"appverison"];
+             NSString *loadversionlowest = result[@"data"][@"sel_info"][@"appversion_lowest"];
              NSString *downlink = result[@"data"][@"sel_info"][@"download_link"];
              NSLog(@"version===%@ loadversion===%@ downlink===%@",version, loadversion,downlink);
-            
+        
              if (version < loadversion) {
-                 MLVersionViewController *vc = [[MLVersionViewController alloc]init];
-                 vc.versionLabel = loadversion;
-                 vc.downlink = downlink;
-                 NSString *labstr = result[@"data"][@"sel_info"][@"version_desc"];
-                 vc.versioninfoLabel = labstr;
+
+                     MLVersionViewController *vc = [[MLVersionViewController alloc]init];
+                     vc.versionLabel = loadversion;
+                     vc.qzversionlabel = loadversionlowest;
+                     vc.downlink = downlink;
+                     NSString *labstr = result[@"data"][@"sel_info"][@"version_desc"];
+                     NSArray *nameArray = [labstr componentsSeparatedByString:@"|"];
+                     vc.versionInfoArr = nameArray;
+                     NSLog(@"%@%@",nameArray,vc.versionInfoArr);
+                     vc.versioninfoLabel = labstr;
+                     
+                     vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+                     if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+                         
+                         vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+                         
+                     }else{
+                         
+                         self.modalPresentationStyle=UIModalPresentationCurrentContext;
+                         
+                     }
+                     [self presentViewController:vc  animated:YES completion:^(void)
+                      {
+                          vc.view.superview.backgroundColor = [UIColor clearColor];
+                          
+                      }];
                  
-                 vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
-                 if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
-                     
-                     vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
-                     
-                 }else{
-                     
-                     self.modalPresentationStyle=UIModalPresentationCurrentContext;
-                     
                  }
-                 [self presentViewController:vc  animated:YES completion:^(void)
-                  {
-                      vc.view.superview.backgroundColor = [UIColor clearColor];
-                      
-                    }];
-                }
              }
          }
          NSLog(@"请求成功 result====%@",result);
@@ -670,22 +675,41 @@
     }
     if ([type isEqualToString:@"2"]) {
         //品牌
-        PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
-        self.hidesBottomBarWhenPushed = YES;
-        vc.searchString = sender;
-        vc.title = @"品牌馆";
-        [self.navigationController pushViewController:vc animated:NO];
-        self.hidesBottomBarWhenPushed = NO;
+        if ([sender isEqualToString:@"all"]) {
+            PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
+            pinVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:pinVC animated:YES];
+        }
+        else{
+            PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
+            self.hidesBottomBarWhenPushed = YES;
+            vc.searchString = sender;
+            vc.title = @"品牌馆";
+            [self.navigationController pushViewController:vc animated:NO];
+            self.hidesBottomBarWhenPushed = NO;
+            
+        }
+        
+
         
     }
     if ([type isEqualToString:@"3"]) {
         //分类
-        MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
+        if ([sender isEqualToString:@"all"]) {
+            
+            UITabBarController *rootViewController = (UITabBarController *)((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
+            [rootViewController setSelectedIndex:1];
+            //[self.tabBarController setSelectedIndex:1];
+        }else{
+            
+            MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
+            vc.filterParam = @{@"flid":sender};
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
 
-        vc.filterParam = @{@"flid":sender};
-        self.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-        self.hidesBottomBarWhenPushed = NO;
+        }
+
     }
     if ([type isEqualToString:@"4"]) {
         //链接

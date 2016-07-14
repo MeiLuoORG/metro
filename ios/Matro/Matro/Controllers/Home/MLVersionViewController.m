@@ -10,36 +10,104 @@
 #import "HFSServiceClient.h"
 
 @interface MLVersionViewController ()
-
-@property (weak, nonatomic) IBOutlet UILabel *VerssionLab;
-@property (weak, nonatomic) IBOutlet UILabel *VersionInfoLab;
-@property (weak, nonatomic) IBOutlet UIView *CaozuoView;
-@property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
-@property (weak, nonatomic) IBOutlet UIButton *downloadBtn;
-@property (weak, nonatomic) IBOutlet UIView *versionView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *versionViewH;
-
+{
+    NSString *version;
+}
 @end
 
 @implementation MLVersionViewController
 @synthesize downlink,versionLabel,versioninfoLabel;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self getVersion];
     self.versionView.layer.cornerRadius = 4.f;
     self.versionView.layer.masksToBounds = YES;
     self.downloadBtn.layer.cornerRadius = 4.f;
     self.downloadBtn.layer.masksToBounds = YES;
     self.cancelBtn.layer.cornerRadius = 4.f;
     self.cancelBtn.layer.masksToBounds = YES;
+    self.qzdownloadBtn.layer.cornerRadius = 4.f;
+    self.qzdownloadBtn.layer.masksToBounds = YES;
+    self.qzdownloadBtn.hidden = YES;
     self.VerssionLab.text = [NSString stringWithFormat:@"美罗全球精品购V%@",self.versionLabel];
-    self.VersionInfoLab.text = [NSString stringWithFormat:@"1.%@",self.versioninfoLabel];
-    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
     
-    CGSize theSize = [self.VersionInfoLab.text boundingRectWithSize:CGSizeMake(SCREENWIDTH, 999999.0f) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
+    if (version < _qzversionlabel) {
+        self.cancelBtn.hidden = YES;
+        self.downloadBtn.hidden = YES;
+        self.qzdownloadBtn.hidden = NO;
+    }else{
     
-    self.versionViewH.constant = 165 + theSize.height;
+        self.cancelBtn.hidden = NO;
+        self.downloadBtn.hidden = NO;
+        self.qzdownloadBtn.hidden = YES;
+    }
     
+    if (_versionInfoArr.count == 1 ) {
+        
+        self.VersionInfoLab.text = [NSString stringWithFormat:@"%@",_versionInfoArr[0]];
+        
+        NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+        
+        CGSize theSize = [self.VersionInfoLab.text boundingRectWithSize:CGSizeMake(SCREENWIDTH, 999999.0f) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
+        
+        self.versionViewH.constant = 165 + theSize.height;
+        
+    }else if(_versionInfoArr.count == 2){
+    
+        self.VersionInfoLab.text = [NSString stringWithFormat:@"%@\n%@",_versionInfoArr[0],_versionInfoArr[1]];
+        NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+        
+        CGSize theSize = [self.VersionInfoLab.text boundingRectWithSize:CGSizeMake(SCREENWIDTH, 999999.0f) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
+        
+        self.versionViewH.constant = 165 + theSize.height + 25;
+        
+    }else if(_versionInfoArr.count == 3){
+        
+        self.VersionInfoLab.text = [NSString stringWithFormat:@"%@\n%@\n%@",_versionInfoArr[0],_versionInfoArr[1],_versionInfoArr[2]];
+        NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+        
+        CGSize theSize = [self.VersionInfoLab.text boundingRectWithSize:CGSizeMake(SCREENWIDTH, 999999.0f) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
+        
+        self.versionViewH.constant = 165 + theSize.height +50;
+        
+    }else if(_versionInfoArr.count == 4){
+        
+        self.VersionInfoLab.text = [NSString stringWithFormat:@"%@\n%@\n%@\n%@",_versionInfoArr[0],_versionInfoArr[1],_versionInfoArr[2],_versionInfoArr[3]];
+        NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+        
+        CGSize theSize = [self.VersionInfoLab.text boundingRectWithSize:CGSizeMake(SCREENWIDTH, 999999.0f) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
+        
+        self.versionViewH.constant = 165 + theSize.height +75;
+        
+    }else if(_versionInfoArr.count == 5){
+        
+        self.VersionInfoLab.text = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@",_versionInfoArr[0],_versionInfoArr[1],_versionInfoArr[2],_versionInfoArr[3],_versionInfoArr[4]];
+        NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+        
+        CGSize theSize = [self.VersionInfoLab.text boundingRectWithSize:CGSizeMake(SCREENWIDTH, 999999.0f) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
+        
+        self.versionViewH.constant = 165 + theSize.height +100;
+        
+    }else if(_versionInfoArr.count == 6){
+        
+        self.VersionInfoLab.text = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n%@\n%@",_versionInfoArr[0],_versionInfoArr[1],_versionInfoArr[2],_versionInfoArr[3],_versionInfoArr[4],_versionInfoArr[5]];
+        NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+        
+        CGSize theSize = [self.VersionInfoLab.text boundingRectWithSize:CGSizeMake(SCREENWIDTH, 999999.0f) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
+        
+        self.versionViewH.constant = 165 + theSize.height +125;
+        
+    }
+   
+    
+}
+
+- (NSString*)getVersion
+{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSLog(@"version===%@",version);
+    return version;
 }
 
 - (IBAction)actCancel:(id)sender {
@@ -50,6 +118,7 @@
 - (IBAction)actDownload:(id)sender {
     NSLog(@"去下载downlink===%@",self.downlink);
     self.versionView.hidden = YES;
+    
     
     NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/su-zhou-mei-luo-jing-pin/id1112037018?mt=8"];
     [[UIApplication sharedApplication]openURL:url];

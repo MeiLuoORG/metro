@@ -619,7 +619,7 @@
 
         } failure:^(NSError *error) {
            
-            NSLog(@"查询实名认证失败：%@",error);
+            NSLog(@"请求我的资产失败：%@",error);
         }];
 
     }

@@ -15,6 +15,7 @@
 #import "UIView+BlankPage.h"
 #import "UIImageView+WebCache.h"
 #import "MLpingjiaViewController.h"
+#import "CommonHeader.h"
 
 #define CollectionViewCellMargin 10.0f//间隔10
 @interface MLPingjiaListViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
@@ -119,27 +120,27 @@ static float height;
     switch (self.type) {
         case PingjiaType_All:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex]];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=&client_type=ios&app_version=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],vCFBundleShortVersionStr];
         }
             break;
         case PingjiaType_Haoping:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"good"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"good",vCFBundleShortVersionStr];
         }
             break;
         case PingjiaType_Zhongping:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"normal"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"normal",vCFBundleShortVersionStr];
         }
             break;
         case PingjiaType_Chaping:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"bad"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"bad",vCFBundleShortVersionStr];
         }
             break;
         case PingjiaType_Shaitu:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"picture"];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex],@"picture",vCFBundleShortVersionStr];
         }
             break;
         default:
@@ -250,10 +251,10 @@ static float height;
     imageList  = tempDic[@"photos"];
     NSString *imgstr = tempDic[@"logo"];
     if (![imgstr isKindOfClass:[NSNull class]]) {
-        [cell.imageHead sd_setImageWithURL:[NSURL URLWithString:imgstr] placeholderImage:[UIImage imageNamed:@"imageLoading"]];
+        [cell.imageHead sd_setImageWithURL:[NSURL URLWithString:imgstr] placeholderImage:[UIImage imageNamed:@"icon_default"]];
     }
     else{
-        cell.imageHead.image = [UIImage imageNamed:@"imageLoading"];
+        cell.imageHead.image = [UIImage imageNamed:@"icon_default"];
     }
     picstr = tempDic[@"pic"];
    
@@ -304,10 +305,10 @@ static float height;
     
     if (![src isKindOfClass:[NSNull class]]) {
         
-       [cell.imageCell sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+       [cell.imageCell sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[UIImage imageNamed:@"icon_default"]];
         
     }else{
-        cell.imageCell.image = [UIImage imageNamed:@"imageloading"];
+        cell.imageCell.image = [UIImage imageNamed:@"icon_default"];
         
     }
     

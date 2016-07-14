@@ -343,6 +343,7 @@
         _tableView.tableFooterView = _guiZeView;
         NSLog(@"消费规则视图的高度为：%g",rect.size.height+60);
         [self getCardInfowithcardNo:firstCardModel.cardNo];
+        [self getYouHuiQuanYuEwithcardNO:firstCardModel.cardNo];
     }
     
     
@@ -471,7 +472,7 @@
                                                       self.currentCardModel.yuE = userDataDic[@"SaleMoney"];
                                                       dispatch_sync(dispatch_get_main_queue(), ^{
                                                           _ValidCentSLabel.text = userDataDic[@"ValidCent"];
-                                                          _yuELabel.text = userDataDic[@"SaleMoney"];
+                                                          //_yuELabel.text = userDataDic[@"SaleMoney"];
                                                       });
                                                       
                                                       //[_tableView reloadData];
@@ -997,6 +998,7 @@
                                                               [self.cardARR addObject:cardModel];
                                                               //请求默认卡的信息
                                                               [self getCardInfowithcardNo:cardModel.cardNo];
+                                                              [self getYouHuiQuanYuEwithcardNO:cardModel.cardNo];
                                                           }
                                                           
                                                       }
@@ -1067,14 +1069,50 @@
 
 
 #pragma end mark
+#pragma mark 获取优惠券余额
+- (void)getYouHuiQuanYuEwithcardNO:(NSString *)cardNoStr{
+    _yuELabel.text = @"0";
+    //http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons&test_phone=18260127042
+    NSDictionary * ret = @{@"crmhykno":cardNoStr};
+    
+    [MLHttpManager post:YOUHUIQUAN_YUE_CARD_URLString params:ret m:@"member" s:@"admin_coupons" success:^(id responseObject) {
+        NSDictionary * result = (NSDictionary *)responseObject;
+        NSLog(@"请求余额：%@",result);
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary * dataDic = result[@"data"];
+            NSArray * allCouponsARR = dataDic[@"b2c_allcoupons"];
+            if (allCouponsARR.count > 0) {
+                int sum = 0;
+                for (NSDictionary * dics in allCouponsARR) {
+                    int balance = [dics[@"Balance"] intValue];
+                    sum = sum + balance;
+                    
+                    
+                }
+                NSString * sumStr = [NSString stringWithFormat:@"%d",sum];
+                _yuELabel.text = sumStr;
+                
+            }
+            else{
+                _yuELabel.text = @"0";
+            }
+            
+            
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessag:REQUEST_ERROR_ZL toView:self.view];
+    }];
+
+}
 
 
+#pragma end mark 获取优惠券余额结束
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 
 @end
