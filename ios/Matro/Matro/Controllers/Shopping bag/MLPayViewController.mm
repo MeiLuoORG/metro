@@ -258,7 +258,7 @@
             [[HFSServiceClient sharedPayClient] POST:ALIPAY_SERVICE_URL parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 NSDictionary *result = (NSDictionary *)responseObject;
-                NSLog(@"result %@",result);
+                NSLog(@"支付宝支付result %@",result);
                 
                 if (result) {
                     
@@ -286,7 +286,7 @@
                         
                         orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
                                        orderSpec, signedString, @"RSA"];
-                        NSLog(@"%@",orderString);
+                        NSLog(@"支付宝支付签名%@",orderString);
                         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
                             
                             if ([resultDic[@"resultStatus"] intValue]==9000) {
@@ -309,7 +309,7 @@
                                 
                                 [self.navigationController pushViewController:shiBaiVC animated:YES];
                             }
-                            NSLog(@"reslut = %@",resultDic);
+                            NSLog(@"支付宝支付结果reslut = %@",resultDic);
                         }];
                     }
                 }
@@ -349,6 +349,9 @@
         NSDictionary * ret = @{@"order_id":self.order_id,@"payment_type":@"weixin"};
         [MLHttpManager post:ZhiFu_LIUSHUI_URLString params:ret m:@"product" s:@"pay" success:^(id responseObject) {
             NSDictionary * results = (NSDictionary *)responseObject;
+
+            NSLog(@"请求订单流水：%@",results);
+
             if ([results[@"code"] isEqual:@0]) {
                 
                 NSDictionary *params = @{@"orderId":self.order_id?:@"",@"txnAmt":self.order_sum?[NSNumber numberWithFloat:self.order_sum]:@"",@"orderDesc":@"美罗全球购"};
@@ -356,6 +359,7 @@
                 
                 [[HFSServiceClient sharedPayClient]POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSString *tn = [responseObject objectForKey:@"tn"];
+
                     [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
@@ -445,12 +449,14 @@
             [[HFSServiceClient sharedPayClient] POST:WXPAY_SERVICE_URL parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 NSDictionary *data = (NSDictionary *)responseObject;
+                NSLog(@"微信顾阳返回结果：%@",data);
                 NSString *noncestr = [data objectForKey:@"noncestr"];
                 NSString *partnerid = [data objectForKey:@"partnerid"];
                 NSString *prepayid = [data objectForKey:@"prepayid"];
                 NSString *timestamp = [data objectForKey:@"timestamp"];
                 NSString *sign = [data objectForKey:@"sign"];
                 NSString *package = [data objectForKey:@"package"];
+                NSString * appId = [data objectForKey:@"appid"];
                 
                 PayReq *req             = [[PayReq alloc] init];
                 req.partnerId           = partnerid;
@@ -461,7 +467,7 @@
                 req.sign                = sign;
                 [WXApi sendReq:req];
                 
-                NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
+                NSLog(@"微信支付结果：appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [_hud show:YES];

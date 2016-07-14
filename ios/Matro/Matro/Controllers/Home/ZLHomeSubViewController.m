@@ -40,10 +40,31 @@
     self.webView.delegate = self;
     self.webView.scrollView.delegate = self;
     [self.view addSubview:self.webView];
+    self.webView.scrollView.backgroundColor = [UIColor whiteColor];
     [self createWebViewWith:self.urlstr];
-
+    UIImage * image1 = [UIImage imageNamed:@"0001"];
+    UIImage * image2 = [UIImage imageNamed:@"0002"];
+    UIImage * image3 = [UIImage imageNamed:@"0003"];
+    UIImage * image4 = [UIImage imageNamed:@"0004"];
+    UIImage * image5 = [UIImage imageNamed:@"0005"];
+    UIImage * image6 = [UIImage imageNamed:@"0006"];
+    NSArray * arr = @[image1,image2,image3,image4,image5,image6];
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    // 设置普通状态的动画图片 (idleImages 是图片)
+    [header setImages:arr forState:MJRefreshStateIdle];
+    // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+    [header setImages:arr forState:MJRefreshStatePulling];
+    // 设置正在刷新状态的动画图片
+    [header setImages:arr forState:MJRefreshStateRefreshing];
+    // 设置header
+    //self.webView.scrollView.header = header;
 
 }
+- (void)loadNewData{
+    [self.webView reload];
+}
+
 //创建 webView
 - (void)createWebViewWith:(NSString *)urlString{
     
@@ -63,7 +84,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
   
     
-    
+    //[webView.scrollView.header endRefreshing];
     NSLog(@"HATestView.h网页完成加载");
     self.contextjs = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     self.contextjs[@"_native"] = self;
@@ -87,9 +108,17 @@
 #pragma mark UIScrollView代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     //NSLog(@"scrollViewDidScroll方法:%g",scrollView.contentOffset.y);
-//    float g = scrollView.contentOffset.y;
-    //NSString *alertJS=@"indexScroll()"; //准备执行的js代码
+    /*
+    float g = scrollView.contentOffset.y;
+    NSLog(@"拖拽：%g",g);
+    NSString * gStr = [NSString stringWithFormat:@"%g",g];
+    NSString *alertJS=@"indexScroll()"; //准备执行的js代码
+    
+    JSValue *jsFunction = self.contextjs[@"indexScroll"];
+    JSValue *value1 = [jsFunction callWithArguments:@[gStr]];
+    */
     //[self.contextjs evaluateScript:alertJS];//通过oc方法调用js的alert
+    
     if (self.homeSubDelegate && [self.homeSubDelegate respondsToSelector:@selector(homeSubViewController:withContentOffest:)]) {
         [self.homeSubDelegate homeSubViewController:self withContentOffest:scrollView.contentOffset.y];
     }

@@ -119,7 +119,7 @@ static float height;
     switch (self.type) {
         case PingjiaType_All:
         {
-            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=12308&page_size=10&cur_page=%@&type=",MATROJP_BASE_URL,[NSNumber numberWithInteger:pageIndex]];
+            url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment&method=list&id=%@&page_size=10&cur_page=%@&type=",MATROJP_BASE_URL,self.paramDic[@"id"],[NSNumber numberWithInteger:pageIndex]];
         }
             break;
         case PingjiaType_Haoping:

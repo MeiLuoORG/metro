@@ -456,29 +456,29 @@ fetchCompletionHandler:
     ZLHomezlViewController *homeViewController = [[ZLHomezlViewController alloc]init];
     homeViewController.title = @"首页";
     MLNavigationController *homeNavigationController = [[MLNavigationController alloc]initWithRootViewController:homeViewController];
-    homeNavigationController.tabBarItem.image = [UIImage imageNamed:@"home-2"];
-    homeNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"homeSelect"];
+    homeNavigationController.tabBarItem.image = [UIImage imageNamed:@"home3"];
+    homeNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"home3s"];
     homeNavigationController.tabBarItem.title = @"首页";
     
     MLClassViewController *classViewController = [[MLClassViewController alloc]init];
     classViewController.title = @"分类";
     MLNavigationController *classNavigationController = [[MLNavigationController alloc]initWithRootViewController:classViewController];
-    classNavigationController.tabBarItem.image = [UIImage imageNamed:@"fenlei"];
-    classNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"fenleiSelect"];
+    classNavigationController.tabBarItem.image = [UIImage imageNamed:@"list3"];
+    classNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"list3s"];
     classNavigationController.tabBarItem.title = @"分类";
     
     MLShopBagViewController *bagViewController = [[MLShopBagViewController alloc]init];
     bagViewController.title = @"购物袋";
     MLNavigationController *bagNavigationController = [[MLNavigationController alloc]initWithRootViewController:bagViewController];
-    bagNavigationController.tabBarItem.image = [UIImage imageNamed:@"shopCar"];
-    bagNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"shopCarselect"];
+    bagNavigationController.tabBarItem.image = [UIImage imageNamed:@"shopcar3"];
+    bagNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"shopcar-15-15"];
     bagNavigationController.tabBarItem.title = @"购物袋";
     
     MLPersonController *personViewController = [[MLPersonController alloc]init];
     personViewController.title = @"我";
     MLNavigationController *personalNavigationController = [[MLNavigationController alloc]initWithRootViewController:personViewController];
-    personalNavigationController.tabBarItem.image = [UIImage imageNamed:@"me"];
-    personalNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"meSelect"];
+    personalNavigationController.tabBarItem.image = [UIImage imageNamed:@"me3"];
+    personalNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"me3s"];
     personalNavigationController.tabBarItem.title = @"我";
     
     _tabBarController = [[UITabBarController alloc]init];
@@ -486,6 +486,7 @@ fetchCompletionHandler:
     
     self.tabBarController.delegate = self;
     self.tabBarController.tabBar.tintColor = [UIColor colorWithHexString:@"#AE8E5D"];
+    
     UIView *bgView = [[UIView alloc] initWithFrame:self.tabBarController.tabBar.bounds];
     bgView.backgroundColor = [UIColor whiteColor];
     [self.tabBarController.tabBar insertSubview:bgView atIndex:0];

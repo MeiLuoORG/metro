@@ -18,5 +18,6 @@ typedef void(^MLStoreFootCancelBlock)();
 
 @property (nonatomic,copy)MLStoreFootSelectAllBlock selectAllBlock;
 @property (nonatomic,copy)MLStoreFootCancelBlock cancelBlock;
+@property (weak, nonatomic) IBOutlet MLCheckBoxButton *checkBoxBtn;
 
 @end

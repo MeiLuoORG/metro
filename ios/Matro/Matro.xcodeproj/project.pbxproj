@@ -339,6 +339,14 @@
 		3C13F2F21D1D19C70069A8F6 /* ShiMingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13F2F01D1D19C70069A8F6 /* ShiMingViewController.m */; };
 		3C13F2F31D1D19C70069A8F6 /* ShiMingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */; };
 		3C197A311D2E831D0087BAF1 /* app_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3C197A301D2E831D0087BAF1 /* app_bg.jpg */; };
+		3C26A2E11D362CAE0095E8AA /* zhoulu.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3C26A2E01D362CAE0095E8AA /* zhoulu.gif */; };
+		3C26A2F41D362F160095E8AA /* 0001.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C26A2EE1D362F160095E8AA /* 0001.png */; };
+		3C26A2F51D362F160095E8AA /* 0002.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C26A2EF1D362F160095E8AA /* 0002.png */; };
+		3C26A2F61D362F160095E8AA /* 0003.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C26A2F01D362F160095E8AA /* 0003.png */; };
+		3C26A2F71D362F160095E8AA /* 0004.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C26A2F11D362F160095E8AA /* 0004.png */; };
+		3C26A2F81D362F160095E8AA /* 0005.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C26A2F21D362F160095E8AA /* 0005.png */; };
+		3C26A2F91D362F160095E8AA /* 0006.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C26A2F31D362F160095E8AA /* 0006.png */; };
+		3C26A2FC1D363A1E0095E8AA /* ZLCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C26A2FB1D363A1E0095E8AA /* ZLCustomButton.m */; };
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
 		3C36713A1D2A165100BC5680 /* ZLLabelCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3671391D2A165100BC5680 /* ZLLabelCustom.m */; };
 		3C36713F1D2A550C00BC5680 /* PinPaiSPListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C36713E1D2A550C00BC5680 /* PinPaiSPListViewController.m */; };
@@ -1303,6 +1311,15 @@
 		3C13F2F01D1D19C70069A8F6 /* ShiMingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShiMingViewController.m; sourceTree = "<group>"; };
 		3C13F2F11D1D19C70069A8F6 /* ShiMingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShiMingViewController.xib; sourceTree = "<group>"; };
 		3C197A301D2E831D0087BAF1 /* app_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = app_bg.jpg; sourceTree = "<group>"; };
+		3C26A2E01D362CAE0095E8AA /* zhoulu.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = zhoulu.gif; sourceTree = "<group>"; };
+		3C26A2EE1D362F160095E8AA /* 0001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0001.png; sourceTree = "<group>"; };
+		3C26A2EF1D362F160095E8AA /* 0002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0002.png; sourceTree = "<group>"; };
+		3C26A2F01D362F160095E8AA /* 0003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0003.png; sourceTree = "<group>"; };
+		3C26A2F11D362F160095E8AA /* 0004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0004.png; sourceTree = "<group>"; };
+		3C26A2F21D362F160095E8AA /* 0005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0005.png; sourceTree = "<group>"; };
+		3C26A2F31D362F160095E8AA /* 0006.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0006.png; sourceTree = "<group>"; };
+		3C26A2FA1D363A1E0095E8AA /* ZLCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLCustomButton.h; sourceTree = "<group>"; };
+		3C26A2FB1D363A1E0095E8AA /* ZLCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLCustomButton.m; sourceTree = "<group>"; };
 		3C2E204C1D0ABDAF00184D48 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		3C3671381D2A165100BC5680 /* ZLLabelCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLLabelCustom.h; sourceTree = "<group>"; };
@@ -3738,6 +3755,8 @@
 				3CC5F7741D2B56C500E1A5B5 /* ShaiXuanZlView.h */,
 				3CC5F7751D2B56C500E1A5B5 /* ShaiXuanZlView.m */,
 				3CC5F7771D2B56E500E1A5B5 /* ShaiXuanZlView.xib */,
+				3C26A2FA1D363A1E0095E8AA /* ZLCustomButton.h */,
+				3C26A2FB1D363A1E0095E8AA /* ZLCustomButton.m */,
 			);
 			path = PinPaiView;
 			sourceTree = "<group>";
@@ -3816,6 +3835,13 @@
 		3CFC2A4A1D127C5C00C43BFF /* images */ = {
 			isa = PBXGroup;
 			children = (
+				3C26A2EE1D362F160095E8AA /* 0001.png */,
+				3C26A2EF1D362F160095E8AA /* 0002.png */,
+				3C26A2F01D362F160095E8AA /* 0003.png */,
+				3C26A2F11D362F160095E8AA /* 0004.png */,
+				3C26A2F21D362F160095E8AA /* 0005.png */,
+				3C26A2F31D362F160095E8AA /* 0006.png */,
+				3C26A2E01D362CAE0095E8AA /* zhoulu.gif */,
 				3CFC2A4B1D127C5C00C43BFF /* b54504436257.jpg */,
 			);
 			path = images;
@@ -4130,6 +4156,7 @@
 				7A272EC01D1A2EFC00242F24 /* MLShopCartMoreCell.xib in Resources */,
 				3ACF2CDC1CA4E702003D1F67 /* MLMoreTableViewCell.xib in Resources */,
 				280F7CE11CF829D600D42FA6 /* MLYHQViewController.xib in Resources */,
+				3C26A2F81D362F160095E8AA /* 0005.png in Resources */,
 				28CF86141CEDC59A00E582EE /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				287585711D210386000BDEF4 /* MLFootTableViewCell.xib in Resources */,
 				7AF6EEBF1CE4147B00ECFCAA /* MLPersonAccountCell.xib in Resources */,
@@ -4164,6 +4191,7 @@
 				3CEAC66E1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib in Resources */,
 				3A1F72CC1CA3F904000ECE08 /* HFSOrderListFooterView.xib in Resources */,
 				2869F68F1D227A08003C4663 /* MLKefuHeader.xib in Resources */,
+				3C26A2F61D362F160095E8AA /* 0003.png in Resources */,
 				7ACFA6161D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib in Resources */,
 				3A16DC521CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.xib in Resources */,
 				3A633B4D1C9EA36E00C11FD5 /* Documentation.html in Resources */,
@@ -4184,7 +4212,9 @@
 				284850D01D13F41B003C2649 /* MLGoodsDetailsViewController.xib in Resources */,
 				7AF725BA1CE1306600B00FB8 /* MLKuajingCell.xib in Resources */,
 				7ACFA6021D112DE200987A03 /* MLOrderCenterTableViewCell.xib in Resources */,
+				3C26A2F51D362F160095E8AA /* 0002.png in Resources */,
 				3ACF2D011CA52F1F003D1F67 /* MLTisTableViewCell.xib in Resources */,
+				3C26A2F91D362F160095E8AA /* 0006.png in Resources */,
 				7ABB223E1D20FA2F00529B2B /* MLSystemBodyCell.xib in Resources */,
 				3A16DC401CA0EA69007AE4A2 /* RecommendCollectionViewCell.xib in Resources */,
 				3A1AA8C71CAA58F200AF73C2 /* MLAddressInfoViewController.xib in Resources */,
@@ -4203,6 +4233,7 @@
 				7A12A0DC1D2E4ABB00D0FF26 /* MLOrderSubTextTableViewCell.xib in Resources */,
 				7ABB22311D20F2C400529B2B /* MLMessagesControlCell.xib in Resources */,
 				284E36521D2C9FE9000CC90F /* MLVersionViewController.xib in Resources */,
+				3C26A2F41D362F160095E8AA /* 0001.png in Resources */,
 				3C13F2F31D1D19C70069A8F6 /* ShiMingViewController.xib in Resources */,
 				3AF01E5C1CBBAB94005830BD /* MLLogisticsViewController.xib in Resources */,
 				7ACFA5F71D11233B00987A03 /* MLPersonAlertViewController.xib in Resources */,
@@ -4241,6 +4272,7 @@
 				3A1AA8C21CAA433900AF73C2 /* MLAddressListTableViewCell.xib in Resources */,
 				287C86D61D1CC4E00002E5E2 /* MLpingjiaImgViewCell.xib in Resources */,
 				3A1AA8D81CAA8B7100AF73C2 /* MLPayerrTableViewCell.xib in Resources */,
+				3C26A2F71D362F160095E8AA /* 0004.png in Resources */,
 				7A07202A1D17D2E300E0B58E /* MLTuiHuoMiaoshuTableViewCell.xib in Resources */,
 				285808091D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib in Resources */,
 				7A1DC2611D23A56C0094D751 /* MLPushConfigTableViewCell.xib in Resources */,
@@ -4250,6 +4282,7 @@
 				3A630BE41CA256CF006E67F4 /* MLClassHeader.xib in Resources */,
 				7A7672E11D0FDA2800B21438 /* MLGoodsLikeCollectionViewCell.xib in Resources */,
 				3A1F72E01CA3FC13000ECE08 /* HFSOrderListTableViewCell.xib in Resources */,
+				3C26A2E11D362CAE0095E8AA /* zhoulu.gif in Resources */,
 				3A630BDF1CA25663006E67F4 /* MLClassTableViewCell.xib in Resources */,
 				3AA0E7351CA916A90079AA90 /* MLPayViewController.xib in Resources */,
 				3C1306E01D260BBC005CFCEC /* icons.bundle in Resources */,
@@ -4418,6 +4451,7 @@
 				3AE02DB11CAB5F810016FA75 /* Model.xcdatamodeld in Sources */,
 				280F7CD01CF7F44800D42FA6 /* bitstream.c in Sources */,
 				3AE02DB61CAB60920016FA75 /* SearchHistory+CoreDataProperties.m in Sources */,
+				3C26A2FC1D363A1E0095E8AA /* ZLCustomButton.m in Sources */,
 				7A0936771D1BBBE3002325A2 /* MLCommentProductModel.m in Sources */,
 				3A1AA8CD1CAA7ACE00AF73C2 /* MLPayresultViewController.m in Sources */,
 				7A09367A1D1BC419002325A2 /* MLProductComDetailViewController.m in Sources */,

@@ -37,6 +37,7 @@
     UIView * _guiZeView;//会员卡消费规则接口
     
     UIImageView * _defaultImageView;
+    UILabel * _yuELabel;
     
 }
 @property (nonatomic, assign) BOOL wrap;
@@ -467,9 +468,10 @@
                                                       self.currentCardModel.cardID = userDataDic[@"CardId"];
                                                       self.currentCardModel.qrCode = userDataDic[@"QRCODE"];
                                                       self.currentCardModel.validCent = userDataDic[@"ValidCent"];
-                                                      
+                                                      self.currentCardModel.yuE = userDataDic[@"SaleMoney"];
                                                       dispatch_sync(dispatch_get_main_queue(), ^{
                                                           _ValidCentSLabel.text = userDataDic[@"ValidCent"];
+                                                          _yuELabel.text = userDataDic[@"SaleMoney"];
                                                       });
                                                       
                                                       //[_tableView reloadData];
@@ -701,8 +703,6 @@
 }
 
 
-
-
 -(void)actSelect:(UIButton *)sender{
     
 
@@ -827,6 +827,8 @@
                                                   NSString * cardTypeStr = [NSString stringWithFormat:@"%@",moCard.cardTypeName];
                                                   NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
                                                   [userDefault setObject:cardTypeStr forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
+                                                  [userDefault setObject:moCard.cardNo forKey:kUSERDEFAULT_USERCARDNO];
+                                                  NSLog(@"设置的默认卡号为：%@",moCard.cardNo);
                                                   [userDefault synchronize];
                                                   
                                               }else{
@@ -886,17 +888,18 @@
         cell.textLabel.text = @"可用积分";
         cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
         [cell addSubview:_ValidCentSLabel];
-    }/*
+    }
     if (indexPath.row == 2) {
         cell.textLabel.text = @"当前余额";
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-100, 10,70 , 20)];
-        label.textAlignment = NSTextAlignmentRight;
-        label.text = @"￥50000";
-        label.font = [UIFont systemFontOfSize:12];
-        label.alpha = 0.5;
-        [cell.contentView addSubview:label];
-    }*/
-    if (indexPath.row == 2) {
+        cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
+        _yuELabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_WIDTH-130, 10,100 , 20)];
+        _yuELabel.textAlignment = NSTextAlignmentRight;
+        _yuELabel.text = @"0";
+        _yuELabel.font = [UIFont systemFontOfSize:12];
+        _yuELabel.alpha = 0.5;
+        [cell addSubview:_yuELabel];
+    }
+    if (indexPath.row == 3) {
         cell.textLabel.text = @"使用记录";
         cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_WIDTH-130, 10,100 , 20)];
@@ -908,7 +911,7 @@
         [cell.contentView addSubview:label];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    if (indexPath.row == 3) {
+    if (indexPath.row == 4) {
         cell.textLabel.text = @"优惠规则";
         cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
     }
@@ -935,7 +938,7 @@
         [self.navigationController pushViewController:qrCodeVC animated:YES];
         
     }
-    if (indexPath.row == 2) {
+    if (indexPath.row == 3) {
         self.hidesBottomBarWhenPushed = YES;
         MNNPurchaseHistoryViewController *purchasHistoryVC = [MNNPurchaseHistoryViewController new];
         

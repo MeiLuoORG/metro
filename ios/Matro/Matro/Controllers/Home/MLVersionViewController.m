@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 @property (weak, nonatomic) IBOutlet UIButton *downloadBtn;
 @property (weak, nonatomic) IBOutlet UIView *versionView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *versionViewH;
 
 @end
 
@@ -32,7 +33,13 @@
     self.cancelBtn.layer.cornerRadius = 4.f;
     self.cancelBtn.layer.masksToBounds = YES;
     self.VerssionLab.text = [NSString stringWithFormat:@"美罗全球精品购V%@",self.versionLabel];
-    self.VersionInfoLab.text = [NSString stringWithFormat:@"1.%@\n\n2.%@\n\n3.%@\n\n4.%@\n\n5.%@",self.versioninfoLabel,self.versioninfoLabel,self.versioninfoLabel,self.versioninfoLabel,self.versioninfoLabel];
+    self.VersionInfoLab.text = [NSString stringWithFormat:@"1.%@",self.versioninfoLabel];
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+    
+    CGSize theSize = [self.VersionInfoLab.text boundingRectWithSize:CGSizeMake(SCREENWIDTH, 999999.0f) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attribute context:nil].size;
+    
+    self.versionViewH.constant = 165 + theSize.height;
+    
 }
 
 - (IBAction)actCancel:(id)sender {

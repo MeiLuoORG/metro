@@ -56,7 +56,15 @@
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
     BOOL isMatch = [pred evaluateWithObject:userName];
     return isMatch;
-    
+}
+#pragma 只能输入汉字
++ (BOOL)checkZhongWen:(NSString *)zhongWen{
+
+    //^[\u4e00-\u9fa5]{0,}$
+    NSString *pattern = @"^[\u4e00-\u9fa5]{0,20}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:zhongWen];
+    return isMatch;
 }
 
 

@@ -237,11 +237,18 @@ static NSInteger page = 1;
         model.isSelect = isSelected;
         if (isSelected) {
             [weakself.goodslistArray addObject:model];
+            
             NSLog(@"goodlist===%@",_goodslistArray);
             
         }
         else{
             [weakself.goodslistArray removeObject:model];
+        }
+        if (weakself.goodslistArray.count == self.dataSource.count) {
+            _footView.checkBoxBtn.isSelected = YES;
+        }else{
+            _footView.checkBoxBtn.isSelected = NO;
+            
         }
     };
     

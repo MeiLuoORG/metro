@@ -39,7 +39,7 @@
         tagView.clickborderSize = 0.5;
         tagView.tagsFrame = frame;
         tagView.clickBackgroundColor = RGBA(255, 78, 37, 1) ;
-        tagView.clickTitleColor = [UIColor whiteColor] ;
+        tagView.clickTitleColor = [UIColor whiteColor];
         tagView.clickStart = 0;
         tagView.delegate = self;
         tagView.clickString = self.clickStr;

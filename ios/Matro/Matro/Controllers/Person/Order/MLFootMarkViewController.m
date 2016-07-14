@@ -83,14 +83,14 @@
     //http://bbctest.matrojp.com/api.php?m=product&s=detail_footprint&test_test_phone=13771961207&action=sel_footprint
     
     
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail_footprint&test_phone=13771961207&action=sel_footprint",MATROJP_BASE_URL];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail_footprint&action=sel_footprint",MATROJP_BASE_URL];
     
     [MLHttpManager get:url params:nil m:@"product" s:@"detail_footprint" success:^(id responseObject) {
         NSLog(@"请求成功 ==== %@",responseObject);
         
         __weak typeof(self) weakself = self;
         
-        if ([responseObject[@"data"][@"footprint_info"] isKindOfClass:[NSString class]]) {
+        if ([responseObject[@"data"][@"sel_footprint"] isKindOfClass:[NSString class]]) {
             
             [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
             self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
@@ -101,7 +101,7 @@
             
         }else{
             
-            footArray = responseObject[@"data"][@"footprint_info"];
+            footArray = responseObject[@"data"][@"sel_footprint"];
             
             if (footArray.count>0) {
                 
