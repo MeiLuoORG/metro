@@ -64,7 +64,13 @@
                     
                     [self.rightBtn setTitle:@"查看评价" forState:UIControlStateNormal];
                 }
-                self.leftBtn.hidden = YES;
+                if (self.orderList.return_status == 0) {
+                    self.leftBtn.hidden = YES;
+                }else{
+                    [self.leftBtn setTitle:@"退货详情" forState:UIControlStateNormal];
+                    self.leftBtn.hidden = NO;
+                }
+                
                 self.rightBtn.hidden = NO;
             }
                 break;
@@ -98,21 +104,13 @@
             }
         }
             break;
-//        case OrderStatusWancheng:
-//        {
-//            if (self.orderList.buyer_comment == 0) { //未评价 去评价
-//                if (self.pingJiaAction) {
-//                    self.pingJiaAction();
-//                }
-//
-//            }
-//            else{
-//                if (self.kanPingJiaAction) {
-//                    self.kanPingJiaAction();
-//                }
-//            }
-//        }
-//            break;
+        case OrderStatusWancheng:
+        {
+            if (self.leftKanTuiHuo) {
+                self.leftKanTuiHuo();
+            }
+        }
+            break;
         default:
             break;
     }

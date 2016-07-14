@@ -15,6 +15,9 @@ typedef void(^LeftCancelAction)();
 typedef void(^LeftShouHuoAction)();
 typedef void(^LeftPingJiaAction)();
 typedef void(^LeftKanPingJiaAction)();
+typedef void(^LeftKanTuiHuo)();
+
+
 
 typedef void(^RightZhuiZongAction)();
 typedef void(^RightTuiHuoAction)();
@@ -29,7 +32,7 @@ typedef void (^RightShanchuAction)();
 @property (weak, nonatomic) IBOutlet UIButton *leftBtn;
 @property (weak, nonatomic) IBOutlet UIButton *rightBtn;
 
-
+@property (nonatomic,copy)LeftKanTuiHuo leftKanTuiHuo;
 @property (nonatomic,copy)LeftCancelAction cancelAction;
 @property (nonatomic,copy)LeftShouHuoAction shouHuoAction;
 @property (nonatomic,copy)LeftPingJiaAction pingJiaAction;

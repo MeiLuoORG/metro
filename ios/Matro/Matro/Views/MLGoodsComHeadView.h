@@ -22,8 +22,9 @@ typedef void(^GoodsComScore)(NSInteger score);
 @property (weak, nonatomic) IBOutlet UIView *scoreBgView;
 
 @property (weak, nonatomic) IBOutlet PlaceholderTextView *textView;
-@property (weak, nonatomic) IBOutlet UILabel *countLabel;
+@property (strong, nonatomic)UILabel *countLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *textBgView;
 
 @property (nonatomic,copy)GoodsComScore comScore;
 

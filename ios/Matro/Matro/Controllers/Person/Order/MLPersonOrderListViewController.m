@@ -28,6 +28,7 @@
 #import "MLHttpManager.h"
 #import "MLReturnRequestViewController.h"
 #import "MLPayViewController.h"
+#import "MLReturnsDetailViewController.h"
 
 
 
@@ -220,7 +221,16 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
             MLPayViewController *vc = [[MLPayViewController alloc]init];
             vc.order_id = order.order_id;
             vc.order_sum = order.order_price;
-            [self.navigationController pushViewController:vc animated:YES];
+            [weakself.navigationController pushViewController:vc animated:YES];
+        };
+        cell.leftKanTuiHuo = ^(){
+            MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
+            vc.order_id = order.order_id;
+            vc.cancelSuccess = ^(){
+                [weakself.tableView.header beginRefreshing];
+            };
+            [weakself.navigationController pushViewController:vc animated:YES];
+            
         };
         
         return cell;

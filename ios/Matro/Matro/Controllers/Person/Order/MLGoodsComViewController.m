@@ -56,13 +56,14 @@
         weakself.comScore = score;
     };
     headView.titleLabel.text = self.product.name;
+    [headView bringSubviewToFront:headView.countLabel];
     [headView.imageView sd_setImageWithURL:[NSURL URLWithString:self.product.pic] placeholderImage:PLACEHOLDER_IMAGE];
     self.headView = headView;
     self.tableView.tableHeaderView = headView;
     MLGoodsComFootView *footView = [MLGoodsComFootView goodsComFootView];
     [footView.addImgBtn addTarget:self action:@selector(addImage:) forControlEvents:UIControlEventTouchUpInside];
     [footView.sendComBtn addTarget:self action:@selector(sendComDetail:) forControlEvents:UIControlEventTouchUpInside];
-    
+
     self.tableView.tableFooterView = footView;
     UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
     
