@@ -240,6 +240,8 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 //请求品牌馆标题
 #define PinPaiGuanTitle_URLString       ZHOULU_ML_BASE_URLString@"/api.php?m=brand&s=brand&method=GetBrandByID&brandid="
 
+#define FenLeiName_URLString            ZHOULU_ML_BASE_URLString@"/api.php?m=category&s=list&method=GetCategoryByID&catid="
+
 /*zhouluEND*/
 
 

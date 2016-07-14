@@ -289,7 +289,7 @@
     [self.view addSubview:self.firstTopView];
     
     UIButton * leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftBtn setFrame:CGRectMake(10, 27, 25, 25)];
+    [leftBtn setFrame:CGRectMake(10, 27, 24, 24)];
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"saomiaozhou"] forState:UIControlStateNormal];
     //[leftBtn setImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(scanning) forControlEvents:UIControlEventTouchUpInside];
@@ -308,8 +308,8 @@
     frameView.backgroundColor = [UIColor whiteColor];
     //frameView.layer.borderWidth = 1;
     //frameView.layer.borderColor = RGBA(38, 14, 0, 0.5).CGColor;
-    //frameView.layer.cornerRadius = 4.f;
-    //frameView.layer.masksToBounds = YES;
+    frameView.layer.cornerRadius = 4.f;
+    frameView.layer.masksToBounds = YES;
     
     CGFloat H = frameView.bounds.size.height - 8;
     CGFloat imgW = H;
@@ -323,7 +323,7 @@
     
     [frameView addSubview:searchText];
     [frameView addSubview:searchImg];
-    searchImg.frame = CGRectMake(5 , 6, imgW-5, imgW-5);
+    searchImg.frame = CGRectMake(8 , 6, imgW-6, imgW-6);
     
     searchText.textColor = [UIColor grayColor];
     searchText.placeholder = @"寻找你想要的商品";
@@ -339,7 +339,7 @@
 
     
     self.newsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.newsButton setFrame:CGRectMake(SIZE_WIDTH-35, 30, 22, 22)];
+    [self.newsButton setFrame:CGRectMake(SIZE_WIDTH-35, 29, 24, 24)];
     //[newsBtn setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
     [self.newsButton setBackgroundImage:[UIImage imageNamed:@"xiaoxizhoulu"] forState:UIControlStateNormal];
     [self.newsButton addTarget:self action:@selector(newsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -714,10 +714,8 @@
 
         }else{
             
-            MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
-            vc.filterParam = @{@"flid":sender};
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+            [self toFenLeiName:sender];
+
             //self.hidesBottomBarWhenPushed = NO;
 
         }
@@ -798,6 +796,69 @@
     
 
 }
+//分类品牌名称
+- (void)toFenLeiName:(NSString * )sender{
+
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    /*
+     语言的力量  11:45:07
+     client_type=[android|ios]
+     语言的力量  11:45:15
+     app_version=1.0
+     */
+    //NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"];
+    //http://bbctest.matrojp.com/api.php?m=category&s=list&method=GetCategoryByID&catid=1103
+    NSString * urls = [NSString stringWithFormat:@"%@%@&client_type=ios&app_version=%@",FenLeiName_URLString,sender,vCFBundleShortVersionStr];
+    [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSDictionary * result = (NSDictionary *)responseObject;
+        NSLog(@"获取分类名称数据：%@",result);
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary * dataDic = result[@"data"];
+            if ([dataDic[@"ret"] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary * ret = dataDic[@"ret"];
+                NSString * name = ret[@"cat"];
+                if (![name isEqualToString:@""]) {
+                    MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
+                    vc.filterParam = @{@"flid":sender};
+                    vc.currentFLname = name;
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                    //self.hidesBottomBarWhenPushed = NO;
+                }
+            }
+            else{
+                _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+                [self.view addSubview:_hud];
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"没有分类信息";
+                [_hud hide:YES afterDelay:2];
+            }
+        }
+        else{
+            _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"没有分类信息";
+            [_hud hide:YES afterDelay:2];
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+        [self.view addSubview:_hud];
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = REQUEST_ERROR_ZL;
+        [_hud hide:YES afterDelay:2];
+    }];
+
+
+}
+
 //品牌馆标题
 - (void)toPinPaiGuanDetailList:(NSString *)sender{
 
