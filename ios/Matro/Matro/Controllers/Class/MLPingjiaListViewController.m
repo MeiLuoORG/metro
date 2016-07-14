@@ -87,7 +87,7 @@ static float height;
     self.commentTableView.dataSource = self;
     commentList = [NSMutableArray array];
     imageList = [NSMutableArray array];
-   
+    
      self.commentTableView.header = [self refreshHeaderWith: self.commentTableView];
     
      self.commentTableView.footer = [self loadMoreDataFooterWith: self.commentTableView];
@@ -105,6 +105,18 @@ static float height;
     }];
      */
     
+
+    for (UIViewController *vc in self.navigationController.viewControllers) {
+        
+        if ([vc isKindOfClass:[MLpingjiaViewController class]]) {
+            MLpingjiaViewController *pingjiavc = (MLpingjiaViewController *)vc;
+            self.paramDic = pingjiavc.paramDic;
+            break;
+            
+        }
+    }
+    
+    
     [self loadData ];
      [self.commentTableView.header beginRefreshing];
     
@@ -116,6 +128,9 @@ static float height;
 
 - (void)loadData{
     
+    
+    NSLog(@"1111%@",_paramDic);
+
     NSString *url;
     switch (self.type) {
         case PingjiaType_All:

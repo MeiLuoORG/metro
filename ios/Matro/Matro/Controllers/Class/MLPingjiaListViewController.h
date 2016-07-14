@@ -17,5 +17,6 @@ typedef NS_ENUM(NSInteger,PingjiaType){
 
 @interface MLPingjiaListViewController : MLBaseViewController
 @property(nonatomic,retain) NSDictionary *paramDic;
+
 - (instancetype)initWithPingjiaType:(PingjiaType)PingjiaType;
 @end

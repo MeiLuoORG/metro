@@ -221,8 +221,9 @@ static CGFloat kHeight = 0;
     }
     for (SearchHistory *searchHistory in historySearchArray) {
         [_historySearchTextArray addObject:searchHistory.keywork];
-        _historySearchTextArray = (NSMutableArray *)[[_historySearchTextArray reverseObjectEnumerator] allObjects];
     }
+    
+    _historySearchTextArray = (NSMutableArray *)[[_historySearchTextArray reverseObjectEnumerator] allObjects];
     _tbvH.constant = _historySearchTextArray.count * 30;
     
     

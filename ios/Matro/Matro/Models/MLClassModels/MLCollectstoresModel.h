@@ -10,7 +10,7 @@
 
 @interface MLCollectstoresModel : NSObject
 @property(nonatomic,copy)NSString *ID;
-@property(nonatomic,copy)NSString *shopID;
+@property(nonatomic,copy)NSString *shopid;
 @property(nonatomic,copy)NSString *score;
 @property(nonatomic,copy)NSString *shopname;
 @property(nonatomic,copy)NSString *logo;

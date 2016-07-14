@@ -47,7 +47,8 @@
 #import "IMJIETagView.h"
 #import "IMJIETagFrame.h"
 #import "CommonHeader.h"
-
+#import "MLBuyKnowViewController.h"
+#import "MLPingjiaListViewController.h"
 @interface UIImage (SKTagView)
 
 + (UIImage *)imageWithColor: (UIColor *)color;
@@ -264,7 +265,8 @@
     self.jinrudianpuView.layer.masksToBounds = YES;
     
     [self loadDateProDetail];
-    [self loaddataDianpu];
+    
+   // [self loaddataDianpu];
 
     [self guessYLike];
 
@@ -292,14 +294,15 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
+    
 }
 
 - (IBAction)actPingjia:(id)sender {
-    
-    NSLog(@"pingjia===%@",self.paramDic);
-    
+ 
     MLpingjiaViewController *vc = [[MLpingjiaViewController alloc] init];
-    vc.paramDic = self.paramDic;
+    vc.paramDic = @{@"id":_paramDic[@"id"]};
+    NSLog(@"pingjia===%@222%@",self.paramDic,vc.paramDic);
+    
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:NO];
     
@@ -323,6 +326,7 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *dic = responseObject[@"data"];
         pDic = responseObject[@"data"];
+        [self loaddataDianpu];
         
         _titleArray = dic[@"pinfo"][@"porperty_name"];//规格名
         
@@ -374,14 +378,16 @@
                 self.shuliangStepper.maxValue = amount.intValue;
                 
                 
-                if (amount.floatValue >= safe_amount.floatValue) {
+                if ((amount.floatValue - safe_amount.floatValue)>5) {
                     self.kuncuntisLabel.text = @"库存充足";
-                }else if(amount.floatValue < safe_amount.floatValue){
+                    self.shuliangStepper.minValue = 1;
+                }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
                     
-                    self.kuncuntisLabel.text = [NSString stringWithFormat:@"%@",amount];
+                    self.kuncuntisLabel.text = @"库存紧张";
+                    self.shuliangStepper.minValue = 1;
                 }
                 
-                if (amount.floatValue == 0) {
+                if ((amount.floatValue - safe_amount.floatValue) == 0) {
                     [self.shuliangStepper setTextValue:0];
                     leftbtn.enabled=NO;
                     rightbtn.enabled = NO;
@@ -529,19 +535,22 @@
             self.shuliangStepper.maxValue = amount.intValue;
             
             
-            if (amount.floatValue >= safe_amount.floatValue) {
+            if ((amount.floatValue - safe_amount.floatValue)>5) {
                 self.kuncuntisLabel.text = @"库存充足";
-            }else if(amount.floatValue < safe_amount.floatValue){
+                self.shuliangStepper.minValue = 1;
+            }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
                 
-                self.kuncuntisLabel.text = [NSString stringWithFormat:@"%@",amount];
+                self.kuncuntisLabel.text = @"库存紧张";
+                self.shuliangStepper.minValue = 1;
             }
             
-            if (amount.floatValue == 0) {
+            if ((amount.floatValue - safe_amount.floatValue) == 0) {
                 [self.shuliangStepper setTextValue:0];
                 leftbtn.enabled=NO;
                 rightbtn.enabled = NO;
                 self.kuncuntisLabel.text = @"售罄";
             }
+            
         }
         
         NSArray *promotionArr = dic[@"promotion"];
@@ -810,92 +819,12 @@
 }
 
 
-/*
-- (void)selectedTag:(NSString *)tagName{
-    
-    
-    NSString *price;
-    NSString *market_price;
-    NSString *stock;
-    NSString *safe_stock;
-    
-    
-    for (NSDictionary *searchDic in porpertyArray) {
-        NSMutableArray *guige = [[NSMutableArray alloc] init];
-        NSArray *setmealArr = searchDic[@"setmeal"];
-        if (setmealArr.count == 1) {
-            NSDictionary *guigeDic1 = setmealArr[0];
-            
-            NSString *guigestr1 = guigeDic1[@"name"];
-            
-            
-            [guige addObject:guigestr1];
-            
-        }else{
-            
-            NSDictionary *guigeDic1 = setmealArr[0];
-            NSDictionary *guigeDic2 = setmealArr[1];
-            NSString *guigestr1 = guigeDic1[@"name"];
-            NSString *guigestr2 = guigeDic2[@"name"];
-       
-            [guige addObject:guigestr1];
-            [guige addObject:guigestr2];
-        }
-        for (NSString *searchStr in guige) {
-            if ([searchStr isEqualToString:tagName]) {
-                Searchdic = searchDic;
-                price = searchDic[@"market_price"];
-                market_price = searchDic[@"price"];
-                stock = searchDic[@"stock"];
-                safe_stock = searchDic[@"safe_stock"];
-                
-                }
-            }
-    }
-    
-    NSLog(@"%@  %@  %@  %@",price,market_price,stock,safe_stock);
-    
-    float pricef = price.floatValue;
-    self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-    
-    NSAttributedString *attrStr =
-    [[NSAttributedString alloc]initWithString:market_price
-                                   attributes:
-     @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-       NSForegroundColorAttributeName:[UIColor grayColor],
-       NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-       NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-    self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-    
-    
-    [self.shuliangStepper setTextValue:1];
-    UIButton *leftbtn = (UIButton*)self.shuliangStepper.leftView;
-    UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
-    
-    
-    if (stock.floatValue >= safe_stock.floatValue) {
-        self.kuncuntisLabel.text = @"库存充足";
-    }else if(stock.floatValue < safe_stock.floatValue){
-        
-        self.kuncuntisLabel.text = [NSString stringWithFormat:@"%@",stock];
-    }
-    
-    if (stock.floatValue == 0) {
-        [self.shuliangStepper setTextValue:0];
-        leftbtn.enabled=NO;
-        rightbtn.enabled = NO;
-        self.kuncuntisLabel.text = @"售罄";
-    }
-    
-}
-*/
-
 -(void)loaddataDianpu{
     
     //  http://bbctest.matrojp.com/api.php?m=shop&s=shop&uid=20505
     NSLog(@"paramDic==%@",_paramDic);
     
-    NSString *dpid = self.paramDic[@"userid"];
+    NSString *dpid = pDic[@"pinfo"][@"userid"];
    
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,dpid,vCFBundleShortVersionStr];
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1231,8 +1160,8 @@
         imageview.contentMode = UIViewContentModeScaleAspectFit;
         imageview.tag = i;
         imageview.userInteractionEnabled = YES;
-        //UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapped:)];
-        //[imageview addGestureRecognizer:singleTap];
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapped:)];
+        [imageview addGestureRecognizer:singleTap];
         [_imageScrollView addSubview:imageview];
     }
     
@@ -1252,6 +1181,7 @@
     CPPhotoInfoViewController * vc = [[CPPhotoInfoViewController alloc]init];
     
     vc.bigPhotoImageArray =_imageArray;
+    
     vc.bigPhotoImageNum = tap.view.tag;
     
     [self presentViewController:vc animated:YES completion:^{
@@ -1278,8 +1208,8 @@
 #pragma mark- 购买须知
 - (IBAction)xuzhiAction:(id)sender {
     
-    MLHelpCenterDetailController *vc = [[MLHelpCenterDetailController alloc]init];
-    vc.webCode = @"45";
+    MLBuyKnowViewController *vc = [[MLBuyKnowViewController alloc]init];
+    
     [self.navigationController pushViewController:vc animated:YES];
     
 }
@@ -1485,16 +1415,18 @@
             [self.shuliangStepper setTextValue:1];
             UIButton *leftbtn = (UIButton*)self.shuliangStepper.leftView;
             UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
+            self.shuliangStepper.maxValue = stock.intValue;
             
-            
-            if (stock.floatValue >= safe_stock.floatValue) {
+            if ((stock.floatValue - safe_stock.floatValue)>5) {
                 self.kuncuntisLabel.text = @"库存充足";
-            }else if(stock.floatValue < safe_stock.floatValue){
+                self.shuliangStepper.minValue = 1;
+            }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
                 
-                self.kuncuntisLabel.text = [NSString stringWithFormat:@"%@",stock];
+                self.kuncuntisLabel.text = @"库存紧张";
+                self.shuliangStepper.minValue = 1;
             }
             
-            if (stock.floatValue == 0) {
+            if ((stock.floatValue - safe_stock.floatValue) == 0) {
                 [self.shuliangStepper setTextValue:0];
                 leftbtn.enabled=NO;
                 rightbtn.enabled = NO;
@@ -1588,14 +1520,16 @@
             UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
             
             
-            if (stock.floatValue >= safe_stock.floatValue) {
+            if ((stock.floatValue - safe_stock.floatValue)>5) {
                 self.kuncuntisLabel.text = @"库存充足";
-            }else if(stock.floatValue < safe_stock.floatValue){
+                self.shuliangStepper.minValue = 1;
+            }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
                 
-                self.kuncuntisLabel.text = [NSString stringWithFormat:@"%@",stock];
+                self.kuncuntisLabel.text = @"库存紧张";
+                self.shuliangStepper.minValue = 1;
             }
             
-            if (stock.floatValue == 0) {
+            if ((stock.floatValue - safe_stock.floatValue) == 0) {
                 [self.shuliangStepper setTextValue:0];
                 leftbtn.enabled=NO;
                 rightbtn.enabled = NO;
@@ -1769,7 +1703,7 @@
     MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
     NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
     vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",_paramDic[@"userid"],phone];
-    vc.uid = _paramDic[@"userid"];
+    vc.uid = pDic[@"pinfo"][@"userid"];
     vc.shopparamDic = dPDic;
     
     vc.hidesBottomBarWhenPushed = YES;

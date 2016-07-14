@@ -300,7 +300,8 @@
         _shopparamDic = @{@"userid":dpDic[@"userid"],@"company":dpDic[@"company"]};
  
     }
-        
+    NSLog(@"=====999%@",_shopparamDic);
+    
         NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_shop",MATROJP_BASE_URL];
         NSDictionary *params = @{@"do":@"add",@"shopid":_shopparamDic[@"userid"],@"uname":@"ml_13771961207",@"shopname":_shopparamDic[@"company"]};
         

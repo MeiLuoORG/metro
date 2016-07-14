@@ -1,42 +1,44 @@
 //
-//  MLHelpCenterDetailController.m
+//  MLBuyKnowViewController.m
 //  Matro
 //
-//  Created by MR.Huang on 16/5/7.
+//  Created by Matro on 16/7/14.
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
-#import "MLHelpCenterDetailController.h"
+#import "MLBuyKnowViewController.h"
 #import "HFSServiceClient.h"
 #import "Masonry.h"
 #import "CommonHeader.h"
-@interface MLHelpCenterDetailController ()<UIWebViewDelegate>
+
+@interface MLBuyKnowViewController ()<UIWebViewDelegate>
 @property (nonatomic,strong)UIWebView *webView;
+
 @end
 
-@implementation MLHelpCenterDetailController
+@implementation MLBuyKnowViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.navigationItem.title = @"购买须知";
     _webView = ({
         UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-64)];
         webView.delegate = self;
         [self.view addSubview:webView];
         webView;
     });
-
+    
+    
+    
     [self getWebContent];
     
     
 }
 
 - (void)getWebContent{
-   
-   // http://bbctest.matrojp.com/api.php?m=help&s=index&id=45
-    
-    NSString *urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=help&s=index&id=%@&client_type=ios&app_version=%@",_webCode?:@"",vCFBundleShortVersionStr];
+ 
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=setinfo&s=setinfo&method=GetPurchaseConfig&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     
     NSLog(@"%@",urlStr);
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -46,10 +48,9 @@
         NSNumber *resultCode = [responseObject objectForKey:@"code"];
         
         if ([resultCode isEqual:@0]) {
-            NSDictionary *dic = [result objectForKey:@"help_info"];
-            NSString *title = [dic objectForKey:@"con_title"];
-            NSString *htmlCode = [dic objectForKey:@"con_desc"];
-            self.navigationItem.title = title;
+            
+            NSString *htmlCode = [result objectForKey:@"ret"];
+            
             [_webView loadHTMLString:htmlCode baseURL:nil];
         }
         else{
@@ -95,6 +96,5 @@
     
     
 }
-
 
 @end

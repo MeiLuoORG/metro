@@ -42,7 +42,7 @@
 @interface MLClassViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,YAScrollSegmentControlDelegate,UICollectionViewDelegate,UICollectionViewDataSource,SearchDelegate>{
     
     NSArray *_classTitleArray;//第一大类数组
-    NSDictionary *actimageDic;//第一大类大图片字典
+    NSArray *actimageArr;//第一大类大图片字典
     NSMutableArray *_classSecondArray;//第二大类数组
     
     NSMutableDictionary *brandDic;
@@ -74,7 +74,7 @@
     brandArr = [NSMutableArray array];
     brandDic = [NSMutableDictionary dictionary];
     _classSecondArray = [NSMutableArray array];
-    actimageDic = [NSDictionary dictionary];
+    actimageArr = [NSArray array];
 
     [_tableView registerNib:[UINib nibWithNibName:@"MLClassHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:HEADER_IDENTIFIER];
     
@@ -119,10 +119,11 @@
 
 //分类点击事件（大图片）
 -(void)headerAction:(UITapGestureRecognizer *)tap{
-    NSLog(@"actimageDic1111===%@",actimageDic);
-    if (![actimageDic isEqual:@0]) {
-        NSString *ggtype = actimageDic[@"ggtype"];
-        NSString *ggv = actimageDic[@"ggv"];
+    NSLog(@"actimageDic1111===%@",actimageArr);
+    if (actimageArr.count >0) {
+        NSDictionary *tempDic = actimageArr[0];
+        NSString *ggtype = tempDic[@"ggtype"];
+        NSString *ggv = tempDic[@"ggv"];
         if ([ggtype isEqualToString:@"1"]) {
             MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
             vc.paramDic = @{@"id":ggv};
@@ -232,8 +233,9 @@
         NSLog(@"responseObject===%@",responseObject);
         [_classSecondArray removeAllObjects];
         
-        actimageDic = responseObject[@"data"][@"advertise"];
-        if (![actimageDic isEqual:@0]) {
+        actimageArr = responseObject[@"data"][@"advertise"];
+        if (actimageArr .count >0) {
+            NSDictionary *actimageDic = actimageArr[0];
             NSString *imgurl = actimageDic[@"imgurl"];
             if (![imgurl isKindOfClass:[NSNull class]]) {
                 [imageview sd_setImageWithURL:[NSURL URLWithString:imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
