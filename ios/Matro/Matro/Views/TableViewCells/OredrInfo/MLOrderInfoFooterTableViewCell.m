@@ -70,7 +70,6 @@
                     [self.leftBtn setTitle:@"退货详情" forState:UIControlStateNormal];
                     self.leftBtn.hidden = NO;
                 }
-                
                 self.rightBtn.hidden = NO;
             }
                 break;

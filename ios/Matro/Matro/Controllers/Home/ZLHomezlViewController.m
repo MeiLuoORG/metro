@@ -689,33 +689,15 @@
             [self.navigationController pushViewController:pinVC animated:YES];
         }
         else{
-<<<<<<< Updated upstream
-            PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
-            self.hidesBottomBarWhenPushed = YES;
-            vc.searchString = sender;
-            vc.title = @"品牌馆";
-            [self.navigationController pushViewController:vc animated:NO];
-            self.hidesBottomBarWhenPushed = NO;
-            
-        }   
-        
 
-        
-=======
             [self toPinPaiGuanDetailList:sender];
         }
->>>>>>> Stashed changes
+
     }
     if ([type isEqualToString:@"3"]) {
         //分类
         if ([sender isEqualToString:@"all"]) {
-<<<<<<< Updated upstream
-//
-//            UITabBarController *rootViewController = (UITabBarController *)((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
-//            [rootViewController setSelectedIndex:1];
-            
-            [self.tabBarController setSelectedIndex:3];
-=======
+
             /*
             UITabBarController *rootViewController = (UITabBarController *)((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
             [rootViewController setSelectedIndex:1];
@@ -729,9 +711,7 @@
             */
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [self performSelector:@selector(selectedSecondNotificationAction) withObject:self afterDelay:1.0f];
-            
-            
->>>>>>> Stashed changes
+
         }else{
             
             MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];

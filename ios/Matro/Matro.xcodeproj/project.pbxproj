@@ -390,7 +390,6 @@
 		3CEDAD7E1D13ECFB00990DA8 /* page.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7B1D13ECFB00990DA8 /* page.png */; };
 		3CEDAD7F1D13ECFB00990DA8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CEDAD7C1D13ECFB00990DA8 /* placeholder.png */; };
 		3CEDAD821D14128C00990DA8 /* VipCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDAD811D14128C00990DA8 /* VipCardModel.m */; };
-		3CF2A09C1D27731100ACCDD6 /* ZLHomezlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A09A1D27731100ACCDD6 /* ZLHomezlViewController.m */; };
 		3CF2A09D1D27731100ACCDD6 /* ZLHomezlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A09B1D27731100ACCDD6 /* ZLHomezlViewController.xib */; };
 		3CF2A0A11D27733000ACCDD6 /* ZLHomeSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2A09F1D27733000ACCDD6 /* ZLHomeSubViewController.m */; };
 		3CF2A0A21D27733000ACCDD6 /* ZLHomeSubViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2A0A01D27733000ACCDD6 /* ZLHomeSubViewController.xib */; };
@@ -527,6 +526,7 @@
 		7A4D9E031D13926E006E6AB2 /* MLPersonOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D9E021D13926E006E6AB2 /* MLPersonOrderDetailViewController.m */; };
 		7A50BA301D1E35C900E76AC5 /* MLGuessLikeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A50BA2F1D1E35C900E76AC5 /* MLGuessLikeModel.m */; };
 		7A50BA321D1E50C400E76AC5 /* MLChangePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A50BA311D1E50C400E76AC5 /* MLChangePhotoViewController.m */; };
+		7A5611721D37B6AB00E12F50 /* ZLHomezlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5611711D37B6AB00E12F50 /* ZLHomezlViewController.m */; };
 		7A5DCF0F1CD9FEFC003030C7 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7A5DCF0A1CD9FEFC003030C7 /* read_me.txt */; };
 		7A5DCF2F1CDA068C003030C7 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5DCF2E1CDA068C003030C7 /* Order.m */; };
 		7A6B22CB1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A6B22C91D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.m */; };
@@ -1396,7 +1396,6 @@
 		3CEDAD801D14128C00990DA8 /* VipCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipCardModel.h; sourceTree = "<group>"; };
 		3CEDAD811D14128C00990DA8 /* VipCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipCardModel.m; sourceTree = "<group>"; };
 		3CF2A0991D27731100ACCDD6 /* ZLHomezlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLHomezlViewController.h; sourceTree = "<group>"; };
-		3CF2A09A1D27731100ACCDD6 /* ZLHomezlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLHomezlViewController.m; sourceTree = "<group>"; };
 		3CF2A09B1D27731100ACCDD6 /* ZLHomezlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZLHomezlViewController.xib; sourceTree = "<group>"; };
 		3CF2A09E1D27733000ACCDD6 /* ZLHomeSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLHomeSubViewController.h; sourceTree = "<group>"; };
 		3CF2A09F1D27733000ACCDD6 /* ZLHomeSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLHomeSubViewController.m; sourceTree = "<group>"; };
@@ -1626,6 +1625,7 @@
 		7A50BA2E1D1E35C900E76AC5 /* MLGuessLikeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGuessLikeModel.h; sourceTree = "<group>"; };
 		7A50BA2F1D1E35C900E76AC5 /* MLGuessLikeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGuessLikeModel.m; sourceTree = "<group>"; };
 		7A50BA311D1E50C400E76AC5 /* MLChangePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLChangePhotoViewController.m; sourceTree = "<group>"; };
+		7A5611711D37B6AB00E12F50 /* ZLHomezlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLHomezlViewController.m; sourceTree = "<group>"; };
 		7A5DCF0A1CD9FEFC003030C7 /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
 		7A5DCF0B1CD9FEFC003030C7 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		7A5DCF0C1CD9FEFC003030C7 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
@@ -3069,7 +3069,7 @@
 				687703E81CCF40A30008ED46 /* MyJSInterface.h */,
 				687703E91CCF40A30008ED46 /* MyJSInterface.m */,
 				3CF2A0991D27731100ACCDD6 /* ZLHomezlViewController.h */,
-				3CF2A09A1D27731100ACCDD6 /* ZLHomezlViewController.m */,
+				7A5611711D37B6AB00E12F50 /* ZLHomezlViewController.m */,
 				3CF2A09B1D27731100ACCDD6 /* ZLHomezlViewController.xib */,
 				3CF2A09E1D27733000ACCDD6 /* ZLHomeSubViewController.h */,
 				3CF2A09F1D27733000ACCDD6 /* ZLHomeSubViewController.m */,
@@ -4550,6 +4550,7 @@
 				3A633B3D1C9EA36E00C11FD5 /* SDCycleScrollView.m in Sources */,
 				7AED642E1CDD84F1008F55BD /* SYQRCodeViewController.m in Sources */,
 				3AA0E7A71CA91E500079AA90 /* base64.m in Sources */,
+				7A5611721D37B6AB00E12F50 /* ZLHomezlViewController.m in Sources */,
 				2840732B1D2DF462003A13AE /* MLSureOrderHeaderCell.m in Sources */,
 				7A4D9E031D13926E006E6AB2 /* MLPersonOrderDetailViewController.m in Sources */,
 				3A16DC611CA15BB7007AE4A2 /* MLSearchViewController.m in Sources */,
@@ -4603,7 +4604,6 @@
 				283261991D192D6E00C9EE4E /* MLStoreCollectViewController.m in Sources */,
 				280F7CE01CF829D600D42FA6 /* MLYHQViewController.m in Sources */,
 				3A633B611C9EA36E00C11FD5 /* UIViewController+Alert.m in Sources */,
-				3CF2A09C1D27731100ACCDD6 /* ZLHomezlViewController.m in Sources */,
 				3A633B671C9EA36E00C11FD5 /* ZLPhotoPickerCollectionViewCell.m in Sources */,
 				7ABB224A1D210D8000529B2B /* MLActMessageFootCell.m in Sources */,
 				3C05568A1D23ACB80092D140 /* PinPaiModelZl.m in Sources */,
