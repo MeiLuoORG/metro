@@ -192,10 +192,10 @@
     
     if (![imageStr isKindOfClass:[NSNull class]]) {
         
-        [cell.pimage sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        [cell.pimage sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"icon_default"]];
         
     }else{
-        cell.pimage.image = [UIImage imageNamed:@"imageloading"];
+        cell.pimage.image = [UIImage imageNamed:@"icon_default"];
     }
     
     

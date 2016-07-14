@@ -218,10 +218,10 @@ static NSInteger page = 1;
     NSString *logo = tempDic.logo;
     if (![logo isKindOfClass:[NSNull class]]) {
         
-        [cell.sImage sd_setImageWithURL:[NSURL URLWithString:logo] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        [cell.sImage sd_setImageWithURL:[NSURL URLWithString:logo] placeholderImage:[UIImage imageNamed:@"icon_default"]];
         
     }else{
-        cell.sImage.image = [UIImage imageNamed:@"imageloading"];
+        cell.sImage.image = [UIImage imageNamed:@"icon_default"];
     }
  
      MLCollectstoresModel *model = [self.dataSource objectAtIndex:indexPath.section];

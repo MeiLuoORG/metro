@@ -13,6 +13,7 @@
 #import "UIColor+HeinQi.h"
 #import "UIViewController+MLMenu.h"
 #import "MLshopGoodsListViewController.h"
+#import "CommonHeader.h"
 
 @interface MLshopFLViewController ()<RATreeViewDelegate,RATreeViewDataSource>{
     
@@ -50,7 +51,7 @@
     //（分类）
     // http://bbctest.matrojp.com/api.php?m=product&s=filter&key=&brandid=1853&searchType=1&userid=
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=&searchType=1&userid=%@",MATROJP_BASE_URL,uid];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=&searchType=1&userid=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,uid,vCFBundleShortVersionStr];
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);
         NSDictionary *dataDic = responseObject[@"data"];

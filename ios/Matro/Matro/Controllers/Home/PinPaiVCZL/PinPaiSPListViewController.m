@@ -753,9 +753,9 @@ static NSInteger page = 1;
         NSString *pic = tempdic[@"pic"];
         if (![pic isKindOfClass:[NSNull class]]) {
             //[cell.productImageView sd_setImageWithURL:[NSURL URLWithString:pic]];
-            [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:pic] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+            [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:pic] placeholderImage:[UIImage imageNamed:@"icon_default"]];
         }else{
-            cell.productImageView.image = [UIImage imageNamed:@"imageloading"];
+            cell.productImageView.image = [UIImage imageNamed:@"icon_default"];
         }
         if (_filterParam) {
             
@@ -799,10 +799,10 @@ static NSInteger page = 1;
     NSString *pic = tempdic[@"pic"];
     if (![pic isKindOfClass:[NSNull class]]) {
         
-        [cell.productImgview sd_setImageWithURL:[NSURL URLWithString:pic] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        [cell.productImgview sd_setImageWithURL:[NSURL URLWithString:pic] placeholderImage:[UIImage imageNamed:@"icon_default"]];
         
     }else{
-        cell.productImgview.image = [UIImage imageNamed:@"imageloading"];
+        cell.productImgview.image = [UIImage imageNamed:@"icon_default"];
     }
     
     if (_filterParam) {

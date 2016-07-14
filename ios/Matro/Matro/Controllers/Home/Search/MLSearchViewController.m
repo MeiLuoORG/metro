@@ -16,7 +16,7 @@
 #import "SearchHistory.h"
 #import <DWTagList/DWTagList.h>
 #import <MagicalRecord/MagicalRecord.h>
-
+#import "CommonHeader.h"
 @interface MLSearchViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,DWTagListDelegate>
 {
     
@@ -124,7 +124,7 @@ static CGFloat kHeight = 0;
     //http://bbctest.matrojp.com/api.php?m=product&s=recommend&method=input_recommend
     
     
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=input_recommend",MATROJP_BASE_URL];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=input_recommend&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     
     [[HFSServiceClient sharedClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -164,7 +164,7 @@ static CGFloat kHeight = 0;
     //http://bbctest.matrojp.com/api.php?m=product&s=recommend&method=list_recommend&pageindex=1&pagesize=20
     
     
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=list_recommend&pageindex=1&pagesize=20",MATROJP_BASE_URL];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=list_recommend&pageindex=1&pagesize=20&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     
     [[HFSServiceClient sharedClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (responseObject) {

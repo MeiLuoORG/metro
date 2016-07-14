@@ -33,6 +33,7 @@
 #import "PinPaiSPListViewController.h"
 #import "MLPPCollectionViewCell.h"
 #import "MLShopInfoViewController.h"
+#import "CommonHeader.h"
 #define HEADER_IDENTIFIER @"MLClassHeader"//第二大类用tableview的header来显示
 #define CCELL_IDENTIFIER @"MLClassCollectionViewCell"//第三大类用tableview的cell来显示
 
@@ -189,7 +190,7 @@
     //http://bbctest.matrojp.com/api.php?m=category&s=list&method=top
     
    
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=top",MATROJP_BASE_URL];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=top&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
@@ -225,7 +226,7 @@
     
      MLClass *title = _classTitleArray[index];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=next&code=%@",MATROJP_BASE_URL,title.CODE];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=next&code=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,title.CODE,vCFBundleShortVersionStr];
     
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
@@ -464,7 +465,7 @@
         NSDictionary *tempdic = brandArr[indexPath.row];
         
         if (![tempdic[@"imgurl"] isKindOfClass:[NSNull class]]) {
-            [cell.ppImg sd_setImageWithURL:[NSURL URLWithString:tempdic[@"imgurl"]] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+            [cell.ppImg sd_setImageWithURL:[NSURL URLWithString:tempdic[@"imgurl"]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
             
         }
         return cell;
@@ -477,7 +478,7 @@
     
     cell.CNameLabel.text = iteminfo.mc;
     if (![iteminfo.imgurl isKindOfClass:[NSNull class]]) {
-        [cell.classImageView sd_setImageWithURL:[NSURL URLWithString:iteminfo.imgurl] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        [cell.classImageView sd_setImageWithURL:[NSURL URLWithString:iteminfo.imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
         
     }
     
