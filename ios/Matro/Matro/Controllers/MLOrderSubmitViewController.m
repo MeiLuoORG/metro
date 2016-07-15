@@ -490,10 +490,24 @@ static BOOL idCardOk = NO;
         return;
     }
     
+    __block NSInteger proIndex = 0;
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [self.order_info.cart enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         MLOrderCartModel *cart = (MLOrderCartModel *)obj;
-        [self confirmOrderParams:cart AndParams:params AndIndex:idx];
+        NSString *msgKey = [NSString stringWithFormat:@"msg_%@",cart.ID];
+        NSString *logTypeKey = [NSString stringWithFormat:@"logistics_type_%@",cart.ID];
+        NSString *logPriceKey = [NSString stringWithFormat:@"logistics_price_%@",cart.ID];
+        NSString *logTaxKey = [NSString stringWithFormat:@"logistics_tax_%@",cart.ID];
+        params[logTypeKey] = cart.kuaiDiFangshi.company;
+        params[logPriceKey] = [NSNumber numberWithFloat: cart.kuaiDiFangshi.price];
+        params[logTaxKey] = [NSNumber numberWithFloat:cart.kuaiDiFangshi.sumtax];
+        params[msgKey]= cart.liuYan.text;
+        for (MLOrderProlistModel *product in cart.prolist) {
+            NSString *proKey = [NSString stringWithFormat:@"product_id[%li]",proIndex];
+            params[proKey] = product.ID;
+            proIndex ++;
+        }
+        
     }];
     for (MLOrderCartModel *cart in self.order_info.cart) { //检查优惠券使用情况
         for (MLYouHuiQuanModel *model in cart.yhqdata) {
@@ -539,19 +553,10 @@ static BOOL idCardOk = NO;
 }
 
 
-- (void )confirmOrderParams:(MLOrderCartModel *)model AndParams:(NSMutableDictionary *)params AndIndex:(NSInteger)index{
-    NSString *cartKey = [NSString stringWithFormat:@"product_id[%li]",index];
-    NSString *msgKey = [NSString stringWithFormat:@"msg_%@",model.ID];
-    NSString *logTypeKey = [NSString stringWithFormat:@"logistics_type_%@",model.ID];
-    NSString *logPriceKey = [NSString stringWithFormat:@"logistics_price_%@",model.ID];
-    NSString *logTaxKey = [NSString stringWithFormat:@"logistics_tax_%@",model.ID];
-    params[logTypeKey] = model.kuaiDiFangshi.company;
-    params[logPriceKey] = [NSNumber numberWithFloat: model.kuaiDiFangshi.price];
-    params[logTaxKey] = [NSNumber numberWithFloat:model.kuaiDiFangshi.sumtax];
-    params[msgKey]= model.liuYan.text;
-    params[cartKey] = model.ID;
-    
-}
+//- (void )confirmOrderParams:(MLOrderCartModel *)model AndParams:(NSMutableDictionary *)params AndIndex:(NSInteger)index{
+//    
+//
+//}
 
 
 /**
