@@ -59,6 +59,7 @@
         make.edges.mas_equalTo(0);
     }];
     [self getAllCommentProduct];
+    logisticsScore = productScore = serviceScore = fahuoScore = 5;
     
     
 }

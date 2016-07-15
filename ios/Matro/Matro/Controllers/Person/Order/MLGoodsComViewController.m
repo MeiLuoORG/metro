@@ -37,7 +37,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+
     // Do any additional setup after loading the view.
+    self.comScore = 5;
     self.title = @"商品评价";
     _tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT - self.navigationController.navigationBar.bounds.size.height - 10)];
