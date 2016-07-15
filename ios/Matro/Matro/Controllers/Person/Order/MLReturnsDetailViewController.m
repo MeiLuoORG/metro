@@ -71,8 +71,16 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.left.top.bottom.mas_equalTo(self.view);
     }];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
+    
     [self addMenuButton];
     [self getOrderDetail];
+}
+
+
+- (void)goback{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
