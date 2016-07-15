@@ -121,7 +121,7 @@ static CGFloat kHeight = 0;
 -(void)getSearchplaceholder{
     
     //热门搜索关键字推荐
-    //http://bbctest.matrojp.com/api.php?m=product&s=recommend&method=input_recommend
+
     
     
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=input_recommend&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
@@ -161,7 +161,7 @@ static CGFloat kHeight = 0;
 -(void)gethotKeywords
 {
     //热门搜索关键字
-    //http://bbctest.matrojp.com/api.php?m=product&s=recommend&method=list_recommend&pageindex=1&pagesize=20
+
     
     
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=list_recommend&pageindex=1&pagesize=20&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];

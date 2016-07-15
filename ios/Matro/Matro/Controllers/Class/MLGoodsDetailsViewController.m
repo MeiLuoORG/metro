@@ -310,7 +310,7 @@
 
 #pragma mark 获取商品详情数据
 - (void)loadDateProDetail {
-    //http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233
+
     //测试用的  以后要删除
     //&test_phone=13771961207
     
@@ -432,7 +432,6 @@
                         [huoyuanArray addObject:guigestr1];
                         
                     }else{
-                        
                     for (NSString *searchstr in huoyuanArray) {
                         if (![guigestr1 isEqualToString:searchstr]) {
                             
@@ -821,7 +820,7 @@
 
 -(void)loaddataDianpu{
     
-    //  http://bbctest.matrojp.com/api.php?m=shop&s=shop&uid=20505
+
     NSLog(@"paramDic==%@",_paramDic);
     
     NSString *dpid = pDic[@"pinfo"][@"userid"];
@@ -895,7 +894,6 @@
 }
 
 - (void)guessYLike {
-   // http://bbctest.matrojp.com/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=20&catid=11080601,11080201&brandid=
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1702,7 +1700,7 @@
     
     MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
     NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
-    vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",_paramDic[@"userid"],phone];
+    vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",DianPuURL_URLString,_paramDic[@"userid"],phone];
     vc.uid = pDic[@"pinfo"][@"userid"];
     vc.shopparamDic = dPDic;
     

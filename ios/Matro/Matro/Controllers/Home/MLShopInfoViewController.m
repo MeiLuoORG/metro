@@ -268,7 +268,7 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             
             NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
-            self.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",sender,phone];
+            self.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",DianPuURL_URLString,sender,phone];
             [self loadWebView];
             
         });

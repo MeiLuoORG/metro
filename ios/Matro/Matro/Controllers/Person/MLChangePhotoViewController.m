@@ -198,7 +198,7 @@
 
 - (void)uploadImageUrl2:(NSString *)imgUrl{
 
-    //http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=update_img
+
     NSDictionary *ret = @{@"header_img":imgUrl};
     [MLHttpManager post:GenXinTouXiang_URLString params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
         NSLog(@"更新头像请求2:%@",responseObject);

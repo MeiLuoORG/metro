@@ -93,7 +93,7 @@
 
 
 - (void)wxPayResult:(NSNotification *)notification{
-    
+    [self hideFengHuoLun];
     PayResp *resp = (PayResp *)notification.object;
     
     if([resp isKindOfClass:[PayResp class]]){
@@ -138,7 +138,7 @@
 
 
 - (void)goBack{
-    
+    [self hideFengHuoLun];
     UIViewController *vc = [self.navigationController.viewControllers firstObject];
     if ([vc isKindOfClass:[MLShopBagViewController class]]) {
         [self.navigationController popToRootViewControllerAnimated:YES];
@@ -150,7 +150,7 @@
 
 
 - (void)productlistsAction{
-    
+    [self hideFengHuoLun];
     MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
     vc.order_id = self.order_id;
     vc.hidesBottomBarWhenPushed = YES;
@@ -196,7 +196,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    [self showFengHuoLun];
     if (indexPath.row == 0) {
         [self alipayPost];
     }
@@ -259,7 +259,7 @@
                 
                 NSDictionary *result = (NSDictionary *)responseObject;
                 NSLog(@"支付宝支付result %@",result);
-                
+                [self hideFengHuoLun];
                 if (result) {
                     
                     AliPayOrder *order = [[AliPayOrder alloc] init];
@@ -317,6 +317,7 @@
                 
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [self hideFengHuoLun];
                 [_hud show:YES];
                 NSLog(@"error kkkk %@",error);
                 _hud.mode = MBProgressHUDModeText;
@@ -328,6 +329,7 @@
         }
         
     } failure:^(NSError *error) {
+        [self hideFengHuoLun];
         [_hud show:YES];
         NSLog(@"error kkkk %@",error);
         _hud.mode = MBProgressHUDModeText;
@@ -338,6 +340,16 @@
     
 }
 
+//显示 风火轮
+- (void)showFengHuoLun{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+}
+
+//隐藏 风火轮
+- (void)hideFengHuoLun{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+
+}
 
 
 #pragma mark apple pay delegate
@@ -358,14 +370,19 @@
                 NSString *url = @"http://pay.matrojp.com/PayCenter/app/v200/applepay";
                 
                 [[HFSServiceClient sharedPayClient]POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+ 
                     NSString *tn = [responseObject objectForKey:@"tn"];
 
                     [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [self hideFengHuoLun];
                     [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
                 }];
             }
+            [self hideFengHuoLun];
         } failure:^(NSError *error) {
+
+            [self hideFengHuoLun];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = REQUEST_ERROR_ZL;
@@ -374,6 +391,7 @@
 
         
     } else {
+        [self hideFengHuoLun];
         [MBProgressHUD showMessag:@"您的设备暂不支持ApplePay" toView:self.view];
     }
 }
@@ -391,6 +409,7 @@
 #pragma mark 响应控件返回的支付结果
 - (void)UPAPayPluginResult:(UPPayResult *)result
 {
+    [self hideFengHuoLun];
     if(result.paymentResultStatus == UPPaymentResultStatusSuccess) {
         MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
         payResultVC.hidesBottomBarWhenPushed = YES;
@@ -470,6 +489,7 @@
                 NSLog(@"微信支付结果：appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [self hideFengHuoLun];
                 [_hud show:YES];
                 NSLog(@"error kkkk %@",error);
                 _hud.mode = MBProgressHUDModeText;
@@ -480,6 +500,7 @@
         }
         
     } failure:^(NSError *error) {
+        [self hideFengHuoLun];
         [_hud show:YES];
         NSLog(@"error kkkk %@",error);
         _hud.mode = MBProgressHUDModeText;
@@ -518,6 +539,7 @@
                 [[UPPaymentControl defaultControl] startPay:tn fromScheme:@"wx5aced428a6ce270e" mode:@"00" viewController:self];
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                
                 [_hud show:YES];
                 NSLog(@"error kkkk %@",error);
                 _hud.mode = MBProgressHUDModeText;
@@ -527,6 +549,7 @@
         }
         
     } failure:^(NSError *error) {
+        [self hideFengHuoLun];
         [_hud show:YES];
         NSLog(@"error kkkk %@",error);
         _hud.mode = MBProgressHUDModeText;
@@ -568,6 +591,7 @@
 }
 /*zhoulu银联*/
 - (void)yinLianPaySuccess:(id)sender{
+    [self hideFengHuoLun];
     NSLog(@"银联支付成功");
     MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
     payResultVC.hidesBottomBarWhenPushed = YES;
@@ -576,12 +600,14 @@
 }
 - (void)yinLianPayFail:(id)sender{
     NSLog(@"银联支付失败");
+    [self hideFengHuoLun];
     MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
     shiBaiVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:shiBaiVC animated:YES];
 }
 - (void)yinLianPanCancel:(id)sender{
     NSLog(@"银联支付取消");
+    [self hideFengHuoLun];
     MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
     shiBaiVC.hidesBottomBarWhenPushed = YES;
     

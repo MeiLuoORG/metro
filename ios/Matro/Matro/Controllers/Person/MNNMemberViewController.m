@@ -868,7 +868,7 @@
 #pragma mark -
 #pragma mark UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *string = @"cellId";
@@ -1072,7 +1072,7 @@
 #pragma mark 获取优惠券余额
 - (void)getYouHuiQuanYuEwithcardNO:(NSString *)cardNoStr{
     _yuELabel.text = @"0";
-    //http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons&test_phone=18260127042
+
     NSDictionary * ret = @{@"crmhykno":cardNoStr};
     
     [MLHttpManager post:YOUHUIQUAN_YUE_CARD_URLString params:ret m:@"member" s:@"admin_coupons" success:^(id responseObject) {

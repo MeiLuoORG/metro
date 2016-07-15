@@ -234,7 +234,7 @@
 
 -(void)loadNum{
 
-    //http://bbctest.matrojp.com/api.php?m=shop&s=status&action=sel
+
     [MLHttpManager get:OrderNum_URLString params:nil m:@"shop" s:@"status" success:^(id responseObject) {
         NSLog(@"订单状态数目%@",responseObject);
         if ([responseObject[@"code"] isEqual:@0]) {
@@ -453,7 +453,7 @@
     _thirdButtonBackView.backgroundColor = [UIColor whiteColor];
     [_backgroundScrollView addSubview:_thirdButtonBackView];
     
-    UILabel * labels = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 80, 15)];
+    UILabel * labels = [[UILabel alloc]initWithFrame:CGRectMake(20, 12, 80, 15)];
     labels.text = @"我的资产";
     labels.font = [UIFont systemFontOfSize:14.0f];
     labels.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
@@ -465,7 +465,7 @@
     
 
     
-    _xingYunXingValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(44, 55, 50, 18)];
+    _xingYunXingValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(44, 58, 50, 18)];
     _xingYunXingValueLabel.text = @"20000";
      _xingYunXingValueLabel.font = [UIFont systemFontOfSize:11.0f];
     _xingYunXingValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
@@ -475,7 +475,7 @@
     
     
     
-     UILabel * xingYunLabel = [[UILabel alloc]initWithFrame:CGRectMake(44, 70, 50, 18)];
+     UILabel * xingYunLabel = [[UILabel alloc]initWithFrame:CGRectMake(44, 74, 50, 18)];
     xingYunLabel.text = @"幸运星";
     xingYunLabel.font = [UIFont systemFontOfSize:11.0f];
     xingYunLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -487,7 +487,7 @@
     UITapGestureRecognizer * tap2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tiaoZhuanYouHuiQuan)];
     UITapGestureRecognizer * tap3 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tiaoZhuanHuiYuanKa)];
     
-    _jiFenValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3+94), 55, 50, 18)];
+    _jiFenValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3+94), 58, 50, 18)];
     _jiFenValueLabel.text = @"20000";
     _jiFenValueLabel.font = [UIFont systemFontOfSize:11.0f];
     _jiFenValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
@@ -497,7 +497,7 @@
     _jiFenValueLabel.userInteractionEnabled = YES;
     [_jiFenValueLabel addGestureRecognizer:tap3];
     
-    UILabel * jiFenLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f+94), 70, 50, 18)];
+    UILabel * jiFenLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f+94), 74, 50, 18)];
     jiFenLabel.text = @"积分";
     jiFenLabel.font = [UIFont systemFontOfSize:11.0f];
     jiFenLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -507,7 +507,7 @@
     jiFenLabel.userInteractionEnabled = YES;
     [jiFenLabel addGestureRecognizer:tap3];
     
-    _youhuiValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f*2.0f+144), 55, 50, 18)];
+    _youhuiValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f*2.0f+144), 58, 50, 18)];
     _youhuiValueLabel.text = @"4";
     _youhuiValueLabel.font = [UIFont systemFontOfSize:11.0f];
     _youhuiValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
@@ -518,7 +518,7 @@
     [_youhuiValueLabel addGestureRecognizer:tap2];
     
     
-    UILabel * youhuiLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f*2.0f+144), 70, 50, 18)];
+    UILabel * youhuiLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f*2.0f+144), 74, 50, 18)];
     youhuiLabel.text = @"优惠券";
     youhuiLabel.font = [UIFont systemFontOfSize:11.0f];
     youhuiLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -528,7 +528,7 @@
     youhuiLabel.userInteractionEnabled = YES;
     [youhuiLabel addGestureRecognizer:tap2];
     
-    _yuEValueLabel = [[UILabel alloc]initWithFrame:CGRectMake((SIZE_WIDTH-44-50), 55, 50, 18)];
+    _yuEValueLabel = [[UILabel alloc]initWithFrame:CGRectMake((SIZE_WIDTH-44-50), 58, 50, 18)];
     _yuEValueLabel.text = @"34588";
     _yuEValueLabel.font = [UIFont systemFontOfSize:11.0f];
     _yuEValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
@@ -539,7 +539,7 @@
     [_yuEValueLabel addGestureRecognizer:tap1];
     
     
-    UILabel * yuElabel = [[UILabel alloc]initWithFrame:CGRectMake((SIZE_WIDTH-44-50), 70, 50, 18)];
+    UILabel * yuElabel = [[UILabel alloc]initWithFrame:CGRectMake((SIZE_WIDTH-44-50), 74, 50, 18)];
     yuElabel.text = @"余额";
     yuElabel.font = [UIFont systemFontOfSize:11.0f];
     yuElabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -571,7 +571,7 @@
 }
 #pragma mark 我的资产
 - (void)getMyZiChanAction{
-    //http://bbctest.matrojp.com/api.php?m=member&s=assets&action=sel_assets&test_phone=13771961207&card=0000000075&accessToken=e3b47520f508409593fb57f90c808756
+
     NSDictionary * ret = @{@"mobile":[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERPHONE]};
     
     NSString * cardNO = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERCARDNO];
@@ -724,7 +724,7 @@
 
 #pragma mark  请求优惠券
 - (void)qignQiuYouHuiQuan{
-//http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons&test_phone=18260127042
+
     
     [MLHttpManager get:LingQuYouHuiQuan_URLString params:nil m:@"member" s:@"admin_coupons" success:^(id responseObject) {
         NSLog(@"请求优惠券信息：%@",responseObject);

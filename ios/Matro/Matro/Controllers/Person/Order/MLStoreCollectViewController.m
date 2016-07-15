@@ -275,7 +275,7 @@ static NSInteger page = 1;
     
     MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
     NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
-    vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",dic[@"shopid"],phone];
+    vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",DianPuURL_URLString,dic[@"shopid"],phone];
     vc.uid = dic[@"shopid"];
     vc.shopparamDic = @{@"userid":dic[@"shopid"],@"company":dic[@"shopname"]};
     vc.hidesBottomBarWhenPushed = YES;

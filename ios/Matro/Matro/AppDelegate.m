@@ -166,9 +166,6 @@
 }
 
 
-
-
-
 - (void)autoLogin{
     if ([[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID] &&[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN] ) {
 
@@ -191,7 +188,7 @@
     //获取设备ID
     NSString *identifierForVendor = [JPUSHService registrationID];
     NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
-    NSString * urlPinJie = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",phoneString,accessTokenEncodeStr,identifierForVendor];
+    NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor];
     //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString * urlStr = urlPinJie;
     NSLog(@"李佳的认证接口：%@",urlStr);
@@ -390,11 +387,15 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [application setApplicationIconBadgeNumber:0];
     [application cancelAllLocalNotifications];
+     //NSLog(@"执行了applicationWillEnterForeground方法");
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [UMSocialSnsService  applicationDidBecomeActive];}
+    [UMSocialSnsService  applicationDidBecomeActive];
+    [[NSNotificationCenter defaultCenter]postNotificationName:APPLICATION_BECOME_ACTIVE_NOTIFICATION object:nil];
+    NSLog(@"执行了applicationDidBecomeActive方法");
+}
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
