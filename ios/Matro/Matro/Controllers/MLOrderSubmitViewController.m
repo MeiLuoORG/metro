@@ -553,10 +553,6 @@ static BOOL idCardOk = NO;
 }
 
 
-//- (void )confirmOrderParams:(MLOrderCartModel *)model AndParams:(NSMutableDictionary *)params AndIndex:(NSInteger)index{
-//    
-//
-//}
 
 
 /**

@@ -8,7 +8,7 @@
 //
 
 #import "MLShopBagHeaderView.h"
-#import "masonry.h"
+#import "Masonry.h"
 #import "HFSConstants.h"
 
 @implementation MLShopBagHeaderView
@@ -134,8 +134,13 @@
         }else{
             warehouse = @"";
         }
-        self.titleLabel.text = _shopingCart.company;
-        self.titleLabel.text = [NSString stringWithFormat:@"%@【%@】%@",_shopingCart.company,way,warehouse];
+        if (IS_IPHONE_5 || IS_IPHONE_4_OR_LESS) {
+            self.titleLabel.text = [NSString stringWithFormat:@"%@  ",_shopingCart.company];
+        }else{
+            self.titleLabel.text = [NSString stringWithFormat:@"%@【%@】%@",_shopingCart.company,way,warehouse];
+        }
+        
+
     }
 }
 
