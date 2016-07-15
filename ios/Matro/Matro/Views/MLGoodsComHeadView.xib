@@ -182,9 +182,6 @@
                                 </userDefinedRuntimeAttribute>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                             </userDefinedRuntimeAttributes>
-                            <variation key="widthClass=compact" misplaced="YES">
-                                <rect key="frame" x="32" y="4" width="568" height="132"/>
-                            </variation>
                             <connections>
                                 <outlet property="delegate" destination="iN0-l3-epB" id="Bmy-Mx-UAg"/>
                             </connections>

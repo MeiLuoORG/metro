@@ -30,6 +30,10 @@
 #import "MLPayViewController.h"
 #import "MLPersonAlertViewController.h"
 #import "MLLogisticsModel.h"
+#import "MLGoodsDetailsViewController.h"
+
+
+
 @interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>{
     MLLogisticsModel *logisticModel;
     
@@ -590,7 +594,17 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
+//    else if (indexPath.section == 3){
+//        MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:indexPath.row-1];
+//        MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+//        NSDictionary *params = @{@"id":model.ID?:@"",@"userid":self.orderDetail.sellerinfo.userid?:@""};
+//        vc.paramDic = params;
+//        vc.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }
+    
 }
+
 
 
 -(void)compareDate:(NSDate*)startdate currentDate:(NSDate*)endDate

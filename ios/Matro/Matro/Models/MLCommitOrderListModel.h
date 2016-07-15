@@ -43,6 +43,9 @@
 @property (nonatomic,assign)BOOL isHaveHaiWai;
 
 
+
+
+
 @end
 
 @interface MLTaxInfo : NSObject

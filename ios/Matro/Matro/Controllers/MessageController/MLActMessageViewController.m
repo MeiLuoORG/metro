@@ -56,9 +56,9 @@
         [self getActMessages];
     }];
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(getActMessages)];
-    [self.tableView.header beginRefreshing];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(goback)];
-    
+    self.pageIndex = 1;
+    [self getActMessages];
     [self addMenuButton];
 }
 

@@ -57,7 +57,8 @@
         [self getMessages];
     }];
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(getMessages)];
-    [self.tableView.header beginRefreshing];
+    self.pageIndex = 1;
+    [self getMessages];
     
     [self addMenuButton];
     

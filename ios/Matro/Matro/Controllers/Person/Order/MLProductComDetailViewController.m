@@ -19,7 +19,7 @@
 #import "HFSConstants.h"
 #import "MBProgressHUD+Add.h"
 #import "MLHttpManager.h"
-
+#import "MJPhotoBrowser.h"
 
 @interface MLProductComDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -124,6 +124,23 @@
     else{
         return (MAIN_SCREEN_WIDTH - 32)+16;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //查看图片
+    MJPhotoBrowser *_photoBrow = [[MJPhotoBrowser alloc]init];
+    NSMutableArray *tmp = [NSMutableArray array];
+    
+    for (MLProductCommentImage *imageModel  in self.commentDetail.comment_detail.photos) {
+        MJPhoto *photo = [[MJPhoto alloc]init];
+        photo.url = [NSURL URLWithString:imageModel.data_src];
+        [tmp addObject:photo];
+    }
+    _photoBrow.photos = [tmp copy];
+    _photoBrow.currentPhotoIndex = indexPath.row - 3;
+    [_photoBrow show];
+
 }
 
 

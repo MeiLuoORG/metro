@@ -28,6 +28,7 @@
 - (float)realTax{
     float taxCount = 0;
     for (MLOrderCartModel *model in self.cart) {
+        
         taxCount += model.realShuiFei;
     }
     return taxCount;
@@ -150,11 +151,12 @@
 
 - (float)realShuiFei{
     float count = 0;
-    count = self.sumtax + self.kuaiDiFangshi.s_tax;
+    
+    count = self.kuaiDiFangshi.sumtax;
+    
     return count;
     
 }
-
 
 
 
