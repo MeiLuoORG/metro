@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger,PushMessageGOType){
     PushMessageGOCenter = 1,//进入消息中心
     PushMessageGOUrl,
     PushMessageGOReturns,
-    PushMessageGOProductDetail,
+    PushMessageGOProductDetail
 };
 
 

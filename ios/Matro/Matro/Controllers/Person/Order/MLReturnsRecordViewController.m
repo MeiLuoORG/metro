@@ -72,7 +72,8 @@ static NSInteger pageIndex = 1;
         [self getOrderDataSource];
     }];
     
-    [self.tableView.header beginRefreshing];
+    pageIndex = 1 ;
+    [self getOrderDataSource];
 
     
     

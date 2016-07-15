@@ -30,7 +30,6 @@
 #import "MLPayViewController.h"
 #import "MLPersonAlertViewController.h"
 #import "MLLogisticsModel.h"
-
 @interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>{
     MLLogisticsModel *logisticModel;
     
@@ -41,8 +40,6 @@
 @property (nonatomic,strong)MLPersonOrderDetail *orderDetail;
 
 @property (nonatomic,strong)NSMutableArray *logisticsArray;
-
-
 
 @end
 
@@ -88,7 +85,7 @@
                 {
                     MLPayViewController *vc = [[MLPayViewController alloc]init];
                     vc.order_id = self.order_id;
-                    vc.order_sum = self.order_price;
+                    vc.order_sum = self.orderDetail.order_price;
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                     break;

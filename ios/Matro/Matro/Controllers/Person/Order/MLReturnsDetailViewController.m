@@ -29,6 +29,7 @@
 #import "MLReturnRequestViewController.h"
 #import "MLHttpManager.h"
 #import "MJPhotoBrowser.h"
+#import "UIViewController+MLMenu.h"
 
 #import "MLPersonAlertViewController.h"
 
@@ -70,6 +71,7 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.left.top.bottom.mas_equalTo(self.view);
     }];
+    [self addMenuButton];
     [self getOrderDetail];
 }
 

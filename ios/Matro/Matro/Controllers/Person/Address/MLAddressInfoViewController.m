@@ -29,6 +29,7 @@
     NSString *userid;
     NSString *selcode;
     int isdefault;
+    BOOL moren;
 }
 @property (strong, nonatomic) IBOutlet UIView *sBgView;
 @property (strong, nonatomic) IBOutlet UIButton *sOn;
@@ -120,7 +121,31 @@ static MLShippingaddress *province,*city,*area;
         
     }
     
+    [self loadDateAddressList];
     
+    
+}
+
+
+#pragma mark 获取收货地址清单
+- (void)loadDateAddressList {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=lists",MATROJP_BASE_URL];
+    [MLHttpManager get:urlStr params:nil m:@"member" s:@"admin_orderadder" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if([result[@"code"] isEqual:@0])
+        {
+            NSDictionary *data = result[@"data"];
+            NSArray *address_lists = data[@"address_lists"];
+            if (address_lists.count > 0 ) {
+                moren = NO;
+            }else{
+                moren = YES;
+            }
+        }
+    } failure:^(NSError *error) {
+    }];
     
 }
 
@@ -257,10 +282,25 @@ static MLShippingaddress *province,*city,*area;
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //添加成功
-            if (self.addressSuccess) {
-                self.addressSuccess();
+            if (moren) { //需要默认的情况
+                NSDictionary *data = result[@"data"];
+                NSArray *rec = data[@"ads_add"];
+                if (rec.count > 0) {
+                    NSDictionary *ss = [rec firstObject];
+                    NSString *addId = ss[@"id"];
+                   [self setDefaultAddress:addId];
+                }
+                else{
+                    [self setDefaultAddress:@""];
+                }
+               
+            }else{
+                if (self.addressSuccess) {
+                    self.addressSuccess();
+                }
+                [self.navigationController popViewControllerAnimated:YES];
             }
-            [self.navigationController popViewControllerAnimated:YES];
+            
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
@@ -273,6 +313,21 @@ static MLShippingaddress *province,*city,*area;
     
     
 }
+
+
+- (void)setDefaultAddress:(NSString *)addId{
+    
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=setdef",MATROJP_BASE_URL];
+    NSDictionary *params = @{@"id":addId?:@""};
+    [MLHttpManager post:url params:params m:@"member" s:@"admin_orderadder" success:^(id responseObject) {
+        if (self.addressSuccess) {
+            self.addressSuccess();
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(NSError *error) {
+    }];
+}
+
 -(void)keyboardHide:(UITapGestureRecognizer*)tap{
     [self.view endEditing:YES];
 }

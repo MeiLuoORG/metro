@@ -122,7 +122,9 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     self.tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self getOrderList];
     }];
-    [self.tableView.header beginRefreshing];
+    
+    pageIndex = 1;
+    [self getOrderList];
     [self.view configBlankPage:EaseBlankPageTypeDingdan hasData:(self.orderList.count>0)];
     __weak typeof(self)weakself = self;
     self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){

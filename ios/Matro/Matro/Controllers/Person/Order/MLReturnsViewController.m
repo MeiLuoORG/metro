@@ -68,17 +68,9 @@ static NSInteger pageIndex = 1;
         [self getOrderDataSource];
     }];
     
-    [self.tableView.header beginRefreshing];
+    pageIndex = 1 ;
+    [self getOrderDataSource];
     
-//    UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
-//    
-//    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@""  style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
-//    item.title = @"";
-//    item.image = backButtonImage;
-//    item.width = -20;
-//    self.navigationItem.leftBarButtonItem = item;
-    
-    // Do any additional setup after loading the view.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
