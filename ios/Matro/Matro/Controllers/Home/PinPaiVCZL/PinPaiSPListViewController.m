@@ -565,14 +565,14 @@ static NSInteger page = 1;
         _jiageButtton.imageView.hidden = NO;
         button.selected = !button.selected;
         if (button.selected) {
-            
+            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
             [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
             [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
             [filterparamDic setValue:@"price" forKey:@"orderby"];
             [filterparamDic setValue:@"desc" forKey:@"sort"];
             
         }else{
-            
+            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
             [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
             [_jiageButtton setImage:[UIImage imageNamed:@"jgshangjian"] forState:UIControlStateNormal];
             [filterparamDic setValue:@"price" forKey:@"orderby"];

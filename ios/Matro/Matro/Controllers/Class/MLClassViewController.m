@@ -87,7 +87,7 @@
     [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_w"]  forState:UIControlStateNormal];
     
     _topScrollSegmentControl.delegate = self;
-    [_topScrollSegmentControl setFont:[UIFont fontWithName:@"Helvetica" size:18.0f]];
+    [_topScrollSegmentControl setFont:[UIFont fontWithName:@"Helvetica" size:16.0f]];
     _topScrollSegmentControl.selectedIndex = 0;
     
    

@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="biaotiLabel" destination="rBw-Rx-gjB" id="hhw-4S-CRH"/>
                 <outlet property="biaotiView" destination="ilc-7k-Z3s" id="bzo-sr-3q0"/>
+                <outlet property="blankview" destination="duB-2Z-Go6" id="iZr-wg-quu"/>
                 <outlet property="collectionView" destination="5oY-Ke-s4V" id="b97-d2-Cn3"/>
                 <outlet property="cuxiaoH" destination="pCz-Ko-hO1" id="LZD-pT-O0Y"/>
                 <outlet property="cuxiaoxinxiH" destination="fVG-o9-7aF" id="7qN-kD-XSo"/>
@@ -60,7 +61,9 @@
                 <outlet property="webView" destination="nRL-Hy-g9g" id="Q9c-fo-7jg"/>
                 <outlet property="wuliuNum" destination="65j-pZ-IYZ" id="SyB-7Y-OKf"/>
                 <outlet property="yonghucaozuoH" destination="Njn-Ip-gJU" id="6v8-eA-czz"/>
+                <outlet property="yuanchandiH" destination="c5V-6K-J56" id="mDI-ga-nuv"/>
                 <outlet property="yuanchandiLabel" destination="oOz-mt-HDK" id="gb3-P6-2hk"/>
+                <outlet property="yuanchandiView" destination="7IW-W0-lnZ" id="G4G-Pa-qc4"/>
                 <outlet property="yuanjiaLabel" destination="bWC-ty-m3w" id="7y0-Pu-B8Q"/>
                 <outlet property="zengpImageView" destination="EcZ-5C-20g" id="1gg-xa-dFk"/>
                 <outlet property="zengpinView" destination="cld-t0-GNi" id="JRm-5b-6gF"/>
@@ -350,6 +353,13 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9e-I8-klO">
                                                                     <rect key="frame" x="0.0" y="40" width="375" height="40"/>
                                                                     <subviews>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="duB-2Z-Go6">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                                                            <color key="backgroundColor" red="0.83921568627450982" green="0.83921568627450982" blue="0.83921568627450982" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="1" id="806-bM-8tc"/>
+                                                                            </constraints>
+                                                                        </view>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="税费:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZlC-Zd-eaK">
                                                                             <rect key="frame" x="10" y="11" width="45" height="18"/>
                                                                             <constraints>
@@ -393,11 +403,14 @@
                                                                         <constraint firstItem="sAf-j3-OpO" firstAttribute="centerY" secondItem="6uE-16-jfM" secondAttribute="centerY" id="BXb-Y7-Vps"/>
                                                                         <constraint firstAttribute="height" constant="40" id="GV7-yt-c7u"/>
                                                                         <constraint firstItem="ZlC-Zd-eaK" firstAttribute="leading" secondItem="f9e-I8-klO" secondAttribute="leading" constant="10" id="Ogy-IM-VfM"/>
+                                                                        <constraint firstItem="duB-2Z-Go6" firstAttribute="top" secondItem="f9e-I8-klO" secondAttribute="top" id="W0m-BH-bxe"/>
+                                                                        <constraint firstItem="duB-2Z-Go6" firstAttribute="leading" secondItem="f9e-I8-klO" secondAttribute="leading" id="d1A-ry-pBf"/>
                                                                         <constraint firstItem="sAf-j3-OpO" firstAttribute="leading" secondItem="6uE-16-jfM" secondAttribute="trailing" constant="10" id="evu-58-hlz"/>
                                                                         <constraint firstItem="ZlC-Zd-eaK" firstAttribute="centerY" secondItem="f9e-I8-klO" secondAttribute="centerY" id="gRz-Sr-Y10"/>
                                                                         <constraint firstItem="6uE-16-jfM" firstAttribute="centerY" secondItem="ZlC-Zd-eaK" secondAttribute="centerY" id="hPJ-f7-rNS"/>
                                                                         <constraint firstItem="53q-BD-QAc" firstAttribute="leading" secondItem="f9e-I8-klO" secondAttribute="leading" id="lt6-ft-eBn"/>
                                                                         <constraint firstAttribute="trailing" secondItem="53q-BD-QAc" secondAttribute="trailing" id="qRi-0P-OZR"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="duB-2Z-Go6" secondAttribute="trailing" id="u8Y-OB-OGs"/>
                                                                         <constraint firstAttribute="bottom" secondItem="53q-BD-QAc" secondAttribute="bottom" id="wqd-1X-2PC"/>
                                                                     </constraints>
                                                                 </view>

@@ -49,6 +49,7 @@
 #import "CommonHeader.h"
 #import "MLBuyKnowViewController.h"
 #import "MLPingjiaListViewController.h"
+#import "MLHttpManager.h"
 @interface UIImage (SKTagView)
 
 + (UIImage *)imageWithColor: (UIColor *)color;
@@ -74,11 +75,12 @@
     
     UIView *overView;
     
+    NSMutableDictionary *guigeDic;//总的规格字典
     NSMutableArray *porpertyArray;//规格数组
     NSMutableArray *huoyuanArray;//规格1
     NSMutableArray *jieduanArray;//规格2
-    DWTagList *huoyuanList;
-    DWTagList *jieduanList;
+//    DWTagList *huoyuanList;
+//    DWTagList *jieduanList;
     
     NSMutableArray *promotionArray;//优惠券
     
@@ -154,6 +156,9 @@
 @property (weak, nonatomic) IBOutlet UIView *jinrudianpuView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *yonghucaozuoH;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *dianpuH;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *yuanchandiH;
+@property (weak, nonatomic) IBOutlet UIView *yuanchandiView;
+@property (weak, nonatomic) IBOutlet UIView *blankview;
 
 
 
@@ -319,9 +324,9 @@
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,_paramDic[@"id"],vCFBundleShortVersionStr];
     //测试链接
-   // NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
+    //NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
     
-    [[HFSServiceClient sharedJSONClientNOT] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [ MLHttpManager get:urlStr params:nil m:@"product" s:@"detail" success:^ (id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *dic = responseObject[@"data"];
@@ -333,9 +338,11 @@
         NSString *is_collect = dic[@"pinfo"][@"is_collect"];//是否收藏
         
         if ([is_collect isEqual:@0]) {
+            
             self.shoucangButton.selected = NO;
             [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
             [self.shoucangButton setTitleColor:RGBA(38, 14, 0, 1) forState:UIControlStateNormal];
+            
         }else{
             
             self.shoucangButton.selected = YES;
@@ -393,17 +400,15 @@
                     rightbtn.enabled = NO;
                     self.kuncuntisLabel.text = @"售罄";
                 }
-                
-                
+     
             }
             
+            int i = 0;
             
-            int i= 0;
             for (NSDictionary *tempdic in porpertyArr) {
                 
                 NSArray *setmealArr = tempdic[@"setmeal"];
-                
-                
+   
                 if (setmealArr.count == 1) {
                     self.guigeH.constant = 40;
                     NSDictionary *guigeDic1 = setmealArr[0];
@@ -412,14 +417,15 @@
                         [huoyuanArray addObject:guigestr1];
                     }else{
                         
-                    for (NSString *searchstr in huoyuanArray) {
-                        if (![guigestr1 isEqualToString:searchstr]) {
-                            [huoyuanArray addObject:guigestr1];
-                        }else{
-                            
+                        for (NSString *searchstr in huoyuanArray) {
+                            if (![guigestr1 isEqualToString:searchstr]) {
+                                [huoyuanArray addObject:guigestr1];
+                            }else{
+                                
                             }
                         }
                     }
+                    
                     i++;
                     
                 }else{
@@ -429,22 +435,32 @@
                     NSString *guigestr1 = guigeDic1[@"name"];
                     NSString *guigestr2 = guigeDic2[@"name"];
                     if (i == 0) {
+                        
                         [huoyuanArray addObject:guigestr1];
                         
                     }else{
+<<<<<<< Updated upstream
                     for (NSString *searchstr in huoyuanArray) {
                         if (![guigestr1 isEqualToString:searchstr]) {
+=======
+                        if ([huoyuanArray containsObject:guigestr1]) {
+>>>>>>> Stashed changes
                             
-                            [huoyuanArray addObject:guigestr1];
                             
                         }else{
                             
-                            }
+                            [huoyuanArray addObject:guigestr1]; 
                         }
+                       
                     }
                     i++;
-                    [jieduanArray addObject:guigestr2];
-                     
+                    if ([jieduanArray containsObject:guigestr2]) {
+                        
+                    }else{
+                        
+                        [jieduanArray addObject:guigestr2];
+                        
+                    }
                 }
                 
             }
@@ -553,7 +569,7 @@
         }
         
         NSArray *promotionArr = dic[@"promotion"];
-       
+        
         for (NSDictionary *promotionDic in promotionArr) {
             
             NSString *nameStr = promotionDic[@"name"];
@@ -599,7 +615,7 @@
         }
         
         NSString *count = dic[@"comment_score"];
-       
+        
         UIImage *image1 = [UIImage imageNamed:@"Star_big2"];
         
         if (count.intValue == 0) {
@@ -610,12 +626,12 @@
             self.star4.image = image1;
             self.star5.image = image1;
         }else if (count.intValue == 1){
-          
+            
             self.star2.image = image1;
             self.star3.image = image1;
             self.star4.image = image1;
             self.star5.image = image1;
-        
+            
         }else if (count.intValue == 2){
             
             self.star3.image = image1;
@@ -642,9 +658,9 @@
             self.shareDic = tempdic;
             if (tempdic[@"jmsp_id"] && tempdic[@"jmsp_id"] !=[NSNull null]) {
                 spid = dic[@"pinfo"][@"jmsp_id"];
-    
+                
             }
-
+            
             //加载h5详情页
             if (dic[@"pinfo"][@"detail"]) {
                 NSString *htmlCode = [NSString stringWithFormat:@"<html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"><style type=\"text/css\">body{font-size : 0.9em;}img{width:%@ !important;}</style></head><body>%@</body></html>",@"100%",dic[@"pinfo"][@"detail"]];
@@ -656,101 +672,7 @@
             self.biaotiLabel.text = dic[@"pinfo"][@"pname"];
             self.texingLabel.text = dic[@"pinfo"][@"p_name"];
             
-            /*
-            NSString *promition_start_time = dic[@"pinfo"][@"promition_start_time"];
-            NSString *promition_end_time = dic[@"pinfo"][@"promition_end_time"];
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"yyyy-MM-dd-HH:mm"];
-            NSString *nowdate= [dateFormatter stringFromDate:[NSDate date]];
-            NSDate *date=[dateFormatter dateFromString:nowdate];
-            NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];
-            NSLog(@"timeSp:%@",timeSp);
-            
-            if ([promition_start_time isEqual:@0] || [promition_end_time isEqual:@0] ) {
-                
-                float pricef = [dic[@"pinfo"][@"price"] floatValue];
-                self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-                float  originprice= [dic[@"pinfo"][@"market_price"] floatValue];
-                
-                NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
-                
-                NSAttributedString *attrStr =
-                [[NSAttributedString alloc]initWithString:pricestr
-                                               attributes:
-                 @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-                   NSForegroundColorAttributeName:[UIColor grayColor],
-                   NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-                   NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-                self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-     
-            }else if (![promition_start_time isEqual:@0] && ![promition_end_time isEqual:@0] ){
-
-                NSString *is_promotion = dic[@"pinfo"][@"is_promotion"];
-                NSLog(@"%f===111%f===222%f",timeSp.doubleValue,promition_start_time.doubleValue,promition_end_time.doubleValue);
-                
-                if ([is_promotion isEqualToString:@"1"] && promition_start_time.doubleValue < timeSp.doubleValue && promition_end_time.doubleValue > timeSp.doubleValue) {
-                    
-                    float pricef = [dic[@"pinfo"][@"promotion_price"]floatValue] ;
-                    self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-                    float  originprice= [dic[@"pinfo"][@"market_price"] floatValue];
-                    
-                    NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
-                    
-                    NSAttributedString *attrStr =
-                    [[NSAttributedString alloc]initWithString:pricestr
-                                                   attributes:
-                     @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-                       NSForegroundColorAttributeName:[UIColor grayColor],
-                       NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-                       NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-                    self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-                    
-                }else{
-                    
-                    float pricef = [dic[@"pinfo"][@"price"] floatValue];
-                    self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-                    float  originprice= [dic[@"pinfo"][@"market_price"] floatValue];
-                    
-                    NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
-                    
-                    NSAttributedString *attrStr =
-                    [[NSAttributedString alloc]initWithString:pricestr
-                                                   attributes:
-                     @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-                       NSForegroundColorAttributeName:[UIColor grayColor],
-                       NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-                       NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-                    self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-                }
-            }
-             */
-            /*
-            self.shuliangStepper.paramDic = dic;
-            
-            [self.shuliangStepper setTextValue:1];
-            UIButton *leftbtn = (UIButton*)self.shuliangStepper.leftView;
-            UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
-            
-            NSString *amount = dic[@"pinfo"][@"amount"];
-            NSString *safe_amount = dic[@"pinfo"][@"safe_amount"];
-            NSString *sell_amount = dic[@"pinfo"][@"sell_amount"];
-            self.shuliangStepper.maxValue = amount.intValue;
-            
-            
-            if (amount.floatValue >= safe_amount.floatValue) {
-                self.kuncuntisLabel.text = @"库存充足";
-            }else if(amount.floatValue < safe_amount.floatValue){
-            
-                self.kuncuntisLabel.text = [NSString stringWithFormat:@"%@",amount];
-            }
-            
-            if (amount.floatValue == 0) {
-                [self.shuliangStepper setTextValue:0];
-                leftbtn.enabled=NO;
-                rightbtn.enabled = NO;
-                self.kuncuntisLabel.text = @"售罄";
-            }
-            */
+           
             
             if ([dic[@"pinfo"][@"way"] isEqualToString:@"1"]) {
                 self.kujingBgView.hidden = YES;
@@ -761,19 +683,24 @@
                 }];
             }
             else if ([dic[@"pinfo"][@"way"] isEqualToString:@"3"]){
-            
+                
                 self.kujingBgView.hidden = YES;
                 self.kuajingHeight.constant = 0;
                 isglobal = NO;
-            
+                
             }
-             
+            
             else{
                 self.kujingBgView.hidden = NO;
                 self.kuajingHeight.constant = 120;
                 
-                if (dic[@"pinfo"][@"production_name"]) {
+                if (![dic[@"pinfo"][@"production_name"] isEqualToString:@""]) {
                     self.yuanchandiLabel.text = dic[@"pinfo"][@"production_name"];
+                    self.blankview.hidden = YES;
+                }else{
+                    self.yuanchandiView.hidden = YES;
+                    self.yuanchandiH.constant = 0;
+                    self.kuajingHeight.constant = 80;
                     
                 }
                 
@@ -807,7 +734,7 @@
         
         [overView removeFromSuperview];
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^( NSError *error) {
         [overView removeFromSuperview];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [_hud show:YES];
@@ -815,6 +742,8 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
+    
+
 }
 
 
@@ -996,14 +925,14 @@
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"加入购物车成功";
-            [_hud hide:YES afterDelay:2];
+            [_hud hide:YES afterDelay:1];
         }
     } failure:^(NSError *error) {
         NSLog(@"请求失败 error===%@",error);
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"加入购物车失败";
-        [_hud hide:YES afterDelay:2];
+        [_hud hide:YES afterDelay:1];
     }];
         
     }else{ //离线情况下 本地缓存
@@ -1434,20 +1363,6 @@
             
         };
         
-        /*
-        huoyuanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
-        huoyuanList.tagDelegate = self;
-        //huoyuanList = [self styleTagList:huoyuanList];
-        huoyuanList.horizontalPadding = 10.0f;
-        huoyuanList.verticalPadding = 6.0f;
-        [huoyuanList setTag:huoyuanArray];
-        [cell.tagView addSubview:huoyuanList];
-        [self.view layoutIfNeeded];
-        huoyuanList.frame = CGRectMake(0, 5, cell.tagView.bounds.size.width, cell.tagView.bounds.size.height - 10);
-        huoyuanList.alwaysBounceVertical = NO;
-        huoyuanList.alwaysBounceHorizontal = NO;
-         */
-        
     }else{
     
         cell.tags = jieduanArray;
@@ -1535,20 +1450,7 @@
             }
             
         };
-        
-        /*
-        jieduanList = [[DWTagList alloc]initWithFrame:CGRectMake(60, 5, MAIN_SCREEN_WIDTH - 60, 30)];
-        jieduanList.tagDelegate = self;
-        jieduanList.horizontalPadding = 10.0f;
-        jieduanList.verticalPadding = 6.0f;
-        //jieduanList = [self styleTagList:jieduanList];
-        [jieduanList setTag:jieduanArray];
-        [cell.tagView addSubview:jieduanList];
-        [self.view layoutIfNeeded];
-        jieduanList.frame = CGRectMake(0, 5, cell.tagView.bounds.size.width, cell.tagView.bounds.size.height - 10);
-        jieduanList.alwaysBounceVertical = NO;
-        jieduanList.alwaysBounceHorizontal = NO;
-         */
+
     }
 
     return cell;
@@ -1576,21 +1478,17 @@
    pid= 13911 【商品id】
    
    uname = ml_13771961207【会员名】
-   
-   //模拟用的
-   &test_phone=用户电话号码
+ 
   */
     
-    NSLog(@"pDic===%@",pDic);
     NSString *pid = pDic[@"pinfo"][@"id"];
     NSString *uname = pDic[@"pinfo"][@"user"];
     if (userid) {
+        
         if (!self.shoucangButton.selected) {
         
         self.shoucangButton.selected = YES;
-            
-        
-  
+
         NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",MATROJP_BASE_URL];
         NSDictionary *params = @{@"do":@"add",@"pid":pid,@"uname":uname};
             
@@ -1602,7 +1500,7 @@
               [_hud show:YES];
               _hud.mode = MBProgressHUDModeText;
               _hud.labelText = @"收藏成功";
-              [_hud hide:YES afterDelay:2];
+              [_hud hide:YES afterDelay:1];
               
               [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
               [self.shoucangButton setTitle:@"已收藏" forState:UIControlStateNormal];
@@ -1631,6 +1529,7 @@
     
 }
 
+
 #pragma Mark 取消收藏
 - (void) deleteClick:(NSString*)sender{
     /*
@@ -1643,48 +1542,78 @@
      id=2281 【收藏商品id】
     */
     NSLog(@"pDic===%@",pDic);
+    NSString *pid = pDic[@"pinfo"][@"id"];
+  
     if (userid) {
-        if (!self.shoucangButton.selected) {
  
             NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",MATROJP_BASE_URL];
-            NSDictionary *params = @{@"do":@"del",@"id":sender};
-            self.shoucangButton.selected = NO;
-            [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
-            [self.shoucangButton setTitleColor:RGBA(38, 14, 0, 1) forState:UIControlStateNormal];
-            
+            NSDictionary *params = @{@"do":@"sel"};
             
             [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_product" success:^(id responseObject) {
-                NSDictionary *result = (NSDictionary *)responseObject;
-                NSString *share_add = result[@"data"][@"ads_del"];
-                if (share_add) {
-                    [_hud show:YES];
-                    _hud.mode = MBProgressHUDModeText;
-                    _hud.labelText = @"取消收藏成功";
-                    [_hud hide:YES afterDelay:2];
-                }else{
-                    
-                }
-                NSLog(@"请求成功 result====%@",result);
-               
-            } failure:^(NSError *error) {
-                NSLog(@"请求失败 error===%@",error);
                 
-            }];
-        }else{
-            self.shoucangButton.selected = NO;
-            [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
-            [self.shoucangButton setTitleColor:RGBA(174, 142, 93, 1) forState:UIControlStateNormal];
-            
-            return;
-        }
+                NSLog(@"请求成功responseObject===%@",responseObject);
+                if (![responseObject[@"data"][@"share_list"] isKindOfClass:[NSNull class]]) {
+        
+                        
+                        for (NSDictionary *tempdic in responseObject[@"data"][@"share_list"]) {
+                            
+                            if ([pid  isEqualToString:tempdic[@"pid"]]) {
+                                
+                                if (!self.shoucangButton.selected) {
+                                    
+                                self.shoucangButton.selected = NO;
+                                [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big2"] forState:UIControlStateNormal];
+                                [self.shoucangButton setTitleColor:RGBA(38, 14, 0, 1) forState:UIControlStateNormal];
+                                    
+                                NSString *ppid = tempdic[@"id"];
+                                NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",MATROJP_BASE_URL];
+                                NSDictionary *params = @{@"do":@"del",@"id":ppid};
+                                
+                                [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_product" success:^(id responseObject) {
+                                    NSDictionary *result = (NSDictionary *)responseObject;
+                                    NSString *share_add = result[@"data"][@"ads_del"];
+                                    if (share_add) {
+                                        [_hud show:YES];
+                                        _hud.mode = MBProgressHUDModeText;
+                                        _hud.labelText = @"取消收藏成功";
+                                        [_hud hide:YES afterDelay:1];
+                                    }else{
+                                        
+                                    }
+                                    NSLog(@"请求成功 result====%@",result);
+                                    
+                                } failure:^(NSError *error) {
+                                    NSLog(@"请求失败 error===%@",error);
+                                    
+                                }];
+                            }else{
+                                self.shoucangButton.selected = NO;
+                                [self.shoucangButton setImage:[UIImage imageNamed:@"Star_big1"] forState:UIControlStateNormal];
+                                [self.shoucangButton setTitleColor:RGBA(174, 142, 93, 1) forState:UIControlStateNormal];
+                                
+                                return;
+                                }
+                            }
+                        }
+                    
+                   
+                }
+    } failure:^(NSError *error) {
+                NSLog(@"请求失败 error===%@",error);
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"请求失败";
+                [_hud hide:YES afterDelay:1];
+                
+        }];
     }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         
-        [alert show];
+                [alert show];
         
         
-        return;
-    }
+                return;
+            }
 
 }
 

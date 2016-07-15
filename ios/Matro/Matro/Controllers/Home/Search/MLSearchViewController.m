@@ -212,7 +212,7 @@ static CGFloat kHeight = 0;
 //加载搜索历史纪录
 - (void)loadSearchHistory {
     
-    NSArray *historySearchArray = [SearchHistory MR_findAllInContext:_context];
+    NSMutableArray *historySearchArray = (NSMutableArray*)[SearchHistory MR_findAllInContext:_context];
     
     _historySearchTextArray = [NSMutableArray array];
     if (historySearchArray.count == 0) {
@@ -220,10 +220,13 @@ static CGFloat kHeight = 0;
         self.searchView.hidden = YES;
     }
     for (SearchHistory *searchHistory in historySearchArray) {
-        [_historySearchTextArray addObject:searchHistory.keywork];
+ 
+            [_historySearchTextArray addObject:searchHistory.keywork];
+  
     }
     
     _historySearchTextArray = (NSMutableArray *)[[_historySearchTextArray reverseObjectEnumerator] allObjects];
+    
     _tbvH.constant = _historySearchTextArray.count * 30;
     
     
@@ -339,6 +342,11 @@ static CGFloat kHeight = 0;
     //点击当前的搜索历史，将当前的文字带回上一个页面
     [_delegate SearchText:_historySearchTextArray[indexPath.row]];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+
+    [self.historyTableView reloadData];
 }
 
 #pragma mark - DWTagListDelegate

@@ -132,6 +132,12 @@ static NSInteger page = 1;
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+
+    [self loadDate];
+    [self.tableView reloadData];
+}
+
 - (void)loadDate {
     
     /*
@@ -139,9 +145,7 @@ static NSInteger page = 1;
     【post】
      do=sel   【操作码】
      uid=20505 【用户id】
-     
-     //暂时测试用的  以后要删除
-     &test_phone=13771961207
+   
   */
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_product",MATROJP_BASE_URL];
@@ -168,6 +172,7 @@ static NSInteger page = 1;
             [self.tableView reloadData];
             
         }else{
+            self.footView.hidden = YES;
             [self.dataSource removeAllObjects];
             [self.tableView reloadData];
             [self.view configBlankPage:EaseBlankPageTypeShouCang hasData:(self.dataSource.count>0)];
