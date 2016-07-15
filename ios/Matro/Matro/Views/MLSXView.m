@@ -190,6 +190,12 @@ static BOOL selectPP = NO;
     return self;
 }
 
+- (void)postFenLeiName:(NSString *)sender{
+    if (![sender isEqualToString:@""] && sender != nil) {
+        _fenlei.text = sender;
+    }
+}
+
 ///键盘显示事件
 - (void) keyboardWillShow:(NSNotification *)notification {
     

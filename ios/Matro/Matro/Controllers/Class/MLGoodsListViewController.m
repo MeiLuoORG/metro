@@ -225,6 +225,10 @@ static NSInteger page = 1;
     //将触摸事件添加到当前view
     [_sxView addGestureRecognizer:tapGestureRecognizer];
     
+    if (![self.currentFLname isEqualToString:@""]) {
+        [_sxView postFenLeiName:self.currentFLname];
+    }
+    
 }
 
 - (void) hideKeyboard {

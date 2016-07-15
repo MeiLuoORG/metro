@@ -24,4 +24,6 @@
 @property (nonatomic) NSNumber *postMaxPrice;
 @property (nonatomic, retain) NSString *keywords;
 @property (nonatomic,copy)NSString *spflCode;
+@property (strong, nonatomic)NSString * currentFenLeiName;
+- (void)postFenLeiName:(NSString *)sender;
 @end

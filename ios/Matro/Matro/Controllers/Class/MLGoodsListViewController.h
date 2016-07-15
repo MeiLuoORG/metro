@@ -17,4 +17,6 @@
 
 @property (nonatomic, assign) BOOL isPinPaiChuan;
 
+
+@property (strong, nonatomic) NSString * currentFLname;
 @end
