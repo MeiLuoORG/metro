@@ -41,7 +41,7 @@
     [self.view addSubview:self.qrcodeView];
     
     _label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.qrcodeView.frame)+10, self.view.frame.size.width, 20)];
-    _label2.text = @"每60秒刷新";
+    //_label2.text = @"每60秒刷新";
     _label2.textAlignment = NSTextAlignmentCenter;
     _label2.alpha = 0.5;
     _label2.font = [UIFont systemFontOfSize:12];
@@ -49,7 +49,7 @@
     
     //[self createViews];
     // Do any additional setup after loading the view.
-    [NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(getCardInfo) userInfo:nil repeats:YES];
+    //[NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(getCardInfo) userInfo:nil repeats:YES];
     [self getCardInfo];
 }
 
