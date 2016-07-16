@@ -9,6 +9,7 @@
 #import "MLBaseViewController.h"
 #import "HFSServiceClient.h"
 #import "VIPCardHistoryModel.h"
+#import "MBProgressHUD+Add.h"
 @interface MNNPurchaseHistoryViewController : MLBaseViewController
 
 @property (strong, nonatomic) NSString * cardID;

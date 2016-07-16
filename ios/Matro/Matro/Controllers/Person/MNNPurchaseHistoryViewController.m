@@ -84,10 +84,10 @@ static NSInteger currentPage = 1;
         [self footerRefreshActionWith:currentPage];
         
     }];
-    [_tableView.header beginRefreshing];
+    //[_tableView.header beginRefreshing];
     
     [self.view addSubview:_tableView];
-    
+    [self headerRefreshAction];
 }
 
 - (void)headerRefreshAction{
@@ -165,12 +165,13 @@ static NSInteger currentPage = 1;
     /*
      zhoulu
      */
-    NSLog(@"卡内码为：%@",self.cardID);
+    //NSLog(@"卡内码为：%@",self.cardID);
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
     NSString * phone = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];
     //{"appId": "test0002","phone":"18020260894","sign":$sign,"accessToken":$accessToken}
-//1502648
+    //1502648
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"cardId":self.cardID,@"startTime":@"1990-01-01",@"endTime":endTime,@"pageCount":@"20",@"pageIndex":pageIndex}];
     NSLog(@"当前日期为：%@",endTime);
     NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
@@ -224,6 +225,7 @@ static NSInteger currentPage = 1;
                                                 completionHandler:
                                       ^(NSData *data, NSURLResponse *response, NSError *error) {
                                           NSLog(@"原生错误error:%@",error);
+                                          //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
                                           
                                           //请求没有错误
                                           if (!error) {
