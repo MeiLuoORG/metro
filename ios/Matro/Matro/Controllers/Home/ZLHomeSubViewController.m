@@ -69,7 +69,7 @@
 - (void)createWebViewWith:(NSString *)urlString{
     
     
-    
+    NSLog(@"加载的URL为：%@",urlString);
     NSURL * url2 = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url2 cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3000];
     [self.webView loadRequest:request];
@@ -144,9 +144,18 @@
 #pragma mark JS回调方法
 
 - (void)skip:(NSString *)index Ui:(NSString *)sender{
+    NSLog(@"JS传入index:%@++++sender:%@",index,sender);
+    /*
        dispatch_sync(dispatch_get_main_queue(), ^{
         [self pushToGoodsDetail:index withUi:sender];
        });
+     */
+    
+    if (index != nil && sender != nil && ![index isEqualToString:@""] && ![sender isEqualToString:@""]) {
+        NSArray * arr = @[index,sender];
+        [self performSelectorOnMainThread:@selector(pushTest:) withObject:arr waitUntilDone:YES];
+    }
+     
 }
 
 - (void)pushToGoodsDetail:(NSString *)index withUi:(NSString *)sender{
@@ -157,6 +166,18 @@
     
     
 }
+
+- (void)pushTest:(NSArray *)senderARR{
+    
+    NSString * index = senderARR[0];
+    NSString * sender = senderARR[1];
+    NSLog(@"数组中index:%@,sender:%@",index,sender);
+    if (self.homeSubDelegate && [self.homeSubDelegate respondsToSelector:@selector(homeSubViewController:JavaScriptActionFourButton:withUi:)]) {
+        [self.homeSubDelegate homeSubViewController:self JavaScriptActionFourButton:index withUi:sender];
+    }
+ 
+}
+
 
 #pragma end mark JS回调方法结束
 /*
