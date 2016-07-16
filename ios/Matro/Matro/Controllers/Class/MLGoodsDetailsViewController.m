@@ -439,13 +439,9 @@
                         [huoyuanArray addObject:guigestr1];
                         
                     }else{
-<<<<<<< Updated upstream
-                    for (NSString *searchstr in huoyuanArray) {
-                        if (![guigestr1 isEqualToString:searchstr]) {
-=======
+
                         if ([huoyuanArray containsObject:guigestr1]) {
->>>>>>> Stashed changes
-                            
+      
                             
                         }else{
                             
