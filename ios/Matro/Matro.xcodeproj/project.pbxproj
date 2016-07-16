@@ -38,6 +38,7 @@
 		2814D6131D26514000F8ECB8 /* MLOrderHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2814D6121D26514000F8ECB8 /* MLOrderHeader.xib */; };
 		2814D6191D2657B000F8ECB8 /* MLOrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2814D6181D2657B000F8ECB8 /* MLOrderListModel.m */; };
 		281D67501D378BD900D15ACB /* MLBuyKnowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281D674F1D378BD900D15ACB /* MLBuyKnowViewController.m */; };
+		281D67531D3A23B400D15ACB /* MLShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281D67521D3A23B400D15ACB /* MLShopDetailViewController.m */; };
 		283261941D18EFC700C9EE4E /* MLCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 283261921D18EFC700C9EE4E /* MLCollectionTableViewCell.m */; };
 		283261951D18EFC700C9EE4E /* MLCollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283261931D18EFC700C9EE4E /* MLCollectionTableViewCell.xib */; };
 		283261991D192D6E00C9EE4E /* MLStoreCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283261971D192D6E00C9EE4E /* MLStoreCollectViewController.m */; };
@@ -718,6 +719,8 @@
 		2814D6181D2657B000F8ECB8 /* MLOrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderListModel.m; sourceTree = "<group>"; };
 		281D674E1D378BD900D15ACB /* MLBuyKnowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBuyKnowViewController.h; sourceTree = "<group>"; };
 		281D674F1D378BD900D15ACB /* MLBuyKnowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLBuyKnowViewController.m; sourceTree = "<group>"; };
+		281D67511D3A23B400D15ACB /* MLShopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLShopDetailViewController.h; sourceTree = "<group>"; };
+		281D67521D3A23B400D15ACB /* MLShopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLShopDetailViewController.m; sourceTree = "<group>"; };
 		283261911D18EFC700C9EE4E /* MLCollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLCollectionTableViewCell.h; sourceTree = "<group>"; };
 		283261921D18EFC700C9EE4E /* MLCollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLCollectionTableViewCell.m; sourceTree = "<group>"; };
 		283261931D18EFC700C9EE4E /* MLCollectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLCollectionTableViewCell.xib; sourceTree = "<group>"; };
@@ -2004,6 +2007,8 @@
 				28B3F8F01D2F454800F7E4C0 /* MLshopFLViewController.h */,
 				28B3F8F11D2F454800F7E4C0 /* MLshopFLViewController.m */,
 				28B3F8F21D2F454800F7E4C0 /* MLshopFLViewController.xib */,
+				281D67511D3A23B400D15ACB /* MLShopDetailViewController.h */,
+				281D67521D3A23B400D15ACB /* MLShopDetailViewController.m */,
 			);
 			name = Dianpu;
 			sourceTree = "<group>";
@@ -4757,6 +4762,7 @@
 				283261941D18EFC700C9EE4E /* MLCollectionTableViewCell.m in Sources */,
 				3C1306DC1D260BBC005CFCEC /* HARootScrollViewManager.m in Sources */,
 				7AFFC45D1D1A88BB0038B176 /* MLHttpManager.m in Sources */,
+				281D67531D3A23B400D15ACB /* MLShopDetailViewController.m in Sources */,
 				3C1306DF1D260BBC005CFCEC /* HASortItemView.m in Sources */,
 				7A3A62761CDB874F00D265F2 /* MLRetrunsHeadCell.m in Sources */,
 				7A03ABF21D2F4F6E0026F853 /* MLOrderSubHeadView.m in Sources */,

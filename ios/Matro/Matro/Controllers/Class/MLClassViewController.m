@@ -83,7 +83,7 @@
     _topScrollSegmentControl.tintColor = [UIColor whiteColor];
     [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateSelected];
     [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"C29F8C"] forState:UIControlStateNormal];
-    [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_g1"] forState:UIControlStateSelected];
+    [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_g2"] forState:UIControlStateSelected];
     [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_w"]  forState:UIControlStateNormal];
     
     _topScrollSegmentControl.delegate = self;

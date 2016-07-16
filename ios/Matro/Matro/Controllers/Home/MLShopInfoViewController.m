@@ -20,12 +20,16 @@
 #import "MLHttpManager.h"
 #import "HFSServiceClient.h"
 #import "MLLoginViewController.h"
+#import "MLShopDetailViewController.h"
+
 @protocol JSObjectDelegate <JSExport>
 
 
 - (void)navigationProduct:(NSString *)productId;
 - (void)skipPage:(NSString *)url;
 
+
+- (void)skipStoreDetaild:(NSString*)url;
 
 - (void)skip:(NSString *)index Ui:(NSString *)sender;
 - (void)storeCollect:(NSString*)type;
@@ -123,7 +127,7 @@
         make.edges.mas_equalTo(0);
     }];
     
-    NSString *url = [NSString stringWithFormat:@"http://61.155.212.146:3000/store/index?sid=%@&uid=%@",uid,userid];
+    NSString *url = [NSString stringWithFormat:@"%@/store/index?sid=%@&uid=%@",HomeHTML_URLString,uid,userid];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
@@ -173,11 +177,11 @@
     
     self.context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     self.context[@"_native"] = self;
-    __weak typeof(self) weakself = self;
-    self.context[@"skipUi"] = ^(NSString *productid){
-        NSLog(@"%@",productid);
-//            [weakself performSelectorOnMainThread:@selector(collectClick:) withObject:productid waitUntilDone:YES];
-    };
+//    __weak typeof(self) weakself = self;
+//    self.context[@"skipUi"] = ^(NSString *productid){
+//        NSLog(@"%@",productid);
+////            [weakself performSelectorOnMainThread:@selector(collectClick:) withObject:productid waitUntilDone:YES];
+//    };
     self.context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
         context.exception = exceptionValue;
         NSLog(@"异常信息：%@", exceptionValue);
@@ -268,7 +272,7 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             
             NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
-            self.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",DianPuURL_URLString,sender,phone];
+            self.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",HomeHTML_URLString,sender,phone];
             [self loadWebView];
             
         });
@@ -289,6 +293,20 @@
     }
     
 }
+
+//跳到店铺详情
+-(void)skipStoreDetaild:(NSString *)storeid{
+
+    NSLog(@"storeid===%@",storeid);
+    
+    MLShopDetailViewController *vc = [[MLShopDetailViewController alloc]init];
+    vc.urlstr = storeid;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+
 //收藏店铺
 -(void)shoucangDianpu:(NSString*)typeStr{
     
@@ -347,10 +365,7 @@
 
 //取消收藏店铺
 -(void)quxiaoshoucangDianpu:(NSString*)typeStr{
-    
-    NSLog(@"shopparamDic000===%@typeStr000===%@dpDic000===%@",_shopparamDic,typeStr,dpDic);
-    
-    
+  
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_shop",MATROJP_BASE_URL];
     NSDictionary *params = @{@"do":@"sel"};
     
@@ -509,9 +524,13 @@
 }
 
 
-- (void)skipPage:(NSString *)url{
-    NSLog(@"%@",url);
-}
+//- (void)skipPage:(NSString *)url{
+//    NSLog(@"%@",url);
+//    MLShopDetailViewController *vc = [[MLShopDetailViewController alloc]init];
+//    vc.urlstr = url;
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
 
 
 - (void)pushToGoodsDetail:(NSString *)productId{

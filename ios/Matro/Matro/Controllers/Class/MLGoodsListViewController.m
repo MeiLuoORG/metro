@@ -302,7 +302,7 @@ static NSInteger page = 1;
     //sum: 不分页查询总条数
     
     NSString *listtepy=@"";
-    NSString *sort=@"";//排列方式
+    NSString *sort=@"desc";//排列方式
     NSString *orderby =@"amount";//默认销量
     NSString *spflid = @"";//商品分类id
     NSString *jgs = @"";
@@ -484,6 +484,7 @@ static NSInteger page = 1;
             [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
             _jiageButtton.imageView.hidden= YES;
             [filterparamDic setValue:@"amount" forKey:@"orderby"];
+            [filterparamDic setValue:@"desc" forKey:@"sort"];
             
         }else{
             
@@ -492,6 +493,7 @@ static NSInteger page = 1;
             [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
             _jiageButtton.imageView.hidden= YES;
             [filterparamDic setValue:@"amount" forKey:@"orderby"];
+            [filterparamDic setValue:@"desc" forKey:@"sort"];
             
         }
         
