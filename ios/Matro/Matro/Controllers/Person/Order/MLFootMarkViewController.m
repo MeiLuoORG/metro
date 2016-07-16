@@ -72,7 +72,7 @@
     }];
     
     
-    [self.tableView.header beginRefreshing];
+   // [self.tableView.header beginRefreshing];
     
 }
 
@@ -183,6 +183,7 @@
     cell.price.text = [NSString stringWithFormat:@"￥%@",tempDic.price];
     cell.pHot.hidden  = YES;
     cell.sideView.hidden = YES;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSString *imageStr = tempDic.pic;
     
     if (![imageStr isKindOfClass:[NSNull class]]) {

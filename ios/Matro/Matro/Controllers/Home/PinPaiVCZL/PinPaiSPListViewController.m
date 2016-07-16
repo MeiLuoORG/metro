@@ -65,8 +65,22 @@ static NSInteger page = 1;
     [_tableView setTableFooterView:[[UIView alloc]init]];
     [_collectionView registerNib:[UINib  nibWithNibName:@"HFSProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:HFSProductCollectionViewCellIdentifier];
     
-    _tableView.header = [self refreshHeaderWith:_tableView];
-    _collectionView.header = [self refreshHeaderWith:_collectionView];
+//    _tableView.header = [self refreshHeaderWith:_tableView];
+//    _collectionView.header = [self refreshHeaderWith:_collectionView];
+    
+    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [_tableView.header endRefreshing];
+        
+        [_tableView reloadData];
+        
+    }];
+    
+    _collectionView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [_collectionView.header endRefreshing];
+        
+        [_collectionView reloadData];
+        
+    }];
     
     _tableView.footer = [self loadMoreDataFooterWith:_tableView];
     _collectionView.footer = [self loadMoreDataFooterWith:_collectionView];
@@ -313,10 +327,14 @@ static NSInteger page = 1;
 //根据_isCardView来判断是_tableView还是_collectionView开始刷新
 -(void)reloadData {
     if (_isCardView) {
+        page = 1;
+        [self getGoodsList];
         [_collectionView reloadData];
-        [_collectionView.header beginRefreshing];
+        //[_collectionView.header beginRefreshing];
     } else {
-        [_tableView.header beginRefreshing];
+        page = 1;
+        [self getGoodsList];
+        //[_tableView.header beginRefreshing];
     }
 }
 -(BOOL)IsChinese:(NSString *)str {

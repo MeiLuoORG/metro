@@ -119,7 +119,7 @@ static NSInteger page = 1;
         make.height.mas_equalTo(50);
     }];
     
-    [self.tableView.header beginRefreshing];
+   // [self.tableView.header beginRefreshing];
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(changeEditState:)];
     right.tintColor = RGBA(174, 142, 93, 1);
@@ -135,6 +135,7 @@ static NSInteger page = 1;
 -(void)viewDidAppear:(BOOL)animated{
 
     [self loadDate];
+    
     [self.tableView reloadData];
 }
 

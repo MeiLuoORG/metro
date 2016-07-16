@@ -69,12 +69,26 @@ static NSInteger page = 1;
     [_tableView setTableFooterView:[[UIView alloc]init]];
     [_collectionView registerNib:[UINib  nibWithNibName:@"HFSProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:HFSProductCollectionViewCellIdentifier];
     
-    _tableView.header = [self refreshHeaderWith:_tableView];
-    _collectionView.header = [self refreshHeaderWith:_collectionView];
+//    _tableView.header = [self refreshHeaderWith:_tableView];
+//    _collectionView.header = [self refreshHeaderWith:_collectionView];
+    
+    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [_tableView.header endRefreshing];
+        
+        [_tableView reloadData];
+        
+    }];
+    
+    _collectionView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [_collectionView.header endRefreshing];
+       
+        [_collectionView reloadData];
+        
+    }];
     
     _tableView.footer = [self loadMoreDataFooterWith:_tableView];
     _collectionView.footer = [self loadMoreDataFooterWith:_collectionView];
-    
+
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
@@ -105,31 +119,7 @@ static NSInteger page = 1;
 }
 
 -(void)getGoodsFromClass
-{// 美罗修改了接口
-//    NSString *str = [NSString stringWithFormat:@"%@ajax/Common/WebFrame.ashx?op=products&webframecode=%@&spsl=20",SERVICE_GETBASE_URL,_filterParam[@"WebrameCode"]];
-  
-//    
-//    [[HFSServiceClient sharedClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        
-//        
-//        NSLog(@"%@",responseObject);
-//        if (responseObject) {
-//            NSArray *dic = (NSArray *)responseObject;
-//
-//            if (dic && dic.count>0) {
-//                [_productList addObjectsFromArray:dic];
-//                
-//            }
-//            [self.tableView reloadData];
-//        }
-//        
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [_hud show:YES];
-//        _hud.mode = MBProgressHUDModeText;
-//        _hud.labelText = @"请求失败";
-//        [_hud hide:YES afterDelay:2];
-//    }];
+{
     
     [self getGoodsList];
 
@@ -165,7 +155,7 @@ static NSInteger page = 1;
     
     
     
-    searchImg.frame = CGRectMake(textW - 45 , 4, imgW, imgW);
+    searchImg.frame = CGRectMake(textW - 45-15 , 4, imgW, imgW);
     searchText.textColor = [UIColor grayColor];
     searchText.placeholder = @"寻找你想要的商品";
     searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
@@ -175,21 +165,12 @@ static NSInteger page = 1;
     }
     
     self.navigationItem.titleView = frameView;
-    
-    
-//    UIBarButtonItem *button =[[UIBarButtonItem alloc]initWithTitle:@"  " style: UIBarButtonItemStylePlain target:self action:@selector(nothingAction)];
-//    
-//    self.navigationItem.rightBarButtonItem = button;
+
     
     [_jiageButtton changeImageAndTitle];
     
     _jiageButtton.imageView.hidden = YES;
     
-    /*
-    [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateNormal];
-    
-    [_jiageButtton setImage:[UIImage imageNamed:@"jgshangjian"] forState:UIControlStateSelected];
-    */
     [_shaixuanButton changeImageAndTitle];
     
     [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
@@ -202,8 +183,7 @@ static NSInteger page = 1;
     _blackControl.alpha = 0.4;
     _blackControl.hidden = YES;
     [_blackControl addTarget:self action:@selector(endEditingAction) forControlEvents:UIControlEventTouchUpInside];
-    
-    //    NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"MLSXView" owner:nil options:nil];
+ 
     _sxView = [[MLSXView alloc]init];
     _sxView.frame = CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH - 60, MAIN_SCREEN_HEIGHT);
     _sxView.delegate = self;
@@ -275,10 +255,15 @@ static NSInteger page = 1;
 //根据_isCardView来判断是_tableView还是_collectionView开始刷新
 -(void)reloadData {
     if (_isCardView) {
+        page = 1;
         [_collectionView reloadData];
-        [_collectionView.header beginRefreshing];
+        [self getGoodsList];
+//        [_collectionView.header beginRefreshing];
     } else {
-        [_tableView.header beginRefreshing];
+        page = 1;
+        [self getGoodsList];
+      //  [_tableView.header beginRefreshing];
+        
     }
 }
 -(BOOL)IsChinese:(NSString *)str {
@@ -438,13 +423,6 @@ static NSInteger page = 1;
             [_hud hide:YES afterDelay:2];
             NSLog(@"error===%@",error);
         }];
-        
-        
-   
-    
-    
-    
-    
 
 }
 -(NSString*)UrlValueEncode:(NSString*)str

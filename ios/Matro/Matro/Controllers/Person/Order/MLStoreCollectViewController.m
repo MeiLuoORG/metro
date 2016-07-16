@@ -109,7 +109,7 @@ static NSInteger page = 1;
     }];
     
     
-    [self._tableView.header beginRefreshing];
+   // [self._tableView.header beginRefreshing];
     
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(changeEditState:)];

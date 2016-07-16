@@ -73,7 +73,7 @@
     
      [frameView addSubview:searchImg];
      [frameView addSubview:searchText];
-     searchImg.frame = CGRectMake(textW - 58 - 65 , 4, imgW, imgW);
+     searchImg.frame = CGRectMake(textW - 58 - 70 , 4, imgW, imgW);
      
      searchText.textColor = [UIColor grayColor];
      searchText.placeholder = @"搜索店内的商品";

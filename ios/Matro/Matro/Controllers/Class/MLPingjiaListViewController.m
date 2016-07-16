@@ -119,7 +119,7 @@ static float height;
     
     
     [self loadData ];
-     [self.commentTableView.header beginRefreshing];
+    // [self.commentTableView.header beginRefreshing];
     
 }
 
@@ -215,6 +215,7 @@ static float height;
         NSArray *array = [[NSBundle mainBundle]loadNibNamed: CellIdentifier owner:self options:nil];
         cell = [array objectAtIndex:0];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.imageHead.layer.cornerRadius = 14.f;
     cell.imageHead.layer.masksToBounds = YES;
     if (indexPath.row >commentList.count) {
@@ -305,6 +306,7 @@ static float height;
     return Hight;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath  {
+    NSLog(@"tableViewindex.row===%ld",indexPath.row);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *dic = commentList[indexPath.row];
     
@@ -342,6 +344,11 @@ static float height;
     
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSLog(@"collectionindex.row===%ld",indexPath.row);
+    
+}
 
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
