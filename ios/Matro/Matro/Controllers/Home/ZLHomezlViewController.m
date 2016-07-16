@@ -367,7 +367,7 @@
 
     
     self.newsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.newsButton setFrame:CGRectMake(SIZE_WIDTH-35, 29, 24, 24)];
+    [self.newsButton setFrame:CGRectMake(SIZE_WIDTH-35, 27, 24, 24)];
     //[newsBtn setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
     [self.newsButton setBackgroundImage:[UIImage imageNamed:@"xiaoxizhoulu"] forState:UIControlStateNormal];
     [self.newsButton addTarget:self action:@selector(newsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
