@@ -92,7 +92,7 @@
 
 -(void)loadsecondData1{
     
-    // http://bbctest.matrojp.com/api.php?m=help&s=index&type=1 获取类别下的子类
+    // 获取类别下的子类
     
     NSString *url =  [NSString stringWithFormat:@"%@/api.php?m=help&s=index&type=1&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     
@@ -119,7 +119,7 @@
 
 -(void)loadsecondData3{
     
-    // http://bbctest.matrojp.com/api.php?m=help&s=index&type=3 获取类别下的子类
+    //  获取类别下的子类
     
      NSString *url =  [NSString stringWithFormat:@"%@/api.php?m=help&s=index&type=3&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     
@@ -146,7 +146,7 @@
 
 -(void)loadsecondData4{
     
-    // http://bbctest.matrojp.com/api.php?m=help&s=index&type=4 获取类别下的子类
+    //  获取类别下的子类
     
     NSString *url =  [NSString stringWithFormat:@"%@/api.php?m=help&s=index&type=4&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     
@@ -193,6 +193,7 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.backgroundColor = [UIColor clearColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.font = [UIFont systemFontOfSize:14];
         cell.textLabel.textColor = RGBA(159,159, 159, 1);
         

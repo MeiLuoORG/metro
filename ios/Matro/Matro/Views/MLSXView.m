@@ -223,7 +223,7 @@ static BOOL selectPP = NO;
     NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",keystr);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1&client_type=ios&app_version=%@",   @"http://bbctest.matrojp.com",keystr,vCFBundleShortVersionStr];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,keystr,vCFBundleShortVersionStr];
     
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);
@@ -285,7 +285,7 @@ static BOOL selectPP = NO;
     NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",keystr);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1&client_type=ios&app_version=%@",   @"http://bbctest.matrojp.com",keystr,vCFBundleShortVersionStr];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,keystr,vCFBundleShortVersionStr];
     
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);
@@ -382,7 +382,7 @@ static BOOL selectPP = NO;
     NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",keystr);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1&client_type=ios&app_version=%@",   @"http://bbctest.matrojp.com",keystr,vCFBundleShortVersionStr];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,keystr,vCFBundleShortVersionStr];
     
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);

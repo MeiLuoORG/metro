@@ -65,8 +65,22 @@ static NSInteger page = 1;
     [_tableView setTableFooterView:[[UIView alloc]init]];
     [_collectionView registerNib:[UINib  nibWithNibName:@"HFSProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:HFSProductCollectionViewCellIdentifier];
     
-    _tableView.header = [self refreshHeaderWith:_tableView];
-    _collectionView.header = [self refreshHeaderWith:_collectionView];
+//    _tableView.header = [self refreshHeaderWith:_tableView];
+//    _collectionView.header = [self refreshHeaderWith:_collectionView];
+    
+    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [_tableView.header endRefreshing];
+        
+        [_tableView reloadData];
+        
+    }];
+    
+    _collectionView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [_collectionView.header endRefreshing];
+        
+        [_collectionView reloadData];
+        
+    }];
     
     _tableView.footer = [self loadMoreDataFooterWith:_tableView];
     _collectionView.footer = [self loadMoreDataFooterWith:_collectionView];
@@ -313,10 +327,14 @@ static NSInteger page = 1;
 //根据_isCardView来判断是_tableView还是_collectionView开始刷新
 -(void)reloadData {
     if (_isCardView) {
+        page = 1;
+        [self getGoodsList];
         [_collectionView reloadData];
-        [_collectionView.header beginRefreshing];
+        //[_collectionView.header beginRefreshing];
     } else {
-        [_tableView.header beginRefreshing];
+        page = 1;
+        [self getGoodsList];
+        //[_tableView.header beginRefreshing];
     }
 }
 -(BOOL)IsChinese:(NSString *)str {
@@ -404,7 +422,7 @@ static NSInteger page = 1;
      app_version=1.0
      */
     
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=%@&brand_id=%@&client_type=ios&app_version=%@",@"http://bbctest.matrojp.com",keystr,jgs,jge,(long)page,listtepy,orderby,sort,ppid,vCFBundleShortVersionStr];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=%@&brand_id=%@&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,keystr,jgs,jge,(long)page,listtepy,orderby,sort,ppid,vCFBundleShortVersionStr];
     NSLog(@"品牌str====%@",str);
     
     
@@ -565,14 +583,14 @@ static NSInteger page = 1;
         _jiageButtton.imageView.hidden = NO;
         button.selected = !button.selected;
         if (button.selected) {
-            
+            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
             [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
             [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
             [filterparamDic setValue:@"price" forKey:@"orderby"];
             [filterparamDic setValue:@"desc" forKey:@"sort"];
             
         }else{
-            
+            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
             [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
             [_jiageButtton setImage:[UIImage imageNamed:@"jgshangjian"] forState:UIControlStateNormal];
             [filterparamDic setValue:@"price" forKey:@"orderby"];

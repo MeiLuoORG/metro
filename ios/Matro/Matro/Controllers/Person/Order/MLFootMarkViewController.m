@@ -72,7 +72,7 @@
     }];
     
     
-    [self.tableView.header beginRefreshing];
+   // [self.tableView.header beginRefreshing];
     
 }
 
@@ -80,9 +80,6 @@
 
 -(void)loadData{
 
-    //http://bbctest.matrojp.com/api.php?m=product&s=detail_footprint&test_test_phone=13771961207&action=sel_footprint
-    
-    
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail_footprint&action=sel_footprint",MATROJP_BASE_URL];
     
     [MLHttpManager get:url params:nil m:@"product" s:@"detail_footprint" success:^(id responseObject) {
@@ -186,6 +183,7 @@
     cell.price.text = [NSString stringWithFormat:@"￥%@",tempDic.price];
     cell.pHot.hidden  = YES;
     cell.sideView.hidden = YES;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSString *imageStr = tempDic.pic;
     
     if (![imageStr isKindOfClass:[NSNull class]]) {

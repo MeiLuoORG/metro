@@ -109,7 +109,7 @@ static NSInteger page = 1;
     }];
     
     
-    [self._tableView.header beginRefreshing];
+   // [self._tableView.header beginRefreshing];
     
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(changeEditState:)];
@@ -140,7 +140,7 @@ static NSInteger page = 1;
         [_hud hide:YES afterDelay:1];
         
         if ([responseObject[@"data"][@"shop_list"] isKindOfClass:[NSString class]]) {
-            
+            self.footView.hidden = YES;
             [self.dataSource removeAllObjects];
             [self._tableView reloadData];
             [self.view configBlankPage:EaseBlankPageTypeShouCangstore hasData:(self.dataSource.count>0)];
@@ -162,7 +162,7 @@ static NSInteger page = 1;
        
                 
             }else{
-                
+                self.footView.hidden = YES;
                 [self.dataSource removeAllObjects];
                 [self._tableView reloadData];
                 [self.view configBlankPage:EaseBlankPageTypeShouCangstore hasData:(self.dataSource.count>0)];
@@ -275,7 +275,7 @@ static NSInteger page = 1;
     
     MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
     NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
-    vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",dic[@"shopid"],phone];
+    vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",DianPuURL_URLString,dic[@"shopid"],phone];
     vc.uid = dic[@"shopid"];
     vc.shopparamDic = @{@"userid":dic[@"shopid"],@"company":dic[@"shopname"]};
     vc.hidesBottomBarWhenPushed = YES;

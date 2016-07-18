@@ -144,6 +144,10 @@
 #define YinLianPay_NOTICIFICATION_FAIL          @"YINLIAN_ZHIFU_NOTICIFICATION_FAIL"
 #define YinLianPay_NOTICIFICATION_CANCEL        @"YINLIAN_ZHIFU_NOTICIFICATION_CANCEL"
 
+
+//从后台返回前台 激活应用
+#define APPLICATION_BECOME_ACTIVE_NOTIFICATION  @"APPLICATION_BECOME_ACTIVE_NOTIFICATION"
+
 //所有支付成功
 #define PaySuccess_NOTIFICATION_SUCCESS         @"PaySuccess_NOTIFICATION_SUCCESS"
 
@@ -167,7 +171,7 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 
 /*zhouluSTART*/
 
-#define HTTP_BASE_ZHOULU_URL            @"http://app-test.matrojp.com"
+//#define HTTP_BASE_ZHOULU_URL            @"http://app-test.matrojp.com"
 
 //登录接口
 #define Login_URLString                 @"http://app-test.matrojp.com/member/ajax/app/sso/login"
@@ -257,6 +261,9 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define PinPaiGuanTitle_URLString       ZHOULU_ML_BASE_URLString@"/api.php?m=brand&s=brand&method=GetBrandByID&brandid="
 
 #define FenLeiName_URLString            ZHOULU_ML_BASE_URLString@"/api.php?m=category&s=list&method=GetCategoryByID&catid="
+
+//店铺链接
+#define DianPuURL_URLString             @"http://192.168.19.247:3000"
 
 /*zhouluEND*/
 

@@ -427,7 +427,7 @@
 
 
 - (void)loadDataWithPageIndex:(int) pageIndex withPagesize:(int) pageSize{
-    //http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list&pageindex=1&pagesize=20
+
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     /*
      HFSServiceClient
@@ -435,7 +435,7 @@
      语言的力量  11:45:15
      app_version=1.0
      */
-        NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=1&client_type=ios&app_version=%@",pageIndex,pageSize,vCFBundleShortVersionStr];
+        NSString * urlStr = [NSString stringWithFormat:@"%@/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,pageIndex,pageSize,vCFBundleShortVersionStr];
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [_collectionView.header endRefreshing];
@@ -503,7 +503,7 @@
 }
 
 - (NSString *)urlWithPageindex:(int)index withPageSize:(int)size{
-    NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d",index,size];
+    NSString * urlStr = [NSString stringWithFormat:@"%@/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d",ZHOULU_ML_BASE_URLString,index,size];
     return urlStr;
 
 }
@@ -537,7 +537,7 @@
     
     NSURL * url = [NSURL URLWithString:model.logo];
     
-    [cell.imageViewzl sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"login-left"]];
+    [cell.imageViewzl sd_setImageWithURL:url placeholderImage:PLACEHOLDER_IMAGE];
     
     /*
     [cell.spImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"login_title"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {

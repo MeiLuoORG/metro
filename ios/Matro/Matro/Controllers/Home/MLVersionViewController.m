@@ -35,6 +35,7 @@
         self.cancelBtn.hidden = YES;
         self.downloadBtn.hidden = YES;
         self.qzdownloadBtn.hidden = NO;
+        
     }else{
     
         self.cancelBtn.hidden = NO;

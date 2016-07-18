@@ -10,6 +10,8 @@
 #import "MLOrderListModel.h"
 #import "MLPayShiBaiViewController.h"
 #import "MLHttpManager.h"
+#import "MBProgressHUD+Add.h"
+#import "MBProgressHUD.h"
 
 @interface MLPayViewController : MLBaseViewController
 @property(nonatomic,retain) NSDictionary *paramDic;

@@ -16,7 +16,8 @@
 #import "UIImageView+WebCache.h"
 #import "MLpingjiaViewController.h"
 #import "CommonHeader.h"
-
+#import "MLGoodsComViewController.h"
+#import "MLProductComDetailViewController.h"
 #define CollectionViewCellMargin 10.0f//间隔10
 @interface MLPingjiaListViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 {
@@ -118,7 +119,7 @@ static float height;
     
     
     [self loadData ];
-     [self.commentTableView.header beginRefreshing];
+    // [self.commentTableView.header beginRefreshing];
     
 }
 
@@ -173,11 +174,8 @@ static float height;
             NSNumber *count = data[@"count"];
             if ([count isEqualToNumber:@0] ) {
                 MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.commentTableView.footer;
-                MJRefreshAutoNormalFooter *footer1 = (MJRefreshAutoNormalFooter *)self.commentCollectionView.footer;
                 footer.stateLabel.text = @"没有更多了";
-                footer1.stateLabel.text = @"没有更多了";
                 [self.commentTableView.footer endRefreshing];
-                [self.commentCollectionView.footer endRefreshing];
                 return ;
             }
             
@@ -197,7 +195,7 @@ static float height;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         [self.commentTableView.header endRefreshing];
-        [self.commentCollectionView.header endRefreshing];
+        
          
     }];
 }
@@ -217,8 +215,12 @@ static float height;
         NSArray *array = [[NSBundle mainBundle]loadNibNamed: CellIdentifier owner:self options:nil];
         cell = [array objectAtIndex:0];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.imageHead.layer.cornerRadius = 14.f;
     cell.imageHead.layer.masksToBounds = YES;
+    if (indexPath.row >commentList.count) {
+        return nil;
+    }
     NSDictionary *tempDic = commentList[indexPath.row];
     NSNumber *star = tempDic[@"stars"];
     UIImage *image1 = [UIImage imageNamed:@"Star_big2"];
@@ -303,6 +305,16 @@ static float height;
  
     return Hight;
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath  {
+    NSLog(@"tableViewindex.row===%ld",indexPath.row);
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSDictionary *dic = commentList[indexPath.row];
+    
+    MLProductComDetailViewController *vc = [[MLProductComDetailViewController alloc]init];
+    vc.comment_id = dic[@"id"];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 
 #pragma mark - UICollectionViewDataSource
@@ -332,11 +344,19 @@ static float height;
     
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSLog(@"collectionindex.row===%ld",indexPath.row);
+    
+}
+
+
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*4))/5);
     float height = width;
     return CGSizeMake(width, height);
 }
+
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(0, 0, 5, 0);

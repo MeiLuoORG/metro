@@ -18,7 +18,7 @@
 
 #define PriceCellIdentifier @"PriceCellIdentifier"
 
-@interface ShaiXuanZlView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>{
+@interface ShaiXuanZlView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate>{
     
     //品牌分类相关数组，用treeview显示
     //
@@ -99,6 +99,12 @@ static BOOL selectPP = NO;
         //初始化背景视图，添加手势
         self.frame = frame ;
         self.userInteractionEnabled = YES;
+        
+        
+        UISwipeGestureRecognizer *rightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(backButtonAction:)];
+        
+        [rightRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+        [self addGestureRecognizer:rightRecognizer];
         
         _treeView.delegate = self;
         _treeView.dataSource = self;
@@ -215,7 +221,7 @@ static BOOL selectPP = NO;
     NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",keystr);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=%@&searchType=1",   @"http://bbctest.matrojp.com",keystr];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=%@&searchType=1",ZHOULU_ML_BASE_URLString,keystr];
     NSLog(@"商品筛选的链接：%@",urlStr);
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);
@@ -302,7 +308,7 @@ static BOOL selectPP = NO;
     NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",keystr);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=%@&searchType=1",   @"http://bbctest.matrojp.com",keystr];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=%@&searchType=1",ZHOULU_ML_BASE_URLString,keystr];
     
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);
@@ -447,7 +453,7 @@ static BOOL selectPP = NO;
     NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",keystr);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=%@&searchType=1",   @"http://bbctest.matrojp.com",keystr];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=%@&searchType=1",ZHOULU_ML_BASE_URLString,keystr];
     
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);

@@ -49,7 +49,7 @@
 //分类
 -(void)loadretCat{
     //（分类）
-    // http://bbctest.matrojp.com/api.php?m=product&s=filter&key=&brandid=1853&searchType=1&userid=
+
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=&searchType=1&userid=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,uid,vCFBundleShortVersionStr];
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -94,11 +94,34 @@
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(homeViewButtonIndexNotification:) name:HOMEVIEW_BUTTON_INDEX_NOTIFICATION object:nil];
      */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecomeActiveAction:) name:APPLICATION_BECOME_ACTIVE_NOTIFICATION object:nil];
+}
+
+- (void)appBecomeActiveAction:(id)sender{
+    NSLog(@"become主页中执行方法");
+    if (_isTopHiden) {
+        [UIView animateWithDuration:0.0f animations:^{
+            [self.view setFrame:CGRectMake(0, 0.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0)];
+            self.tabsView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+            self.firstTopView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+            self.view.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+            //self.firstTopView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 65)];
+            [self.firstTopView setFrame:CGRectMake(0, 0, SIZE_WIDTH, 65)];
+            self.currentLabel.textColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+            self.currentLabel.spView.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+            
+        } completion:^(BOOL finished) {
+            _isTopHiden = NO;
+            
+        }];
+    }
+
+    
+    
 }
 
 -(void)loadVersion{
-    
-    NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=upgrade&s=index&action=sel_upgrade";
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=upgrade&s=index&action=sel_upgrade",ZHOULU_ML_BASE_URLString];
     NSDictionary *params = @{@"appverison":version,@"apptype":@"ios"};
     
     
@@ -268,6 +291,9 @@
             [self.view setFrame:CGRectMake(0, 0.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0)];
             self.tabsView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
             self.firstTopView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+            self.view.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+            //self.firstTopView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 65)];
+            [self.firstTopView setFrame:CGRectMake(0, 0, SIZE_WIDTH, 65)];
             self.currentLabel.textColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
             self.currentLabel.spView.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
             
@@ -341,7 +367,7 @@
 
     
     self.newsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.newsButton setFrame:CGRectMake(SIZE_WIDTH-35, 29, 24, 24)];
+    [self.newsButton setFrame:CGRectMake(SIZE_WIDTH-35, 27, 24, 24)];
     //[newsBtn setImage:[UIImage imageNamed:@"news"] forState:UIControlStateNormal];
     [self.newsButton setBackgroundImage:[UIImage imageNamed:@"xiaoxizhoulu"] forState:UIControlStateNormal];
     [self.newsButton addTarget:self action:@selector(newsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -373,7 +399,6 @@
 }
 #pragma mark -- UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-
 {
     
     return YES;
@@ -389,9 +414,6 @@
     [self.navigationController pushViewController:vc animated:NO];
     self.hidesBottomBarWhenPushed = NO;
 }
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -737,7 +759,7 @@
         //店铺
         MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
         NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
-        vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",sender,phone];
+        vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",DianPuURL_URLString,sender,phone];
         vc.uid = sender;
         vc.shopparamDic = @{@"userid":sender,@"company":@""};
   
@@ -809,7 +831,7 @@
      app_version=1.0
      */
     //NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"];
-    //http://bbctest.matrojp.com/api.php?m=category&s=list&method=GetCategoryByID&catid=1103
+
     NSString * urls = [NSString stringWithFormat:@"%@%@&client_type=ios&app_version=%@",FenLeiName_URLString,sender,vCFBundleShortVersionStr];
     [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -946,6 +968,8 @@
                     [self.view setFrame:CGRectMake(0, 0.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0)];
                     self.tabsView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
                     self.firstTopView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+                    self.view.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+                    [self.firstTopView setFrame:CGRectMake(0, 0, SIZE_WIDTH, 65.0f)];
                     self.currentLabel.textColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
                     self.currentLabel.spView.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
 
@@ -967,9 +991,11 @@
             if (!_isTopHiden) {
                  NSLog(@"up向上  动画执行");
                 [UIView animateWithDuration:0.3f animations:^{
-                    [self.view setFrame:CGRectMake(0, -54.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0+54.0)];
+                    [self.view setFrame:CGRectMake(0, -47.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0+47.0)];
                     self.tabsView.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
                     self.firstTopView.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    self.view.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    [self.firstTopView setFrame:CGRectMake(0, -20, SIZE_WIDTH, 65.0f)];
                     self.currentLabel.textColor = [UIColor whiteColor];
                     self.currentLabel.spView.backgroundColor = [UIColor whiteColor];
                 } completion:^(BOOL finished) {

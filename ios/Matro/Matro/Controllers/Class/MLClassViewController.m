@@ -83,11 +83,11 @@
     _topScrollSegmentControl.tintColor = [UIColor whiteColor];
     [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateSelected];
     [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"C29F8C"] forState:UIControlStateNormal];
-    [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_g1"] forState:UIControlStateSelected];
+    [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_g2"] forState:UIControlStateSelected];
     [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_w"]  forState:UIControlStateNormal];
     
     _topScrollSegmentControl.delegate = self;
-    [_topScrollSegmentControl setFont:[UIFont fontWithName:@"Helvetica" size:18.0f]];
+    [_topScrollSegmentControl setFont:[UIFont fontWithName:@"Helvetica" size:16.0f]];
     _topScrollSegmentControl.selectedIndex = 0;
     
    
@@ -152,7 +152,7 @@
             
             MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
             NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
-            vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",@"http://192.168.19.247:3000",ggv,phone];
+            vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",DianPuURL_URLString,ggv,phone];
             vc.uid = ggv;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
@@ -188,7 +188,6 @@
 - (void)loadAllClass {
     
    // NSString *urlStr = [NSString stringWithFormat:@"%@ajax/app/index.ashx?op=allfirst&webframecode=0303",SERVICE_GETBASE_URL];
-    //http://bbctest.matrojp.com/api.php?m=category&s=list&method=top
     
    
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=top&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
@@ -223,7 +222,7 @@
     
 //    NSString *urlStr = [NSString stringWithFormat:@"%@ajax/app/index.ashx?op=child&webframecode=%@",SERVICE_GETBASE_URL,title.CODE];
     
-    //http://bbctest.matrojp.com/api.php?m=category&s=list&method=next&code=1010201
+
     
      MLClass *title = _classTitleArray[index];
     

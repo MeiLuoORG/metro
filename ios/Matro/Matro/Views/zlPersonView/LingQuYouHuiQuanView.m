@@ -123,7 +123,6 @@
     LingQuQuanCell * cell = [tableView cellForRowAtIndexPath:indexPath];
     YouHuiQuanModel * model = [self.quanARR objectAtIndex:indexPath.row];
     
-    //http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=set_coupons&test_phone=18868672308
     //self.selectQuanBlock(YES,model);
     if ([model.flag isEqualToString:@"1"]) {
          [self selectYouHuiQuan:model withCell:cell withIndexPath:indexPath];
