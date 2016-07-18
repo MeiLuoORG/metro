@@ -51,6 +51,7 @@ PODS:
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
   - SVProgressHUD (2.0.3)
+  - UMengAnalytics-NO-IDFA (4.0.5)
   - WMPageController (1.4.9)
   - YLGIFImage (0.11)
 
@@ -72,6 +73,7 @@ DEPENDENCIES:
   - MJRefresh (~> 2.2.1)
   - RATreeView (~> 1.0.3)
   - SDWebImage (~> 3.7.3)
+  - UMengAnalytics-NO-IDFA
   - WMPageController (~> 1.4.8)
 
 SPEC CHECKSUMS:
@@ -94,6 +96,7 @@ SPEC CHECKSUMS:
   RATreeView: 1236f106710195646c32dc0aa90feeaadf505a3b
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  UMengAnalytics-NO-IDFA: 965a219b05475ff2a4c09a164139a27bbaa0e25b
   WMPageController: f4830b6aed39f16196d4008f8d95c720cf6b1ace
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
 

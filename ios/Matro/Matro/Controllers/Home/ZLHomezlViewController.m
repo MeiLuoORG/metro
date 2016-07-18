@@ -9,6 +9,8 @@
 #import "ZLHomezlViewController.h"
 #import "MLVersionViewController.h"
 #import "MLPersonOrderDetailViewController.h"
+#import "UMMobClick/MobClick.h"
+
 
 @interface ZLHomezlViewController ()
 {
@@ -46,6 +48,11 @@
     BOOL _isTopHiden;
   
 }
+
+
+
+
+
 
 - (void)viewDidLoad {
     self.view.backgroundColor = [UIColor whiteColor];
@@ -282,8 +289,13 @@
 }
 
 
+
+
+
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:NSStringFromClass([self class])];
     [self.navigationController setNavigationBarHidden:YES];
     [self.tabBarController.tabBar setHidden:NO];
     if (_isTopHiden) {
@@ -308,6 +320,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:NSStringFromClass([self class])];
     self.navigationController.navigationBarHidden = NO;
 }
 //二维码扫描 搜索  消息视图按钮
@@ -319,7 +332,6 @@
     UIButton * leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [leftBtn setFrame:CGRectMake(10, 27, 24, 24)];
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"saomiaozhou"] forState:UIControlStateNormal];
-    //[leftBtn setImage:[UIImage imageNamed:@"shouyesaoyisao"] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(scanning) forControlEvents:UIControlEventTouchUpInside];
     
     

@@ -40,7 +40,7 @@
 #import "CompanyInfo.h"
 #import "MLShopBagViewController.h"
 
-
+#import "UMMobClick/MobClick.h"
 
 
 @interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>
@@ -53,6 +53,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    
+    UMConfigInstance.appKey = @"578c85b0e0f55a304d000028";
+    UMConfigInstance.channelId = @"App Store";
+    [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
     [self initializeHomePageData];
     MMMaterialDesignSpinner *_loadingSpinner = [[MMMaterialDesignSpinner alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width-80)/2, ([UIScreen mainScreen].bounds.size.height-80)/2, 80, 80)];
     _loadingSpinner.tintColor = [HFSUtility hexStringToColor:@"#ae8e5d"];

@@ -24,6 +24,8 @@ pod 'GONMarkupParser', '~> 0.6.5'
 pod 'MJPhotoBrowser', '~> 1.0.2'
 pod 'MGSwipeTableCell', '~> 1.5.5'
 
+pod 'UMengAnalytics-NO-IDFA'
+
 
 end
 

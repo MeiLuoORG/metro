@@ -28,7 +28,7 @@
 #import "HFSConstants.h"
 #import "MLHttpManager.h"
 #import "HFSConstants.h"
-
+#import "UMMobClick/MobClick.h"
 
 @interface MLReturnsRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
@@ -79,6 +79,8 @@ static NSInteger pageIndex = 1;
     
     // Do any additional setup after loading the view.
 }
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     MLTuiHuoModel *model = [self.orderList objectAtIndex:section];
@@ -213,6 +215,16 @@ static NSInteger pageIndex = 1;
 }
 
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:NSStringFromClass([self class])];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:NSStringFromClass([self class])];
+    
+}
 
 
 

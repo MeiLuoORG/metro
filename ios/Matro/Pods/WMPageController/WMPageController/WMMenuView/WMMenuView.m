@@ -20,7 +20,7 @@
 @end
 
 // 下划线的高度
-static CGFloat   const WMProgressHeight = 2.0;
+static CGFloat   const WMProgressHeight = 1.0;
 static CGFloat   const WMMenuItemWidth  = 60.0;
 static NSInteger const WMMenuItemTagOffset = 6250;
 

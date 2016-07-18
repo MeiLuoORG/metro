@@ -21,7 +21,7 @@
 #import "GTMNSString+URLArguments.h"
 #import "MBProgressHUD+Add.h"
 #import "MLHttpManager.h"
-
+#import "UMMobClick/MobClick.h"
 
 @interface MLGoodsComViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -162,6 +162,17 @@
      [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:NSStringFromClass([self class])];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:NSStringFromClass([self class])];
+    
+}
 
 /**
  *  添加图片

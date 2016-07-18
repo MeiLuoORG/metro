@@ -29,6 +29,7 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "OffLlineShopCart.h"
 #import "MLHttpManager.h"
+#import "UMMobClick/MobClick.h"
 
 #define CODE_TIME_KEY @"CODE_TIME_KEY"
 
@@ -1621,7 +1622,7 @@
                                                       
                                                       [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE];
                                                       
-
+                                  [MobClick profileSignInWithPUID:kUSERDEFAULT_USERPHONE];
                                                       [userDefaults setObject:_loginPasswordString forKey:KUSERDEFAULT_PASSWORD_ZL];
 
 
@@ -1871,6 +1872,8 @@
     
         [task resume];
 }
+
+
 
 
 #pragma end mark 原生登录方法  结束
