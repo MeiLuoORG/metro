@@ -13,7 +13,7 @@
  */
 
 #import "YAScrollSegmentControl.h"
-//#import "ZLCustomButton.h"
+#import "ZLCustomButton.h"
 
 IB_DESIGNABLE
 
@@ -201,24 +201,13 @@ static const CGFloat defaultGradientPercentage = 0.2;
     CGFloat x = 0;
     for (NSInteger i = 0; i < self.buttons.count; i++) {
         NSString *title = self.buttons[i];
-//        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:self.buttons[i]];
-//        NSRange strRange = {0,[str length]};
-//        [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];
-       // UIView *view = [[UIView alloc]initWithFrame:CGRectMake(x, 0, 20, self.frame.size.height)];
-        
-        
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(x, 0, 20, self.frame.size.height - 2)];
-        
+ 
+        ZLCustomButton *button = [[ZLCustomButton alloc] initWithFrame:CGRectMake(x, 0, 20, self.frame.size.height - 2)];
 
-//        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 21, button.titleLabel.text.length, 1)];
-       // view.backgroundColor = [UIColor redColor];
-        
-        
         button.tag = i;
         [button setTitleColor:self.buttonColor forState:UIControlStateNormal];
         [button setTitle:title forState:UIControlStateNormal];
-        //[button setAttributedTitle:str forState:UIControlStateNormal];
-        
+       
         [button addTarget:self action:@selector(buttonSelect:) forControlEvents:UIControlEventTouchUpInside];
         [button sizeToFit];
         
@@ -251,21 +240,17 @@ static const CGFloat defaultGradientPercentage = 0.2;
         button.frame = (CGRect){button.frame.origin, {button.frame.size.width + (self.edgeMargin * 2), self.frame.size.height}};
 
         
-        //button.spView = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(button.frame)-7, button.frame.size.width + (self.edgeMargin * 2)-40, 1.5)];
-        //button.spView.backgroundColor = [UIColor colorWithHexString:@"260E00"];
+        button.spView = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(button.frame)-7, button.frame.size.width + (self.edgeMargin * 2)-40, 1.f)];
+        button.spView.backgroundColor = [UIColor colorWithHexString:@"C29F8C"];
         
-        //button.spView.hidden  = YES;
+        button.spView.hidden  = YES;
         
-        //[button addSubview:button.spView];
-        
-
-       // view.frame = (CGRect){button.frame.origin, {button.frame.size.width + (self.edgeMargin * 2), self.frame.size.height}};
+        [button addSubview:button.spView];
 
         x = CGRectGetMaxX(button.frame);
         
         [self.scrollView addSubview:button];
-//        [view addSubview:button];
-//        [self.scrollView addSubview:view];
+
         
     }
     
@@ -284,18 +269,18 @@ static const CGFloat defaultGradientPercentage = 0.2;
 
 #pragma mark - action handler
 
-- (void)buttonSelect:(UIButton *)sender
+- (void)buttonSelect:(ZLCustomButton *)sender
 {
     if (sender.tag == self.selectedIndex && sender.selected) return;
     
-    for (UIButton *button in self.scrollView.subviews) {
+    for (ZLCustomButton *button in self.scrollView.subviews) {
         if (![button isKindOfClass:[UIButton class]]) continue;
         button.selected = NO;
-        //button.spView.hidden = YES;
+        button.spView.hidden = YES;
     }
     
     sender.selected = YES;
-    //sender.spView.hidden = NO;
+    sender.spView.hidden = NO;
     
     if ([self.delegate respondsToSelector:@selector(didSelectItemAtIndex:)]) {
         [self.delegate didSelectItemAtIndex:sender.tag];

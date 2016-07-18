@@ -10,12 +10,16 @@
 #import "MLVersionViewController.h"
 #import "MLPersonOrderDetailViewController.h"
 #import "UMMobClick/MobClick.h"
-
+#import "HFSServiceClient.h"
+#import "MLHttpManager.h"
+#import "HFSConstants.h"
+#import "MLShopBagViewController.h"
 
 @interface ZLHomezlViewController ()
 {
-
+    MBProgressHUD *_hub;
     NSString *version;
+    NSString *userid;
 }
 
 @property ( strong , nonatomic ) AVCaptureDevice * device;
@@ -298,6 +302,9 @@
     [MobClick beginLogPageView:NSStringFromClass([self class])];
     [self.navigationController setNavigationBarHidden:YES];
     [self.tabBarController.tabBar setHidden:NO];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
+    
     if (_isTopHiden) {
         [UIView animateWithDuration:0.0f animations:^{
             [self.view setFrame:CGRectMake(0, 0.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0)];
@@ -627,13 +634,93 @@
             
             
             if (qrString.length >0) {
-                NSString *idstr = [self jiexi:@"id" webaddress:qrString];
-                if (idstr.length > 0 ) {
-                    MLGoodsDetailsViewController *detailVc = [[MLGoodsDetailsViewController alloc]init];
-                    detailVc.paramDic = @{@"id":idstr};
-                    detailVc.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:detailVc animated:YES];
+                if ([qrString containsString:@"id"]) {
+                    NSString *idstr = [self jiexi:@"id" webaddress:qrString];
+                    if (idstr.length > 0 ) {
+                        MLGoodsDetailsViewController *detailVc = [[MLGoodsDetailsViewController alloc]init];
+                        detailVc.paramDic = @{@"id":idstr};
+                        detailVc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:detailVc animated:YES];
+                    }
+                }else{
+                    
+                    _hud = [[MBProgressHUD alloc]initWithView:self.view];
+                    [self.view addSubview:_hud];
+                    
+                    if ([qrString containsString:@"cart_key"]) {
+                        NSString *cart_key = [self jiexi:@"cart_key" webaddress:qrString];
+                        if (userid) {
+                            NSString *urlstr = [NSString stringWithFormat:@"%@/api.php?m=product&s=pad_cart_data&option=get&cart_key=%@",MATROJP_BASE_URL,cart_key];
+                            [[HFSServiceClient sharedJSONClientNOT] GET:urlstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject){
+                                NSLog(@"responseObject===%@",responseObject);
+                                NSArray *cart_listArr = responseObject[@"data"][@"cart_list"];
+                                
+                                NSMutableDictionary *cart_listDic = [NSMutableDictionary dictionary];
+                                
+                                if (![cart_listArr isKindOfClass:[NSString class]]) {
+                                    for (int i=0; i < cart_listArr.count; i++) {
+                                        
+                                        NSString *cart_list = [NSString stringWithFormat:@"cart_list[%d]",i];
+                                        [cart_listDic setObject:cart_listArr[i] forKey:cart_list];
+                                        
+                                    }
+                                    
+                                    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=mul_add_cart",MATROJP_BASE_URL];
+                                    
+                                    NSDictionary *params = cart_listDic;
+                                    NSLog(@"params===%@",params);
+                                    
+                                    [MLHttpManager post:urlStr params:params m:@"product" s:@"cart" success:^(id responseObject) {
+                                        
+                                        NSDictionary *result = (NSDictionary *)responseObject;
+                                        NSString *code = result[@"code"];
+                                        if ([code isEqual:@0]) {
+                                            
+                                            [_hud show:YES];
+                                            _hud.mode = MBProgressHUDModeText;
+                                            [_hud hide:YES afterDelay:1];
+                                            MLShopBagViewController *vc = [[MLShopBagViewController alloc]init];
+                                            vc.hidesBottomBarWhenPushed = YES;
+                                            [self.navigationController pushViewController:vc animated:YES];
+                                            
+                                        }
+                                        NSLog(@"请求成功 result====%@",result);
+                                    } failure:^(NSError *error) {
+                                        NSLog(@"请求失败 error===%@",error);
+                                        [_hud show:YES];
+                                        _hud.mode = MBProgressHUDModeText;
+                                        _hud.labelText = @"请求失败";
+                                        [_hud hide:YES afterDelay:1];
+                                        
+                                    }];
+                                }else{
+                                    
+                                    [_hud show:YES];
+                                    _hud.mode = MBProgressHUDModeText;
+                                    _hud.labelText = @"请求失败";
+                                    [_hud hide:YES afterDelay:1];
+                                    
+                                }
+                                
+                            } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                                
+                                [_hud show:YES];
+                                _hud.mode = MBProgressHUDModeText;
+                                _hud.labelText = @"请求失败";
+                                [_hud hide:YES afterDelay:1];
+                                
+                            }];
+                        }else{
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                            
+                            [alert show];
+                            return;
+                            
+                        }
+                        
+                    }
                 }
+                
             }else{
                 
                 [_hud show:YES];
@@ -654,6 +741,13 @@
     
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    MLLoginViewController *vc = [[MLLoginViewController alloc] init];
+    vc.isLogin = YES;
+    [self presentViewController:vc animated:YES completion:nil];
+    
+}
 
 -(NSString *)jiexi:(NSString *)CS webaddress:(NSString *)webaddress
 {

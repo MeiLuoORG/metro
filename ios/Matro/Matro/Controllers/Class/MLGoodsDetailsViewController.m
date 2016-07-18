@@ -159,6 +159,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *yuanchandiH;
 @property (weak, nonatomic) IBOutlet UIView *yuanchandiView;
 @property (weak, nonatomic) IBOutlet UIView *blankview;
+@property (weak, nonatomic) IBOutlet UIButton *jiarugouwucheBtn;
 
 
 
@@ -174,12 +175,12 @@
     titleView = [[YAScrollSegmentControl alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH - 20, 40)];
     titleView.backgroundColor = [UIColor clearColor];
     titleView.tintColor = [UIColor clearColor];
-    titleView.buttons = @[@"商    品",@"图文详情"];
+    titleView.buttons = @[@"商品",@"图文详情"];
     
     [titleView setTitleColor:[UIColor colorWithHexString:@"AE8E5D"] forState:UIControlStateSelected];
     [titleView setTitleColor:[UIColor colorWithHexString:@"A9A9A9"] forState:UIControlStateNormal];
-    [titleView setBackgroundImage:[UIImage imageNamed:@"sel_type_g"] forState:UIControlStateSelected];
-    [titleView setBackgroundImage:[UIImage imageNamed:@"TM.jpg"] forState:UIControlStateNormal];
+//    [titleView setBackgroundImage:[UIImage imageNamed:@"sel_type_g"] forState:UIControlStateSelected];
+//    [titleView setBackgroundImage:[UIImage imageNamed:@"TM.jpg"] forState:UIControlStateNormal];
     titleView.delegate = self;
     self.navigationItem.titleView = titleView;
     pDic = [[NSDictionary alloc] init];
@@ -402,6 +403,7 @@
                         leftbtn.enabled=NO;
                         rightbtn.enabled = NO;
                         self.kuncuntisLabel.text = @"售罄";
+                        [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"aaaaaa"]];
                     }
                     
                 }
@@ -562,6 +564,7 @@
                     leftbtn.enabled=NO;
                     rightbtn.enabled = NO;
                     self.kuncuntisLabel.text = @"售罄";
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"aaaaaa"]];
                 }
                 
             }
@@ -815,6 +818,7 @@
                         leftbtn.enabled=NO;
                         rightbtn.enabled = NO;
                         self.kuncuntisLabel.text = @"售罄";
+                        [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"aaaaaa"]];
                     }
                     
                     
@@ -975,6 +979,7 @@
                     leftbtn.enabled=NO;
                     rightbtn.enabled = NO;
                     self.kuncuntisLabel.text = @"售罄";
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"aaaaaa"]];
                 }
             }
             
@@ -1761,6 +1766,7 @@
                 leftbtn.enabled=NO;
                 rightbtn.enabled = NO;
                 self.kuncuntisLabel.text = @"售罄";
+                [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"aaaaaa"]];
             }
             
             
@@ -1850,6 +1856,7 @@
                 leftbtn.enabled=NO;
                 rightbtn.enabled = NO;
                 self.kuncuntisLabel.text = @"售罄";
+                [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"aaaaaa"]];
             }
             
         };

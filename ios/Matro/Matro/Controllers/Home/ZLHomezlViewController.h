@@ -58,7 +58,7 @@
 #import "CityFuWuViewController.h"
 
 
-@interface ZLHomezlViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,ZLHomeSubVieDragProtocol>
+@interface ZLHomezlViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,ZLHomeSubVieDragProtocol,UIAlertViewDelegate>
 @property (strong, nonatomic) UIView * firstTopView;
 @property(nonatomic,strong)JSContext *contextjs;
 @property (assign, nonatomic) float historyOffestY;

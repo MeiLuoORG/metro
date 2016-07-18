@@ -62,6 +62,7 @@ static NSInteger pageIndex = 0;
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
     self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.title = @"购物袋";
     _loginView = ({
         UIView *headView = [[UIView alloc]initWithFrame:CGRectZero];
         headView.backgroundColor = RGBA(245, 245, 245, 1);
@@ -675,8 +676,16 @@ static NSInteger pageIndex = 0;
     [self presentViewController:loginVc animated:YES completion:nil];
 }
 
+- (void)backBtnAction{
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
+    
     NSString  *loginid = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
     [self.likeArray removeAllObjects];
     [self.offlineCart removeAllObjects];

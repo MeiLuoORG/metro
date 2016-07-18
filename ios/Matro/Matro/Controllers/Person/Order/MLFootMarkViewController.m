@@ -203,9 +203,10 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *temp = [self.dataSource[indexPath.section] mj_keyValues];
+    NSDictionary *temp = [self.dataSource[indexPath.row] mj_keyValues];
     MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
-    vc.paramDic = temp;
+    vc.paramDic = @{@"id":temp[@"pid"]};
+
     [self.navigationController pushViewController:vc animated:YES];
     
 }

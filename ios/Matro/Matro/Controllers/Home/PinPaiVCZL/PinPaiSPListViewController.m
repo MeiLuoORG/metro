@@ -803,6 +803,19 @@ static NSInteger page = 1;
         
         cell.currentPriceLabel.attributedText = pricestr;
         
+        cell.isShouqing.hidden = YES;
+        
+        if ([tempdic[@"amount"]isEqual:@0]) {
+            cell.isShouqing.hidden = NO;
+            cell.currentPriceLabel.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+            cell.productNameLabel.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+        }else{
+            
+            cell.isShouqing.hidden = YES;
+            cell.currentPriceLabel.textColor = [UIColor colorWithHexString:@"F1653E"];
+            cell.productNameLabel.textColor = [UIColor colorWithHexString:@"260E00"];
+        }
+        
     }
     
     return cell;
@@ -861,6 +874,19 @@ static NSInteger page = 1;
     [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
     
     cell.priceLb.attributedText = pricestr;
+    
+    cell.isShouqing.hidden = YES;
+    
+    if ([tempdic[@"amount"]isEqual:@0]) {
+        cell.isShouqing.hidden = NO;
+        cell.productnameLb.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+        cell.priceLb.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+    }else{
+        
+        cell.isShouqing.hidden = YES;
+        cell.productnameLb.textColor = [UIColor colorWithHexString:@"F1653E"];
+        cell.priceLb.textColor = [UIColor colorWithHexString:@"260E00"];
+    }
     
     return cell;
 }

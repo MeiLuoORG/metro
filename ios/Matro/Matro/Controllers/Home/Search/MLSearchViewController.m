@@ -49,23 +49,16 @@ static CGFloat kHeight = 0;
     [super viewDidLoad];
     [self registerForKeyboardNotifications];
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 44)];
-//    _searchBar.placeholder = @"寻找你想要的商品";
-//    _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
-//    _searchBar.showsCancelButton = NO;
-//    _searchBar.delegate = self;
-//    self.navigationItem.titleView = _searchBar;
     
     hotSearchArray = [NSMutableArray new];
     hotSearchTagArray = [NSMutableArray new];
-   
-    
+
     hotSearchplaceholderArray = [NSMutableArray new];
     [self getSearchplaceholder];
     //弹出系统键盘
     [_searchBar becomeFirstResponder];
     
-    //返回按钮
-    //UIBarButtonItem *returnBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Left_Arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(returnAction :)];
+    
     UIBarButtonItem *returnBtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(returnAction :)];
     
     NSDictionary * attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14]};

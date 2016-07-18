@@ -70,7 +70,7 @@
 
     self.navigationItem.title = @"分类";
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"search"] style:UIBarButtonItemStylePlain target:self action:@selector(handleSingleTap:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"sousuozhou"] style:UIBarButtonItemStylePlain target:self action:@selector(handleSingleTap:)];
     brandArr = [NSMutableArray array];
     brandDic = [NSMutableDictionary dictionary];
     _classSecondArray = [NSMutableArray array];
@@ -81,10 +81,10 @@
     //头部类别设置
     _topScrollSegmentControl.backgroundColor = [UIColor whiteColor];
     _topScrollSegmentControl.tintColor = [UIColor whiteColor];
-    [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateSelected];
-    [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"C29F8C"] forState:UIControlStateNormal];
-    [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_g2"] forState:UIControlStateSelected];
-    [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_w"]  forState:UIControlStateNormal];
+    [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"C29F8C"] forState:UIControlStateSelected];
+    [_topScrollSegmentControl setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateNormal];
+//    [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_g2"] forState:UIControlStateSelected];
+//    [_topScrollSegmentControl setBackgroundImage:[UIImage imageNamed:@"sel_type_w"]  forState:UIControlStateNormal];
     
     _topScrollSegmentControl.delegate = self;
     [_topScrollSegmentControl setFont:[UIFont fontWithName:@"Helvetica" size:16.0f]];
@@ -363,7 +363,7 @@
   
         float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
         float height = width;
-        return (height*i + 5*i);
+        return (height*i + 5*i - 5);
     }
     MLSecondClass * secondClass = _classSecondArray[tableView.tag];
     long int count = secondClass.ThreeClassificationList.count;

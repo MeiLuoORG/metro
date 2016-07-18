@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *productImgview;
 @property (weak, nonatomic) IBOutlet UILabel *productnameLb;
 @property (weak, nonatomic) IBOutlet UILabel *priceLb;
+@property (weak, nonatomic) IBOutlet UILabel *isShouqing;
 
 @end
