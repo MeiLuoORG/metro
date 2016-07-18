@@ -34,9 +34,26 @@ typedef void(^IDCardIsOK)(BOOL);
 @property (nonatomic,assign)BOOL isShowSFZ;
 
 
+@property (nonatomic,assign)BOOL isShowWarning;
+
+
 - (IBAction)saveClick:(id)sender;
 
 + (MLOrderSubHeadView *)headView;
 - (void)haveIdCardSave;
+
+@property (weak, nonatomic) IBOutlet UIImageView *mapImage;
+@property (weak, nonatomic) IBOutlet UILabel *warningLabel;
+
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
+
+@property (weak, nonatomic) IBOutlet UIImageView *phoneImage;
+
+@property (weak, nonatomic) IBOutlet UIImageView *nameImage;
+
+
+
+
 
 @end

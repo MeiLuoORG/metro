@@ -107,6 +107,30 @@
 }
 
 
+- (void)setIsShowWarning:(BOOL)isShowWarning{
+    _isShowWarning = isShowWarning;
+    if (_isShowWarning) {
+        self.warningLabel.hidden = NO;
+        self.mapImage.hidden = NO;
+        self.viewHeight.constant = 54;
+        self.phoneImage.hidden = YES;
+        self.nameImage.hidden = YES;
+        self.nameLabel.hidden = YES;
+        self.phoneLabel.hidden = YES;
+        self.addressLabel.hidden = YES;
+    }else{
+        self.warningLabel.hidden = YES;
+        self.mapImage.hidden = YES;
+        self.viewHeight.constant = 90;
+        self.phoneImage.hidden = NO;
+        self.nameImage.hidden = NO;
+        self.nameLabel.hidden = NO;
+        self.phoneLabel.hidden = NO;
+        self.addressLabel.hidden = NO;
+    }
+}
+
+
 
 
 @end

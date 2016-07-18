@@ -34,8 +34,8 @@
 @property (nonatomic,strong)UIView *footView;
 @property (nonatomic,strong)MLOrderSubHeadView *headView;
 @property (nonatomic,strong)UILabel *sumLabel;
-
 @property (nonatomic,strong)MLAddressSelectViewController *addVc;
+@property (nonatomic,strong)UIView *headBgView;
 
 
 @end
@@ -76,6 +76,7 @@ static BOOL idCardOk = NO;
             make.edges.mas_equalTo(0);
         }];
         tableView.tableHeaderView = head;
+        self.headBgView = head;
         [self.view addSubview:tableView];
         tableView;
     });
@@ -110,6 +111,8 @@ static BOOL idCardOk = NO;
         footView;
     });
     
+    [self changeHeadView];
+    
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self.view);
         make.bottom.mas_equalTo(self.footView.mas_top);
@@ -127,12 +130,44 @@ static BOOL idCardOk = NO;
     [self.navigationController pushViewController:self.addVc animated:YES];
 }
 
+- (void)changeHeadView{
+    if (self.order_info.consignee.name.length == 0 || self.order_info.consignee.address.length == 0) { //如果没有个人信息
+        self.headView.isShowWarning = YES;
+        CGFloat height = 0;
+        if (self.order_info.isHaveHaiWai) { //如果是海外购
+            height = 54+8+54+8;
+        }else{ //不是海外购
+            height = 54+8;
+        }
+        self.headBgView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, height);
+        [self.tableView beginUpdates];
+        [self.tableView setTableHeaderView:self.headBgView];
+        [self.tableView endUpdates];
+    }else{ //如果有个人信息
+        self.headView.isShowWarning = NO;
+        CGFloat height = 0;
+        if (self.order_info.isHaveHaiWai) { //如果是海外购
+            height = 90+8+54+8;
+        }else{ //不是海外购
+            height = 90+8;
+        }
+        self.headBgView.frame = CGRectMake(0, 0, MAIN_SCREEN_WIDTH, height);
+        [self.tableView beginUpdates];
+        [self.tableView setTableHeaderView:self.headBgView];
+        [self.tableView endUpdates];
+    }
+
+}
+
+
 - (void)refreshHeadView{
     if (self.order_info.identity_card.length>0) { //如果有身份证直接显示
         self.headView.shenfenzhengField.text = self.order_info.identity_card;
         [self.headView haveIdCardSave];
         idCardOk = YES;
     }
+
+    
     self.headView.nameLabel.text = self.order_info.consignee.name;
     self.headView.phoneLabel.text = self.order_info.consignee.mobile;
     self.headView.addressLabel.text = [NSString stringWithFormat:@"%@%@",self.order_info.consignee.area?:@"",self.order_info.consignee.address?:@""];
@@ -572,11 +607,13 @@ static BOOL idCardOk = NO;
             MLCommitOrderListModel *model = [MLCommitOrderListModel mj_objectWithKeyValues:data];
             self.order_info = model;
             [self.tableView reloadData];
+            [self changeHeadView];
             [self refreshHeadView];
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
         }
+
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
