@@ -301,7 +301,7 @@
     _shenFenCardId.layer.cornerRadius = 4.0f;
     _shenFenCardId.leftView = kongView2;
     _shenFenCardId.leftViewMode = UITextFieldViewModeAlways;
-    _shenFenCardId.keyboardType = UIKeyboardTypeNumberPad;
+    //_shenFenCardId.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:_shenFenCardId];
     //4
     UIView * spView3 = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_shenFenCardId.frame)+30, SIZE_WIDTH, 1)];

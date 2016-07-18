@@ -55,7 +55,7 @@
 #import "JSBadgeView.h"
 #import "MBProgressHUD+Add.h"
 #import "MLPayViewController.h"
-
+#import "CityFuWuViewController.h"
 
 
 @interface ZLHomezlViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,ZLHomeSubVieDragProtocol>

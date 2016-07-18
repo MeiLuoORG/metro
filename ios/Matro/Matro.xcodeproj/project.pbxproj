@@ -361,6 +361,11 @@
 		3C5B0C881CFC4329003FFD25 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */; };
 		3C5B0C8A1CFC433E003FFD25 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */; };
 		3C5B0C8C1CFC4348003FFD25 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */; };
+		3C5E8A901D3C802600BA5766 /* CityFuWuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E8A8E1D3C802600BA5766 /* CityFuWuViewController.m */; };
+		3C5E8A911D3C802600BA5766 /* CityFuWuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5E8A8F1D3C802600BA5766 /* CityFuWuViewController.xib */; };
+		3C5E8A931D3C824600BA5766 /* cityfuwu02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3C5E8A921D3C824600BA5766 /* cityfuwu02.jpg */; };
+		3C5E8A971D3CA96E00BA5766 /* ChongZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E8A951D3CA96E00BA5766 /* ChongZhiViewController.m */; };
+		3C5E8A981D3CA96E00BA5766 /* ChongZhiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5E8A961D3CA96E00BA5766 /* ChongZhiViewController.xib */; };
 		3C5F123D1D17A075001F66E1 /* SecondBtnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */; };
 		3C5F123F1D17A09F001F66E1 /* SecondBtnsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */; };
 		3C78E1C21D225BED0016628C /* QuanListZLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C78E1C01D225BED0016628C /* QuanListZLViewController.m */; };
@@ -1347,6 +1352,13 @@
 		3C5B0C871CFC4329003FFD25 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		3C5B0C891CFC433E003FFD25 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		3C5B0C8B1CFC4348003FFD25 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		3C5E8A8D1D3C802600BA5766 /* CityFuWuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityFuWuViewController.h; sourceTree = "<group>"; };
+		3C5E8A8E1D3C802600BA5766 /* CityFuWuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityFuWuViewController.m; sourceTree = "<group>"; };
+		3C5E8A8F1D3C802600BA5766 /* CityFuWuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityFuWuViewController.xib; sourceTree = "<group>"; };
+		3C5E8A921D3C824600BA5766 /* cityfuwu02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cityfuwu02.jpg; sourceTree = "<group>"; };
+		3C5E8A941D3CA96E00BA5766 /* ChongZhiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChongZhiViewController.h; sourceTree = "<group>"; };
+		3C5E8A951D3CA96E00BA5766 /* ChongZhiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChongZhiViewController.m; sourceTree = "<group>"; };
+		3C5E8A961D3CA96E00BA5766 /* ChongZhiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChongZhiViewController.xib; sourceTree = "<group>"; };
 		3C5F123B1D17A075001F66E1 /* SecondBtnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondBtnsView.h; sourceTree = "<group>"; };
 		3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondBtnsView.m; sourceTree = "<group>"; };
 		3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondBtnsView.xib; sourceTree = "<group>"; };
@@ -3068,6 +3080,7 @@
 		3A633B801C9EA7C900C11FD5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3C5E8A8C1D3C800700BA5766 /* CityFuWuVC */,
 				284E364D1D2C9F96000CC90F /* Downversion */,
 				3C1306C01D260BA1005CFCEC /* DaoHangZL */,
 				3C05567C1D239F150092D140 /* PinPaiVCZL */,
@@ -3365,6 +3378,7 @@
 		3ACF2CDD1CA5064C003D1F67 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				3C5E8A921D3C824600BA5766 /* cityfuwu02.jpg */,
 				280AADAD1CFEDC7500E7A2FA /* 0.JPG */,
 				280AADAE1CFEDC7500E7A2FA /* 1.JPG */,
 				280AADAF1CFEDC7500E7A2FA /* 2.JPG */,
@@ -3679,6 +3693,19 @@
 				3C5B0C7F1CFC37E3003FFD25 /* ZhengZePanDuan.m */,
 			);
 			path = ZhengZe;
+			sourceTree = "<group>";
+		};
+		3C5E8A8C1D3C800700BA5766 /* CityFuWuVC */ = {
+			isa = PBXGroup;
+			children = (
+				3C5E8A8D1D3C802600BA5766 /* CityFuWuViewController.h */,
+				3C5E8A8E1D3C802600BA5766 /* CityFuWuViewController.m */,
+				3C5E8A8F1D3C802600BA5766 /* CityFuWuViewController.xib */,
+				3C5E8A941D3CA96E00BA5766 /* ChongZhiViewController.h */,
+				3C5E8A951D3CA96E00BA5766 /* ChongZhiViewController.m */,
+				3C5E8A961D3CA96E00BA5766 /* ChongZhiViewController.xib */,
+			);
+			path = CityFuWuVC;
 			sourceTree = "<group>";
 		};
 		3C5F123A1D17A03B001F66E1 /* zlPersonView */ = {
@@ -4147,6 +4174,7 @@
 				3A1AA8B71CAA0DEC00AF73C2 /* MLInvoiceViewController.xib in Resources */,
 				3CFC2A4C1D127C5C00C43BFF /* b54504436257.jpg in Resources */,
 				7ACD3A771CE842D8004BAF8B /* MLWishlistFootView.xib in Resources */,
+				3C5E8A981D3CA96E00BA5766 /* ChongZhiViewController.xib in Resources */,
 				7AEDD0CB1CE5A43A009B12F4 /* MLSaleServiceImageCell.xib in Resources */,
 				7AF1415F1CE1E5BC005DDE70 /* HFSProductTableViewCell.xib in Resources */,
 				3CEDAD7F1D13ECFB00990DA8 /* placeholder.png in Resources */,
@@ -4195,6 +4223,7 @@
 				3A633B8C1C9EA82200C11FD5 /* MLClassViewController.xib in Resources */,
 				3CEAC66E1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib in Resources */,
 				3A1F72CC1CA3F904000ECE08 /* HFSOrderListFooterView.xib in Resources */,
+				3C5E8A911D3C802600BA5766 /* CityFuWuViewController.xib in Resources */,
 				2869F68F1D227A08003C4663 /* MLKefuHeader.xib in Resources */,
 				3C26A2F61D362F160095E8AA /* 0003.png in Resources */,
 				7ACFA6161D11436200987A03 /* MLOrderInfoFooterTableViewCell.xib in Resources */,
@@ -4238,6 +4267,7 @@
 				7A12A0DC1D2E4ABB00D0FF26 /* MLOrderSubTextTableViewCell.xib in Resources */,
 				7ABB22311D20F2C400529B2B /* MLMessagesControlCell.xib in Resources */,
 				284E36521D2C9FE9000CC90F /* MLVersionViewController.xib in Resources */,
+				3C5E8A931D3C824600BA5766 /* cityfuwu02.jpg in Resources */,
 				3C26A2F41D362F160095E8AA /* 0001.png in Resources */,
 				3C13F2F31D1D19C70069A8F6 /* ShiMingViewController.xib in Resources */,
 				3AF01E5C1CBBAB94005830BD /* MLLogisticsViewController.xib in Resources */,
@@ -4584,6 +4614,7 @@
 				3A633B641C9EA36E00C11FD5 /* ZLPhotoPickerGroupViewController.m in Sources */,
 				3A633B311C9EA36E00C11FD5 /* UIView+HeinQi.m in Sources */,
 				7A3486691D0EC01F002EE211 /* MLCartFootCollectionReusableView.m in Sources */,
+				3C5E8A901D3C802600BA5766 /* CityFuWuViewController.m in Sources */,
 				3A633B391C9EA36E00C11FD5 /* TAAnimatedDotView.m in Sources */,
 				7ABB223D1D20FA2F00529B2B /* MLSystemBodyCell.m in Sources */,
 				7A4869C81D0F9C73001FDE5C /* MLShopingCartlistModel.m in Sources */,
@@ -4621,6 +4652,7 @@
 				3AFB0C7A1CA28D6F00128368 /* HFSProductCollectionViewCell.m in Sources */,
 				7A3A62781CDB874F00D265F2 /* MLReturnsViewController.m in Sources */,
 				3ACF2CF51CA52062003D1F67 /* MLOrderInfoViewController.m in Sources */,
+				3C5E8A971D3CA96E00BA5766 /* ChongZhiViewController.m in Sources */,
 				7AEC88D61CE462E000B43DD4 /* MLGoodsComFootView.m in Sources */,
 				3A633B951C9EA85800C11FD5 /* MLPersonViewController.m in Sources */,
 				7ABB22381D20F96100529B2B /* MLSystemHeaderCell.m in Sources */,

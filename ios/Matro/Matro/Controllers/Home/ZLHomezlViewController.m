@@ -822,10 +822,16 @@
         }
         if ([sender isEqualToString:@"1"]) {
             //城市服务
+            /*
             MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
             vc.title = @"热门活动";
             vc.link = @"http://www.baidu.com";
             vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+            */
+            CityFuWuViewController * vc = [[CityFuWuViewController alloc]init];
+            vc.hidesBottomBarWhenPushed = YES;
+            vc.title = @"城市服务";
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
@@ -835,7 +841,7 @@
 //分类品牌名称
 - (void)toFenLeiName:(NSString * )sender{
 
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     /*
      语言的力量  11:45:07
      client_type=[android|ios]
@@ -846,7 +852,7 @@
 
     NSString * urls = [NSString stringWithFormat:@"%@%@&client_type=ios&app_version=%@",FenLeiName_URLString,sender,vCFBundleShortVersionStr];
     [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"获取分类名称数据：%@",result);
         if ([result[@"code"] isEqual:@0]) {
@@ -883,7 +889,7 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
         [_hud show:YES];
@@ -898,7 +904,7 @@
 //品牌馆标题
 - (void)toPinPaiGuanDetailList:(NSString *)sender{
 
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     /*
      语言的力量  11:45:07
      client_type=[android|ios]
@@ -909,7 +915,7 @@
     //api.php?m=brand&s=brand&method=GetBrandByID&brandid="
     NSString * urls = [NSString stringWithFormat:@"%@%@&client_type=ios&app_version=%@",PinPaiGuanTitle_URLString,sender,vCFBundleShortVersionStr];
     [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"获取品牌馆的标题数据：%@",result);
         if ([result[@"code"] isEqual:@0]) {
@@ -946,7 +952,7 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
         [_hud show:YES];

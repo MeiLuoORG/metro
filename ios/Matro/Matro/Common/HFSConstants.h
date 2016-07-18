@@ -15,6 +15,32 @@
 
 //http://app-test.matrojp.com
 //http://app.matrojp.com/P2MLinkCenter/
+/*
+ 1.测试环境
+    1.CRM正式域名切换，http://app-test.matrojp.com
+    2.CRM，正式KEY切换
+    "appId" : "test0002",
+    "appSecret" : ""123456"",
+    3.BBC正式域名切换，http://bbctest.matrojp.com
+ 
+ 
+ 2.正式环境
+    1.CRM正式域名切换，http://vip.matrojp.com
+    2.CRM，正式KEY切换
+    "appId" : "01d689a05d4841c6a29d0080502bde67",
+    "appSecret" : "cca95b6b0f9a416e8ab865b3d31b7a54",
+    3.BBC正式域名切换，http://www.matrojp.com
+ 
+ */
+#define ZHOULU_ML_BASE_URLString        @"http://www.matrojp.com"
+#define MATROJP_BASE_URL                @"http://www.matrojp.com"
+#define SERVICE_GETBASE_URL             @"http://www.matrojp.com/"
+
+#define ZHOULU_ML_CRM_URLString         @"http://vip.matrojp.com"
+#define APP_ID_ZHOU                     @"01d689a05d4841c6a29d0080502bde67"
+#define APP_Secrect_ZHOU                @"cca95b6b0f9a416e8ab865b3d31b7a54"
+
+
 #define SERVICE_BASE_URL @"http://app.matrojp.com/P2MLinkCenter/"
 //#define SERVICE_BASE_URL @"http://bbctest.matrojp.com/"http://pay.matrojp.com/PayCenter/app/v200/alipay
 #define SERVICE_BASEPAY_URL @"http://pay.matrojp.com/PayCenter/"
@@ -25,12 +51,12 @@
 #define UPPPAY_SERVICE_URL  @"http://pay.matrojp.com/PayCenter/app/v200/unionpay"
 //http://www.matrojp.com/
 //#define SERVICE_GETBASE_URL @"http://app-test.matrojp.com/"
-#define SERVICE_GETBASE_URL @"http://bbctest.matrojp.com/"
+
 
 #define kNOTIFICATIONWXPAY   @"wxPayResult"
 
 
-#define MATROJP_BASE_URL  @"http://bbctest.matrojp.com"
+
 #define NETWORK_ERROR_MESSAGE @"您的网络好像不太给力，请稍后再试"
 
 
@@ -54,8 +80,7 @@
 //#define APP_ID @"testapp2"
 #define APP_ID @"3E125E14E3313B1A"
 #define NONCE_STR @"12345678"
-#define APP_ID_ZHOU @"test0002"
-#define APP_Secrect_ZHOU @"123456"
+
 
 #define KeFuDianHua @"400-8850-668"
 
@@ -174,86 +199,86 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 //#define HTTP_BASE_ZHOULU_URL            @"http://app-test.matrojp.com"
 
 //登录接口
-#define Login_URLString                 @"http://app-test.matrojp.com/member/ajax/app/sso/login"
+#define Login_URLString                 ZHOULU_ML_CRM_URLString@"/member/ajax/app/sso/login"
 //注册接口
-#define Regist_URLString                @"http://app-test.matrojp.com/member/ajax/app/sso/register"
+#define Regist_URLString                ZHOULU_ML_CRM_URLString@"/member/ajax/app/sso/register"
 //验证码 接口
 #define Code_URLString                  @"http://app.matrojp.com/P2MLinkCenter/common/sendsms"
 //判断手机号是否注册过
-#define PhoneIsRegisted_URLString       @"http://app-test.matrojp.com/member/ajax/app/sso/phoneIsRegister"
+#define PhoneIsRegisted_URLString       ZHOULU_ML_CRM_URLString@"/member/ajax/app/sso/phoneIsRegister"
 //退出登录
-#define Logout_URLString                @"http://app-test.matrojp.com/member/ajax/app/access/loginOut"
+#define Logout_URLString                ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/loginOut"
 //第三方登录
-#define ThirdLogin_URLString            @"http://app-test.matrojp.com/member/ajax/app/sso/thirdPartyLogin"
+#define ThirdLogin_URLString            ZHOULU_ML_CRM_URLString@"/member/ajax/app/sso/thirdPartyLogin"
 //第三方登录 绑定手机号
-#define ThirdLogin_BindPhone_URLString  @"http://app-test.matrojp.com/member/ajax/app/sso/thirdPartyLoginBind"
+#define ThirdLogin_BindPhone_URLString  ZHOULU_ML_CRM_URLString@"/member/ajax/app/sso/thirdPartyLoginBind"
 //修改密码
-#define XiuGaiPassword_URLString        @"http://app-test.matrojp.com/member/ajax/app/access/updatePsw"
+#define XiuGaiPassword_URLString        ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/updatePsw"
 //绑定会员卡
-#define BindCard_URLString              @"http://app-test.matrojp.com/member/ajax/app/access/cardBind"
+#define BindCard_URLString              ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/cardBind"
 //忘记密码
-#define ForgetPassword_URLString        @"http://app-test.matrojp.com/member/ajax/app/sso/forgetPsw"
+#define ForgetPassword_URLString        ZHOULU_ML_CRM_URLString@"/member/ajax/app/sso/forgetPsw"
 //会员信息查询
-#define VIPInfo_URLString               @"http://app-test.matrojp.com/member/ajax/app/access/getUser"
+#define VIPInfo_URLString               ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/getUser"
 //会员卡可用积分
-#define VIPCardJiFen_URLString          @"http://app-test.matrojp.com/member/ajax/app/access/getOfflineVipCard"
+#define VIPCardJiFen_URLString          ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/getOfflineVipCard"
 //消费记录
-#define VIPCardJiLu_URLString           @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
+#define VIPCardJiLu_URLString           ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/getVipSaleItem"
 //修改账户信息
-#define XiuGaiInfo_URLString            @"http://app-test.matrojp.com/member/ajax/app/access/updateUserInfo"
+#define XiuGaiInfo_URLString            ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/updateUserInfo"
 
 //会员卡消费记录
-#define VIPCARD_HISTORY_URLString       @"http://app-test.matrojp.com/member/ajax/app/access/getVipSaleItem"
+#define VIPCARD_HISTORY_URLString       ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/getVipSaleItem"
 
 //会员卡的默认名称
 #define VIPCARDIMG_DEFAULTNAME          @"quanqiugouka"
 
 //上传头像
-#define UPLOADTOUXIANG_IMAGE_URLString  @"http://bbctest.matrojp.com/api.php?m=uploadimg&s=index"
+#define UPLOADTOUXIANG_IMAGE_URLString  ZHOULU_ML_BASE_URLString@"/api.php?m=uploadimg&s=index"
 
 //查询实名认证
-#define CHAXUNRENZHENG_RENZHENG_URLStrign @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=sel_identity_card"
+#define CHAXUNRENZHENG_RENZHENG_URLStrign ZHOULU_ML_BASE_URLString@"/api.php?m=member&s=admin_member&action=sel_identity_card"
 //上传认证信息
-#define SHANGCHUAN_RENZHENG_URLString   @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=add_identity_card"
+#define SHANGCHUAN_RENZHENG_URLString   ZHOULU_ML_BASE_URLString@"/api.php?m=member&s=admin_member&action=add_identity_card"
 
 //请求所有优惠券 信息
-#define QingQiuYouHuiQuan_URLString     @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons"
+#define QingQiuYouHuiQuan_URLString     ZHOULU_ML_BASE_URLString@"/api.php?m=member&s=admin_coupons&action=all_coupons"
 //领取 优惠券 列表
-#define LingQuYouHuiQuan_URLString      @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=coupons"
+#define LingQuYouHuiQuan_URLString      ZHOULU_ML_BASE_URLString@"/api.php?m=member&s=admin_coupons&action=coupons"
 //领取优惠券
-#define LingQuanAction_URLString        @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=set_coupons"
+#define LingQuanAction_URLString        ZHOULU_ML_BASE_URLString@"/api.php?m=member&s=admin_coupons&action=set_coupons"
 
 //用户的优惠券
-#define YOUHUIQUANLIST_YiLingQu_URLString @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons"
+#define YOUHUIQUANLIST_YiLingQu_URLString  ZHOULU_ML_BASE_URLString@"/api.php?m=member&s=admin_coupons&action=all_coupons"
 
 //品牌馆
-#define PinPaiGuanList_URLString        @"http://bbctest.matrojp.com/api.php?m=brand&s=brand&method=list"
+#define PinPaiGuanList_URLString        ZHOULU_ML_BASE_URLString@"/api.php?m=brand&s=brand&method=list"
 //首页地址
 //http://61.155.212.146:3000
 #define HomeHTML_URLString              @"http://61.155.212.146:3000"
 
 //请求标题数据
 
-#define HomeTitles_URLString            @"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"
+#define HomeTitles_URLString            ZHOULU_ML_BASE_URLString@"/api.php?m=product&s=webframe&method=title"
 
 //更新头像
-#define GenXinTouXiang_URLString        @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=update_img"
+#define GenXinTouXiang_URLString        ZHOULU_ML_BASE_URLString@"/api.php?m=member&s=admin_member&action=update_img"
 
-#define QianDao_URLString               @"http://bbctest.matrojp.com/api.php?m=member&s=admin_member&action=add_qd"
+#define QianDao_URLString               ZHOULU_ML_BASE_URLString@"/api.php?m=member&s=admin_member&action=add_qd"
 
-#define ZiChan_URLString                @"http://bbctest.matrojp.com/api.php?m=member&s=assets&action=sel_assets"
+#define ZiChan_URLString                ZHOULU_ML_BASE_URLString@"/api.php?m=member&s=assets&action=sel_assets"
 
 //请求订单  数量
-#define OrderNum_URLString              @"http://bbctest.matrojp.com/api.php?m=shop&s=status&action=sel"
+#define OrderNum_URLString              ZHOULU_ML_BASE_URLString@"/api.php?m=shop&s=status&action=sel"
 
 //获取支付流水
-#define ZhiFu_LIUSHUI_URLString         @"http://bbctest.matrojp.com/api.php?m=product&s=pay"
+#define ZhiFu_LIUSHUI_URLString         ZHOULU_ML_BASE_URLString@"/api.php?m=product&s=pay"
 
 
-#define ZHOULU_ML_BASE_URLString        @"http://bbctest.matrojp.com"
+
 
 //余额 会员卡的优惠券余额
-#define YOUHUIQUAN_YUE_CARD_URLString   @"http://bbctest.matrojp.com/api.php?m=member&s=admin_coupons&action=all_coupons"
+#define YOUHUIQUAN_YUE_CARD_URLString   ZHOULU_ML_BASE_URLString@"/api.php?m=member&s=admin_coupons&action=all_coupons"
 //注册协议
 #define ZHUCEXIEYI_URLString            ZHOULU_ML_BASE_URLString@"/api.php?m=setinfo&s=setinfo&method=GetRegConfig"
 
