@@ -26,11 +26,8 @@ static BOOL isProduction = FALSE;
 
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
-<<<<<<< Updated upstream
-
-=======
 - (void)autoLogin;
->>>>>>> Stashed changes
+
 
 @end
 
