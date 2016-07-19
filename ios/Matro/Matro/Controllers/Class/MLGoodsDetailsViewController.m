@@ -1163,7 +1163,7 @@
 -(void)loaddataDianpu{
     
 
-    NSLog(@"paramDic==%@",_paramDic);
+    NSLog(@"paramDic==%@===22%@",_paramDic,pDic);
     
     NSString *dpid = pDic[@"pinfo"][@"userid"];
    

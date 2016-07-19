@@ -297,8 +297,7 @@ static NSInteger page = 1;
 
 //收藏商品 加入购物车
 - (void)addToCartWithPID:(NSString *)PID array:(NSArray*)array{
-    /*//单个加入购物车
-     http://localbbc.matrojp.com/api.php?m=product&s=cart&action=add_cart
+    /*
      //批量加入购物车
      http://bbctest.matrojp.com/api.php?m=product&s=cart&action=mul_add_cart
      POST
@@ -348,7 +347,7 @@ static NSInteger page = 1;
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"加入购物车成功";
-            [_hud hide:YES afterDelay:2];
+            [_hud hide:YES afterDelay:1];
         }
         NSLog(@"请求成功 result====%@",result);
     } failure:^(NSError *error) {

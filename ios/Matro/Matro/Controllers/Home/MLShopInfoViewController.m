@@ -232,13 +232,11 @@
     NSLog(@"点击了网页：%@++++++%@",index,sender);
     //商品
     if ([index isEqualToString:@"1"]) {
-        
         dispatch_sync(dispatch_get_main_queue(), ^{
-            
-            MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc ]init];
-            vc.paramDic = @{@"id":sender};
-            [self.navigationController pushViewController:vc animated:YES];
- 
+        MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc ]init];
+        vc.paramDic = @{@"id":sender};
+        [self.navigationController pushViewController:vc animated:YES];
+   // [self performSelectorOnMainThread:@selector(pushTest:) withObject:sender waitUntilDone:YES];
         });
     }
     //品牌
@@ -293,6 +291,12 @@
     }
     
 }
+
+- (void)pushTest:(NSString *)sender{
+    
+   
+}
+
 
 //跳到店铺详情
 -(void)skipStoreDetaild:(NSString *)storeid{
