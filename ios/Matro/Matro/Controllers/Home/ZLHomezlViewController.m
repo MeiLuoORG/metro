@@ -144,6 +144,64 @@
     NSDictionary *params = @{@"appverison":version,@"apptype":@"ios"};
     
     
+    [MLHttpManager post:urlStr params:params m:@"upgrade" s:@"index" success:^(id responseObject) {
+        
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSString *code = result[@"code"];
+        if ([code isEqual:@0]) {
+            
+            
+            if ([result[@"data"][@"sel_info"] isKindOfClass:[NSString class]]) {
+                return ;
+            }else{
+                
+                NSLog(@"版本更新：%@",result);
+                
+                NSString *loadversion = result[@"data"][@"sel_info"][@"appverison"];
+                NSString *loadversionlowest = result[@"data"][@"sel_info"][@"appversion_lowest"];
+                NSString *downlink = result[@"data"][@"sel_info"][@"download_link"];
+                NSLog(@"version===%@ loadversion===%@ downlink===%@",version, loadversion,downlink);
+                
+                if (version < loadversion) {
+                    
+                    MLVersionViewController *vc = [[MLVersionViewController alloc]init];
+                    vc.versionLabel = loadversion;
+                    vc.qzversionlabel = loadversionlowest;
+                    vc.downlink = downlink;
+                    NSString *labstr = result[@"data"][@"sel_info"][@"version_desc"];
+                    NSArray *nameArray = [labstr componentsSeparatedByString:@"|"];
+                    vc.versionInfoArr = nameArray;
+                    NSLog(@"%@%@",nameArray,vc.versionInfoArr);
+                    vc.versioninfoLabel = labstr;
+                    
+                    vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+                    if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+                        
+                        vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+                        
+                    }else{
+                        
+                        self.modalPresentationStyle=UIModalPresentationCurrentContext;
+                        
+                    }
+                    [self presentViewController:vc  animated:YES completion:^(void)
+                     {
+                         vc.view.superview.backgroundColor = [UIColor clearColor];
+                         
+                     }];
+                    
+                }
+            }
+        }
+        NSLog(@"请求成功 result====%@",result);
+        
+    } failure:^(NSError *error) {
+        
+         NSLog(@"请求失败 error===%@",error);
+        
+    }];
+    
+    /*
     [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject)
@@ -202,7 +260,7 @@
          NSLog(@"请求失败 error===%@",error);
          
      }];
-    
+    */
 }
 
 - (NSString*)getVersion

@@ -18,6 +18,7 @@
 #import "CommonHeader.h"
 #import "MLGoodsComViewController.h"
 #import "MLProductComDetailViewController.h"
+#import "MLHttpManager.h"
 #define CollectionViewCellMargin 10.0f//间隔10
 @interface MLPingjiaListViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 {
@@ -163,6 +164,41 @@ static float height;
             break;
     }
     
+    
+    [MLHttpManager get:url params:nil m:@"product" s:@"comment" success:^(id responseObject){
+        [self.commentTableView.header endRefreshing];
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"responseObject===%@",responseObject);
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary *data = result[@"data"];
+            commentList = data[@"list"];
+            
+            NSNumber *count = data[@"count"];
+            if ([count isEqualToNumber:@0] ) {
+                MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.commentTableView.footer;
+                footer.stateLabel.text = @"没有更多了";
+                [self.commentTableView.footer endRefreshing];
+                return ;
+            }
+            
+            if (commentList.count>0) {
+                pageIndex ++;
+                
+            }
+            [self.commentTableView reloadData];
+        }
+        
+        [self.view configBlankPage:EaseBlankPageTypePingjia hasData:(commentList.count>0)];
+        self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+            NSLog(@"还没有评价");
+        };
+        
+    } failure:^(NSError *error){
+         [self.commentTableView.header endRefreshing];
+        
+    }];
+    
+    /*
     [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.commentTableView.header endRefreshing];
         NSDictionary *result = (NSDictionary *)responseObject;
@@ -198,6 +234,8 @@ static float height;
         
          
     }];
+    */
+    
 }
 
 

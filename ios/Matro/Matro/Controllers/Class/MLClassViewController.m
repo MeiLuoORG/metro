@@ -34,6 +34,8 @@
 #import "MLPPCollectionViewCell.h"
 #import "MLShopInfoViewController.h"
 #import "CommonHeader.h"
+#import "MLHttpManager.h"
+
 #define HEADER_IDENTIFIER @"MLClassHeader"//第二大类用tableview的header来显示
 #define CCELL_IDENTIFIER @"MLClassCollectionViewCell"//第三大类用tableview的cell来显示
 
@@ -191,7 +193,7 @@
     
    
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=top&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
-    
+    /*
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         
@@ -213,6 +215,28 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
+    */
+    
+    [MLHttpManager get:urlStr params:nil m:@"category" s:@"list" success:^(id responseObject){
+        NSLog(@"responseObject===%@",responseObject);
+        
+        NSArray *arr = responseObject[@"data"][@"ret"];
+        
+        _classTitleArray = [MTLJSONAdapter modelsOfClass:[MLClass class] fromJSONArray:arr error:nil];
+        NSMutableArray *tempTitleArr = [NSMutableArray array];
+        for (MLClass *title in _classTitleArray) {
+            [tempTitleArr addObject:title.MC];
+        }
+        //标题按钮的使用的仅仅是大类里面的标题，在点击事件里面还是要用MLClass的
+        _topScrollSegmentControl.buttons = tempTitleArr;
+        
+    } failure:^(NSError *error){
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+    
+    }];
     
     
     
@@ -227,7 +251,7 @@
      MLClass *title = _classTitleArray[index];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=next&code=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,title.CODE,vCFBundleShortVersionStr];
-    
+    /*
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         [_classSecondArray removeAllObjects];
@@ -275,7 +299,58 @@
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
+        [_hud hide:YES afterDelay:1];
+    }];
+    */
+    
+    [MLHttpManager get:urlStr params:nil m:@"category" s:@"list" success:^(id responseObject){
+        NSLog(@"responseObject===%@",responseObject);
+        [_classSecondArray removeAllObjects];
+        
+        actimageArr = responseObject[@"data"][@"advertise"];
+        if (actimageArr .count >0) {
+            NSDictionary *actimageDic = actimageArr[0];
+            NSString *imgurl = actimageDic[@"imgurl"];
+            if (![imgurl isKindOfClass:[NSNull class]]) {
+                [imageview sd_setImageWithURL:[NSURL URLWithString:imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+            }else{
+                
+                imageview.image = [UIImage imageNamed:@"icon_default"];
+            }
+            
+        }else{
+            
+            imageview.image = [UIImage imageNamed:@"icon_default"];
+        }
+        
+        
+        
+        NSArray *arr = responseObject[@"data"][@"ret"];
+        brandDic = responseObject[@"data"][@"brandtitle"];
+        brandArr = responseObject[@"data"][@"brand"];
+        _classSecondArray = [[MTLJSONAdapter modelsOfClass:[MLSecondClass class] fromJSONArray:arr error:nil] mutableCopy];
+        [MLSecondClass mj_setupObjectClassInArray:^NSDictionary *{
+            return @{@"SecondaryClassification_Ggw":[MLClassInfo class]};
+        }];
+        
+        [_classSecondArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            MLSecondClass *model = (MLSecondClass*)obj;
+            
+            if (!model.SecondaryClassification_Ggw || [model.SecondaryClassification_Ggw isKindOfClass:[NSNull class]]) {
+                [_classSecondArray removeObject:model];
+            }
+        }];
+        
+        
+        
+        [_tableView reloadData];
+        
+    } failure:^(NSError *error){
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
     }];
     
   

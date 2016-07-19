@@ -10,6 +10,7 @@
 #import "HFSServiceClient.h"
 #import "Masonry.h"
 #import "CommonHeader.h"
+#import "MLHttpManager.h"
 @interface MLHelpCenterDetailController ()<UIWebViewDelegate>
 @property (nonatomic,strong)UIWebView *webView;
 @end
@@ -33,12 +34,41 @@
 }
 
 - (void)getWebContent{
-   
 
-    
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=help&s=index&id=%@&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,_webCode?:@"",vCFBundleShortVersionStr];
     
     NSLog(@"%@",urlStr);
+    
+    [MLHttpManager get:urlStr params:nil m:@"help" s:@"index" success:^(id responseObject){
+        NSLog(@"responseObject==%@",responseObject);
+        
+        NSDictionary *result = [responseObject objectForKey:@"data"];
+        NSNumber *resultCode = [responseObject objectForKey:@"code"];
+        
+        if ([resultCode isEqual:@0]) {
+            NSDictionary *dic = [result objectForKey:@"help_info"];
+            NSString *title = [dic objectForKey:@"con_title"];
+            NSString *htmlCode = [dic objectForKey:@"con_desc"];
+            self.navigationItem.title = title;
+            [_webView loadHTMLString:htmlCode baseURL:nil];
+        }
+        else{
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"暂无数据";
+            [_hud hide:YES afterDelay:2];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
+    } failure:^(NSError *error){
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
+    }];
+    /*
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject==%@",responseObject);
         
@@ -66,7 +96,7 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
-    
+    */
     
 }
 

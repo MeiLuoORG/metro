@@ -787,7 +787,7 @@
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NW3-9N-NiM">
                                                                                     <rect key="frame" x="73" y="53" width="93" height="22"/>
-                                                                                    <state key="normal" title="  联系客服" image="shouhou">
+                                                                                    <state key="normal" title="  联系客服" image="lianxikefu">
                                                                                         <color key="titleColor" red="0.75686274509999996" green="0.75686274509999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     </state>
                                                                                     <connections>
@@ -806,7 +806,7 @@
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJy-6e-HM7">
                                                                                     <rect key="frame" x="74" y="53" width="92" height="22"/>
-                                                                                    <state key="normal" title="  进入店铺" image="dianpu">
+                                                                                    <state key="normal" title="  进入店铺" image="jinrudianpu">
                                                                                         <color key="titleColor" red="0.75686274509999996" green="0.75686274509999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     </state>
                                                                                     <connections>
@@ -1136,7 +1136,7 @@
                                                                     <rect key="frame" x="250" y="0.0" width="125" height="39"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    <state key="normal" title="  无忧售后" image="shouhou">
+                                                                    <state key="normal" title="  无忧售后" image="wuyoushouhou">
                                                                         <color key="titleColor" red="0.68235294117647061" green="0.55686274509803924" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
                                                                 </button>
@@ -1144,7 +1144,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="125" height="39"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    <state key="normal" title="  正品保障" image="zhengping">
+                                                                    <state key="normal" title="  正品保障" image="zhengpinbaozhang">
                                                                         <color key="titleColor" red="0.68235294117647061" green="0.55686274509803924" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
                                                                 </button>
@@ -1152,7 +1152,7 @@
                                                                     <rect key="frame" x="125" y="0.0" width="125" height="39"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    <state key="normal" title="  闪电支付" image="shandian">
+                                                                    <state key="normal" title="  闪电支付" image="shangdianfahuo">
                                                                         <color key="titleColor" red="0.68235294117647061" green="0.55686274509803924" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
                                                                 </button>
@@ -1536,13 +1536,14 @@
         <image name="Star_big1" width="16" height="15"/>
         <image name="Star_big2" width="16" height="15"/>
         <image name="biaoqian" width="40" height="16"/>
-        <image name="dianpu" width="20" height="20"/>
+        <image name="jinrudianpu" width="44" height="44"/>
+        <image name="lianxikefu" width="44" height="44"/>
         <image name="question" width="19" height="19"/>
-        <image name="shandian" width="21" height="21"/>
+        <image name="shangdianfahuo" width="44" height="44"/>
         <image name="shopCar" width="21" height="19"/>
-        <image name="shouhou" width="21" height="21"/>
+        <image name="wuyoushouhou" width="44" height="44"/>
         <image name="xiayiye_arrow" width="9" height="17"/>
         <image name="youjian" width="9" height="17"/>
-        <image name="zhengping" width="21" height="21"/>
+        <image name="zhengpinbaozhang" width="44" height="44"/>
     </resources>
 </document>

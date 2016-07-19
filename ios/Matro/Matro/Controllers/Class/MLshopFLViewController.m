@@ -14,7 +14,7 @@
 #import "UIViewController+MLMenu.h"
 #import "MLshopGoodsListViewController.h"
 #import "CommonHeader.h"
-
+#import "MLHttpManager.h"
 @interface MLshopFLViewController ()<RATreeViewDelegate,RATreeViewDataSource>{
     
     RADataObject *_selectedItem;
@@ -52,6 +52,51 @@
 
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=&searchType=1&userid=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,uid,vCFBundleShortVersionStr];
+    
+    [MLHttpManager get:urlStr params:nil m:@"product" s:@"filter" success:^(id responseObject){
+        NSLog(@"responseObject ====%@",responseObject);
+        NSDictionary *dataDic = responseObject[@"data"];
+        
+        NSArray *result = dataDic[@"retcat"];
+        
+        NSLog(@"result=222=%@",result);
+        
+        if (result && result.count > 0) {
+            int i=0;
+            for (NSDictionary *temp in result) {
+                NSDictionary *toptemp = temp[@"top"];
+                NSArray *secondArr = temp[@"second"];
+                
+                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:toptemp[@"catid"] name:toptemp[@"cat"] children:nil];
+                
+                for (NSDictionary *secondDic in secondArr) {
+                    
+                    secondName = [RADataObject dataObjectWithIdstr:secondDic[@"catid"] name:secondDic[@"cat"] children:nil];
+                    [itemAll addChild:secondName];
+                }
+                
+                itemAll.level = @0;
+                itemAll.dataId = [NSNumber numberWithInt:0];
+                itemAll.selected = NO;
+                [spArray addObject:itemAll];
+                
+                i++;
+                
+            }
+            [_treeView reloadData];
+        }
+        
+        NSLog(@"请求成功");
+        
+    } failure:^(NSError *error){
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
+    }];
+    /*
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);
         NSDictionary *dataDic = responseObject[@"data"];
@@ -89,7 +134,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败");
     }];
-    
+    */
 }
 
 #pragma mark- 分类

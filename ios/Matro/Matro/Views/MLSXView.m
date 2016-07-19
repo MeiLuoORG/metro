@@ -15,7 +15,7 @@
 #import "HFSServiceClient.h"
 #import "HFSUtility.h"
 #import "CommonHeader.h"
-
+#import "MLHttpManager.h"
 #define PriceCellIdentifier @"PriceCellIdentifier"
 
 @interface MLSXView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate>{
@@ -224,7 +224,7 @@ static BOOL selectPP = NO;
     NSLog(@"%@",keystr);
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,keystr,vCFBundleShortVersionStr];
-    
+    /*
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);
         NSDictionary *dataDic = responseObject[@"data"];
@@ -247,6 +247,30 @@ static BOOL selectPP = NO;
         NSLog(@"请求失败");
         
     }];
+    */
+    [MLHttpManager get:urlStr params:nil m:@"product" s:@"filter" success:^(id responseObject){
+        NSLog(@"responseObject ====%@",responseObject);
+        NSDictionary *dataDic = responseObject[@"data"];
+        NSArray *result = dataDic[@"retbrand"];
+        NSLog(@"result=111=%@",result);
+
+        if (result && result.count > 0) {
+            for (NSDictionary *temp in result) {
+                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:temp[@"id"] name:temp[@"name"] children:nil];
+                itemAll.level = @0;
+                itemAll.dataId = [NSNumber numberWithInt:1];
+                itemAll.selected = NO;
+                [ppArray addObject:itemAll];
+            }
+            [_treeView reloadData];
+        }
+        
+    } failure:^(NSError *error){
+        
+       NSLog(@"请求失败");
+        
+    }];
+    
 }
 
 //价格
@@ -286,7 +310,7 @@ static BOOL selectPP = NO;
     NSLog(@"%@",keystr);
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,keystr,vCFBundleShortVersionStr];
-    
+    /*
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);
         NSDictionary *dataDic = responseObject[@"data"];
@@ -367,6 +391,89 @@ static BOOL selectPP = NO;
         NSLog(@"价格筛选 请求失败");
         
     }];
+    */
+    
+    [MLHttpManager get:urlStr params:nil m:@"product" s:@"filter" success:^(id responseObject){
+        NSLog(@"responseObject ====%@",responseObject);
+        NSDictionary *dataDic = responseObject[@"data"];
+        maxprice = dataDic[@"maxprice"];
+        NSLog(@"maxprice=333=%@",maxprice);
+        
+        NSMutableArray *array = [[NSMutableArray alloc]init];
+        
+        if ([maxprice floatValue] <= 100) {
+            
+            [array addObject:priceDic1];
+            
+        }else if ([maxprice floatValue] > 100 && [maxprice floatValue] <= 500){
+            
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+            
+            
+        }else if ([maxprice floatValue] > 500 && [maxprice floatValue] <= 1000){
+            
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+            [array addObject:priceDic3];
+            
+        }else if ([maxprice floatValue] > 1000 && [maxprice floatValue] <= 2000){
+            
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+            [array addObject:priceDic3];
+            [array addObject:priceDic4];
+            
+        }else if ([maxprice floatValue] > 2000 && [maxprice floatValue] <= 5000){
+            
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+            [array addObject:priceDic3];
+            [array addObject:priceDic4];
+            [array addObject:priceDic5];
+            
+        }else if ([maxprice floatValue] > 5000 && [maxprice floatValue] <= 10000){
+            
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+            [array addObject:priceDic3];
+            [array addObject:priceDic4];
+            [array addObject:priceDic5];
+            [array addObject:priceDic6];
+            
+        }else {
+            
+            [array addObject:priceDic1];
+            [array addObject:priceDic2];
+            [array addObject:priceDic3];
+            [array addObject:priceDic4];
+            [array addObject:priceDic5];
+            [array addObject:priceDic6];
+            [array addObject:priceDic7];
+            
+        }
+        
+        NSLog(@"array === %@",array);
+        if (array && array.count>0) {
+            int i=1;
+            for (NSDictionary *temp in array) {
+                NSString *startprice = temp[@"jgs"];
+                NSString *endprice = temp[@"jge"];
+                NSNumber *s = [NSNumber numberWithInt:startprice.intValue];
+                NSNumber *e = [NSNumber numberWithInt:endprice.intValue];
+                HFSPriceDataObject *tempPriceDataObject = [[HFSPriceDataObject alloc] initWithFrom:s to:e];
+                [_priceArray insertObject:tempPriceDataObject.description atIndex:i];
+                i++;
+            }
+            [self.tableView reloadData];
+        }
+        NSLog(@"请求成功");
+        
+    } failure:^(NSError *error){
+        
+        NSLog(@"请求失败");
+        
+    }];
     
 }
 
@@ -383,7 +490,7 @@ static BOOL selectPP = NO;
     NSLog(@"%@",keystr);
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=%@&brandid=&searchType=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,keystr,vCFBundleShortVersionStr];
-    
+    /*
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject ====%@",responseObject);
         NSDictionary *dataDic = responseObject[@"data"];
@@ -420,6 +527,48 @@ static BOOL selectPP = NO;
         NSLog(@"请求成功");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败");
+    }];
+    */
+    
+    [MLHttpManager get:urlStr params:nil m:@"product" s:@"filter" success:^(id responseObject){
+        NSLog(@"responseObject ====%@",responseObject);
+        NSDictionary *dataDic = responseObject[@"data"];
+        
+        NSArray *result = dataDic[@"retcat"];
+        
+        NSLog(@"result=222=%@",result);
+        
+        if (result && result.count > 0) {
+            int i=0;
+            for (NSDictionary *temp in result) {
+                NSDictionary *toptemp = temp[@"top"];
+                NSArray *secondArr = temp[@"second"];
+                
+                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:toptemp[@"catid"] name:toptemp[@"cat"] children:nil];
+                
+                for (NSDictionary *secondDic in secondArr) {
+                    
+                    secondName = [RADataObject dataObjectWithIdstr:secondDic[@"catid"] name:secondDic[@"cat"] children:nil];
+                    [itemAll addChild:secondName];
+                }
+                
+                itemAll.level = @0;
+                itemAll.dataId = [NSNumber numberWithInt:0];
+                itemAll.selected = NO;
+                [spArray addObject:itemAll];
+                
+                i++;
+                
+            }
+            [_treeView reloadData];
+        }
+        
+        NSLog(@"请求成功");
+        
+    } failure:^(NSError *error){
+        
+        NSLog(@"请求失败");
+        
     }];
 
 }

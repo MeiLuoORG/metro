@@ -10,7 +10,7 @@
 #import "HFSServiceClient.h"
 #import "Masonry.h"
 #import "CommonHeader.h"
-
+#import "MLHttpManager.h"
 @interface MLBuyKnowViewController ()<UIWebViewDelegate>
 @property (nonatomic,strong)UIWebView *webView;
 
@@ -41,6 +41,36 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=setinfo&s=setinfo&method=GetPurchaseConfig&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     
     NSLog(@"%@",urlStr);
+    
+    [MLHttpManager get:urlStr params:nil m:@"setinfo" s:@"setinfo" success:^(id responseObject){
+        NSLog(@"responseObject==%@",responseObject);
+        
+        NSDictionary *result = [responseObject objectForKey:@"data"];
+        NSNumber *resultCode = [responseObject objectForKey:@"code"];
+        
+        if ([resultCode isEqual:@0]) {
+            
+            NSString *htmlCode = [result objectForKey:@"ret"];
+            
+            [_webView loadHTMLString:htmlCode baseURL:nil];
+        }
+        else{
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"暂无数据";
+            [_hud hide:YES afterDelay:1];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
+    } failure:^(NSError *error){
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
+    }];
+    
+    /*
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject==%@",responseObject);
         
@@ -67,6 +97,7 @@
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
+    */
     
     
 }

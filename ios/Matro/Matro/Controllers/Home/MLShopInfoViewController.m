@@ -437,7 +437,26 @@
     NSString *dpid = _shopparamDic[@"userid"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,dpid,vCFBundleShortVersionStr];
+    
+    [MLHttpManager get:urlStr params:nil m:@"shop" s:@"shop" success:^(id responseObject){
+        NSLog(@"responseObject===%@",responseObject);
+        
+        if ([responseObject[@"code"] isEqual:@0] && ![responseObject[@"data"][@"shop_info"] isKindOfClass:[NSNull class]]) {
+            dpDic = responseObject[@"data"][@"shop_info"];
+            NSLog(@"%@",dpDic);
+            
+        }
+        
+    } failure:^(NSError *error){
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
+    }];
    
+    /*
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         
@@ -454,7 +473,7 @@
         [_hud hide:YES afterDelay:2];
         
     }];
-    
+    */
 }
 
 //店铺是否收藏

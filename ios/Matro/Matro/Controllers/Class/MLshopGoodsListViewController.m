@@ -26,6 +26,7 @@
 #import "MLSearchViewController.h"
 #import "AppDelegate.h"
 #import "MLshopFLViewController.h"
+#import "MLHttpManager.h"
 
 #define SEARCH_PAGE_SIZE @10
 #define HFSProductTableViewCellIdentifier @"HFSProductTableViewCellIdentifier"
@@ -355,6 +356,78 @@ static NSInteger page = 0;
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@&id=%@&userid=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,keystr,jgs,jge,(long)page,listtepy,orderby,ppid,spflid,_uid,vCFBundleShortVersionStr];
     NSLog(@"str====%@",str);
     
+    
+    [MLHttpManager get:str params:nil m:@"product" s:@"list" success:^(id responseObject){
+        NSLog(@"responseObject ====%@",responseObject);
+        NSString *sum = responseObject[@"data"][@"sum"];
+        if (sum.floatValue == 0) {
+            
+            [_productList removeAllObjects];
+            self.blankView.hidden  = NO;
+            
+            [self.tableView reloadData];
+            [self.collectionView reloadData];
+            self.tableView.footer.hidden = YES;
+            self.collectionView.footer.hidden = YES;
+            
+        }else{
+            self.blankView.hidden = YES;
+            self.tableView.footer.hidden = NO;
+            self.collectionView.footer.hidden = NO;
+            
+            if (page==0) {
+                
+                [_productList removeAllObjects];
+                
+            }
+            if (responseObject) {
+                NSArray *ary;
+                if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                    
+                    NSDictionary *resdic = responseObject[@"data"];
+                    ary = (NSArray *)resdic[@"ret"];
+                    
+                    
+                    NSNumber *count = resdic[@"retcount"];
+                    NSLog(@"count====%@",count);
+                    if ([count isEqualToNumber:@0] ) {
+                        MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableView.footer;
+                        MJRefreshAutoNormalFooter *footer1 = (MJRefreshAutoNormalFooter *)self.collectionView.footer;
+                        footer.stateLabel.text = @"没有更多了";
+                        footer1.stateLabel.text = @"没有更多了";
+                        
+                        return ;
+                    }
+                }
+                if ([responseObject isKindOfClass:[NSArray class]]) {
+                    ary = (NSArray *)responseObject;
+                }
+                
+                if (ary && ary.count>0) {
+                    [_productList addObjectsFromArray:ary];
+                }
+                
+                
+            }
+            
+            page ++;
+            
+            [_tableView reloadData];
+            [_collectionView reloadData];
+            
+        }
+        [_hud show:YES];
+        [_hud hide:YES afterDelay:1];
+        
+    } failure:^(NSError *error){
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
+    }];
+    /*
     [[HFSServiceClient sharedJSONClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"responseObject ====%@",responseObject);
@@ -425,14 +498,9 @@ static NSInteger page = 0;
         [_hud hide:YES afterDelay:2];
         NSLog(@"error===%@",error);
     }];
+    */
     
-    
-    
-    
-    
-    
-    
-    
+ 
 }
 -(NSString*)UrlValueEncode:(NSString*)str
 {
