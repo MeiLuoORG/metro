@@ -168,9 +168,6 @@
             [userDefaults removeObjectForKey:KUSERDEFAULT_ISHAVE_DEFAULTCARD_BOOL];
             [userDefaults removeObjectForKey:kUSERDEFAULT_ACCCESSTOKEN];
             
-            AppDelegate *del = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            [del autoLogin];
-            
             [self.navigationController popViewControllerAnimated:YES];
             
             //[self dismissViewControllerAnimated:YES completion:nil];

@@ -26,7 +26,7 @@ static BOOL isProduction = FALSE;
 
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
-- (void)autoLogin;
+
 
 @end
 
