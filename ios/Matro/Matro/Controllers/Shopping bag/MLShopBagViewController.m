@@ -169,17 +169,24 @@ static NSInteger pageIndex = 0;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CGFloat cellW = (MAIN_SCREEN_WIDTH - 2*8)/2;
+    CGFloat cellW = (MAIN_SCREEN_WIDTH - 6)/2;
     return CGSizeMake(cellW,cellW*1.4);
 }
 
-//定义每个UICollectionView 的间距
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+////定义每个UICollectionView 的间距
+//-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+//{
+//    return UIEdgeInsetsMake(0, 0 , 0, 0);
+//}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(0, 0 , 8, 0);
+    return 0;
 }
-
-
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MLGuessLikeModel *model = [self.likeArray objectAtIndex:indexPath.row];
@@ -212,7 +219,7 @@ static NSInteger pageIndex = 0;
         CGSize size={MAIN_SCREEN_WIDTH,45};
         return size;
     }
-    CGSize size={MAIN_SCREEN_WIDTH,0};
+    CGSize size={0,0};
     return size;
 }
 
