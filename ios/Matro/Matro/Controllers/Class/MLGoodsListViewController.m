@@ -68,10 +68,7 @@ static NSInteger page = 1;
     [_tableView registerNib:[UINib nibWithNibName:@"HFSProductTableViewCell" bundle:nil] forCellReuseIdentifier:HFSProductTableViewCellIdentifier];
     [_tableView setTableFooterView:[[UIView alloc]init]];
     [_collectionView registerNib:[UINib  nibWithNibName:@"HFSProductCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:HFSProductCollectionViewCellIdentifier];
-    
-//    _tableView.header = [self refreshHeaderWith:_tableView];
-//    _collectionView.header = [self refreshHeaderWith:_collectionView];
-    
+
     _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [_tableView.header endRefreshing];
         
@@ -146,7 +143,7 @@ static NSInteger page = 1;
     CGFloat textW = frameView.bounds.size.width - imgW -20;
     
     
-    UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuo"]];
+    UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuozhou"]];
     searchText = [[UITextField alloc] initWithFrame:CGRectMake(6, 4, textW, H)];
     searchText.returnKeyType = UIReturnKeySearch;
     searchText.delegate = self;
@@ -282,7 +279,6 @@ static NSInteger page = 1;
 - (void)getGoodsList{
     
     //    http://bbctest.matrojp.com/api.php?m=product&s=list&key=水&startprice=0&endprice=60&pageindex=1&pagesize=20&listtype=1&searchType=1&orderby=amount&sort=desc&brand_id=1853
-    
     //    key : 产品搜索关键字
     //    startprice:价格区间开始值
     //    endprice:价格区间结束值
@@ -299,7 +295,7 @@ static NSInteger page = 1;
     //    ret: 查询品牌结果集 ["商品id","商品名称","预计在多少天后开始发货","进货方式 1=>海外直邮 2=>仓库发货 3=>国内快递","原价","rmb符号", "价格"，"模块名","品牌","产品图",
     //              "公司名称","国家图片","国家名称"]
     //    retcount : 查询结果集条数
-    //sum: 不分页查询总条数
+    //    sum: 不分页查询总条数
     
     NSString *listtepy=@"";
     NSString *sort=@"desc";//排列方式

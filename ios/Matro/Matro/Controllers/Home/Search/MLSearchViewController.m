@@ -49,6 +49,8 @@ static CGFloat kHeight = 0;
     [super viewDidLoad];
     [self registerForKeyboardNotifications];
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 44)];
+    [ _searchBar setImage:[UIImage imageNamed:@"sousuo2"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    
     
     hotSearchArray = [NSMutableArray new];
     hotSearchTagArray = [NSMutableArray new];

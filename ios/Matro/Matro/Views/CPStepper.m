@@ -30,21 +30,28 @@
     self.leftViewMode = UITextFieldViewModeAlways;
     self.rightViewMode = UITextFieldViewModeAlways;
     
-    UIButton *subButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    subButton.frame = CGRectMake(0, 0, 30, rect.size.height);
+    UIView *Lview = [[UIView alloc ]initWithFrame:CGRectMake(26, 0, 1, rect.size.height)];
+    Lview.backgroundColor = RGBA(230, 230, 230, 1);
+    [self addSubview:Lview];
+    UIView *Rview = [[UIView alloc ]initWithFrame:CGRectMake(71, 0, 1, rect.size.height)];
+    Rview.backgroundColor = RGBA(230, 230, 230, 1);
+    [self addSubview:Rview];
     
-    [subButton setTitle:@"- |" forState:UIControlStateNormal];
+    UIButton *subButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    subButton.frame = CGRectMake(0, 0, 25, rect.size.height);
+    
+    [subButton setTitle:@"-" forState:UIControlStateNormal];
     subButton.titleLabel.font = [UIFont systemFontOfSize:20.0f];
-    [subButton setTintColor:[UIColor colorWithHexString:@"#C9C9C9"]];
+    [subButton setTintColor:[UIColor colorWithHexString:@"#7A7A7A"]];
     [subButton addTarget:self action:@selector(sub:) forControlEvents:UIControlEventTouchUpInside];
     
     self.leftView = subButton;
     
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    addButton.frame = CGRectMake(0, 0, 30, rect.size.height);
-    [addButton setTitle:@"| +" forState:UIControlStateNormal];
+    addButton.frame = CGRectMake(0, 0, 25, rect.size.height);
+    [addButton setTitle:@"+" forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:20.0f];
-    [addButton setTintColor:[UIColor colorWithHexString:@"#C9C9C9"]];
+    [addButton setTintColor:[UIColor colorWithHexString:@"#7A7A7A"]];
     
     [addButton addTarget:self action:@selector(add:) forControlEvents:UIControlEventTouchUpInside];
     

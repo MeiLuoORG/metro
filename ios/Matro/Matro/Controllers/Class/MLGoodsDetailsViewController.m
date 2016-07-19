@@ -194,7 +194,7 @@
     
     imgUrlArray = [NSMutableArray array];
     // 一期隐藏
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Share-1"] style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonAction)];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"share1"] style:UIBarButtonItemStylePlain target:self action:@selector(shareButtonAction)];
     self.navigationItem.rightBarButtonItem = shareButton;
     
     _imageScrollView.delegate = self;

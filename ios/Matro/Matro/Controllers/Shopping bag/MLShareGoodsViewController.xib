@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -196,13 +196,11 @@
                         <constraint firstItem="t5q-8g-hxN" firstAttribute="height" secondItem="Bnp-pu-Bnp" secondAttribute="height" id="1tM-5L-WcV"/>
                         <constraint firstAttribute="width" constant="221" id="29i-Hd-A2M"/>
                         <constraint firstItem="WhF-dT-VIg" firstAttribute="leading" secondItem="t5q-8g-hxN" secondAttribute="trailing" constant="30" id="2Zy-3Z-Kkh"/>
-                        <constraint firstItem="0yn-Q3-Obc" firstAttribute="top" secondItem="t2i-yf-hoj" secondAttribute="bottom" constant="28" id="4ah-TW-R8m"/>
                         <constraint firstItem="t5q-8g-hxN" firstAttribute="width" secondItem="Bnp-pu-Bnp" secondAttribute="width" id="4xZ-Dx-buy"/>
                         <constraint firstItem="QqK-cy-r81" firstAttribute="centerX" secondItem="XM3-BD-RN1" secondAttribute="centerX" id="72d-Mm-j5F"/>
                         <constraint firstItem="n8a-8L-KIk" firstAttribute="firstBaseline" secondItem="QqK-cy-r81" secondAttribute="firstBaseline" id="8mm-Wo-Vit"/>
                         <constraint firstItem="t2i-yf-hoj" firstAttribute="centerY" secondItem="pv9-y0-Noa" secondAttribute="centerY" id="8q0-Xa-V3j"/>
                         <constraint firstItem="WhF-dT-VIg" firstAttribute="top" secondItem="nyW-HM-dqh" secondAttribute="bottom" constant="8" id="BYj-AT-EnI"/>
-                        <constraint firstItem="0yn-Q3-Obc" firstAttribute="top" secondItem="t2i-yf-hoj" secondAttribute="bottom" constant="28" id="Bt0-Yb-pu7"/>
                         <constraint firstItem="QqK-cy-r81" firstAttribute="baseline" secondItem="Bnp-pu-Bnp" secondAttribute="baseline" id="Czf-JH-NcD"/>
                         <constraint firstItem="QqK-cy-r81" firstAttribute="baseline" secondItem="n8a-8L-KIk" secondAttribute="baseline" id="Ee5-mu-cFR"/>
                         <constraint firstItem="pv9-y0-Noa" firstAttribute="baseline" secondItem="t2i-yf-hoj" secondAttribute="baseline" id="Fw2-fs-RSh"/>
@@ -219,6 +217,7 @@
                         <constraint firstItem="n8a-8L-KIk" firstAttribute="height" secondItem="Bnp-pu-Bnp" secondAttribute="height" id="QgE-na-cMF"/>
                         <constraint firstItem="t5q-8g-hxN" firstAttribute="firstBaseline" secondItem="WhF-dT-VIg" secondAttribute="firstBaseline" id="Qys-1s-L77"/>
                         <constraint firstItem="WhF-dT-VIg" firstAttribute="leading" secondItem="t5q-8g-hxN" secondAttribute="trailing" constant="30" id="T4L-A7-qWe"/>
+                        <constraint firstAttribute="bottom" secondItem="0yn-Q3-Obc" secondAttribute="bottom" constant="15" id="TSb-sU-yVk"/>
                         <constraint firstAttribute="trailing" secondItem="0yn-Q3-Obc" secondAttribute="trailing" constant="20" id="UWF-GW-rkj"/>
                         <constraint firstItem="n8a-8L-KIk" firstAttribute="firstBaseline" secondItem="Bnp-pu-Bnp" secondAttribute="firstBaseline" id="WTB-PO-Jcz"/>
                         <constraint firstItem="QqK-cy-r81" firstAttribute="centerY" secondItem="Bnp-pu-Bnp" secondAttribute="centerY" id="ZtB-1x-XoN"/>
@@ -268,10 +267,6 @@
                         <mask key="constraints">
                             <exclude reference="29i-Hd-A2M"/>
                             <exclude reference="bpU-1i-Kvv"/>
-                            <exclude reference="4ah-TW-R8m"/>
-                            <exclude reference="Bt0-Yb-pu7"/>
-                            <exclude reference="UWF-GW-rkj"/>
-                            <exclude reference="bWc-4l-0Eu"/>
                             <exclude reference="JNb-TS-KTS"/>
                             <exclude reference="O3v-G7-6rx"/>
                             <exclude reference="72d-Mm-j5F"/>
@@ -319,6 +314,9 @@
                             <exclude reference="ww6-GZ-rw6"/>
                             <exclude reference="0QQ-WL-K7a"/>
                             <exclude reference="jgT-NX-h98"/>
+                            <exclude reference="TSb-sU-yVk"/>
+                            <exclude reference="UWF-GW-rkj"/>
+                            <exclude reference="bWc-4l-0Eu"/>
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
@@ -338,10 +336,6 @@
                         <mask key="constraints">
                             <include reference="29i-Hd-A2M"/>
                             <include reference="bpU-1i-Kvv"/>
-                            <include reference="4ah-TW-R8m"/>
-                            <include reference="Bt0-Yb-pu7"/>
-                            <include reference="UWF-GW-rkj"/>
-                            <include reference="bWc-4l-0Eu"/>
                             <include reference="JNb-TS-KTS"/>
                             <include reference="O3v-G7-6rx"/>
                             <exclude reference="72d-Mm-j5F"/>
@@ -389,6 +383,9 @@
                             <include reference="ww6-GZ-rw6"/>
                             <include reference="0QQ-WL-K7a"/>
                             <include reference="jgT-NX-h98"/>
+                            <include reference="TSb-sU-yVk"/>
+                            <include reference="UWF-GW-rkj"/>
+                            <include reference="bWc-4l-0Eu"/>
                         </mask>
                     </variation>
                 </view>
