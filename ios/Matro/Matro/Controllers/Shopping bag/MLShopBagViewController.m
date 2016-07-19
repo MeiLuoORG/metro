@@ -173,11 +173,7 @@ static NSInteger pageIndex = 0;
     return CGSizeMake(cellW,cellW*1.4);
 }
 
-////定义每个UICollectionView 的间距
-//-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-//{
-//    return UIEdgeInsetsMake(0, 0 , 0, 0);
-//}
+
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {

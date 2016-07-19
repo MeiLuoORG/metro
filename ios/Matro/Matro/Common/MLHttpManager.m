@@ -20,7 +20,16 @@
 {
     // 1.创建请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    
+    NSString *accessToken = nil;
+    
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID]) {
+        accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    }
+    else{
+        accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"99999999999"];
+    }
+    
     
     NSString * accessTokenStrEncode = [accessToken URLEncodedString];
     NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
@@ -28,11 +37,8 @@
     NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
     NSString *sign = [self md5:signStr];
-
-    NSLog(@"MD5加密之后：%@",sign);
     NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr];
-
-
+    
     // 2.发送请求
     [mgr POST:newUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -50,7 +56,14 @@
 //上传图片
 + (void)post:(NSString *)url params:(id)params  m:(NSString *)m  s:(NSString *)s sconstructingBodyWithBlock:(void(^)(id<AFMultipartFormData> formData))block  success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure{
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    NSString *accessToken = nil;
+    
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID]) {
+        accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    }
+    else{
+        accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"99999999999"];
+    }
     
     NSString * accessTokenStrEncode = [accessToken URLEncodedString];
     NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
@@ -81,7 +94,14 @@
      */
     // 1.创建请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    NSString *accessToken = nil;
+    
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID]) {
+        accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    }
+    else{
+        accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r"];
+    }
     NSString * accessTokenStrEncode = [accessToken URLEncodedString];
     NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
