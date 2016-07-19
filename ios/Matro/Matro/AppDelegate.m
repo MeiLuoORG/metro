@@ -193,8 +193,10 @@
     //dispatch_sync(q1, ^{
     //获取设备ID
     NSString *identifierForVendor = [JPUSHService registrationID];
+    
+    NSLog(@"设备ID为：%@",identifierForVendor);
     NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
-    NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor];
+    NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,@"123456789"];
     //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString * urlStr = urlPinJie;
     NSLog(@"李佳的认证接口：%@",urlStr);
