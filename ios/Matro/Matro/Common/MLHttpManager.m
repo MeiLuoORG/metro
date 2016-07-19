@@ -21,7 +21,22 @@
     // 1.创建请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     
+<<<<<<< Updated upstream
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+=======
+    
+    NSString * userID = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
+    NSString *accessToken = nil;
+    if (userID && ![userID isEqualToString:@""]) {
+        accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    }
+    else{
+        accessToken = @"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r";
+    }
+    
+    
+    
+>>>>>>> Stashed changes
     
     NSString * accessTokenStrEncode = [accessToken URLEncodedString];
     NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
@@ -48,7 +63,14 @@
 //上传图片
 + (void)post:(NSString *)url params:(id)params  m:(NSString *)m  s:(NSString *)s sconstructingBodyWithBlock:(void(^)(id<AFMultipartFormData> formData))block  success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure{
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    NSString * userID = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
+    NSString *accessToken = nil;
+    if (userID && ![userID isEqualToString:@""]) {
+        accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    }
+    else{
+        accessToken = @"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r";
+    }
     
     NSString * accessTokenStrEncode = [accessToken URLEncodedString];
     NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
@@ -79,8 +101,19 @@
      */
     // 1.创建请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+<<<<<<< Updated upstream
     NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
     
+=======
+    NSString * userID = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
+    NSString *accessToken = nil;
+    if (userID && ![userID isEqualToString:@""]) {
+        accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    }
+    else{
+        accessToken = @"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r";
+    }
+>>>>>>> Stashed changes
     NSString * accessTokenStrEncode = [accessToken URLEncodedString];
     NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];

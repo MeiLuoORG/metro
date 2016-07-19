@@ -130,6 +130,8 @@
     [userDefaults removeObjectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
     [userDefaults removeObjectForKey:KUSERDEFAULT_TIMEINTERVAR_LIJIA];
     
+    [[self getAppDelegate] autoLogin];
+    
     [self.navigationController popViewControllerAnimated:YES];
     //[self logoutAction];
 }

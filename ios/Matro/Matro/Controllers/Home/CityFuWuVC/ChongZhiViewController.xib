@@ -9,12 +9,18 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChongZhiViewController">
             <connections>
                 <outlet property="cardTypeLabel" destination="uHh-kE-fK7" id="Q0r-HZ-axz"/>
+                <outlet property="firstJiaGeLabel" destination="cyD-Vg-vKd" id="Djk-vI-9fa"/>
                 <outlet property="firstView" destination="Xug-Jh-Tkp" id="0ua-vC-xax"/>
+                <outlet property="fiveJiaGeLabel" destination="SX2-vf-pnb" id="MUp-QA-FQx"/>
                 <outlet property="fiveView" destination="nYa-5T-9Lx" id="v1X-pc-nAw"/>
+                <outlet property="fourJiaGeLabel" destination="aDR-ZN-fLD" id="ODl-UU-mhm"/>
                 <outlet property="fourView" destination="0gv-vN-fWa" id="xTq-gz-zDe"/>
                 <outlet property="phoneTextField" destination="qRW-if-u0W" id="Kwl-CL-hV9"/>
+                <outlet property="secondJiaGeLabel" destination="bdK-Dy-Y7H" id="kko-FC-yuh"/>
                 <outlet property="secondView" destination="LYG-lR-DUw" id="O4U-6d-gUu"/>
+                <outlet property="sixJiaGeLabel" destination="RIz-Ew-CWB" id="k3e-Vg-glQ"/>
                 <outlet property="sixView" destination="2Cp-YJ-L9A" id="yrq-pB-wpg"/>
+                <outlet property="thirdJiaGeLabel" destination="Lvm-sd-Tw7" id="5oj-LJ-XBH"/>
                 <outlet property="thirdView" destination="ivm-uv-vKx" id="Tsg-6N-h1M"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -386,6 +392,7 @@
                 <constraint firstAttribute="bottom" secondItem="s5k-fU-avq" secondAttribute="bottom" constant="412" id="mCG-OU-whC"/>
                 <constraint firstAttribute="bottom" secondItem="20K-BX-V1Q" secondAttribute="bottom" constant="492" id="oow-7n-XND"/>
                 <constraint firstItem="qRW-if-u0W" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="28" id="vrL-CA-lEg"/>
+                <constraint firstItem="PyZ-qh-UAt" firstAttribute="leading" secondItem="qRW-if-u0W" secondAttribute="trailing" constant="20" id="w2k-Ed-sFC"/>
                 <constraint firstItem="s5k-fU-avq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="180" id="xAp-aC-Xtl"/>
                 <constraint firstItem="20K-BX-V1Q" firstAttribute="top" secondItem="zcG-Kb-q6b" secondAttribute="bottom" constant="19" id="z60-Nr-8cr"/>
             </constraints>
