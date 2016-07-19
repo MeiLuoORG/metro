@@ -1292,8 +1292,9 @@
 
 - (void)guessYLike {
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
-    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=",MATROJP_BASE_URL];
+    
+    [MLHttpManager get:urlStr params:nil m:@"product" s:@"guess_like" success:^(id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         
         if(responseObject)
@@ -1304,7 +1305,7 @@
                 [_recommendArray addObjectsFromArray:arr];
             }
         }
-
+        
         NSInteger row = 2;
         if (_recommendArray.count != 0) {
             _likeH.constant = 170*row;
@@ -1315,13 +1316,20 @@
             
         }
         [_collectionView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"猜你喜欢 请求失败";
         [_hud hide:YES afterDelay:2];
+    }];
+    /*
+    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+       
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
         
     }];
+     */
 }
 
 

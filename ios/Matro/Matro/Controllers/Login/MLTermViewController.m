@@ -34,8 +34,8 @@
 //    self.title = @"美罗全球购注册协议";
 //    NSString *body = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
 //    [_termWebview loadHTMLString:body baseURL:nil];
-    
-    [[HFSServiceClient sharedClient] GET:ZHUCEXIEYI_URLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    //m=setinfo&s=setinfo
+    [MLHttpManager get:ZHUCEXIEYI_URLString params:nil m:@"setinfo" s:@"setinfo" success:^(id responseObject) {
         NSLog(@"responseObject==%@",responseObject);
         
         NSDictionary *result = [responseObject objectForKey:@"data"];
@@ -46,12 +46,12 @@
             [self.termWebview loadHTMLString:dic baseURL:nil];
         }
         else{
-
+            
         }
+    } failure:^(NSError *error) {
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
     }];
+
 
 }
 - (void)loadTopView{

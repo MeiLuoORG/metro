@@ -1103,81 +1103,86 @@
 
 #pragma mark 查询实名认证
 - (void)chaXunISshiMingRenZheng{
-    NSDictionary * ret = @{@"pay_mobile":[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERPHONE]};
     
-    [MLHttpManager post:CHAXUNRENZHENG_RENZHENG_URLStrign params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
-        NSLog(@"查询实名认证：%@",responseObject);
+    NSString * userPhone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERPHONE];
+    if (userPhone != nil && ![userPhone isEqualToString:@""] && userPhone) {
+        NSDictionary * ret = @{@"pay_mobile":userPhone};
         
-        NSDictionary * result = (NSDictionary *)responseObject;
-        if ([result[@"code"] isEqual:@0]) {
+        [MLHttpManager post:CHAXUNRENZHENG_RENZHENG_URLStrign params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
+            NSLog(@"查询实名认证：%@",responseObject);
             
-            NSDictionary * dataDic = responseObject[@"data"];
-            //identity_list
-            NSDictionary * identity_listDic = dataDic[@"identity_list"];
-            NSString * trueStr = identity_listDic[@"identity_verify"];
-            if ([trueStr isEqualToString:@"true"]) {
-                _iS_identity_verify = YES;
-            }
-            else{
-                _iS_identity_verify = NO;
-            }
-            
-            if (_iS_identity_verify == YES) {
-                _headView.renZhengLabel.text = @"已认证";
-                _isRenZheng = YES;
-                _headView.biaoZhiImageView.hidden = NO;
-                _pay_id = identity_listDic[@"pay_id"];
-                _pay_mobile = identity_listDic[@"pay_mobile"];
-                _real_name = identity_listDic[@"real_name"];
-                _identity_card = identity_listDic[@"identity_card"];
-                _identity_picurl = identity_listDic[@"identity_pic"];
-            }
-            else{
-                _isRenZheng = NO;
-                _headView.biaoZhiImageView.hidden = YES;
-                _headView.renZhengLabel.text = @"";
+            NSDictionary * result = (NSDictionary *)responseObject;
+            if ([result[@"code"] isEqual:@0]) {
                 
-                if (![identity_listDic[@"pay_id"] isEqual:[NSNull null]]) {
+                NSDictionary * dataDic = responseObject[@"data"];
+                //identity_list
+                NSDictionary * identity_listDic = dataDic[@"identity_list"];
+                NSString * trueStr = identity_listDic[@"identity_verify"];
+                if ([trueStr isEqualToString:@"true"]) {
+                    _iS_identity_verify = YES;
+                }
+                else{
+                    _iS_identity_verify = NO;
+                }
+                
+                if (_iS_identity_verify == YES) {
+                    _headView.renZhengLabel.text = @"已认证";
+                    _isRenZheng = YES;
+                    _headView.biaoZhiImageView.hidden = NO;
                     _pay_id = identity_listDic[@"pay_id"];
-                }
-                if (![identity_listDic[@"pay_mobile"]isEqual:[NSNull null]]) {
                     _pay_mobile = identity_listDic[@"pay_mobile"];
-                }
-                if (![identity_listDic[@"real_name"] isEqual:[NSNull null]]) {
-                   _real_name = identity_listDic[@"real_name"];
-                }
-                if (![identity_listDic[@"identity_card"] isEqual:[NSNull null]]) {
-                     _identity_card = identity_listDic[@"identity_card"];
-                }
-                if (![identity_listDic[@"identity_pic"] isEqual:[NSNull null]]) {
+                    _real_name = identity_listDic[@"real_name"];
+                    _identity_card = identity_listDic[@"identity_card"];
                     _identity_picurl = identity_listDic[@"identity_pic"];
                 }
-        
+                else{
+                    _isRenZheng = NO;
+                    _headView.biaoZhiImageView.hidden = YES;
+                    _headView.renZhengLabel.text = @"";
+                    
+                    if (![identity_listDic[@"pay_id"] isEqual:[NSNull null]]) {
+                        _pay_id = identity_listDic[@"pay_id"];
+                    }
+                    if (![identity_listDic[@"pay_mobile"]isEqual:[NSNull null]]) {
+                        _pay_mobile = identity_listDic[@"pay_mobile"];
+                    }
+                    if (![identity_listDic[@"real_name"] isEqual:[NSNull null]]) {
+                        _real_name = identity_listDic[@"real_name"];
+                    }
+                    if (![identity_listDic[@"identity_card"] isEqual:[NSNull null]]) {
+                        _identity_card = identity_listDic[@"identity_card"];
+                    }
+                    if (![identity_listDic[@"identity_pic"] isEqual:[NSNull null]]) {
+                        _identity_picurl = identity_listDic[@"identity_pic"];
+                    }
+                    
+                }
+                
+                _isRenZhengQequestSuc = YES;
+            }
+            else{
+                _pay_id = @"";
+                _pay_mobile = @"";
+                _real_name = @"";
+                _identity_card = @"";
+                _identity_picurl = @"";
             }
             
-            _isRenZhengQequestSuc = YES;
-        }
-        else{
+        } failure:^(NSError *error) {
             _pay_id = @"";
             _pay_mobile = @"";
             _real_name = @"";
             _identity_card = @"";
             _identity_picurl = @"";
-        }
+            _headView.biaoZhiImageView.hidden = YES;
+            _headView.renZhengLabel.text = @"";
+            _isRenZhengQequestSuc = NO;
+            NSLog(@"查询实名认证失败：%@",error);
+            
+            
+        }];
 
-    } failure:^(NSError *error) {
-        _pay_id = @"";
-        _pay_mobile = @"";
-        _real_name = @"";
-        _identity_card = @"";
-        _identity_picurl = @"";
-        _headView.biaoZhiImageView.hidden = YES;
-        _headView.renZhengLabel.text = @"";
-        _isRenZhengQequestSuc = NO;
-        NSLog(@"查询实名认证失败：%@",error);
-        
-        
-    }];
+    }
 }
 
 #pragma mark 隐藏消息按钮

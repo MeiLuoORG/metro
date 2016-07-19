@@ -1780,6 +1780,9 @@
     //dispatch_sync(q1, ^{
     //获取设备ID
     NSString *identifierForVendor = [JPUSHService registrationID];
+    if (!identifierForVendor || identifierForVendor == nil || [identifierForVendor isEqualToString:@""]) {
+        identifierForVendor = @"123456789";
+    }
     NSLog(@"设备号ID：%@",identifierForVendor);
     //NSString *identifierForAdvertising = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
     //NSLog(@"accessToken编码前为：%@",accessTokenStr);
