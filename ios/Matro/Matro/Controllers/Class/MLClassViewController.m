@@ -501,7 +501,7 @@
             
             headerView.secondTitle.text = [NSString stringWithFormat:@"%@",brandDic[@"mc"]];
         }
- 
+
     }else{
         
         MLSecondClass *headerClass = _classSecondArray[section];
