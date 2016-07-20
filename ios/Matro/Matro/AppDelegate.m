@@ -41,7 +41,7 @@
 #import "MLShopBagViewController.h"
 
 #import "UMMobClick/MobClick.h"
-
+#import "CoreNewFeatureVC.h"
 
 @interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>
 
@@ -142,10 +142,6 @@
     manager.shouldToolbarUsesTextFieldTintColor = YES;
     manager.enableAutoToolbar = NO;
     
-    
-    [self autoLogin];
-
-    self.window.rootViewController = _tabBarController;
     if ([launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey]) {
         self.pushMessage = [MLPushMessageModel mj_objectWithKeyValues:[launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey]];
         
@@ -159,6 +155,39 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectSecondVC:) name:SelectSecondVC_NOTIFICATION object:nil];
+    
+    
+    //判断是否需要显示：（内部已经考虑版本及本地版本缓存）
+    BOOL canShow = [CoreNewFeatureVC canShowNewFeature];
+    
+    //测试代码，正式版本应该删除
+    //canShow = YES;
+    
+    if(canShow){
+        
+        NewFeatureModel *m1 = [NewFeatureModel model:[UIImage imageNamed:@"f1"]];
+        
+        NewFeatureModel *m2 = [NewFeatureModel model:[UIImage imageNamed:@"f2"]];
+        
+        NewFeatureModel *m3 = [NewFeatureModel model:[UIImage imageNamed:@"f3"]];
+        
+        NewFeatureModel *m4 = [NewFeatureModel model:[UIImage imageNamed:@"f3"]];
+        self.window.rootViewController = [CoreNewFeatureVC newFeatureVCWithModels:@[m1,m2,m3,m4] enterBlock:^{
+            
+            NSLog(@"进入主页面");
+            [self autoLogin];
+            self.window.rootViewController = _tabBarController;
+            
+        }];
+    }else{
+        [self autoLogin];
+        
+        MLAnimationViewController * vcs = [[MLAnimationViewController alloc]init];
+        
+        self.window.rootViewController = _tabBarController;
+    }
+    
+    
     
     return YES;
 }

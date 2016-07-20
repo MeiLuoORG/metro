@@ -70,7 +70,32 @@
     
     //UiTextField变化通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangeAction:) name:UITextFieldTextDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shoujiPaySuccess:) name:SHOUJI_CHONGZHI_PAYSUCCESS_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shoujiPayFail:) name:SHOUJI_CHONGZHI_PAY_FAIL_NOTIFICATION object:nil];
 }
+- (void)shoujiPaySuccess:(id)sender{
+
+    //[MBProgressHUD showSuccess:@"充值成功" toView:self.view];
+    _hud = [[MBProgressHUD alloc]initWithView:self.view];
+    [self.view addSubview:_hud];
+    [_hud show:YES];
+    _hud.mode = MBProgressHUDModeText;
+    _hud.labelText = @"充值成功";
+    [_hud hide:YES afterDelay:2];
+    
+}
+
+- (void)shoujiPayFail:(id)sender{
+    //[MBProgressHUD showSuccess:@"充值失败" toView:self.view];
+    _hud = [[MBProgressHUD alloc]initWithView:self.view];
+    [self.view addSubview:_hud];
+    [_hud show:YES];
+    _hud.mode = MBProgressHUDModeText;
+    _hud.labelText = @"充值失败";
+    [_hud hide:YES afterDelay:2];
+}
+
+
 
 - (void)textChangeAction:(id)sender{
 
@@ -279,12 +304,9 @@
                 NSString * card = _cardNumARRS[i];
                 [self yunYingShang:self.phoneTextField.text withCardNum:[card intValue] withIndex:i];
             }
-            
-            
+    
         }
 
-        
-        
     }];
 }
 
@@ -296,7 +318,7 @@
 
 
 - (void)someButtonClickedwithTitle:(NSString *)titles {
-    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"请选择支付方式" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"微信支付" otherButtonTitles:@"支付宝支付",@"银联支付",@"APPLE PAY",nil];
+    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"请选择支付方式" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"支付宝" otherButtonTitles:nil,nil];
     //sheet.destructiveButtonIndex = 1;
     [sheet showInView:self.view];
 }
@@ -305,26 +327,31 @@
     if(buttonIndex == 0){
 
         NSLog(@"微信");
-     /*
+     
         MLShouJiZhiViewController *vc = [[MLShouJiZhiViewController alloc]init];
-        //vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
         vc.view.backgroundColor = [UIColor clearColor];
+        
         if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
-            
             vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
             
         }else{
-            
             self.modalPresentationStyle=UIModalPresentationCurrentContext;
-            
         }
+        
+        vc.type = 0;
+        vc.jinE = 0.01;
+        vc.orderNum = [NSString stringWithFormat:@"%d",arc4random()%10000];
+        NSLog(@"self.orderNum的值为：%@",vc.orderNum);
         [self presentViewController:vc  animated:NO completion:^(void)
          {
              vc.view.superview.backgroundColor = [UIColor clearColor];
              [vc zhifuwith:0];
+//             vc.type = 0;
+//             vc.jinE = 0.01;
+//             vc.orderNum = [NSString stringWithFormat:@"%d",arc4random()%10000];
              
          }];
-        */
+        
         
     }
     else if (buttonIndex == 1){

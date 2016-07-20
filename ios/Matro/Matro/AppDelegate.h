@@ -12,6 +12,9 @@
 #import "MLPushMessageModel.h"
 #import "UPPaymentControl.h"
 
+#import "MLAnimationViewController.h"
+
+
 static NSString *appKey = @"beddefb33f6e5abc8d411c2b";
 static NSString *channel = @"Publish channel";
 static BOOL isProduction = FALSE;

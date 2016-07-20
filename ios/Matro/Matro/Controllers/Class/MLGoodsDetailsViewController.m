@@ -326,6 +326,7 @@
     NSLog(@"===%@",_paramDic);
     
   //  if (userid) {
+    //
         NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,_paramDic[@"id"],vCFBundleShortVersionStr];
         //测试链接
         //NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
@@ -469,20 +470,15 @@
                         if (i == 0) {
                             [huoyuanArray addObject:guigestr1];
                         }else{
-                            
+
+
                             if ([huoyuanArray containsObject:guigestr1]) {
                                 
                             }else{
                                 
                                 [huoyuanArray addObject:guigestr1];
                             }
-//                            for (NSString *searchstr in huoyuanArray) {
-//                                if (![guigestr1 isEqualToString:searchstr]) {
-//                                    [huoyuanArray addObject:guigestr1];
-//                                }else{
-//                                    
-//                                }
-//                            }
+
                         }
                         
                         i++;
