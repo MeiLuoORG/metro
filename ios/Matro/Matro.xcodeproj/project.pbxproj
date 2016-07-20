@@ -4125,7 +4125,13 @@
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = K7B37N4V6S;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.OMC = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 							com.apple.Wallet = {
@@ -5004,7 +5010,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f5f864be-e163-4293-9215-ea297a942a03";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -5060,7 +5066,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f5f864be-e163-4293-9215-ea297a942a03";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -594,14 +594,14 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-//    else if (indexPath.section == 3){
-//        MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:indexPath.row-1];
-//        MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
-//        NSDictionary *params = @{@"id":model.ID?:@"",@"userid":self.orderDetail.sellerinfo.userid?:@""};
-//        vc.paramDic = params;
-//        vc.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }
+    else if (indexPath.section == 3){
+        MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:indexPath.row-1];
+        MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+        NSDictionary *params = @{@"id":model.ID?:@"",@"userid":self.orderDetail.sellerinfo.userid?:@""};
+        vc.paramDic = params;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
 }
 
