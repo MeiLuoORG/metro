@@ -194,6 +194,12 @@
 //领取优惠券  成功
 #define LingQuYouHuiQuan_NOTIFICATION_SUCCESS   @"LingQuYouHuiQuan_NOTIFICATION_SUCCESS"
 
+//手机充值 支付成功
+#define SHOUJI_CHONGZHI_PAYSUCCESS_NOTIFICATION @"SHOUJI_CHONGZHI_PAYSUCCESS_NOTIFICATION"
+
+//手机充值支付失败
+#define SHOUJI_CHONGZHI_PAY_FAIL_NOTIFICATION   @"SHOUJI_CHONGZHI_PAY_FAIL_NOTIFICATION"
+
 /*zhoulu*/
 
 #define LoadNibWithSelfClassName [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil]firstObject]
