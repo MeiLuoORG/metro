@@ -21,7 +21,7 @@
 #import "HFSServiceClient.h"
 #import "MLLoginViewController.h"
 #import "MLShopDetailViewController.h"
-
+#import "MLActiveWebViewController.h"
 @protocol JSObjectDelegate <JSExport>
 
 
@@ -146,6 +146,7 @@
     
     MLshopGoodsListViewController *vc = [[MLshopGoodsListViewController alloc]init];
     vc.filterParam = @{@"keyword":textField.text};
+    vc.searchString = textField.text;
     vc.uid = uid;
     [self.navigationController pushViewController:vc animated:YES];
     return YES;
@@ -259,6 +260,20 @@
             
             MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
             [vc.filterParam  setValue:sender forKey:@"flid"];
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        });
+        
+    }
+    //链接
+    else if([index isEqualToString:@"4"]){
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+     
+            MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
+            vc.title = @"热门活动";
+            vc.link = sender;
+            vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
             
         });
