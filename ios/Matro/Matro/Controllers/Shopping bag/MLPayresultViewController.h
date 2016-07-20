@@ -14,7 +14,7 @@
 #import "MLAllOrdersViewController.h"
 #import "MLPersonOrderDetailViewController.h"
 #import "MLShopBagViewController.h"
-
+#import "MLHttpManager.h"
 @interface MLPayresultViewController : MLBaseViewController
 
 @property (nonatomic) BOOL isSuccess;

@@ -57,7 +57,7 @@
 #import "MLPayViewController.h"
 #import "CityFuWuViewController.h"
 
-
+#import "MLHttpManager.h"
 @interface ZLHomezlViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,ZLHomeSubVieDragProtocol,UIAlertViewDelegate>
 @property (strong, nonatomic) UIView * firstTopView;
 @property(nonatomic,strong)JSContext *contextjs;

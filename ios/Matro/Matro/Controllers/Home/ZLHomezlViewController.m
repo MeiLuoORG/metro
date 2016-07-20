@@ -54,25 +54,22 @@
 }
 
 
-
-
-
-
 - (void)viewDidLoad {
     self.view.backgroundColor = [UIColor whiteColor];
-    [self getVersion];
-    [self loadVersion];
+    
+    
+    
     
     _titlesARR = [[NSMutableArray alloc]init];
     _urlsARR = [[NSMutableArray alloc]init];
     _labelARR = [[NSMutableArray alloc]init];
     
     /*
-    NSArray * arr = @[@"首页",@"全球购",@"美罗百货",@"婴天童地",@"搜狐",@"淘宝"];
-    NSArray * urlrr = @[@"http://www.baidu.com",@"http://www.baidu.com",@"http://www.baidu.com",@"http://www.baidu.com",@"http://www.baidu.com",@"http://www.baidu.com"];
-    [_titlesARR addObjectsFromArray:arr];
-    [_urlsARR addObjectsFromArray:urlrr];
-*/
+     NSArray * arr = @[@"首页",@"全球购",@"美罗百货",@"婴天童地",@"搜狐",@"淘宝"];
+     NSArray * urlrr = @[@"http://www.baidu.com",@"http://www.baidu.com",@"http://www.baidu.com",@"http://www.baidu.com",@"http://www.baidu.com",@"http://www.baidu.com"];
+     [_titlesARR addObjectsFromArray:arr];
+     [_urlsARR addObjectsFromArray:urlrr];
+     */
     self.dataSource = self;
     self.delegate = self;
     
@@ -83,11 +80,6 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    
-
-    
-    //请求数据
-    [self getRequestTitleARR];
     [super viewDidLoad];
     //头部导航
     [self createNavTopView];
@@ -99,13 +91,29 @@
     if (del.pushMessage) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PUSHMESSAGE" object:del.pushMessage userInfo:nil];
     }
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(liJiaRenZhengNotification:) name:RENZHENG_LIJIA_Notification object:nil];
     /*
     //注册通知  按钮切换
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(homeViewButtonIndexNotification:) name:HOMEVIEW_BUTTON_INDEX_NOTIFICATION object:nil];
      */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecomeActiveAction:) name:APPLICATION_BECOME_ACTIVE_NOTIFICATION object:nil];
+}
+
+- (void)liJiaRenZhengNotification:(id)sender{
+    /*
+    dispatch_sync(dispatch_get_main_queue(), ^{
+
+    });
+    */
+    [self performSelectorOnMainThread:@selector(ceshiViewAppear) withObject:nil waitUntilDone:YES];
+}
+- (void)ceshiViewAppear{
+    [self getVersion];
+    [self loadVersion];
+    //请求数据
+    [self getRequestTitleARR];
 }
 
 - (void)appBecomeActiveAction:(id)sender{
@@ -136,6 +144,64 @@
     NSDictionary *params = @{@"appverison":version,@"apptype":@"ios"};
     
     
+    [MLHttpManager post:urlStr params:params m:@"upgrade" s:@"index" success:^(id responseObject) {
+        
+        NSDictionary *result = (NSDictionary *)responseObject;
+        NSString *code = result[@"code"];
+        if ([code isEqual:@0]) {
+            
+            
+            if ([result[@"data"][@"sel_info"] isKindOfClass:[NSString class]]) {
+                return ;
+            }else{
+                
+                NSLog(@"版本更新：%@",result);
+                
+                NSString *loadversion = result[@"data"][@"sel_info"][@"appverison"];
+                NSString *loadversionlowest = result[@"data"][@"sel_info"][@"appversion_lowest"];
+                NSString *downlink = result[@"data"][@"sel_info"][@"download_link"];
+                NSLog(@"version===%@ loadversion===%@ downlink===%@",version, loadversion,downlink);
+                
+                if (version < loadversion) {
+                    
+                    MLVersionViewController *vc = [[MLVersionViewController alloc]init];
+                    vc.versionLabel = loadversion;
+                    vc.qzversionlabel = loadversionlowest;
+                    vc.downlink = downlink;
+                    NSString *labstr = result[@"data"][@"sel_info"][@"version_desc"];
+                    NSArray *nameArray = [labstr componentsSeparatedByString:@"|"];
+                    vc.versionInfoArr = nameArray;
+                    NSLog(@"%@%@",nameArray,vc.versionInfoArr);
+                    vc.versioninfoLabel = labstr;
+                    
+                    vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+                    if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+                        
+                        vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+                        
+                    }else{
+                        
+                        self.modalPresentationStyle=UIModalPresentationCurrentContext;
+                        
+                    }
+                    [self presentViewController:vc  animated:YES completion:^(void)
+                     {
+                         vc.view.superview.backgroundColor = [UIColor clearColor];
+                         
+                     }];
+                    
+                }
+            }
+        }
+        NSLog(@"请求成功 result====%@",result);
+        
+    } failure:^(NSError *error) {
+        
+         NSLog(@"请求失败 error===%@",error);
+        
+    }];
+    
+    /*
     [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject)
@@ -194,7 +260,7 @@
          NSLog(@"请求失败 error===%@",error);
          
      }];
-    
+    */
 }
 
 - (NSString*)getVersion
@@ -569,9 +635,11 @@
      */
     //NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"];
     NSString * urls = [NSString stringWithFormat:@"%@&client_type=ios&app_version=%@",HomeTitles_URLString,vCFBundleShortVersionStr];
-    [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    //m=product&s=webframe
+    [MLHttpManager get:HomeTitles_URLString params:nil m:@"product" s:@"webframe" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-
+        
         
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"请求首页标题数据：%@",result);
@@ -594,7 +662,7 @@
             
             [self reloadData];
         }
-
+        
         else{
             _hud  = [[MBProgressHUD alloc]initWithView:self.view];
             [self.view addSubview:_hud];
@@ -604,10 +672,7 @@
             [_hud hide:YES afterDelay:2];
             
         }
-        
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
@@ -616,7 +681,16 @@
         _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
     }];
-
+    /*
+    [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+*/
 }
 
 #pragma mark 二维码扫描
@@ -653,7 +727,7 @@
                         NSString *cart_key = [self jiexi:@"cart_key" webaddress:qrString];
                         if (userid) {
                             NSString *urlstr = [NSString stringWithFormat:@"%@/api.php?m=product&s=pad_cart_data&option=get&cart_key=%@",MATROJP_BASE_URL,cart_key];
-                            [[HFSServiceClient sharedJSONClientNOT] GET:urlstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject){
+                            [MLHttpManager get:urlstr params:nil m:@"product" s:@"pad_cart_data" success:^(id responseObject) {
                                 NSLog(@"responseObject===%@",responseObject);
                                 NSArray *cart_listArr = responseObject[@"data"][@"cart_list"];
                                 
@@ -703,15 +777,22 @@
                                     [_hud hide:YES afterDelay:1];
                                     
                                 }
-                                
-                            } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+
+                            } failure:^(NSError *error) {
                                 
                                 [_hud show:YES];
                                 _hud.mode = MBProgressHUDModeText;
                                 _hud.labelText = @"请求失败";
                                 [_hud hide:YES afterDelay:1];
+                            }];
+                            /*
+                            [[HFSServiceClient sharedJSONClientNOT] GET:urlstr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject){
+                                
+                            } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+
                                 
                             }];
+                             */
                         }else{
                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请先登录" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                             
@@ -946,9 +1027,9 @@
      */
     //NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"];
 
-    NSString * urls = [NSString stringWithFormat:@"%@%@&client_type=ios&app_version=%@",FenLeiName_URLString,sender,vCFBundleShortVersionStr];
-    [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //[MBProgressHUD hideHUDForView:self.view animated:YES];
+    NSString * urls = [NSString stringWithFormat:@"%@%@",FenLeiName_URLString,sender];
+    //m=category&s=list
+    [MLHttpManager get:urls params:nil m:@"category" s:@"list" success:^(id responseObject) {
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"获取分类名称数据：%@",result);
         if ([result[@"code"] isEqual:@0]) {
@@ -983,8 +1064,8 @@
             [_hud hide:YES afterDelay:2];
             
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+    } failure:^(NSError *error) {
         //[MBProgressHUD hideHUDForView:self.view animated:YES];
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
@@ -993,7 +1074,14 @@
         _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
     }];
-
+    /*
+    [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+       
+    }];
+*/
 
 }
 
@@ -1009,13 +1097,14 @@
      */
     //NSString * urlStr = [NSString stringWithFormat:@"http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=title"];
     //api.php?m=brand&s=brand&method=GetBrandByID&brandid="
-    NSString * urls = [NSString stringWithFormat:@"%@%@&client_type=ios&app_version=%@",PinPaiGuanTitle_URLString,sender,vCFBundleShortVersionStr];
-    [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString * urls = [NSString stringWithFormat:@"%@%@",PinPaiGuanTitle_URLString,sender];
+    
+    [MLHttpManager get:urls params:nil m:@"brand" s:@"brand" success:^(id responseObject) {
         //[MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"获取品牌馆的标题数据：%@",result);
         if ([result[@"code"] isEqual:@0]) {
-             NSDictionary * dataDic = result[@"data"];
+            NSDictionary * dataDic = result[@"data"];
             if ([dataDic[@"ret"] isKindOfClass:[NSDictionary class]]) {
                 NSDictionary * ret = dataDic[@"ret"];
                 NSString * name = ret[@"name"];
@@ -1044,10 +1133,10 @@
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"没有品牌信息";
             [_hud hide:YES afterDelay:2];
-        
+            
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+    } failure:^(NSError *error) {
         //[MBProgressHUD hideHUDForView:self.view animated:YES];
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
@@ -1056,7 +1145,14 @@
         _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
     }];
-
+    /*
+    //m=brand&s=brand
+    [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+       
+    }];
+*/
 }
 
 - (void)selectedSecondNotificationAction{

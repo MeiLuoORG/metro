@@ -325,7 +325,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSLog(@"===%@",_paramDic);
     
-    if (userid) {
+  //  if (userid) {
         NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,_paramDic[@"id"],vCFBundleShortVersionStr];
         //测试链接
         //NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
@@ -743,7 +743,8 @@
             _hud.labelText = @"请求失败";
             [_hud hide:YES afterDelay:2];
         }];
-    }
+   // }
+    /*
     else{
 
         NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@",MATROJP_BASE_URL,_paramDic[@"id"]];
@@ -1153,7 +1154,7 @@
             [_hud hide:YES afterDelay:2];
         }];
     }
-   
+   */
     
 
 }
@@ -1162,11 +1163,70 @@
 -(void)loaddataDianpu{
     
 
-    NSLog(@"paramDic==%@",_paramDic);
+    NSLog(@"paramDic==%@===22%@",_paramDic,pDic);
     
     NSString *dpid = pDic[@"pinfo"][@"userid"];
    
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,dpid,vCFBundleShortVersionStr];
+    
+    [MLHttpManager get:urlStr params:nil m:@"shop" s:@"shop" success:^(id responseObject){
+        NSLog(@"responseObject===%@",responseObject);
+        
+        if ([responseObject[@"code"] isEqual:@0]) {
+            NSDictionary *shop_info = responseObject[@"data"][@"shop_info"];
+            dPDic = shop_info;
+            NSString *logo = shop_info[@"logo"];
+            if (![logo isKindOfClass:[NSNull class]]) {
+                [self.dianpuimage sd_setImageWithURL:[NSURL URLWithString:logo] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+            }else{
+                
+                self.dianpuimage.image = [UIImage imageNamed:@"icon_default"];
+            }
+            NSArray *csarr = shop_info[@"cs"];
+            for (NSDictionary *tempdic in csarr) {
+                NSString *tool = tempdic[@"tool"];
+                NSString *number = tempdic[@"number"];
+                if ([tool isEqualToString:@"4"]) {
+                    phoneNum = number;
+                    break;
+                }
+                
+            }
+            
+            if (![phoneNum isEqualToString:@""]) {
+                self.dianpuH.constant = 210;
+                self.yonghucaozuoH.constant = 44;
+            }else{
+                
+                self.dianpuH.constant = 166;
+                self.yonghucaozuoH.constant = 0;
+            }
+            
+            self.dianpuname.text = shop_info[@"company"];
+            self.dianputexing.text = shop_info[@"main_pro"];
+            NSString  *score_a = shop_info[@"score_a"];
+            NSString *score_b = shop_info[@"score_b"];
+            NSString *score_c = shop_info[@"score_c"];
+            
+            self.miaoshuNum.text = [NSString stringWithFormat:@"%@",score_a];
+            self.fuwuNum.text = [NSString stringWithFormat:@"%@",score_b];
+            self.wuliuNum.text = [NSString stringWithFormat:@"%@",score_c];
+            
+            self.guanzhuNum.text = shop_info[@"shop_collect"];
+            self.shangpinNum.text = shop_info[@"product_num"];
+            self.dongtaiNum.text = shop_info[@"news_num"];
+            
+        }
+        
+    } failure:^(NSError *error){
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
+    }];
+    /*
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         
@@ -1224,6 +1284,7 @@
         [_hud hide:YES afterDelay:2];
         
     }];
+     */
     
 }
 
@@ -1231,8 +1292,9 @@
 
 - (void)guessYLike {
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
-    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=",MATROJP_BASE_URL];
+    
+    [MLHttpManager get:urlStr params:nil m:@"product" s:@"guess_like" success:^(id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         
         if(responseObject)
@@ -1243,7 +1305,7 @@
                 [_recommendArray addObjectsFromArray:arr];
             }
         }
-
+        
         NSInteger row = 2;
         if (_recommendArray.count != 0) {
             _likeH.constant = 170*row;
@@ -1254,13 +1316,20 @@
             
         }
         [_collectionView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"猜你喜欢 请求失败";
         [_hud hide:YES afterDelay:2];
+    }];
+    /*
+    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+       
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
         
     }];
+     */
 }
 
 

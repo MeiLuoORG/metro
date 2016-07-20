@@ -11,6 +11,7 @@
 #import "NavTopCommonImage.h"
 #import "HFSConstants.h"
 #import "HFSServiceClient.h"
+#import "MLHttpManager.h"
 @interface MLTermViewController : UIViewController
 
 @end

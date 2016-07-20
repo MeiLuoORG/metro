@@ -17,6 +17,7 @@
 #import <DWTagList/DWTagList.h>
 #import <MagicalRecord/MagicalRecord.h>
 #import "CommonHeader.h"
+#import "MLHttpManager.h"
 @interface MLSearchViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,DWTagListDelegate>
 {
     
@@ -117,10 +118,8 @@ static CGFloat kHeight = 0;
     
     //热门搜索关键字推荐
 
-    
-    
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=input_recommend&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
-    
+    /*
     [[HFSServiceClient sharedClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSLog(@"responseObject====%@",responseObject);
@@ -149,18 +148,44 @@ static CGFloat kHeight = 0;
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
-    
+    */
+    [MLHttpManager get:str params:nil m:@"product" s:@"recommend" success:^(id responseObject){
+        
+        NSLog(@"responseObject====%@",responseObject);
+        NSDictionary *dataDic = responseObject[@"data"];
+        hotSearchplaceholderArray = dataDic[@"recommend"];
+        
+        NSLog(@"hotSearchplaceholderArray===%@",hotSearchplaceholderArray);
+        
+        
+        if (hotSearchplaceholderArray.count == 0) {
+            _searchBar.placeholder  = @"默认搜索内容";
+        }else{
+            _searchBar.placeholder = hotSearchplaceholderArray[0];
+        }
+        
+        _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
+        
+        _searchBar.delegate = self;
+        self.navigationItem.titleView = _searchBar;
+        
+    } failure:^( NSError *error){
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        NSLog(@"error===%@",error);
+    }];
     
 }
 
 -(void)gethotKeywords
 {
     //热门搜索关键字
-
-    
-    
+ 
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=list_recommend&pageindex=1&pagesize=20&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
-    
+    /*
     [[HFSServiceClient sharedClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (responseObject) {
             NSLog(@"responseObject===1111%@",responseObject);
@@ -200,7 +225,48 @@ static CGFloat kHeight = 0;
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:2];
     }];
-    
+    */
+    [MLHttpManager get:str params:nil m:@"product" s:@"recommend" success:^(id responseObject){
+        
+        if (responseObject) {
+            NSLog(@"responseObject===1111%@",responseObject);
+            
+            NSDictionary *dataDic = responseObject[@"data"];
+            NSArray *dic = dataDic[@"recommend"];
+            int i=0;
+            if (dic && dic.count>0) {
+                for (NSDictionary *tempDic in dic) {
+                    if (i>20) {
+                        break;
+                    }
+                    
+                    [hotSearchTagArray addObject:tempDic[@"statu"]];
+                    [hotSearchArray addObject:tempDic[@"keyword"]];
+                    i++;
+                }
+                
+                _hotSearchTagList = [[DWTagList alloc]initWithFrame:CGRectMake(12, 0, MAIN_SCREEN_WIDTH - 24, 35)];
+                _hotSearchTagList.tagDelegate = self;
+                
+                
+                
+                [_hotSearchTagList setTags:dic];
+                [_hotSearchTagView addSubview:_hotSearchTagList];
+                _hotSearchTagHeightConstraint.constant = _hotSearchTagList.contentSize.height;
+                [self.view layoutIfNeeded];
+                _hotSearchTagList.frame = _hotSearchTagView.bounds;
+                
+            }
+        }
+        
+    } failure:^( NSError *error){
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        NSLog(@"error===%@",error);
+    }];
 }
 
 

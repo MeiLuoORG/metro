@@ -16,22 +16,10 @@
 #import "ZhengZePanDuan.h"
 #import "MBProgressHUD+Add.h"
 #import "MLHttpManager.h"
-
-#import "UIColor+HeinQi.h"
-#import "MLPayresultViewController.h"
-#import "WXApi.h"
-#import <AlipaySDK/AlipaySDK.h>
-#import "AliPayOrder.h"
-#import "HFSServiceClient.h"
-#import "GTMNSString+URLArguments.h"
-#import <PassKit/PassKit.h>
-#import "MLShopBagViewController.h"
-#import "MBProgressHUD+Add.h"
-#import "UPPaymentControl.h"
-#import "UPAPayPlugin.h"
+#import "MLShouJiZhiViewController.h"
 
 
-@interface ChongZhiViewController : MLBaseViewController<ABPeoplePickerNavigationControllerDelegate,UIActionSheetDelegate,UPAPayPluginDelegate,PKPaymentAuthorizationViewControllerDelegate>
+@interface ChongZhiViewController : MLBaseViewController<ABPeoplePickerNavigationControllerDelegate,UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UIControl *firstView;
 @property (weak, nonatomic) IBOutlet UIControl *secondView;
 @property (weak, nonatomic) IBOutlet UIControl *thirdView;

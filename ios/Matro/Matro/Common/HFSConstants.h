@@ -256,6 +256,7 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 //首页地址
 //http://61.155.212.146:3000
 #define HomeHTML_URLString              @"http://61.155.212.146:3000"
+//#define HomeHTML_URLString              @"http://h5.matrojp.com"
 
 //请求标题数据
 
@@ -288,7 +289,7 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define FenLeiName_URLString            ZHOULU_ML_BASE_URLString@"/api.php?m=category&s=list&method=GetCategoryByID&catid="
 
 //店铺链接
-#define DianPuURL_URLString             @"http://192.168.19.247:3000"
+#define DianPuURL_URLString             @"http://h5.matrojp.com"
 
 /*zhouluEND*/
 

@@ -200,6 +200,10 @@
     //dispatch_sync(q1, ^{
     //获取设备ID
     NSString *identifierForVendor = [JPUSHService registrationID];
+    if (!identifierForVendor || identifierForVendor == nil || [identifierForVendor isEqualToString:@""]) {
+        identifierForVendor = @"123456789";
+    }
+    NSLog(@"设备ID为：%@",identifierForVendor);
     NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
     NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor];
     //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

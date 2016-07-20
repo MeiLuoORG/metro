@@ -232,13 +232,11 @@
     NSLog(@"点击了网页：%@++++++%@",index,sender);
     //商品
     if ([index isEqualToString:@"1"]) {
-        
         dispatch_sync(dispatch_get_main_queue(), ^{
-            
-            MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc ]init];
-            vc.paramDic = @{@"id":sender};
-            [self.navigationController pushViewController:vc animated:YES];
- 
+        MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc ]init];
+        vc.paramDic = @{@"id":sender};
+        [self.navigationController pushViewController:vc animated:YES];
+   // [self performSelectorOnMainThread:@selector(pushTest:) withObject:sender waitUntilDone:YES];
         });
     }
     //品牌
@@ -293,6 +291,12 @@
     }
     
 }
+
+- (void)pushTest:(NSString *)sender{
+    
+   
+}
+
 
 //跳到店铺详情
 -(void)skipStoreDetaild:(NSString *)storeid{
@@ -437,7 +441,26 @@
     NSString *dpid = _shopparamDic[@"userid"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=shop&s=shop&uid=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,dpid,vCFBundleShortVersionStr];
+    
+    [MLHttpManager get:urlStr params:nil m:@"shop" s:@"shop" success:^(id responseObject){
+        NSLog(@"responseObject===%@",responseObject);
+        
+        if ([responseObject[@"code"] isEqual:@0] && ![responseObject[@"data"][@"shop_info"] isKindOfClass:[NSNull class]]) {
+            dpDic = responseObject[@"data"][@"shop_info"];
+            NSLog(@"%@",dpDic);
+            
+        }
+        
+    } failure:^(NSError *error){
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"请求失败";
+        [_hud hide:YES afterDelay:1];
+        
+    }];
    
+    /*
     [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"responseObject===%@",responseObject);
         
@@ -454,7 +477,7 @@
         [_hud hide:YES afterDelay:2];
         
     }];
-    
+    */
 }
 
 //店铺是否收藏

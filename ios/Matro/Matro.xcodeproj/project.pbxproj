@@ -382,6 +382,8 @@
 		3CC5F7781D2B56E500E1A5B5 /* ShaiXuanZlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5F7771D2B56E500E1A5B5 /* ShaiXuanZlView.xib */; };
 		3CC5F7801D2BC83200E1A5B5 /* MLPayShiBaiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5F77E1D2BC83200E1A5B5 /* MLPayShiBaiViewController.m */; };
 		3CC5F7811D2BC83200E1A5B5 /* MLPayShiBaiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5F77F1D2BC83200E1A5B5 /* MLPayShiBaiViewController.xib */; };
+		3CCC64FC1D3E0A75004ABF04 /* MLShouJiZhiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CCC64FA1D3E0A75004ABF04 /* MLShouJiZhiViewController.m */; };
+		3CCC64FD1D3E0A75004ABF04 /* MLShouJiZhiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CCC64FB1D3E0A75004ABF04 /* MLShouJiZhiViewController.xib */; };
 		3CE4B0D51D1A5F3A0084156C /* BingPhoneZlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0D41D1A5F3A0084156C /* BingPhoneZlViewController.m */; };
 		3CE4B0D81D1A6D010084156C /* LingQuYouHuiQuanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0D71D1A6D000084156C /* LingQuYouHuiQuanView.m */; };
 		3CE4B0DE1D1A6DAC0084156C /* LingQuQuanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4B0DD1D1A6DAC0084156C /* LingQuQuanCell.m */; };
@@ -1389,6 +1391,9 @@
 		3CC5F77D1D2BC83200E1A5B5 /* MLPayShiBaiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPayShiBaiViewController.h; sourceTree = "<group>"; };
 		3CC5F77E1D2BC83200E1A5B5 /* MLPayShiBaiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPayShiBaiViewController.m; sourceTree = "<group>"; };
 		3CC5F77F1D2BC83200E1A5B5 /* MLPayShiBaiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLPayShiBaiViewController.xib; sourceTree = "<group>"; };
+		3CCC64F91D3E0A75004ABF04 /* MLShouJiZhiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLShouJiZhiViewController.h; sourceTree = "<group>"; };
+		3CCC64FA1D3E0A75004ABF04 /* MLShouJiZhiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLShouJiZhiViewController.m; sourceTree = "<group>"; };
+		3CCC64FB1D3E0A75004ABF04 /* MLShouJiZhiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLShouJiZhiViewController.xib; sourceTree = "<group>"; };
 		3CE4B0D31D1A5F3A0084156C /* BingPhoneZlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BingPhoneZlViewController.h; sourceTree = "<group>"; };
 		3CE4B0D41D1A5F3A0084156C /* BingPhoneZlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BingPhoneZlViewController.m; sourceTree = "<group>"; };
 		3CE4B0D61D1A6D000084156C /* LingQuYouHuiQuanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LingQuYouHuiQuanView.h; sourceTree = "<group>"; };
@@ -3704,6 +3709,9 @@
 				3C5E8A941D3CA96E00BA5766 /* ChongZhiViewController.h */,
 				3C5E8A951D3CA96E00BA5766 /* ChongZhiViewController.m */,
 				3C5E8A961D3CA96E00BA5766 /* ChongZhiViewController.xib */,
+				3CCC64F91D3E0A75004ABF04 /* MLShouJiZhiViewController.h */,
+				3CCC64FA1D3E0A75004ABF04 /* MLShouJiZhiViewController.m */,
+				3CCC64FB1D3E0A75004ABF04 /* MLShouJiZhiViewController.xib */,
 			);
 			path = CityFuWuVC;
 			sourceTree = "<group>";
@@ -4328,6 +4336,7 @@
 				3AA0E7351CA916A90079AA90 /* MLPayViewController.xib in Resources */,
 				3C1306E01D260BBC005CFCEC /* icons.bundle in Resources */,
 				7A0936841D1BCDA3002325A2 /* MLCommentDetailUserTableViewCell.xib in Resources */,
+				3CCC64FD1D3E0A75004ABF04 /* MLShouJiZhiViewController.xib in Resources */,
 				7A6B22CC1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.xib in Resources */,
 				7AEC88DD1CE464EC00B43DD4 /* MLGoodsComPhotoCell.xib in Resources */,
 				3AE768B11CA62BFB0097FEA2 /* MLListViewController.xib in Resources */,
@@ -4735,6 +4744,7 @@
 				7AEDD0CA1CE5A43A009B12F4 /* MLSaleServiceImageCell.m in Sources */,
 				7A3A627C1CDB879000D265F2 /* PlaceholderTextView.m in Sources */,
 				7AEDD0D31CE5BB55009B12F4 /* MLReturnRequestFootView.m in Sources */,
+				3CCC64FC1D3E0A75004ABF04 /* MLShouJiZhiViewController.m in Sources */,
 				3A633B3E1C9EA36E00C11FD5 /* UIView+SDExtension.m in Sources */,
 				7AEDD0D81CE5C498009B12F4 /* MLReturnRequestViewController.m in Sources */,
 				287585741D2114CE000BDEF4 /* MLFootModel.m in Sources */,

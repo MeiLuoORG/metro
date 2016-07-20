@@ -7,6 +7,7 @@
 //
 
 #import "MLBaseViewController.h"
+#import "MLHttpManager.h"
 
 @interface MLGoodsDetailsViewController : MLBaseViewController
 @property(nonatomic,retain) NSDictionary *paramDic;

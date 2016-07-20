@@ -103,7 +103,7 @@
 
 - (void)guessYourLike{
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=10",MATROJP_BASE_URL];
-    [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [MLHttpManager get:url params:nil m:@"product" s:@"guess_like" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         NSLog(@"猜你喜欢数据为：%@",result);
         if ([result[@"code"]isEqual:@0]) {
@@ -116,23 +116,30 @@
         else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
-        
+            
         }
         /*
-        if ([result[@"code"] isEqual:@0]) {
-            [self.likeArray removeAllObjects];
-            NSDictionary *data = result[@"data"];
-            NSArray *product = data[@"product"];
-            [self.likeArray addObjectsFromArray:[MLGuessLikeModel mj_objectArrayWithKeyValuesArray:product]];
-            [self.collectionView reloadData];
-        }else{
+         if ([result[@"code"] isEqual:@0]) {
+         [self.likeArray removeAllObjects];
+         NSDictionary *data = result[@"data"];
+         NSArray *product = data[@"product"];
+         [self.likeArray addObjectsFromArray:[MLGuessLikeModel mj_objectArrayWithKeyValuesArray:product]];
+         [self.collectionView reloadData];
+         }else{
          
-        }
-        */
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         }
+         */
+
+    } failure:^(NSError *error) {
         [MBProgressHUD showMessag:REQUEST_ERROR_ZL toView:self.view];
+    }];
+    /*
+    [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
 
     }];
+     */
 }
 
 /*

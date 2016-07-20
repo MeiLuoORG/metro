@@ -305,6 +305,26 @@
     if(buttonIndex == 0){
 
         NSLog(@"微信");
+     /*
+        MLShouJiZhiViewController *vc = [[MLShouJiZhiViewController alloc]init];
+        //vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+        vc.view.backgroundColor = [UIColor clearColor];
+        if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+            
+            vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+            
+        }else{
+            
+            self.modalPresentationStyle=UIModalPresentationCurrentContext;
+            
+        }
+        [self presentViewController:vc  animated:NO completion:^(void)
+         {
+             vc.view.superview.backgroundColor = [UIColor clearColor];
+             [vc zhifuwith:0];
+             
+         }];
+        */
         
     }
     else if (buttonIndex == 1){

@@ -761,7 +761,8 @@ static NSInteger pageIndex = 0;
  */
 - (void)guessYourLike{
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=%@&limit=10",MATROJP_BASE_URL,[NSNumber numberWithInteger:pageIndex]];
-    [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    [MLHttpManager get:url params:nil m:@"product" s:@"guess_like" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             [self.likeArray removeAllObjects];
@@ -773,9 +774,17 @@ static NSInteger pageIndex = 0;
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+
+    } failure:^(NSError *error) {
+         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
+    
+    /*
+    [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+       
+    }];
+    */
 }
 
 /**

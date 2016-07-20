@@ -7,7 +7,7 @@
 //
 
 #import "PinPaiZLViewController.h"
-
+#import "MLHttpManager.h"
 @interface PinPaiZLViewController ()
 
 @end
@@ -153,10 +153,56 @@
     
     //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString * urlStr = [NSString stringWithFormat:@"%@/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=0",ZHOULU_ML_BASE_URLString,1,20000];
+    
+    [MLHttpManager get:urlStr params:nil m:@"brand" s:@"brand" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
+        NSDictionary * result = (NSDictionary *)responseObject;
+        NSLog(@"请求品牌馆：%@",result);
+        NSDictionary * dataDic = result[@"data"];
+        NSString * sumStr = dataDic[@"sum"];
+        if (![sumStr isEqualToString:@"0"]) {
+            NSArray * brandARR = dataDic[@"brand"];
+            if (brandARR.count > 0 ) {
+                for (NSDictionary * brandDic in brandARR) {
+                    //[PinPaiModelZl modelWithDictionary:brandDic error:nil];
+                    PinPaiModelZl * pinPaiModel = [[PinPaiModelZl alloc]init];
+                    pinPaiModel.id = brandDic[@"id"];
+                    pinPaiModel.char_index = brandDic[@"char_index"];
+                    pinPaiModel.name = brandDic[@"name"];
+                    pinPaiModel.ishot = brandDic[@"ishot"];
+                    pinPaiModel.logo = brandDic[@"logo"];
+                    
+                    [_zongARR addObject:pinPaiModel];
+                    
+                }
+                //数组排序
+                [self arrPaiXuWith:_zongARR];
+            }
+        }
+        else{
+            _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"没有品牌信息";
+            [_hud hide:YES afterDelay:1];
+            
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+        [self.view addSubview:_hud];
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = REQUEST_ERROR_ZL;
+        [_hud hide:YES afterDelay:1];
+    }];
+    
+    /*
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
 
-        
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"请求品牌馆：%@",result);
         NSDictionary * dataDic = result[@"data"];
@@ -202,7 +248,7 @@
         [_hud hide:YES afterDelay:2];
     }];
 
-    
+   */
 }
 //数组排序
 - (void)arrPaiXuWith:(NSMutableArray *)zongArr{
@@ -436,6 +482,57 @@
      app_version=1.0
      */
         NSString * urlStr = [NSString stringWithFormat:@"%@/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,pageIndex,pageSize,vCFBundleShortVersionStr];
+    
+    [MLHttpManager get:urlStr params:nil m:@"brand" s:@"brand" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [_collectionView.header endRefreshing];
+        [_collectionView.footer endRefreshing];
+        
+        NSDictionary * result = (NSDictionary *)responseObject;
+        NSLog(@"请求品牌馆：%@",result);
+        NSDictionary * dataDic = result[@"data"];
+        NSString * sumStr = dataDic[@"sum"];
+        if (![sumStr isEqualToString:@"0"]) {
+            NSArray * brandARR = dataDic[@"brand"];
+            if (brandARR.count > 0 ) {
+                for (NSDictionary * brandDic in brandARR) {
+                    //[PinPaiModelZl modelWithDictionary:brandDic error:nil];
+                    PinPaiModelZl * pinPaiModel = [[PinPaiModelZl alloc]init];
+                    pinPaiModel.id = brandDic[@"id"];
+                    pinPaiModel.char_index = brandDic[@"char_index"];
+                    pinPaiModel.name = brandDic[@"name"];
+                    pinPaiModel.ishot = brandDic[@"ishot"];
+                    pinPaiModel.logo = brandDic[@"logo"];
+                    [_pinPaiARR addObject:pinPaiModel];
+                    
+                }
+                _indexButton.hidden = NO;
+                [_collectionView reloadData];
+                
+            }
+            
+            
+        }
+        else{
+            _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"没有品牌信息";
+            [_hud hide:YES afterDelay:2];
+            
+        }
+    } failure:^(NSError *error) {
+        _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+        [self.view addSubview:_hud];
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"没有品牌信息";
+        [_hud hide:YES afterDelay:1];
+    }];
+    
+    /*
+    
     [[HFSServiceClient sharedJSONClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [_collectionView.header endRefreshing];
@@ -487,6 +584,8 @@
         _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
     }];
+     */
+    
     /*
     [[HFSServiceClient sharedClient] POST:BindCard_URLString parameters:ret2 success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

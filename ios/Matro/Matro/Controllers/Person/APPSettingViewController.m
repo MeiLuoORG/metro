@@ -68,8 +68,7 @@
         _isShowImage = YES;
         _gengDuoImageView.hidden = NO;
     }
-   
-    
+ 
 }
 
 //快捷入口
