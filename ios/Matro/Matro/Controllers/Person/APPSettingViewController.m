@@ -129,11 +129,78 @@
     [userDefaults removeObjectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
     [userDefaults removeObjectForKey:KUSERDEFAULT_TIMEINTERVAR_LIJIA];
     
-    [[self getAppDelegate] autoLogin];
-    
+    //[[self getAppDelegate] autoLogin];
+    [self renZhengLiJiaWithPhone:@"99999999999" withAccessToken:@"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r"];
     [self.navigationController popViewControllerAnimated:YES];
     //[self logoutAction];
+
 }
+
+//调用 李佳重新认证接口
+- (void)renZhengLiJiaWithPhone:(NSString *)phoneString withAccessToken:(NSString *) accessTokenStr{
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+    //获取设备ID
+    NSString *identifierForVendor = [[NSUserDefaults standardUserDefaults]objectForKey:DEVICE_ID_JIGUANG_LU];
+    if (!identifierForVendor || identifierForVendor == nil || [identifierForVendor isEqualToString:@""]) {
+        identifierForVendor = @"123456789";
+    }
+    NSLog(@"设备ID为：%@",identifierForVendor);
+    NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
+    NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor];
+    //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString * urlStr = urlPinJie;
+    NSLog(@"李佳的认证接口：%@",urlStr);
+    NSURL * URL = [NSURL URLWithString:urlStr];
+    
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+    [request setHTTPMethod:@"get"]; //指定请求方式
+    //NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+    //[request setHTTPBody:data3];
+    [request setURL:URL]; //设置请求的地址
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      NSString *resultString  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                      NSLog(@"退出登录再次+李佳认证:%@,错误信息：%@",resultString,error);
+                                      //请求没有错误
+                                      if (!error) {
+                                          if (data && data.length > 0) {
+                                              NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                              
+                                              if (result && [result isKindOfClass:[NSDictionary class]]) {
+                                                  if ([result[@"code"] isEqual:@0]) {
+                                                      NSDictionary *data = result[@"data"];
+                                                      
+                                                      NSString *bbc_token = [data objectForKey:@"bbc_token"];
+                                                      NSString *timestamp = data[@"timestamp"];
+                                                      
+                                                      NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
+                                                      model1.timeInterval =[timestamp integerValue];
+                                                      model1.firstDate = [NSDate date];
+                                                      [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
+                                                      //认证成功后发送通知
+                                                      //[[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
+                                                      //[[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_HOME_Notification object:nil];
+                                                  }
+                                              }
+                                              NSLog(@"%@",result);
+ 
+                                          }
+                                      }
+                                      else{
+                                          
+                                          
+                                      }
+                                      
+                                  }];
+    
+    [task resume];
+    //});
+}
+
 
 #pragma mark 退出登录
 - (void)logoutAction{

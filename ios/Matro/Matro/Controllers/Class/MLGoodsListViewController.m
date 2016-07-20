@@ -298,9 +298,9 @@ static NSInteger page = 1;
     //    retcount : 查询结果集条数
     //    sum: 不分页查询总条数
     
-    NSString *listtepy=@"";
-    NSString *sort=@"desc";//排列方式
-    NSString *orderby =@"amount";//默认销量
+    NSString *listtepy = @"";
+    NSString *sort = @"desc";//排列方式
+    NSString *orderby = @"amount";//默认销量
     NSString *spflid = @"";//商品分类id
     NSString *jgs = @"";
     NSString *jge = @"";
@@ -326,7 +326,8 @@ static NSInteger page = 1;
         }
         if ([filterparamDic objectForKey:@"brandid"]) {
             ppid =[filterparamDic objectForKey:@"brandid"];
-        }if ([filterparamDic objectForKey:@"sort"]) {
+        }
+        if ([filterparamDic objectForKey:@"sort"]) {
             sort =[filterparamDic objectForKey:@"sort"];
         }
         

@@ -204,6 +204,7 @@
         identifierForVendor = @"123456789";
     }
     NSLog(@"设备ID为：%@",identifierForVendor);
+    [[NSUserDefaults standardUserDefaults] setObject:identifierForVendor forKey:DEVICE_ID_JIGUANG_LU];
     NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
     NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor];
     //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -240,6 +241,7 @@
                                                       [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
                                                       //认证成功后发送通知
                                                       [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
+                                                      [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_HOME_Notification object:nil];
                                                   }
                                               }
                                               NSLog(@"%@",result);

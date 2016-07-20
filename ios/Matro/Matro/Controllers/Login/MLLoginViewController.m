@@ -1784,6 +1784,7 @@
         identifierForVendor = @"123456789";
     }
     NSLog(@"设备号ID：%@",identifierForVendor);
+    [[NSUserDefaults standardUserDefaults] setObject:identifierForVendor forKey:DEVICE_ID_JIGUANG_LU];
     //NSString *identifierForAdvertising = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
     //NSLog(@"accessToken编码前为：%@",accessTokenStr);
         NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];

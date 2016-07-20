@@ -34,14 +34,22 @@
  */
 
 
-#define ZHOULU_ML_BASE_URLString        @"http://bbctest.matrojp.com"
-#define MATROJP_BASE_URL                @"http://bbctest.matrojp.com"
-#define SERVICE_GETBASE_URL             @"http://bbctest.matrojp.com/"
 
+#define ZHOULU_ML_BASE_URLString        @"http://www.matrojp.com"
+#define MATROJP_BASE_URL                @"http://www.matrojp.com"
+#define SERVICE_GETBASE_URL             @"http://www.matrojp.com/"
 #define ZHOULU_ML_CRM_URLString         @"http://app-test.matrojp.com"
 #define APP_ID_ZHOU                     @"test0002"
 #define APP_Secrect_ZHOU                @"123456"
 
+/*
+#define ZHOULU_ML_BASE_URLString        @"http://bbctest.matrojp.com"
+#define MATROJP_BASE_URL                @"http://bbctest.matrojp.com"
+#define SERVICE_GETBASE_URL             @"http://bbctest.matrojp.com/"
+#define ZHOULU_ML_CRM_URLString         @"http://app-test.matrojp.com"
+#define APP_ID_ZHOU                     @"test0002"
+#define APP_Secrect_ZHOU                @"123456"
+*/
 
 #define SERVICE_BASE_URL @"http://app.matrojp.com/P2MLinkCenter/"
 //#define SERVICE_BASE_URL @"http://bbctest.matrojp.com/"http://pay.matrojp.com/PayCenter/app/v200/alipay
@@ -161,8 +169,12 @@
 
 #define ZHAOHUIPASSWORD_CURRENT_PHONE           @"ZHAOHUIPASSWORD_PHONE"
 
+//设备ID
+#define DEVICE_ID_JIGUANG_LU                    @"device_id_jiguang_lu"
+
 //李佳接口认证成功后 通知名
 #define RENZHENG_LIJIA_Notification             @"renzheng_lijia_notification"
+#define RENZHENG_LIJIA_HOME_Notification             @"renzheng_lijia_home_notification"
 
 //首页切换  视图 按钮 通知名
 #define HOMEVIEW_BUTTON_INDEX_NOTIFICATION      @"homeview_button_index_notification"
@@ -257,8 +269,8 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define PinPaiGuanList_URLString        ZHOULU_ML_BASE_URLString@"/api.php?m=brand&s=brand&method=list"
 //首页地址
 //http://61.155.212.146:3000
-#define HomeHTML_URLString              @"http://61.155.212.146:3000"
-//#define HomeHTML_URLString              @"http://h5.matrojp.com"
+//#define HomeHTML_URLString              @"http://61.155.212.146:3000"
+#define HomeHTML_URLString              @"http://h5.matrojp.com"
 
 //请求标题数据
 
