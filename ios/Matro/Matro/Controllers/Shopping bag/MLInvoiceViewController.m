@@ -133,12 +133,21 @@
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
-    
+//    if (_gongsi.selected && !(_gongsiTitle.text.length > 0)) {
+//        [MBProgressHUD showSuccess:@"请输入公司名称" toView:self.view];
+//        return;
+//    }
     if ([HFSUtility isHaveSpaceString:_gongsiTitle.text]) {
         [MBProgressHUD showMessag:@"请不要输入空格" toView:self.view];
         return;
     }
-    NSString *titou = _gongsiTitle.text;
+    NSString *titou = nil;
+    if (_gongsi.selected) {
+        titou = _gongsiTitle.text;
+    }else{
+        titou = @"明细";
+    }
+    
     NSDictionary *params = @{@"do":@"1",@"data[content]":titou,@"data[type]":@"1",@"data[rise]":_gongsi.selected?@"公司":@"个人"};
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=invoice",MATROJP_BASE_URL];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];

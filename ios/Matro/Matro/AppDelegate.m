@@ -77,25 +77,6 @@
     
 
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Model.sqlite"];
-    
-//    /**
-//     * 推送处理1
-//     */
-//    if ([application
-//         respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-//        //注册推送, iOS 8
-//        UIUserNotificationSettings *settings = [UIUserNotificationSettings
-//                                                settingsForTypes:(UIUserNotificationTypeBadge |
-//                                                                  UIUserNotificationTypeSound |
-//                                                                  UIUserNotificationTypeAlert)
-//                                                categories:nil];
-//        [application registerUserNotificationSettings:settings];
-//    } else {
-//        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeAlert |
-//        UIRemoteNotificationTypeAlert |
-//        UIRemoteNotificationTypeSound;
-//        [application registerForRemoteNotificationTypes:myTypes];
-//    }
 
     
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
