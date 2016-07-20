@@ -268,8 +268,8 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define PinPaiGuanList_URLString        ZHOULU_ML_BASE_URLString@"/api.php?m=brand&s=brand&method=list"
 //首页地址
 //http://61.155.212.146:3000
-#define HomeHTML_URLString              @"http://61.155.212.146:3000"
-//#define HomeHTML_URLString              @"http://h5.matrojp.com"
+//#define HomeHTML_URLString              @"http://61.155.212.146:3000"
+#define HomeHTML_URLString              @"http://h5.matrojp.com"
 
 //请求标题数据
 

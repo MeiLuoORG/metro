@@ -1183,24 +1183,30 @@
                 self.dianpuimage.image = [UIImage imageNamed:@"icon_default"];
             }
             NSArray *csarr = shop_info[@"cs"];
-            for (NSDictionary *tempdic in csarr) {
-                NSString *tool = tempdic[@"tool"];
-                NSString *number = tempdic[@"number"];
-                if ([tool isEqualToString:@"4"]) {
-                    phoneNum = number;
-                    break;
-                }
-                
-            }
-            
-            if (![phoneNum isEqualToString:@""]) {
-                self.dianpuH.constant = 210;
-                self.yonghucaozuoH.constant = 44;
-            }else{
-                
+            if (csarr.count == 0) {
                 self.dianpuH.constant = 166;
                 self.yonghucaozuoH.constant = 0;
+            }else{
+                for (NSDictionary *tempdic in csarr) {
+                    NSString *tool = tempdic[@"tool"];
+                    NSString *number = tempdic[@"number"];
+                    if ([tool isEqualToString:@"4"]) {
+                        phoneNum = number;
+                        break;
+                    }
+                    
+                }
+                
+                if (![phoneNum isEqualToString:@""]) {
+                    self.dianpuH.constant = 210;
+                    self.yonghucaozuoH.constant = 44;
+                }else{
+                    
+                    self.dianpuH.constant = 166;
+                    self.yonghucaozuoH.constant = 0;
+                }
             }
+            
             
             self.dianpuname.text = shop_info[@"company"];
             self.dianputexing.text = shop_info[@"main_pro"];

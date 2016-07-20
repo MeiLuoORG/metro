@@ -52,7 +52,7 @@
 @property (weak, nonatomic) IBOutlet UIView *blankView;
 @end
 
-static NSInteger page = 0;
+static NSInteger page = 1;
 
 @implementation MLshopGoodsListViewController
 
@@ -181,10 +181,7 @@ static NSInteger page = 0;
     self.navigationItem.rightBarButtonItem = sxuanbtnItem;
     
     [_jiageButtton changeImageAndTitle];
-    /*
-     [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateNormal];
-     [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
-     */
+   
     [_shaixuanButton changeImageAndTitle];
     [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
     
@@ -314,7 +311,7 @@ static NSInteger page = 0;
     //sum: 不分页查询总条数
     
     NSString *listtepy=@"";
-    //NSString *sort=@"";//排列方式
+    NSString *sort=@"desc";//排列方式
     NSString *orderby =@"amount";//默认销量
     NSString *spflid = @"";//商品分类id
     NSString *jgs = @"";
@@ -342,6 +339,9 @@ static NSInteger page = 0;
         if ([filterparamDic objectForKey:@"brandid"]) {
             ppid =[filterparamDic objectForKey:@"brandid"];
         }
+        if ([filterparamDic objectForKey:@"sort"]) {
+            sort =[filterparamDic objectForKey:@"sort"];
+        }
         
     }
     NSString *keystr;
@@ -353,7 +353,7 @@ static NSInteger page = 0;
   
     }
     
-    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=desc&brand_id=%@&id=%@&userid=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,keystr,jgs,jge,(long)page,listtepy,orderby,ppid,spflid,_uid,vCFBundleShortVersionStr];
+    NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=%@&brand_id=%@&id=%@&userid=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,keystr,jgs,jge,(long)page,listtepy,orderby,sort,ppid,spflid,_uid,vCFBundleShortVersionStr];
     NSLog(@"str====%@",str);
     
     
@@ -375,7 +375,7 @@ static NSInteger page = 0;
             self.tableView.footer.hidden = NO;
             self.collectionView.footer.hidden = NO;
             
-            if (page==0) {
+            if (page==1) {
                 
                 [_productList removeAllObjects];
                 
@@ -554,15 +554,20 @@ static NSInteger page = 0;
     if ([typeStr isEqualToString:@"销量"]) {
         button.selected = !button.selected;
         if (button.selected) {
-            
             [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-            [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateSelected];
+            _jiageButtton.imageView.hidden= YES;
             [filterparamDic setValue:@"amount" forKey:@"orderby"];
+            [filterparamDic setValue:@"desc" forKey:@"sort"];
             
         }else{
-            
-            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+            _jiageButtton.imageView.hidden= YES;
+            [filterparamDic setValue:@"amount" forKey:@"orderby"];
+            [filterparamDic setValue:@"desc" forKey:@"sort"];
         }
         
         page = 1;
@@ -572,17 +577,22 @@ static NSInteger page = 0;
     {
         button.selected = !button.selected;
         if (button.selected) {
-            
+            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
             [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
-            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
             [filterparamDic setValue:@"price" forKey:@"orderby"];
+            [filterparamDic setValue:@"desc" forKey:@"sort"];
             
             
         }else{
             
-            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_jiageButtton setImage:[UIImage imageNamed:@"xiajian"] forState:UIControlStateNormal];
+            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+            [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [_jiageButtton setImage:[UIImage imageNamed:@"jgshangjian"] forState:UIControlStateNormal];
+            [filterparamDic setValue:@"price" forKey:@"orderby"];
+            [filterparamDic setValue:@"asc" forKey:@"sort"];
         }
         page = 1;
         [self getGoodsList];

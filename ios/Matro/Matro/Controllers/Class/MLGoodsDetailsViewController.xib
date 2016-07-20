@@ -788,7 +788,8 @@
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NW3-9N-NiM">
                                                                                     <rect key="frame" x="73" y="53" width="93" height="22"/>
-                                                                                    <state key="normal" title="  联系客服" image="lianxikefu-1">
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                                    <state key="normal" title="  联系客服" image="lianxikefu2">
                                                                                         <color key="titleColor" red="0.75686274509999996" green="0.75686274509999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     </state>
                                                                                     <connections>
@@ -807,7 +808,8 @@
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJy-6e-HM7">
                                                                                     <rect key="frame" x="74" y="53" width="92" height="22"/>
-                                                                                    <state key="normal" title="  进入店铺" image="jinrudianpu-1">
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                                    <state key="normal" title="  进入店铺" image="jinrudianpu2">
                                                                                         <color key="titleColor" red="0.75686274509999996" green="0.75686274509999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     </state>
                                                                                     <connections>
@@ -1475,7 +1477,7 @@
                                     <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shopCar" translatesAutoresizingMaskIntoConstraints="NO" id="LAh-s6-shb">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="shopcar-15-15" translatesAutoresizingMaskIntoConstraints="NO" id="LAh-s6-shb">
                                     <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="BXw-JY-05L"/>
@@ -1537,11 +1539,11 @@
         <image name="Star_big1" width="16" height="15"/>
         <image name="Star_big2" width="16" height="15"/>
         <image name="biaoqian" width="40" height="16"/>
-        <image name="jinrudianpu-1" width="22" height="22"/>
-        <image name="lianxikefu-1" width="22" height="22"/>
+        <image name="jinrudianpu2" width="11" height="11"/>
+        <image name="lianxikefu2" width="11" height="11"/>
         <image name="question" width="19" height="19"/>
         <image name="shangdianfahuo-1" width="22" height="22"/>
-        <image name="shopCar" width="21" height="19"/>
+        <image name="shopcar-15-15" width="22" height="22"/>
         <image name="wuyoushouhou-1" width="22" height="22"/>
         <image name="xiayiye_arrow" width="9" height="17"/>
         <image name="youjian" width="9" height="17"/>
