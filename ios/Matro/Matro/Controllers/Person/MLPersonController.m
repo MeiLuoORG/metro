@@ -572,58 +572,62 @@
 #pragma mark 我的资产
 - (void)getMyZiChanAction{
 
-    NSDictionary * ret = @{@"mobile":[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERPHONE]};
-    
-    NSString * cardNO = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERCARDNO];
-    NSLog(@"请求我的资产的默认卡号为：%@",cardNO);
-    if (cardNO && ![cardNO isEqualToString:@""]) {
+    NSString * userPhone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERPHONE];
+    if (userPhone && userPhone != nil && ![userPhone isEqualToString:@""]) {
+        NSDictionary * ret = @{@"mobile":[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERPHONE]};
         
-        NSString  * accessTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-        NSString * urlStr = [NSString stringWithFormat:@"%@&card=%@",ZiChan_URLString,cardNO];
-        
-        [MLHttpManager post:urlStr params:ret m:@"member" s:@"assets" success:^(id responseObject) {
-            NSLog(@"请求我的资产的结果：%@",responseObject);
-            NSDictionary * dataDic = responseObject[@"data"];
+        NSString * cardNO = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERCARDNO];
+        NSLog(@"请求我的资产的默认卡号为：%@",cardNO);
+        if (cardNO && ![cardNO isEqualToString:@""]) {
             
-            //identity_list
-            NSDictionary * assets_dataDic = dataDic[@"assets_data"];
+            NSString  * accessTokenStr = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+            NSString * urlStr = [NSString stringWithFormat:@"%@&card=%@",ZiChan_URLString,cardNO];
             
-            if (assets_dataDic[@"xyx_num"] && ![assets_dataDic[@"xyx_num"] isEqualToString:@""]) {
-                NSString * xyx_numStr = assets_dataDic[@"xyx_num"];
-                _xingYunXingValueLabel.text = xyx_numStr;
-            }
-            else{
-                _xingYunXingValueLabel.text = @"0";
-            }
-            if (assets_dataDic[@"ye_num"]&& ![assets_dataDic[@"ye_num"] isEqualToString:@""]) {
-               NSString * yEStr = assets_dataDic[@"ye_num"];
-                _yuEValueLabel.text = yEStr;
-            }
-            else{
-                _yuEValueLabel.text = @"0";
-            }
-            if (assets_dataDic[@"jifen_num"]&&![assets_dataDic[@"jifen_num"] isEqualToString:@""]) {
-                 NSString * jiFenStr = assets_dataDic[@"jifen_num"];
-                _jiFenValueLabel.text = jiFenStr;
-            }
-            else{
-                _jiFenValueLabel.text =@"0";
-            }
-            if (assets_dataDic[@"yhq_num"]&&![assets_dataDic[@"yhq_num"] isEqualToString:@""]) {
-               NSString * yhqStr = assets_dataDic[@"yhq_num"];
-                _youhuiValueLabel.text = yhqStr;
-            }
-            else{
-                _youhuiValueLabel.text = @"0";
-            }
-
-        } failure:^(NSError *error) {
-           
-            NSLog(@"请求我的资产失败：%@",error);
-        }];
+            [MLHttpManager post:urlStr params:ret m:@"member" s:@"assets" success:^(id responseObject) {
+                NSLog(@"请求我的资产的结果：%@",responseObject);
+                NSDictionary * dataDic = responseObject[@"data"];
+                
+                //identity_list
+                NSDictionary * assets_dataDic = dataDic[@"assets_data"];
+                
+                if (assets_dataDic[@"xyx_num"] && ![assets_dataDic[@"xyx_num"] isEqualToString:@""]) {
+                    NSString * xyx_numStr = assets_dataDic[@"xyx_num"];
+                    _xingYunXingValueLabel.text = xyx_numStr;
+                }
+                else{
+                    _xingYunXingValueLabel.text = @"0";
+                }
+                if (assets_dataDic[@"ye_num"]&& ![assets_dataDic[@"ye_num"] isEqualToString:@""]) {
+                    NSString * yEStr = assets_dataDic[@"ye_num"];
+                    _yuEValueLabel.text = yEStr;
+                }
+                else{
+                    _yuEValueLabel.text = @"0";
+                }
+                if (assets_dataDic[@"jifen_num"]&&![assets_dataDic[@"jifen_num"] isEqualToString:@""]) {
+                    NSString * jiFenStr = assets_dataDic[@"jifen_num"];
+                    _jiFenValueLabel.text = jiFenStr;
+                }
+                else{
+                    _jiFenValueLabel.text =@"0";
+                }
+                if (assets_dataDic[@"yhq_num"]&&![assets_dataDic[@"yhq_num"] isEqualToString:@""]) {
+                    NSString * yhqStr = assets_dataDic[@"yhq_num"];
+                    _youhuiValueLabel.text = yhqStr;
+                }
+                else{
+                    _youhuiValueLabel.text = @"0";
+                }
+                
+            } failure:^(NSError *error) {
+                
+                NSLog(@"请求我的资产失败：%@",error);
+            }];
+            
+        }
 
     }
-
+   
 }
 
 

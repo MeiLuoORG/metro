@@ -92,7 +92,7 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"PUSHMESSAGE" object:del.pushMessage userInfo:nil];
     }
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(liJiaRenZhengNotification:) name:RENZHENG_LIJIA_Notification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(liJiaRenZhengNotification:) name:RENZHENG_LIJIA_HOME_Notification object:nil];
     /*
     //注册通知  按钮切换
     NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
@@ -193,7 +193,7 @@
                 }
             }
         }
-        NSLog(@"请求成功 result====%@",result);
+        NSLog(@"版本信息请求成功 result====%@",result);
         
     } failure:^(NSError *error) {
         
