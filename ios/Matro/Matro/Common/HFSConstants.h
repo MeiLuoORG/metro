@@ -32,13 +32,13 @@
     3.BBC正式域名切换，http://www.matrojp.com
  
  */
-#define ZHOULU_ML_BASE_URLString        @"http://www.matrojp.com"
-#define MATROJP_BASE_URL                @"http://www.matrojp.com"
-#define SERVICE_GETBASE_URL             @"http://www.matrojp.com/"
+#define ZHOULU_ML_BASE_URLString        @"http://bbctest.matrojp.com"
+#define MATROJP_BASE_URL                @"http://bbctest.matrojp.com"
+#define SERVICE_GETBASE_URL             @"http://bbctest.matrojp.com/"
 
-#define ZHOULU_ML_CRM_URLString         @"http://vip.matrojp.com"
-#define APP_ID_ZHOU                     @"01d689a05d4841c6a29d0080502bde67"
-#define APP_Secrect_ZHOU                @"cca95b6b0f9a416e8ab865b3d31b7a54"
+#define ZHOULU_ML_CRM_URLString         @"http://app-test.matrojp.com"
+#define APP_ID_ZHOU                     @"test0002"
+#define APP_Secrect_ZHOU                @"123456"
 
 
 #define SERVICE_BASE_URL @"http://app.matrojp.com/P2MLinkCenter/"

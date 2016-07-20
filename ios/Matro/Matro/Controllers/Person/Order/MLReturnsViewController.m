@@ -22,6 +22,7 @@
 #import "MBProgressHUD+Add.h"
 #import "HFSUtility.h"
 #import "MLHttpManager.h"
+#import "MLGoodsDetailsViewController.h"
 
 #import "MLMoreTableViewCell.h"
 
@@ -136,6 +137,26 @@ static NSInteger pageIndex = 1;
     return 134.f;
     
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    MLTuiHuoModel *model = [self.orderList objectAtIndex:indexPath.section];
+    if (indexPath.row == 0 ) {
+        return;
+    }else if (indexPath.row==1){
+        return;
+    }
+    if (model.isMore && !model.isOpen && indexPath.row == 4) {//有更多 未展开 最后一行
+        return;
+    }
+    MLTuiHuoProductModel *product =  [model.products objectAtIndex:indexPath.row - 2];
+    MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+    NSDictionary *params = @{@"id":product.pid?:@""};
+    vc.paramDic = params;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     

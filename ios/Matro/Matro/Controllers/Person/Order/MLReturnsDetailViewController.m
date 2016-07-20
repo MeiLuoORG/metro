@@ -32,6 +32,7 @@
 #import "UIViewController+MLMenu.h"
 
 #import "MLPersonAlertViewController.h"
+#import "MLGoodsDetailsViewController.h"
 
 
 
@@ -215,6 +216,25 @@
         return 40;
     }
     return 0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+             return;
+        }else if (indexPath.row == 1){
+            return;
+        }
+        else{
+            MLTuiHuoProductModel *model = [self.returnsDetail.products objectAtIndex:indexPath.row-2];
+            MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+            NSDictionary *params = @{@"id":model.pid?:@""};
+            vc.hidesBottomBarWhenPushed = YES;
+            vc.paramDic = params;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

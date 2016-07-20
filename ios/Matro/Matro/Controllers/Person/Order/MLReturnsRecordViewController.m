@@ -29,6 +29,7 @@
 #import "MLHttpManager.h"
 #import "HFSConstants.h"
 #import "UMMobClick/MobClick.h"
+#import "MLGoodsDetailsViewController.h"
 
 @interface MLReturnsRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
@@ -140,13 +141,20 @@ static NSInteger pageIndex = 1;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    MLTuiHuoModel *model = [self.orderList objectAtIndex:indexPath.section];
     if (indexPath.row == 0 ) {
-        MLTuiHuoModel *model = [self.orderList objectAtIndex:indexPath.section];
         MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
         vc.order_id = model.order_id;
         vc.cancelSuccess = ^(){
             [self.tableView.header beginRefreshing];
         };
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (indexPath.row > 1 && !(model.isMore && !model.isOpen && indexPath.row == 4)) {
+        MLTuiHuoProductModel *product = [model.products objectAtIndex:indexPath.row - 2];
+        MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+        vc.paramDic = @{@"id":product.pid?:@""};
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

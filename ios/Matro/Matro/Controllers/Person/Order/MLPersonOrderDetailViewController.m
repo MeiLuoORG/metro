@@ -594,10 +594,10 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else if (indexPath.section == 3){
+    else if (indexPath.section == 3 && indexPath.row > 0){
         MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:indexPath.row-1];
         MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
-        NSDictionary *params = @{@"id":model.ID?:@"",@"userid":self.orderDetail.sellerinfo.userid?:@""};
+        NSDictionary *params = @{@"id":model.pid?:@"",@"userid":self.orderDetail.sellerinfo.userid?:@""};
         vc.paramDic = params;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];

@@ -27,7 +27,7 @@
         _productOrder = productOrder;
         self.goodsName.text = _productOrder.name;
         self.goodsPrice.text = [NSString stringWithFormat:@"￥%.2f",_productOrder.price];
-        self.goodsCount.text = [NSString stringWithFormat:@"*%@",_productOrder.num];
+        self.goodsCount.text = [NSString stringWithFormat:@"x%@",_productOrder.num];
 
         if (_productOrder.setmeal_str.length > 0) {
             self.goodsDesc.text = _productOrder.setmeal_str;
@@ -46,7 +46,7 @@
         self.goodsPrice.text = [NSString stringWithFormat:@"￥%.2f",_tuiHuoProduct.price];
         [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_tuiHuoProduct.pic] placeholderImage:PLACEHOLDER_IMAGE];
         NSLog(@"%@",_tuiHuoProduct.pic);
-        self.goodsCount.text = [NSString stringWithFormat:@"*%@",_tuiHuoProduct.num];
+        self.goodsCount.text = [NSString stringWithFormat:@"x%@",_tuiHuoProduct.num];
         
         
     }
@@ -61,7 +61,7 @@
                 self.goodsDesc.text = _order_submit_product.setmealname;
         }
         [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_order_submit_product.pic] placeholderImage:PLACEHOLDER_IMAGE];
-        self.goodsCount.text = [NSString stringWithFormat:@"*%ld",(long)_order_submit_product.num];
+        self.goodsCount.text = [NSString stringWithFormat:@"x%ld",(long)_order_submit_product.num];
     }
 }
 
