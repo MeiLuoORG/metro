@@ -49,15 +49,22 @@
 - (IBAction)useClick:(id)sender { //使用按钮
     UIButton *btn = (UIButton *)sender;
         if ([btn.titleLabel.text isEqualToString:@"使用"]) {//点击使用的时候事件
+            
             float useMoney = [self.editField.text floatValue];
-            if (useMoney <= self.youHuiQuan.payable ) { //小于等于可支付金额时
-                self.youHuiQuan.useSum = useMoney;
-            }else{ //大于余额时点击使用的情况
-                self.youHuiQuan.useSum = self.youHuiQuan.payable;
+            if (useMoney > self.cartModel.realYouHuiQuan) {
+                useMoney = self.cartModel.realYouHuiQuan;
             }
-            self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",_youHuiQuan.useSum];
-            self.editField.hidden = YES;
-            [btn setTitle:@"取消" forState:UIControlStateNormal];
+            
+            if (useMoney <= self.youHuiQuan.payable ) { //小于等于可支付金额时
+                    self.youHuiQuan.useSum = useMoney;
+                }else{ //大于余额时点击使用的情况
+                    self.youHuiQuan.useSum = self.youHuiQuan.payable;
+                }
+                self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",_youHuiQuan.useSum];
+                self.editField.hidden = YES;
+                [btn setTitle:@"取消" forState:UIControlStateNormal];
+
+           
     }else{ //点击取消时
             self.editField.text = @""; //清空之前输入的金额
             self.editField.hidden= NO;
@@ -80,6 +87,7 @@
         float useMoney = [self.editField.text floatValue];
         if (useMoney > self.youHuiQuan.payable){
             self.editField.text = [NSString stringWithFormat:@"%.1f",self.youHuiQuan.payable];
+            return;
         }
     }
 }

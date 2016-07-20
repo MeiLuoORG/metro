@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLCommitOrderListModel.h"
+
 
 
 typedef void(^UseClick)();
@@ -16,8 +18,10 @@ typedef void(^UseClick)();
 @property (nonatomic,strong)UILabel *subLabel;
 @property (nonatomic,strong)UILabel *rightLabel;
 
-@property (nonatomic,strong)NSArray *dataSource;
+@property (nonatomic,strong)MLOrderCartModel *cart;
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,copy)UseClick useClick;
+
+
 
 @end

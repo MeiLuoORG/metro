@@ -385,7 +385,8 @@ static BOOL idCardOk = NO;
                         [self.tableView reloadData];
                         [self refreshHeadView];
                     };
-                    cell.dataSource = cart.yhqdata;
+//                    cell.dataSource = cart.yhqdata;
+                    cell.cart = cart;
                     return cell;
                 }
             }
@@ -568,17 +569,22 @@ static BOOL idCardOk = NO;
                 [self.navigationController popToRootViewControllerAnimated:NO];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"PushToOrderCenter" object:nil];
             }else{//否则跳到收银台
-                MLPayViewController *vc = [[MLPayViewController alloc]init];
-                vc.order_id = order_id;
-                vc.order_sum = self.order_info.realPrice;
-                [self.navigationController pushViewController:vc animated:YES];
+                if (self.order_info.realPrice > 0) {
+                    MLPayViewController *vc = [[MLPayViewController alloc]init];
+                    vc.order_id = order_id;
+                    vc.order_sum = self.order_info.realPrice;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else{
+                    [self.tabBarController setSelectedIndex:3];
+                    [self.navigationController popToRootViewControllerAnimated:NO];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"PushToOrderCenter" object:nil];
+                }
             }
             
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD showMessag:msg toView:self.view];
         }
-        
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1539,8 +1539,8 @@
         <image name="Star_big1" width="16" height="15"/>
         <image name="Star_big2" width="16" height="15"/>
         <image name="biaoqian" width="40" height="16"/>
-        <image name="jinrudianpu2" width="11" height="11"/>
-        <image name="lianxikefu2" width="11" height="11"/>
+        <image name="jinrudianpu2" width="16" height="16"/>
+        <image name="lianxikefu2" width="16" height="16"/>
         <image name="question" width="19" height="19"/>
         <image name="shangdianfahuo-1" width="22" height="22"/>
         <image name="shopcar-15-15" width="22" height="22"/>

@@ -102,15 +102,16 @@
 #pragma mark UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataSource.count;
+    return self.cart.yhqdata.count;
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MLYouHuiEditTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kYouHuiEditTableViewCell forIndexPath:indexPath];
     __weak typeof(self) weakself = self;
-    MLYouHuiQuanModel *model = [self.dataSource objectAtIndex:indexPath.row];
+    MLYouHuiQuanModel *model = [self.cart.yhqdata objectAtIndex:indexPath.row];
     cell.youHuiQuan = model;
+    cell.cartModel = self.cart;
     cell.changeBlock = ^(){
         if (weakself.useClick) {
             weakself.useClick();
@@ -119,9 +120,16 @@
     return cell;
 }
 
-- (void)setDataSource:(NSArray *)dataSource{
-    if (_dataSource != dataSource) {
-        _dataSource = dataSource;
+//- (void)setDataSource:(NSArray *)dataSource{
+//    if (_dataSource != dataSource) {
+//        _dataSource = dataSource;
+//        [self.tableView reloadData];
+//    }
+//}
+
+- (void)setCart:(MLOrderCartModel *)cart{
+    if (_cart != cart) {
+        _cart = cart;
         [self.tableView reloadData];
     }
 }

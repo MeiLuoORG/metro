@@ -62,6 +62,32 @@
 
 
 
+
+- (BOOL)date:(NSDate*)date isBetweenDate:(NSDate*)beginDate andDate:(NSDate*)endDate
+{
+    if ([date compare:beginDate] ==NSOrderedAscending)
+        return NO;
+    
+    if ([date compare:endDate] ==NSOrderedDescending)
+        return NO;
+    
+    return YES;
+}
+
+- (float)realPrice{
+    NSDate *now = [NSDate new];
+    NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:[self.promition_start_time floatValue]];
+    NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:[self.promition_end_time floatValue]];
+    if ([self date:now isBetweenDate:startTime andDate:endTime]) { //在促销期间
+        return self.promotion_price;
+    }else{
+        return self.pro_price;
+    }
+}
+
+
+
+
 @end
 
 

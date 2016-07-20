@@ -32,7 +32,7 @@
         self.countField.minValue = 1;
         [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic] placeholderImage:PLACEHOLDER_IMAGE];
         self.goodName.text = _prolistModel.pname;
-        self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.pro_price];
+        self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.realPrice];
         self.checkBox.cartSelected = (_prolistModel.is_check == 1);
         self.manjianLabel.hidden = !(_prolistModel.mjtitle.length > 0);
         if (_prolistModel.setmealname.length> 0 ) {
@@ -65,6 +65,7 @@
         self.shopCartCheckBoxBlock(btn.cartSelected);
     }
 }
+
 
 
 

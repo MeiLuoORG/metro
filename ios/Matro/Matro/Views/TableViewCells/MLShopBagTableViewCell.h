@@ -28,6 +28,8 @@ typedef void(^ShopCartCheckBoxBlock)(BOOL);
 
 @property (weak, nonatomic) IBOutlet UILabel *manjianLabel;
 
+@property (nonatomic,strong)NSDateFormatter *dateFM;
+
 
 @property (nonatomic,strong)MLProlistModel *prolistModel;
 @property (nonatomic,copy)ShopCartCheckBoxBlock shopCartCheckBoxBlock;

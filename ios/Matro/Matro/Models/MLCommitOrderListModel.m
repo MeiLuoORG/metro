@@ -153,11 +153,16 @@
     float count = 0;
     
     count = self.kuaiDiFangshi.sumtax;
-    
     return count;
     
 }
 
+
+- (float)realYouHuiQuan{
+    float count = 0;
+    count = self.sumprice - self.youhuiMoney;
+    return count;
+}
 
 
 @end

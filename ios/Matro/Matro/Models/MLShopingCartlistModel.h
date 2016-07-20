@@ -94,7 +94,7 @@
 @property (nonatomic,copy)NSString *start_time;
 @property (nonatomic,copy)NSString *end_time;
 @property (nonatomic,assign)float pro_price;
-@property (nonatomic,copy)NSString *promotion_price;
+@property (nonatomic,assign)float promotion_price;
 @property (nonatomic,copy)NSString *is_promotion;
 @property (nonatomic,copy)NSString *promition_start_time;
 @property (nonatomic,copy)NSString *promition_end_time;
@@ -110,22 +110,13 @@
 @property (nonatomic,copy)NSString *mjtitle;
 @property (nonatomic,assign)NSInteger safe_amount;
 
+
+
+@property (nonatomic,assign)float realPrice;
+
+
 @end
 
 
-//@interface MLYouhuiQuanModel : NSObject
-//@property (nonatomic,copy)NSString *JLBH;
-//@property (nonatomic,copy)NSString *YHQMC;
-//@property (nonatomic,copy)NSString *YHQID;
-//@property (nonatomic,copy)NSString *JE;
-//@property (nonatomic,copy)NSString *YXQ_B;
-//@property (nonatomic,copy)NSString *YXQ_E;
-//@property (nonatomic,copy)NSString *CXLX;
-//@property (nonatomic,copy)NSString *HYGROUPID;
-//@property (nonatomic,copy)NSString *LQBJ;
-//@property (nonatomic,copy)NSString *FLAG;
-//
-//
-//@end
 
 

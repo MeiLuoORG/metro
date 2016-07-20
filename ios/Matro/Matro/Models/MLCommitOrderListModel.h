@@ -114,6 +114,9 @@
 
 @property (nonatomic,strong)UITextField *liuYan;
 
+//优惠券剩余使用的价格
+@property (nonatomic,assign)float realYouHuiQuan;
+
 
 
 

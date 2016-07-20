@@ -602,7 +602,7 @@ static NSInteger pageIndex = 0;
         for (MLShopingCartModel *model in self.shopCart.cart) {
             for (MLProlistModel *prolist in model.prolist) {
                 if (prolist.is_check == 1) {
-                    allPrice+= prolist.pro_price * prolist.num;
+                    allPrice+= prolist.realPrice * prolist.num;
                 }
             }
         }

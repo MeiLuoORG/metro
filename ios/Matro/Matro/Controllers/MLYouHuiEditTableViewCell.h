@@ -20,8 +20,8 @@ typedef void(^YouHuiEditBlock)();
 @property (weak, nonatomic) IBOutlet UIButton *editBtn;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (nonatomic,copy)YouHuiEditBlock changeBlock;
-
 @property (nonatomic,strong)MLYouHuiQuanModel *youHuiQuan;
+@property (nonatomic,strong)MLOrderCartModel *cartModel;
 
 
 
