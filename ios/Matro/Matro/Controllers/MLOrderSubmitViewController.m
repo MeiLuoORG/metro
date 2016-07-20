@@ -385,6 +385,9 @@ static BOOL idCardOk = NO;
                         [self.tableView reloadData];
                         [self refreshHeadView];
                     };
+                    cell.warningBlock = ^(){
+                        [MBProgressHUD showMessag:@"优惠券金额不能超过商品总额" toView:self.view];
+                    };
                     cell.cart = cart;
                     return cell;
                 }

@@ -163,6 +163,11 @@
             clickType.ID = self.returnInfo.question_type ;
             clickType.content = self.returnInfo.question_type_content;
             selQuestion = clickType;
+        }else{ //如果未选中
+            if (self.returnsDetail.question_type.count > 0) {
+                selQuestion = [self.returnsDetail.question_type firstObject];
+                cell.clickStr = selQuestion.content;
+            }
         }
         cell.tags = tagsArray;
         cell.wenTiBiaoQianSelBlock = ^(NSArray *tagsIndex){
@@ -265,7 +270,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:3];
     MLXuanZeTuPianTableViewCell *cell  =[self.tableView cellForRowAtIndexPath:index];
-    if (cell.imgsArray.count > 0) {
+    if (cell.imgsArray.count > 1) {
         __block  NSInteger already = 0;
         __block  NSInteger uploadCount = cell.imgsArray.count - 1;
         [cell.imgsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -274,7 +279,7 @@
                     already ++;
                     [self.imgsUrlArray addObject:obj];
                     if (already == uploadCount) { //图片上传完成  请求退货操作
-                        [self submitTuihuoAction];
+                        [self submitTuihuoActionWithPic:YES];
                         
                     }
                 }
@@ -292,8 +297,7 @@
                             [self.imgsUrlArray addObject:url];
                             already++;
                             if (already == uploadCount) { //图片上传完成  请求退货操作
-                                [self submitTuihuoAction];
-                                
+                                [self submitTuihuoActionWithPic:YES];
                             }
                         }else{//上传失败就跳过 少传一张
                             uploadCount -- ;
@@ -307,15 +311,15 @@
             }
         }];
     }else{
-        [MBProgressHUD showMessag:@"请选择图片" toView:self.view];
+        [self submitTuihuoActionWithPic:NO];
     }
 
 }
 
-- (void)submitTuihuoAction{
+- (void)submitTuihuoActionWithPic:(BOOL)isUpImage{
    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=save_return",MATROJP_BASE_URL];
-    NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":selQuestion.ID,@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"pic":[self.imgsUrlArray componentsJoinedByString:@","]};
+    NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":selQuestion.ID,@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"pic":isUpImage?[self.imgsUrlArray componentsJoinedByString:@","]:@""};
     [MLHttpManager post:url params:params m:@"return" s:@"save_return" success:^(id responseObject) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
@@ -360,6 +364,7 @@
             for (int i = 0; i<self.returnsDetail.question_type.count; i++) {
                 MLReturnsQuestiontype *q = self.returnsDetail.question_type[i];
                 [tmp addObject:q.content];
+
             }
             tagsArray = [tmp copy];
             [self.tableView reloadData];
@@ -390,15 +395,7 @@
             [MBProgressHUD showMessag:@"请输入问题描述" toView:self.view];
             return NO;
         }else{
-            NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:3];
-            MLXuanZeTuPianTableViewCell *cell  =[self.tableView cellForRowAtIndexPath:index];
-            if (cell.imgsArray.count == 1) {//请上传问题图片
-                [MBProgressHUD showMessag:@"请上传图片" toView:self.view];
-                return NO;
-            }
-            else{
-                return YES;
-            }
+            return YES;
         }
     }
     return NO;

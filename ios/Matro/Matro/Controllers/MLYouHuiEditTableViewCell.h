@@ -11,6 +11,7 @@
 
 
 typedef void(^YouHuiEditBlock)();
+typedef void(^YouHuiWarningBlock)();
 
 #define kYouHuiEditTableViewCell @"youHuiEditTableViewCell"
 @interface MLYouHuiEditTableViewCell : UITableViewCell <UITextFieldDelegate>
@@ -22,6 +23,7 @@ typedef void(^YouHuiEditBlock)();
 @property (nonatomic,copy)YouHuiEditBlock changeBlock;
 @property (nonatomic,strong)MLYouHuiQuanModel *youHuiQuan;
 @property (nonatomic,strong)MLOrderCartModel *cartModel;
+@property (nonatomic,copy)YouHuiWarningBlock youhuiWarning;
 
 
 

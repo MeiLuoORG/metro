@@ -94,7 +94,6 @@
     if (self.imgsArray.count > 0) {
         __block  NSInteger already = 0;
         __block  NSInteger uploadCount = self.imgsArray.count;
-        
         [self.imgsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 UIImage *img = (UIImage *)obj;
             NSData *imgData = UIImageJPEGRepresentation(img, 0.3);
@@ -110,7 +109,7 @@
                     [self.imgUrlArray addObject:url];
                     already++;
                     if (already == uploadCount) { //图片上传完成  请求退货操作
-                        [self uploadCommentInfo];
+                        [self uploadCommentInfoWithUpImage:YES];
                     }
                 }else{//上传失败就跳过 少传一张
                     uploadCount -- ;
@@ -121,19 +120,15 @@
             }];
         }];
     }else{
-        [MBProgressHUD showMessag:@"请选择图片" toView:self.view];
+        [self uploadCommentInfoWithUpImage:NO];
     }
     
 
 }
 
-- (void)uploadCommentInfo{
-    NSMutableString *str = [NSMutableString string];
-    for (NSString *url in self.imgUrlArray) {
-        [str appendFormat:@"%@,",url];
-    }
+- (void)uploadCommentInfoWithUpImage:(BOOL)isUpImage{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSDictionary *params = @{@"pid":self.pid,@"comment_text":self.headView.textView.text,@"stars":[NSNumber numberWithInteger:self.comScore],@"pic":str,@"order_id":self.order_id?:@""};
+    NSDictionary *params = @{@"pid":self.pid,@"comment_text":self.headView.textView.text,@"stars":[NSNumber numberWithInteger:self.comScore],@"pic":isUpImage?[self.imgUrlArray componentsJoinedByString:@","]:@"",@"order_id":self.order_id?:@""};
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=product_submit",MATROJP_BASE_URL];
     [MLHttpManager post:url params:params m:@"product" s:@"comment_submit" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];

@@ -51,8 +51,11 @@
         if ([btn.titleLabel.text isEqualToString:@"使用"]) {//点击使用的时候事件
             
             float useMoney = [self.editField.text floatValue];
-            if (useMoney > self.cartModel.realYouHuiQuan) {
-                useMoney = self.cartModel.realYouHuiQuan;
+            if (useMoney > self.cartModel.realYouHuiQuan) {//如果超过 直接提示错误 退出
+                if (self.youhuiWarning) {
+                    self.youhuiWarning();
+                }
+                return;
             }
             
             if (useMoney <= self.youHuiQuan.payable ) { //小于等于可支付金额时

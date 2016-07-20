@@ -117,6 +117,11 @@
             weakself.useClick();
         }
     };
+    cell.youhuiWarning = ^(){
+        if (weakself.warningBlock) {
+            self.warningBlock();
+        }
+    };
     return cell;
 }
 

@@ -12,6 +12,7 @@
 
 
 typedef void(^UseClick)();
+typedef void(^WarningBlock)();
 @interface MLOrderYouHuiTableViewCell : UITableViewCell
 
 @property (nonatomic,strong)UILabel *titleLabel;
@@ -21,6 +22,7 @@ typedef void(^UseClick)();
 @property (nonatomic,strong)MLOrderCartModel *cart;
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,copy)UseClick useClick;
+@property (nonatomic,copy)WarningBlock warningBlock;
 
 
 
