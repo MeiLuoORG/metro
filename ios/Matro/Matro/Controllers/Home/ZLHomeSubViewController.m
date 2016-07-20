@@ -36,7 +36,7 @@
 }
 
 - (void)loadWebView{
-    self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-49.0-40.0)];
+    self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-49.0-60.0)];
     self.webView.delegate = self;
     self.webView.scrollView.delegate = self;
     [self.view addSubview:self.webView];

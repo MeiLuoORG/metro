@@ -255,11 +255,11 @@ static NSInteger page = 1;
     if (_isCardView) {
         page = 1;
         [_collectionView reloadData];
-        [self getGoodsList];
+        //[self getGoodsList];
 //        [_collectionView.header beginRefreshing];
     } else {
         page = 1;
-        [self getGoodsList];
+        //[self getGoodsList];
       //  [_tableView.header beginRefreshing];
         
     }

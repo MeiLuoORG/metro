@@ -35,6 +35,7 @@
 #import "MLShopInfoViewController.h"
 #import "CommonHeader.h"
 #import "MLHttpManager.h"
+#import "MLActiveWebViewController.h"
 
 #define HEADER_IDENTIFIER @"MLClassHeader"//第二大类用tableview的header来显示
 #define CCELL_IDENTIFIER @"MLClassCollectionViewCell"//第三大类用tableview的cell来显示
@@ -124,6 +125,7 @@
     NSLog(@"actimageDic1111===%@",actimageArr);
     if (actimageArr.count >0) {
         NSDictionary *tempDic = actimageArr[0];
+        
         NSString *ggtype = tempDic[@"ggtype"];
         NSString *ggv = tempDic[@"ggv"];
         if ([ggtype isEqualToString:@"1"]) {
@@ -149,6 +151,11 @@
             
         }else if([ggtype isEqualToString:@"4"]){
             
+            MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
+            vc.title = @"热门活动";
+            vc.link = ggv;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
             
         }else if([ggtype isEqualToString:@"5"]){
             
@@ -158,6 +165,15 @@
             vc.uid = ggv;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
+            
+        }else if([ggtype isEqualToString:@"9"]){
+            //频道
+//            MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
+//            NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
+//            vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",DianPuURL_URLString,ggv,phone];
+//            vc.uid = ggv;
+//            vc.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
             
         }
     }else{
@@ -440,7 +456,9 @@
         float height = width;
         return (height*i + 5*i - 5);
     }
-    MLSecondClass * secondClass = _classSecondArray[tableView.tag];
+    
+   // MLSecondClass * secondClass = _classSecondArray[tableView.tag];
+    MLSecondClass * secondClass = _classSecondArray[indexPath.section];
     long int count = secondClass.ThreeClassificationList.count;
     NSLog(@"count===%ld",count);
     long int i;
@@ -479,10 +497,11 @@
     headerView.commentLab.font = font;
 
     if (section == _classSecondArray.count) {
-        
-        headerView.secondTitle.text = [NSString stringWithFormat:@"%@",brandDic[@"mc"]];
-        
-        
+        if (![brandDic isKindOfClass:[NSString class]] && !brandDic[@"mc"]) {
+            
+            headerView.secondTitle.text = [NSString stringWithFormat:@"%@",brandDic[@"mc"]];
+        }
+
     }else{
         
         MLSecondClass *headerClass = _classSecondArray[section];

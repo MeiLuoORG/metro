@@ -107,40 +107,8 @@
         
         self.checkBox.cartSelected = _shopingCart.select_All;
         self.youhuiBtn.hidden = !(_shopingCart.dpyhq.count>0);
+
         self.titleLabel.text = [NSString stringWithFormat:@"%@ ",_shopingCart.company];
-//        NSString *way = nil;
-//        switch (_shopingCart.way) {
-//            case 1:
-//            {
-//                way = @"海外直邮";
-//            }
-//                break;
-//            case 2:
-//            {
-//                way = @"跨境购";
-//            }
-//                break;
-//            case 3:
-//            {
-//                way = @"一般贸易";
-//                
-//            }
-//                break;
-//            default:
-//                break;
-//        }
-//        NSString *warehouse = nil;
-//        if (_shopingCart.warehouse_nickname.length > 0) {
-//            warehouse = [NSString stringWithFormat:@"【%@】",_shopingCart.warehouse_nickname];
-//        }else{
-//            warehouse = @"";
-//        }
-//        if (IS_IPHONE_5 || IS_IPHONE_4_OR_LESS) {
-//            
-//        }else{
-//            self.titleLabel.text = [NSString stringWithFormat:@"%@【%@】%@",_shopingCart.company,way,warehouse];
-//        }
-        
 
     }
 }

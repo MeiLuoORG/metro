@@ -160,11 +160,11 @@ static NSInteger page = 1;
     searchText.placeholder = @"搜索店内的商品";
     searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
     
-    /*
+    
     if (_searchString) {
         searchText.text = _searchString;
     }
-    */
+    
     
     if (_filterParam) {
         searchText.text = _filterParam[@"keyword"];
@@ -265,12 +265,12 @@ static NSInteger page = 1;
 -(void)reloadData {
     if (_isCardView) {
         page = 1;
-        [self getGoodsList];
+      //  [self getGoodsList];
         [_collectionView reloadData];
 //        [_collectionView.header beginRefreshing];
     } else {
         page = 1;
-        [self getGoodsList];
+       // [self getGoodsList];
 //        [_tableView.header beginRefreshing];
     }
 }
