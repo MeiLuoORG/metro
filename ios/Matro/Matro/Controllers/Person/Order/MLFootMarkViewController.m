@@ -109,10 +109,8 @@
                 [self.dataSource removeAllObjects];
                 [self.tableView reloadData];
                 [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
-                self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
-                    weakself.tabBarController.selectedIndex = 1;
-                    [weakself.navigationController popToRootViewControllerAnimated:YES];
-                    
+                self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType curtype){
+                    weakself.tabBarController.selectedIndex = 0;
                 };
             }
         }
@@ -158,8 +156,6 @@
      */
 }
 
-
-
 #pragma mark TableView Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -170,14 +166,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
      MLFootTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MLFootTableViewCell" forIndexPath:indexPath];
-    /*
-    cell.footMarkAddCartBlock = ^(){
-        NSLog(@"加入购物车操作");
-    };
-    cell.footMarkDeleteBlock = ^(){
-        NSLog(@"删除足迹操作");
-    };*/
-     
+    
     MLFootModel *tempDic = self.dataSource[indexPath.row];
     cell.pname.text = tempDic.pname;
     cell.price.text = [NSString stringWithFormat:@"￥%@",tempDic.price];
@@ -193,7 +182,6 @@
     }else{
         cell.pimage.image = [UIImage imageNamed:@"icon_default"];
     }
-    
     
     return cell;
 }
@@ -213,6 +201,7 @@
 
 - (void)removeAll:(id)sender{
     NSLog(@"删除所有");
+    __weak typeof(self) weakself = self;
     
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail_footprint&action=del_footprint",MATROJP_BASE_URL];
     [MLHttpManager get:str params:nil m:@"product" s:@"detail_footprint" success:^(id responseObject) {
@@ -227,8 +216,9 @@
     [self.view configBlankPage:EaseBlankPageTypeLiuLan hasData:(self.dataSource.count>0)];
     self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
         NSLog(@"浏览足迹的去逛逛");
-        
+        weakself.tabBarController.selectedIndex = 0;
     };
+    
 }
 
 

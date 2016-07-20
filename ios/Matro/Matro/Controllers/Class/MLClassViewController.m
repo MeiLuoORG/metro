@@ -454,7 +454,7 @@
   
         float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
         float height = width;
-        return (height*i + 5*i - 5);
+        return (height*i + 5*i + 10);
     }
     
    // MLSecondClass * secondClass = _classSecondArray[tableView.tag];
@@ -471,7 +471,7 @@
 
     float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
     float height = width ;
-    return (height*i + 5*i);
+    return (height*i + 5*i + 5);
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -497,7 +497,7 @@
     headerView.commentLab.font = font;
 
     if (section == _classSecondArray.count) {
-        if (![brandDic isKindOfClass:[NSString class]] && !brandDic[@"mc"]) {
+        if (![brandDic isKindOfClass:[NSString class]] && ![brandDic[@"mc"]isEqualToString:@""]) {
             
             headerView.secondTitle.text = [NSString stringWithFormat:@"%@",brandDic[@"mc"]];
         }

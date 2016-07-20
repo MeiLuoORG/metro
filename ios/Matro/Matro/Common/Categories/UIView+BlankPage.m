@@ -220,17 +220,20 @@ static char  BlankPageViewKey;
             case EaseBlankPageTypeShouCang:{
                 actionBtn.hidden = YES;
                 //titleStr=@"去逛逛";
+                break;
             }
-                 break;
+                
             case EaseBlankPageTypeShouCangstore:{
                 actionBtn.hidden = YES;
                 //titleStr=@"去逛逛";
-            }
                 break;
+            }
+                
             case EaseBlankPageTypeLiuLan:{
                 titleStr=@"去逛逛";
-            }
                 break;
+            }
+               
             case EaseBlankPageTypeGouWuDai:{
                 
                 titleStr=@"去逛逛";
