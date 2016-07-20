@@ -72,7 +72,7 @@ static NSInteger pageIndex = 1;
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self getOrderDataSource];
     }];
-    
+    [self.view configBlankPage:EaseBlankPageTypeTuihuo hasData:(self.orderList.count>0)];
     pageIndex = 1 ;
     [self getOrderDataSource];
 

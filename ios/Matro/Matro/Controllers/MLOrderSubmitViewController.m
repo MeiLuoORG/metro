@@ -208,7 +208,6 @@ static BOOL idCardOk = NO;
         }
         return 0;
     }
-
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
