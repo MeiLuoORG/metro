@@ -11,7 +11,7 @@
 
 
 typedef void(^YouHuiEditBlock)();
-typedef void(^YouHuiWarningBlock)();
+typedef void(^YouHuiWarningBlock)(NSString*);
 
 #define kYouHuiEditTableViewCell @"youHuiEditTableViewCell"
 @interface MLYouHuiEditTableViewCell : UITableViewCell <UITextFieldDelegate>

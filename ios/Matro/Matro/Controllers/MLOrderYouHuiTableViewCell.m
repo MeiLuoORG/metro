@@ -117,20 +117,15 @@
             weakself.useClick();
         }
     };
-    cell.youhuiWarning = ^(){
+    cell.youhuiWarning = ^(NSString *msg){
         if (weakself.warningBlock) {
-            self.warningBlock();
+            self.warningBlock(msg);
         }
     };
     return cell;
 }
 
-//- (void)setDataSource:(NSArray *)dataSource{
-//    if (_dataSource != dataSource) {
-//        _dataSource = dataSource;
-//        [self.tableView reloadData];
-//    }
-//}
+
 
 - (void)setCart:(MLOrderCartModel *)cart{
     if (_cart != cart) {

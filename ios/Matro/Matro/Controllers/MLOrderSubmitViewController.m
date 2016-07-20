@@ -368,7 +368,7 @@ static BOOL idCardOk = NO;
                     cell.subLabel.text = [NSString stringWithFormat:@"%li张可用",cart.yhqdata.count];
                     if (cart.canOpenYouHui) { //有优惠券要使用的情况
                         if (cart.youhuiMoney > 0 ) {
-                            cell.rightLabel.text = [NSString stringWithFormat:@"-￥%.1f",cart.youhuiMoney];
+                            cell.rightLabel.text = [NSString stringWithFormat:@"-￥%.2f",cart.youhuiMoney];
                             cell.rightLabel.textColor = RGBA(255, 78, 38, 1);
                         }
                         else{
@@ -385,8 +385,8 @@ static BOOL idCardOk = NO;
                         [self.tableView reloadData];
                         [self refreshHeadView];
                     };
-                    cell.warningBlock = ^(){
-                        [MBProgressHUD showMessag:@"优惠券金额不能超过商品总额" toView:self.view];
+                    cell.warningBlock = ^(NSString *msg){
+                        [MBProgressHUD showMessag:msg toView:self.view];
                     };
                     cell.cart = cart;
                     return cell;

@@ -12,7 +12,7 @@
 
 
 typedef void(^UseClick)();
-typedef void(^WarningBlock)();
+typedef void(^WarningBlock)(NSString*);
 @interface MLOrderYouHuiTableViewCell : UITableViewCell
 
 @property (nonatomic,strong)UILabel *titleLabel;

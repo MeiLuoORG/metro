@@ -31,11 +31,11 @@
 - (void)setYouHuiQuan:(MLYouHuiQuanModel *)youHuiQuan{
     if (_youHuiQuan != youHuiQuan) {
         _youHuiQuan = youHuiQuan;
-        NSString *attr =[NSString stringWithFormat:@"<font size=\"14\"><color value=\"#999999\">可用余额</><color value=\"#FF4E25\">￥%.1f</></>",_youHuiQuan.payable];
+        NSString *attr =[NSString stringWithFormat:@"<font size=\"14\"><color value=\"#999999\">可用余额</><color value=\"#FF4E25\">￥%.2f</></>",_youHuiQuan.payable];
         self.yuLabel.attributedText = [attr createAttributedString];
         self.nameLabel.text = _youHuiQuan.name;
         if (_youHuiQuan.useSum > 0) {
-           self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",_youHuiQuan.useSum];
+           self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_youHuiQuan.useSum];
         }else{
             self.editField.text = @""; //清空之前输入的金额
             self.editField.hidden= NO;
@@ -50,20 +50,38 @@
     UIButton *btn = (UIButton *)sender;
         if ([btn.titleLabel.text isEqualToString:@"使用"]) {//点击使用的时候事件
             
-            float useMoney = [self.editField.text floatValue];
-            if (useMoney > self.cartModel.realYouHuiQuan) {//如果超过 直接提示错误 退出
+            if( ![self isPureFloat:self.editField.text]){
                 if (self.youhuiWarning) {
-                    self.youhuiWarning();
+                    self.youhuiWarning(@"含非法字符，请输入数字");
                 }
                 return;
             }
             
+            float useMoney = [self.editField.text floatValue];
+            
+            
             if (useMoney <= self.youHuiQuan.payable ) { //小于等于可支付金额时
-                    self.youHuiQuan.useSum = useMoney;
-                }else{ //大于余额时点击使用的情况
-                    self.youHuiQuan.useSum = self.youHuiQuan.payable;
+                self.youHuiQuan.useSum = useMoney;
+            }else{ //大于余额时点击使用的情况;
+                if (self.youhuiWarning) {
+                    self.youhuiWarning(@"不能超过优惠券使用金额");
                 }
-                self.priceLabel.text = [NSString stringWithFormat:@"￥%.1f",_youHuiQuan.useSum];
+                return;
+            }
+            
+            if (useMoney > self.cartModel.realYouHuiQuan) {//如果超过 直接提示错误 退出
+                if (self.youhuiWarning) {
+                    self.youhuiWarning(@"优惠券金额不能超过商品金额");
+                }
+                return;
+            }
+            
+
+            
+
+            
+  
+                self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_youHuiQuan.useSum];
                 self.editField.hidden = YES;
                 [btn setTitle:@"取消" forState:UIControlStateNormal];
 
@@ -80,6 +98,29 @@
     }
 
 }
+
+//判断是否为整形：
+
+- (BOOL)isPureInt:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return[scan scanInt:&val] && [scan isAtEnd];
+}
+
+//判断是否为浮点形：
+
+- (BOOL)isPureFloat:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    float val;
+    return[scan scanFloat:&val] && [scan isAtEnd];
+}
+
+//if( )
+//{
+//    resultLabel.textColor = [UIColor redColor];
+//    resultLabel.text = @"警告:含非法字符，请输入纯数字！";
+//    return;
+//}
 
 
 
