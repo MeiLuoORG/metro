@@ -385,7 +385,6 @@ static BOOL idCardOk = NO;
                         [self.tableView reloadData];
                         [self refreshHeadView];
                     };
-//                    cell.dataSource = cart.yhqdata;
                     cell.cart = cart;
                     return cell;
                 }
@@ -422,6 +421,9 @@ static BOOL idCardOk = NO;
         case 0:
         {
             if (indexPath.row == 0) {
+                return 40;
+            }
+            if (cart.isMore && !cart.isOpen && indexPath.row == 3) { // 有更多
                 return 40;
             }
             return 125;

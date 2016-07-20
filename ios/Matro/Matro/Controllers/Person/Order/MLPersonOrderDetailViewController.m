@@ -31,6 +31,7 @@
 #import "MLPersonAlertViewController.h"
 #import "MLLogisticsModel.h"
 #import "MLGoodsDetailsViewController.h"
+#import "MLMoreTableViewCell.h"
 
 
 
@@ -65,6 +66,7 @@
         [tableView registerNib:[UINib nibWithNibName:@"MLZTextTableViewCell" bundle:nil] forCellReuseIdentifier:kZTextTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderInfoHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderInfoHeaderTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderCenterTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderCenterTableViewCell];
+        [tableView registerNib:[UINib nibWithNibName:@"MLMoreTableViewCell" bundle:nil] forCellReuseIdentifier:@"MoreCell"];
         
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:tableView];
@@ -327,6 +329,9 @@
         return 1;
     }
     else if (section == 3){
+        if (self.orderDetail.isMore && !self.orderDetail.isOpen) {
+            return 4;
+        }
         return self.orderDetail.product.count+1;
     }
     else if (section == 4){
@@ -375,7 +380,8 @@
             cell.timeLabel.text = logisticModel.time;
             cell.contentView.hidden = !(self.orderDetail.deliver_name.length>0 && self.orderDetail.deliver_code.length > 0);
             
-        }else{
+        }
+        else{
             cell.tisLabel.text = @"订单已通过审核，仓库配送中.....";
             NSDate *time = [NSDate dateWithTimeIntervalSince1970:self.orderDetail.deliver_time];
             NSDateFormatter *fm = [[NSDateFormatter alloc]init];
@@ -398,7 +404,18 @@
             cell.statusLabel.hidden = YES;
 
             return cell;
+        }else if(self.orderDetail.isMore && !self.orderDetail.isOpen && indexPath.row == 3) //有更多的情况
+        {
+            MLMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MoreCell" forIndexPath:indexPath];
+            
+            [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%lu件",self.orderDetail.product.count - 2] forState:UIControlStateNormal];
+            cell.moreActionBlock = ^(){
+                self.orderDetail.isOpen = YES;
+                [self.tableView reloadData];
+            };
+            return cell;
         }
+        
         else{
             MLOrderCenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
             MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:indexPath.row-1];
@@ -539,6 +556,8 @@
     }
     else if (indexPath.section == 3){
         if (indexPath.row == 0) {
+            return 44;
+        }else if (self.orderDetail.isMore && !self.orderDetail.isOpen && indexPath.row == 3){
             return 44;
         }
         return 134;
