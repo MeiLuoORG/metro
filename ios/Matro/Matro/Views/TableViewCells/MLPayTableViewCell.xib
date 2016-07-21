@@ -30,7 +30,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhifubao-1" translatesAutoresizingMaskIntoConstraints="NO" id="pZI-fY-bbp">
                         <rect key="frame" x="12" y="11" width="27" height="22"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="闪付" translatesAutoresizingMaskIntoConstraints="NO" id="zwx-Mu-BEN">
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="闪付" translatesAutoresizingMaskIntoConstraints="NO" id="zwx-Mu-BEN">
                         <rect key="frame" x="128" y="14" width="56" height="16"/>
                     </imageView>
                 </subviews>

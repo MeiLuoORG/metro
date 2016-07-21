@@ -223,6 +223,8 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
             MLPayViewController *vc = [[MLPayViewController alloc]init];
             vc.order_id = order.order_id;
             vc.order_sum = order.order_price;
+            vc.isGlobal = (order.way == 2);
+            
             [weakself.navigationController pushViewController:vc animated:YES];
         };
         cell.leftKanTuiHuo = ^(){

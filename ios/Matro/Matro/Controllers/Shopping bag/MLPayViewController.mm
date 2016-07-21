@@ -75,11 +75,11 @@
     [_payTitleArray addObject:@"银联支付"];
     [_payImageArray addObject:@"yinglian"];
     
-    // 暂时隐藏
-    if([PKPaymentAuthorizationViewController canMakePayments]) {
-        [_payTitleArray addObject:@"Apple Pay"];
-        [_payImageArray addObject:@"apple_pay"];
-    }
+// 暂时隐藏
+//    if([PKPaymentAuthorizationViewController canMakePayments]) {
+//        [_payTitleArray addObject:@"Apple Pay"];
+//        [_payImageArray addObject:@"apple_pay"];
+//    }
     
     
     _tableView.tableFooterView = [[UIView alloc]init];
@@ -182,11 +182,12 @@
     }
     cell.payImageView.image = [UIImage imageNamed:_payImageArray[indexPath.row]];
     cell.payLabel.text = _payTitleArray[indexPath.row];
-    if (indexPath.row == _payImageArray.count - 1) {
-        cell.appleImage.hidden = NO;
-    }else{
-        cell.appleImage.hidden = YES;
-    }
+    
+//    if (indexPath.row == _payImageArray.count - 1) {
+//        cell.appleImage.hidden = NO;
+//    }else{
+//        cell.appleImage.hidden = YES;
+//    }
     return cell;
 }
 
@@ -208,6 +209,7 @@
                 [self wxPayPost];
             }
             else{
+                [self hideFengHuoLun];
                 [MBProgressHUD showMessag:@"请安装微信" toView:self.view];
                 /*
                 _hud.mode = MBProgressHUDModeText;
@@ -246,22 +248,20 @@
     NSDictionary * ret = @{@"order_id":self.order_id,@"payment_type":@"alipay"};
     [MLHttpManager post:ZhiFu_LIUSHUI_URLString params:ret m:@"product" s:@"pay" success:^(id responseObject) {
         NSDictionary * results = (NSDictionary *)responseObject;
-        NSLog(@"请求订单流水：%@",results);
+//        NSLog(@"请求订单流水：%@",results);
         if ([results[@"code"] isEqual:@0]) {
             NSDictionary *dic = @{@"out_trade_no":self.order_id,
                                   @"subject":@"美罗全球精品购",
                                   @"body":@"美罗全球精品购",
                                   @"total_fee":[NSString stringWithFormat:@"%.2f",self.order_sum]
                                   };
-            
-            
             [[HFSServiceClient sharedPayClient] POST:ALIPAY_SERVICE_URL parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 NSDictionary *result = (NSDictionary *)responseObject;
                 NSLog(@"支付宝支付result %@",result);
+
                 [self hideFengHuoLun];
                 if (result) {
-                    
                     AliPayOrder *order = [[AliPayOrder alloc] init];
                     order.partner = result[@"partner"];
                     order.seller = result[@"seller_id"];

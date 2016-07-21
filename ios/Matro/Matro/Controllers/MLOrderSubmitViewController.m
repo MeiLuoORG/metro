@@ -261,7 +261,7 @@ static BOOL idCardOk = NO;
         }else{
             MLOrderSubFaPiaoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderSubFaPiaoTableViewCell forIndexPath:indexPath];
             cell.shifouKai = self.order_info.fapiao;
-             cell.company.text = [NSString stringWithFormat:@"%@-%@",self.order_info.geren?@"个人":@"公司",self.order_info.geren?@"明细":self.order_info.mingxi];
+             cell.company.text = [NSString stringWithFormat:@"%@-%@",self.order_info.geren?@"个人":self.order_info.mingxi,@"明细"];
             return cell;
             
         }
@@ -578,6 +578,8 @@ static BOOL idCardOk = NO;
                     MLPayViewController *vc = [[MLPayViewController alloc]init];
                     vc.order_id = order_id;
                     vc.order_sum = self.order_info.realPrice;
+                    vc.isGlobal = self.order_info.isHaveHaiWai;
+                    
                     [self.navigationController pushViewController:vc animated:YES];
                 }else{
                     [self.tabBarController setSelectedIndex:3];

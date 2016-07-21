@@ -92,6 +92,7 @@
                     MLPayViewController *vc = [[MLPayViewController alloc]init];
                     vc.order_id = self.order_id;
                     vc.order_sum = self.orderDetail.order_price;
+                    vc.isGlobal = (self.orderDetail.way == 2);
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                     break;
