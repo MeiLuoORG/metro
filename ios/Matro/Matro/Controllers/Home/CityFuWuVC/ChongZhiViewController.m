@@ -148,12 +148,48 @@
     [MLHttpManager post:SHOUJI_CHONGZHI_CHAXUN_URLString params:ret m:@"recharge" s:@"phone_recharge" success:^(id responseObject) {
         NSLog(@"手机充值查询：%@",responseObject);
         NSDictionary * result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary * dataDic = result[@"data"];
+            if ([dataDic[@"shop_delall"] isKindOfClass:[NSArray class]]) {
+                
+                [_phoneJiaGeARR addObjectsFromArray:dataDic[@"shop_delall"]];
+                
+                [self updataView];
+            }
+        }
         
     } failure:^(NSError *error) {
         NSLog(@"手机充值查询错误：%@",error);
     }];
     
     
+}
+
+- (void)updataView{
+
+    for (int i = 0; i< _phoneJiaGeARR.count; i++) {
+        if (i == 0) {
+            
+        }
+        if (i == 1) {
+            
+        }
+        if (i == 2) {
+            
+        }
+        if (i == 3) {
+            
+        }
+        if (i == 4) {
+            
+        }
+        if (i == 5) {
+            
+        }
+        
+    }
+
+
 }
 
 /*

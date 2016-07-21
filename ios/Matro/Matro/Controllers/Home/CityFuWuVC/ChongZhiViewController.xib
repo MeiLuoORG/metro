@@ -69,13 +69,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xug-Jh-Tkp" customClass="UIControl">
                             <rect key="frame" x="10" y="0.0" width="115" height="75"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="售价:10.00元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cyD-Vg-vKd">
-                                    <rect key="frame" x="0.0" y="37" width="115" height="11"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                                    <color key="textColor" red="0.75686274509803919" green="0.63921568627450975" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JJi-kS-wej">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JJi-kS-wej">
                                     <rect key="frame" x="0.0" y="15" width="115" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="uz5-sj-0Ma"/>
@@ -84,10 +78,17 @@
                                     <color key="textColor" red="0.75686274509803919" green="0.63921568627450975" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="售价:10.00元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cyD-Vg-vKd">
+                                    <rect key="frame" x="0.0" y="37" width="115" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                    <color key="textColor" red="0.75686274509803919" green="0.63921568627450975" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="JJi-kS-wej" firstAttribute="width" secondItem="Xug-Jh-Tkp" secondAttribute="width" id="2Dd-L0-yd2"/>
+                                <constraint firstAttribute="bottom" secondItem="cyD-Vg-vKd" secondAttribute="bottom" constant="17" id="2Gy-Wd-9LH"/>
                                 <constraint firstItem="cyD-Vg-vKd" firstAttribute="centerX" secondItem="Xug-Jh-Tkp" secondAttribute="centerX" id="5Hu-Da-xGU"/>
                                 <constraint firstItem="JJi-kS-wej" firstAttribute="top" secondItem="Xug-Jh-Tkp" secondAttribute="top" constant="15" id="FBU-04-iSz"/>
                                 <constraint firstItem="JJi-kS-wej" firstAttribute="leading" secondItem="Xug-Jh-Tkp" secondAttribute="leading" id="Iff-l2-htq"/>
@@ -116,7 +117,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LYG-lR-DUw" customClass="UIControl">
                             <rect key="frame" x="130" y="0.0" width="115" height="75"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="20元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WLP-Ue-UPs">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="50元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WLP-Ue-UPs">
                                     <rect key="frame" x="36" y="15" width="42" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="fNU-J9-fwH"/>
@@ -157,7 +158,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ivm-uv-vKx" customClass="UIControl">
                             <rect key="frame" x="250" y="0.0" width="115" height="75"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="30元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cru-n5-hyo">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="100元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cru-n5-hyo">
                                     <rect key="frame" x="36" y="15" width="42" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="i60-JZ-joO"/>
@@ -230,7 +231,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gv-vN-fWa" customClass="UIControl">
                             <rect key="frame" x="10" y="0.0" width="115" height="75"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="50元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dFq-3j-blf">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="200元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dFq-3j-blf">
                                     <rect key="frame" x="36" y="15" width="42" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="nJy-2t-DcN"/>
@@ -249,6 +250,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="dFq-3j-blf" firstAttribute="top" secondItem="0gv-vN-fWa" secondAttribute="top" constant="15" id="9e2-pC-tt9"/>
+                                <constraint firstAttribute="bottom" secondItem="aDR-ZN-fLD" secondAttribute="bottom" constant="17" id="KXr-E6-C0s"/>
                                 <constraint firstItem="aDR-ZN-fLD" firstAttribute="top" secondItem="dFq-3j-blf" secondAttribute="bottom" constant="1" id="Tbn-Uz-yuo"/>
                                 <constraint firstItem="dFq-3j-blf" firstAttribute="width" secondItem="0gv-vN-fWa" secondAttribute="width" id="f8g-Pa-PTM"/>
                                 <constraint firstItem="aDR-ZN-fLD" firstAttribute="width" secondItem="dFq-3j-blf" secondAttribute="width" id="gTj-7k-qd2"/>
@@ -263,7 +265,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nYa-5T-9Lx" customClass="UIControl">
                             <rect key="frame" x="130" y="0.0" width="115" height="75"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="100元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hec-fZ-ASW">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="300元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hec-fZ-ASW">
                                     <rect key="frame" x="36" y="15" width="42" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="8CL-eN-ReE"/>
@@ -304,7 +306,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Cp-YJ-L9A" customClass="UIControl">
                             <rect key="frame" x="250" y="0.0" width="115" height="75"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="300元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oXR-LD-lOs">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="500元" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oXR-LD-lOs">
                                     <rect key="frame" x="36" y="15" width="42" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="eR5-eN-sLz"/>
@@ -407,7 +409,7 @@
                     <exclude reference="xAp-aC-Xtl"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="670.5" y="262.5"/>
+            <point key="canvasLocation" x="750.5" y="299.5"/>
         </view>
     </objects>
     <resources>

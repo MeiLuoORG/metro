@@ -17,11 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-<<<<<<< Updated upstream
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lauchLoadzl" translatesAutoresizingMaskIntoConstraints="NO" id="t0j-dL-YUW">
-=======
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadinghome" highlightedImage="loadinghome" translatesAutoresizingMaskIntoConstraints="NO" id="t0j-dL-YUW">
->>>>>>> Stashed changes
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                             </imageView>
                         </subviews>
@@ -50,10 +46,6 @@
         </scene>
     </scenes>
     <resources>
-<<<<<<< Updated upstream
         <image name="lauchLoadzl" width="640" height="1080"/>
-=======
-        <image name="loadinghome" width="213" height="360"/>
->>>>>>> Stashed changes
     </resources>
 </document>

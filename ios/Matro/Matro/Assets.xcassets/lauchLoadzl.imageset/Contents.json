@@ -12,11 +12,10 @@
     },
     {
       "idiom" : "universal",
-<<<<<<< Updated upstream
+
       "filename" : "lauchLoadzl@3x.png",
-=======
-      "filename" : "lauchLoadzl@2x-1.png",
->>>>>>> Stashed changes
+
+
       "scale" : "3x"
     }
   ],
