@@ -67,13 +67,13 @@
 //        NSLog(@"请求订单流水：%@",results);
 //        if ([results[@"code"] isEqual:@0]) {
             NSDictionary *dic = @{@"out_trade_no":self.orderNum,
-                                  @"subject":@"美罗全球精品购",
-                                  @"body":@"美罗全球精品购",
+                                  @"subject":@"话费充值",
+                                  @"body":@"话费充值",
                                   @"total_fee":[NSString stringWithFormat:@"%.2f",self.jinE]
                                   };
             
             
-            [[HFSServiceClient sharedPayClient] POST:ALIPAY_SERVICE_URL parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [[HFSServiceClient sharedPayClient] POST:ALIPAY_HUAFEI_URL parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 NSDictionary *result = (NSDictionary *)responseObject;
                 NSLog(@"支付宝支付result %@",result);

@@ -59,6 +59,9 @@
 #define SERVICE_BASEPAY_URL @"http://pay.matrojp.com/PayCenter/"
 
 #define ALIPAY_SERVICE_URL      @"http://pay.matrojp.com/PayCenter/app/v200/alipay"
+//话费充值
+#define ALIPAY_HUAFEI_URL       ZHOULU_ML_CRM_URLString@"/PayCenter/app/v200/alipay/csfw"
+
 
 #define WXPAY_SERVICE_URL       @"http://pay.matrojp.com/PayCenter/app/v200/wxpay"
 #define UPPPAY_SERVICE_URL      @"http://pay.matrojp.com/PayCenter/app/v200/unionpay"

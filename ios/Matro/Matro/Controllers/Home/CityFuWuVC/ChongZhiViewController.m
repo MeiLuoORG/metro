@@ -19,7 +19,8 @@
     NSMutableArray * _buyJiaARR;
     NSMutableDictionary * _jiaGeDic;
     
-    NSMutableArray * _phoneJiaGeARR;
+    NSArray * _phoneJiaGeARR;
+    BOOL _isFinished;
 }
 
 @end
@@ -31,7 +32,7 @@
     _jiaGeDic = [[NSMutableDictionary alloc]init];
     _buyJiaARR = [[NSMutableArray alloc]initWithCapacity:6];
     _cardNumARRS = @[@"30",@"50",@"100",@"200",@"300",@"500"];
-    _phoneJiaGeARR = [[NSMutableArray alloc]init];
+    _phoneJiaGeARR = [[NSArray alloc]init];
     
     
     self.firstView.layer.borderWidth = 1.0f;
@@ -114,6 +115,9 @@
         */
         [self getPhoneInfo:self.phoneTextField.text];
     }
+    else{
+        _isFinished = NO;
+    }
     
 }
 
@@ -134,7 +138,9 @@
 
         
     }
-
+    else{
+        _isFinished = NO;
+    }
     
     
 }
@@ -152,9 +158,12 @@
             NSDictionary * dataDic = result[@"data"];
             if ([dataDic[@"shop_delall"] isKindOfClass:[NSArray class]]) {
                 
-                [_phoneJiaGeARR addObjectsFromArray:dataDic[@"shop_delall"]];
+                _phoneJiaGeARR = dataDic[@"shop_delall"];
+                if (_phoneJiaGeARR.count > 0) {
+                    [self updataView];
+                    _isFinished = YES;
+                }
                 
-                [self updataView];
             }
         }
         
@@ -169,22 +178,48 @@
 
     for (int i = 0; i< _phoneJiaGeARR.count; i++) {
         if (i == 0) {
-            
+            NSDictionary * dics = _phoneJiaGeARR[i];
+            NSString * type = dics[@"game_area"];
+            self.cardTypeLabel.text = type;
+            NSString * str = [NSString stringWithFormat:@"%g",[dics[@"real_price"] floatValue]];
+            //[_buyJiaARR addObject:str];
+            self.firstJiaGeLabel.text = [NSString stringWithFormat:@"售价:%@元",str];
+ 
         }
         if (i == 1) {
-            
+            NSDictionary * dics = _phoneJiaGeARR[i];
+            NSString * type = dics[@"game_area"];
+            self.cardTypeLabel.text = type;
+            NSString * str = [NSString stringWithFormat:@"%g",[dics[@"real_price"] floatValue]];
+            self.secondJiaGeLabel.text = [NSString stringWithFormat:@"售价:%@元",str];
         }
         if (i == 2) {
-            
+            NSDictionary * dics = _phoneJiaGeARR[i];
+            NSString * type = dics[@"game_area"];
+            self.cardTypeLabel.text = type;
+            NSString * str = [NSString stringWithFormat:@"%g",[dics[@"real_price"] floatValue]];
+            self.thirdJiaGeLabel.text = [NSString stringWithFormat:@"售价:%@元",str];
         }
         if (i == 3) {
-            
+            NSDictionary * dics = _phoneJiaGeARR[i];
+            NSString * type = dics[@"game_area"];
+            self.cardTypeLabel.text = type;
+            NSString * str = [NSString stringWithFormat:@"%g",[dics[@"real_price"] floatValue]];
+            self.fourJiaGeLabel.text = [NSString stringWithFormat:@"售价:%@元",str];
         }
         if (i == 4) {
-            
+            NSDictionary * dics = _phoneJiaGeARR[i];
+            NSString * type = dics[@"game_area"];
+            self.cardTypeLabel.text = type;
+            NSString * str = [NSString stringWithFormat:@"%g",[dics[@"real_price"] floatValue]];
+            self.fiveJiaGeLabel.text = [NSString stringWithFormat:@"售价:%@元",str];
         }
         if (i == 5) {
-            
+            NSDictionary * dics = _phoneJiaGeARR[i];
+            NSString * type = dics[@"game_area"];
+            self.cardTypeLabel.text = type;
+            NSString * str = [NSString stringWithFormat:@"%g",[dics[@"real_price"] floatValue]];
+            self.sixJiaGeLabel.text = [NSString stringWithFormat:@"售价:%@元",str];
         }
         
     }
@@ -196,7 +231,7 @@
 
  
  //手机充值 下单
- #define SHOUJI_CHONGZHI_XIADAN_URLString    ZHOULU_ML_BASE_URLString@"/api.php?m=recharge&s=phone_recharge&action=inorder"
+ #define SHOUJI_CHONGZHI_XIADAN_URLString    ZHOULU_ML_BASE_URLString@"/api.php?
  
  */
 
@@ -290,9 +325,12 @@
 - (IBAction)firstViewAction:(UIControl *)sender {
     NSLog(@"第一个");
     if ([self panDuanPhoneIsYesOrNO]) {
-        NSLog(@"实际充值金额：%@", _jiaGeDic[@"10"]);
-        [self someButtonClickedwithTitle:_jiaGeDic[@"10"]];
-        
+        if (_isFinished == YES) {
+            NSDictionary * dic = _phoneJiaGeARR[0];
+            NSString * price = dic[@"price"];
+            NSString * realPrice = dic[@"real_price"];
+            [self phoneXiaDan:price withRealPrice:realPrice];
+        }
     }
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
@@ -301,8 +339,13 @@
 - (IBAction)secondViewAction:(UIControl *)sender {
      NSLog(@"第2个");
     if ([self panDuanPhoneIsYesOrNO]) {
-        NSLog(@"实际充值金额：%@", _jiaGeDic[@"20"]);
-        [self someButtonClickedwithTitle:_jiaGeDic[@"20"]];
+        if (_isFinished == YES) {
+            NSDictionary * dic = _phoneJiaGeARR[1];
+            NSString * price = dic[@"price"];
+            NSString * realPrice = dic[@"real_price"];
+            [self phoneXiaDan:price withRealPrice:realPrice];
+        }
+
     }
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
@@ -311,8 +354,13 @@
 - (IBAction)thirdViewAction:(UIControl *)sender {
      NSLog(@"第3个");
     if ([self panDuanPhoneIsYesOrNO]) {
-        NSLog(@"实际充值金额：%@", _jiaGeDic[@"30"]);
-        [self someButtonClickedwithTitle:_jiaGeDic[@"30"]];
+        if (_isFinished == YES) {
+            NSDictionary * dic = _phoneJiaGeARR[2];
+            NSString * price = dic[@"price"];
+            NSString * realPrice = dic[@"real_price"];
+            [self phoneXiaDan:price withRealPrice:realPrice];
+        }
+
     }
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
@@ -321,8 +369,12 @@
 - (IBAction)fourViewAction:(UIControl *)sender {
      NSLog(@"第4个");
     if ([self panDuanPhoneIsYesOrNO]) {
-        NSLog(@"实际充值金额：%@", _jiaGeDic[@"50"]);
-        [self someButtonClickedwithTitle:_jiaGeDic[@"50"]];
+        if (_isFinished == YES) {
+            NSDictionary * dic = _phoneJiaGeARR[3];
+            NSString * price = dic[@"price"];
+            NSString * realPrice = dic[@"real_price"];
+            [self phoneXiaDan:price withRealPrice:realPrice];
+        }
     }
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
@@ -331,8 +383,12 @@
 - (IBAction)fiveViewAction:(UIControl *)sender {
      NSLog(@"第5个");
     if ([self panDuanPhoneIsYesOrNO]) {
-        NSLog(@"实际充值金额：%@", _jiaGeDic[@"100"]);
-        [self someButtonClickedwithTitle:_jiaGeDic[@"100"]];
+        if (_isFinished == YES) {
+            NSDictionary * dic = _phoneJiaGeARR[4];
+            NSString * price = dic[@"price"];
+            NSString * realPrice = dic[@"real_price"];
+            [self phoneXiaDan:price withRealPrice:realPrice];
+        }
     }
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
@@ -341,8 +397,12 @@
 - (IBAction)sixViewAction:(UIControl *)sender {
      NSLog(@"第6个");
     if ([self panDuanPhoneIsYesOrNO]) {
-        NSLog(@"实际充值金额：%@", _jiaGeDic[@"300"]);
-        [self someButtonClickedwithTitle:_jiaGeDic[@"300"]];
+        if (_isFinished == YES) {
+            NSDictionary * dic = _phoneJiaGeARR[5];
+            NSString * price = dic[@"price"];
+            NSString * realPrice = dic[@"real_price"];
+            [self phoneXiaDan:price withRealPrice:realPrice];
+        }
     }
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
@@ -356,6 +416,9 @@
     
     
 }
+
+
+
 - (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker didSelectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier {
     
     ABMultiValueRef valuesRef = ABRecordCopyValue(person, kABPersonPhoneProperty);
@@ -386,6 +449,42 @@
     return result;
 }
 
+//手机下单
+- (void)phoneXiaDan:(NSString *)price withRealPrice:(NSString *)realPrice{
+    //m=recharge&s=phone_recharge&action=inorder"
+    NSDictionary * ret = @{@"mobile":self.phoneTextField.text,@"price":price,@"real_price":realPrice};
+    
+    [MLHttpManager post:SHOUJI_CHONGZHI_XIADAN_URLString params:ret m:@"recharge" s:@"phone_recharge" success:^(id responseObject) {
+        NSDictionary * result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            NSLog(@"充值话费下单为：%@",result);
+            NSDictionary * dataDic = result[@"data"];
+            if([dataDic[@"res"] isKindOfClass:[NSDictionary class]]){
+                NSDictionary * res = dataDic[@"res"];
+                NSString * orderNum = res[@"out_trade_no"];
+                NSString * realPrice = res[@"total_fee"];
+                NSString * subject = res[@"subject"];
+                self.orderNum = orderNum;
+                self.orderPrice = [realPrice floatValue];
+                self.subject = subject;
+                
+                [self someButtonClickedwithTitle:nil];
+            }
+        }
+        else{
+        [MBProgressHUD showSuccess:REQUEST_ERROR_ZL toView:self.view];
+        
+        }
+        
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showSuccess:REQUEST_ERROR_ZL toView:self.view];
+    }];
+    
+
+
+}
+
 
 - (void)someButtonClickedwithTitle:(NSString *)titles {
     UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"请选择支付方式" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"支付宝" otherButtonTitles:nil,nil];
@@ -396,7 +495,7 @@
     NSLog(@"点击了第几个按钮result = %d", (int)buttonIndex);
     if(buttonIndex == 0){
 
-        NSLog(@"微信");
+        
      
         MLShouJiZhiViewController *vc = [[MLShouJiZhiViewController alloc]init];
         vc.view.backgroundColor = [UIColor clearColor];
@@ -410,7 +509,8 @@
         
         vc.type = 0;
         vc.jinE = 0.01;
-        vc.orderNum = [NSString stringWithFormat:@"%d",arc4random()%10000];
+        vc.orderNum = self.orderNum;
+        //[NSString stringWithFormat:@"%d",arc4random()%10000];
         NSLog(@"self.orderNum的值为：%@",vc.orderNum);
         [self presentViewController:vc  animated:NO completion:^(void)
          {

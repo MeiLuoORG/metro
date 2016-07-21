@@ -37,7 +37,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *sixJiaGeLabel;
 
 
-
+@property (assign, nonatomic) float  orderPrice;
+@property (strong, nonatomic) NSString * orderNum;
+@property (strong, nonatomic) NSString * subject;
 
 
 @end
