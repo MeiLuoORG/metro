@@ -42,7 +42,7 @@
     
     viewimage.center = CGPointMake(self.view.frame.size.width/2, CGRectGetMaxY(introduceLabel.frame)+95);
     
-    imageView.image = [QRCodeGenerator qrImageForString:@"https://itunes.apple.com/cn/app/su-zhou-mei-luo-jing-pin/id1112037018?mt=8" imageSize:imageView.bounds.size.width];
+    imageView.image = [QRCodeGenerator qrImageForString:@"http://www.matrojp.com/?m=webview&s=download" imageSize:imageView.bounds.size.width];
     
     [viewimage addSubview:imageView];
     [_scrollView addSubview:viewimage];
