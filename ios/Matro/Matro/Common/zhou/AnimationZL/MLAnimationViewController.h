@@ -8,6 +8,7 @@
 
 #import "MLBaseViewController.h"
 #import "YYAnimationIndicator.h"
+#import "CommonHeader.h"
 
 typedef void(^AnimationMLBlock)(BOOL success);
 

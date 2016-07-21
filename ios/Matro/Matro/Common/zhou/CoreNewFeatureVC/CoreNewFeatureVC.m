@@ -64,7 +64,8 @@ NSString *const NewFeatureVersionKey = @"NewFeatureVersionKey";
 -(void)saveVersion{
     
     //系统直接读取的版本号
-    NSString *versionValueStringForSystemNow=[UIApplication sharedApplication].version;
+    NSString *versionValueStringForSystemNow = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    //[UIApplication sharedApplication].version;
     
     //保存版本号
     [[NSUserDefaults standardUserDefaults] setObject:versionValueStringForSystemNow forKey:NewFeatureVersionKey];

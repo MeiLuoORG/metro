@@ -37,7 +37,7 @@
                             <constraint firstAttribute="height" constant="50" id="xx2-KI-pSo"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="￥30500.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4GZ-TV-qMd">
@@ -120,6 +120,6 @@
     <resources>
         <image name="btn_shanchu" width="78" height="32"/>
         <image name="golden_button" width="73" height="33"/>
-        <image name="loadinghome" width="360" height="640"/>
+        <image name="loadinghome" width="213" height="360"/>
     </resources>
 </document>

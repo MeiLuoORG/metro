@@ -476,7 +476,7 @@
     
     
      UILabel * xingYunLabel = [[UILabel alloc]initWithFrame:CGRectMake(44, 74, 50, 18)];
-    xingYunLabel.text = @"幸运星";
+    xingYunLabel.text = @"美钻";
     xingYunLabel.font = [UIFont systemFontOfSize:11.0f];
     xingYunLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
     xingYunLabel.textAlignment = NSTextAlignmentCenter;

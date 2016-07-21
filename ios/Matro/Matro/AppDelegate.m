@@ -146,30 +146,34 @@
     
     if(canShow){
         
-        NewFeatureModel *m1 = [NewFeatureModel model:[UIImage imageNamed:@"f1"]];
+        NewFeatureModel *m1 = [NewFeatureModel model:[UIImage imageNamed:@"yindao01.jpg"]];
         
-        NewFeatureModel *m2 = [NewFeatureModel model:[UIImage imageNamed:@"f2"]];
+        NewFeatureModel *m2 = [NewFeatureModel model:[UIImage imageNamed:@"yindao02.jpg"]];
         
-        NewFeatureModel *m3 = [NewFeatureModel model:[UIImage imageNamed:@"f3"]];
+        NewFeatureModel *m3 = [NewFeatureModel model:[UIImage imageNamed:@"yindao03.jpg"]];
         
-        NewFeatureModel *m4 = [NewFeatureModel model:[UIImage imageNamed:@"f3"]];
+        NewFeatureModel *m4 = [NewFeatureModel model:[UIImage imageNamed:@"yindao04.jpg"]];
         self.window.rootViewController = [CoreNewFeatureVC newFeatureVCWithModels:@[m1,m2,m3,m4] enterBlock:^{
             
             NSLog(@"进入主页面");
-            [self autoLogin];
+            
             self.window.rootViewController = _tabBarController;
+            [self autoLogin];
             
         }];
     }else{
-        [self autoLogin];
+        
         
         MLAnimationViewController * vcs = [[MLAnimationViewController alloc]init];
+        [vcs animationBlockAction:^(BOOL success) {
+            
+            self.window.rootViewController = _tabBarController;
+            [self autoLogin];
+        }];
+        self.window.rootViewController = vcs;
         
-        self.window.rootViewController = _tabBarController;
     }
-    
-    
-    
+
     return YES;
 }
 

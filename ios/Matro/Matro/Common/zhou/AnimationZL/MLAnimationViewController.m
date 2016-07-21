@@ -26,29 +26,37 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor redColor];
     
-    _imageviews = [[UIImageView alloc]initWithFrame:CGRectMake(0, 100, 100, 25)];
-    _imageviews.animationImages = @[[UIImage imageNamed:@"loading0001"],
-                                    [UIImage imageNamed:@"loading0006"],
-                                    [UIImage imageNamed:@"loading0011"],
-                                    [UIImage imageNamed:@"loading0016"],
-                                    [UIImage imageNamed:@"loading0021"],
-                                    [UIImage imageNamed:@"loading0026"],
-                                    [UIImage imageNamed:@"loading0031"],
-                                    [UIImage imageNamed:@"loading0036"],
-                                    [UIImage imageNamed:@"loading0041"],
-                                    [UIImage imageNamed:@"loading0046"],
-                                    [UIImage imageNamed:@"loading0050"]
-                                    ];
+    UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT)];
+    
+    imageView.image = [UIImage imageNamed:@"lauchLoadzl"];
+    
+    [self.view addSubview:imageView];
+    
+    
+    _imageviews = [[UIImageView alloc]initWithFrame:CGRectMake((SIZE_WIDTH-250)/2.0, SIZE_HEIGHT-300.0, 250, 15)];
+    
+    NSMutableArray * imageArr = [[NSMutableArray alloc]init];
+    
+    for (int i = 1; i<51; i++) {
+        
+    
+        NSString * str = [NSString stringWithFormat:@"loading00%d",i];
+        UIImage * image = [UIImage imageNamed:str];
+        [imageArr addObject:image];
+    }
+    
+    
+    _imageviews.animationImages = imageArr;
     [self.view addSubview:_imageviews];
     
     //设置动画总时间
-    _imageviews.animationDuration=2.0;
+    _imageviews.animationDuration=1.0;
     //设置重复次数,0表示不重复
-    _imageviews.animationRepeatCount=0;
+    _imageviews.animationRepeatCount=1;
     //开始动画
     [_imageviews startAnimating];
     
-    
+    [self performSelector:@selector(animationEndAction:) withObject:nil afterDelay:1.0f];
     /*
     _indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-50, self.view.frame.size.height/2-60, 100, 120)];
     [_indicator setLoadText:@"努力加载中..."];
@@ -59,6 +67,11 @@
      
      */
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)animationEndAction:(id)sender{
+
+    self.block(YES);
 }
 
 - (void)animationBlockAction:(AnimationMLBlock)block{

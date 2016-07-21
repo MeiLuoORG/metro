@@ -18,6 +18,8 @@
     NSArray * _cardNumARRS;
     NSMutableArray * _buyJiaARR;
     NSMutableDictionary * _jiaGeDic;
+    
+    NSMutableArray * _phoneJiaGeARR;
 }
 
 @end
@@ -28,8 +30,8 @@
     [super viewDidLoad];
     _jiaGeDic = [[NSMutableDictionary alloc]init];
     _buyJiaARR = [[NSMutableArray alloc]initWithCapacity:6];
-    _cardNumARRS = @[@"10",@"20",@"30",@"50",@"100",@"300"];
-    
+    _cardNumARRS = @[@"30",@"50",@"100",@"200",@"300",@"500"];
+    _phoneJiaGeARR = [[NSMutableArray alloc]init];
     
     
     self.firstView.layer.borderWidth = 1.0f;
@@ -102,14 +104,15 @@
     if ([self panDuanPhoneIsYesOrNO]) {
         
         //检测是否可以充值
+        /*
         NSLog(@"_cardNumARRS的个数为：%ld",_cardNumARRS.count);
         for (int i = 0; i<_cardNumARRS.count; i++) {
             NSLog(@"执行了：%d",i);
             NSString * card = _cardNumARRS[i];
-            [self yunYingShang:self.phoneTextField.text withCardNum:[card intValue] withIndex:i];
+            //[self yunYingShang:self.phoneTextField.text withCardNum:[card intValue] withIndex:i];
         }
-        
-        
+        */
+        [self getPhoneInfo:self.phoneTextField.text];
     }
     
 }
@@ -118,21 +121,49 @@
     [super viewWillAppear:animated];
     
     if ([self panDuanPhoneIsYesOrNO]) {
-        
+        /*
         //检测是否可以充值
         NSLog(@"_cardNumARRS的个数为：%ld",_cardNumARRS.count);
         for (int i = 0; i<_cardNumARRS.count; i++) {
             NSLog(@"执行了：%d",i);
             NSString * card = _cardNumARRS[i];
-            [self yunYingShang:self.phoneTextField.text withCardNum:[card intValue] withIndex:i];
+            //[self yunYingShang:self.phoneTextField.text withCardNum:[card intValue] withIndex:i];
         }
-        
+        */
+        [self getPhoneInfo:self.phoneTextField.text];
+
         
     }
 
     
     
 }
+
+//手机充值查询接口
+- (void)getPhoneInfo:(NSString *)phoneNum{
+    //手机充值  查询
+//#define SHOUJI_CHONGZHI_CHAXUN_URLString    ZHOULU_ML_BASE_URLString@"/api.php?m=recharge&s=phone_recharge&action=query"
+    NSDictionary * ret = @{@"mobile":phoneNum};
+    NSLog(@"充值的手机号为：%@",phoneNum);
+    [MLHttpManager post:SHOUJI_CHONGZHI_CHAXUN_URLString params:ret m:@"recharge" s:@"phone_recharge" success:^(id responseObject) {
+        NSLog(@"手机充值查询：%@",responseObject);
+        NSDictionary * result = (NSDictionary *)responseObject;
+        
+    } failure:^(NSError *error) {
+        NSLog(@"手机充值查询错误：%@",error);
+    }];
+    
+    
+}
+
+/*
+
+ 
+ //手机充值 下单
+ #define SHOUJI_CHONGZHI_XIADAN_URLString    ZHOULU_ML_BASE_URLString@"/api.php?m=recharge&s=phone_recharge&action=inorder"
+ 
+ */
+
 
 //检测手机号是否可以充值
 - (void)jianCePhoneChongZhi{
@@ -156,6 +187,9 @@
     
 
 }
+
+
+
 //检测手机号运营商
 - (void)yunYingShang:(NSString *)phoneNum withCardNum:(int)cardNum withIndex:(int) index{
 //http://op.juhe.cn/ofpay/mobile/telquery?cardnum=30&phoneno=18913515635&key=您申请的KEY
@@ -302,7 +336,7 @@
             for (int i = 0; i<_cardNumARRS.count; i++) {
                 NSLog(@"执行了：%d",i);
                 NSString * card = _cardNumARRS[i];
-                [self yunYingShang:self.phoneTextField.text withCardNum:[card intValue] withIndex:i];
+                //[self yunYingShang:self.phoneTextField.text withCardNum:[card intValue] withIndex:i];
             }
     
         }
