@@ -392,14 +392,18 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    
+    NSLog(@"1%@==3%@==4%@==10%@==11%@",sectionArr1,sectionArr3,sectionArr4,sectionArr10,sectionArr11);
+    
     if (!cell)
     {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.backgroundColor = [UIColor clearColor];
+        cell.backgroundColor = [UIColor whiteColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.font = [UIFont systemFontOfSize:14];
-        cell.textLabel.textColor = RGBA(159,159, 159, 1);
+        cell.textLabel.textColor = RGBA(159,159,159, 1);
         
         if (indexPath.section == 0) {
             
@@ -550,6 +554,11 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
     return 44;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+
+    return 1;
 }
 
 - (IBAction)actDail:(id)sender {
