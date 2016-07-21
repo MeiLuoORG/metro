@@ -60,9 +60,7 @@
             float useMoney = [self.editField.text floatValue];
             
             
-            if (useMoney <= self.youHuiQuan.payable ) { //小于等于可支付金额时
-                self.youHuiQuan.useSum = useMoney;
-            }else{ //大于余额时点击使用的情况;
+            if (useMoney > self.youHuiQuan.payable ) { //小于等于可支付金额时
                 if (self.youhuiWarning) {
                     self.youhuiWarning(@"不能超过优惠券使用金额");
                 }
@@ -76,11 +74,7 @@
                 return;
             }
             
-
-            
-
-            
-  
+                self.youHuiQuan.useSum = useMoney;
                 self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_youHuiQuan.useSum];
                 self.editField.hidden = YES;
                 [btn setTitle:@"取消" forState:UIControlStateNormal];
