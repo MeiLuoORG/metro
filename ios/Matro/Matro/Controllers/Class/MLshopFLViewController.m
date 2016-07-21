@@ -247,6 +247,7 @@
                     NSLog(@"%@==%@",name,spflcode);
                     MLshopGoodsListViewController *vc = [[MLshopGoodsListViewController alloc]init];
                     vc.filterParam =@{@"keyword":name,@"id":spflcode};
+                    vc.uid = uid;
                     [self.navigationController pushViewController:vc animated:YES];
                     
                     if (data.dataId.intValue==0) {//商品分类
