@@ -43,7 +43,7 @@ static NSInteger page = 1;
     [super viewDidLoad];
     self.title = @"店铺收藏";
     isEditing = NO;
-    [self loadDate];
+   // [self loadDate];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     userid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
@@ -116,6 +116,13 @@ static NSInteger page = 1;
     right.tintColor = RGBA(174, 142, 93, 1);
     
     self.navigationItem.rightBarButtonItem = right;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+
+    [super viewWillAppear:YES];
+    [self loadDate];
+
 }
 
 - (void)loadDate {
