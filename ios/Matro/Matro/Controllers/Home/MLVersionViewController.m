@@ -43,6 +43,12 @@
         self.qzdownloadBtn.hidden = YES;
     }
     
+    if (_versionInfoArr.count == 0) {
+        self.VersionInfoLab.text = @"";
+        
+        self.versionViewH.constant  = 165;
+    }
+    
     if (_versionInfoArr.count == 1 ) {
         
         self.VersionInfoLab.text = [NSString stringWithFormat:@"%@",_versionInfoArr[0]];

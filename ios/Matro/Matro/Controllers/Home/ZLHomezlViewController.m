@@ -169,10 +169,15 @@
                     vc.qzversionlabel = loadversionlowest;
                     vc.downlink = downlink;
                     NSString *labstr = result[@"data"][@"sel_info"][@"version_desc"];
-                    NSArray *nameArray = [labstr componentsSeparatedByString:@"|"];
-                    vc.versionInfoArr = nameArray;
-                    NSLog(@"%@%@",nameArray,vc.versionInfoArr);
-                    vc.versioninfoLabel = labstr;
+                    if (![labstr isKindOfClass:[NSNull class]] && labstr != nil && labstr) {
+                        
+                        NSArray *nameArray = [labstr componentsSeparatedByString:@"|"];
+                        vc.versionInfoArr = nameArray;
+                        NSLog(@"%@%@",nameArray,vc.versionInfoArr);
+                        vc.versioninfoLabel = labstr;
+                        
+                    }
+                    
                     
                     vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
                     if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
