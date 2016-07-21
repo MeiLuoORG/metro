@@ -41,7 +41,7 @@
 #define ZHOULU_ML_CRM_URLString         @"http://vip.matrojp.com"
 #define APP_ID_ZHOU                     @"01d689a05d4841c6a29d0080502bde67"
 #define APP_Secrect_ZHOU                @"cca95b6b0f9a416e8ab865b3d31b7a54"
-
+#define CHOGNZHI_PAY_URLSTRING          @"http://app.matrojp.com"
 
 
 
@@ -51,20 +51,23 @@
 //#define ZHOULU_ML_CRM_URLString         @"http://app-test.matrojp.com"
 //#define APP_ID_ZHOU                     @"test0002"
 //#define APP_Secrect_ZHOU                @"123456"
-
+//#define CHOGNZHI_PAY_URLSTRING          @"http://app-test.matrojp.com"
 
 
 #define SERVICE_BASE_URL @"http://app.matrojp.com/P2MLinkCenter/"
 //#define SERVICE_BASE_URL @"http://bbctest.matrojp.com/"http://pay.matrojp.com/PayCenter/app/v200/alipay
 #define SERVICE_BASEPAY_URL @"http://pay.matrojp.com/PayCenter/"
-
+//订单支付
 #define ALIPAY_SERVICE_URL      @"http://pay.matrojp.com/PayCenter/app/v200/alipay"
-//话费充值
-#define ALIPAY_HUAFEI_URL       ZHOULU_ML_CRM_URLString@"/PayCenter/app/v200/alipay/csfw"
-
-
 #define WXPAY_SERVICE_URL       @"http://pay.matrojp.com/PayCenter/app/v200/wxpay"
 #define UPPPAY_SERVICE_URL      @"http://pay.matrojp.com/PayCenter/app/v200/unionpay"
+
+//话费充值
+#define ALIPAY_HUAFEI_URL       CHOGNZHI_PAY_URLSTRING@"/PayCenter/app/v200/alipay/csfw"
+#define WXPAY_HUAFEI_URL        CHOGNZHI_PAY_URLSTRING@"/PayCenter/app/v200/wxpay/csfw"
+#define YINLIANG_HUAFEI_URL     CHOGNZHI_PAY_URLSTRING@"/PayCenter/app/v200/unionpay/csfw"
+
+
 //http://www.matrojp.com/
 //#define SERVICE_GETBASE_URL @"http://app-test.matrojp.com/"
 
