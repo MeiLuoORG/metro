@@ -253,6 +253,13 @@
                                                       model1.timeInterval =[timestamp integerValue];
                                                       model1.firstDate = [NSDate date];
                                                       [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
+                                                      if ([[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID] &&[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN] ) {
+                                                          
+                                                          NSString * UID  = data[@"uid"];
+                                                          [[NSUserDefaults standardUserDefaults]setObject:UID forKey:DIANPU_MAIJIA_UID];
+                                                      }
+                                                      
+                                                      
                                                       //认证成功后发送通知
                                                       [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
                                                       [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_HOME_Notification object:nil];

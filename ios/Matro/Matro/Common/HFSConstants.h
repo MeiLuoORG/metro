@@ -34,23 +34,23 @@
  */
 
 
-/*
+
 #define ZHOULU_ML_BASE_URLString        @"http://www.matrojp.com"
 #define MATROJP_BASE_URL                @"http://www.matrojp.com"
 #define SERVICE_GETBASE_URL             @"http://www.matrojp.com/"
 #define ZHOULU_ML_CRM_URLString         @"http://vip.matrojp.com"
 #define APP_ID_ZHOU                     @"01d689a05d4841c6a29d0080502bde67"
 #define APP_Secrect_ZHOU                @"cca95b6b0f9a416e8ab865b3d31b7a54"
-*/
 
 
 
-#define ZHOULU_ML_BASE_URLString        @"http://bbctest.matrojp.com"
-#define MATROJP_BASE_URL                @"http://bbctest.matrojp.com"
-#define SERVICE_GETBASE_URL             @"http://bbctest.matrojp.com/"
-#define ZHOULU_ML_CRM_URLString         @"http://app-test.matrojp.com"
-#define APP_ID_ZHOU                     @"test0002"
-#define APP_Secrect_ZHOU                @"123456"
+
+//#define ZHOULU_ML_BASE_URLString        @"http://bbctest.matrojp.com"
+//#define MATROJP_BASE_URL                @"http://bbctest.matrojp.com"
+//#define SERVICE_GETBASE_URL             @"http://bbctest.matrojp.com/"
+//#define ZHOULU_ML_CRM_URLString         @"http://app-test.matrojp.com"
+//#define APP_ID_ZHOU                     @"test0002"
+//#define APP_Secrect_ZHOU                @"123456"
 
 
 
@@ -280,6 +280,9 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 //http://61.155.212.146:3000
 //#define HomeHTML_URLString              @"http://61.155.212.146:3000"
 #define HomeHTML_URLString              @"http://h5.matrojp.com"
+
+//店铺ID
+#define DIANPU_MAIJIA_UID               @"dainpu_maijia_uid"
 
 //请求标题数据
 

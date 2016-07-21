@@ -1823,7 +1823,8 @@
                                                           model1.timeInterval =[timestamp integerValue];
                                                           model1.firstDate = [NSDate date];
                                                           [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
-                                                          
+                                                          NSString * UID  = data[@"uid"];
+                                                          [[NSUserDefaults standardUserDefaults]setObject:UID forKey:DIANPU_MAIJIA_UID];
     
                                                       }
                                                   }

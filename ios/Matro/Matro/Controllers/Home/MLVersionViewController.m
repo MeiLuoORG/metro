@@ -121,7 +121,8 @@
     self.versionView.hidden = YES;
     
     
-    NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/su-zhou-mei-luo-jing-pin/id1112037018?mt=8"];
+   // NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/su-zhou-mei-luo-jing-pin/id1112037018?mt=8"];
+    NSURL *url = [NSURL URLWithString:self.downlink];
     [[UIApplication sharedApplication]openURL:url];
     [self dismissViewControllerAnimated:YES completion:nil];
     /*

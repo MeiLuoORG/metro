@@ -88,6 +88,8 @@
     
     NSString *phoneNum;
     
+    NSString *DPuid;
+    
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;//最底层的SV
 @property (strong, nonatomic) IBOutlet UIPageControl *pagecontrol;
@@ -304,6 +306,7 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
+    DPuid = [userDefaults valueForKey:DIANPU_MAIJIA_UID];
     [self loadDateProDetail];
     
 }
@@ -335,9 +338,19 @@
             NSLog(@"responseObject===%@",responseObject);
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             NSDictionary *dic = responseObject[@"data"];
+            if (dic[@"pinfo"][@"userid"]) {
+                if ([DPuid isEqualToString:dic[@"pinfo"][@"userid"]]) {
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"aaaaaa"]];
+                    self.jiarugouwucheBtn.enabled = NO;
+                }else{
+                
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                    self.jiarugouwucheBtn.enabled = YES;
+                }
+            }
+            
             pDic = responseObject[@"data"];
             [self loaddataDianpu];
-            
             _titleArray = dic[@"pinfo"][@"porperty_name"];//规格名
             
             NSString *is_collect = dic[@"pinfo"][@"is_collect"];//是否收藏

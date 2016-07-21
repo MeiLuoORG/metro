@@ -512,9 +512,12 @@
         }else{
             
             NSString *shopid = _shopparamDic[@"userid"];
+            NSMutableArray *dpIDArr = [NSMutableArray array];
             
             for (NSDictionary *tempdic in responseObject[@"data"][@"shop_list"]) {
                 
+                [dpIDArr addObject:tempdic[@"shopid"]];
+                /*
                 if ([shopid isEqualToString:tempdic[@"shopid"]]) {
                     
                         NSString *alertJS=@"resStoreCollect(1)"; //准备执行的js代码
@@ -525,8 +528,19 @@
                     NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
                     [self.context evaluateScript:alertJS];//通过oc方法调用js的
                 }
+                 */
 
             }
+            
+            if ([dpIDArr containsObject:shopid]) {
+                NSString *alertJS=@"resStoreCollect(1)"; //准备执行的js代码
+                [self.context evaluateScript:alertJS];//通过oc方法调用js的
+            }else{
+            
+                NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
+                [self.context evaluateScript:alertJS];//通过oc方法调用js的
+            }
+            
         }
     
     } failure:^(NSError *error) {
