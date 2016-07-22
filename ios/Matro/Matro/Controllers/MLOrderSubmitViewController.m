@@ -28,7 +28,9 @@
 #import "MLOrderSubLiuYanTableViewCell.h"
 #import "CommonHeader.h"
 
-@interface MLOrderSubmitViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MLOrderSubmitViewController ()<UITableViewDelegate,UITableViewDataSource>{
+    BOOL idCardOk;
+}
 
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)UIView *footView;
@@ -40,13 +42,13 @@
 
 @end
 
-static BOOL idCardOk = NO;
 
 @implementation MLOrderSubmitViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    idCardOk = NO;
     self.title = @"确认订单信息";
     _tableView = ({
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
@@ -111,6 +113,8 @@ static BOOL idCardOk = NO;
         footView;
     });
     
+    
+    
     [self changeHeadView];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -155,6 +159,7 @@ static BOOL idCardOk = NO;
         [self.tableView beginUpdates];
         [self.tableView setTableHeaderView:self.headBgView];
         [self.tableView endUpdates];
+        
     }
 
 }
@@ -166,8 +171,6 @@ static BOOL idCardOk = NO;
         [self.headView haveIdCardSave];
         idCardOk = YES;
     }
-
-    
     self.headView.nameLabel.text = self.order_info.consignee.name;
     self.headView.phoneLabel.text = self.order_info.consignee.mobile;
     self.headView.addressLabel.text = [NSString stringWithFormat:@"%@%@",self.order_info.consignee.area?:@"",self.order_info.consignee.address?:@""];
@@ -520,10 +523,6 @@ static BOOL idCardOk = NO;
 }
 
 - (void)gotoPay:(id)sender{
-    if (!idCardOk){//身份证是否ok了
-        [MBProgressHUD showMessag:@"请输入身份证号码" toView:self.view];
-        return;
-    }
     
     if (!self.order_info.consignee.isOk) {
         [MBProgressHUD showMessag:@"请选择收货地址" toView:self.view];

@@ -83,6 +83,9 @@
             if (self.orderSubChangeInfo) {
                 self.orderSubChangeInfo(msg);
             }
+            if (self.idcardisOk) {
+                self.idcardisOk(NO);
+            }
             
         }
     } failure:^(NSError *error) {
