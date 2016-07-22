@@ -23,8 +23,53 @@
     self.view.backgroundColor = [HFSUtility hexStringToColor:@"f1f1f1"];
     _phoneStr = @"18868672308";
     _cardNum = 100;
+    
+    //http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=cityservice
+    
+    
+    
+    [self qingqiuImage];
     // Do any additional setup after loading the view from its nib.
 }
+
+
+- (void)qingqiuImage{
+
+    NSString * urls = [NSString stringWithFormat:@"%@/api.php?m=product&s=webframe&method=cityservice",ZHOULU_ML_BASE_URLString];
+    [MLHttpManager get:urls params:nil m:@"product" s:@"webframe" success:^(id responseObject) {
+        NSDictionary * result = (NSDictionary *)responseObject;
+        NSLog(@"城市服务图片：%@",result);
+        if ([result[@"code"] isEqual:@0]) {
+            if ([result[@"data"] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary * dataDic = result[@"data"];
+                if ([dataDic[@"cityservice"] isKindOfClass:[NSArray class]]) {
+                    NSArray * arr = dataDic[@"cityservice"];
+                    
+                    if (arr.count > 0) {
+                        
+                        NSDictionary * dicss = arr[0];
+                        NSString * imageURL = dicss[@"imgurl"];
+                        if (![imageURL isEqualToString:@""]) {
+                            [self.topImageView sd_setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"cityfuwu02.jpg"]];
+                        }
+                        
+                    }
+                    
+                    
+                }
+            }
+
+        }
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    
+
+}
+
 - (IBAction)shoujiAction:(UIControl *)sender {
     
     NSLog(@"手机充值");
