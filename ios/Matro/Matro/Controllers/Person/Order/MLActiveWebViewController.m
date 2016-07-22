@@ -7,6 +7,7 @@
 //
 
 #import "MLActiveWebViewController.h"
+#import "CommonHeader.h"
 @interface MLActiveWebViewController ()<UIWebViewDelegate>
 @property (nonatomic,strong)UIWebView *webView;
 @end
@@ -17,7 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.webView = ({
-        UIWebView *webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
+        UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-64)];
         webView.delegate = self;
         [self.view addSubview:webView];
         webView;
