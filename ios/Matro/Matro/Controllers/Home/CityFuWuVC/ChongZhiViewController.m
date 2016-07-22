@@ -335,6 +335,7 @@
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
     }
+    [self.phoneTextField resignFirstResponder];
 }
 - (IBAction)secondViewAction:(UIControl *)sender {
      NSLog(@"第2个");
@@ -350,6 +351,7 @@
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
     }
+    [self.phoneTextField resignFirstResponder];
 }
 - (IBAction)thirdViewAction:(UIControl *)sender {
      NSLog(@"第3个");
@@ -365,6 +367,7 @@
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
     }
+    [self.view endEditing:YES];
 }
 - (IBAction)fourViewAction:(UIControl *)sender {
      NSLog(@"第4个");
@@ -379,6 +382,7 @@
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
     }
+    [self.view endEditing:YES];
 }
 - (IBAction)fiveViewAction:(UIControl *)sender {
      NSLog(@"第5个");
@@ -393,6 +397,7 @@
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
     }
+    [self.view endEditing:YES];
 }
 - (IBAction)sixViewAction:(UIControl *)sender {
      NSLog(@"第6个");
@@ -407,6 +412,7 @@
     else{
         [MBProgressHUD showSuccess:@"手机号格式错误" toView:self.view];
     }
+    [self.view endEditing:YES];
 }
 
 - (IBAction)tongXunLuAction:(UIButton *)sender {
