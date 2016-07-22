@@ -108,7 +108,7 @@
         
         //configure carousel
         //configure carousel  227.0/347.0
-        self.carousel = [[iCarousel alloc]initWithFrame:CGRectMake(14, 20,SIZE_WIDTH-28, (411.0/665.0)*SIZE_WIDTH)];
+        self.carousel = [[iCarousel alloc]initWithFrame:CGRectMake(14, 20,SIZE_WIDTH-28, (411.0/665.0)*(SIZE_WIDTH-28))];
         self.carousel.delegate = self;
         self.carousel.dataSource = self;
         self.carousel.type = iCarouselTypeRotary;
