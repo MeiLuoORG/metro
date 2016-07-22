@@ -107,8 +107,8 @@
         }
         
         //configure carousel
-        //configure carousel
-        self.carousel = [[iCarousel alloc]initWithFrame:CGRectMake(14, 20,SIZE_WIDTH-28, (227.0/347.0)*SIZE_WIDTH)];
+        //configure carousel  227.0/347.0
+        self.carousel = [[iCarousel alloc]initWithFrame:CGRectMake(14, 20,SIZE_WIDTH-28, (411.0/665.0)*SIZE_WIDTH)];
         self.carousel.delegate = self;
         self.carousel.dataSource = self;
         self.carousel.type = iCarouselTypeRotary;
@@ -159,15 +159,16 @@
     {
         if (self.cardARR.count > 0) {
             VipCardModel * CardModel = [self.cardARR objectAtIndex:index];
-            view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, (227.0/347.0)*SIZE_WIDTH)];
+            view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, (411.0/665.0)*(SIZE_WIDTH-28))];
             //((UIImageView *)view).image = [UIImage imageNamed:VIPCARDIMG_DEFAULTNAME];
             [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:CardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+            /*
             //加阴影 zhou
             view.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
             view.layer.shadowOffset = CGSizeMake(8,8);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
             view.layer.shadowOpacity = 0.5;//阴影透明度，默认0
             view.layer.shadowRadius = 7;//阴影半径，默认3
-            
+            */
             UILabel * label = [UILabel new];
             
             label.text = CardModel.cardNo;
@@ -225,15 +226,17 @@
             //this `if (view == nil) {...}` statement because the view will be
             //recycled and used with other index values later
             VipCardModel * CardModel = [self.cardARR objectAtIndex:index];
-            view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, (227.0/347.0)*SIZE_WIDTH)];
+            view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, (411.0/665.0)*(SIZE_WIDTH - 28.0))];
             //((UIImageView *)view).image = [UIImage imageNamed:VIPCARDIMG_DEFAULTNAME];
             [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:CardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+            /*
             //加阴影 zhou
             view.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
             view.layer.shadowOffset = CGSizeMake(8,8);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
             view.layer.shadowOpacity = 0.5;//阴影透明度，默认0
             view.layer.shadowRadius = 7;//阴影半径，默认3
             //view.contentMode = UIViewContentModeCenter;
+             */
             /*
              label = [[UILabel alloc] initWithFrame:view.bounds];
              label.backgroundColor = [UIColor clearColor];
@@ -529,7 +532,7 @@
         
         for (int i=0; i<self.cardARR.count; i++) {
             VipCardModel * cardModel = [self.cardARR objectAtIndex:i];
-            UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, (227.0/347.0)*SIZE_WIDTH)];
+            UIImageView *imageView=[[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, (411.0/665.0)*SIZE_WIDTH)];
             
             /*
             NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
@@ -578,36 +581,20 @@
     scrollview.pagingEnabled=YES;
     scrollview.delegate=self;
     scrollview.contentSize=CGSizeMake((MAIN_SCREEN_WIDTH)*1, (267.0/375.0)*SIZE_WIDTH);
-    
-    
-    /*
-    pageControl=[[UIPageControl alloc] initWithFrame:CGRectMake(80, 140, MAIN_SCREEN_WIDTH-160, 30)];
-    
-    pageControl.numberOfPages=4;
-    
-    pageControl.currentPage=0;
-    
-    pageControl.pageIndicatorTintColor=[UIColor greenColor];
-    
-    pageControl.currentPageIndicatorTintColor=[UIColor redColor];
-    */
-    
-    //背景色块
-    UIImageView * bkView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 30, scrollview.contentSize.width, 207)];
-    bkView.backgroundColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
-    //[scrollview addSubview:bkView];
 
     for (int i=0; i<1; i++) {
-        _defaultImageView = [[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, (227.0/347.0)*SIZE_WIDTH)];
+        _defaultImageView = [[UIImageView alloc] initWithFrame:CGRectMake(14+(MAIN_SCREEN_WIDTH)*(i), 20, MAIN_SCREEN_WIDTH-28, (411.0/665.0)*(SIZE_WIDTH-28))];
         
         //NSString *str=[NSString stringWithFormat:@"%d.JPG",i];
         
         _defaultImageView.image=[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME];
+        /*
         //加阴影 zhou
         _defaultImageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
         _defaultImageView.layer.shadowOffset = CGSizeMake(8,8);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
         _defaultImageView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
         _defaultImageView.layer.shadowRadius = 7;//阴影半径，默认3
+        */
         /*
         //加阴影 zhou
         imageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
@@ -619,7 +606,6 @@
     }
     
     [_backgroundView addSubview:scrollview];
-    //[_backgroundView addSubview:pageControl];
 
 
     btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(scrollview.frame)+10, 70, 20)];
@@ -640,37 +626,8 @@
     _label.textAlignment = NSTextAlignmentCenter;
     
     
-    /*
-     if (_membershipCard.image == nil) {
-     _label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(scrollView.frame)+20, MAIN_SCREEN_WIDTH, 20)];
-     _label.text = @"您还没有会员卡，绑定即可享受线上优惠";
-     _label.font = [UIFont systemFontOfSize:12];
-     _label.textAlignment = NSTextAlignmentCenter;
-     _membershipCard.image = [UIImage imageNamed:@"huiyuanka_weijihuo"];
-     
-     }
-     else {
-     _label = [[UILabel alloc] initWithFrame:CGRectMake(160, CGRectGetMaxY(_membershipCard.frame)+20, MAIN_SCREEN_WIDTH-160, 20)];
-     btnTitle = [[UIButton alloc] initWithFrame:CGRectMake(32, CGRectGetMaxY(_membershipCard.frame)+20, 60, 20)];
-     [btnTitle setTitle:@"设为默认" forState:UIControlStateNormal];
-     [btnTitle.titleLabel setFont:[UIFont systemFontOfSize:12]];
-     [btnTitle setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-     
-     btnSelect = [[UIButton alloc] initWithFrame:CGRectMake(24, CGRectGetMaxY(_membershipCard.frame)+24, 12, 12)];
-     btnSelect.selected  = NO;
-     [btnSelect setImage:[UIImage imageNamed:@"r01"] forState:UIControlStateNormal];
-     [btnSelect addTarget:self action:@selector(actSelect) forControlEvents:UIControlEventTouchUpInside];
-     
-     _label.text = @"使用时向服务员出示二维码";
-     _label.font = [UIFont systemFontOfSize:12];
-     _label.textAlignment = NSTextAlignmentCenter;
-     _membershipCard.image = [UIImage imageNamed:@"huiyuanka_jinka"];
-     }
-     */
-    
     [_backgroundView addSubview:_label];
     [_backgroundView addSubview:btnSelect];
-    //[_backgroundView addSubview:btnTitle];
     
     _guiZeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
     _guiZeView.backgroundColor = [UIColor whiteColor];
@@ -679,7 +636,6 @@
     _preferentialRules.font = [UIFont systemFontOfSize:10];
     _preferentialRules.alpha = 0.5;
     _preferentialRules.numberOfLines = 0;
-    //CGSize size = [_preferentialRules.text sizeWithFont:[UIFont systemFontOfSize:10.0f] constrainedToSize:CGSizeMake(_preferentialRules.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
 
     CGRect rect = [_preferentialRules.text boundingRectWithSize:CGSizeMake(_preferentialRules.frame.size.width, 9999) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0f]} context:nil];
     //NSLog(@"会员卡消费规则：%g,---%g",size.height,rect.size.height);
