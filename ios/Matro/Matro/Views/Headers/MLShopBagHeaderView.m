@@ -35,7 +35,7 @@
     UIImageView *arrow = [[UIImageView alloc]initWithFrame:CGRectZero];
     arrow.image = [UIImage imageNamed:@"跳转箭头"];
     
-    self.arrow = arrow;
+//    self.arrow = arrow;
     [self addSubview:arrow];
     UIButton *shopBtn = [[UIButton alloc]initWithFrame:CGRectZero];
     [shopBtn addTarget:self action:@selector(shopClick:) forControlEvents:UIControlEventTouchUpInside];

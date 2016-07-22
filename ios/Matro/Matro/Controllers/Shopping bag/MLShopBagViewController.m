@@ -460,7 +460,6 @@ static NSInteger pageIndex = 0;
     }else{
         MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:section];
         cartHead.titleLabel.text = cart.cpInfo.company;
-        cartHead.arrow.hidden = YES;
         cartHead.youhuiBtn.hidden = YES;
         cartHead.checkBox.cartSelected = cart.checkAll;
         cartHead.shopClick = ^(){ //点击店铺事件

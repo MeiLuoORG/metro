@@ -24,7 +24,7 @@ typedef void(^ShopHeadClick)();
 
 
 
-@property (nonatomic,strong)UIImageView *arrow;
+//@property (nonatomic,strong)UIImageView *arrow;
 @property (nonatomic,strong)MLCheckBoxButton *checkBox;
 @property (nonatomic,copy)CartHeadBlock cartHeadBlock;
 @property (nonatomic,strong)MLShopingCartModel *shopingCart;
