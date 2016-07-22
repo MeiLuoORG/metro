@@ -23,12 +23,14 @@
     self.backView.layer.borderWidth = 1.0f;
     
     
+    NSLog(@"优惠券页面的bounds为：%g+++%g++,frame:+++%g+++%g+",self.topView.bounds.size.width,self.topView.bounds.size.height,self.topView.frame.size.width,self.topView.frame.size.height);
+    
     UIBezierPath *maskPath2 = [UIBezierPath bezierPathWithRoundedRect:self.topView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerTopLeft cornerRadii:CGSizeMake(4.0,4.0)];
     
     CAShapeLayer *maskLayer2 = [[CAShapeLayer alloc] init];
     maskLayer2.frame = self.topView.bounds;
     maskLayer2.path = maskPath2.CGPath;
-    self.topView.layer.mask = maskLayer2;
+    //self.topView.layer.mask = maskLayer2;
     
     
     /*

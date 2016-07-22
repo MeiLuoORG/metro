@@ -16,11 +16,11 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOq-UA-1m5">
                     <rect key="frame" x="0.0" y="10" width="335" height="115"/>
                     <subviews>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hoM-V5-hq0">
-                            <rect key="frame" x="0.0" y="0.0" width="345" height="75"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hoM-V5-hq0">
+                            <rect key="frame" x="0.0" y="0.0" width="335" height="75"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="余额" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5K-XJ-YhF">
-                                    <rect key="frame" x="93" y="32" width="42" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="余额" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5K-XJ-YhF">
+                                    <rect key="frame" x="93" y="32" width="42" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="42" id="4hU-vi-lVh"/>
                                     </constraints>
@@ -64,13 +64,13 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="限美罗全球购线上使用" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZA3-Zh-woX">
                             <rect key="frame" x="216" y="93" width="100" height="12"/>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="有效期:2016.03.21-2016.04.28" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwJ-pS-yyC">
-                            <rect key="frame" x="8" y="85" width="145" height="20"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="有效期:2016.03.21-2016.04.28" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwJ-pS-yyC">
+                            <rect key="frame" x="8" y="93" width="145" height="12"/>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tipzl" translatesAutoresizingMaskIntoConstraints="NO" id="Bo4-0J-Efj">
@@ -86,6 +86,8 @@
                         <constraint firstItem="hoM-V5-hq0" firstAttribute="leading" secondItem="cOq-UA-1m5" secondAttribute="leading" id="1bJ-wM-gU3"/>
                         <constraint firstItem="hoM-V5-hq0" firstAttribute="width" secondItem="cOq-UA-1m5" secondAttribute="width" id="3X4-DR-5Re"/>
                         <constraint firstItem="hoM-V5-hq0" firstAttribute="leading" secondItem="cOq-UA-1m5" secondAttribute="leading" id="6Cw-Fb-xn1"/>
+                        <constraint firstItem="hoM-V5-hq0" firstAttribute="centerX" secondItem="cOq-UA-1m5" secondAttribute="centerX" id="7PP-UB-kme"/>
+                        <constraint firstAttribute="trailing" secondItem="hoM-V5-hq0" secondAttribute="trailing" id="A0w-o1-ifl"/>
                         <constraint firstItem="hoM-V5-hq0" firstAttribute="leading" secondItem="cOq-UA-1m5" secondAttribute="leading" id="Ahy-cJ-SMB"/>
                         <constraint firstAttribute="trailing" secondItem="Bo4-0J-Efj" secondAttribute="trailing" constant="25" id="K77-a7-FVy"/>
                         <constraint firstItem="bwJ-pS-yyC" firstAttribute="top" secondItem="hoM-V5-hq0" secondAttribute="bottom" constant="10" id="Lqw-y4-FTG"/>
@@ -98,14 +100,18 @@
                         <constraint firstItem="hoM-V5-hq0" firstAttribute="top" secondItem="cOq-UA-1m5" secondAttribute="top" id="udh-YK-Srp"/>
                         <constraint firstAttribute="trailing" secondItem="ZA3-Zh-woX" secondAttribute="trailing" constant="19" id="vbe-FI-F2d"/>
                         <constraint firstAttribute="bottom" secondItem="ZA3-Zh-woX" secondAttribute="bottom" constant="10" id="vrN-yI-64K"/>
+                        <constraint firstItem="hoM-V5-hq0" firstAttribute="leading" secondItem="cOq-UA-1m5" secondAttribute="leading" id="xLr-bE-3hO"/>
                         <constraint firstItem="bwJ-pS-yyC" firstAttribute="leading" secondItem="cOq-UA-1m5" secondAttribute="leading" constant="8" id="yLN-NQ-v2A"/>
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="1bJ-wM-gU3"/>
+                            <exclude reference="3X4-DR-5Re"/>
                             <exclude reference="Ahy-cJ-SMB"/>
                             <exclude reference="g8Z-0U-pat"/>
+                            <exclude reference="gVe-Ms-QqW"/>
                             <exclude reference="lzq-ab-g2n"/>
+                            <exclude reference="xLr-bE-3hO"/>
                             <exclude reference="Lqw-y4-FTG"/>
                         </mask>
                     </variation>
