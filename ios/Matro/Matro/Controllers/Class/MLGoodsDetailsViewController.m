@@ -799,6 +799,9 @@
             [overView removeFromSuperview];
             
         } failure:^( NSError *error) {
+            self.shoucangButton.enabled = NO;
+            self.jiarugouwucheBtn.enabled = NO;
+            
             [overView removeFromSuperview];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [_hud show:YES];
