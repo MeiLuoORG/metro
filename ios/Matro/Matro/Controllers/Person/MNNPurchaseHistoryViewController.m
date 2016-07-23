@@ -85,7 +85,7 @@ static NSInteger currentPage = 1;
         
     }];
     //[_tableView.header beginRefreshing];
-    
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
     [self headerRefreshAction];
 }

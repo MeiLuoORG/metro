@@ -437,7 +437,7 @@
         if ([self panDuanPhoneIsYesOrNO]) {
             
             //检测是否可以充值
-            NSLog(@"_cardNumARRS的个数为：%ld",_cardNumARRS.count);
+
             for (int i = 0; i<_cardNumARRS.count; i++) {
                 NSLog(@"执行了：%d",i);
                 NSString * card = _cardNumARRS[i];
