@@ -25,6 +25,7 @@
 }
 
 - (void)setTags:(NSArray *)tags{
+    NSLog(@"tags===%@",tags);
     
     if (_tags != tags) {
         _tags = tags;
@@ -41,8 +42,6 @@
         tagView.tagsFrame = frame;
         tagView.clickBackgroundColor = RGBA(255, 78, 37, 1) ;
         tagView.clickTitleColor = [UIColor whiteColor];
-//        tagView.clickBackgroundColor = [UIColor whiteColor];
-//        tagView.clickTitleColor = RGBA(168, 133, 80, 1);
         tagView.clickStart = 0;
         tagView.delegate = self;
         tagView.clickString = self.clickStr;

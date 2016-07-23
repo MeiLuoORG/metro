@@ -563,8 +563,8 @@
 
 - (IBAction)actDail:(id)sender {
     
-    NSLog(@"拨打4008550668");
-    NSString *tel = @"400-855-0668";
+    NSLog(@"拨打4008850668");
+    NSString *tel = @"400-885-0668";
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"telprompt://%@",tel]];
     [[UIApplication sharedApplication] openURL:url];
     

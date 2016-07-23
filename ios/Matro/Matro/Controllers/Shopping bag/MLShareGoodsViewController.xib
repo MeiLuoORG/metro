@@ -194,7 +194,7 @@
                         <constraint firstAttribute="bottom" secondItem="pv9-y0-Noa" secondAttribute="bottom" constant="81" id="0CX-DN-GNN"/>
                         <constraint firstItem="zqf-jG-B5x" firstAttribute="baseline" secondItem="nyW-HM-dqh" secondAttribute="baseline" id="0QQ-WL-K7a"/>
                         <constraint firstItem="t5q-8g-hxN" firstAttribute="height" secondItem="Bnp-pu-Bnp" secondAttribute="height" id="1tM-5L-WcV"/>
-                        <constraint firstAttribute="width" constant="221" id="29i-Hd-A2M"/>
+                        <constraint firstAttribute="width" constant="240" id="29i-Hd-A2M"/>
                         <constraint firstItem="WhF-dT-VIg" firstAttribute="leading" secondItem="t5q-8g-hxN" secondAttribute="trailing" constant="30" id="2Zy-3Z-Kkh"/>
                         <constraint firstItem="t5q-8g-hxN" firstAttribute="width" secondItem="Bnp-pu-Bnp" secondAttribute="width" id="4xZ-Dx-buy"/>
                         <constraint firstItem="QqK-cy-r81" firstAttribute="centerX" secondItem="XM3-BD-RN1" secondAttribute="centerX" id="72d-Mm-j5F"/>
@@ -223,7 +223,7 @@
                         <constraint firstItem="QqK-cy-r81" firstAttribute="centerY" secondItem="Bnp-pu-Bnp" secondAttribute="centerY" id="ZtB-1x-XoN"/>
                         <constraint firstItem="WhF-dT-VIg" firstAttribute="centerX" secondItem="QqK-cy-r81" secondAttribute="centerX" id="aLc-jF-iV3"/>
                         <constraint firstItem="0yn-Q3-Obc" firstAttribute="leading" secondItem="XM3-BD-RN1" secondAttribute="leading" constant="20" id="bWc-4l-0Eu"/>
-                        <constraint firstAttribute="height" constant="224" id="bpU-1i-Kvv"/>
+                        <constraint firstAttribute="height" constant="260" id="bpU-1i-Kvv"/>
                         <constraint firstItem="t5q-8g-hxN" firstAttribute="top" secondItem="zqf-jG-B5x" secondAttribute="bottom" constant="8" id="cO6-QM-gki"/>
                         <constraint firstItem="QqK-cy-r81" firstAttribute="leading" secondItem="Bnp-pu-Bnp" secondAttribute="trailing" constant="30" id="dWR-mi-Uh4"/>
                         <constraint firstItem="n8a-8L-KIk" firstAttribute="width" secondItem="Bnp-pu-Bnp" secondAttribute="width" id="dpj-Rm-QNY"/>
@@ -267,6 +267,9 @@
                         <mask key="constraints">
                             <exclude reference="29i-Hd-A2M"/>
                             <exclude reference="bpU-1i-Kvv"/>
+                            <exclude reference="TSb-sU-yVk"/>
+                            <exclude reference="UWF-GW-rkj"/>
+                            <exclude reference="bWc-4l-0Eu"/>
                             <exclude reference="JNb-TS-KTS"/>
                             <exclude reference="O3v-G7-6rx"/>
                             <exclude reference="72d-Mm-j5F"/>
@@ -314,9 +317,6 @@
                             <exclude reference="ww6-GZ-rw6"/>
                             <exclude reference="0QQ-WL-K7a"/>
                             <exclude reference="jgT-NX-h98"/>
-                            <exclude reference="TSb-sU-yVk"/>
-                            <exclude reference="UWF-GW-rkj"/>
-                            <exclude reference="bWc-4l-0Eu"/>
                         </mask>
                     </variation>
                     <variation key="widthClass=compact">
@@ -336,6 +336,9 @@
                         <mask key="constraints">
                             <include reference="29i-Hd-A2M"/>
                             <include reference="bpU-1i-Kvv"/>
+                            <include reference="TSb-sU-yVk"/>
+                            <include reference="UWF-GW-rkj"/>
+                            <include reference="bWc-4l-0Eu"/>
                             <include reference="JNb-TS-KTS"/>
                             <include reference="O3v-G7-6rx"/>
                             <exclude reference="72d-Mm-j5F"/>
@@ -383,9 +386,6 @@
                             <include reference="ww6-GZ-rw6"/>
                             <include reference="0QQ-WL-K7a"/>
                             <include reference="jgT-NX-h98"/>
-                            <include reference="TSb-sU-yVk"/>
-                            <include reference="UWF-GW-rkj"/>
-                            <include reference="bWc-4l-0Eu"/>
                         </mask>
                     </variation>
                 </view>

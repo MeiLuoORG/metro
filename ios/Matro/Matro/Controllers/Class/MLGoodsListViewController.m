@@ -787,8 +787,8 @@ static NSInteger page = 1;
     }else{
         
         cell.isShouqing.hidden = YES;
-        cell.productnameLb.textColor = [UIColor colorWithHexString:@"F1653E"];
-        cell.priceLb.textColor = [UIColor colorWithHexString:@"260E00"];
+        cell.productnameLb.textColor = [UIColor colorWithHexString:@"260E00"];
+        cell.priceLb.textColor = [UIColor colorWithHexString:@"F1653E"];
     }
     
     return cell;

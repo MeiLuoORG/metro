@@ -437,7 +437,7 @@
         if ([self panDuanPhoneIsYesOrNO]) {
             
             //检测是否可以充值
-            NSLog(@"_cardNumARRS的个数为：%ld",_cardNumARRS.count);
+
             for (int i = 0; i<_cardNumARRS.count; i++) {
                 NSLog(@"执行了：%d",i);
                 NSString * card = _cardNumARRS[i];
@@ -514,7 +514,7 @@
         }
         
         vc.type = 0;
-        vc.jinE = 0.01;
+        vc.jinE = self.orderPrice;
         vc.orderNum = self.orderNum;
         //[NSString stringWithFormat:@"%d",arc4random()%10000];
         NSLog(@"self.orderNum的值为：%@",vc.orderNum);

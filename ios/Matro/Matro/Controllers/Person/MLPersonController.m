@@ -89,6 +89,7 @@
     JSBadgeView * _daiPingbadgeView;
     //JSBadgeView * _tuiHuobadgeView;
     //JSBadgeView * _allOrderbadgeView;
+    UIButton * _dianWOButton;
     
 }
 @property (nonatomic,strong)UITableView *tableView;
@@ -568,17 +569,24 @@
     [_thirdButtonBackView addSubview:yuElabel];
     [_thirdButtonBackView addSubview:_yuEValueLabel];
     
-    UIButton * dianWOButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [dianWOButton setFrame:CGRectMake(0, (310.0f/750.0f)*SIZE_WIDTH-(100.0f/750.0f)*SIZE_WIDTH, SIZE_WIDTH, (100.0f/750.0f)*SIZE_WIDTH)];
-    [dianWOButton setBackgroundImage:[UIImage imageNamed:@"bannarzl"] forState:UIControlStateNormal];
-    //[dianWOButton setTitle:@"领取优惠券，请戳这里" forState:UIControlStateNormal];
-    [dianWOButton setBackgroundColor:[UIColor blueColor]];
-    [dianWOButton addTarget:self action:@selector(bannarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_thirdButtonBackView addSubview:dianWOButton];
- 
-    _thirderHeight = 182.0f+(310.0f/750.0f)*SIZE_WIDTH;
+    [self createDianWoButton];
 }
+
+- (void)createDianWoButton{
+    _dianWOButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_dianWOButton setFrame:CGRectMake(0, (310.0f/750.0f)*SIZE_WIDTH-(100.0f/750.0f)*SIZE_WIDTH, SIZE_WIDTH, (100.0f/750.0f)*SIZE_WIDTH)];
+    [_dianWOButton setBackgroundImage:[UIImage imageNamed:@"bannarzl"] forState:UIControlStateNormal];
+    //[dianWOButton setTitle:@"领取优惠券，请戳这里" forState:UIControlStateNormal];
+    //[_dianWOButton setBackgroundColor:[UIColor blueColor]];
+    [_dianWOButton addTarget:self action:@selector(bannarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_thirdButtonBackView addSubview:_dianWOButton];
+    
+    _thirderHeight = 182.0f+(310.0f/750.0f)*SIZE_WIDTH;
+
+}
+
+
 #pragma mark 我的资产
 - (void)getMyZiChanAction{
 
@@ -724,15 +732,11 @@
      //self.hidesBottomBarWhenPushed = YES;
 
        // __weak typeof (self) weakSelf = self;
+    sender.enabled = NO;
     [self qignQiuYouHuiQuan];
     
         NSLog(@"执行了加载了优惠圈视图");
-        [UIView animateWithDuration:0.4f animations:^{
-            self.lingQuQuanView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT);
-        
-        } completion:^(BOOL finished) {
-            [self.tabBarController.tabBar setHidden:YES];
-        }];
+    
 }
 
 
@@ -740,39 +744,54 @@
 - (void)qignQiuYouHuiQuan{
 
     
+    
     [MLHttpManager get:LingQuYouHuiQuan_URLString params:nil m:@"member" s:@"admin_coupons" success:^(id responseObject) {
         NSLog(@"请求优惠券信息：%@",responseObject);
+        _dianWOButton.enabled = YES;
         NSDictionary * result = (NSDictionary *)responseObject;
-        NSDictionary * dataDic = result[@"data"];
-        NSArray  *  b2cQuanARR = dataDic[@"b2c_coupons"];
-        if (b2cQuanARR.count > 0) {
-            for (NSDictionary * quanDic in b2cQuanARR) {
-             
-                YouHuiQuanModel * model = [[YouHuiQuanModel alloc]init];
-                model.startTime = quanDic[@"YXQ_B"];
-                model.endTime = quanDic[@"YXQ_E"];
-                model.mingChengStr = quanDic[@"YHQMC"];
-                model.flag = quanDic[@"FLAG"];
-                model.jinE = quanDic[@"JE"];
-                model.quanBH = quanDic[@"JLBH"];
-                model.quanID = quanDic[@"YHQID"];
-                model.quanType = quanDic[@"CXLX"];
-                [self.lingQuQuanView.quanARR addObject:model];
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary * dataDic = result[@"data"];
+            
+            if ([dataDic[@"b2c_coupons"] isKindOfClass:[NSArray class]]) {
+                
+                NSArray  *  b2cQuanARR = dataDic[@"b2c_coupons"];
+                if (b2cQuanARR.count > 0) {
+                    for (NSDictionary * quanDic in b2cQuanARR) {
+                        
+                        YouHuiQuanModel * model = [[YouHuiQuanModel alloc]init];
+                        model.startTime = quanDic[@"YXQ_B"];
+                        model.endTime = quanDic[@"YXQ_E"];
+                        model.mingChengStr = quanDic[@"YHQMC"];
+                        model.flag = quanDic[@"FLAG"];
+                        model.jinE = quanDic[@"JE"];
+                        model.quanBH = quanDic[@"JLBH"];
+                        model.quanID = quanDic[@"YHQID"];
+                        model.quanType = quanDic[@"CXLX"];
+                        [self.lingQuQuanView.quanARR addObject:model];
+                    }
+                    [UIView animateWithDuration:0.4f animations:^{
+                        self.lingQuQuanView.frame = CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT);
+                        
+                    } completion:^(BOOL finished) {
+                        [self.tabBarController.tabBar setHidden:YES];
+                    }];
+                    
+                }
+                [self.lingQuQuanView.tablieview reloadData];
+                if (self.lingQuQuanView.quanARR.count == 0) {
+                    _hud = [[MBProgressHUD alloc]initWithView:self.view];
+                    [self.view addSubview:_hud];
+                    [_hud show:YES];
+                    _hud.mode = MBProgressHUDModeText;
+                    _hud.labelText = @"没有可以领取的优惠券";
+                    [_hud hide:YES afterDelay:1];
+                }
             }
         }
-        
-        [self.lingQuQuanView.tablieview reloadData];
-        if (self.lingQuQuanView.quanARR.count == 0) {
-            _hud = [[MBProgressHUD alloc]initWithView:self.view];
-            [self.view addSubview:_hud];
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"您的优惠券都已领取";
-            [_hud hide:YES afterDelay:1];
+        else{
         }
-        
-        
     } failure:^(NSError *error) {
+        _dianWOButton.enabled = YES;
         _hud = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
         [_hud show:YES];
@@ -780,10 +799,7 @@
         _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:1];
     }];
-    
 }
-
-
 #pragma mark 查询已经领取的优惠券
 - (void)chaXunYiLingQuQuanList{
 //m=member&s=admin_coupons

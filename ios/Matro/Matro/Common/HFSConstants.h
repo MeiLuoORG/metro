@@ -266,7 +266,7 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define VIPCARD_HISTORY_URLString       ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/getVipSaleItem"
 
 //会员卡的默认名称
-#define VIPCARDIMG_DEFAULTNAME          @"quanqiugouka"
+#define VIPCARDIMG_DEFAULTNAME          @"jinkazhoulu"
 
 //上传头像
 #define UPLOADTOUXIANG_IMAGE_URLString  ZHOULU_ML_BASE_URLString@"/api.php?m=uploadimg&s=index"
