@@ -1414,7 +1414,6 @@
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="6NU-iG-7XW"/>
                             <exclude reference="9UR-sP-Be0"/>
                         </mask>
                     </variation>

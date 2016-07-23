@@ -29,7 +29,7 @@
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [_scrollView addSubview:titleLabel];
     UILabel *introduceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(titleLabel.frame)+20, self.view.frame.size.width-20, 120)];
-    introduceLabel.text = @"  美罗全球精品购隶属于苏州函数集团，与2015年成立，旨在让更多人享受到美罗的全球精品。\n\n  美罗全球精品购秉承100%官方正品，分享全球精品的时尚智选理念，与多个国际知名品牌形成官方授权合作，打造成为时尚精品网站的领导者。";
+    introduceLabel.text = @"  美罗全球精品购隶属于苏州函数集团，于2015年成立，旨在让更多人享受到美罗的全球精品。\n\n  美罗全球精品购秉承100%官方正品，分享全球精品的时尚智选理念，与多个国际知名品牌形成官方授权合作，打造成为时尚精品网站的领导者。";
     introduceLabel.font = [UIFont systemFontOfSize:14];
     introduceLabel.textColor = MS_RGB(38, 14, 0);
     introduceLabel.numberOfLines = 0;

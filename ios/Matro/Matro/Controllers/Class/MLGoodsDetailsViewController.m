@@ -300,7 +300,6 @@
 {
     [super viewWillAppear:animated];
     
-    [super viewWillAppear:animated];
     _pingmuH.constant = MAIN_SCREEN_HEIGHT - 64 - 45;
     _pingmuW.constant = MAIN_SCREEN_WIDTH;
     
@@ -2124,15 +2123,22 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    /*
-    IMJIETagFrame *frame = [[IMJIETagFrame alloc] init];
-    frame.tagsMinPadding = 4;
-    frame.tagsMargin = 10;
-    frame.tagsLineSpacing = 10;
-    frame.tagsArray = huoyuanArray;
-    */
+
+    if (indexPath.row == 1) {
+        if (jieduanArray.count >5) {
+           self.guigeH.constant  = 120;
+            return 80;
+        }else{
+        
+            return 40;
+        }
+        
+    }
+    else {
+        
+        return 40;
+    }
     
-    return 40;
 }
 
 

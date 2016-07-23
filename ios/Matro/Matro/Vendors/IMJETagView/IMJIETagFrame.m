@@ -52,7 +52,7 @@
         }
         CGFloat nextBtnX = btnX + btnW + _tagsMargin;
         // 如果下一个按钮，标签最右边则换行
-        if ((nextBtnX + nextWidth + _tagsMargin) > (SCREEN_WIDTH)) {
+        if ((nextBtnX + nextWidth + _tagsMargin) > (SCREEN_WIDTH - 75)) {
             // 计算超过的宽度
             moreWidth = SCREEN_WIDTH - nextBtnX;
             
@@ -99,7 +99,8 @@
         
         for (NSInteger j=0; j<newArr.count; j++) {
             
-            tagW = [self sizeWithText:newArr[j] font:TagTitleFont].width + _tagsMinPadding * 2 + averageW;
+          //  tagW = [self sizeWithText:newArr[j] font:TagTitleFont].width + _tagsMinPadding * 2 + averageW;
+            tagW = [self sizeWithText:newArr[j] font:TagTitleFont].width + _tagsMinPadding * 2 ;
             
             CGRect btnF = CGRectMake(tagX, tagY, tagW, tagH);
             
