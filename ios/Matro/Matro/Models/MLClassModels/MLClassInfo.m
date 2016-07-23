@@ -28,6 +28,7 @@
              @"istuij" : @"istuij",
              @"inx" : @"inx",
              @"imgurl" : @"imgurl",
+             @"catid" : @"catid",
              };
 }
 

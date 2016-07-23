@@ -514,7 +514,7 @@
         }
         
         vc.type = 0;
-        vc.jinE = self.orderPrice;
+        vc.jinE = 0.01;
         vc.orderNum = self.orderNum;
         //[NSString stringWithFormat:@"%d",arc4random()%10000];
         NSLog(@"self.orderNum的值为：%@",vc.orderNum);
