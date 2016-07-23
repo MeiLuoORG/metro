@@ -95,7 +95,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OTy-Kk-Nf3">
                     <rect key="frame" x="0.0" y="96" width="600" height="54"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="海关清关需收货人姓名与身份证真实无误" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w9S-b4-U8T">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="因涉及全球购商品，请填写收货人身份证号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w9S-b4-U8T">
                             <rect key="frame" x="16" y="19" width="480" height="17"/>
                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -114,14 +114,25 @@
                                 <action selector="saveClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="OKc-OU-qrd"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="身份证号：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usj-ZY-vXm">
+                            <rect key="frame" x="-77" y="18" width="77" height="18"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="kBi-PD-HGV"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="w9S-b4-U8T" firstAttribute="centerY" secondItem="OTy-Kk-Nf3" secondAttribute="centerY" id="153-9b-gvA"/>
-                        <constraint firstItem="w9S-b4-U8T" firstAttribute="leading" secondItem="OTy-Kk-Nf3" secondAttribute="leading" constant="16" id="5ee-oN-j9c"/>
                         <constraint firstAttribute="trailing" secondItem="zxL-B4-UsS" secondAttribute="trailing" constant="16" id="Fju-dg-6yj"/>
                         <constraint firstItem="zxL-B4-UsS" firstAttribute="centerY" secondItem="OTy-Kk-Nf3" secondAttribute="centerY" id="Ydh-2R-MK2"/>
+                        <constraint firstItem="w9S-b4-U8T" firstAttribute="leading" secondItem="usj-ZY-vXm" secondAttribute="trailing" constant="16" id="eqe-f0-Ub6"/>
+                        <constraint firstItem="usj-ZY-vXm" firstAttribute="leading" secondItem="OTy-Kk-Nf3" secondAttribute="leading" constant="-77" id="gbR-g7-7V1"/>
                         <constraint firstAttribute="height" constant="54" id="hu1-UY-eIE"/>
+                        <constraint firstItem="usj-ZY-vXm" firstAttribute="centerY" secondItem="OTy-Kk-Nf3" secondAttribute="centerY" id="ixb-WY-sl0"/>
                         <constraint firstItem="zxL-B4-UsS" firstAttribute="leading" secondItem="w9S-b4-U8T" secondAttribute="trailing" constant="8" id="j7i-cw-tgt"/>
                     </constraints>
                 </view>
@@ -143,11 +154,14 @@
                 <outlet property="addressControl" destination="cDr-0Q-jbh" id="POY-96-VGT"/>
                 <outlet property="addressLabel" destination="d8x-cM-Cdm" id="zVk-IR-0oI"/>
                 <outlet property="editBtn" destination="zxL-B4-UsS" id="mN0-XO-M6b"/>
+                <outlet property="fieldLeading" destination="eqe-f0-Ub6" id="r8n-oI-x5l"/>
                 <outlet property="mapImage" destination="cdT-ej-KOS" id="k3J-ug-Tou"/>
                 <outlet property="nameImage" destination="uur-1G-HzT" id="2CM-0S-RI9"/>
                 <outlet property="nameLabel" destination="Kgw-1h-M4f" id="0Ms-QC-5mh"/>
                 <outlet property="phoneImage" destination="dJ8-Vi-V2v" id="1cx-rv-WNJ"/>
                 <outlet property="phoneLabel" destination="btO-Rg-04J" id="SVj-y3-LnZ"/>
+                <outlet property="sfLabel" destination="usj-ZY-vXm" id="AA4-Ss-xQI"/>
+                <outlet property="sfLeading" destination="gbR-g7-7V1" id="Yoj-Fg-FKx"/>
                 <outlet property="shenfenzhengField" destination="w9S-b4-U8T" id="cVS-PQ-Vwe"/>
                 <outlet property="viewHeight" destination="3Wd-7w-Umk" id="NY4-x6-4n3"/>
                 <outlet property="warningLabel" destination="QI1-PW-AtH" id="XZe-tB-WTs"/>

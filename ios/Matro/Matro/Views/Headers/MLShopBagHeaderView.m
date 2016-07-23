@@ -107,8 +107,29 @@
         
         self.checkBox.cartSelected = _shopingCart.select_All;
         self.youhuiBtn.hidden = !(_shopingCart.dpyhq.count>0);
-
-        self.titleLabel.text = [NSString stringWithFormat:@"%@ ",_shopingCart.company];
+        NSString *subTitle = nil;
+        switch (_shopingCart.way) {
+            case 1:
+            {
+                subTitle = @"【全球购】";
+            }
+                break;
+            case 2:
+            {
+                subTitle = @"【跨境购】";
+            }
+                break;
+            case 3:
+            {
+                subTitle = @"【闪电购】";
+            }
+                break;
+            default:
+                break;
+        }
+        
+        
+        self.titleLabel.text = [NSString stringWithFormat:@"%@%@",_shopingCart.company,subTitle];
 
     }
 }

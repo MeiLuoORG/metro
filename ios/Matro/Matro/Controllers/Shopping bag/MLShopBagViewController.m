@@ -41,6 +41,8 @@
 #import "MLCommitOrderListModel.h"
 #import "MLShopInfoViewController.h"
 #import "CommonHeader.h"
+#import "MLShopBagCloseTableViewCell.h"
+
 @interface MLShopBagViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,CPStepperDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)MLShopCartFootView *footView;
@@ -104,6 +106,7 @@ static NSInteger pageIndex = 0;
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
         [tableView registerNib:[UINib nibWithNibName:@"MLShopBagTableViewCell" bundle:nil] forCellReuseIdentifier:kShopBagTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLMoreTableViewCell" bundle:nil] forCellReuseIdentifier:@"MoreCell"];
+        [tableView registerNib:[UINib nibWithNibName:@"MLShopBagCloseTableViewCell" bundle:nil] forCellReuseIdentifier:@"CloseCell"];
         [tableView registerClass:[MLShopBagHeaderView class] forHeaderFooterViewReuseIdentifier:@"headView"];
         tableView.backgroundColor = RGBA(245, 245, 245, 1);
         tableView.delegate = self;
@@ -119,6 +122,7 @@ static NSInteger pageIndex = 0;
         UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, (5*(cellW*1.4+16) + 45)) collectionViewLayout:layout];
         [collectionView registerNib:[UINib nibWithNibName:@"MLGoodsLikeCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:kGoodsLikeCollectionViewCell];
         [collectionView registerNib:[UINib nibWithNibName:@"MLLikeHeadCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:kLikeHeadCollectionReusableView];
+        
         collectionView.delegate = self;
         collectionView.dataSource = self;
         collectionView.backgroundColor = RGBA(245, 245, 245, 1);
@@ -240,11 +244,25 @@ static NSInteger pageIndex = 0;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.isLogin) {
         MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:section];
-        return (cart.isMore && !cart.isOpen)?3:cart.prolist.count;
+        if (cart.isMore) {
+            if (cart.isOpen) {
+                return cart.prolist.count + 1;
+            }else{
+                return 3;
+            }
+        }
+        return cart.prolist.count;
         
       }else{
         MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:section];
-        return (cart.isMore && !cart.isOpen)?3:cart.goodsArray.count;
+          if (cart.isMore) {
+              if (cart.isOpen) {
+                  return cart.goodsArray.count + 1;
+              }else{
+                  return 3;
+              }
+          }
+        return cart.goodsArray.count;
     }
 
 }
@@ -260,6 +278,14 @@ static NSInteger pageIndex = 0;
                 cart.isOpen = YES;
                 [self.tableView reloadData];
             };
+            return cell;
+        }
+        if (cart.isMore && cart.isOpen && indexPath.row == cart.prolist.count) { //点击收齐操作
+            MLShopBagCloseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CloseCell" forIndexPath:indexPath];
+//            cell.closeAction  = ^(){
+//                cart.isOpen = NO;
+//                [self.tableView reloadData];
+//            };
             return cell;
         }
         MLShopBagTableViewCell *cell = [tableView  dequeueReusableCellWithIdentifier:kShopBagTableViewCell forIndexPath:indexPath];
@@ -319,6 +345,10 @@ static NSInteger pageIndex = 0;
                 [self.tableView reloadData];
             };
             
+            return cell;
+        }
+        if (cart.isMore && cart.isOpen && indexPath.row == cart.goodsArray.count) { //点击收齐操作
+            MLShopBagCloseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CloseCell" forIndexPath:indexPath];
             return cell;
         }
         MLShopBagTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kShopBagTableViewCell forIndexPath:indexPath];
@@ -496,11 +526,24 @@ static NSInteger pageIndex = 0;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.isLogin) {
         MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
-        return (cart.isMore && !cart.isOpen && indexPath.row == 2)?40:125;
+        if (cart.isMore && cart.isOpen && indexPath.row == cart.prolist.count) {
+            return 40;
+        }
+        if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
+            return 40;
+            
+        }
+        return 125;
     }
     else{
         MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:indexPath.section];
-        return (cart.isMore && !cart.isOpen && indexPath.row == 2)?40:125;
+        if (cart.isMore && !cart.isOpen && indexPath.row == 2){
+            return 40;
+        }
+        if (cart.isMore && cart.isOpen && indexPath.row == cart.goodsArray.count) {
+            return 40;
+        }
+        return 125;
     }
 }
 
@@ -509,26 +552,46 @@ static NSInteger pageIndex = 0;
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *pid = nil;
-    NSString *sell_userid = nil;
     if (!self.isLogin) {
-        MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:indexPath.section];
+          MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:indexPath.section];
+        if (cart.isMore && cart.isOpen && indexPath.row == cart.goodsArray.count) {
+            cart.isOpen = NO;
+            [self.tableView reloadData];
+            return;
+        }
+        if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
+            return;
+            
+        }
+ 
         OffLlineShopCart *model = [cart.goodsArray objectAtIndex:indexPath.row];
-        pid = model.pid;
-        sell_userid = model.company_id;
+        MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+        NSDictionary *params = @{@"id":model.pid?:@"",@"userid":model.company_id?:@""};
+        vc.paramDic = params;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
        
     }
     else{
         MLShopingCartModel *cart = [self.shopCart.cart objectAtIndex:indexPath.section];
+        if (cart.isMore && cart.isOpen && indexPath.row == cart.prolist.count) {
+            cart.isOpen = NO;
+            [self.tableView reloadData];
+            return;
+        }
+        if (cart.isMore && !cart.isOpen && indexPath.row == 2) {
+            return;
+            
+        }
         MLProlistModel *model = [cart.prolist objectAtIndex:indexPath.row];
-        pid = model.pid;
-        sell_userid = model.sell_userid;
+        
+        MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+        NSDictionary *params = @{@"id":model.pid?:@"",@"userid":model.sell_userid?:@""};
+        vc.paramDic = params;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
-    MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
-    NSDictionary *params = @{@"id":pid?:@"",@"userid":sell_userid?:@""};
-    vc.paramDic = params;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 

@@ -13,6 +13,7 @@ typedef void(^MoreActionBlock)();
 
 @interface MLMoreTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UIButton *moreButton;
+
 @property (nonatomic,copy)MoreActionBlock moreActionBlock;
 
 @end

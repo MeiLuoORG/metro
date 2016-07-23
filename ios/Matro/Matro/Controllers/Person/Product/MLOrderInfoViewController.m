@@ -57,8 +57,6 @@
     self.title = @"订单详情";
     
     [_tableView registerNib:[UINib nibWithNibName:@"HFSOrderListHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:HEADER_IDENTIFIER];
-//    NSString *typeStr = _detaDic[@"type"];
-    
     [_tableView registerNib:[UINib nibWithNibName:@"MLProductOrderCell" bundle:nil] forCellReuseIdentifier:@"orderCell"];
     
     

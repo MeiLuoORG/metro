@@ -27,7 +27,8 @@
 #import "MLPayViewController.h"
 #import "MLOrderSubLiuYanTableViewCell.h"
 #import "CommonHeader.h"
-
+#import "MLShopBagCloseTableViewCell.h"
+#import "MLGoodsDetailsViewController.h"
 @interface MLOrderSubmitViewController ()<UITableViewDelegate,UITableViewDataSource>{
     BOOL idCardOk;
 }
@@ -58,6 +59,8 @@
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderSubArrowTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderSubArrowTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderSubTextTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderSubTextTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderSubFaPiaoTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderSubFaPiaoTableViewCell];
+        [tableView registerNib:[UINib nibWithNibName:@"MLShopBagCloseTableViewCell" bundle:nil] forCellReuseIdentifier:@"CloseCell"];
+        
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tableView.delegate = self;
         tableView.dataSource = self;
@@ -194,8 +197,11 @@
                 NSInteger index = section/2;
                 MLOrderCartModel *cart = [self.order_info.cart objectAtIndex:index];
                 
-                if (cart.isMore && !cart.isOpen){
+                if (cart.isMore && !cart.isOpen){ //如果有更多未打开
                     return 4;
+                }
+                if (cart.isMore && cart.isOpen) { //有更多已打开
+                    return cart.prolist.count + 2;
                 }
                 return cart.prolist.count+1;
             }
@@ -285,6 +291,14 @@
                     [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%lu件",cart.prolist.count - 2] forState:UIControlStateNormal];
                     cell.moreActionBlock = ^(){
                         cart.isOpen = YES;
+                        [self.tableView reloadData];
+                    };
+                    return cell;
+                }
+                if (cart.isMore && cart.isOpen && indexPath.row == cart.prolist.count + 1) { // 有更多 最后一行
+                    MLShopBagCloseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CloseCell" forIndexPath:indexPath];
+                    cell.closeAction = ^(){
+                        cart.isOpen = NO;
                         [self.tableView reloadData];
                     };
                     return cell;
@@ -432,6 +446,9 @@
             if (cart.isMore && !cart.isOpen && indexPath.row == 3) { // 有更多
                 return 40;
             }
+            if (cart.isMore && cart.isOpen && indexPath.row == cart.prolist.count+1) { // 有更多
+                return 40;
+            }
             return 125;
         }
         break;
@@ -489,7 +506,22 @@
         switch (indexPath.section%2) {
             case 0:
             {
-                
+                if (indexPath.row == 0) {
+                    return;
+                }
+                if (cart.isMore && !cart.isOpen && indexPath.row == 3) { // 有更多
+                    return;
+                }
+                if (cart.isMore && cart.isOpen && indexPath.row == cart.prolist.count+1) { // 有更多
+                    cart.isOpen = NO;
+                    [self.tableView reloadData];
+                     return;
+                }
+                MLOrderProlistModel *model = [cart.prolist objectAtIndex:indexPath.row-1];
+                MLGoodsDetailsViewController *vc = [[MLGoodsDetailsViewController alloc]init];
+                vc.paramDic = @{@"id":model.pid};
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
             }
                 break;
             case 1:
