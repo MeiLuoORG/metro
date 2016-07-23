@@ -203,9 +203,9 @@
                 case OrderStatusDaifukuan:  //启用倒计时  //待付款
                 {
                     self.footView.footerType = FooterTypeDaifukuan;
-                    NSDate *now = [NSDate new];
-                    NSDate *since = [NSDate dateWithTimeIntervalSince1970:self.orderDetail.creat_time];
-                    [self compareDate:since currentDate:now];
+//                    NSDate *now = [NSDate new];
+//                    NSDate *since = [NSDate dateWithTimeIntervalSince1970:self.orderDetail.creat_time];
+                    [self startCountdown];
                 }
                     break;
                 case OrderStatusDaifahuo:  //待发货
@@ -627,10 +627,8 @@
 
 
 
--(void)compareDate:(NSDate*)startdate currentDate:(NSDate*)endDate
-{
-    float restm =  [endDate timeIntervalSinceDate:startdate ];
-    if (restm/60/60>24) { //小时   如果倒计时超过2小时 不显示倒计时
+-(void)startCountdown{
+    if (self.orderDetail.remainder/60/60 > 24 || self.orderDetail.remainder <= 0) { //小时   如果倒计时超过2小时 不显示倒计时
         self.footView.daojishiLb.hidden = YES;
         self.footView.shenyuLb.hidden = YES;
         [self.footView.payBtn setTitle:@"订单已超时" forState:UIControlStateNormal];
@@ -638,8 +636,7 @@
         self.footView.payBtn.enabled = NO;
     }
     else{
-        restm = 60*60*24-restm;
-        [self startTime:restm];
+        [self startTime:self.orderDetail.remainder];
     }
 }
 

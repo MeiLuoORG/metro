@@ -20,7 +20,7 @@
 @property (nonatomic,copy)NSString *shipping_address;
 @property (nonatomic,copy)NSString *shipping_mobile;
 @property (nonatomic,copy)NSString *shipping_tel;
-@property (nonatomic,copy)NSString *remainder;
+@property (nonatomic,assign)NSTimeInterval remainder;
 @property (nonatomic,copy)NSString *process;
 @property (nonatomic,assign)float b2cyhq;
 

@@ -10,8 +10,6 @@
 
 @implementation MLPersonOrderDetail
 
-
-
 @end
 @implementation MLOrderDetailSellerinfo
 

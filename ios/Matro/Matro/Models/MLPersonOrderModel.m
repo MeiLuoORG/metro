@@ -33,6 +33,21 @@
 }
 
 
+- (void)setRemainder:(NSTimeInterval)remainder{
+    _remainder = remainder;
+    
+    
+    self.endTime = [NSDate dateWithTimeIntervalSinceNow:_remainder];
+    
+}
+
+
+- (BOOL)canPay{
+    NSDate *now = [NSDate new];
+    return [now timeIntervalSinceDate:self.endTime] < 0;
+}
+
+
 
 @end
 

@@ -220,12 +220,16 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
             [weakself showTransparentController:vc];
         };
         cell.fuKuanAction = ^(){//跳到付款 页面
-            MLPayViewController *vc = [[MLPayViewController alloc]init];
-            vc.order_id = order.order_id;
-            vc.order_sum = order.order_price;
-            vc.isGlobal = (order.way == 2);
-            
-            [weakself.navigationController pushViewController:vc animated:YES];
+            if (order.canPay) {
+                MLPayViewController *vc = [[MLPayViewController alloc]init];
+                vc.order_id = order.order_id;
+                vc.order_sum = order.order_price;
+                vc.isGlobal = (order.way == 2);
+                [weakself.navigationController pushViewController:vc animated:YES];
+            }else{
+                [MBProgressHUD showMessag:@"订单已过期，请重新下单!" toView:self.view];
+            }
+           
         };
         cell.leftKanTuiHuo = ^(){
             MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
@@ -234,7 +238,6 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
                 [weakself.tableView.header beginRefreshing];
             };
             [weakself.navigationController pushViewController:vc animated:YES];
-            
         };
         
         return cell;

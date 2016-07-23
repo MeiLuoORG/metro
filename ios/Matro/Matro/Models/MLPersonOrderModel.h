@@ -80,8 +80,15 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,assign)float order_price;
 @property (nonatomic,strong)MLInvinfo *invinfo;
 
-@property (nonatomic,assign)NSInteger return_status;
+@property (nonatomic,assign)NSTimeInterval remainder;
 
+@property (nonatomic,strong)NSDate *endTime;
+
+@property (nonatomic,assign)BOOL canPay;
+
+
+
+@property (nonatomic,assign)NSInteger return_status;
 
 @property (nonatomic,assign)BOOL isMore;
 @property (nonatomic,assign)BOOL isOpen;
