@@ -606,7 +606,7 @@
         
     NSString  *selectTitle = dic[@"mc"];
     vc.filterParam = @{@"keyword":selectTitle};
-        
+    vc.searchString = dic[@"mc"];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
    
