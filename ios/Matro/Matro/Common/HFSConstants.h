@@ -37,23 +37,23 @@
 
 
 
-//#define ZHOULU_ML_BASE_URLString        @"http://www.matrojp.com"
-//#define MATROJP_BASE_URL                @"http://www.matrojp.com"
-//#define SERVICE_GETBASE_URL             @"http://www.matrojp.com/"
-//#define ZHOULU_ML_CRM_URLString         @"http://vip.matrojp.com"
-//#define APP_ID_ZHOU                     @"01d689a05d4841c6a29d0080502bde67"
-//#define APP_Secrect_ZHOU                @"cca95b6b0f9a416e8ab865b3d31b7a54"
-//#define CHOGNZHI_PAY_URLSTRING          @"http://pay-test.matrojp.com"
-
-
-
-#define ZHOULU_ML_BASE_URLString        @"http://bbctest.matrojp.com"
-#define MATROJP_BASE_URL                @"http://bbctest.matrojp.com"
-#define SERVICE_GETBASE_URL             @"http://bbctest.matrojp.com/"
-#define ZHOULU_ML_CRM_URLString         @"http://app-test.matrojp.com"
-#define APP_ID_ZHOU                     @"test0002"
-#define APP_Secrect_ZHOU                @"123456"
+#define ZHOULU_ML_BASE_URLString        @"http://www.matrojp.com"
+#define MATROJP_BASE_URL                @"http://www.matrojp.com"
+#define SERVICE_GETBASE_URL             @"http://www.matrojp.com/"
+#define ZHOULU_ML_CRM_URLString         @"http://vip.matrojp.com"
+#define APP_ID_ZHOU                     @"01d689a05d4841c6a29d0080502bde67"
+#define APP_Secrect_ZHOU                @"cca95b6b0f9a416e8ab865b3d31b7a54"
 #define CHOGNZHI_PAY_URLSTRING          @"http://pay-test.matrojp.com"
+
+
+
+//#define ZHOULU_ML_BASE_URLString        @"http://bbctest.matrojp.com"
+//#define MATROJP_BASE_URL                @"http://bbctest.matrojp.com"
+//#define SERVICE_GETBASE_URL             @"http://bbctest.matrojp.com/"
+//#define ZHOULU_ML_CRM_URLString         @"http://app-test.matrojp.com"
+//#define APP_ID_ZHOU                     @"test0002"
+//#define APP_Secrect_ZHOU                @"123456"
+//#define CHOGNZHI_PAY_URLSTRING          @"http://pay-test.matrojp.com"
 
 
 
@@ -266,7 +266,7 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define VIPCARD_HISTORY_URLString       ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/getVipSaleItem"
 
 //会员卡的默认名称
-#define VIPCARDIMG_DEFAULTNAME          @"quanqiugouka"
+#define VIPCARDIMG_DEFAULTNAME          @"jinkazhoulu"
 
 //上传头像
 #define UPLOADTOUXIANG_IMAGE_URLString  ZHOULU_ML_BASE_URLString@"/api.php?m=uploadimg&s=index"
