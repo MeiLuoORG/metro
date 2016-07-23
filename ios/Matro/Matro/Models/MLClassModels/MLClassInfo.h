@@ -27,6 +27,7 @@
 @property (nonatomic, copy, readonly) NSString *imgurl;
 @property (nonatomic, copy, readonly) NSString *mc;
 @property (nonatomic, copy, readonly) NSString *inx;
+@property (nonatomic, copy, readonly) NSString *catid;
 
 /*
  code = "101020101",

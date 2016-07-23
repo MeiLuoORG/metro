@@ -602,8 +602,11 @@
     MLGoodsListViewController * vc = [[MLGoodsListViewController alloc]init];
     MLSecondClass * secondClass = _classSecondArray[collectionView.tag];
     NSDictionary *dic = secondClass.ThreeClassificationList[indexPath.row];
+        NSLog(@"dic===%@",dic);
+        
     NSString  *selectTitle = dic[@"mc"];
     vc.filterParam = @{@"keyword":selectTitle};
+        
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
    

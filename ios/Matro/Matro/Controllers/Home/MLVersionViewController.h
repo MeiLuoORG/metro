@@ -15,7 +15,7 @@
 @property(nonatomic,copy)NSString *downlink;
 @property(nonatomic,copy)NSString *versioninfoLabel;
 @property(nonatomic,copy)NSString *versionLabel;
-@property(nonatomic,copy)NSString *qzversionlabel;
+@property(nonatomic,assign)NSNumber *qzversionlabel;
 @property(nonatomic,strong)NSArray *versionInfoArr;
 @property (weak, nonatomic) IBOutlet UILabel *VerssionLab;
 @property (weak, nonatomic) IBOutlet UILabel *VersionInfoLab;

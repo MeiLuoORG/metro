@@ -155,22 +155,23 @@
         if ([code isEqual:@0]) {
             
             
-            if ([result[@"data"][@"sel_info"] isKindOfClass:[NSString class]]) {
+            if ( [result[@"data"][@"sel_info"] isKindOfClass:[NSString class]]) {
+                NSLog(@"已经是最新版本:%@",result);
                 return ;
             }else{
                 
                 NSLog(@"版本更新：%@",result);
                 
                 NSString *loadversion = result[@"data"][@"sel_info"][@"appverison"];
-                NSString *loadversionlowest = result[@"data"][@"sel_info"][@"appversion_lowest"];
+              //  NSString *loadversionlowest = result[@"data"][@"sel_info"][@"appversion_lowest"];
                 NSString *downlink = result[@"data"][@"sel_info"][@"download_link"];
-                NSLog(@"version===%@ loadversion===%@ downlink===%@",version, loadversion,downlink);
+                NSNumber *is_force = result[@"data"][@"sel_info"][@"is_force"];
+                MLVersionViewController *vc = [[MLVersionViewController alloc]init];
                 
-                if (version < loadversion) {
-                    
-                    MLVersionViewController *vc = [[MLVersionViewController alloc]init];
+                if (![is_force isKindOfClass:[NSNull class]] && [is_force isEqual:@0]) {
+ 
                     vc.versionLabel = loadversion;
-                    vc.qzversionlabel = loadversionlowest;
+                    vc.qzversionlabel = is_force;
                     vc.downlink = downlink;
                     NSString *labstr = result[@"data"][@"sel_info"][@"version_desc"];
                     if (![labstr isKindOfClass:[NSNull class]] && labstr != nil && labstr) {
@@ -181,8 +182,6 @@
                         vc.versioninfoLabel = labstr;
                         
                     }
-                    
-                    
                     vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
                     if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
                         
@@ -198,8 +197,39 @@
                          vc.view.superview.backgroundColor = [UIColor clearColor];
                          
                      }];
-                    
+       
                 }
+                else if (![is_force isKindOfClass:[NSNull class]] && [is_force isEqual:@1]){
+                
+                    vc.versionLabel = loadversion;
+                    vc.qzversionlabel = is_force;
+                    vc.downlink = downlink;
+                    NSString *labstr = result[@"data"][@"sel_info"][@"version_force"];
+                    if (![labstr isKindOfClass:[NSNull class]] && labstr != nil && labstr) {
+                        
+                        NSArray *nameArray = [labstr componentsSeparatedByString:@"|"];
+                        vc.versionInfoArr = nameArray;
+                        NSLog(@"%@%@",nameArray,vc.versionInfoArr);
+                        vc.versioninfoLabel = labstr;
+                
+                    }
+                    vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
+                    if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+                        
+                        vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+                        
+                    }else{
+                        
+                        self.modalPresentationStyle=UIModalPresentationCurrentContext;
+                        
+                    }
+                    [self presentViewController:vc  animated:YES completion:^(void)
+                     {
+                         vc.view.superview.backgroundColor = [UIColor clearColor];
+                         
+                     }];
+                }
+                
             }
         }
         NSLog(@"版本信息请求成功 result====%@",result);

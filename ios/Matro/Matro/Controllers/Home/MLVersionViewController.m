@@ -31,7 +31,7 @@
     self.qzdownloadBtn.hidden = YES;
     self.VerssionLab.text = [NSString stringWithFormat:@"美罗全球精品购V%@",self.versionLabel];
     
-    if (version < _qzversionlabel) {
+    if ([_qzversionlabel isEqual:@1]) {
         self.cancelBtn.hidden = YES;
         self.downloadBtn.hidden = YES;
         self.qzdownloadBtn.hidden = NO;

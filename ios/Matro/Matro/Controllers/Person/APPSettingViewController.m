@@ -129,6 +129,9 @@
     [userDefaults removeObjectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
     [userDefaults removeObjectForKey:KUSERDEFAULT_TIMEINTERVAR_LIJIA];
     [userDefaults removeObjectForKey:DIANPU_MAIJIA_UID];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:LOGOUT_TUICHU_NOTIFICATION object:nil];
+    
     //[[self getAppDelegate] autoLogin];
     [self renZhengLiJiaWithPhone:@"99999999999" withAccessToken:@"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r"];
     [self.navigationController popViewControllerAnimated:YES];
