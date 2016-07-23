@@ -186,8 +186,18 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushToStoreCenter) name:@"PushToStore" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(PushToOrderCenter) name:@"PushToOrderCenter" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getMyZiChanAction) name:LingQuYouHuiQuan_NOTIFICATION_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutNotificationAction:) name:LOGOUT_TUICHU_NOTIFICATION object:nil];
 }
 
+//退出登录通知
+- (void)logoutNotificationAction:(id)sender{
+
+    _xingYunXingValueLabel.text = @"0";
+    _jiFenValueLabel.text = @"0";
+    _youhuiValueLabel.text = @"0";
+    _yuEValueLabel.text = @"0";
+
+}
 
 - (void)PushToOrderCenter{
     MLPersonOrderListViewController *vc = [[MLPersonOrderListViewController alloc]initWithOrderType:OrderType_Fukuan];
@@ -466,7 +476,7 @@
 
     
     _xingYunXingValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(44, 58, 50, 18)];
-    _xingYunXingValueLabel.text = @"20000";
+    _xingYunXingValueLabel.text = @"0";
      _xingYunXingValueLabel.font = [UIFont systemFontOfSize:11.0f];
     _xingYunXingValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
     _xingYunXingValueLabel.textAlignment = NSTextAlignmentCenter;
@@ -488,7 +498,7 @@
     UITapGestureRecognizer * tap3 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tiaoZhuanHuiYuanKa)];
     
     _jiFenValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3+94), 58, 50, 18)];
-    _jiFenValueLabel.text = @"20000";
+    _jiFenValueLabel.text = @"0";
     _jiFenValueLabel.font = [UIFont systemFontOfSize:11.0f];
     _jiFenValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
     _jiFenValueLabel.textAlignment = NSTextAlignmentCenter;
@@ -508,7 +518,7 @@
     [jiFenLabel addGestureRecognizer:tap3];
     
     _youhuiValueLabel = [[UILabel alloc]initWithFrame:CGRectMake(((SIZE_WIDTH-200-88)/3.0f*2.0f+144), 58, 50, 18)];
-    _youhuiValueLabel.text = @"4";
+    _youhuiValueLabel.text = @"0";
     _youhuiValueLabel.font = [UIFont systemFontOfSize:11.0f];
     _youhuiValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
     _youhuiValueLabel.textAlignment = NSTextAlignmentCenter;
@@ -529,7 +539,7 @@
     [youhuiLabel addGestureRecognizer:tap2];
     
     _yuEValueLabel = [[UILabel alloc]initWithFrame:CGRectMake((SIZE_WIDTH-44-50), 58, 50, 18)];
-    _yuEValueLabel.text = @"34588";
+    _yuEValueLabel.text = @"0";
     _yuEValueLabel.font = [UIFont systemFontOfSize:11.0f];
     _yuEValueLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
     _yuEValueLabel.textAlignment = NSTextAlignmentCenter;
@@ -1095,6 +1105,7 @@
                 shiMingVC.userName = _real_name;
                 shiMingVC.userShenFenCardID = _identity_card;
                 shiMingVC.shenFenImageURLStr = _identity_picurl;
+                NSLog(@"姓名为：%@,身份证号为：%@,图片地址：%@",shiMingVC.userName,shiMingVC.userShenFenCardID,shiMingVC.shenFenImageURLStr);
             }
             
             [self.navigationController pushViewController:shiMingVC animated:YES];
@@ -1137,26 +1148,28 @@
                     _pay_mobile = identity_listDic[@"pay_mobile"];
                     _real_name = identity_listDic[@"real_name"];
                     _identity_card = identity_listDic[@"identity_card"];
-                    _identity_picurl = identity_listDic[@"identity_pic"];
+                    if (![identity_listDic[@"identity_pic"] isEqual:[NSNull null]] && ![identity_listDic[@"identity_pic"] isKindOfClass:[NSNull class]]) {
+                        _identity_picurl = identity_listDic[@"identity_pic"];
+                    }
                 }
                 else{
                     _isRenZheng = NO;
                     _headView.biaoZhiImageView.hidden = YES;
                     _headView.renZhengLabel.text = @"";
                     
-                    if (![identity_listDic[@"pay_id"] isEqual:[NSNull null]]) {
+                    if (![identity_listDic[@"pay_id"] isEqual:[NSNull null]] && ![identity_listDic[@"pay_id"] isKindOfClass:[NSNull class]]) {
                         _pay_id = identity_listDic[@"pay_id"];
                     }
-                    if (![identity_listDic[@"pay_mobile"]isEqual:[NSNull null]]) {
+                    if (![identity_listDic[@"pay_mobile"]isEqual:[NSNull null]] && ![identity_listDic[@"pay_mobile"]isKindOfClass:[NSNull class]]) {
                         _pay_mobile = identity_listDic[@"pay_mobile"];
                     }
-                    if (![identity_listDic[@"real_name"] isEqual:[NSNull null]]) {
+                    if (![identity_listDic[@"real_name"] isEqual:[NSNull null]] && ![identity_listDic[@"real_name"] isKindOfClass:[NSNull class]]) {
                         _real_name = identity_listDic[@"real_name"];
                     }
-                    if (![identity_listDic[@"identity_card"] isEqual:[NSNull null]]) {
+                    if (![identity_listDic[@"identity_card"] isEqual:[NSNull null]] && ![identity_listDic[@"identity_card"] isKindOfClass:[NSNull class]]) {
                         _identity_card = identity_listDic[@"identity_card"];
                     }
-                    if (![identity_listDic[@"identity_pic"] isEqual:[NSNull null]]) {
+                    if (![identity_listDic[@"identity_pic"] isEqual:[NSNull null]] && ![identity_listDic[@"identity_pic"] isKindOfClass:[NSNull class]]) {
                         _identity_picurl = identity_listDic[@"identity_pic"];
                     }
                     

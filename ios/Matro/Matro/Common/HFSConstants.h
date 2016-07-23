@@ -211,6 +211,9 @@
 //手机充值支付失败
 #define SHOUJI_CHONGZHI_PAY_FAIL_NOTIFICATION   @"SHOUJI_CHONGZHI_PAY_FAIL_NOTIFICATION"
 
+//退出登录发送通知
+#define LOGOUT_TUICHU_NOTIFICATION              @"logout_tuichu_notification"
+
 /*zhoulu*/
 
 #define LoadNibWithSelfClassName [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil]firstObject]

@@ -73,7 +73,8 @@
             _shenFenCardId.text = self.userShenFenCardID;
 
         }
-        if (![self.shenFenImageURLStr isEqual:[NSNull null]]) {
+        NSLog(@"传入的身份证图片链接为：%@",self.shenFenImageURLStr);
+        if (![self.shenFenImageURLStr isEqual:[NSNull null]] && ![self.shenFenImageURLStr isEqualToString:@""] && ![self.shenFenImageURLStr isKindOfClass:[NSNull class]]) {
             [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
             _isUploadIMG_OK = YES;
             _uploadIMG_URLString = self.shenFenImageURLStr;
