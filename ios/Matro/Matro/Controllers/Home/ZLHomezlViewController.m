@@ -100,9 +100,11 @@
      */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecomeActiveAction:) name:APPLICATION_BECOME_ACTIVE_NOTIFICATION object:nil];
 
-    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"该版本仅用于22号集团内部实单测试" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    /*
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"该版本仅用于25号集团内部实单测试" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
     [self.view addSubview:alert];
     [alert show];
+     */
 }
 
 - (void)liJiaRenZhengNotification:(id)sender{
