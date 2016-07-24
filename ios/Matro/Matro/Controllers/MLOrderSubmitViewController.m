@@ -177,7 +177,7 @@
     self.headView.nameLabel.text = self.order_info.consignee.name;
     self.headView.phoneLabel.text = self.order_info.consignee.mobile;
     self.headView.addressLabel.text = [NSString stringWithFormat:@"%@%@",self.order_info.consignee.area?:@"",self.order_info.consignee.address?:@""];
-    self.headView.shenfenzhengField.text = self.order_info.identity_card;
+
     NSString *attrPrice = [NSString stringWithFormat:@"<font size=\"16\"><color value=\"000000\">实付金额：</><color value=\"#FF4E25\">￥%.2f</></>",self.order_info.realPrice];
     self.sumLabel.attributedText = [attrPrice createAttributedString];
 }

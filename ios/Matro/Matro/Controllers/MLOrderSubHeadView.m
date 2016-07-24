@@ -14,7 +14,10 @@
 #import "NSString+URLZL.h"
 #import "Masonry.h"
 
-@interface MLOrderSubHeadView ()
+@interface MLOrderSubHeadView (){
+    NSString *oldSFZ;
+    NSString *newSFZ;
+}
 @property (nonatomic,assign)BOOL isFirst;
 
 @end
@@ -43,6 +46,9 @@
         [self saveShenFenzheng];
     }else{
         if ([self.editBtn.titleLabel.text isEqualToString:@"编辑"]) {//如果是编辑状态
+            if (newSFZ) {
+                self.shenfenzhengField.text = newSFZ;
+            }
             self.sfLeading.constant = -77;
             self.fieldLeading.constant = 16;
             self.shenfenzhengField.userInteractionEnabled = YES;
@@ -61,6 +67,11 @@
     self.fieldLeading.constant = 0;
     [self.editBtn setTitle:@"编辑" forState:UIControlStateNormal];
     self.shenfenzhengField.userInteractionEnabled = NO;
+    newSFZ = self.shenfenzhengField.text;
+    NSMutableString *str = [NSMutableString stringWithString:newSFZ];
+    [str replaceCharactersInRange:NSMakeRange(6, 8)withString:@"********"];
+    oldSFZ = [str copy];
+    self.shenfenzhengField.text = oldSFZ;
     _isFirst = YES;
 }
 
@@ -75,9 +86,14 @@
     NSDictionary *params = @{@"identity_card":self.shenfenzhengField.text,@"mobile":self.phoneLabel.text,@"username":self.nameLabel.text};
     [MLHttpManager post:url params:params m:@"member" s:@"admin_member" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
+        newSFZ = self.shenfenzhengField.text;
         if ([result[@"code"] isEqual:@0]) {
              self.shenfenzhengField.userInteractionEnabled = NO;
             [self.editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+            NSMutableString *str = [NSMutableString stringWithString:self.shenfenzhengField.text];
+            [str replaceCharactersInRange:NSMakeRange(6, 8)withString:@"********"];
+            oldSFZ = [str copy];
+            self.shenfenzhengField.text = oldSFZ;
             if (self.idcardisOk) {
                 self.idcardisOk(YES);
             }
