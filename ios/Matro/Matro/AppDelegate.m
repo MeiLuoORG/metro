@@ -12,12 +12,10 @@
 #import "MLPersonController.h"
 #import "ZLHomezlViewController.h"
 
-
 #import "HFSConstants.h"
 #import "UIColor+HeinQi.h"
 #import "ZipArchive.h"
 #import "JPUSHService.h"
-
 
 #import "WXApi.h"
 #import <MagicalRecord/MagicalRecord.h>

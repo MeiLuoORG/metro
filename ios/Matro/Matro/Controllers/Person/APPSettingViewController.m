@@ -259,6 +259,12 @@
 }
 
 #pragma end mark
+- (NSString*)getDocumentpath
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"Area.json"]];
+    return filePath;
+}
 
 
 #pragma mark- UITableViewDataSource And UITableViewDelegate
@@ -271,6 +277,10 @@
     if (indexPath.row == 2){//点击清除缓存
         _hud = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
+        NSString *path = [self getDocumentpath];
+        if ([[NSFileManager defaultManager]fileExistsAtPath:path]){
+            [[NSFileManager defaultManager]removeItemAtPath:path error:nil];
+        }
         [[SDImageCache sharedImageCache]clearDiskOnCompletion:^{
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;

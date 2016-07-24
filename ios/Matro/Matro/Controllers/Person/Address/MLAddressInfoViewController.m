@@ -66,21 +66,7 @@ static MLShippingaddress *province,*city,*area;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     userid = [userDefaults valueForKey:kUSERDEFAULT_USERID];
     [self notDefault];
-    if (_isNewAddress) {
-        self.title = @"新增收货地址";
-        isdefault = 1;
-        
-    }else{
-        self.title = @"编辑收货地址";
-        self.nameTextField.text = self.addressDetail.name;
-        
-        self.phoneTextField.text = self.addressDetail.mobile;
-        
-        self.inputTextField.text = self.addressDetail.address;
-        
-        self.selTextField.text = self.addressDetail.area;
-        
-    }
+
     
     
     UIButton *save = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 44)];
@@ -88,8 +74,6 @@ static MLShippingaddress *province,*city,*area;
     [save setTitle:@"保存" forState:UIControlStateNormal];
     [save addTarget:self action:@selector(sureButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:save];
-    
-    
     
     _blackView = [[UIControl alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT -  224)];
     [_blackView addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -100,6 +84,9 @@ static MLShippingaddress *province,*city,*area;
     [currentWindow addSubview:_blackView];
     
     NSString *string = [[NSString alloc]initWithContentsOfFile:[self getDocumentpath] encoding:NSUTF8StringEncoding error:nil];
+    
+    
+    
     if (!string) {
         [self getAllarea];
     }
@@ -121,11 +108,56 @@ static MLShippingaddress *province,*city,*area;
         
     }
     
+    if (_isNewAddress) {
+        self.title = @"新增收货地址";
+        isdefault = 1;
+        
+    }else{
+        self.title = @"编辑收货地址";
+        self.nameTextField.text = self.addressDetail.name;
+        
+        self.phoneTextField.text = self.addressDetail.mobile;
+        
+        self.inputTextField.text = self.addressDetail.address;
+        
+        self.selTextField.text = self.addressDetail.area;
+        for (MLShippingaddress *add in self.addressData) {
+            if ([add.ID isEqualToString:self.addressDetail.provinceid]) {
+                province = add;
+                for (MLShippingaddress *adds in province.sub) {
+                    if ([adds.ID isEqualToString:self.addressDetail.cityid]) {
+                        city = adds;
+                        for (MLShippingaddress *addss in city.sub) {
+                            if ([addss.ID isEqualToString:self.addressDetail.areaid]) {
+                                area = addss;
+                                break;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+        if (province) {
+           [self.addressPickerView selectRow:[self.addressData indexOfObject:province] inComponent:0 animated:YES];
+        }
+        if (city) {
+            [self.addressPickerView selectRow:[province.sub indexOfObject:city] inComponent:1 animated:YES];
+        }
+    
+        if (area) {
+            [self.addressPickerView selectRow:[city.sub indexOfObject:area] inComponent:2 animated:YES];
+        }
+   
+ 
+    }
+    
+
+    
     [self loadDateAddressList];
     
     
 }
-
 
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {
