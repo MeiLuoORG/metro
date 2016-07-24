@@ -323,7 +323,8 @@ static CGFloat kHeight = 0;
 {
     NSString *searchTerm = searchBar.text;
     [searchBar resignFirstResponder];
-   
+    searchBar.text  = searchBar.text;
+    
     if (![searchTerm isEqualToString:@""])
     {
         BOOL isRepeat = NO;
@@ -401,6 +402,7 @@ static CGFloat kHeight = 0;
     
     [self hide];
     //点击当前的搜索历史，将当前的文字带回上一个页面
+    _searchBar.text  = _historySearchTextArray[indexPath.row];
     [_delegate SearchText:_historySearchTextArray[indexPath.row]];
     
 }
@@ -430,7 +432,7 @@ static CGFloat kHeight = 0;
         }];
 
     }
-
+    _searchBar.text = tagName;
     
     [_delegate SearchText:tagName];
     

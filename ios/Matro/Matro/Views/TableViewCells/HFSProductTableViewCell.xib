@@ -62,9 +62,15 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="售罄" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndS-8j-Wb3">
-                        <rect key="frame" x="210" y="68" width="42" height="15"/>
+                        <rect key="frame" x="250" y="68" width="42" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.94509803920000002" green="0.39607843139999999" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="123.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1d-Fn-2hG">
+                        <rect key="frame" x="200" y="68" width="48" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.1680878646" green="1" blue="0.30106609270000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -72,10 +78,12 @@
                     <constraint firstItem="CXn-ge-pbW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="3GT-xR-7sB"/>
                     <constraint firstItem="NBY-Mm-4KI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="Fd0-1j-jgm"/>
                     <constraint firstItem="tPI-6Y-uvK" firstAttribute="leading" secondItem="NBY-Mm-4KI" secondAttribute="trailing" constant="10" id="K4k-Ec-GUw"/>
-                    <constraint firstItem="ndS-8j-Wb3" firstAttribute="leading" secondItem="XB6-QT-vMg" secondAttribute="trailing" constant="20" id="Ko0-So-OS7"/>
+                    <constraint firstItem="H1d-Fn-2hG" firstAttribute="leading" secondItem="XB6-QT-vMg" secondAttribute="trailing" constant="20" id="RXY-CK-GCF"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ndS-8j-Wb3" secondAttribute="trailing" constant="20" id="Urm-9c-Nam"/>
                     <constraint firstItem="NBY-Mm-4KI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="XYZ-bm-ycf"/>
                     <constraint firstItem="XB6-QT-vMg" firstAttribute="leading" secondItem="NBY-Mm-4KI" secondAttribute="trailing" constant="10" id="YXv-dt-OuD"/>
                     <constraint firstItem="ndS-8j-Wb3" firstAttribute="centerY" secondItem="XB6-QT-vMg" secondAttribute="centerY" id="bdy-FV-Iyj"/>
+                    <constraint firstItem="H1d-Fn-2hG" firstAttribute="centerY" secondItem="XB6-QT-vMg" secondAttribute="centerY" id="cWW-Hc-9uA"/>
                     <constraint firstItem="EnG-Tj-zFD" firstAttribute="leading" secondItem="tPI-6Y-uvK" secondAttribute="leading" id="fVu-7j-QAX"/>
                     <constraint firstAttribute="trailing" secondItem="ZL9-19-Wft" secondAttribute="trailing" id="g6G-LQ-obC"/>
                     <constraint firstItem="ZL9-19-Wft" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gmI-Dy-nvZ"/>
@@ -90,6 +98,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="currentPriceLabel" destination="XB6-QT-vMg" id="xTR-J2-ttr"/>
+                <outlet property="cuxiaoPriceLabel" destination="H1d-Fn-2hG" id="qmp-ku-2fV"/>
                 <outlet property="isShouqing" destination="ndS-8j-Wb3" id="Q67-Fh-0uM"/>
                 <outlet property="numLabel" destination="EnG-Tj-zFD" id="P24-6Y-Qte"/>
                 <outlet property="productImageView" destination="NBY-Mm-4KI" id="Duh-4x-Wsd"/>

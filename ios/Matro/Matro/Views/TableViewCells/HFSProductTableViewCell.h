@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
 @property (weak, nonatomic) IBOutlet UILabel *productNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *isShouqing;
+@property (weak, nonatomic) IBOutlet UILabel *cuxiaoPriceLabel;
 
 @property (nonatomic,strong)MLProductModel *product;
 

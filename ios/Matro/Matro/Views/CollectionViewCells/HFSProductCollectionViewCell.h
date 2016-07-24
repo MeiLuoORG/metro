@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *productnameLb;
 @property (weak, nonatomic) IBOutlet UILabel *priceLb;
 @property (weak, nonatomic) IBOutlet UILabel *isShouqing;
+@property (weak, nonatomic) IBOutlet UILabel *cuxiaoPrice;
 
 @end

@@ -587,7 +587,7 @@ static BOOL selectPP = NO;
         
         _pinpai.text = _selectedPP.name;
         
-        [paramfilterDic setObject:_selectedPP.name forKey:@"spsb"];
+        [paramfilterDic setObject:_selectedPP.name?:@"" forKey:@"spsb"];
         
     }else if ([_titleLabel.text isEqualToString:@"价格"]){
         _jiage.text = _selectedItem.name;
