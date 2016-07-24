@@ -104,10 +104,12 @@ static NSInteger page = 1;
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-    
+ 
     MLSearchViewController *searchViewController = [[MLSearchViewController alloc]init];
     searchViewController.delegate = self;
     searchViewController.activeViewController = self;
+    [searchViewController.delegate SearchText:textField.text];
+    
     MLNavigationController *searchNavigationViewController = [[MLNavigationController alloc]initWithRootViewController:searchViewController];
     
     UIViewController *rootViewController = ((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
@@ -221,7 +223,6 @@ static NSInteger page = 1;
 -(void)handleSingleTap:(UITapGestureRecognizer *)sender
 
 {
-    
     MLSearchViewController *searchViewController = [[MLSearchViewController alloc]init];
     searchViewController.delegate = self;
     searchViewController.activeViewController = self;
@@ -335,10 +336,11 @@ static NSInteger page = 1;
     NSString *keystr;
     
     if (self.filterParam) {
-        NSString *keyword = self.filterParam[@"keyword"];
+        NSString *keyword = self.filterParam[@"keyword"]?:@"";
+        
         keystr = [keyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         if (self.filterParam[@"flid"]) {
-            spflid  = self.filterParam[@"flid"];
+            spflid  = self.filterParam[@"flid"]?:@"";
         }
     }else{
         keystr = [_searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -349,79 +351,6 @@ static NSInteger page = 1;
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=list&key=%@&startprice=%@&endprice=%@&pageindex=%ld&pagesize=20&listtype=%@&searchType=1&orderby=%@&sort=%@&brand_id=%@&id=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,keystr,jgs,jge,(long)page,listtepy,orderby,sort,ppid,spflid,vCFBundleShortVersionStr];
     NSLog(@"str====%@",str);
     
-   
-        /*
-        [[HFSServiceClient sharedJSONClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            NSLog(@"responseObject ====%@",responseObject);
-            NSString *sum = responseObject[@"data"][@"sum"];
-            if (sum.floatValue == 0) {
-                
-                [_productList removeAllObjects];
-                self.blankView.hidden  = NO;
-                
-                [self.tableView reloadData];
-                [self.collectionView reloadData];
-                self.tableView.footer.hidden = YES;
-                self.collectionView.footer.hidden = YES;
-                
-            }else{
-                self.blankView.hidden = YES;
-                self.tableView.footer.hidden = NO;
-                self.collectionView.footer.hidden = NO;
-                
-                if (page==1) {
-                    
-                    [_productList removeAllObjects];
-                    
-                }
-                if (responseObject) {
-                    NSArray *ary;
-                    if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                        
-                        NSDictionary *resdic = responseObject[@"data"];
-                        ary = (NSArray *)resdic[@"ret"];
-                        
-                        
-                        NSNumber *count = resdic[@"retcount"];
-                        NSLog(@"count====%@",count);
-                        if ([count isEqualToNumber:@0] ) {
-                            MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableView.footer;
-                            MJRefreshAutoNormalFooter *footer1 = (MJRefreshAutoNormalFooter *)self.collectionView.footer;
-                            footer.stateLabel.text = @"没有更多了";
-                            footer1.stateLabel.text = @"没有更多了";
-                            
-                            return ;
-                        }
-                    }
-                    if ([responseObject isKindOfClass:[NSArray class]]) {
-                        ary = (NSArray *)responseObject;
-                    }
-                    
-                    if (ary && ary.count>0) {
-                        [_productList addObjectsFromArray:ary];
-                    }
-                    
-                    
-                }
-                
-                page ++;
-                
-                [_tableView reloadData];
-                [_collectionView reloadData];
-                
-            }
-           [_hud show:YES];
-           [_hud hide:YES afterDelay:1];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"请求失败";
-            [_hud hide:YES afterDelay:2];
-            NSLog(@"error===%@",error);
-        }];
-        */
     
     [MLHttpManager get:str params:nil m:@"product" s:@"list" success:^(id responseObject){
         
@@ -687,25 +616,72 @@ static NSInteger page = 1;
         if (_filterParam) {
            
             NSString *str = tempdic[@"pname"];
- 
+            NSString *aastr = @"&amp;";
+            if ([str containsString:aastr]) {
+                
+                NSString * str2 = [str stringByReplacingOccurrencesOfString:aastr withString:@"&"];
+                cell.productNameLabel.text = str?:@"";
+            }else{
+                
+                cell.productNameLabel.text = str?:@"";
+                
+            }
             
-            cell.productNameLabel.text = str?:@"";
+            
         }
         else{
         
             NSString *str = tempdic[@"pname"];
-            
-            cell.productNameLabel.text =str?:@"";
+            NSString *aastr = @"&amp;";
+            if ([str containsString:aastr]) {
+                
+              NSString * str2 = [str stringByReplacingOccurrencesOfString:aastr withString:@"&"];
+                cell.productNameLabel.text = str2?:@"";
+                
+            }else{
+                
+                cell.productNameLabel.text = str?:@"";
+                
+            }
         }
+  
+        float  originprice= [tempdic[@"promotion_price"] floatValue];
         
-        float price = [tempdic[@"price"] floatValue];
-        
-        NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
-        
-        [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 1)];
-        [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
-        
-        cell.currentPriceLabel.attributedText = pricestr;
+        if ( ![tempdic[@"promotion_price"] isKindOfClass:[NSNull class]]) {
+            if (originprice == 0.00) {
+                cell.cuxiaoPriceLabel.hidden = YES;
+                float price = [tempdic[@"price"] floatValue];
+                
+                NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
+                
+                [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 1)];
+                [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
+                
+                cell.currentPriceLabel.attributedText = pricestr;
+            }
+            else{
+                cell.cuxiaoPriceLabel.hidden = NO;
+                float price = [tempdic[@"price"] floatValue];
+                
+                NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",originprice]];
+                
+                [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 1)];
+                [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
+                
+                cell.currentPriceLabel.attributedText = pricestr;
+                
+                NSString *Pricestr = [NSString stringWithFormat:@"￥%.2f",price];
+                NSAttributedString *attrStr =
+                [[NSAttributedString alloc]initWithString:Pricestr
+                                               attributes:
+                 @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+                   NSForegroundColorAttributeName:[UIColor grayColor],
+                   NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+                   NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+                  cell.cuxiaoPriceLabel.attributedText=attrStr; //原价要划掉
+            }
+        }
+
         cell.isShouqing.hidden = YES;
         
         if ([tempdic[@"amount"]isEqual:@0]) {
@@ -747,28 +723,100 @@ static NSInteger page = 1;
     if (_filterParam) {
     
         NSString *str = tempdic[@"pname"];
-        if (str.length <= 12) {
-            cell.productnameLb.text = str?:@"";
+        NSString *aastr = @"&amp;";
+        
+        if ([str containsString:aastr]) {
+            
+            NSString * str2 = [str stringByReplacingOccurrencesOfString:aastr withString:@"&"];
+            if (str.length <= 12) {
+                
+                cell.productnameLb.text = str2?:@"";
+            }else{
+                NSString *namestr = [str substringWithRange:NSMakeRange(0, 12)];
+                cell.productnameLb.text = namestr?:@"";
+            }
+            
         }else{
-            NSString *namestr = [str substringWithRange:NSMakeRange(0, 12)];
-            cell.productnameLb.text = namestr?:@"";
+            
+            if (str.length <= 12) {
+                
+                cell.productnameLb.text = str?:@"";
+            }else{
+                NSString *namestr = [str substringWithRange:NSMakeRange(0, 12)];
+                cell.productnameLb.text = namestr?:@"";
+            }
+            
         }
-        
-        
+
     }
     else{
        
         NSString *str = tempdic[@"pname"];
-        if (str.length <= 11) {
-            cell.productnameLb.text = str?:@"";
-        }else{
-            NSString *namestr = [str substringWithRange:NSMakeRange(0, 11)];
-            cell.productnameLb.text = namestr?:@"";
-        }
-
+        NSString *aastr = @"&amp;";
         
+        if ([str containsString:aastr]) {
+            
+            NSString * str2 = [str stringByReplacingOccurrencesOfString:aastr withString:@"&"];
+            if (str.length <= 11) {
+                
+                cell.productnameLb.text = str2?:@"";
+            }else{
+                NSString *namestr = [str substringWithRange:NSMakeRange(0, 12)];
+                cell.productnameLb.text = namestr?:@"";
+            }
+            
+        }else{
+            
+            if (str.length <= 11) {
+                
+                cell.productnameLb.text = str?:@"";
+            }else{
+                NSString *namestr = [str substringWithRange:NSMakeRange(0, 12)];
+                cell.productnameLb.text = namestr?:@"";
+            }
+            
+        }
+ 
     }
     
+    float  originprice= [tempdic[@"promotion_price"] floatValue];
+    
+    if ( ![tempdic[@"promotion_price"] isKindOfClass:[NSNull class]]) {
+        if (originprice == 0.00) {
+            cell.cuxiaoPrice.hidden = YES;
+            float price = [tempdic[@"price"] floatValue];
+            
+            NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
+            
+            [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 1)];
+            [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
+            
+            cell.priceLb.attributedText = pricestr;
+        }
+        else{
+            cell.cuxiaoPrice.hidden = NO;
+            float price = [tempdic[@"price"] floatValue];
+            
+            NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",originprice]];
+            
+            [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 1)];
+            [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
+            
+            cell.priceLb.attributedText = pricestr;
+            
+            NSString *Pricestr = [NSString stringWithFormat:@"￥%.2f",price];
+            NSAttributedString *attrStr =
+            [[NSAttributedString alloc]initWithString:Pricestr
+                                           attributes:
+             @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+               NSForegroundColorAttributeName:[UIColor grayColor],
+               NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+               NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+            cell.cuxiaoPrice.attributedText=attrStr; //原价要划掉
+        }
+    }
+    
+    /*
     float price = [tempdic[@"price"] floatValue];
     
     NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
@@ -777,6 +825,7 @@ static NSInteger page = 1;
     [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
     
     cell.priceLb.attributedText = pricestr;
+     */
 
     cell.isShouqing.hidden = YES;
     

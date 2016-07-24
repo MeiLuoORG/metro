@@ -90,22 +90,22 @@ static float height;
     commentList = [NSMutableArray array];
     imageList = [NSMutableArray array];
     
-     self.commentTableView.header = [self refreshHeaderWith: self.commentTableView];
+//     self.commentTableView.header = [self refreshHeaderWith: self.commentTableView];
+//    
+    self.commentTableView.footer = [self loadMoreDataFooterWith: self.commentTableView];
     
-     self.commentTableView.footer = [self loadMoreDataFooterWith: self.commentTableView];
     
-    /*
     self.commentTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         pageIndex = 1;
         
         [self loadData];
         [self.commentTableView reloadData];
     }];
-    self.commentTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [self loadData];
-        [self.commentTableView reloadData];
-    }];
-     */
+//    self.commentTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//        [self loadData];
+//        [self.commentTableView reloadData];
+//    }];
+    
     
 
     for (UIViewController *vc in self.navigationController.viewControllers) {
@@ -113,17 +113,22 @@ static float height;
         if ([vc isKindOfClass:[MLpingjiaViewController class]]) {
             MLpingjiaViewController *pingjiavc = (MLpingjiaViewController *)vc;
             self.paramDic = pingjiavc.paramDic;
-            break;
-            
+            break;    
         }
     }
     
-    
+    pageIndex = 1;
     [self loadData ];
-    // [self.commentTableView.header beginRefreshing];
+    [self.commentTableView.header beginRefreshing];
     
 }
 
+
+//-(void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:YES];
+//    [self loadData];
+//    
+//}
 
 
 #pragma mark 获取数据
@@ -171,7 +176,8 @@ static float height;
         NSLog(@"responseObject===%@",responseObject);
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
-            commentList = data[@"list"];
+            NSArray *arr;
+            arr = data[@"list"];
             
             NSNumber *count = data[@"count"];
             if ([count isEqualToNumber:@0] ) {
@@ -180,12 +186,17 @@ static float height;
                 [self.commentTableView.footer endRefreshing];
                 return ;
             }
-            
-            if (commentList.count>0) {
-                pageIndex ++;
-                
+            if (pageIndex == 1) {
+                [commentList removeAllObjects];
             }
-            [self.commentTableView reloadData];
+            
+            if (arr && arr.count>0) {
+                
+                [commentList addObjectsFromArray:arr];
+            }
+            
+            pageIndex ++;
+           [self.commentTableView reloadData];
         }
         
         [self.view configBlankPage:EaseBlankPageTypePingjia hasData:(commentList.count>0)];
@@ -197,6 +208,48 @@ static float height;
          [self.commentTableView.header endRefreshing];
         
     }];
+    
+    /*
+    [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
+        [self.tableView.header endRefreshing];
+        [self.tableView.footer endRefreshing];
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary *data = result[@"data"];
+            NSDictionary *order_list = data[@"order_list"];
+            if (order_list &&[order_list isKindOfClass:[NSDictionary class]])
+            {
+                NSArray *list = order_list[@"list"];
+                if (pageIndex == 1) {
+                    [self.orderList removeAllObjects];
+                }
+                NSString *count = order_list[@"total"];
+                if (list.count>0 && self.orderList.count < [count integerValue]) {
+                    [self.orderList addObjectsFromArray:[MLPersonOrderModel mj_objectArrayWithKeyValuesArray:list]];
+                    pageIndex ++;
+                    
+                }
+                else{
+                    [MBProgressHUD showMessag:@"暂无更多数据" toView:self.view];
+                }
+            }else{
+                if (pageIndex == 1) {
+                    [self.orderList removeAllObjects];
+                }
+            }
+            [self.tableView reloadData];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+        
+        [self.view configBlankPage:EaseBlankPageTypeDingdan hasData:(self.orderList.count>0)];
+    } failure:^(NSError *error) {
+        [self.tableView.footer endRefreshing];
+        [self.tableView.header endRefreshing];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+    */
     
     /*
     [[HFSServiceClient sharedJSONClientNOT]GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -259,6 +312,7 @@ static float height;
     if (indexPath.row >commentList.count) {
         return nil;
     }
+   
     NSDictionary *tempDic = commentList[indexPath.row];
     NSNumber *star = tempDic[@"stars"];
     UIImage *image1 = [UIImage imageNamed:@"Star_big2"];
@@ -333,9 +387,7 @@ static float height;
     cell.imgCollectionView.tag = indexPath.section;
     [cell.imgCollectionView registerNib:[UINib  nibWithNibName:@"MLpingjiaImgViewCell" bundle:nil] forCellWithReuseIdentifier:@"MLpingjiaImgViewCell"];
     return cell;
-    
-    
-    
+   
     
 }
 

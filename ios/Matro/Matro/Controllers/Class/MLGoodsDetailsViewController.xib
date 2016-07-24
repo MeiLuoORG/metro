@@ -61,6 +61,8 @@
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="nRL-Hy-g9g" id="Q9c-fo-7jg"/>
                 <outlet property="wuliuNum" destination="65j-pZ-IYZ" id="SyB-7Y-OKf"/>
+                <outlet property="xiangouLab" destination="Bo5-Es-kIu" id="dQ7-Wh-xyg"/>
+                <outlet property="xiangouW" destination="nIF-Up-GN8" id="hL0-br-1HZ"/>
                 <outlet property="yonghucaozuoH" destination="Njn-Ip-gJU" id="6v8-eA-czz"/>
                 <outlet property="yuanchandiH" destination="c5V-6K-J56" id="mDI-ga-nuv"/>
                 <outlet property="yuanchandiLabel" destination="oOz-mt-HDK" id="gb3-P6-2hk"/>
@@ -1235,7 +1237,16 @@
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="库存充足" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKe-Ss-59S">
-                                                                    <rect key="frame" x="174" y="0.0" width="52" height="16"/>
+                                                                    <rect key="frame" x="286" y="7" width="52" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="限购1-3件" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bo5-Es-kIu">
+                                                                    <rect key="frame" x="179" y="4" width="60" height="15"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="75" id="nIF-Up-GN8"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -1243,8 +1254,10 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
-                                                                <constraint firstItem="dKe-Ss-59S" firstAttribute="leading" secondItem="yLL-el-rEY" secondAttribute="trailing" constant="12" id="HKh-bs-xfb"/>
+                                                                <constraint firstItem="dKe-Ss-59S" firstAttribute="leading" secondItem="Bo5-Es-kIu" secondAttribute="trailing" constant="10" id="FTF-8y-1en"/>
+                                                                <constraint firstItem="Bo5-Es-kIu" firstAttribute="leading" secondItem="yLL-el-rEY" secondAttribute="trailing" constant="12" id="I4N-DQ-6y3"/>
                                                                 <constraint firstItem="yLL-el-rEY" firstAttribute="centerY" secondItem="Lfk-Jq-bGH" secondAttribute="centerY" id="JhY-8j-NGq"/>
+                                                                <constraint firstItem="Bo5-Es-kIu" firstAttribute="centerY" secondItem="Oi6-xV-0Yh" secondAttribute="centerY" id="ZUj-sD-2fJ"/>
                                                                 <constraint firstAttribute="height" constant="40" id="j9K-iv-VjJ"/>
                                                                 <constraint firstItem="dKe-Ss-59S" firstAttribute="centerY" secondItem="Oi6-xV-0Yh" secondAttribute="centerY" id="pQz-8k-eN2"/>
                                                                 <constraint firstItem="Oi6-xV-0Yh" firstAttribute="centerY" secondItem="Lfk-Jq-bGH" secondAttribute="centerY" id="xv5-tk-35z"/>
