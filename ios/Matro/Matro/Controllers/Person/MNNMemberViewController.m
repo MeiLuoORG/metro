@@ -105,7 +105,7 @@
         {
             [self.items addObject:@(i)];
         }
-        
+        NSLog(@"添加会员卡对象的数量：%ld",self.items.count);
         //configure carousel
         //configure carousel  227.0/347.0
         self.carousel = [[iCarousel alloc]initWithFrame:CGRectMake(14, 20,SIZE_WIDTH-28, (411.0/665.0)*(SIZE_WIDTH-28))];
@@ -147,6 +147,7 @@
 
 - (NSInteger)numberOfItemsInCarousel:(__unused iCarousel *)carousel
 {
+    NSLog(@"返回的卡的数量为：%ld",self.items.count);
     return (NSInteger)[self.items count];
 }
 
@@ -959,8 +960,8 @@
                                                           
                                                       }
                                                       for (NSDictionary * dics  in vipCardARR) {
-                                                          
-                                                          if ([[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@"0"] || [[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@""] || ![NSString stringWithFormat:@"%@",dics[@"isDefault"]]) {
+                                                          NSLog(@"请求会员卡的idefault的值为：%@",dics[@"isDefault"]);
+                                                          if ([[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@"0"] || [[NSString stringWithFormat:@"%@",dics[@"isDefault"]] isEqualToString:@""] || ![NSString stringWithFormat:@"%@",dics[@"isDefault"]] || [dics[@"isDefault"] isKindOfClass:[NSNull class]] || !dics[@"isDefault"] ) {
                                                               VipCardModel * cardModel = [[VipCardModel alloc]init];
                                                               cardModel.cardNo = dics[@"cardNo"];
                                                               cardModel.cardTypeIdString = dics[@"cardTypeId"];

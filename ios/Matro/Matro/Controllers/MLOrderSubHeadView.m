@@ -68,11 +68,15 @@
     [self.editBtn setTitle:@"编辑" forState:UIControlStateNormal];
     self.shenfenzhengField.userInteractionEnabled = NO;
     newSFZ = self.shenfenzhengField.text;
-    NSMutableString *str = [NSMutableString stringWithString:newSFZ];
-    [str replaceCharactersInRange:NSMakeRange(6, 8)withString:@"********"];
-    oldSFZ = [str copy];
-    self.shenfenzhengField.text = oldSFZ;
-    _isFirst = YES;
+    if (newSFZ != nil && newSFZ.length == 18) {
+        
+        NSMutableString *str = [NSMutableString stringWithString:newSFZ];
+        [str replaceCharactersInRange:NSMakeRange(6, 8)withString:@"********"];
+        oldSFZ = [str copy];
+        self.shenfenzhengField.text = oldSFZ;
+        _isFirst = YES;
+    }
+ 
 }
 
 

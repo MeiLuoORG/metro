@@ -1006,7 +1006,7 @@
                     
                 }
                 
-                if (![phoneNum isEqualToString:@""]) {
+                if (![phoneNum isEqualToString:@""] && ![phoneNum isKindOfClass:[NSNull class]] && phoneNum != nil) {
                     self.dianpuH.constant = 210;
                     self.yonghucaozuoH.constant = 44;
                 }else{
@@ -1447,8 +1447,15 @@
     }
     
     NSString *pricestr = paramdic[@"price"];
-    CGFloat price = [pricestr floatValue];
-    cell.productPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",price];
+    float promotion_price = [paramdic[@"promotion_price"] floatValue];
+    if (promotion_price == 0.00) {
+        CGFloat price = [pricestr floatValue];
+        cell.productPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",price];
+    }else{
+    
+       cell.productPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",promotion_price];
+    }
+    
     
     /*
     NSString *priceStr = paramdic[@"XJ"];
