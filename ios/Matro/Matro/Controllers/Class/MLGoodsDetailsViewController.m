@@ -116,6 +116,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *zengpImageView;//赠品图片
 @property (strong, nonatomic) IBOutlet UILabel *zengpinnameLabel;//赠品文字
 @property (strong, nonatomic) IBOutlet UILabel *cuxiaoxinxiLabel;//促销信息
+@property (weak, nonatomic) IBOutlet UILabel *cuxiaonameLabel;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;//选择商品类型，应该是类似于大小颜色之类的，cell应是随机标题+随机的选项按钮（未完成）
 @property (strong, nonatomic) IBOutlet UILabel *kuncuntisLabel;//库存
@@ -759,37 +760,46 @@
             if (promotionArray.count == 0) {
                 self.cuxiaoxinxiLabel.text = @"";
                 self.cuxiaoH.constant = 0;
+                self.cuxiaonameLabel.hidden = YES;
                 
             }else if (promotionArray.count == 1){
+                self.cuxiaonameLabel.hidden = NO;
                 self.cuxiaoH .constant  = 40;
                 self.cuxiaoxinxiH.constant  = 18;
                 self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@",promotionArray[0]];
             }
             else if (promotionArray.count == 2){
+                self.cuxiaonameLabel.hidden = NO;
                 self.cuxiaoH.constant  = 58;
                 self.cuxiaoxinxiH.constant  = 36;
                 self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@",promotionArray[0],promotionArray[1]];
             }else if (promotionArray.count == 3){
+                self.cuxiaonameLabel.hidden = NO;
                 self.cuxiaoH.constant  = 76;
                 self.cuxiaoxinxiH.constant  = 54;
                 self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@",promotionArray[0],promotionArray[1],promotionArray[2]];
             }else if (promotionArray.count == 4){
+                self.cuxiaonameLabel.hidden = NO;
                 self.cuxiaoH.constant  = 94;
                 self.cuxiaoxinxiH.constant  = 72;
                 self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3]];
             }else if (promotionArray.count == 5){
+                self.cuxiaonameLabel.hidden = NO;
                 self.cuxiaoH.constant  = 112;
                 self.cuxiaoxinxiH.constant  = 90;
                 self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@\n⑤ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3],promotionArray[4]];
             }else if (promotionArray.count == 6){
+                self.cuxiaonameLabel.hidden = NO;
                 self.cuxiaoH.constant  = 130;
                 self.cuxiaoxinxiH.constant  = 108;
                 self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@\n⑤ %@\n⑥ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3],promotionArray[4],promotionArray[5]];
             }else if (promotionArray.count == 7){
+                self.cuxiaonameLabel.hidden = NO;
                 self.cuxiaoH.constant  = 148;
                 self.cuxiaoxinxiH.constant  = 126;
                 self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@\n⑤ %@\n⑥ %@\n⑦ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3],promotionArray[4],promotionArray[5],promotionArray[6]];
             }else if (promotionArray.count == 8){
+                self.cuxiaonameLabel.hidden = NO;
                 self.cuxiaoH.constant  = 166;
                 self.cuxiaoxinxiH.constant  = 144;
                 self.cuxiaoxinxiLabel.text = [NSString stringWithFormat:@"① %@\n② %@\n③ %@\n④ %@\n⑤ %@\n⑥ %@\n⑦ %@\n⑧ %@",promotionArray[0],promotionArray[1],promotionArray[2],promotionArray[3],promotionArray[4],promotionArray[5],promotionArray[6],promotionArray[7]];

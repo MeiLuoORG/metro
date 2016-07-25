@@ -16,6 +16,7 @@
                 <outlet property="blankview" destination="duB-2Z-Go6" id="iZr-wg-quu"/>
                 <outlet property="collectionView" destination="5oY-Ke-s4V" id="b97-d2-Cn3"/>
                 <outlet property="cuxiaoH" destination="pCz-Ko-hO1" id="LZD-pT-O0Y"/>
+                <outlet property="cuxiaonameLabel" destination="OfZ-hF-e3T" id="yRA-va-an7"/>
                 <outlet property="cuxiaoxinxiH" destination="fVG-o9-7aF" id="7qN-kD-XSo"/>
                 <outlet property="cuxiaoxinxiLabel" destination="ens-Yt-hRR" id="Pbn-7n-uUu"/>
                 <outlet property="dianpuH" destination="uQ9-aT-SEO" id="Ew0-bK-cgP"/>
