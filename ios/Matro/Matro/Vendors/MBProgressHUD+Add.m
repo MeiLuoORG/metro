@@ -16,9 +16,6 @@
     if (view == nil) view = [UIApplication sharedApplication].keyWindow;
     // 快速显示一个提示信息
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-//    hud.margin = 10.f;
-//    hud.yOffset = 15.f;
-//    hud.labelText = text;
     hud.detailsLabelText = text;
     // 设置图片
     hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/%@", icon]]];
@@ -30,6 +27,7 @@
     
     // 1秒之后再消失
     [hud hide:YES afterDelay:0.7];
+    
 }
 
 
@@ -39,7 +37,6 @@
     HUD.margin = 10.f;
     HUD.yOffset = 15.f;
     HUD.removeFromSuperViewOnHide = YES;
-    // HUD.labelText = title; 把这一行 换成这一行就
     HUD.detailsLabelText = text;
     HUD.labelFont = [UIFont systemFontOfSize:13]; //Johnkui - added
     [HUD hide:YES afterDelay:1.5];

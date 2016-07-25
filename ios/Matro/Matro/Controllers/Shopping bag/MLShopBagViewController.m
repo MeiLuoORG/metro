@@ -969,8 +969,7 @@ static NSInteger pageIndex = 0;
             [self.navigationController pushViewController:vc animated:YES];
         }else{
             NSString *msg = result[@"msg"];
-             [MBProgressHUD show:msg view:self.view];
-
+            [MBProgressHUD show:msg view:self.view];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
