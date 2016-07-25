@@ -1052,7 +1052,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=",MATROJP_BASE_URL];
     
     [MLHttpManager get:urlStr params:nil m:@"product" s:@"guess_like" success:^(id responseObject) {
-        NSLog(@"responseObject===%@",responseObject);
+        //NSLog(@"responseObject===%@",responseObject);
         
         if(responseObject)
         {
@@ -1061,6 +1061,7 @@
             if (arr && arr.count>0) {
                 [_recommendArray addObjectsFromArray:arr];
             }
+            NSLog(@"猜你喜欢数据：++++%@",responseObject[@"data"]);
         }
         
         NSInteger row = 2;

@@ -54,18 +54,17 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Nfi-8G-jt5" firstAttribute="bottom" secondItem="zEL-it-9ls" secondAttribute="bottom" id="2gA-1K-7aB"/>
                                     <constraint firstItem="gqn-ni-5Us" firstAttribute="top" secondItem="nb5-yk-FVX" secondAttribute="bottom" id="6IF-UL-zbL"/>
-                                    <constraint firstItem="Nfi-8G-jt5" firstAttribute="leading" secondItem="zEL-it-9ls" secondAttribute="trailing" constant="8" id="Ahh-PJ-god"/>
+                                    <constraint firstItem="Nfi-8G-jt5" firstAttribute="leading" secondItem="zEL-it-9ls" secondAttribute="trailing" constant="8" id="FXs-wF-G69"/>
                                     <constraint firstItem="nb5-yk-FVX" firstAttribute="leading" secondItem="h9H-hH-z1K" secondAttribute="leading" id="Maj-cm-1Lw"/>
                                     <constraint firstAttribute="bottom" secondItem="zEL-it-9ls" secondAttribute="bottom" id="P25-tp-OSl"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Nfi-8G-jt5" secondAttribute="trailing" constant="12" id="V9x-hh-vX0"/>
                                     <constraint firstItem="zEL-it-9ls" firstAttribute="leading" secondItem="h9H-hH-z1K" secondAttribute="leading" constant="8" id="Ztq-kL-zyz"/>
                                     <constraint firstAttribute="trailing" secondItem="gqn-ni-5Us" secondAttribute="trailing" constant="12" id="a3T-JI-krW"/>
                                     <constraint firstItem="zEL-it-9ls" firstAttribute="top" secondItem="gqn-ni-5Us" secondAttribute="bottom" id="c9T-3g-Pcp"/>
                                     <constraint firstItem="nb5-yk-FVX" firstAttribute="top" secondItem="h9H-hH-z1K" secondAttribute="top" id="mFO-7X-r0x"/>
                                     <constraint firstItem="gqn-ni-5Us" firstAttribute="leading" secondItem="zEL-it-9ls" secondAttribute="leading" id="tSk-w2-ChL"/>
                                     <constraint firstAttribute="trailing" secondItem="nb5-yk-FVX" secondAttribute="trailing" id="u3B-9S-Zte"/>
+                                    <constraint firstItem="Nfi-8G-jt5" firstAttribute="bottom" secondItem="zEL-it-9ls" secondAttribute="bottom" id="zKf-Wb-LfS"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F8r-Zq-Mzu" customClass="UIControl">

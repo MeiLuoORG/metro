@@ -224,9 +224,26 @@
             [cell.imageView01 sd_setImageWithURL:url placeholderImage:PLACEHOLDER_IMAGE];
             cell.lBgView.tag = lnum;
             cell.nameLabel01.text = likeobjl.pname;
-            cell.priceLabel01.text = [NSString stringWithFormat:@"%.2f",likeobjl.price];
         
-       
+        
+        if ([likeobjl.promotion_price floatValue] == 0.0) {
+            cell.rpriceLabel01.hidden = YES;
+            cell.priceLabel01.text = [NSString stringWithFormat:@"￥%.2f",likeobjl.price];
+        }
+        else{
+            cell.priceLabel01.text = [NSString stringWithFormat:@"￥%.2f",[likeobjl.promotion_price floatValue]];
+           
+            NSString * lP = [NSString stringWithFormat:@"￥%.2f",likeobjl.price];
+            NSLog(@"原价为：%@",lP);
+            NSAttributedString *attrStr =
+            [[NSAttributedString alloc]initWithString:lP
+                                           attributes:
+             @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+               NSForegroundColorAttributeName:[UIColor grayColor],
+               NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+               NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+            cell.rpriceLabel01.attributedText = attrStr;
+        }
         /*
         NSUInteger length = [likeobjl.LSDJ length];
         NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:likeobjl.LSDJ];
@@ -249,7 +266,26 @@
             [cell.imageView02 sd_setImageWithURL:url placeholderImage:PLACEHOLDER_IMAGE];
             cell.rBgView.tag = rnum;
             cell.nameLabel02.text = likeobjr.pname;
-            cell.priceLabel02.text = [NSString stringWithFormat:@"%.2f",likeobjr.price];
+            
+            
+            if([likeobjr.promotion_price floatValue] == 0.0){
+                cell.rpriceLabel02.hidden = YES;
+                cell.priceLabel02.text = [NSString stringWithFormat:@"￥%.2f",likeobjr.price];
+            }
+            else{
+                cell.priceLabel02.text = [NSString stringWithFormat:@"￥%.2f",[likeobjr.promotion_price floatValue]];
+                NSString * rP = [NSString stringWithFormat:@"￥%.2f",likeobjl.price];
+                
+                NSAttributedString *attrStr =
+                [[NSAttributedString alloc]initWithString:rP
+                                               attributes:
+                 @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+                   NSForegroundColorAttributeName:[UIColor grayColor],
+                   NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+                   NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+                
+                cell.rpriceLabel02.attributedText = attrStr;
+            }
             
             /*
             NSUInteger length = [likeobjr.LSDJ length];

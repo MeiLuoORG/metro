@@ -355,6 +355,7 @@
 
 //消息按钮
 - (void)newsButtonAction:(UIButton *)sender{
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
     if (loginid && ![@"" isEqualToString:loginid]) {
