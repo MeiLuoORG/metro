@@ -328,6 +328,7 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 
 //店铺链接
 #define DianPuURL_URLString             @"http://h5.matrojp.com"
+//#define DianPuURL_URLString              @"http://61.155.212.146:3000"
 
 //手机充值  查询
 #define SHOUJI_CHONGZHI_CHAXUN_URLString    ZHOULU_ML_BASE_URLString@"/api.php?m=recharge&s=phone_recharge&action=query"

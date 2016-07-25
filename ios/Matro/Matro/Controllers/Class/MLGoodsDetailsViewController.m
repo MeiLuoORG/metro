@@ -707,6 +707,7 @@
                     self.shuliangStepper.maxValue = amount.intValue;
                     if ((amount.floatValue - safe_amount.floatValue)>5) {
                         self.kuncuntisLabel.text = @"库存充足";
+                        
                         self.shuliangStepper.minValue = 1;
                     }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
                         
@@ -729,6 +730,7 @@
                     if ((amount.floatValue - safe_amount.floatValue)>5) {
                         self.kuncuntisLabel.text = @"库存充足";
                         self.shuliangStepper.minValue = 1;
+                       
                     }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
                         
                         self.kuncuntisLabel.text = @"库存紧张";
@@ -1166,7 +1168,9 @@
         sku = pDic[@"pinfo"][@"code"]?:@"";
         
     }else{
+        
         if (isSelectguige == NO) {
+            
             NSArray *temparr = pDic[@"pinfo"][@"porperty"];
             if (temparr && temparr.count > 0) {
                 NSDictionary *tempdic = temparr[0];

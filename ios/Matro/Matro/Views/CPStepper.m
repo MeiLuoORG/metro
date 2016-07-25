@@ -8,9 +8,11 @@
 
 #import "CPStepper.h"
 #import "UIColor+HeinQi.h"
+
+
 @class MLProlistModel;
 
-@interface CPStepper () <UITextFieldDelegate> {
+@interface CPStepper () <UITextFieldDelegate,UIAlertViewDelegate> {
     
 }
 
@@ -82,6 +84,8 @@
 //    _value = [self.text integerValue];
     
     if (_value <= _minValue) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"已经是最小数量了" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [alert show];
         return;
     }
     
@@ -101,6 +105,15 @@
 //    _value = [self.text integerValue];
     
     if (_value >= _maxValue) {
+        
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"已经是最大数量了" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [alert show];
+        
+//        MBProgressHUD *hub = [[MBProgressHUD alloc]initWithView:self.view];
+//        [hub show:YES];
+//        hub.mode = MBProgressHUDModeText;
+//        hub.labelText = @"已经是最大数量了";
+//        [hub hide:YES afterDelay:1];
         return;
     }
 
@@ -129,8 +142,12 @@
     }
 
 }
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 
-
+    if (buttonIndex == 1) {
+        return;
+    }
+}
 
 
 -(void)textFieldDidEndEditing:(UITextField *)textField {
