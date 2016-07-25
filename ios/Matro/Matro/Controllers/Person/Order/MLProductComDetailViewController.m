@@ -69,7 +69,7 @@
             
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
         }
 
     } failure:^(NSError *error) {

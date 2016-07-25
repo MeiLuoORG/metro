@@ -489,7 +489,7 @@ static NSInteger pageIndex = 0;
         
     }else{
         MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:section];
-        cartHead.titleLabel.text = cart.cpInfo.company;
+        cartHead.titleLabel.text = [NSString stringWithFormat:@"%@ ",cart.cpInfo.company];
         cartHead.youhuiBtn.hidden = YES;
         cartHead.checkBox.cartSelected = cart.checkAll;
         cartHead.shopClick = ^(){ //点击店铺事件
@@ -515,7 +515,7 @@ static NSInteger pageIndex = 0;
             [self.tableView reloadData];
         };
     }
-       return cartHead;
+    return cartHead;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
@@ -815,7 +815,7 @@ static NSInteger pageIndex = 0;
             }
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
         }
         [self configBlankPage];
     } failure:^(NSError *error) {
@@ -840,7 +840,7 @@ static NSInteger pageIndex = 0;
             [self.collectionView reloadData];
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+            [MBProgressHUD show:msg view:self.view];
         }
 
     } failure:^(NSError *error) {
@@ -910,7 +910,7 @@ static NSInteger pageIndex = 0;
         else
         {
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
             [self getDataSource];
         }
     } failure:^(NSError *error) {
@@ -938,7 +938,7 @@ static NSInteger pageIndex = 0;
             [self getDataSource];
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+            [MBProgressHUD show:msg view:self.view];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -969,7 +969,8 @@ static NSInteger pageIndex = 0;
             [self.navigationController pushViewController:vc animated:YES];
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
+
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];

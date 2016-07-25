@@ -345,7 +345,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
              [self.tableView reloadData];
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+            [MBProgressHUD show:msg view:self.view];
         }
         
         [self.view configBlankPage:EaseBlankPageTypeDingdan hasData:(self.orderList.count>0)];
@@ -396,7 +396,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
           [self.tableView.header beginRefreshing];
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+            [MBProgressHUD show:msg view:self.view];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];

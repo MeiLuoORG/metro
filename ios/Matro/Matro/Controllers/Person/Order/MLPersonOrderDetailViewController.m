@@ -267,7 +267,7 @@
             }
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -308,7 +308,7 @@
             [self getOrderDetail];
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+            [MBProgressHUD show:msg view:self.view];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];

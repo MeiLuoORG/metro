@@ -331,7 +331,7 @@
         }
         else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];;
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -371,7 +371,7 @@
             
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
         }
 
     } failure:^(NSError *error) {

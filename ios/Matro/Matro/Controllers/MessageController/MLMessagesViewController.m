@@ -138,7 +138,7 @@
             
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
         }
          [self.view configBlankPage:EaseBlankPageTypeXiaoxi hasData:(self.messageArray.count>0)];
     } failure:^(NSError *error) {

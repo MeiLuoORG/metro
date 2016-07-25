@@ -54,7 +54,7 @@
         }
         else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
             [self performSelector:@selector(goback) withObject:nil afterDelay:1];
         }
 

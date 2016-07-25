@@ -165,7 +165,7 @@
         }
         else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
         }
     } failure:^(NSError *error) {
         [self.tableView.header endRefreshing];
@@ -184,7 +184,7 @@
             [MBProgressHUD showMessag:@"删除成功" toView:self.view];
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];

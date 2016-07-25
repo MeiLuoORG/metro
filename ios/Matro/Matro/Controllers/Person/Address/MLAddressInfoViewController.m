@@ -335,7 +335,7 @@ static MLShippingaddress *province,*city,*area;
             
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+            [MBProgressHUD show:msg view:self.view];
         }
 
     } failure:^(NSError *error) {
@@ -514,7 +514,7 @@ static MLShippingaddress *province,*city,*area;
             [self.addressPickerView reloadAllComponents];
         }else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
         }
         
     } failure:^(NSError *error) {

@@ -83,7 +83,7 @@
                 [self performSelector:@selector(goBack) withObject:nil afterDelay:0.5];
             }else{
                 NSString *msg = result[@"msg"];
-                [MBProgressHUD showMessag:msg toView:self.view];
+                 [MBProgressHUD show:msg view:self.view];
                 
             }
         } failure:^(NSError *error) {
@@ -118,7 +118,7 @@
         }
         else{
             NSString *msg = result[@"msg"];
-            [MBProgressHUD showMessag:msg toView:self.view];
+             [MBProgressHUD show:msg view:self.view];
         }
 
     } failure:^(NSError *error) {
