@@ -864,6 +864,45 @@ static NSInteger page = 1;
             cell.productNameLabel.text =str?:@"";
         }
         
+        
+        float  originprice= [tempdic[@"promotion_price"] floatValue];
+        
+        if ( ![tempdic[@"promotion_price"] isKindOfClass:[NSNull class]]) {
+            if (originprice == 0.00) {
+                cell.cuxiaoPriceLabel.hidden = YES;
+                float price = [tempdic[@"price"] floatValue];
+                
+                NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
+                
+                [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 1)];
+                [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
+                
+                cell.currentPriceLabel.attributedText = pricestr;
+            }
+            else{
+                cell.cuxiaoPriceLabel.hidden = NO;
+                float price = [tempdic[@"price"] floatValue];
+                
+                NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",originprice]];
+                
+                [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 1)];
+                [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
+                
+                cell.currentPriceLabel.attributedText = pricestr;
+                
+                NSString *Pricestr = [NSString stringWithFormat:@"￥%.2f",price];
+                NSAttributedString *attrStr =
+                [[NSAttributedString alloc]initWithString:Pricestr
+                                               attributes:
+                 @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+                   NSForegroundColorAttributeName:[UIColor grayColor],
+                   NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+                   NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+                cell.cuxiaoPriceLabel.attributedText=attrStr; //原价要划掉
+            }
+        }
+ 
+        /*
         float price = [tempdic[@"price"] floatValue];
         
         NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
@@ -872,6 +911,7 @@ static NSInteger page = 1;
         [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
         
         cell.currentPriceLabel.attributedText = pricestr;
+        */
         
         cell.isShouqing.hidden = YES;
         
@@ -936,6 +976,44 @@ static NSInteger page = 1;
         
     }
     
+    float  originprice= [tempdic[@"promotion_price"] floatValue];
+    
+    if ( ![tempdic[@"promotion_price"] isKindOfClass:[NSNull class]]) {
+        if (originprice == 0.00) {
+            cell.cuxiaoPrice.hidden = YES;
+            float price = [tempdic[@"price"] floatValue];
+            
+            NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
+            
+            [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 1)];
+            [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
+            
+            cell.priceLb.attributedText = pricestr;
+        }
+        else{
+            cell.cuxiaoPrice.hidden = NO;
+            float price = [tempdic[@"price"] floatValue];
+            
+            NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",originprice]];
+            
+            [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(0, 1)];
+            [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
+            
+            cell.priceLb.attributedText = pricestr;
+            
+            NSString *Pricestr = [NSString stringWithFormat:@"￥%.2f",price];
+            NSAttributedString *attrStr =
+            [[NSAttributedString alloc]initWithString:Pricestr
+                                           attributes:
+             @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+               NSForegroundColorAttributeName:[UIColor grayColor],
+               NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+               NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+            cell.cuxiaoPrice.attributedText=attrStr; //原价要划掉
+        }
+    }
+    
+    /*
     float price = [tempdic[@"price"] floatValue];
     
     NSMutableAttributedString *pricestr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"￥%.2f",price]];
@@ -944,6 +1022,7 @@ static NSInteger page = 1;
     [pricestr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(pricestr.length - 2, 2)];
     
     cell.priceLb.attributedText = pricestr;
+    */
     
     cell.isShouqing.hidden = YES;
     
