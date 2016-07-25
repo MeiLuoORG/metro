@@ -89,6 +89,7 @@
     NSString *phoneNum;
     
     NSString *DPuid;
+    BOOL isSelectguige;
     
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;//最底层的SV
@@ -376,6 +377,7 @@
                 
                 if (porpertyArr.count >0) {
                     
+                    isSelectguige = NO;
                     NSDictionary *guigeDic = porpertyArr[0];
                     NSString *is_promotion = dic[@"pinfo"][@"is_promotion"];
                     NSString *promition_start_time = dic[@"pinfo"][@"promition_start_time"];
@@ -606,6 +608,7 @@
             }
             else{
                 
+                isSelectguige = NO;
                 self.guigeH.constant = 0;
                 
                 NSString *promition_start_time = dic[@"pinfo"][@"promition_start_time"];
@@ -1133,10 +1136,18 @@
         sku = pDic[@"pinfo"][@"code"]?:@"";
         
     }else{
-        
-        sid = Searchdic[@"id"]?:@"";
-        sku= Searchdic[@"sku"]?:@"";
-        
+        if (isSelectguige == NO) {
+            NSArray *temparr = pDic[@"pinfo"][@"porperty"];
+            if (temparr && temparr.count > 0) {
+                NSDictionary *tempdic = temparr[0];
+                sid = tempdic[@"id"]?:@"";
+                sku = tempdic[@"sku"]?:@"";
+            }
+        }
+        else{
+            sid = Searchdic[@"id"]?:@"";
+            sku= Searchdic[@"sku"]?:@"";
+        }
     }
     
     
@@ -1511,7 +1522,7 @@
         
         cell.tags = huoyuanArray;
         cell.goodsBiaoQianSelBlock = ^(NSArray *tagsIndex){
-    
+            isSelectguige = YES;
             NSString *indexStr = [tagsIndex firstObject];
             NSInteger index = [indexStr integerValue];
             NSString *str = [huoyuanArray objectAtIndex:index];
@@ -1698,7 +1709,7 @@
     
         cell.tags = jieduanArray;
         cell.goodsBiaoQianSelBlock = ^(NSArray *tagsIndex){
-            
+            isSelectguige = YES;
             NSString *indexStr = [tagsIndex firstObject];
             NSInteger index = [indexStr integerValue];
             NSString *str = [jieduanArray objectAtIndex:index];
