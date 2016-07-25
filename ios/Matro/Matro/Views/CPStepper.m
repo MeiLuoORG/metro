@@ -8,6 +8,7 @@
 
 #import "CPStepper.h"
 #import "UIColor+HeinQi.h"
+@class MLProlistModel;
 
 @interface CPStepper () <UITextFieldDelegate> {
     
@@ -102,18 +103,36 @@
     if (_value >= _maxValue) {
         return;
     }
-    
+
     _value++;
+    
+    if ([self.proList isKindOfClass:[MLProlistModel class]]) {
+        MLProlistModel *model = (MLProlistModel *)self.proList;
+        if (model.limit_quantity&&model.limit_quantity > 0) {
+            if (_value > model.limit_quantity) {//提示
+                _value --;
+               self.text = [NSString stringWithFormat:@"%lu", (unsigned long)_value];
+                
+                if ([self.stepperDelegate respondsToSelector:@selector(showFieldErrorMessage)]) {
+                    [self.stepperDelegate showFieldErrorMessage];
+                }
+                return;
+            }
+        }
+        
+    }
     
     self.text = [NSString stringWithFormat:@"%lu", (unsigned long)_value];
     
-    if (self.stepperDelegate && [self.stepperDelegate respondsToSelector:@selector(addButtonClicked: count:)] ) {
-        [self.stepperDelegate addButtonClicked:self.paramDic count:self.text.intValue];
+    if (self.stepperDelegate && [self.stepperDelegate respondsToSelector:@selector(addField:ButtonClick:count:)] ) {
+        [self.stepperDelegate addField:self ButtonClick:self.proList  count:self.value];
     }
-    if (self.stepperDelegate && [self.stepperDelegate respondsToSelector:@selector(addButtonClick: count:)]) {
-        [self.stepperDelegate addButtonClick:self.proList count:self.text.intValue];
-    }
+
 }
+
+
+
+
 -(void)textFieldDidEndEditing:(UITextField *)textField {
     
     _value = textField.text.intValue;

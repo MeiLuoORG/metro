@@ -88,7 +88,7 @@
 @property (nonatomic,copy)NSString *point;
 @property (nonatomic,assign)NSInteger shipfree;
 @property (nonatomic,assign)NSInteger shipfree_val;
-@property (nonatomic,copy)NSString *limit_quantity;
+@property (nonatomic,assign)NSInteger limit_quantity;
 @property (nonatomic,copy)NSString *limit_num;
 @property (nonatomic,copy)NSString *market_price;
 @property (nonatomic,copy)NSString *start_time;
@@ -109,6 +109,7 @@
 @property (nonatomic,copy)NSString *taxprice;
 @property (nonatomic,copy)NSString *mjtitle;
 @property (nonatomic,assign)NSInteger safe_amount;
+
 
 
 

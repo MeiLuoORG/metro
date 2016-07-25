@@ -15,6 +15,7 @@
 @property (nonatomic,copy)NSString *p_name;
 @property (nonatomic,copy)NSString *pic;
 @property (nonatomic,assign)float price;
+@property (nonatomic,assign)float promotion_price;
 @property (nonatomic,copy)NSString *catid;
 
 @property (nonatomic,copy)NSString *userid;

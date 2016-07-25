@@ -600,10 +600,9 @@ static NSInteger pageIndex = 0;
  *  数量操作点击事件
  *
  */
-
-- (void)addButtonClick:(id)prolist count:(int)textCount{
-    
+- (void)addField:(CPStepper *)field  ButtonClick:(id)prolist  count:(int)textCount{
     if (self.isLogin) {//已登录
+        
         [self changeNum:prolist AndCount:textCount];
     }
     else{//离线购物车
@@ -614,6 +613,11 @@ static NSInteger pageIndex = 0;
         [self countAllPrice];
     }
 }
+- (void)showFieldErrorMessage{
+     [MBProgressHUD showSuccess:@"已达到最大购买量" toView:self.view];
+}
+
+
 - (void)subButtonClick:(id)prolist count:(int)textCount{
 
     if (self.isLogin) {//已登录
