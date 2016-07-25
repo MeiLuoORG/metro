@@ -758,6 +758,8 @@
             //①②③④⑤⑥⑦⑧⑨⑩
             if (promotionArray.count == 0) {
                 self.cuxiaoxinxiLabel.text = @"";
+                self.cuxiaoH.constant = 0;
+                
             }else if (promotionArray.count == 1){
                 self.cuxiaoH .constant  = 40;
                 self.cuxiaoxinxiH.constant  = 18;
@@ -1018,7 +1020,24 @@
             
             
             self.dianpuname.text = shop_info[@"company"];
-            self.dianputexing.text = shop_info[@"main_pro"];
+            NSString *tempstr = shop_info[@"main_pro"];
+           
+            if ([tempstr isEqualToString:@""]) {
+                
+                self.dianputexing.hidden = YES;
+                [self.dianpuname mas_makeConstraints:^(MASConstraintMaker *make) {
+                    
+                    make.centerY.mas_equalTo(self.dianpuimage);
+                    
+                }];
+                
+            }else{
+                
+                self.dianputexing.text = shop_info[@"main_pro"];
+            
+            }
+            
+            
             NSString  *score_a = shop_info[@"score_a"];
             NSString *score_b = shop_info[@"score_b"];
             NSString *score_c = shop_info[@"score_c"];
