@@ -226,12 +226,12 @@
             cell.nameLabel01.text = likeobjl.pname;
         
         
-        if ([likeobjl.promotion_price floatValue] == 0.0) {
+        if (likeobjl.promotion_price == 0.0) {
             cell.rpriceLabel01.hidden = YES;
             cell.priceLabel01.text = [NSString stringWithFormat:@"￥%.2f",likeobjl.price];
         }
         else{
-            cell.priceLabel01.text = [NSString stringWithFormat:@"￥%.2f",[likeobjl.promotion_price floatValue]];
+            cell.priceLabel01.text = [NSString stringWithFormat:@"￥%.2f",likeobjl.promotion_price ];
            
             NSString * lP = [NSString stringWithFormat:@"￥%.2f",likeobjl.price];
             NSLog(@"原价为：%@",lP);
@@ -268,12 +268,12 @@
             cell.nameLabel02.text = likeobjr.pname;
             
             
-            if([likeobjr.promotion_price floatValue] == 0.0){
+            if(likeobjr.promotion_price  == 0.0){
                 cell.rpriceLabel02.hidden = YES;
                 cell.priceLabel02.text = [NSString stringWithFormat:@"￥%.2f",likeobjr.price];
             }
             else{
-                cell.priceLabel02.text = [NSString stringWithFormat:@"￥%.2f",[likeobjr.promotion_price floatValue]];
+                cell.priceLabel02.text = [NSString stringWithFormat:@"￥%.2f",likeobjr.promotion_price ];
                 NSString * rP = [NSString stringWithFormat:@"￥%.2f",likeobjl.price];
                 
                 NSAttributedString *attrStr =

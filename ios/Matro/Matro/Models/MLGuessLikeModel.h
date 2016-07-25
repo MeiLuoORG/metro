@@ -17,7 +17,6 @@
 @property (nonatomic,assign)float price;
 @property (nonatomic,assign)float promotion_price;
 @property (nonatomic,copy)NSString *catid;
-@property (strong, nonatomic)NSString * promotion_price;
 @property (nonatomic,copy)NSString *userid;
 
 @end
