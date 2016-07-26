@@ -502,6 +502,9 @@
         if (![brandDic isKindOfClass:[NSString class]] && ![brandDic[@"mc"]isEqualToString:@""]) {
             
             headerView.secondTitle.text = [NSString stringWithFormat:@"%@",brandDic[@"mc"]];
+        }else{
+        
+            headerView.secondTitle.text = @"推荐品牌";
         }
 
     }else{

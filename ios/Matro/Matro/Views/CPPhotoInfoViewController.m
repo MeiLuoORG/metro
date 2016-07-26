@@ -16,6 +16,7 @@
 @interface CPPhotoInfoViewController ()<UIScrollViewDelegate,UIActionSheetDelegate>{
     BOOL isChanger;//YES放大NO缩小
     UIActionSheet *imageActionSheet;
+    UIImageView *imageView;
 }
 @property (nonatomic) UIScrollView *bgScrollView;
 @property (nonatomic) UIButton *shareButton;
@@ -90,7 +91,7 @@
     //    传单张image
     
     for (int i = 0; i < self.bigPhotoImageArray.count; i++) {
-        UIImageView *imageView = [[UIImageView alloc]init];
+        imageView = [[UIImageView alloc]init];
         [imageView sd_setImageWithURL:[NSURL URLWithString:self.bigPhotoImageArray[i]] placeholderImage:[UIImage imageNamed:@"icon_default"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
             CGSize maxSize = CGSizeMake(MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT);
@@ -104,7 +105,14 @@
             imageView.frame = CGRectMake(origin_x + MAIN_SCREEN_WIDTH * i, origin_y, imageView.image.size.width * ratio, imageView.image.size.height * ratio);
             [self.bgScrollView addSubview:imageView];
         }];
+        imageView.userInteractionEnabled = YES;
+        
+        //缩放
+        UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
+        [imageView addGestureRecognizer:pinchGestureRecognizer];
     }
+    
+    
     
     self.bgScrollView.contentSize = CGSizeMake(self.bigPhotoImageArray.count * MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT) ;
     
@@ -190,6 +198,21 @@
 //                                                scrollView.contentSize.height * 0.5 + offsetY);
 //    isChanger = NO;
 //}
+
+//缩放
+- (void) handlePinch:(UIPinchGestureRecognizer*) recognizer
+{
+    
+    //CGAffineTransformScale   view的长和宽进行缩放
+    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+    recognizer.scale = 1;
+}
+
+//防止手势之间冲突
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
 //    NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));

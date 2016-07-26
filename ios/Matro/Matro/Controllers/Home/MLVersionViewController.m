@@ -43,6 +43,7 @@
         self.qzdownloadBtn.hidden = YES;
     }
     
+    
     if (_versionInfoArr.count == 0) {
         self.VersionInfoLab.text = @"";
         
