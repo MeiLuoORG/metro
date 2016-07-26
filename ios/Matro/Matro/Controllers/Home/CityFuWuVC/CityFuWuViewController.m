@@ -74,7 +74,7 @@
     
     NSLog(@"手机充值");
     //750c0694e48f04e9b1f5a5b1db118eee
-
+/*
     //打卡签到
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
@@ -92,6 +92,11 @@
         [self presentViewController:loginVC animated:NO completion:nil];
         
     }
+    */
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"该服务暂未开启" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    
+    [self.view addSubview:alert];
+    [alert show];
 }
 
 - (void)qingqiuJuHe{
