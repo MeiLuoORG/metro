@@ -1373,26 +1373,30 @@
         NSLog(@"打卡签到：%@",result);
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary * dataDic = result[@"data"];
-            NSString * qd_info = dataDic[@"qd_info"];
-            
-            if ([qd_info isEqualToString:@"1"]) {
-                 [MBProgressHUD showMessag:@"今日已打卡" toView:self.view];
-            }
-            else{
-            
-                self.dakaImageView = [[UIImageView alloc]init];
-                self.dakaImageView.userInteractionEnabled = YES;
-                self.dakaImageView.hidden = NO;
-                self.dakaImageView.image = [UIImage imageNamed:@"Sun"];
+            if([dataDic[@"qd_info"] isKindOfClass:[NSString class]]){
+                NSString * qd_info = dataDic[@"qd_info"];
                 
-                [self.view addSubview:self.dakaImageView];
-                
-                [self.dakaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.mas_equalTo(self.view);
-                    make.centerY.mas_equalTo(self.view).offset(-30);
-                    make.size.mas_equalTo(CGSizeMake(213, 38));
-                }];
-                [self performSelector:@selector(hideDakaImageView) withObject:self afterDelay:1.0f];
+                if ([qd_info isEqualToString:@"1"]) {
+                    [MBProgressHUD showMessag:@"今日已打卡" toView:self.view];
+                }
+                else{
+                    
+                    self.dakaImageView = [[UIImageView alloc]init];
+                    self.dakaImageView.userInteractionEnabled = YES;
+                    self.dakaImageView.hidden = NO;
+                    self.dakaImageView.image = [UIImage imageNamed:@"Sun"];
+                    
+                    [self.view addSubview:self.dakaImageView];
+                    
+                    [self.dakaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.centerX.mas_equalTo(self.view);
+                        make.centerY.mas_equalTo(self.view).offset(-30);
+                        make.size.mas_equalTo(CGSizeMake(213, 38));
+                    }];
+                    [self performSelector:@selector(hideDakaImageView) withObject:self afterDelay:1.0f];
+                }
+
+            
             }
         }
         else{
