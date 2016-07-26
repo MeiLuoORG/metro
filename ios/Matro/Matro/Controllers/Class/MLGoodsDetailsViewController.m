@@ -1259,7 +1259,7 @@
         model.pic = pDic[@"pinfo"][@"pic"];
         model.pro_price = [pDic[@"pinfo"][@"price"] floatValue];
         model.amount = [pDic[@"pinfo"][@"amount"] integerValue];
-        model.num = 1;
+        model.num = self.shuliangStepper.value;
         model.company_id= _paramDic[@"userid"];
         model.sid = pDic[@"pinfo"][@"property"][@"id"]?:@"0";
         model.sku = pDic[@"pinfo"][@"property"][@"sku"]?:pDic[@"pinfo"][@"code"];
