@@ -5103,8 +5103,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Matro/Matro.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5148,7 +5148,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "16a20687-4d1c-4907-a612-abbd33c1d8a7";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -5159,8 +5159,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Matro/Matro.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5204,7 +5204,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "16a20687-4d1c-4907-a612-abbd33c1d8a7";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
