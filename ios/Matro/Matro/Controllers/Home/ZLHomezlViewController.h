@@ -70,4 +70,6 @@
 @property (strong, nonatomic) UIImageView * wangluoImageView;
 
 @property (assign, nonatomic) BOOL titleLoadFinished;
+
+@property (strong, nonatomic) UIView * failView;
 @end

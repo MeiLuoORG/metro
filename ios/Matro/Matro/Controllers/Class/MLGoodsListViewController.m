@@ -683,8 +683,8 @@ static NSInteger page = 1;
         }
 
         cell.isShouqing.hidden = YES;
-        
-        if ([tempdic[@"amount"]isEqual:@0]) {
+        NSString *amount = tempdic[@"amount"];
+        if ([tempdic[@"amount"]isEqual:@0] || amount.floatValue < 0) {
             cell.isShouqing.hidden = NO;
             cell.currentPriceLabel.textColor = [UIColor colorWithHexString:@"aaaaaa"];
             cell.productNameLabel.textColor = [UIColor colorWithHexString:@"aaaaaa"];
@@ -828,8 +828,8 @@ static NSInteger page = 1;
      */
 
     cell.isShouqing.hidden = YES;
-    
-    if ([tempdic[@"amount"]isEqual:@0]) {
+    NSString *amount = tempdic[@"amount"];
+    if ([tempdic[@"amount"]isEqual:@0] || amount.floatValue <0) {
         cell.isShouqing.hidden = NO;
         cell.productnameLb.textColor = [UIColor colorWithHexString:@"aaaaaa"];
         cell.priceLb.textColor = [UIColor colorWithHexString:@"aaaaaa"];

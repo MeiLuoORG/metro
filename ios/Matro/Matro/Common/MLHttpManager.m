@@ -59,6 +59,7 @@
 //上传图片
 + (void)post:(NSString *)url params:(id)params  m:(NSString *)m  s:(NSString *)s sconstructingBodyWithBlock:(void(^)(id<AFMultipartFormData> formData))block  success:(void (^)(id responseObject))success failure:(void (^)(NSError *error))failure{
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    
     NSString * userID = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
     NSString *accessToken = nil;
     if (userID && ![userID isEqualToString:@""]) {
