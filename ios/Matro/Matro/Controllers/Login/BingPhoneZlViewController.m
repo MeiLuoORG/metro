@@ -705,8 +705,9 @@ static BOOL isPass = NO;
                                               //JSON解析
                                               // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                               NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                                              //NSLog(@"error原生数据登录：++： %@",yuanDic);
+                                              NSLog(@"error第三方登录绑定手机号登录：++： %@",result);
                                               NSDictionary * userDic = result[@"data"];
+                                              
                                               if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){//绑定成功
                                                   
                                                   
@@ -880,7 +881,7 @@ static BOOL isPass = NO;
                                                   dispatch_async(dispatch_get_main_queue(), ^{
                                                       [_hud show:YES];
                                                       _hud.mode = MBProgressHUDModeText;
-                                                      _hud.labelText = @"绑定失败";
+                                                      _hud.labelText = result[@"errMsg"];
                                                       [_hud hide:YES afterDelay:2];
                                                   });
                                               }
