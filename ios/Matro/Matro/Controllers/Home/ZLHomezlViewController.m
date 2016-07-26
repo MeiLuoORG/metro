@@ -226,6 +226,7 @@
 }
 
 -(void)loadVersion{
+    
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=upgrade&s=index&action=sel_upgrade",ZHOULU_ML_BASE_URLString];
     NSDictionary *params = @{@"appverison":version,@"apptype":@"ios"};
     
@@ -250,6 +251,10 @@
                 NSNumber *is_force = result[@"data"][@"sel_info"][@"is_force"];
                 MLVersionViewController *vc = [[MLVersionViewController alloc]init];
                 
+                vc.versionblock = ^(){
+                    self.tabBarController.tabBar.hidden = NO;
+                
+                };
                 if (![is_force isKindOfClass:[NSNull class]] && [is_force isEqual:@0]) {
  
                     vc.versionLabel = loadversion;
@@ -278,7 +283,9 @@
                      {
                          vc.view.superview.backgroundColor = [UIColor clearColor];
                          
+                         
                      }];
+                    self.tabBarController.tabBar.hidden = YES;
        
                 }
                 else if (![is_force isKindOfClass:[NSNull class]] && [is_force isEqual:@1]){

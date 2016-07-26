@@ -120,6 +120,9 @@
 
 - (IBAction)actCancel:(id)sender {
     self.versionView.hidden = YES;
+    if (self.versionblock) {
+        self.versionblock ();
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -127,6 +130,9 @@
     NSLog(@"去下载downlink===%@",self.downlink);
     self.versionView.hidden = YES;
     
+    if (self.versionblock) {
+        self.versionblock ();
+    }
     
    // NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/su-zhou-mei-luo-jing-pin/id1112037018?mt=8"];
     NSURL *url = [NSURL URLWithString:self.downlink];
