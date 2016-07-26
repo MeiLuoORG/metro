@@ -1391,7 +1391,7 @@
                     [self.dakaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                         make.centerX.mas_equalTo(self.view);
                         make.centerY.mas_equalTo(self.view).offset(-30);
-                        make.size.mas_equalTo(CGSizeMake(213, 38));
+                        make.size.mas_equalTo(CGSizeMake(213, 30));
                     }];
                     [self performSelector:@selector(hideDakaImageView) withObject:self afterDelay:1.0f];
                 }
