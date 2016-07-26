@@ -60,30 +60,67 @@
     // 设置header
     //self.webView.scrollView.header = header;
 
+    //加载失败视图
+    self.failView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-49.0-60.0)];
+    self.failView.backgroundColor = [UIColor clearColor];
+    [self.webView addSubview:self.failView];
+    
+    UIImageView * imagess = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lianjieshibai"]];
+    [self.failView addSubview:imagess];
+    [imagess mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(100, 90));
+        make.centerX.mas_equalTo(self.failView);
+        make.centerY.mas_equalTo(self.failView).offset(-50);
+    }];
+    
+    UIButton * failBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [failBtn setTitle:@"重新加载" forState:UIControlStateNormal];
+    [failBtn setTitleColor:[HFSUtility hexStringToColor:Main_home_jinse_backgroundColor] forState:UIControlStateNormal];
+    [self.failView addSubview:failBtn];
+    
+    failBtn.layer.cornerRadius = 4.0f;
+    failBtn.layer.borderColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor].CGColor;
+    failBtn.layer.borderWidth = 1.0f;
+    failBtn.layer.masksToBounds = YES;
+    [failBtn addTarget:self action:@selector(loadNewData) forControlEvents:UIControlEventTouchUpInside];
+    [failBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.failView);
+        make.centerY.mas_equalTo(self.failView).offset(30);
+        make.size.mas_equalTo(CGSizeMake(100, 35));
+    }];
+    self.failView.hidden = YES;
+    
 }
+
+
 - (void)loadNewData{
-    [self.webView reload];
+    NSLog(@"点击了重新加载");
+    //[self.webView reload];
+    NSURL * url2 = [NSURL URLWithString:self.currentURLStr];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url2 cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3000];
+    [self.webView loadRequest:request];
 }
 
 //创建 webView
 - (void)createWebViewWith:(NSString *)urlString{
     
-    
+    self.currentURLStr = urlString;
     NSLog(@"加载的URL为：%@",urlString);
     NSURL * url2 = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url2 cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:3000];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url2 cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10000];
     [self.webView loadRequest:request];
 }
 
 #pragma mark WebView代理方法
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     NSLog(@"HATestView.h网页开始加载");
-    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.failView.hidden = YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
   
-    
+    self.failView.hidden = YES;
     //[webView.scrollView.header endRefreshing];
     NSLog(@"HATestView.h网页完成加载");
     self.contextjs = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
@@ -92,7 +129,7 @@
         context.exception = exceptionValue;
         NSLog(@"JavaScript异常信息：%@", exceptionValue);
     };
-    //[MBProgressHUD hideHUDForView:self.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     /*
     NSString *alertJS=@"alert('test js OC')"; //准备执行的js代码
     [self.contextjs evaluateScript:alertJS];//通过oc方法调用js的alert
@@ -100,7 +137,8 @@
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     NSLog(@"HATestView.h网页加载错误：%@",error);
-    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    self.failView.hidden = NO;
 }
 
 #pragma end mark

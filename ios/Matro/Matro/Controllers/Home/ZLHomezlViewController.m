@@ -15,6 +15,8 @@
 #import "HFSConstants.h"
 #import "MLShopBagViewController.h"
 
+
+
 @interface ZLHomezlViewController ()
 {
     MBProgressHUD *_hub;
@@ -56,6 +58,8 @@
 
 - (void)viewDidLoad {
     self.view.backgroundColor = [UIColor whiteColor];
+
+    self.titleLoadFinished = NO;
 
     _titlesARR = [[NSMutableArray alloc]init];
     _urlsARR = [[NSMutableArray alloc]init];
@@ -102,8 +106,88 @@
     [self.view addSubview:alert];
     [alert show];
      */
+    
+    //请求数据
+    //[self getRequestTitleARR];
+    
+    self.wangluoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, SIZE_WIDTH, 30)];
+    self.wangluoImageView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, SIZE_WIDTH-60, 30)];
+    label.text = @"网络请求失败，请检查您的网络设置";
+    label.textColor = [UIColor whiteColor];
+    [self.wangluoImageView addSubview:label];
+    [self.view addSubview:self.wangluoImageView];
+    //检测网络环境
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkStateChange) name:kReachabilityChangedNotification object:nil];
+    self.conn = [Reachability reachabilityForInternetConnection];
+    [self.conn startNotifier];
+    [self checkNetworkState];
+    
+    
 }
 
+//检测网络状态
+- (void)networkStateChange{
+    [self checkNetworkState];
+
+}
+
+ - (void)checkNetworkState
+ {
+     // 1.检测wifi状态
+         //Reachability *wifi = [Reachability reachabilityForLocalWiFi];
+    
+         // 2.检测手机是否能上网络(WIFI\3G\2.5G)
+         Reachability *conn = [Reachability reachabilityForInternetConnection];
+
+        if ([conn currentReachabilityStatus] != NotReachable) { // 没有使用wifi, 使用手机自带网络进行上网
+            self.wangluoImageView.hidden = YES;
+            //[conn currentReachabilityStatus]  == reachable
+            if ([conn currentReachabilityStatus] == ReachableViaWiFi) {
+                NSLog(@"使用WIFI网络进行上网");
+            }
+            if ([conn currentReachabilityStatus] == ReachableViaWWAN) {
+                 NSLog(@"使用手机自带网络进行上网");
+            }
+            
+            if (self.titleLoadFinished == NO) {
+                [self getRequestTitleARR];
+                NSLog(@"执行了测试方法getRequestTitleARR");
+            }
+            
+        }else { // 没有网络
+            
+            self.wangluoImageView.hidden = NO;
+            [self.view bringSubviewToFront:self.wangluoImageView];
+            //self.wangluoImageView inser
+            //[self.view insertSubview:self.wangluoImageView atIndex:0];
+            /*
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"网络不顺畅，请检查网络！" message:nil delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+            [self.view addSubview:alert];
+            [alert show];
+             */
+        }
+     
+     
+}
+
+
+ // 用WIFI
+ // [wifi currentReachabilityStatus] != NotReachable
+ // [conn currentReachabilityStatus] != NotReachable
+
+ // 没有用WIFI, 只用了手机网络
+ // [wifi currentReachabilityStatus] == NotReachable
+ // [conn currentReachabilityStatus] != NotReachable
+
+ // 没有网络
+ // [wifi currentReachabilityStatus] == NotReachable
+ // [conn currentReachabilityStatus] == NotReachable
+
+- (void)dealloc{
+    [self.conn stopNotifier];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (void)liJiaRenZhengNotification:(id)sender{
     /*
     dispatch_sync(dispatch_get_main_queue(), ^{
@@ -115,8 +199,7 @@
 - (void)ceshiViewAppear{
     [self getVersion];
     [self loadVersion];
-    //请求数据
-    [self getRequestTitleARR];
+
 }
 
 - (void)appBecomeActiveAction:(id)sender{
@@ -665,7 +748,7 @@
 //请求 标题数据
 - (void)getRequestTitleARR{
 
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     /*
      语言的力量  11:45:07
      client_type=[android|ios]
@@ -700,6 +783,7 @@
             }
             
             [self reloadData];
+            self.titleLoadFinished = YES;
         }
         
         else{
@@ -707,11 +791,14 @@
             [self.view addSubview:_hud];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"没有品牌信息";
+            _hud.labelText = @"没有首页信息";
             [_hud hide:YES afterDelay:2];
             
         }
+        
+        
     } failure:^(NSError *error) {
+        self.titleLoadFinished = NO;
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];

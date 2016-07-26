@@ -14,6 +14,8 @@
 #import "MJRefresh.h"
 #import "CommonHeader.h"
 #import "MBProgressHUD+Add.h"
+#import "HFSConstants.h"
+#import "HFSUtility.h"
 @class ZLHomeSubViewController;
 @protocol ZLHomeSubVieDragProtocol <NSObject>
 
@@ -37,7 +39,8 @@
 @property (strong, nonatomic) NSString * urlstr;
 
 @property (strong, nonatomic) UIImageView * dakaImageView;
-
+@property (strong, nonatomic) UIView * failView;
+@property (strong, nonatomic) NSString * currentURLStr;
 
 - (void)createWebViewWith:(NSString *)urlString;
 - (instancetype)initWithURL:(NSString * )urlStr;

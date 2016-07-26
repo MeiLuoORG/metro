@@ -56,7 +56,7 @@
 #import "MBProgressHUD+Add.h"
 #import "MLPayViewController.h"
 #import "CityFuWuViewController.h"
-
+#import "Reachability.h"
 #import "MLHttpManager.h"
 @interface ZLHomezlViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,ZLHomeSubVieDragProtocol,UIAlertViewDelegate>
 @property (strong, nonatomic) UIView * firstTopView;
@@ -65,5 +65,9 @@
 @property (strong, nonatomic) UIImageView * dakaImageView;
 @property (strong, nonatomic) JSBadgeView * messageBadgeView;
 @property (strong, nonatomic) UIButton * newsButton;
+@property (nonatomic, strong) Reachability *conn;
 
+@property (strong, nonatomic) UIImageView * wangluoImageView;
+
+@property (assign, nonatomic) BOOL titleLoadFinished;
 @end
