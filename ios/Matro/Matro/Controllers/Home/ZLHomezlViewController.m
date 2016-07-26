@@ -1367,7 +1367,7 @@
 
 - (void)getQianDaoInfo{
 
-    NSDictionary * ret = @{@"sum":@"3"};
+    NSDictionary * ret = @{@"sum":@"5"};
     [MLHttpManager post:QianDao_URLString params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         NSLog(@"打卡签到：%@",result);
