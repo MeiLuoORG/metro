@@ -529,7 +529,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [_tabBarController setViewControllers:@[homeNavigationController,classNavigationController, bagNavigationController, personalNavigationController]];
     
     self.tabBarController.delegate = self;
-    self.tabBarController.tabBar.tintColor = [UIColor colorWithHexString:@"#AE8E5D"];
+    self.tabBarController.tabBar.tintColor = [UIColor colorWithHexString:@"#625046"];
     
     UIView *bgView = [[UIView alloc] initWithFrame:self.tabBarController.tabBar.bounds];
     bgView.backgroundColor = [UIColor whiteColor];
