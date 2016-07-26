@@ -43,7 +43,7 @@
 #define ZHOULU_ML_CRM_URLString         @"http://vip.matrojp.com"
 #define APP_ID_ZHOU                     @"01d689a05d4841c6a29d0080502bde67"
 #define APP_Secrect_ZHOU                @"cca95b6b0f9a416e8ab865b3d31b7a54"
-#define CHOGNZHI_PAY_URLSTRING          @"http://pay-test.matrojp.com"
+#define CHOGNZHI_PAY_URLSTRING          @"http://pay.matrojp.com"
 
 
 
