@@ -48,6 +48,7 @@
 #import "MLSureViewController.h"
 
 #import "MLVersionViewController.h"
+#import "UIColor+HeinQi.h"
 
 @interface MLPersonController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -104,6 +105,7 @@
     [super viewDidLoad];
     _youHuiQuanMuARR = [[NSMutableArray alloc]init];
      self.navigationItem.title = @"个人中心";
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#260E00"]}];
     self.navigationItem.leftBarButtonItem = nil;
 
     //加载背景图

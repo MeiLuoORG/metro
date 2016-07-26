@@ -42,6 +42,7 @@
 #import "MLShopInfoViewController.h"
 #import "CommonHeader.h"
 #import "MLShopBagCloseTableViewCell.h"
+#import "UIColor+HeinQi.h"
 
 @interface MLShopBagViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,CPStepperDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
 @property (nonatomic,strong)UITableView *tableView;
@@ -65,6 +66,7 @@ static NSInteger pageIndex = 0;
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.title = @"购物袋";
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"260E00"]}];
     _loginView = ({
         UIView *headView = [[UIView alloc]initWithFrame:CGRectZero];
         headView.backgroundColor = RGBA(245, 245, 245, 1);

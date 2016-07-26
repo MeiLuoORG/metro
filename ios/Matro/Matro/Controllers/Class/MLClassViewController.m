@@ -73,6 +73,8 @@
 
     self.navigationItem.title = @"分类";
     
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"260E00"]}];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"sousuozhou"] style:UIBarButtonItemStylePlain target:self action:@selector(handleSingleTap:)];
     brandArr = [NSMutableArray array];
     brandDic = [NSMutableDictionary dictionary];

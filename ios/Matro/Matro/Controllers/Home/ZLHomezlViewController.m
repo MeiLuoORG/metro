@@ -56,10 +56,7 @@
 
 - (void)viewDidLoad {
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    
-    
-    
+
     _titlesARR = [[NSMutableArray alloc]init];
     _urlsARR = [[NSMutableArray alloc]init];
     _labelARR = [[NSMutableArray alloc]init];
@@ -74,7 +71,7 @@
     self.delegate = self;
     
     self.title = @"首页";
-    
+   
     // Keeps tab bar below navigation bar on iOS 7.0+
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         self.edgesForExtendedLayout = UIRectEdgeNone;

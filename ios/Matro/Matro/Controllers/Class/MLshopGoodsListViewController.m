@@ -183,7 +183,7 @@ static NSInteger page = 1;
     [_jiageButtton changeImageAndTitle];
    
     [_shaixuanButton changeImageAndTitle];
-    [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+    [_xiaoliangButton setTitleColor:[UIColor colorWithHexString:@"F1653E"] forState:UIControlStateSelected];
     
     [_changeButton setImage:[UIImage imageNamed:@"liebiao1"] forState:UIControlStateNormal];
     [_changeButton setImage:[UIImage imageNamed:@"list"] forState:UIControlStateSelected];
@@ -554,17 +554,17 @@ static NSInteger page = 1;
     if ([typeStr isEqualToString:@"销量"]) {
         button.selected = !button.selected;
         if (button.selected) {
-            [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
-            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+            [_xiaoliangButton setTitleColor:[UIColor colorWithHexString:@"F1653E"] forState:UIControlStateSelected];
+            [_jiageButtton setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateSelected];
             _jiageButtton.imageView.hidden= YES;
             [filterparamDic setValue:@"amount" forKey:@"orderby"];
             [filterparamDic setValue:@"desc" forKey:@"sort"];
             
         }else{
-            [_xiaoliangButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_jiageButtton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+            [_xiaoliangButton setTitleColor:[UIColor colorWithHexString:@"F1653E"] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateSelected];
             _jiageButtton.imageView.hidden= YES;
             [filterparamDic setValue:@"amount" forKey:@"orderby"];
             [filterparamDic setValue:@"desc" forKey:@"sort"];
@@ -577,9 +577,9 @@ static NSInteger page = 1;
     {
         button.selected = !button.selected;
         if (button.selected) {
-            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+            [_xiaoliangButton setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateSelected];
+            [_xiaoliangButton setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateNormal];
+            [_jiageButtton setTitleColor:[UIColor colorWithHexString:@"F1653E"] forState:UIControlStateSelected];
             [_jiageButtton setImage:[UIImage imageNamed:@"xiajianSelect"] forState:UIControlStateSelected];
             [filterparamDic setValue:@"price" forKey:@"orderby"];
             [filterparamDic setValue:@"desc" forKey:@"sort"];
@@ -587,9 +587,9 @@ static NSInteger page = 1;
             
         }else{
             
-            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_xiaoliangButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-            [_jiageButtton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            [_xiaoliangButton setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateNormal];
+            [_xiaoliangButton setTitleColor:[UIColor colorWithHexString:@"260E00"] forState:UIControlStateSelected];
+            [_jiageButtton setTitleColor:[UIColor colorWithHexString:@"F1653E"] forState:UIControlStateNormal];
             [_jiageButtton setImage:[UIImage imageNamed:@"jgshangjian"] forState:UIControlStateNormal];
             [filterparamDic setValue:@"price" forKey:@"orderby"];
             [filterparamDic setValue:@"asc" forKey:@"sort"];
