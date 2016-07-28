@@ -132,14 +132,11 @@
     
     
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]]) {
-        self.qqLoginButton.hidden = YES;
-        
-        
+        self.wxLoginBgView.hidden = YES;
     }
     
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
-        self.wxLoginBgView.hidden = YES;
-
+        self.qqLoginButton.hidden = YES;
     }
     
     
