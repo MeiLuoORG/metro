@@ -131,6 +131,18 @@
     [self.view addSubview:_hud];
     
     
+    if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]]) {
+        self.qqLoginButton.hidden = YES;
+        
+        
+    }
+    
+    if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
+        self.wxLoginBgView.hidden = YES;
+
+    }
+    
+    
     //UiTextField变化通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangeAction:) name:UITextFieldTextDidChangeNotification object:nil];
  
