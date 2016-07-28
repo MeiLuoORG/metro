@@ -490,7 +490,7 @@
                             self.shuliangStepper.minValue = 1;
                         }
                         
-                        if ((amount.floatValue - safe_amount.floatValue) == 0) {
+                        if ((amount.floatValue - safe_amount.floatValue) <= 0) {
                             [self.shuliangStepper setTextValue:0];
                             leftbtn.enabled=NO;
                             rightbtn.enabled = NO;
@@ -511,7 +511,7 @@
                             self.shuliangStepper.minValue = 1;
                         }
                         
-                        if ((amount.floatValue - safe_amount.floatValue) == 0) {
+                        if ((amount.floatValue - safe_amount.floatValue) <= 0) {
                             [self.shuliangStepper setTextValue:0];
                             leftbtn.enabled=NO;
                             rightbtn.enabled = NO;
@@ -715,7 +715,7 @@
                         self.shuliangStepper.minValue = 1;
                     }
                     
-                    if ((amount.floatValue - safe_amount.floatValue) == 0) {
+                    if ((amount.floatValue - safe_amount.floatValue) <= 0) {
                         [self.shuliangStepper setTextValue:0];
                         leftbtn.enabled=NO;
                         rightbtn.enabled = NO;
@@ -737,7 +737,7 @@
                         self.shuliangStepper.minValue = 1;
                     }
                     
-                    if ((amount.floatValue - safe_amount.floatValue) == 0) {
+                    if ((amount.floatValue - safe_amount.floatValue) <= 0) {
                         [self.shuliangStepper setTextValue:0];
                         leftbtn.enabled=NO;
                         rightbtn.enabled = NO;
@@ -1685,7 +1685,7 @@
                     self.shuliangStepper.minValue = 1;
                 }
                 
-                if ((stock.floatValue - safe_stock.floatValue) == 0) {
+                if ((stock.floatValue - safe_stock.floatValue) <= 0) {
                     [self.shuliangStepper setTextValue:0];
                     leftbtn.enabled=NO;
                     rightbtn.enabled = NO;
@@ -1711,7 +1711,7 @@
                     self.shuliangStepper.minValue = 1;
                 }
                 
-                if ((stock.floatValue - safe_stock.floatValue) == 0) {
+                if ((stock.floatValue - safe_stock.floatValue) <= 0) {
                     [self.shuliangStepper setTextValue:0];
                     leftbtn.enabled=NO;
                     rightbtn.enabled = NO;
@@ -1884,7 +1884,7 @@
                     self.shuliangStepper.minValue = 1;
                 }
                 
-                if ((stock.floatValue - safe_stock.floatValue) == 0) {
+                if ((stock.floatValue - safe_stock.floatValue) <= 0) {
                     [self.shuliangStepper setTextValue:0];
                     leftbtn.enabled=NO;
                     rightbtn.enabled = NO;
@@ -1911,7 +1911,7 @@
                     self.shuliangStepper.minValue = 1;
                 }
                 
-                if ((stock.floatValue - safe_stock.floatValue) == 0) {
+                if ((stock.floatValue - safe_stock.floatValue) <= 0) {
                     [self.shuliangStepper setTextValue:0];
                     leftbtn.enabled=NO;
                     rightbtn.enabled = NO;

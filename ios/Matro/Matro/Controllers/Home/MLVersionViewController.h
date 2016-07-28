@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
 #define SCREENWIDTH [UIScreen mainScreen].bounds.size.width
+typedef void(^VersionBlock)();
 
 @interface MLVersionViewController : UIViewController
 
@@ -25,4 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIView *versionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *versionViewH;
 @property (weak, nonatomic) IBOutlet UIButton *qzdownloadBtn;
+
+@property (nonatomic,copy)VersionBlock versionblock;
+
 @end

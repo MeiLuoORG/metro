@@ -123,7 +123,7 @@
     [self.conn startNotifier];
     [self checkNetworkState];
     
-    
+    [self loadCreateLoadView];
 }
 
 //检测网络状态
@@ -226,6 +226,7 @@
 }
 
 -(void)loadVersion{
+    
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=upgrade&s=index&action=sel_upgrade",ZHOULU_ML_BASE_URLString];
     NSDictionary *params = @{@"appverison":version,@"apptype":@"ios"};
     
@@ -250,6 +251,10 @@
                 NSNumber *is_force = result[@"data"][@"sel_info"][@"is_force"];
                 MLVersionViewController *vc = [[MLVersionViewController alloc]init];
                 
+                vc.versionblock = ^(){
+                    self.tabBarController.tabBar.hidden = NO;
+                
+                };
                 if (![is_force isKindOfClass:[NSNull class]] && [is_force isEqual:@0]) {
  
                     vc.versionLabel = loadversion;
@@ -278,7 +283,9 @@
                      {
                          vc.view.superview.backgroundColor = [UIColor clearColor];
                          
+                         
                      }];
+                    self.tabBarController.tabBar.hidden = YES;
        
                 }
                 else if (![is_force isKindOfClass:[NSNull class]] && [is_force isEqual:@1]){
@@ -511,6 +518,7 @@
             
         }];
     }
+    
 
 }
 
@@ -761,7 +769,7 @@
     //m=product&s=webframe
     [MLHttpManager get:HomeTitles_URLString params:nil m:@"product" s:@"webframe" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        
+        self.failView.hidden = YES;
         
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"请求首页标题数据：%@",result);
@@ -798,6 +806,7 @@
         
         
     } failure:^(NSError *error) {
+        self.failView.hidden = NO;
         self.titleLoadFinished = NO;
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
@@ -806,6 +815,7 @@
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
+        
     }];
     /*
     [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -817,6 +827,46 @@
         
     }];
 */
+}
+
+- (void)loadCreateLoadView{
+
+    //加载失败视图
+    self.failView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, SIZE_HEIGHT-49.0-60.0)];
+    self.failView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.failView];
+    
+    UIImageView * imagess = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lianjieshibai"]];
+    [self.failView addSubview:imagess];
+    [imagess mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(100, 90));
+        make.centerX.mas_equalTo(self.failView);
+        make.centerY.mas_equalTo(self.failView).offset(-50);
+    }];
+    
+    UIButton * failBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [failBtn setTitle:@"重新加载" forState:UIControlStateNormal];
+    [failBtn setTitleColor:[HFSUtility hexStringToColor:Main_home_jinse_backgroundColor] forState:UIControlStateNormal];
+    [self.failView addSubview:failBtn];
+    
+    failBtn.layer.cornerRadius = 4.0f;
+    failBtn.layer.borderColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor].CGColor;
+    failBtn.layer.borderWidth = 1.0f;
+    failBtn.layer.masksToBounds = YES;
+    [failBtn addTarget:self action:@selector(loadNewData) forControlEvents:UIControlEventTouchUpInside];
+    [failBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.failView);
+        make.centerY.mas_equalTo(self.failView).offset(30);
+        make.size.mas_equalTo(CGSizeMake(100, 35));
+    }];
+    self.failView.hidden = YES;
+    
+
+}
+
+- (void)loadNewData{
+
+    [self getRequestTitleARR];
 }
 
 #pragma mark 二维码扫描
@@ -1373,26 +1423,30 @@
         NSLog(@"打卡签到：%@",result);
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary * dataDic = result[@"data"];
-            NSString * qd_info = dataDic[@"qd_info"];
-            
-            if ([qd_info isEqualToString:@"1"]) {
-                 [MBProgressHUD showMessag:@"今日已打卡" toView:self.view];
-            }
-            else{
-            
-                self.dakaImageView = [[UIImageView alloc]init];
-                self.dakaImageView.userInteractionEnabled = YES;
-                self.dakaImageView.hidden = NO;
-                self.dakaImageView.image = [UIImage imageNamed:@"Sun"];
+            if([dataDic[@"qd_info"] isKindOfClass:[NSString class]]){
+                NSString * qd_info = dataDic[@"qd_info"];
                 
-                [self.view addSubview:self.dakaImageView];
-                
-                [self.dakaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.mas_equalTo(self.view);
-                    make.centerY.mas_equalTo(self.view).offset(-30);
-                    make.size.mas_equalTo(CGSizeMake(213, 38));
-                }];
-                [self performSelector:@selector(hideDakaImageView) withObject:self afterDelay:1.0f];
+                if ([qd_info isEqualToString:@"1"]) {
+                    [MBProgressHUD showMessag:@"今日已打卡" toView:self.view];
+                }
+                else{
+                    
+                    self.dakaImageView = [[UIImageView alloc]init];
+                    self.dakaImageView.userInteractionEnabled = YES;
+                    self.dakaImageView.hidden = NO;
+                    self.dakaImageView.image = [UIImage imageNamed:@"Sun"];
+                    
+                    [self.view addSubview:self.dakaImageView];
+                    
+                    [self.dakaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.centerX.mas_equalTo(self.view);
+                        make.centerY.mas_equalTo(self.view).offset(-30);
+                        make.size.mas_equalTo(CGSizeMake(213, 30));
+                    }];
+                    [self performSelector:@selector(hideDakaImageView) withObject:self afterDelay:1.0f];
+                }
+
+            
             }
         }
         else{
