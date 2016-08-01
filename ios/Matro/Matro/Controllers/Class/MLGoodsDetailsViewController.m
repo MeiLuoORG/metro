@@ -373,6 +373,7 @@
             }
             
             if (_titleArray && _titleArray.count >0) {
+                
                 NSArray *porpertyArr = dic[@"pinfo"][@"porperty"];
                 [porpertyArray addObjectsFromArray:porpertyArr];
                 
@@ -395,22 +396,7 @@
                         float pricef = [guigeDic[@"price"] floatValue];
                         self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
                         self.yuanjiaLabel.hidden = YES;
-                        /*
-                        float  originprice= [guigeDic[@"market_price"] floatValue];
-                        if (originprice == 0.0) {
-                            self.yuanjiaLabel.hidden = YES;
-                        }
-                        NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
                         
-                        NSAttributedString *attrStr =
-                        [[NSAttributedString alloc]initWithString:pricestr
-                                                       attributes:
-                         @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-                           NSForegroundColorAttributeName:[UIColor grayColor],
-                           NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-                           NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-                        self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-                         */
                         
                     }else if(![promition_start_time isEqual:@0] && ![promition_end_time isEqual:@0] ){
                     
@@ -431,41 +417,11 @@
                            NSStrikethroughColorAttributeName:[UIColor grayColor]}];
                         self.yuanjiaLabel.attributedText=attrStr;
                         
-                        /*
-                        float  originprice= [guigeDic[@"market_price"] floatValue];
-                        
-                        NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
-                        
-                        NSAttributedString *attrStr =
-                        [[NSAttributedString alloc]initWithString:pricestr
-                                                       attributes:
-                         @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-                           NSForegroundColorAttributeName:[UIColor grayColor],
-                           NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-                           NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-                        self.yuanjiaLabel.attributedText=attrStr;
-                         */
                     }else{
                     
                     float pricef = [guigeDic[@"price"] floatValue];
                     self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-                        /*
-                    float  originprice= [guigeDic[@"market_price"] floatValue];
-                    if (originprice == 0.0) {
-                        self.yuanjiaLabel.hidden = YES;
-                    }
-                    NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
-                    
-                    NSAttributedString *attrStr =
-                    [[NSAttributedString alloc]initWithString:pricestr
-                                                   attributes:
-                     @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-                       NSForegroundColorAttributeName:[UIColor grayColor],
-                       NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-                       NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-                    self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-                         */
-                    
+                        
                     }
                 }
                     
@@ -473,8 +429,10 @@
                     UIButton *leftbtn = (UIButton*)self.shuliangStepper.leftView;
                     UIButton *rightbtn = (UIButton*)self.shuliangStepper.rightView;
                     
-                    NSString *amount = dic[@"pinfo"][@"amount"];
-                    NSString *safe_amount = dic[@"pinfo"][@"safe_amount"];
+//                    NSString *amount = dic[@"pinfo"][@"amount"];
+//                    NSString *safe_amount = dic[@"pinfo"][@"safe_amount"];
+                    NSString *amount = guigeDic[@"stock"];
+                    NSString *safe_amount = guigeDic[@"safe_stock"];
                     NSString *limit_quantity = dic[@"pinfo"][@"limit_quantity"];
                     NSString *limit_num = dic[@"pinfo"][@"limit_num"];
                     
@@ -484,10 +442,14 @@
                         if ((amount.floatValue - safe_amount.floatValue)>5) {
                             self.kuncuntisLabel.text = @"库存充足";
                             self.shuliangStepper.minValue = 1;
+                            [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                            self.jiarugouwucheBtn.enabled = YES;
                         }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
                             
                             self.kuncuntisLabel.text = @"库存紧张";
                             self.shuliangStepper.minValue = 1;
+                            [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                            self.jiarugouwucheBtn.enabled = YES;
                         }
                         
                         if ((amount.floatValue - safe_amount.floatValue) <= 0) {
@@ -521,32 +483,9 @@
                         
                         
                     }
-                    
-                    
-                    /*
-                    self.shuliangStepper.maxValue = amount.intValue;
-                    
-                    
-                    if ((amount.floatValue - safe_amount.floatValue)>5) {
-                        self.kuncuntisLabel.text = @"库存充足";
-                        self.shuliangStepper.minValue = 1;
-                    }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
-                        
-                        self.kuncuntisLabel.text = @"库存紧张";
-                        self.shuliangStepper.minValue = 1;
-                    }
-                    
-                    if ((amount.floatValue - safe_amount.floatValue) == 0) {
-                        [self.shuliangStepper setTextValue:0];
-                        leftbtn.enabled=NO;
-                        rightbtn.enabled = NO;
-                        self.kuncuntisLabel.text = @"售罄";
-                        [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"aaaaaa"]];
-                    }
-                    */
+           
                 }
-                
-                
+
                 int i = 0;
                 
                 for (NSDictionary *tempdic in porpertyArr) {
@@ -625,23 +564,7 @@
                     
                     float pricef = [dic[@"pinfo"][@"price"] floatValue];
                     self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-                    /*
-                    float  originprice= [dic[@"pinfo"][@"market_price"] floatValue];
-                    if (originprice == 0.0) {
-                        self.yuanjiaLabel.hidden = YES;
-                    }
-                    NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
-                    
-                    NSAttributedString *attrStr =
-                    [[NSAttributedString alloc]initWithString:pricestr
-                                                   attributes:
-                     @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-                       NSForegroundColorAttributeName:[UIColor grayColor],
-                       NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-                       NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-                    self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-                     */
-                    
+       
                 }else if (![promition_start_time isEqual:@0] && ![promition_end_time isEqual:@0] ){
                     
                     NSString *is_promotion = dic[@"pinfo"][@"is_promotion"];
@@ -671,22 +594,7 @@
                         
                         float pricef = [dic[@"pinfo"][@"price"] floatValue];
                         self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-                        /*
-                        float  originprice= [dic[@"pinfo"][@"market_price"] floatValue];
-                        if (originprice == 0.0) {
-                            self.yuanjiaLabel.hidden = YES;
-                        }
-                        NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
-                        
-                        NSAttributedString *attrStr =
-                        [[NSAttributedString alloc]initWithString:pricestr
-                                                       attributes:
-                         @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-                           NSForegroundColorAttributeName:[UIColor grayColor],
-                           NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-                           NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-                        self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-                         */
+   
                     }
                 }
                 
@@ -1156,7 +1064,17 @@
         [_hud hide:YES afterDelay:1];
         return;
     }
-
+    
+    float amount = [pDic[@"pinfo"][@"amount"] floatValue];
+    
+    if (amount && amount < 0) {
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"已超出此商品购买数量";
+        [_hud hide:YES afterDelay:1];
+        return;
+    }
     
     if (userid) {
         
@@ -1183,8 +1101,7 @@
             sku= Searchdic[@"sku"]?:@"";
         }
     }
-    
-    
+ 
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=add_cart",MATROJP_BASE_URL];
     NSDictionary *params = @{@"id":pid,@"nums":[NSNumber numberWithInteger:_shuliangStepper.value],@"sid":sid,@"sku":sku};
     
@@ -1199,7 +1116,8 @@
             _hud.labelText = @"加入购物车成功";
             [_hud hide:YES afterDelay:1];
         }
-    } failure:^(NSError *error) {
+    }
+    failure:^(NSError *error) {
         NSLog(@"请求失败 error===%@",error);
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
@@ -1207,7 +1125,8 @@
         [_hud hide:YES afterDelay:1];
     }];
         
-    }else{ //离线情况下 本地缓存
+    }
+    else{ //离线情况下 本地缓存
         
         if (dPDic&&pDic) { //已经有店铺名称的和商品详情的情况
             //店铺id
@@ -1679,10 +1598,14 @@
                 if ((stock.floatValue - safe_stock.floatValue)>5) {
                     self.kuncuntisLabel.text = @"库存充足";
                     self.shuliangStepper.minValue = 1;
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                    self.jiarugouwucheBtn.enabled = YES;
                 }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
                     
                     self.kuncuntisLabel.text = @"库存紧张";
                     self.shuliangStepper.minValue = 1;
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                    self.jiarugouwucheBtn.enabled = YES;
                 }
                 
                 if ((stock.floatValue - safe_stock.floatValue) <= 0) {
@@ -1705,10 +1628,14 @@
                 if ((stock.floatValue - safe_stock.floatValue)>5) {
                     self.kuncuntisLabel.text = @"库存充足";
                     self.shuliangStepper.minValue = 1;
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                    self.jiarugouwucheBtn.enabled = YES;
                 }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
                     
                     self.kuncuntisLabel.text = @"库存紧张";
                     self.shuliangStepper.minValue = 1;
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                    self.jiarugouwucheBtn.enabled = YES;
                 }
                 
                 if ((stock.floatValue - safe_stock.floatValue) <= 0) {
@@ -1721,29 +1648,7 @@
                 
                 
             }
-            
-            
-            /*
-            self.shuliangStepper.maxValue = stock.intValue;
-            
-            if ((stock.floatValue - safe_stock.floatValue)>5) {
-                self.kuncuntisLabel.text = @"库存充足";
-                self.shuliangStepper.minValue = 1;
-            }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
-                
-                self.kuncuntisLabel.text = @"库存紧张";
-                self.shuliangStepper.minValue = 1;
-            }
-            
-            if ((stock.floatValue - safe_stock.floatValue) == 0) {
-                [self.shuliangStepper setTextValue:0];
-                leftbtn.enabled=NO;
-                rightbtn.enabled = NO;
-                self.kuncuntisLabel.text = @"售罄";
-                [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"aaaaaa"]];
-            }
-             */
-   
+
         };
         
     }else{
@@ -1878,10 +1783,14 @@
                 if ((stock.floatValue - safe_stock.floatValue)>5) {
                     self.kuncuntisLabel.text = @"库存充足";
                     self.shuliangStepper.minValue = 1;
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                    self.jiarugouwucheBtn.enabled = YES;
                 }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
                     
                     self.kuncuntisLabel.text = @"库存紧张";
                     self.shuliangStepper.minValue = 1;
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                    self.jiarugouwucheBtn.enabled = YES;
                 }
                 
                 if ((stock.floatValue - safe_stock.floatValue) <= 0) {
@@ -1905,10 +1814,14 @@
                 if ((stock.floatValue - safe_stock.floatValue)>5) {
                     self.kuncuntisLabel.text = @"库存充足";
                     self.shuliangStepper.minValue = 1;
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                    self.jiarugouwucheBtn.enabled = YES;
                 }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
                     
                     self.kuncuntisLabel.text = @"库存紧张";
                     self.shuliangStepper.minValue = 1;
+                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                    self.jiarugouwucheBtn.enabled = YES;
                 }
                 
                 if ((stock.floatValue - safe_stock.floatValue) <= 0) {

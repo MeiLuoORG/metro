@@ -108,7 +108,7 @@
     UIBarButtonItem *left = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action:@selector(nothing)];
     self.navigationItem.leftBarButtonItem = left;
     
-    [self loadAllClass];
+   // [self loadAllClass];
 }
 
 -(void)nothing{
@@ -117,7 +117,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    [self loadAllClass];
 }
 
 
