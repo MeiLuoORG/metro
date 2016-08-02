@@ -58,7 +58,13 @@
 #import "CityFuWuViewController.h"
 #import "Reachability.h"
 #import "MLHttpManager.h"
-@interface ZLHomezlViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,ZLHomeSubVieDragProtocol,UIAlertViewDelegate>
+
+
+#import "FirstsViewController.h"
+#import "SecondsViewController.h"
+
+
+@interface ZLHomezlViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,ZLHomeSubVieDragProtocol,UIAlertViewDelegate,FirsrtViewControllerDelegate,SecondsViewControllerDelegate>
 @property (strong, nonatomic) UIView * firstTopView;
 @property(nonatomic,strong)JSContext *contextjs;
 @property (assign, nonatomic) float historyOffestY;

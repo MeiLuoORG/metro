@@ -663,14 +663,25 @@
 }
 
 - (UIViewController *)viewPager:(ViewPagerController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index {
-    
+    /*
     ZLHomeSubViewController *cvc = [[ZLHomeSubViewController alloc]initWithURL:[_urlsARR objectAtIndex:index]];
     cvc.homeSubDelegate = self;
     //[self.storyboard instantiateViewControllerWithIdentifier:@"contentViewController"];
-    
     //cvc.labelString = [NSString stringWithFormat:@"Content View #%ld", index];
     //[cvc createWebViewWith:@"http://www.baidu.com"];
-    return cvc;
+    */
+    if (index == 0) {
+        FirstsViewController * cvc = [[FirstsViewController alloc]init];
+        cvc.firstDelegate = self;
+        return cvc;
+    }
+    else{
+    
+        SecondsViewController * cvc = [[SecondsViewController alloc]init];
+        cvc.secondDelegate = self;
+        return cvc;
+    
+    }
 }
 
 #pragma mark - ViewPagerDelegate
@@ -1398,6 +1409,272 @@
 }
 
 #pragma mark ZLHomeSubVieDragProtocol方法结束
+
+
+#pragma mark FirsrtViewControllerDelegate代理方法开始
+- (void)firstViewController:(id)subVC withBeginOffest:(float)haViewOffestY{
+    self.historyOffestY = haViewOffestY;
+}
+
+- (void)firstViewController:(id)subVC withContentOffest:(float)haViewOffestY{
+
+    if (haViewOffestY < self.historyOffestY) {
+        
+        if (self.historyOffestY > haViewOffestY + 25) {
+            
+            if (_isTopHiden) {
+                NSLog(@"down向下 动画执行");
+                [UIView animateWithDuration:0.3f animations:^{
+                    [self.view setFrame:CGRectMake(0, 0.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0)];
+                    self.tabsView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+                    self.firstTopView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+                    self.view.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+                    [self.firstTopView setFrame:CGRectMake(0, 0, SIZE_WIDTH, 65.0f)];
+                    self.currentLabel.textColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    self.currentLabel.spView.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    
+                } completion:^(BOOL finished) {
+                    _isTopHiden = NO;
+                    
+                }];
+            }
+            
+            
+        }
+        
+        
+        
+    } else if (haViewOffestY > self.historyOffestY) {
+        
+        if (haViewOffestY > self.historyOffestY + 25) {
+            
+            if (!_isTopHiden) {
+                NSLog(@"up向上  动画执行");
+                [UIView animateWithDuration:0.3f animations:^{
+                    [self.view setFrame:CGRectMake(0, -47.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0+47.0)];
+                    self.tabsView.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    self.firstTopView.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    self.view.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    [self.firstTopView setFrame:CGRectMake(0, -20, SIZE_WIDTH, 65.0f)];
+                    self.currentLabel.textColor = [UIColor whiteColor];
+                    self.currentLabel.spView.backgroundColor = [UIColor whiteColor];
+                } completion:^(BOOL finished) {
+                    _isTopHiden = YES;
+                    
+                }];
+            }
+            
+        }
+        
+    }
+}
+
+- (void)firstViewController:(FirstsViewController *)subVC JavaScriptActionFourButton:(NSString *)type withUi:(NSString *)sender{
+
+    [self toViewControllerwithIndexType:type withUi:sender];
+}
+
+#pragma end mark 代理方法结束
+
+#pragma mark SecondViewControllerDelegate 代理方法
+- (void)secondViewController:(SecondsViewController *)subVC withBeginOffest:(float)haViewOffestY{
+    self.historyOffestY = haViewOffestY;
+}
+
+- (void)secondViewController:(SecondsViewController *)subVC withContentOffest:(float)haViewOffestY{
+
+    if (haViewOffestY < self.historyOffestY) {
+        
+        if (self.historyOffestY > haViewOffestY + 25) {
+            
+            if (_isTopHiden) {
+                NSLog(@"down向下 动画执行");
+                [UIView animateWithDuration:0.3f animations:^{
+                    [self.view setFrame:CGRectMake(0, 0.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0)];
+                    self.tabsView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+                    self.firstTopView.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+                    self.view.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
+                    [self.firstTopView setFrame:CGRectMake(0, 0, SIZE_WIDTH, 65.0f)];
+                    self.currentLabel.textColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    self.currentLabel.spView.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    
+                } completion:^(BOOL finished) {
+                    _isTopHiden = NO;
+                    
+                }];
+            }
+            
+            
+        }
+        
+        
+        
+    } else if (haViewOffestY > self.historyOffestY) {
+        
+        if (haViewOffestY > self.historyOffestY + 25) {
+            
+            if (!_isTopHiden) {
+                NSLog(@"up向上  动画执行");
+                [UIView animateWithDuration:0.3f animations:^{
+                    [self.view setFrame:CGRectMake(0, -47.0f, SIZE_WIDTH, SIZE_HEIGHT-49.0+47.0)];
+                    self.tabsView.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    self.firstTopView.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    self.view.backgroundColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+                    [self.firstTopView setFrame:CGRectMake(0, -20, SIZE_WIDTH, 65.0f)];
+                    self.currentLabel.textColor = [UIColor whiteColor];
+                    self.currentLabel.spView.backgroundColor = [UIColor whiteColor];
+                } completion:^(BOOL finished) {
+                    _isTopHiden = YES;
+                    
+                }];
+            }
+            
+        }
+        
+    }
+}
+
+- (void)secondViewController:(SecondsViewController *)subVC JavaScriptActionFourButton:(NSString *)type withUi:(NSString *)sender{
+
+
+    [self toViewControllerwithIndexType:type withUi:sender];
+    
+}
+
+
+- (void)toViewControllerwithIndexType:(NSString *)type withUi:(NSString *)sender{
+    
+    if ([type isEqualToString:@"1"]) {
+        //商品
+        NSDictionary *params = @{@"id":sender?:@""};
+        MLGoodsDetailsViewController * vc = [[MLGoodsDetailsViewController alloc]init];
+        vc.paramDic = params;
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+    }
+    if ([type isEqualToString:@"2"]) {
+        //品牌
+        if ([sender isEqualToString:@"all"]) {
+            PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
+            pinVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:pinVC animated:YES];
+        }
+        else{
+            
+            [self toPinPaiGuanDetailList:sender];
+        }
+        
+    }
+    if ([type isEqualToString:@"3"]) {
+        //分类
+        if ([sender isEqualToString:@"all"]) {
+            
+            /*
+             UITabBarController *rootViewController = (UITabBarController *)((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
+             [rootViewController setSelectedIndex:1];
+             */
+            /*
+             dispatch_sync(dispatch_get_main_queue(), ^{
+             
+             [self.tabBarController setSelectedIndex:1];
+             
+             });
+             */
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [self performSelector:@selector(selectedSecondNotificationAction) withObject:self afterDelay:1.0f];
+            
+        }else{
+            
+            [self toFenLeiName:sender];
+            
+            //self.hidesBottomBarWhenPushed = NO;
+            
+        }
+        
+    }
+    if ([type isEqualToString:@"4"]) {
+        //链接
+        //[self daKaQianDao];
+        MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
+        vc.title = @"热门活动";
+        vc.link = sender;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }
+    if ([type isEqualToString:@"5"]) {
+        //店铺
+        MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
+        NSString *phone = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID];
+        vc.store_link = [NSString stringWithFormat:@"%@/store?sid=%@&uid=%@",DianPuURL_URLString,sender,phone];
+        vc.uid = sender;
+        vc.shopparamDic = @{@"userid":sender,@"company":@""};
+        
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        
+    }
+    if ([type isEqualToString:@"9"]) {
+        //频道
+        NSLog(@"点击了四个按钮：%@",sender);
+        if ([sender isEqualToString:@"0"]) {
+            //品牌馆
+            PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
+            pinVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:pinVC animated:YES];
+        }
+        if ([sender isEqualToString:@"3"]) {
+            //积分查询
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
+            if (loginid && ![@"" isEqualToString:loginid]) {
+                MNNMemberViewController * pinVC = [[MNNMemberViewController alloc]init];
+                pinVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:pinVC animated:YES];
+            }
+            else{
+                MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
+                loginVC.isLogin = YES;
+                [self presentViewController:loginVC animated:NO completion:nil];
+                
+            }
+        }
+        if ([sender isEqualToString:@"2"]) {
+            //打卡签到
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
+            if (loginid && ![@"" isEqualToString:loginid]) {
+                [self daKaQianDao];
+            }
+            else{
+                //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(daKaQianDao) name:RENZHENG_LIJIA_Notification object:nil];
+                MLLoginViewController * loginVC = [[MLLoginViewController alloc]init];
+                loginVC.isLogin = YES;
+                [self presentViewController:loginVC animated:NO completion:nil];
+                
+            }
+        }
+        if ([sender isEqualToString:@"1"]) {
+            //城市服务
+            /*
+             MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
+             vc.title = @"热门活动";
+             vc.link = @"http://www.baidu.com";
+             vc.hidesBottomBarWhenPushed = YES;
+             [self.navigationController pushViewController:vc animated:YES];
+             */
+            CityFuWuViewController * vc = [[CityFuWuViewController alloc]init];
+            vc.hidesBottomBarWhenPushed = YES;
+            vc.title = @"城市服务";
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+}
+
+#pragma end mark
+
 
 - (void)daKaQianDao{
 
