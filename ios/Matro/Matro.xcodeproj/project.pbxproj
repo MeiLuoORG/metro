@@ -3211,11 +3211,11 @@
 		3A633B801C9EA7C900C11FD5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< Updated upstream
+
 				3CD71D111D503A8800D1E892 /* IndexViewController */,
-=======
+
 				28E8B11A1D503E340088B840 /* Quanqiugou */,
->>>>>>> Stashed changes
+
 				3C5E8A8C1D3C800700BA5766 /* CityFuWuVC */,
 				284E364D1D2C9F96000CC90F /* Downversion */,
 				3C1306C01D260BA1005CFCEC /* DaoHangZL */,

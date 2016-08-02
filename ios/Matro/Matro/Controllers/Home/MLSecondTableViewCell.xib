@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -16,19 +16,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="381"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="3.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="R3L-hh-pHg" userLabel="Image View1">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="3.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="R3L-hh-pHg" userLabel="Image View1">
                         <rect key="frame" x="0.0" y="0.0" width="185" height="185"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="R3L-hh-pHg" secondAttribute="height" multiplier="1:1" id="TIO-Ax-Ya5"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="1.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="uF3-VE-Adi" userLabel="Image View2">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="1.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="uF3-VE-Adi" userLabel="Image View2">
                         <rect key="frame" x="190" y="0.0" width="185" height="185"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="uF3-VE-Adi" secondAttribute="height" multiplier="1:1" id="Tlm-9Z-iVM"/>
                         </constraints>
                     </imageView>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8ep-i8-cZC">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8ep-i8-cZC">
                         <rect key="frame" x="0.0" y="193" width="375" height="188"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LbM-mA-BpL">
