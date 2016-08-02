@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="332" id="KGk-i7-Jjw" customClass="MLThirdTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="331"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="tfO-nl-eKG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="185" id="tyf-kc-PE6"/>
+                        </constraints>
+                    </imageView>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vXQ-H4-pK7">
+                        <rect key="frame" x="0.0" y="193" width="375" height="138"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="a0O-Qw-8xq">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="tfO-nl-eKG" secondAttribute="trailing" constant="-8" id="81j-iY-E3w"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="vXQ-H4-pK7" secondAttribute="trailing" constant="-8" id="QUB-ae-dwn"/>
+                    <constraint firstItem="tfO-nl-eKG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="crx-44-RFr"/>
+                    <constraint firstItem="tfO-nl-eKG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="e51-vH-vXk"/>
+                    <constraint firstItem="vXQ-H4-pK7" firstAttribute="top" secondItem="tfO-nl-eKG" secondAttribute="bottom" constant="5" id="lZ0-F7-Rn8"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="vXQ-H4-pK7" secondAttribute="bottom" constant="-8" id="t0U-aQ-KyH"/>
+                    <constraint firstItem="vXQ-H4-pK7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="txc-TO-kZX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="431.5" y="546"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="0.JPG" width="194" height="145"/>
+    </resources>
+</document>

@@ -75,7 +75,7 @@
     
     UIView *overView;
     
-    NSMutableDictionary *guigeDic;//总的规格字典
+    //NSMutableDictionary *guigeDic;//总的规格字典
     NSMutableArray *porpertyArray;//规格数组
     NSMutableArray *huoyuanArray;//规格1
     NSMutableArray *jieduanArray;//规格2
@@ -867,6 +867,7 @@
             
             NSLog(@"_imageArray===%@",dic[@"pinfo"][@"pic_more"]);
             _imageArray = dic[@"pinfo"][@"pic_more"];
+            
             
             if (![_imageArray isKindOfClass:[NSNull class]]) {//防崩溃
                 [self imageUIInit];

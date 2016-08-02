@@ -15,7 +15,7 @@
 #import "HFSConstants.h"
 #import "MLShopBagViewController.h"
 
-
+#import "MLQuanqiugouViewController.h"
 
 @interface ZLHomezlViewController ()
 {
@@ -328,67 +328,7 @@
          NSLog(@"请求失败 error===%@",error);
         
     }];
-    
-    /*
-    [[HFSServiceClient sharedJSONClientNOT]POST:urlStr parameters:params constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
-        
-    } success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         
-         NSDictionary *result = (NSDictionary *)responseObject;
-         NSString *code = result[@"code"];
-         if ([code isEqual:@0]) {
 
-
-             if ([result[@"data"][@"sel_info"] isKindOfClass:[NSString class]]) {
-                 return ;
-             }else{
-             
-             NSLog(@"版本更新：%@",result);
-
-             NSString *loadversion = result[@"data"][@"sel_info"][@"appverison"];
-             NSString *loadversionlowest = result[@"data"][@"sel_info"][@"appversion_lowest"];
-             NSString *downlink = result[@"data"][@"sel_info"][@"download_link"];
-             NSLog(@"version===%@ loadversion===%@ downlink===%@",version, loadversion,downlink);
-        
-             if (version < loadversion) {
-
-                     MLVersionViewController *vc = [[MLVersionViewController alloc]init];
-                     vc.versionLabel = loadversion;
-                     vc.qzversionlabel = loadversionlowest;
-                     vc.downlink = downlink;
-                     NSString *labstr = result[@"data"][@"sel_info"][@"version_desc"];
-                     NSArray *nameArray = [labstr componentsSeparatedByString:@"|"];
-                     vc.versionInfoArr = nameArray;
-                     NSLog(@"%@%@",nameArray,vc.versionInfoArr);
-                     vc.versioninfoLabel = labstr;
-                     
-                     vc.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
-                     if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
-                         
-                         vc.modalPresentationStyle=UIModalPresentationOverCurrentContext;
-                         
-                     }else{
-                         
-                         self.modalPresentationStyle=UIModalPresentationCurrentContext;
-                         
-                     }
-                     [self presentViewController:vc  animated:YES completion:^(void)
-                      {
-                          vc.view.superview.backgroundColor = [UIColor clearColor];
-                          
-                      }];
-                 
-                 }
-             }
-         }
-         NSLog(@"请求成功 result====%@",result);
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"请求失败 error===%@",error);
-         
-     }];
-    */
 }
 
 - (NSString*)getVersion
@@ -443,6 +383,7 @@
 //消息按钮
 - (void)newsButtonAction:(UIButton *)sender{
     
+    /*
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
     if (loginid && ![@"" isEqualToString:loginid]) {
@@ -459,8 +400,14 @@
         [self presentViewController:loginVC animated:NO completion:nil];
         
     }
+*/
 
-
+    
+    
+    MLQuanqiugouViewController * pinVC = [[MLQuanqiugouViewController alloc]init];
+    pinVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:pinVC animated:YES];
+    
      
     /*
     PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
@@ -628,6 +575,7 @@
     MLGoodsListViewController *vc =[[MLGoodsListViewController alloc]init];
     self.hidesBottomBarWhenPushed = YES;
     vc.searchString = text;
+    
     [self.navigationController pushViewController:vc animated:NO];
     self.hidesBottomBarWhenPushed = NO;
 }

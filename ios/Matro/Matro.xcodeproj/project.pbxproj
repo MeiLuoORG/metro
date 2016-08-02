@@ -118,6 +118,22 @@
 		28CF86141CEDC59A00E582EE /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85FB1CEDC59A00E582EE /* TencentOpenApi_IOS_Bundle.bundle */; };
 		28CF86151CEDC59A00E582EE /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85FE1CEDC59A00E582EE /* libSocialWechat.a */; };
 		28CF86161CEDC59A00E582EE /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85FF1CEDC59A00E582EE /* libWeChatSDK.a */; };
+		28E8B1181D503E230088B840 /* MLQuanqiugouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E8B1161D503E230088B840 /* MLQuanqiugouViewController.m */; };
+		28E8B1191D503E230088B840 /* MLQuanqiugouViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E8B1171D503E230088B840 /* MLQuanqiugouViewController.xib */; };
+		28E8B11F1D5040370088B840 /* MLFristTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E8B11D1D5040370088B840 /* MLFristTableViewCell.m */; };
+		28E8B1201D5040370088B840 /* MLFristTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E8B11E1D5040370088B840 /* MLFristTableViewCell.xib */; };
+		28E8B1241D5041E10088B840 /* MLFristCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E8B1221D5041E10088B840 /* MLFristCollectionViewCell.m */; };
+		28E8B1251D5041E10088B840 /* MLFristCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E8B1231D5041E10088B840 /* MLFristCollectionViewCell.xib */; };
+		28E8B1281D504ED00088B840 /* MLFirstHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E8B1271D504ED00088B840 /* MLFirstHeaderView.m */; };
+		28E8B12A1D504EE70088B840 /* MLFirstHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E8B1291D504EE70088B840 /* MLFirstHeaderView.xib */; };
+		28E8B12E1D5078310088B840 /* MLAdTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E8B12C1D5078310088B840 /* MLAdTableViewCell.m */; };
+		28E8B12F1D5078310088B840 /* MLAdTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E8B12D1D5078310088B840 /* MLAdTableViewCell.xib */; };
+		28E8B1331D50933A0088B840 /* MLSecondTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E8B1311D50933A0088B840 /* MLSecondTableViewCell.m */; };
+		28E8B1341D50933A0088B840 /* MLSecondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E8B1321D50933A0088B840 /* MLSecondTableViewCell.xib */; };
+		28E8B1381D50934E0088B840 /* MLThirdTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E8B1361D50934E0088B840 /* MLThirdTableViewCell.m */; };
+		28E8B1391D50934E0088B840 /* MLThirdTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E8B1371D50934E0088B840 /* MLThirdTableViewCell.xib */; };
+		28E8B13D1D50937B0088B840 /* MLYourlikeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E8B13B1D50937B0088B840 /* MLYourlikeCollectionViewCell.m */; };
+		28E8B13E1D50937B0088B840 /* MLYourlikeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E8B13C1D50937B0088B840 /* MLYourlikeCollectionViewCell.xib */; };
 		28FF03871D1124F6004978CD /* MLGoodsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FF03851D1124F6004978CD /* MLGoodsDetailsViewController.m */; };
 		2CBAD63D1CA399740044601B /* MLBagHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAD63C1CA399740044601B /* MLBagHeaderView.m */; };
 		2CBAD63F1CA399930044601B /* MLBagHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CBAD63E1CA399930044601B /* MLBagHeaderView.xib */; };
@@ -883,6 +899,30 @@
 		28CF86011CEDC59A00E582EE /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		28CF86021CEDC59A00E582EE /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		28CF86031CEDC59A00E582EE /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		28E8B1151D503E230088B840 /* MLQuanqiugouViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLQuanqiugouViewController.h; sourceTree = "<group>"; };
+		28E8B1161D503E230088B840 /* MLQuanqiugouViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLQuanqiugouViewController.m; sourceTree = "<group>"; };
+		28E8B1171D503E230088B840 /* MLQuanqiugouViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLQuanqiugouViewController.xib; sourceTree = "<group>"; };
+		28E8B11C1D5040370088B840 /* MLFristTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFristTableViewCell.h; sourceTree = "<group>"; };
+		28E8B11D1D5040370088B840 /* MLFristTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFristTableViewCell.m; sourceTree = "<group>"; };
+		28E8B11E1D5040370088B840 /* MLFristTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLFristTableViewCell.xib; sourceTree = "<group>"; };
+		28E8B1211D5041E10088B840 /* MLFristCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFristCollectionViewCell.h; sourceTree = "<group>"; };
+		28E8B1221D5041E10088B840 /* MLFristCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFristCollectionViewCell.m; sourceTree = "<group>"; };
+		28E8B1231D5041E10088B840 /* MLFristCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLFristCollectionViewCell.xib; sourceTree = "<group>"; };
+		28E8B1261D504ED00088B840 /* MLFirstHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFirstHeaderView.h; sourceTree = "<group>"; };
+		28E8B1271D504ED00088B840 /* MLFirstHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFirstHeaderView.m; sourceTree = "<group>"; };
+		28E8B1291D504EE70088B840 /* MLFirstHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLFirstHeaderView.xib; sourceTree = "<group>"; };
+		28E8B12B1D5078310088B840 /* MLAdTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAdTableViewCell.h; sourceTree = "<group>"; };
+		28E8B12C1D5078310088B840 /* MLAdTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAdTableViewCell.m; sourceTree = "<group>"; };
+		28E8B12D1D5078310088B840 /* MLAdTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLAdTableViewCell.xib; sourceTree = "<group>"; };
+		28E8B1301D50933A0088B840 /* MLSecondTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSecondTableViewCell.h; sourceTree = "<group>"; };
+		28E8B1311D50933A0088B840 /* MLSecondTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSecondTableViewCell.m; sourceTree = "<group>"; };
+		28E8B1321D50933A0088B840 /* MLSecondTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSecondTableViewCell.xib; sourceTree = "<group>"; };
+		28E8B1351D50934E0088B840 /* MLThirdTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLThirdTableViewCell.h; sourceTree = "<group>"; };
+		28E8B1361D50934E0088B840 /* MLThirdTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLThirdTableViewCell.m; sourceTree = "<group>"; };
+		28E8B1371D50934E0088B840 /* MLThirdTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLThirdTableViewCell.xib; sourceTree = "<group>"; };
+		28E8B13A1D50937B0088B840 /* MLYourlikeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLYourlikeCollectionViewCell.h; sourceTree = "<group>"; };
+		28E8B13B1D50937B0088B840 /* MLYourlikeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLYourlikeCollectionViewCell.m; sourceTree = "<group>"; };
+		28E8B13C1D50937B0088B840 /* MLYourlikeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLYourlikeCollectionViewCell.xib; sourceTree = "<group>"; };
 		28FF03841D1124F6004978CD /* MLGoodsDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsDetailsViewController.h; sourceTree = "<group>"; };
 		28FF03851D1124F6004978CD /* MLGoodsDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsDetailsViewController.m; sourceTree = "<group>"; };
 		2CBAD63B1CA399740044601B /* MLBagHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBagHeaderView.h; sourceTree = "<group>"; };
@@ -2204,6 +2244,45 @@
 			path = Wechat;
 			sourceTree = "<group>";
 		};
+		28E8B11A1D503E340088B840 /* Quanqiugou */ = {
+			isa = PBXGroup;
+			children = (
+				28E8B11B1D503F9A0088B840 /* view */,
+				28E8B1151D503E230088B840 /* MLQuanqiugouViewController.h */,
+				28E8B1161D503E230088B840 /* MLQuanqiugouViewController.m */,
+				28E8B1171D503E230088B840 /* MLQuanqiugouViewController.xib */,
+			);
+			name = Quanqiugou;
+			sourceTree = "<group>";
+		};
+		28E8B11B1D503F9A0088B840 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				28E8B11C1D5040370088B840 /* MLFristTableViewCell.h */,
+				28E8B11D1D5040370088B840 /* MLFristTableViewCell.m */,
+				28E8B11E1D5040370088B840 /* MLFristTableViewCell.xib */,
+				28E8B1211D5041E10088B840 /* MLFristCollectionViewCell.h */,
+				28E8B1221D5041E10088B840 /* MLFristCollectionViewCell.m */,
+				28E8B1231D5041E10088B840 /* MLFristCollectionViewCell.xib */,
+				28E8B1261D504ED00088B840 /* MLFirstHeaderView.h */,
+				28E8B1271D504ED00088B840 /* MLFirstHeaderView.m */,
+				28E8B1291D504EE70088B840 /* MLFirstHeaderView.xib */,
+				28E8B12B1D5078310088B840 /* MLAdTableViewCell.h */,
+				28E8B12C1D5078310088B840 /* MLAdTableViewCell.m */,
+				28E8B12D1D5078310088B840 /* MLAdTableViewCell.xib */,
+				28E8B1301D50933A0088B840 /* MLSecondTableViewCell.h */,
+				28E8B1311D50933A0088B840 /* MLSecondTableViewCell.m */,
+				28E8B1321D50933A0088B840 /* MLSecondTableViewCell.xib */,
+				28E8B1351D50934E0088B840 /* MLThirdTableViewCell.h */,
+				28E8B1361D50934E0088B840 /* MLThirdTableViewCell.m */,
+				28E8B1371D50934E0088B840 /* MLThirdTableViewCell.xib */,
+				28E8B13A1D50937B0088B840 /* MLYourlikeCollectionViewCell.h */,
+				28E8B13B1D50937B0088B840 /* MLYourlikeCollectionViewCell.m */,
+				28E8B13C1D50937B0088B840 /* MLYourlikeCollectionViewCell.xib */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
 		3A16DC5D1CA15BB7007AE4A2 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -3132,7 +3211,11 @@
 		3A633B801C9EA7C900C11FD5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 				3CD71D111D503A8800D1E892 /* IndexViewController */,
+=======
+				28E8B11A1D503E340088B840 /* Quanqiugou */,
+>>>>>>> Stashed changes
 				3C5E8A8C1D3C800700BA5766 /* CityFuWuVC */,
 				284E364D1D2C9F96000CC90F /* Downversion */,
 				3C1306C01D260BA1005CFCEC /* DaoHangZL */,
@@ -4312,6 +4395,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28E8B1391D50934E0088B840 /* MLThirdTableViewCell.xib in Resources */,
 				3CF2A09D1D27731100ACCDD6 /* ZLHomezlViewController.xib in Resources */,
 				3A633B961C9EA85800C11FD5 /* MLPersonViewController.xib in Resources */,
 				7A0928151D43743F002E9DFD /* arrwo_up.jpg in Resources */,
@@ -4330,6 +4414,7 @@
 				3CFC2A4C1D127C5C00C43BFF /* b54504436257.jpg in Resources */,
 				7ACD3A771CE842D8004BAF8B /* MLWishlistFootView.xib in Resources */,
 				3C5E8A981D3CA96E00BA5766 /* ChongZhiViewController.xib in Resources */,
+				28E8B1251D5041E10088B840 /* MLFristCollectionViewCell.xib in Resources */,
 				7AEDD0CB1CE5A43A009B12F4 /* MLSaleServiceImageCell.xib in Resources */,
 				7AF1415F1CE1E5BC005DDE70 /* HFSProductTableViewCell.xib in Resources */,
 				3CEDAD7F1D13ECFB00990DA8 /* placeholder.png in Resources */,
@@ -4352,6 +4437,7 @@
 				284073311D2DF9A5003A13AE /* MLsehnfenzhengCell.xib in Resources */,
 				7A3BCB601CDC72BA00565E7C /* MLGoodsListViewController.xib in Resources */,
 				7AEC88E21CE4729900B43DD4 /* MLShareGoodsViewController.xib in Resources */,
+				28E8B1201D5040370088B840 /* MLFristTableViewCell.xib in Resources */,
 				3A1AA8D31CAA7D4D00AF73C2 /* MLPayresultHeader.xib in Resources */,
 				287C86D11D1BD6230002E5E2 /* MLPingjiaListViewController.xib in Resources */,
 				7A12A0D71D2E3ED300D0FF26 /* orderCommit.json in Resources */,
@@ -4366,11 +4452,13 @@
 				28CF860A1CEDC59A00E582EE /* UMShareEditViewControlleriPad.xib in Resources */,
 				7A1DC2661D23B3F80094D751 /* MLShopCartFootView.xib in Resources */,
 				7AEDD0ED1CE5EE9A009B12F4 /* MLWishlistTableViewCell.xib in Resources */,
+				28E8B1191D503E230088B840 /* MLQuanqiugouViewController.xib in Resources */,
 				3CEDAD7D1D13ECFB00990DA8 /* background.png in Resources */,
 				7AF6EEBA1CE40AD100ECFCAA /* MLPersonHeadView.xib in Resources */,
 				2832619F1D192E4800C9EE4E /* MLstoreCollectTableViewCell.xib in Resources */,
 				7AF141641CE1FD50005DDE70 /* MLProductOrderCell.xib in Resources */,
 				7A3486651D0EBFC4002EE211 /* MLLikeHeadCollectionReusableView.xib in Resources */,
+				28E8B1341D50933A0088B840 /* MLSecondTableViewCell.xib in Resources */,
 				285326E81CFD3A5800FA2AB0 /* MLYHQOutdateCell.xib in Resources */,
 				687704051CCF615E0008ED46 /* home_html.zip in Resources */,
 				7AEDD0C61CE59F5D009B12F4 /* MLSaleServiceProductCell.xib in Resources */,
@@ -4417,7 +4505,9 @@
 				7AEDD0D01CE5A913009B12F4 /* MLServiceTracksTableViewCell.xib in Resources */,
 				7AEC88D81CE462EF00B43DD4 /* MLGoodsComFootView.xib in Resources */,
 				7A3A626A1CDB874F00D265F2 /* MLAfterSaleProductCell.xib in Resources */,
+				28E8B13E1D50937B0088B840 /* MLYourlikeCollectionViewCell.xib in Resources */,
 				3C0556861D23AA820092D140 /* ZLCollectionViewCell.xib in Resources */,
+				28E8B12A1D504EE70088B840 /* MLFirstHeaderView.xib in Resources */,
 				7A272EC51D1A405500242F24 /* MLReturnsWentiTableViewCell.xib in Resources */,
 				7A12A0DC1D2E4ABB00D0FF26 /* MLOrderSubTextTableViewCell.xib in Resources */,
 				7ABB22311D20F2C400529B2B /* MLMessagesControlCell.xib in Resources */,
@@ -4478,6 +4568,7 @@
 				3A630BDF1CA25663006E67F4 /* MLClassTableViewCell.xib in Resources */,
 				3AA0E7351CA916A90079AA90 /* MLPayViewController.xib in Resources */,
 				3C1306E01D260BBC005CFCEC /* icons.bundle in Resources */,
+				28E8B12F1D5078310088B840 /* MLAdTableViewCell.xib in Resources */,
 				7A0936841D1BCDA3002325A2 /* MLCommentDetailUserTableViewCell.xib in Resources */,
 				3CCC64FD1D3E0A75004ABF04 /* MLShouJiZhiViewController.xib in Resources */,
 				7A6B22CC1D0FB6C1001BDDFD /* MLCartHeadCollectionReusableView.xib in Resources */,
@@ -4655,6 +4746,7 @@
 				7AF1415D1CE1DB13005DDE70 /* MLGoodsListViewController.m in Sources */,
 				3A633B4A1C9EA36E00C11FD5 /* GCDAsyncUdpSocket.m in Sources */,
 				7A4A27B61D30BF24006F42E9 /* MLOrderSubLiuYanTableViewCell.m in Sources */,
+				28E8B1181D503E230088B840 /* MLQuanqiugouViewController.m in Sources */,
 				687704221CD34E4A0008ED46 /* SBJSON.m in Sources */,
 				280F7D741CF981BA00D42FA6 /* MLMyPropertyViewController.m in Sources */,
 				280F7CD61CF7F44800D42FA6 /* rscode.c in Sources */,
@@ -4692,12 +4784,14 @@
 				7AEC88DC1CE464EC00B43DD4 /* MLGoodsComPhotoCell.m in Sources */,
 				284E36441D2B7C0D000CC90F /* MLPeisongTableViewCell.m in Sources */,
 				3ACF2CD51CA4D9DF003D1F67 /* WebViewJavascriptBridge.m in Sources */,
+				28E8B1241D5041E10088B840 /* MLFristCollectionViewCell.m in Sources */,
 				7A272EB61D1A262100242F24 /* MLReturnsDetailViewController.m in Sources */,
 				7A813ED41CD8652400FAB6B2 /* MLProductModel.m in Sources */,
 				7A12A0D01D2D064900D0FF26 /* MLShopBagTableViewCell.m in Sources */,
 				7A272EBF1D1A2EFC00242F24 /* MLShopCartMoreCell.m in Sources */,
 				3C1306D91D260BBC005CFCEC /* HAItemManager.m in Sources */,
 				D6C6F5B51CC0D11900809AC5 /* MLLikeModel.m in Sources */,
+				28E8B1281D504ED00088B840 /* MLFirstHeaderView.m in Sources */,
 				3AA0E7AA1CA91E500079AA90 /* MD5DataSigner.m in Sources */,
 				7A028D851CEAC294005D14BC /* MBProgressHUD+Add.m in Sources */,
 				2814D60D1D26467F00F8ECB8 /* MLOrderListViewCell.m in Sources */,
@@ -4857,6 +4951,7 @@
 				3A633B6A1C9EA36E00C11FD5 /* ZLPhotoPickerImageView.m in Sources */,
 				3AAA0A8D1CACB8E90071A313 /* HFSPriceDataObject.m in Sources */,
 				7A0720451D17EDC300E0B58E /* MLAddImgCollectionViewCell.m in Sources */,
+				28E8B13D1D50937B0088B840 /* MLYourlikeCollectionViewCell.m in Sources */,
 				280F7D6F1CF972CC00D42FA6 /* MLPropertysubCell.m in Sources */,
 				7AED645F1CDD9C3C008F55BD /* YMPhoneCondeButton.m in Sources */,
 				280F7CD31CF7F44800D42FA6 /* qrencode.c in Sources */,
@@ -4878,6 +4973,7 @@
 				7ACFA5F61D11233B00987A03 /* MLPersonAlertViewController.m in Sources */,
 				280F7D561CF93E3200D42FA6 /* NSSet+HYBUnicodeReadable.m in Sources */,
 				3AA0E7AC1CA91E500079AA90 /* openssl_wrapper.m in Sources */,
+				28E8B1331D50933A0088B840 /* MLSecondTableViewCell.m in Sources */,
 				3A633B591C9EA36E00C11FD5 /* ZLPhotoPickerBrowserViewController.m in Sources */,
 				7A3A62791CDB874F00D265F2 /* MLServiceMainController.m in Sources */,
 				3ACB8D811CC089C500C7398B /* MLClass.m in Sources */,
@@ -4931,6 +5027,7 @@
 				3C36713F1D2A550C00BC5680 /* PinPaiSPListViewController.m in Sources */,
 				7A8613DE1D14E6F600C75D5A /* MLPersonOrderDetailFootView.m in Sources */,
 				3A633B781C9EA4E000C11FD5 /* MLBaseViewController.m in Sources */,
+				28E8B12E1D5078310088B840 /* MLAdTableViewCell.m in Sources */,
 				7A0720401D17E98400E0B58E /* MLXuanZeTuPianTableViewCell.m in Sources */,
 				687703E51CCF3F720008ED46 /* EasyJSWebViewProxyDelegate.m in Sources */,
 				7AF6EEB51CE40A4E00ECFCAA /* MLPersonController.m in Sources */,
@@ -4955,6 +5052,7 @@
 				687704211CD34E4A0008ED46 /* NSString+SBJSON.m in Sources */,
 				3C1306D81D260BBC005CFCEC /* HACursor.m in Sources */,
 				3ACF2CEE1CA5070E003D1F67 /* mztools.c in Sources */,
+				28E8B11F1D5040370088B840 /* MLFristTableViewCell.m in Sources */,
 				7A3A626F1CDB874F00D265F2 /* MLOrderComViewController.m in Sources */,
 				3ACF2D051CA53046003D1F67 /* MLAddTableViewCell.m in Sources */,
 				3ABF64571C9EAC0600C10056 /* HFSUtility.m in Sources */,
@@ -4972,6 +5070,7 @@
 				3AA0E7AE1CA91E500079AA90 /* RSADataVerifier.m in Sources */,
 				3C36713A1D2A165100BC5680 /* ZLLabelCustom.m in Sources */,
 				3CEDAD821D14128C00990DA8 /* VipCardModel.m in Sources */,
+				28E8B1381D50934E0088B840 /* MLThirdTableViewCell.m in Sources */,
 				3A633B3B1C9EA36E00C11FD5 /* TAPageControl.m in Sources */,
 				3AF01E5B1CBBAB94005830BD /* MLLogisticsViewController.m in Sources */,
 				3A633B511C9EA36E00C11FD5 /* UIView+ZLExtension.m in Sources */,

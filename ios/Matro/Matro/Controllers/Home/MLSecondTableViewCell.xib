@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="382" id="KGk-i7-Jjw" customClass="MLSecondTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="382"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="381"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="3.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="R3L-hh-pHg" userLabel="Image View1">
+                        <rect key="frame" x="0.0" y="0.0" width="185" height="185"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="R3L-hh-pHg" secondAttribute="height" multiplier="1:1" id="TIO-Ax-Ya5"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="1.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="uF3-VE-Adi" userLabel="Image View2">
+                        <rect key="frame" x="190" y="0.0" width="185" height="185"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="uF3-VE-Adi" secondAttribute="height" multiplier="1:1" id="Tlm-9Z-iVM"/>
+                        </constraints>
+                    </imageView>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8ep-i8-cZC">
+                        <rect key="frame" x="0.0" y="193" width="375" height="188"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LbM-mA-BpL">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="R3L-hh-pHg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="05a-a0-WLJ"/>
+                    <constraint firstItem="8ep-i8-cZC" firstAttribute="top" secondItem="uF3-VE-Adi" secondAttribute="bottom" constant="5" id="FSx-zc-hRT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="8ep-i8-cZC" secondAttribute="trailing" constant="-8" id="VSr-aW-sIX"/>
+                    <constraint firstItem="R3L-hh-pHg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="Vfz-hw-gzz"/>
+                    <constraint firstItem="uF3-VE-Adi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="Zsa-S4-Vea"/>
+                    <constraint firstItem="8ep-i8-cZC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="ir6-zM-bv1"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="8ep-i8-cZC" secondAttribute="bottom" constant="-8" id="koS-WD-PRB"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="uF3-VE-Adi" secondAttribute="trailing" constant="-8" id="mRl-Vm-jKx"/>
+                    <constraint firstItem="R3L-hh-pHg" firstAttribute="trailing" secondItem="uF3-VE-Adi" secondAttribute="leading" constant="5" id="psF-xp-ugq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="343.5" y="255"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="1.JPG" width="199" height="149"/>
+        <image name="3.JPG" width="181" height="136"/>
+    </resources>
+</document>
