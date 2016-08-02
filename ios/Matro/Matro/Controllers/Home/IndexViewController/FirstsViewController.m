@@ -31,9 +31,9 @@
 
     _index_0_height = 464.0f/750.0f*SIZE_WIDTH;
 
-    _index_1_height = 80.0f/750.0f*SIZE_WIDTH+5;
+    _index_1_height = 160.0f/750.0f*SIZE_WIDTH+5;
 
-    _index_2_height = 40+177.0/750.0f*SIZE_WIDTH;
+    _index_2_height = 40+350.0/750.0f*SIZE_WIDTH;
 
     _index_3_height = 440.0/750.0f*SIZE_WIDTH;
 
@@ -43,7 +43,7 @@
 
     _index_6_height = 40+720.0/750.0f*SIZE_WIDTH+5;
 
-    _index_7_height = 40+720.0/750.0f*SIZE_WIDTH+5;
+    _index_7_height = 40+750.0/750.0f*SIZE_WIDTH+5;
 
     _index_8_height = 40.0+(460.0/750.0*SIZE_WIDTH+5)*4;
 
@@ -135,73 +135,67 @@
     }
     switch (indexPath.row) {
         case 0:{
-            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 464.0f/750.0f*SIZE_WIDTH)];
+            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, _index_0_height)];
             view1.backgroundColor = [UIColor redColor];
             [cell addSubview:view1];
             
         }
             break;
         case 1:{
-            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 80.0f)];
+            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, _index_1_height)];
             view1.backgroundColor = [UIColor orangeColor];
             [cell addSubview:view1];
         }
             
             break;
         case 2:{
-            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 217.0f)];
+            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH,_index_2_height)];
             view1.backgroundColor = [UIColor redColor];
             [cell addSubview:view1];
         }
             
             break;
         case 3:{
-            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 440.0/750.0f*SIZE_WIDTH)];
+            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, _index_3_height)];
             view1.backgroundColor = [UIColor orangeColor];
             [cell addSubview:view1];
         }
             
             break;
         case 4:{
-            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 300.0/750.0f*SIZE_WIDTH)];
+            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, _index_4_height)];
             view1.backgroundColor = [UIColor redColor];
             [cell addSubview:view1];
         }
             
             break;
         case 5:{
-            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 300.0/750.0f*SIZE_WIDTH)];
+            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH,_index_5_height)];
             view1.backgroundColor = [UIColor orangeColor];
             [cell addSubview:view1];
         }
             
             break;
         case 6:{
-            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 40+400.0/750.0f*SIZE_WIDTH+ 370.0/750.0f*SIZE_WIDTH+177.0+5)];
+            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH,_index_6_height)];
             view1.backgroundColor = [UIColor redColor];
             [cell addSubview:view1];
         }
             
             break;
         case 7:{
-            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 40+370.0/750.0f*SIZE_WIDTH+177.0+5)];
+            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH,_index_7_height)];
             view1.backgroundColor = [UIColor orangeColor];
             [cell addSubview:view1];
         }
             
             break;
         case 8:{
-            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 40+400.0/750.0f*SIZE_WIDTH+177.0+5)];
+            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, _index_8_height)];
             view1.backgroundColor = [UIColor redColor];
             [cell addSubview:view1];
         }
             
-            break;
-        case 9:{
-            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 40.0+(460.0/750.0*SIZE_WIDTH+5)*4)];
-            view1.backgroundColor = [UIColor orangeColor];
-            [cell addSubview:view1];
-        }
             break;
 
         default:
