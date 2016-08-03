@@ -29,7 +29,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="￥123.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRR-h8-rtW">
-                        <rect key="frame" x="0.0" y="125" width="100" height="15"/>
+                        <rect key="frame" x="0.0" y="120" width="100" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.94509803920000002" green="0.39607843139999999" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -46,7 +46,7 @@
                 <constraint firstAttribute="trailing" secondItem="cjf-zt-wwh" secondAttribute="trailing" id="eWa-Lt-1eb"/>
                 <constraint firstAttribute="trailing" secondItem="jRR-h8-rtW" secondAttribute="trailing" id="f0K-hi-seY"/>
                 <constraint firstItem="cjf-zt-wwh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="mFn-kJ-sXk"/>
-                <constraint firstItem="jRR-h8-rtW" firstAttribute="top" secondItem="cjf-zt-wwh" secondAttribute="bottom" constant="5" id="qQI-cX-lbp"/>
+                <constraint firstItem="jRR-h8-rtW" firstAttribute="top" secondItem="cjf-zt-wwh" secondAttribute="bottom" id="qQI-cX-lbp"/>
                 <constraint firstItem="jRR-h8-rtW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="wJ8-3c-gXa"/>
             </constraints>
             <size key="customSize" width="111" height="156"/>

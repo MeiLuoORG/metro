@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -24,7 +24,7 @@
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vXQ-H4-pK7">
                         <rect key="frame" x="0.0" y="233" width="375" height="98"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="a0O-Qw-8xq">
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="a0O-Qw-8xq">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -58,7 +58,7 @@
                     <constraint firstItem="TQZ-HV-50b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="GaO-al-jAp"/>
                     <constraint firstAttribute="trailingMargin" secondItem="vXQ-H4-pK7" secondAttribute="trailing" constant="-8" id="QUB-ae-dwn"/>
                     <constraint firstItem="tfO-nl-eKG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="crx-44-RFr"/>
-                    <constraint firstItem="vXQ-H4-pK7" firstAttribute="top" secondItem="tfO-nl-eKG" secondAttribute="bottom" id="lZ0-F7-Rn8"/>
+                    <constraint firstItem="vXQ-H4-pK7" firstAttribute="top" secondItem="tfO-nl-eKG" secondAttribute="bottom" constant="5" id="lZ0-F7-Rn8"/>
                     <constraint firstAttribute="bottomMargin" secondItem="vXQ-H4-pK7" secondAttribute="bottom" constant="-3" id="t0U-aQ-KyH"/>
                     <constraint firstItem="vXQ-H4-pK7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="txc-TO-kZX"/>
                     <constraint firstItem="tfO-nl-eKG" firstAttribute="top" secondItem="TQZ-HV-50b" secondAttribute="bottom" id="uUY-Pk-cIM"/>

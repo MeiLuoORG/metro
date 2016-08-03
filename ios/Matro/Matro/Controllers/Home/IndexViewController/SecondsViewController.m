@@ -14,9 +14,12 @@
 #import "MLThirdTableViewCell.h"
 #import "MLYourlikeCollectionViewCell.h"
 #import "MLSecondCollectionViewCell.h"
+#import "MLYourlikeTableViewCell.h"
 
 #define FristCCELL_IDENTIFIER @"MLFristCollectionViewCell"
 #define SecondCCELL_IDENTIFIER @"MLSecondCollectionViewCell"
+#define YourlikeCCELL_IDENTIFIER @"MLYourlikeCollectionViewCell"
+
 #define CollectionViewCellMargin 5.0f//间隔5
 @interface SecondsViewController (){
     
@@ -112,13 +115,13 @@
             break;
         case 5:{
 //            height = _index_5_height;
-            height = 355;
+            height = 370;
             
         }
             break;
         case 6:{
 //            height = _index_6_height;
-            height = 355;
+            height = 370;
             
         }
             break;
@@ -256,7 +259,6 @@
             }
             SecondTableViewCell.secondCollectionView.delegate = self;
             SecondTableViewCell.secondCollectionView.dataSource = self;
-//            SecondTableViewCell.secondCollectionView.scrollIndicatorInsets = UICollectionViewScrollDirectionHorizontal;
             SecondTableViewCell.secondCollectionView.tag = 5;
             [SecondTableViewCell.secondCollectionView registerNib:[UINib  nibWithNibName:@"MLSecondCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:SecondCCELL_IDENTIFIER];
             SecondTableViewCell.selectionStyle = UITableViewCellAccessoryNone;
@@ -285,9 +287,22 @@
             
             break;
         case 7:{
-            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 40+370.0/750.0f*SIZE_WIDTH+177.0+5)];
-            view1.backgroundColor = [UIColor orangeColor];
-            [cell addSubview:view1];
+//            UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 40+370.0/750.0f*SIZE_WIDTH+177.0+5)];
+//            view1.backgroundColor = [UIColor orangeColor];
+//            [cell addSubview:view1];
+            
+            static NSString *YourlikeCellIdentifier = @"MLYourlikeTableViewCell";
+            MLYourlikeTableViewCell *YourlikeTableViewCell = [tableView dequeueReusableCellWithIdentifier:YourlikeCellIdentifier];
+            if (YourlikeTableViewCell == nil) {
+                NSArray *array = [[NSBundle mainBundle]loadNibNamed: YourlikeCellIdentifier owner:self options:nil];
+                YourlikeTableViewCell = [array objectAtIndex:0];
+            }
+            YourlikeTableViewCell.LikeCollectionView.delegate = self;
+            YourlikeTableViewCell.LikeCollectionView.dataSource = self;
+            YourlikeTableViewCell.LikeCollectionView.tag = 7;
+            [YourlikeTableViewCell.LikeCollectionView registerNib:[UINib  nibWithNibName:@"MLYourlikeCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:YourlikeCCELL_IDENTIFIER];
+            YourlikeTableViewCell.selectionStyle = UITableViewCellAccessoryNone;
+            return YourlikeTableViewCell;
         }
             
             break;
@@ -313,10 +328,16 @@
         MLFristCollectionViewCell *cell = (MLFristCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:FristCCELL_IDENTIFIER forIndexPath:indexPath];
         
         return cell;
-    }else{
+    }else if(collectionView.tag == 7){
         
+        MLYourlikeCollectionViewCell *cell = (MLYourlikeCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:YourlikeCCELL_IDENTIFIER forIndexPath:indexPath];
+        
+        return cell;
+        
+    }else{
+
         MLSecondCollectionViewCell *cell = (MLSecondCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:SecondCCELL_IDENTIFIER forIndexPath:indexPath];
-    
+        
         return cell;
     }
     
@@ -333,24 +354,47 @@
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-   
+    if (collectionView.tag == 1) {
+        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
+        return CGSizeMake(width, 120);
+    }else if (collectionView.tag == 7){
+        CGFloat cellW = (MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2;
+        return CGSizeMake(cellW,cellW*1.4);
+    }
     float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
-   // float height = width;
-    return CGSizeMake(width, 120);
+    return CGSizeMake(width, 140);
     
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(CollectionViewCellMargin, CollectionViewCellMargin, 0, CollectionViewCellMargin);
+    if (collectionView.tag == 1) {
+         return UIEdgeInsetsMake(CollectionViewCellMargin, CollectionViewCellMargin, 0, CollectionViewCellMargin);
+    }else if (collectionView.tag == 7){
+        return UIEdgeInsetsMake(0, 0, CollectionViewCellMargin, 0);
+    }
+    return UIEdgeInsetsMake(CollectionViewCellMargin*2, CollectionViewCellMargin*2, CollectionViewCellMargin, CollectionViewCellMargin*2);
 }
 
-//- (CGFloat) collectionView:(UICollectionView *)collectionView
-//                    layout:(UICollectionViewLayout *)collectionViewLayout
-//minimumLineSpacingForSectionAtIndex:(NSInteger)section
-//{
-//    return 0.f;
-//}
+- (CGFloat) collectionView:(UICollectionView *)collectionView
+                    layout:(UICollectionViewLayout *)collectionViewLayout
+minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    if (collectionView.tag == 1) {
+        return 0.f;
+    }else if (collectionView.tag == 7){
+    
+        return 5.f;
+    }
+    return 10.f;
+}
 
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    if (collectionView.tag == 7) {
+        return 5.f;
+    }
+    return 0;
+}
 
 #pragma mark- 图片相关
 - (void)imageUIInit {

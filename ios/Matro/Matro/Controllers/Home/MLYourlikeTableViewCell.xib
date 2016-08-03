@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="164" id="KGk-i7-Jjw" customClass="MLYourlikeTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="163"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RPD-fW-eaZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="猜你喜欢" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUB-3Q-fdE">
+                                <rect key="frame" x="10" y="0.0" width="310" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="rUB-3Q-fdE" secondAttribute="bottom" id="CoE-wT-LCE"/>
+                            <constraint firstItem="rUB-3Q-fdE" firstAttribute="leading" secondItem="RPD-fW-eaZ" secondAttribute="leading" constant="10" id="LDg-Uy-io0"/>
+                            <constraint firstAttribute="height" constant="40" id="YEm-Gl-Wvt"/>
+                            <constraint firstItem="rUB-3Q-fdE" firstAttribute="top" secondItem="RPD-fW-eaZ" secondAttribute="top" id="qhh-Sq-ft4"/>
+                            <constraint firstAttribute="trailing" secondItem="rUB-3Q-fdE" secondAttribute="trailing" id="ruQ-Th-iEx"/>
+                        </constraints>
+                    </view>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="QQo-oA-wwv">
+                        <rect key="frame" x="0.0" y="45" width="320" height="118"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="oLV-zq-xfm">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="QQo-oA-wwv" firstAttribute="top" secondItem="RPD-fW-eaZ" secondAttribute="bottom" constant="5" id="CNa-Ft-nh2"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="RPD-fW-eaZ" secondAttribute="trailing" constant="-8" id="KNC-dA-wyt"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="QQo-oA-wwv" secondAttribute="bottom" constant="-8" id="NQf-iS-MGB"/>
+                    <constraint firstItem="RPD-fW-eaZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="TTq-i1-w4f"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="QQo-oA-wwv" secondAttribute="trailing" constant="-8" id="VUc-kF-gvW"/>
+                    <constraint firstItem="RPD-fW-eaZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="cie-HK-S82"/>
+                    <constraint firstItem="QQo-oA-wwv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="ec6-De-XGQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="LikeCollectionView" destination="QQo-oA-wwv" id="wPK-mb-gXZ"/>
+            </connections>
+            <point key="canvasLocation" x="456" y="376"/>
+        </tableViewCell>
+    </objects>
+</document>

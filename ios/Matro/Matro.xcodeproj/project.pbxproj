@@ -61,6 +61,8 @@
 		284850D41D13F6DE003C2649 /* MLpingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */; };
 		2848FA4B1D51C5040001D8FC /* MLSecondCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2848FA491D51C5040001D8FC /* MLSecondCollectionViewCell.m */; };
 		2848FA4C1D51C5040001D8FC /* MLSecondCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2848FA4A1D51C5040001D8FC /* MLSecondCollectionViewCell.xib */; };
+		2848FA501D51DD260001D8FC /* MLYourlikeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2848FA4E1D51DD260001D8FC /* MLYourlikeTableViewCell.m */; };
+		2848FA511D51DD260001D8FC /* MLYourlikeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2848FA4F1D51DD260001D8FC /* MLYourlikeTableViewCell.xib */; };
 		284E363A1D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 284E36381D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.m */; };
 		284E363B1D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284E36391D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.xib */; };
 		284E363F1D2B615A000CC90F /* MLOrderListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 284E363D1D2B615A000CC90F /* MLOrderListCollectionViewCell.m */; };
@@ -796,6 +798,9 @@
 		2848FA481D51C5040001D8FC /* MLSecondCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSecondCollectionViewCell.h; sourceTree = "<group>"; };
 		2848FA491D51C5040001D8FC /* MLSecondCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSecondCollectionViewCell.m; sourceTree = "<group>"; };
 		2848FA4A1D51C5040001D8FC /* MLSecondCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSecondCollectionViewCell.xib; sourceTree = "<group>"; };
+		2848FA4D1D51DD260001D8FC /* MLYourlikeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLYourlikeTableViewCell.h; sourceTree = "<group>"; };
+		2848FA4E1D51DD260001D8FC /* MLYourlikeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLYourlikeTableViewCell.m; sourceTree = "<group>"; };
+		2848FA4F1D51DD260001D8FC /* MLYourlikeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLYourlikeTableViewCell.xib; sourceTree = "<group>"; };
 		284E36371D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderHeadCollectionReusableView.h; sourceTree = "<group>"; };
 		284E36381D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderHeadCollectionReusableView.m; sourceTree = "<group>"; };
 		284E36391D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLOrderHeadCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -2284,6 +2289,9 @@
 				28E8B1351D50934E0088B840 /* MLThirdTableViewCell.h */,
 				28E8B1361D50934E0088B840 /* MLThirdTableViewCell.m */,
 				28E8B1371D50934E0088B840 /* MLThirdTableViewCell.xib */,
+				2848FA4D1D51DD260001D8FC /* MLYourlikeTableViewCell.h */,
+				2848FA4E1D51DD260001D8FC /* MLYourlikeTableViewCell.m */,
+				2848FA4F1D51DD260001D8FC /* MLYourlikeTableViewCell.xib */,
 				28E8B13A1D50937B0088B840 /* MLYourlikeCollectionViewCell.h */,
 				28E8B13B1D50937B0088B840 /* MLYourlikeCollectionViewCell.m */,
 				28E8B13C1D50937B0088B840 /* MLYourlikeCollectionViewCell.xib */,
@@ -3219,16 +3227,8 @@
 		3A633B801C9EA7C900C11FD5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< Updated upstream
-
-				3CD71D111D503A8800D1E892 /* IndexViewController */,
-
-				28E8B11A1D503E340088B840 /* Quanqiugou */,
-
-=======
 				3CD71D111D503A8800D1E892 /* IndexViewController */,
 				28E8B11A1D503E340088B840 /* Quanqiugou */,
->>>>>>> Stashed changes
 				3C5E8A8C1D3C800700BA5766 /* CityFuWuVC */,
 				284E364D1D2C9F96000CC90F /* Downversion */,
 				3C1306C01D260BA1005CFCEC /* DaoHangZL */,
@@ -4613,6 +4613,7 @@
 				3C0556811D239F330092D140 /* PinPaiZLViewController.xib in Resources */,
 				2840732C1D2DF462003A13AE /* MLSureOrderHeaderCell.xib in Resources */,
 				7ABB22461D210C5000529B2B /* MLActMessageBodyCell.xib in Resources */,
+				2848FA511D51DD260001D8FC /* MLYourlikeTableViewCell.xib in Resources */,
 				3ACF2D061CA53046003D1F67 /* MLAddTableViewCell.xib in Resources */,
 				7AEC88E71CE47A6A00B43DD4 /* MLGoodsSharePhotoViewController.xib in Resources */,
 				7A09367F1D1BCB9B002325A2 /* MLProductComDetailHeadCell.xib in Resources */,
@@ -4914,6 +4915,7 @@
 				3AA0E7C11CA920D20079AA90 /* MLPayTableViewCell.m in Sources */,
 				283261991D192D6E00C9EE4E /* MLStoreCollectViewController.m in Sources */,
 				280F7CE01CF829D600D42FA6 /* MLYHQViewController.m in Sources */,
+				2848FA501D51DD260001D8FC /* MLYourlikeTableViewCell.m in Sources */,
 				3A633B611C9EA36E00C11FD5 /* UIViewController+Alert.m in Sources */,
 				3A633B671C9EA36E00C11FD5 /* ZLPhotoPickerCollectionViewCell.m in Sources */,
 				7ABB224A1D210D8000529B2B /* MLActMessageFootCell.m in Sources */,
