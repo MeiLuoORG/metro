@@ -22,12 +22,12 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "CityFuWuViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "FourButtonsView.h"
+#import "MLSecondCollectionViewCell.h"
+#import "Index3TableViewCell.h"
 
 @class FirstsViewController;
-
-
-
-
 @protocol FirsrtViewControllerDelegate <NSObject>
 
 - (void)firstViewController:(FirstsViewController *)subVC withContentOffest:(float ) haViewOffestY;
@@ -38,11 +38,22 @@
 @end
 
 
-@interface FirstsViewController : MLBaseViewController<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+@interface FirstsViewController : MLBaseViewController<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) UITableView * tableview;
 @property (weak, nonatomic) id<FirsrtViewControllerDelegate> firstDelegate;
-//@property (assign, nonatomic)
+@property (strong, nonatomic) NSMutableArray * lunXianImageARR;
+@property (strong, nonatomic) UIView * lunXianView;
+@property (strong, nonatomic) UIScrollView * lunXianScrollView;
+@property (strong, nonatomic) UIPageControl * lunXianPageControl;
 
+@property (strong, nonatomic) FourButtonsView * fourButtonView;
+
+@property (strong, nonatomic) UICollectionView * index_2_CollectionView;
+@property (strong, nonatomic) NSMutableArray * index_2_GoodARR;
+@property (strong, nonatomic) UILabel * index_2_titleLabel;
+@property (strong, nonatomic) UIImageView * index_2_titleImageView;
+
+@property (strong, nonatomic) UIImageView * index_4_imageview;
 
 @end

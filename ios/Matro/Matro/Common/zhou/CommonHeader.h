@@ -125,4 +125,10 @@
 
 #define SelectSecondVC_NOTIFICATION     @"SelectSecondVC_NOTIFICATION"
 
+
+#define PlaceholderImage_Name           @"icon_default"
+#define Index3Button_LEFT_NOTICIFICATION    @"Index3Button_LEFT_NOTICIFICATION"
+#define Index3Button_RIGHT_NOTICIFICATION   @"Index3Button_RIGHT_NOTICIFICATION"
+
+
 #endif
