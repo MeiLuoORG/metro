@@ -15,14 +15,14 @@
     // Initialization code
 }
 
-
-- (void)hotspClick:(id)sender{
+- (IBAction)hotspClick:(id)sender {
+    
     if (self.hotspClick) {
         self.hotspClick();
     }
 }
-
-- (void)hotppClick:(id)sender{
+- (IBAction)hotppClick:(id)sender {
+    
     if (self.hotppClick) {
         self.hotppClick();
     }

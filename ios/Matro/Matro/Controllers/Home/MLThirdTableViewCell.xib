@@ -16,13 +16,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="tfO-nl-eKG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
+                        <rect key="frame" x="0.0" y="40" width="375" height="185"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="185" id="tyf-kc-PE6"/>
                         </constraints>
                     </imageView>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vXQ-H4-pK7">
-                        <rect key="frame" x="0.0" y="193" width="375" height="138"/>
+                        <rect key="frame" x="0.0" y="233" width="375" height="98"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="a0O-Qw-8xq">
                             <size key="itemSize" width="50" height="50"/>
@@ -31,17 +31,43 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQZ-HV-50b">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="推荐品牌" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L1I-hg-h8n">
+                                <rect key="frame" x="10" y="0.0" width="365" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="L1I-hg-h8n" secondAttribute="trailing" id="VIh-ul-hbh"/>
+                            <constraint firstAttribute="height" constant="40" id="W7K-CY-dVp"/>
+                            <constraint firstAttribute="bottom" secondItem="L1I-hg-h8n" secondAttribute="bottom" id="aIX-hA-cls"/>
+                            <constraint firstItem="L1I-hg-h8n" firstAttribute="leading" secondItem="TQZ-HV-50b" secondAttribute="leading" constant="10" id="k7v-ou-tM1"/>
+                            <constraint firstItem="L1I-hg-h8n" firstAttribute="top" secondItem="TQZ-HV-50b" secondAttribute="top" id="uz2-C4-yLG"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="tfO-nl-eKG" secondAttribute="trailing" constant="-8" id="81j-iY-E3w"/>
+                    <constraint firstItem="TQZ-HV-50b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="9PM-PH-f6T"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="TQZ-HV-50b" secondAttribute="trailing" constant="-8" id="Boh-lh-V2Y"/>
+                    <constraint firstItem="TQZ-HV-50b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="GaO-al-jAp"/>
                     <constraint firstAttribute="trailingMargin" secondItem="vXQ-H4-pK7" secondAttribute="trailing" constant="-8" id="QUB-ae-dwn"/>
                     <constraint firstItem="tfO-nl-eKG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="crx-44-RFr"/>
-                    <constraint firstItem="tfO-nl-eKG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="e51-vH-vXk"/>
-                    <constraint firstItem="vXQ-H4-pK7" firstAttribute="top" secondItem="tfO-nl-eKG" secondAttribute="bottom" constant="5" id="lZ0-F7-Rn8"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="vXQ-H4-pK7" secondAttribute="bottom" constant="-8" id="t0U-aQ-KyH"/>
+                    <constraint firstItem="vXQ-H4-pK7" firstAttribute="top" secondItem="tfO-nl-eKG" secondAttribute="bottom" id="lZ0-F7-Rn8"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="vXQ-H4-pK7" secondAttribute="bottom" constant="-3" id="t0U-aQ-KyH"/>
                     <constraint firstItem="vXQ-H4-pK7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="txc-TO-kZX"/>
+                    <constraint firstItem="tfO-nl-eKG" firstAttribute="top" secondItem="TQZ-HV-50b" secondAttribute="bottom" id="uUY-Pk-cIM"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="thirdCollectionView" destination="vXQ-H4-pK7" id="ymH-Op-7Wz"/>
+            </connections>
             <point key="canvasLocation" x="431.5" y="546"/>
         </tableViewCell>
     </objects>

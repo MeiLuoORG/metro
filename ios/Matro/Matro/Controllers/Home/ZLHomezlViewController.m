@@ -383,7 +383,7 @@
 //消息按钮
 - (void)newsButtonAction:(UIButton *)sender{
     
-    /*
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
     if (loginid && ![@"" isEqualToString:loginid]) {
@@ -400,13 +400,13 @@
         [self presentViewController:loginVC animated:NO completion:nil];
         
     }
-*/
+
 
     
     
-    MLQuanqiugouViewController * pinVC = [[MLQuanqiugouViewController alloc]init];
-    pinVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:pinVC animated:YES];
+//    MLQuanqiugouViewController * pinVC = [[MLQuanqiugouViewController alloc]init];
+//    pinVC.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:pinVC animated:YES];
     
      
     /*

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MLThirdTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UICollectionView *thirdCollectionView;
 
 @end

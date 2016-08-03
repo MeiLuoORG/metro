@@ -13,5 +13,6 @@ typedef void(^HotPPClick)();
 @interface MLFristTableViewCell : UITableViewCell
 @property (copy,nonatomic)HotSPClick hotspClick;
 @property (copy,nonatomic)HotPPClick hotppClick;
+@property (weak, nonatomic) IBOutlet UICollectionView *firstCollectionView;
 
 @end

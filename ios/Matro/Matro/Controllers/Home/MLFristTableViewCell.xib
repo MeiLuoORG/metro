@@ -9,16 +9,15 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="186" id="KGk-i7-Jjw" customClass="MLFristTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="328" height="186"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="186"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="328" height="185"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="oBN-JY-Z5W">
-                        <rect key="frame" x="0.0" y="45" width="320" height="140"/>
+                        <rect key="frame" x="0.0" y="45" width="375" height="140"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="5"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="0ML-N0-XaO">
                             <size key="itemSize" width="0.0" height="0.0"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -27,10 +26,10 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VgO-xc-fT4" userLabel="cellView">
-                        <rect key="frame" x="0.0" y="0.0" width="328" height="49"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CzH-8d-uzE">
-                                <rect key="frame" x="0.0" y="48" width="320" height="1"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CzH-8d-uzE">
+                                <rect key="frame" x="0.0" y="48" width="375" height="1"/>
                                 <color key="backgroundColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Pkp-dy-2pC"/>
@@ -52,16 +51,26 @@
                                             <constraint firstAttribute="height" constant="2" id="QCp-HB-E87"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7C-tF-rYs">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="36"/>
+                                        <connections>
+                                            <action selector="hotspClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sxY-eN-6ZM"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="2eJ-hj-DIl" firstAttribute="centerX" secondItem="YYC-Nx-bhh" secondAttribute="centerX" id="2N3-HP-9ZV"/>
+                                    <constraint firstItem="a7C-tF-rYs" firstAttribute="leading" secondItem="KX7-mu-VT2" secondAttribute="leading" id="2o3-qn-TGD"/>
                                     <constraint firstAttribute="height" constant="36" id="3i0-51-tRt"/>
                                     <constraint firstAttribute="trailing" secondItem="YYC-Nx-bhh" secondAttribute="trailing" id="8tT-tM-adB"/>
                                     <constraint firstItem="YYC-Nx-bhh" firstAttribute="top" secondItem="KX7-mu-VT2" secondAttribute="top" constant="5" id="D3x-Jj-PWN"/>
                                     <constraint firstAttribute="width" constant="70" id="Ejs-o6-8oy"/>
                                     <constraint firstItem="2eJ-hj-DIl" firstAttribute="top" secondItem="YYC-Nx-bhh" secondAttribute="bottom" constant="5" id="Meq-aI-lBQ"/>
                                     <constraint firstItem="YYC-Nx-bhh" firstAttribute="leading" secondItem="KX7-mu-VT2" secondAttribute="leading" id="TUL-j9-hud"/>
+                                    <constraint firstAttribute="trailing" secondItem="a7C-tF-rYs" secondAttribute="trailing" id="hJh-yL-LBy"/>
+                                    <constraint firstItem="a7C-tF-rYs" firstAttribute="top" secondItem="KX7-mu-VT2" secondAttribute="top" id="hfy-iL-W11"/>
+                                    <constraint firstAttribute="bottom" secondItem="a7C-tF-rYs" secondAttribute="bottom" id="r9H-uu-Soz"/>
                                     <constraint firstItem="2eJ-hj-DIl" firstAttribute="leading" secondItem="KX7-mu-VT2" secondAttribute="leading" constant="5" id="xsB-2v-39g"/>
                                 </constraints>
                             </view>
@@ -81,16 +90,26 @@
                                             <constraint firstAttribute="height" constant="2" id="y5B-XQ-wiT"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sRq-QW-2HR">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="36"/>
+                                        <connections>
+                                            <action selector="hotppClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xCW-xA-Vjf"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="wFn-bD-ACG" firstAttribute="leading" secondItem="FQr-Bn-ZSn" secondAttribute="leading" id="4Wf-Wz-3w2"/>
+                                    <constraint firstItem="sRq-QW-2HR" firstAttribute="top" secondItem="FQr-Bn-ZSn" secondAttribute="top" id="8CE-tN-7lB"/>
                                     <constraint firstAttribute="height" constant="36" id="Dgs-kl-fNz"/>
                                     <constraint firstAttribute="width" constant="70" id="EjR-r2-aUq"/>
                                     <constraint firstItem="wFn-bD-ACG" firstAttribute="top" secondItem="FQr-Bn-ZSn" secondAttribute="top" constant="5" id="QpW-0u-vH1"/>
+                                    <constraint firstAttribute="trailing" secondItem="sRq-QW-2HR" secondAttribute="trailing" id="Sbe-SL-JFG"/>
                                     <constraint firstAttribute="trailing" secondItem="wFn-bD-ACG" secondAttribute="trailing" id="U3r-xT-QFC"/>
+                                    <constraint firstItem="sRq-QW-2HR" firstAttribute="leading" secondItem="FQr-Bn-ZSn" secondAttribute="leading" id="j3v-1N-mn1"/>
                                     <constraint firstItem="JO3-0F-Ki7" firstAttribute="leading" secondItem="FQr-Bn-ZSn" secondAttribute="leading" constant="5" id="mDu-hD-HTK"/>
                                     <constraint firstItem="JO3-0F-Ki7" firstAttribute="centerX" secondItem="wFn-bD-ACG" secondAttribute="centerX" id="qEy-WY-qhy"/>
+                                    <constraint firstAttribute="bottom" secondItem="sRq-QW-2HR" secondAttribute="bottom" id="sFz-MH-WIA"/>
                                     <constraint firstItem="JO3-0F-Ki7" firstAttribute="top" secondItem="wFn-bD-ACG" secondAttribute="bottom" constant="5" id="w3J-9k-e4M"/>
                                 </constraints>
                             </view>
@@ -117,12 +136,16 @@
                     <constraint firstAttribute="trailingMargin" secondItem="oBN-JY-Z5W" secondAttribute="trailing" constant="-8" id="x0w-j5-X8x"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="VgO-xc-fT4" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" id="gfr-zF-ziS"/>
                 <constraint firstItem="VgO-xc-fT4" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="oxq-dU-Jfd"/>
                 <constraint firstAttribute="trailing" secondItem="VgO-xc-fT4" secondAttribute="trailing" id="toX-4q-Ynr"/>
             </constraints>
-            <point key="canvasLocation" x="395" y="454"/>
+            <connections>
+                <outlet property="firstCollectionView" destination="oBN-JY-Z5W" id="ulU-Sg-tAw"/>
+            </connections>
+            <point key="canvasLocation" x="394.5" y="454"/>
         </tableViewCell>
     </objects>
 </document>

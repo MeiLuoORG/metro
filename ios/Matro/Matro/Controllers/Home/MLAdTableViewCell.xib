@@ -16,16 +16,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="w0w-3s-Ovi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="104"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
                     </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="w0w-3s-Ovi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="F7z-JY-tYC"/>
                     <constraint firstAttribute="trailingMargin" secondItem="w0w-3s-Ovi" secondAttribute="trailing" constant="-8" id="GB8-zK-S30"/>
                     <constraint firstItem="w0w-3s-Ovi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="e5R-j9-fZs"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="w0w-3s-Ovi" secondAttribute="bottom" constant="-8" id="uKa-8m-sWc"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="w0w-3s-Ovi" secondAttribute="bottom" constant="-3" id="uKa-8m-sWc"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <point key="canvasLocation" x="391" y="410.5"/>
         </tableViewCell>
     </objects>

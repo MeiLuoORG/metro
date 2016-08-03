@@ -23,6 +23,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CityFuWuViewController.h"
 
+
 @class SecondsViewController;
 
 @protocol SecondsViewControllerDelegate <NSObject>
@@ -34,7 +35,7 @@
 
 @end
 
-@interface SecondsViewController : MLBaseViewController<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+@interface SecondsViewController : MLBaseViewController<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (strong, nonatomic) UITableView * tableview;
 @property (weak, nonatomic) id<SecondsViewControllerDelegate> secondDelegate;
 @end

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MLSecondTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UICollectionView *secondCollectionView;
 
 @end

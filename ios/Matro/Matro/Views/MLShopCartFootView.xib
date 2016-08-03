@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -127,9 +127,12 @@
                     <exclude reference="TXV-Fh-GoO"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="Gdv-Ci-hFa"/>
-                    <exclude reference="MEJ-S5-11v"/>
-                    <exclude reference="Oaz-Co-XtB"/>
+                    <exclude reference="0qg-c9-mXC"/>
+                    <exclude reference="PDM-NL-aOU"/>
+                    <exclude reference="Rdc-6i-4IE"/>
+                    <exclude reference="azI-Tc-2Cr"/>
+                    <exclude reference="rjj-kX-f7c"/>
+                    <exclude reference="zni-Lf-hnk"/>
                     <exclude reference="73m-BU-OlN"/>
                     <exclude reference="Agz-6m-1Zj"/>
                     <exclude reference="PTp-en-ptT"/>
@@ -138,12 +141,9 @@
                     <exclude reference="as7-PT-PGc"/>
                     <exclude reference="Zt5-rE-CT6"/>
                     <exclude reference="wXe-SH-dIv"/>
-                    <exclude reference="0qg-c9-mXC"/>
-                    <exclude reference="PDM-NL-aOU"/>
-                    <exclude reference="Rdc-6i-4IE"/>
-                    <exclude reference="azI-Tc-2Cr"/>
-                    <exclude reference="rjj-kX-f7c"/>
-                    <exclude reference="zni-Lf-hnk"/>
+                    <exclude reference="Gdv-Ci-hFa"/>
+                    <exclude reference="MEJ-S5-11v"/>
+                    <exclude reference="Oaz-Co-XtB"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -155,9 +155,12 @@
                     <include reference="TXV-Fh-GoO"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="Gdv-Ci-hFa"/>
-                    <include reference="MEJ-S5-11v"/>
-                    <include reference="Oaz-Co-XtB"/>
+                    <include reference="0qg-c9-mXC"/>
+                    <include reference="PDM-NL-aOU"/>
+                    <include reference="Rdc-6i-4IE"/>
+                    <include reference="azI-Tc-2Cr"/>
+                    <include reference="rjj-kX-f7c"/>
+                    <include reference="zni-Lf-hnk"/>
                     <include reference="73m-BU-OlN"/>
                     <include reference="Agz-6m-1Zj"/>
                     <exclude reference="PTp-en-ptT"/>
@@ -166,12 +169,9 @@
                     <include reference="as7-PT-PGc"/>
                     <include reference="Zt5-rE-CT6"/>
                     <include reference="wXe-SH-dIv"/>
-                    <include reference="0qg-c9-mXC"/>
-                    <include reference="PDM-NL-aOU"/>
-                    <include reference="Rdc-6i-4IE"/>
-                    <include reference="azI-Tc-2Cr"/>
-                    <include reference="rjj-kX-f7c"/>
-                    <include reference="zni-Lf-hnk"/>
+                    <include reference="Gdv-Ci-hFa"/>
+                    <include reference="MEJ-S5-11v"/>
+                    <include reference="Oaz-Co-XtB"/>
                 </mask>
             </variation>
             <connections>

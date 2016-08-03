@@ -59,6 +59,8 @@
 		284073401D2E5DF2003A13AE /* MLshopGoodsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2840733E1D2E5DF2003A13AE /* MLshopGoodsListViewController.xib */; };
 		284850D01D13F41B003C2649 /* MLGoodsDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */; };
 		284850D41D13F6DE003C2649 /* MLpingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */; };
+		2848FA4B1D51C5040001D8FC /* MLSecondCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2848FA491D51C5040001D8FC /* MLSecondCollectionViewCell.m */; };
+		2848FA4C1D51C5040001D8FC /* MLSecondCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2848FA4A1D51C5040001D8FC /* MLSecondCollectionViewCell.xib */; };
 		284E363A1D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 284E36381D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.m */; };
 		284E363B1D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284E36391D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.xib */; };
 		284E363F1D2B615A000CC90F /* MLOrderListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 284E363D1D2B615A000CC90F /* MLOrderListCollectionViewCell.m */; };
@@ -791,6 +793,9 @@
 		284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsDetailsViewController.xib; sourceTree = "<group>"; };
 		284850D11D13F6DE003C2649 /* MLpingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLpingjiaViewController.h; sourceTree = "<group>"; };
 		284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLpingjiaViewController.m; sourceTree = "<group>"; };
+		2848FA481D51C5040001D8FC /* MLSecondCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLSecondCollectionViewCell.h; sourceTree = "<group>"; };
+		2848FA491D51C5040001D8FC /* MLSecondCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLSecondCollectionViewCell.m; sourceTree = "<group>"; };
+		2848FA4A1D51C5040001D8FC /* MLSecondCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLSecondCollectionViewCell.xib; sourceTree = "<group>"; };
 		284E36371D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLOrderHeadCollectionReusableView.h; sourceTree = "<group>"; };
 		284E36381D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLOrderHeadCollectionReusableView.m; sourceTree = "<group>"; };
 		284E36391D2B5E88000CC90F /* MLOrderHeadCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLOrderHeadCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -2273,6 +2278,9 @@
 				28E8B1301D50933A0088B840 /* MLSecondTableViewCell.h */,
 				28E8B1311D50933A0088B840 /* MLSecondTableViewCell.m */,
 				28E8B1321D50933A0088B840 /* MLSecondTableViewCell.xib */,
+				2848FA481D51C5040001D8FC /* MLSecondCollectionViewCell.h */,
+				2848FA491D51C5040001D8FC /* MLSecondCollectionViewCell.m */,
+				2848FA4A1D51C5040001D8FC /* MLSecondCollectionViewCell.xib */,
 				28E8B1351D50934E0088B840 /* MLThirdTableViewCell.h */,
 				28E8B1361D50934E0088B840 /* MLThirdTableViewCell.m */,
 				28E8B1371D50934E0088B840 /* MLThirdTableViewCell.xib */,
@@ -3211,11 +3219,16 @@
 		3A633B801C9EA7C900C11FD5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 
 				3CD71D111D503A8800D1E892 /* IndexViewController */,
 
 				28E8B11A1D503E340088B840 /* Quanqiugou */,
 
+=======
+				3CD71D111D503A8800D1E892 /* IndexViewController */,
+				28E8B11A1D503E340088B840 /* Quanqiugou */,
+>>>>>>> Stashed changes
 				3C5E8A8C1D3C800700BA5766 /* CityFuWuVC */,
 				284E364D1D2C9F96000CC90F /* Downversion */,
 				3C1306C01D260BA1005CFCEC /* DaoHangZL */,
@@ -4530,6 +4543,7 @@
 				3A1F72DE1CA3FC13000ECE08 /* HFSOrderInfoTableViewCell.xib in Resources */,
 				284073361D2DFAD4003A13AE /* MLOrderFootCollectionReusableView.xib in Resources */,
 				3A1AA8CE1CAA7ACE00AF73C2 /* MLPayresultViewController.xib in Resources */,
+				2848FA4C1D51C5040001D8FC /* MLSecondCollectionViewCell.xib in Resources */,
 				7A5DCF0F1CD9FEFC003030C7 /* read_me.txt in Resources */,
 				28CF860E1CEDC59A00E582EE /* UMSocialSDKResourcesNew.bundle in Resources */,
 				284073401D2E5DF2003A13AE /* MLshopGoodsListViewController.xib in Resources */,
@@ -4889,6 +4903,7 @@
 				3ACF2CED1CA5070E003D1F67 /* ioapi.c in Sources */,
 				3A633B381C9EA36E00C11FD5 /* TAAbstractDotView.m in Sources */,
 				7A40B4BA1D1911670026AFD2 /* IMJIETagView.m in Sources */,
+				2848FA4B1D51C5040001D8FC /* MLSecondCollectionViewCell.m in Sources */,
 				7ACFA5FA1D1124D900987A03 /* MLAllOrdersViewController.m in Sources */,
 				7A0936831D1BCDA3002325A2 /* MLCommentDetailUserTableViewCell.m in Sources */,
 				3A633B661C9EA36E00C11FD5 /* ZLPhotoPickerCollectionView.m in Sources */,
