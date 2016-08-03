@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MLAdTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *adImageView;
 
 @end

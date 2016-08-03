@@ -48,6 +48,11 @@
                 <constraint firstItem="jRR-h8-rtW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="wJ8-3c-gXa"/>
             </constraints>
             <size key="customSize" width="111" height="156"/>
+            <connections>
+                <outlet property="secondImageView" destination="3u9-Qj-R9X" id="GkI-0r-Sff"/>
+                <outlet property="secondNameLab" destination="cjf-zt-wwh" id="o7f-TJ-lgs"/>
+                <outlet property="secondPriceLab" destination="jRR-h8-rtW" id="mo8-lU-eaY"/>
+            </connections>
             <point key="canvasLocation" x="421" y="262"/>
         </collectionViewCell>
     </objects>

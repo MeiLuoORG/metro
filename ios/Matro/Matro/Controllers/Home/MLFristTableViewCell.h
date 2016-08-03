@@ -14,5 +14,10 @@ typedef void(^HotPPClick)();
 @property (copy,nonatomic)HotSPClick hotspClick;
 @property (copy,nonatomic)HotPPClick hotppClick;
 @property (weak, nonatomic) IBOutlet UICollectionView *firstCollectionView;
+@property (weak, nonatomic) IBOutlet UILabel *hotspLab;
+@property (weak, nonatomic) IBOutlet UIView *hotspView;
+@property (weak, nonatomic) IBOutlet UILabel *hotppLab;
+@property (weak, nonatomic) IBOutlet UIView *hotppView;
+
 
 @end

@@ -10,5 +10,6 @@
 
 @interface MLThirdTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UICollectionView *thirdCollectionView;
+@property (weak, nonatomic) IBOutlet UIImageView *thirdImage;
 
 @end

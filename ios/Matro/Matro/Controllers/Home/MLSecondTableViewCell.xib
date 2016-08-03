@@ -81,6 +81,8 @@
             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="secondCollectionView" destination="8ep-i8-cZC" id="D3g-VE-40U"/>
+                <outlet property="secondImage1" destination="R3L-hh-pHg" id="wWH-p1-eZ8"/>
+                <outlet property="secondImage2" destination="uF3-VE-Adi" id="wYb-Zm-v9p"/>
             </connections>
             <point key="canvasLocation" x="343.5" y="255"/>
         </tableViewCell>

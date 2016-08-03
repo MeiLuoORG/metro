@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -25,18 +25,18 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VgO-xc-fT4" userLabel="cellView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VgO-xc-fT4" userLabel="cellView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CzH-8d-uzE">
-                                <rect key="frame" x="0.0" y="48" width="375" height="1"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CzH-8d-uzE">
+                                <rect key="frame" x="0.0" y="43" width="375" height="1"/>
                                 <color key="backgroundColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Pkp-dy-2pC"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KX7-mu-VT2" userLabel="View1">
-                                <rect key="frame" x="60" y="5" width="70" height="36"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KX7-mu-VT2" userLabel="View1">
+                                <rect key="frame" x="60" y="0.0" width="70" height="41"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热门商品" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYC-Nx-bhh">
                                         <rect key="frame" x="0.0" y="5" width="70" height="20"/>
@@ -66,7 +66,7 @@
                                     <constraint firstAttribute="trailing" secondItem="YYC-Nx-bhh" secondAttribute="trailing" id="8tT-tM-adB"/>
                                     <constraint firstItem="YYC-Nx-bhh" firstAttribute="top" secondItem="KX7-mu-VT2" secondAttribute="top" constant="5" id="D3x-Jj-PWN"/>
                                     <constraint firstAttribute="width" constant="70" id="Ejs-o6-8oy"/>
-                                    <constraint firstItem="2eJ-hj-DIl" firstAttribute="top" secondItem="YYC-Nx-bhh" secondAttribute="bottom" constant="5" id="Meq-aI-lBQ"/>
+                                    <constraint firstItem="2eJ-hj-DIl" firstAttribute="top" secondItem="YYC-Nx-bhh" secondAttribute="bottom" constant="10" id="Meq-aI-lBQ"/>
                                     <constraint firstItem="YYC-Nx-bhh" firstAttribute="leading" secondItem="KX7-mu-VT2" secondAttribute="leading" id="TUL-j9-hud"/>
                                     <constraint firstAttribute="trailing" secondItem="a7C-tF-rYs" secondAttribute="trailing" id="hJh-yL-LBy"/>
                                     <constraint firstItem="a7C-tF-rYs" firstAttribute="top" secondItem="KX7-mu-VT2" secondAttribute="top" id="hfy-iL-W11"/>
@@ -74,8 +74,8 @@
                                     <constraint firstItem="2eJ-hj-DIl" firstAttribute="leading" secondItem="KX7-mu-VT2" secondAttribute="leading" constant="5" id="xsB-2v-39g"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FQr-Bn-ZSn" userLabel="View2">
-                                <rect key="frame" x="245" y="5" width="70" height="36"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FQr-Bn-ZSn" userLabel="View2">
+                                <rect key="frame" x="245" y="0.0" width="70" height="41"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="热门品牌" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFn-bD-ACG">
                                         <rect key="frame" x="0.0" y="5" width="70" height="20"/>
@@ -110,7 +110,7 @@
                                     <constraint firstItem="JO3-0F-Ki7" firstAttribute="leading" secondItem="FQr-Bn-ZSn" secondAttribute="leading" constant="5" id="mDu-hD-HTK"/>
                                     <constraint firstItem="JO3-0F-Ki7" firstAttribute="centerX" secondItem="wFn-bD-ACG" secondAttribute="centerX" id="qEy-WY-qhy"/>
                                     <constraint firstAttribute="bottom" secondItem="sRq-QW-2HR" secondAttribute="bottom" id="sFz-MH-WIA"/>
-                                    <constraint firstItem="JO3-0F-Ki7" firstAttribute="top" secondItem="wFn-bD-ACG" secondAttribute="bottom" constant="5" id="w3J-9k-e4M"/>
+                                    <constraint firstItem="JO3-0F-Ki7" firstAttribute="top" secondItem="wFn-bD-ACG" secondAttribute="bottom" constant="10" id="w3J-9k-e4M"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -144,6 +144,10 @@
             </constraints>
             <connections>
                 <outlet property="firstCollectionView" destination="oBN-JY-Z5W" id="ulU-Sg-tAw"/>
+                <outlet property="hotppLab" destination="wFn-bD-ACG" id="xNT-J8-YcZ"/>
+                <outlet property="hotppView" destination="JO3-0F-Ki7" id="XEY-5g-XP1"/>
+                <outlet property="hotspLab" destination="YYC-Nx-bhh" id="HKg-wo-E3P"/>
+                <outlet property="hotspView" destination="2eJ-hj-DIl" id="BYr-WI-hvD"/>
             </connections>
             <point key="canvasLocation" x="394.5" y="454"/>
         </tableViewCell>

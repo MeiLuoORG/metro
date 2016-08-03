@@ -10,5 +10,7 @@
 
 @interface MLSecondTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UICollectionView *secondCollectionView;
+@property (weak, nonatomic) IBOutlet UIImageView *secondImage1;
+@property (weak, nonatomic) IBOutlet UIImageView *secondImage2;
 
 @end

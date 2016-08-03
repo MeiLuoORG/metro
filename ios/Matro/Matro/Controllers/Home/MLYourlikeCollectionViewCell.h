@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface MLYourlikeCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *likeImage;
+@property (weak, nonatomic) IBOutlet UILabel *likeNameLab;
+@property (weak, nonatomic) IBOutlet UILabel *likePriceLab;
 
 @end

@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MLFristCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *firstImageView;
+@property (weak, nonatomic) IBOutlet UILabel *firstNameLab;
 
 @end

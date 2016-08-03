@@ -15,6 +15,7 @@
 #import "MLYourlikeCollectionViewCell.h"
 #import "MLSecondCollectionViewCell.h"
 #import "MLYourlikeTableViewCell.h"
+#import "UIColor+HeinQi.h"
 
 #define FristCCELL_IDENTIFIER @"MLFristCollectionViewCell"
 #define SecondCCELL_IDENTIFIER @"MLSecondCollectionViewCell"
@@ -180,13 +181,22 @@
                 NSArray *array = [[NSBundle mainBundle]loadNibNamed: FristCellIdentifier owner:self options:nil];
                 FristTableViewCell = [array objectAtIndex:0];
             }
+            FristTableViewCell.hotppLab.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+            FristTableViewCell.hotppView.hidden = YES;
             FristTableViewCell.hotspClick = ^(){
                 NSLog(@"热门商品");
-            
+                FristTableViewCell.hotppLab.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+                FristTableViewCell.hotppView.hidden = YES;
+                FristTableViewCell.hotspLab.textColor = [UIColor colorWithHexString:@"260E00"];
+                FristTableViewCell.hotspView.hidden = NO;
             };
             
             FristTableViewCell.hotppClick = ^(){
                 NSLog(@"热门品牌");
+                FristTableViewCell.hotppLab.textColor = [UIColor colorWithHexString:@"260E00"];
+                FristTableViewCell.hotppView.hidden = NO;
+                FristTableViewCell.hotspLab.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+                FristTableViewCell.hotspView.hidden = YES;
                 
             };
             
@@ -314,6 +324,10 @@
     return cell;;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    
+}
 
 #pragma mark - UICollectionViewDataSource
 
@@ -348,6 +362,7 @@
 #pragma mark - UICollectionViewDelegate
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
 
 }
 

@@ -58,6 +58,11 @@
                 <constraint firstAttribute="bottom" secondItem="tV6-lO-fgm" secondAttribute="bottom" constant="8" id="sqJ-5Z-oY4"/>
                 <constraint firstAttribute="trailing" secondItem="tV6-lO-fgm" secondAttribute="trailing" id="uu9-98-nyE"/>
             </constraints>
+            <connections>
+                <outlet property="likeImage" destination="lPn-Az-OIM" id="gzx-xP-421"/>
+                <outlet property="likeNameLab" destination="fOX-S9-qG3" id="3yV-3v-1QU"/>
+                <outlet property="likePriceLab" destination="s7H-MU-H6l" id="c6X-tV-g2l"/>
+            </connections>
             <point key="canvasLocation" x="251.5" y="365"/>
         </collectionViewCell>
     </objects>
