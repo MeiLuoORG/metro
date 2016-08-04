@@ -26,6 +26,7 @@
 #import "FourButtonsView.h"
 #import "MLSecondCollectionViewCell.h"
 #import "Index3TableViewCell.h"
+#define SecondCCELL_IDENTIFIER @"MLSecondCollectionViewCell"
 
 @class FirstsViewController;
 @protocol FirsrtViewControllerDelegate <NSObject>

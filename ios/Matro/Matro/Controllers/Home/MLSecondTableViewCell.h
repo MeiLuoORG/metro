@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef void (^LeftClickBlock)();
+typedef void (^RightClickBlock)();
 
 @interface MLSecondTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UICollectionView *secondCollectionView;
 @property (weak, nonatomic) IBOutlet UIImageView *secondImage1;
 @property (weak, nonatomic) IBOutlet UIImageView *secondImage2;
+@property (copy, nonatomic)LeftClickBlock leftClickblock;
+@property (copy, nonatomic)RightClickBlock rightClickblock;
 
 @end

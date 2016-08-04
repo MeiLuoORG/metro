@@ -162,7 +162,7 @@
     self.index_2_CollectionView.dataSource = self;
     self.index_2_CollectionView.backgroundColor = [UIColor whiteColor];
     self.index_2_CollectionView.showsHorizontalScrollIndicator = NO;
-    [self.index_2_CollectionView registerNib:[UINib nibWithNibName:@"MLSecondCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"HomeCollectionCellID"];
+    [self.index_2_CollectionView registerNib:[UINib nibWithNibName:@"MLSecondCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:SecondCCELL_IDENTIFIER];
     //[self.view addSubview:self.index_2_CollectionView];
     
     
@@ -178,7 +178,7 @@
 
 - (MLSecondCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    static NSString * cellID = @"HomeCollectionCellID";
+    static NSString * cellID = SecondCCELL_IDENTIFIER;
     
     MLSecondCollectionViewCell * cell = (MLSecondCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
     //UICollectionViewCell * cell2 = [collectionView cellForItemAtIndexPath:indexPath];

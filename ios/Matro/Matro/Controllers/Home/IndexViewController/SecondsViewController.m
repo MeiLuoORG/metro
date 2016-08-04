@@ -130,7 +130,6 @@
             height = _index_7_height;
             
         }
-
             break;
             
         default:
@@ -267,6 +266,12 @@
                 NSArray *array = [[NSBundle mainBundle]loadNibNamed: SecondCellIdentifier owner:self options:nil];
                 SecondTableViewCell = [array objectAtIndex:0];
             }
+            SecondTableViewCell.leftClickblock = ^(){
+                NSLog(@"点击了左边的按钮");
+            };
+            SecondTableViewCell.rightClickblock = ^(){
+                NSLog(@"点击了右边的按钮");
+            };
             SecondTableViewCell.secondCollectionView.delegate = self;
             SecondTableViewCell.secondCollectionView.dataSource = self;
             SecondTableViewCell.secondCollectionView.tag = 5;
@@ -354,7 +359,6 @@
         
         return cell;
     }
-    
     
 }
 

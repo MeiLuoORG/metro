@@ -14,6 +14,16 @@
     [super awakeFromNib];
     // Initialization code
 }
+- (IBAction)actLeft:(id)sender {
+    if (self.leftClickblock) {
+        self.leftClickblock();
+    }
+}
+- (IBAction)actRight:(id)sender {
+    if (self.rightClickblock) {
+        self.rightClickblock();
+    }
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
