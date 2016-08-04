@@ -18,25 +18,22 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RPD-fW-eaZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="猜你喜欢" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUB-3Q-fdE">
-                                <rect key="frame" x="10" y="0.0" width="310" height="40"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jp0-kR-cA9">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="rUB-3Q-fdE" secondAttribute="bottom" id="CoE-wT-LCE"/>
-                            <constraint firstItem="rUB-3Q-fdE" firstAttribute="leading" secondItem="RPD-fW-eaZ" secondAttribute="leading" constant="10" id="LDg-Uy-io0"/>
+                            <constraint firstItem="jp0-kR-cA9" firstAttribute="top" secondItem="RPD-fW-eaZ" secondAttribute="top" id="EtL-J7-1DG"/>
+                            <constraint firstItem="jp0-kR-cA9" firstAttribute="leading" secondItem="RPD-fW-eaZ" secondAttribute="leading" id="Ipy-Zs-ojt"/>
+                            <constraint firstAttribute="bottom" secondItem="jp0-kR-cA9" secondAttribute="bottom" id="Qwc-qt-isO"/>
                             <constraint firstAttribute="height" constant="40" id="YEm-Gl-Wvt"/>
-                            <constraint firstItem="rUB-3Q-fdE" firstAttribute="top" secondItem="RPD-fW-eaZ" secondAttribute="top" id="qhh-Sq-ft4"/>
-                            <constraint firstAttribute="trailing" secondItem="rUB-3Q-fdE" secondAttribute="trailing" id="ruQ-Th-iEx"/>
+                            <constraint firstAttribute="trailing" secondItem="jp0-kR-cA9" secondAttribute="trailing" id="niW-2b-bmS"/>
                         </constraints>
                     </view>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="QQo-oA-wwv">
                         <rect key="frame" x="0.0" y="45" width="320" height="118"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="oLV-zq-xfm">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -55,8 +52,10 @@
                     <constraint firstItem="QQo-oA-wwv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="ec6-De-XGQ"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="LikeCollectionView" destination="QQo-oA-wwv" id="wPK-mb-gXZ"/>
+                <outlet property="likeHeadImage" destination="jp0-kR-cA9" id="sJq-MF-S8B"/>
             </connections>
             <point key="canvasLocation" x="456" y="376"/>
         </tableViewCell>

@@ -23,8 +23,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥2999.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7H-MU-H6l">
-                                <rect key="frame" x="8" y="177" width="129" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="¥2999.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7H-MU-H6l">
+                                <rect key="frame" x="8" y="177" width="78" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="1" green="0.30588235289999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -35,6 +35,12 @@
                                     <constraint firstAttribute="width" secondItem="lPn-Az-OIM" secondAttribute="height" multiplier="1:1" id="cWj-tH-K7y"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="￥123.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXb-w0-G5j">
+                                <rect key="frame" x="103" y="177" width="42" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -43,8 +49,10 @@
                             <constraint firstAttribute="trailing" secondItem="fOX-S9-qG3" secondAttribute="trailing" constant="8" id="EAP-98-fiZ"/>
                             <constraint firstItem="s7H-MU-H6l" firstAttribute="top" secondItem="fOX-S9-qG3" secondAttribute="bottom" constant="8" id="Esn-IR-krp"/>
                             <constraint firstItem="fOX-S9-qG3" firstAttribute="top" secondItem="lPn-Az-OIM" secondAttribute="bottom" constant="8" id="G0b-G7-2fa"/>
+                            <constraint firstItem="qXb-w0-G5j" firstAttribute="leading" secondItem="s7H-MU-H6l" secondAttribute="trailing" constant="10" id="G7P-1g-fqg"/>
                             <constraint firstAttribute="trailing" secondItem="s7H-MU-H6l" secondAttribute="trailing" constant="8" id="GMK-cQ-tfo"/>
                             <constraint firstAttribute="trailing" secondItem="lPn-Az-OIM" secondAttribute="trailing" id="Jcc-od-6mn"/>
+                            <constraint firstItem="qXb-w0-G5j" firstAttribute="centerY" secondItem="s7H-MU-H6l" secondAttribute="centerY" id="Q9i-VZ-mBM"/>
                             <constraint firstItem="lPn-Az-OIM" firstAttribute="leading" secondItem="tV6-lO-fgm" secondAttribute="leading" id="clW-lz-Ij0"/>
                             <constraint firstItem="s7H-MU-H6l" firstAttribute="leading" secondItem="tV6-lO-fgm" secondAttribute="leading" constant="8" id="hWd-oD-1LQ"/>
                         </constraints>
@@ -59,6 +67,7 @@
                 <constraint firstAttribute="trailing" secondItem="tV6-lO-fgm" secondAttribute="trailing" id="uu9-98-nyE"/>
             </constraints>
             <connections>
+                <outlet property="cuxiaoPriceLabel" destination="qXb-w0-G5j" id="mEH-L1-DjR"/>
                 <outlet property="likeImage" destination="lPn-Az-OIM" id="fV3-4D-dNZ"/>
                 <outlet property="likeNameLab" destination="fOX-S9-qG3" id="KVM-Jl-ptm"/>
                 <outlet property="likePriceLab" destination="s7H-MU-H6l" id="WIT-t3-mMQ"/>

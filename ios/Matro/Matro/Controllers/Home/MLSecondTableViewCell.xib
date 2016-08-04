@@ -45,20 +45,17 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDR-dN-4YX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="健康推荐" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bR9-Ka-Xy6">
-                                <rect key="frame" x="10" y="0.0" width="365" height="40"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bAp-oL-PNd">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="bR9-Ka-Xy6" secondAttribute="trailing" id="b7O-sp-rw7"/>
+                            <constraint firstItem="bAp-oL-PNd" firstAttribute="leading" secondItem="xDR-dN-4YX" secondAttribute="leading" id="J61-cf-MEG"/>
+                            <constraint firstItem="bAp-oL-PNd" firstAttribute="top" secondItem="xDR-dN-4YX" secondAttribute="top" id="OJa-cZ-Hy0"/>
                             <constraint firstAttribute="height" constant="40" id="cBO-Nj-ypb"/>
-                            <constraint firstItem="bR9-Ka-Xy6" firstAttribute="top" secondItem="xDR-dN-4YX" secondAttribute="top" id="gP7-wg-GXn"/>
-                            <constraint firstItem="bR9-Ka-Xy6" firstAttribute="leading" secondItem="xDR-dN-4YX" secondAttribute="leading" constant="10" id="z9x-uz-Ez2"/>
-                            <constraint firstAttribute="bottom" secondItem="bR9-Ka-Xy6" secondAttribute="bottom" id="zMi-nt-YNy"/>
+                            <constraint firstAttribute="bottom" secondItem="bAp-oL-PNd" secondAttribute="bottom" id="hNy-Du-U17"/>
+                            <constraint firstAttribute="trailing" secondItem="bAp-oL-PNd" secondAttribute="trailing" id="v4a-bY-YWC"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fCI-kB-xjd">
@@ -101,6 +98,7 @@
             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="secondCollectionView" destination="8ep-i8-cZC" id="D3g-VE-40U"/>
+                <outlet property="secondHeadimage" destination="bAp-oL-PNd" id="yHK-wE-S3t"/>
                 <outlet property="secondImage1" destination="R3L-hh-pHg" id="wWH-p1-eZ8"/>
                 <outlet property="secondImage2" destination="uF3-VE-Adi" id="wYb-Zm-v9p"/>
             </connections>

@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *likeImage;
 @property (weak, nonatomic) IBOutlet UILabel *likeNameLab;
 @property (weak, nonatomic) IBOutlet UILabel *likePriceLab;
+@property (weak, nonatomic) IBOutlet UILabel *cuxiaoPriceLabel;
 
 @end

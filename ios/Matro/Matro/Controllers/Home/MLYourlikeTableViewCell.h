@@ -10,5 +10,6 @@
 
 @interface MLYourlikeTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UICollectionView *LikeCollectionView;
+@property (weak, nonatomic) IBOutlet UIImageView *likeHeadImage;
 
 @end

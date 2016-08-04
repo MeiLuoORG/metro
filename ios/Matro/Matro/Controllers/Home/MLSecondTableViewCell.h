@@ -16,5 +16,6 @@ typedef void (^RightClickBlock)();
 @property (weak, nonatomic) IBOutlet UIImageView *secondImage2;
 @property (copy, nonatomic)LeftClickBlock leftClickblock;
 @property (copy, nonatomic)RightClickBlock rightClickblock;
+@property (weak, nonatomic) IBOutlet UIImageView *secondHeadimage;
 
 @end
