@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="219"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jib-5x-GRd">
+                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jib-5x-GRd">
                         <rect key="frame" x="0.0" y="0.0" width="185" height="214"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="jib-5x-GRd" secondAttribute="height" multiplier="37:43" id="hQJ-1R-gGF"/>
@@ -30,7 +30,7 @@
                             <action selector="leftButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ywp-J5-Eh8"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qxr-Uy-RyP">
+                    <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qxr-Uy-RyP">
                         <rect key="frame" x="190" y="0.0" width="185" height="214"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="Qxr-Uy-RyP" secondAttribute="height" multiplier="37:43" id="u7T-2b-5By"/>

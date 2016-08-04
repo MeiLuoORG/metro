@@ -400,6 +400,8 @@
 		3C5E8A981D3CA96E00BA5766 /* ChongZhiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5E8A961D3CA96E00BA5766 /* ChongZhiViewController.xib */; };
 		3C5F123D1D17A075001F66E1 /* SecondBtnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */; };
 		3C5F123F1D17A09F001F66E1 /* SecondBtnsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */; };
+		3C60EFD21D52DB7900DECDEF /* Index_5_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C60EFD11D52DB7900DECDEF /* Index_5_View.m */; };
+		3C60EFD41D52DBE200DECDEF /* Index_5_View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C60EFD31D52DBE200DECDEF /* Index_5_View.xib */; };
 		3C78E1C21D225BED0016628C /* QuanListZLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C78E1C01D225BED0016628C /* QuanListZLViewController.m */; };
 		3C78E1C31D225BED0016628C /* QuanListZLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C78E1C11D225BED0016628C /* QuanListZLViewController.xib */; };
 		3C7D3F311D3F73E70038FD5D /* UIApplication+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7D3F241D3F73E70038FD5D /* UIApplication+Extend.m */; };
@@ -1459,6 +1461,9 @@
 		3C5F123B1D17A075001F66E1 /* SecondBtnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondBtnsView.h; sourceTree = "<group>"; };
 		3C5F123C1D17A075001F66E1 /* SecondBtnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondBtnsView.m; sourceTree = "<group>"; };
 		3C5F123E1D17A09F001F66E1 /* SecondBtnsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondBtnsView.xib; sourceTree = "<group>"; };
+		3C60EFD01D52DB7900DECDEF /* Index_5_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index_5_View.h; sourceTree = "<group>"; };
+		3C60EFD11D52DB7900DECDEF /* Index_5_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Index_5_View.m; sourceTree = "<group>"; };
+		3C60EFD31D52DBE200DECDEF /* Index_5_View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Index_5_View.xib; sourceTree = "<group>"; };
 		3C78E1BF1D225BED0016628C /* QuanListZLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuanListZLViewController.h; sourceTree = "<group>"; };
 		3C78E1C01D225BED0016628C /* QuanListZLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuanListZLViewController.m; sourceTree = "<group>"; };
 		3C78E1C11D225BED0016628C /* QuanListZLViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuanListZLViewController.xib; sourceTree = "<group>"; };
@@ -3770,6 +3775,9 @@
 				3C3D225E1D51F1B100C14F40 /* Index5TableViewCell.h */,
 				3C3D225F1D51F1B100C14F40 /* Index5TableViewCell.m */,
 				3C3D22601D51F1B100C14F40 /* Index5TableViewCell.xib */,
+				3C60EFD01D52DB7900DECDEF /* Index_5_View.h */,
+				3C60EFD11D52DB7900DECDEF /* Index_5_View.m */,
+				3C60EFD31D52DBE200DECDEF /* Index_5_View.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4511,6 +4519,7 @@
 				2840733B1D2E272D003A13AE /* MLOrderListTableViewCell.xib in Resources */,
 				3AE02E0A1CAB9F510016FA75 /* MLSXView.xib in Resources */,
 				D6D803721CAE7103001C0FE0 /* MLCollectionViewController.xib in Resources */,
+				3C60EFD41D52DBE200DECDEF /* Index_5_View.xib in Resources */,
 				28CF860A1CEDC59A00E582EE /* UMShareEditViewControlleriPad.xib in Resources */,
 				7A1DC2661D23B3F80094D751 /* MLShopCartFootView.xib in Resources */,
 				7AEDD0ED1CE5EE9A009B12F4 /* MLWishlistTableViewCell.xib in Resources */,
@@ -5103,6 +5112,7 @@
 				28E8B12E1D5078310088B840 /* MLAdTableViewCell.m in Sources */,
 				7A0720401D17E98400E0B58E /* MLXuanZeTuPianTableViewCell.m in Sources */,
 				687703E51CCF3F720008ED46 /* EasyJSWebViewProxyDelegate.m in Sources */,
+				3C60EFD21D52DB7900DECDEF /* Index_5_View.m in Sources */,
 				7AF6EEB51CE40A4E00ECFCAA /* MLPersonController.m in Sources */,
 				7AEDD0C51CE59F5D009B12F4 /* MLSaleServiceProductCell.m in Sources */,
 				7A0720311D17D43C00E0B58E /* MLTuiHuoFukuanTableViewCell.m in Sources */,

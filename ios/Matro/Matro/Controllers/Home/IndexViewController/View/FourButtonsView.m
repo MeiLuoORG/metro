@@ -38,6 +38,7 @@
     if(self = [super initWithFrame:frame]){
     
         UIView *view = [[[NSBundle mainBundle]loadNibNamed:@"FourButtonsView" owner:self options:nil]objectAtIndex:0];
+         [view setFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [self addSubview:view];
     }
     

@@ -23,11 +23,18 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CityFuWuViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
 #import "FourButtonsView.h"
 #import "MLSecondCollectionViewCell.h"
 #import "Index3TableViewCell.h"
-#define SecondCCELL_IDENTIFIER @"MLSecondCollectionViewCell"
+#import "Index_5_View.h"
+#import "MLSecondTableViewCell.h"
+#import "MLThirdTableViewCell.h"
+#import "MLYourlikeTableViewCell.h"
 
+#define SecondCCELL_IDENTIFIER @"MLSecondCollectionViewCell"
+#define YourlikeCCELL_IDENTIFIER @"MLYourlikeCollectionViewCell"
+#define CollectionViewCellMargin 5.0f//间隔5
 @class FirstsViewController;
 @protocol FirsrtViewControllerDelegate <NSObject>
 
@@ -56,5 +63,12 @@
 @property (strong, nonatomic) UIImageView * index_2_titleImageView;
 
 @property (strong, nonatomic) UIImageView * index_4_imageview;
+
+@property (strong, nonatomic) Index_5_View * index_5_View;
+@property (strong, nonatomic) UICollectionView * index_5_CollectionView;
+@property (strong, nonatomic) UILabel * index_5_titleLabel;
+@property (strong, nonatomic) UIImageView * index_5_titleImageView;
+
+
 
 @end

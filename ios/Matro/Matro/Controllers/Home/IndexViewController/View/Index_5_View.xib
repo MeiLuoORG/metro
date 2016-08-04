@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Index_5_View">
+            <connections>
+                <outlet property="leftButton" destination="1g8-GX-Wsv" id="VWF-M1-qjP"/>
+                <outlet property="rightButton" destination="W2B-Im-nKf" id="raH-2N-tJC"/>
+                <outlet property="topButton" destination="5Zi-4Z-c2g" id="QCF-W6-Ei9"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="Index_5_View">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1g8-GX-Wsv">
+                    <rect key="frame" x="0.0" y="205" width="185" height="185"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="1g8-GX-Wsv" secondAttribute="height" multiplier="1:1" id="fSn-Tc-D78"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="icon_default"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="fSn-Tc-D78"/>
+                        </mask>
+                    </variation>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2B-Im-nKf">
+                    <rect key="frame" x="190" y="205" width="185" height="185"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="W2B-Im-nKf" secondAttribute="height" multiplier="1:1" id="miB-oW-LUp"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="icon_default"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="miB-oW-LUp"/>
+                        </mask>
+                    </variation>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Zi-4Z-c2g">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="5Zi-4Z-c2g" secondAttribute="height" multiplier="15:8" id="wv5-Bu-klp"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="icon_default"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="W2B-Im-nKf" secondAttribute="bottom" constant="10" id="0Tp-Sy-uGa"/>
+                <constraint firstItem="1g8-GX-Wsv" firstAttribute="top" secondItem="5Zi-4Z-c2g" secondAttribute="bottom" constant="5" id="2oa-vP-9de"/>
+                <constraint firstItem="W2B-Im-nKf" firstAttribute="leading" secondItem="1g8-GX-Wsv" secondAttribute="trailing" constant="5" id="3Hb-Pg-fqJ"/>
+                <constraint firstItem="5Zi-4Z-c2g" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="4ej-ot-cAx"/>
+                <constraint firstAttribute="trailing" secondItem="W2B-Im-nKf" secondAttribute="trailing" id="ElJ-5m-Aiv"/>
+                <constraint firstItem="W2B-Im-nKf" firstAttribute="width" secondItem="1g8-GX-Wsv" secondAttribute="width" id="G1b-ch-egB"/>
+                <constraint firstItem="1g8-GX-Wsv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="MNz-jl-Srz"/>
+                <constraint firstAttribute="trailing" secondItem="5Zi-4Z-c2g" secondAttribute="trailing" id="SHk-JR-Iab"/>
+                <constraint firstAttribute="bottom" secondItem="1g8-GX-Wsv" secondAttribute="bottom" constant="10" id="Ukj-Bc-9pf"/>
+                <constraint firstItem="5Zi-4Z-c2g" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VN4-nk-klk"/>
+                <constraint firstItem="W2B-Im-nKf" firstAttribute="top" secondItem="5Zi-4Z-c2g" secondAttribute="bottom" constant="5" id="YJP-TK-8ce"/>
+                <constraint firstItem="W2B-Im-nKf" firstAttribute="top" secondItem="5Zi-4Z-c2g" secondAttribute="bottom" constant="5" id="aNe-cI-G1l"/>
+                <constraint firstItem="W2B-Im-nKf" firstAttribute="leading" secondItem="1g8-GX-Wsv" secondAttribute="trailing" constant="5" id="vcR-9V-CQ1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="3Hb-Pg-fqJ"/>
+                    <exclude reference="aNe-cI-G1l"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="417.5" y="406"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_default" width="256" height="256"/>
+    </resources>
+</document>
