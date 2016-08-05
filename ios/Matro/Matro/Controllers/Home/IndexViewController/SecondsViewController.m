@@ -126,7 +126,13 @@
             havewatchArr = responseObject[@"data"][@"havewatch"];
             watchArr = responseObject[@"data"][@"watch"];
             goodtitleArr = responseObject[@"data"][@"goodtitle"];
-
+            if (adimageArr && adimageArr.count > 0) {
+                NSString *adimage;
+                for (NSDictionary *adDic in adimageArr) {
+                    adimage = adDic[@"imgurl"];
+                    [_imageArray addObject:adimage];
+                }
+            }
             
             [self.tableview reloadData];
         }
@@ -245,7 +251,7 @@
         }
             break;
         case 7:{
-            height = _index_7_height - 50;
+            height = _index_7_height - 80;
             
         }
             break;
@@ -275,17 +281,10 @@
             [headview addSubview:_imageScrollView];
             [headview addSubview: _pagecontrol];
 
-            if (adimageArr && adimageArr.count > 0) {
-                NSString *adimage;
-                for (NSDictionary *adDic in adimageArr) {
-                    adimage = adDic[@"imgurl"];
-                    [_imageArray addObject:adimage];
-                }
-                
-                if (![_imageArray isKindOfClass:[NSNull class]]) {//防崩溃
-                    [self imageUIInit];
-                }
+            if (![_imageArray isKindOfClass:[NSNull class]]) {//防崩溃
+                [self imageUIInit];
             }
+            
             
             [cell addSubview:headview];
             
@@ -440,7 +439,7 @@
             if (beutyadvertiseArr && beutyadvertiseArr.count > 0) {
                
                 NSString *imageurl0 = beutyadvertiseArr[0][@"imgurl"]?:@"";
-                NSString *imageurl1 = beutyadvertiseArr[0][@"imgurl"]?:@"";
+                NSString *imageurl1 = beutyadvertiseArr[1][@"imgurl"]?:@"";
                 
                 if (![imageurl0 isKindOfClass:[NSNull class]]) {
                     [SecondTableViewCell.secondImage1 sd_setImageWithURL:[NSURL URLWithString:imageurl0] placeholderImage:[UIImage imageNamed:@"icon_default"]];
