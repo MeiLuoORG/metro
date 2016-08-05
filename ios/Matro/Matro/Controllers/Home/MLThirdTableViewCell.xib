@@ -95,6 +95,7 @@
                     <constraint firstItem="tfO-nl-eKG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hqw-Nn-Ime"/>
                     <constraint firstItem="vXQ-H4-pK7" firstAttribute="top" secondItem="tfO-nl-eKG" secondAttribute="bottom" constant="5" id="lZ0-F7-Rn8"/>
                     <constraint firstItem="e7M-F4-D8r" firstAttribute="centerY" secondItem="tfO-nl-eKG" secondAttribute="centerY" id="mVh-QH-4KD"/>
+                    <constraint firstItem="vXQ-H4-pK7" firstAttribute="centerX" secondItem="tfO-nl-eKG" secondAttribute="centerX" id="pBi-R4-iBa"/>
                     <constraint firstItem="e7M-F4-D8r" firstAttribute="height" secondItem="tfO-nl-eKG" secondAttribute="height" id="pH1-Vw-DSf"/>
                     <constraint firstItem="tfO-nl-eKG" firstAttribute="top" secondItem="TQZ-HV-50b" secondAttribute="bottom" id="qxp-7q-Ey0"/>
                     <constraint firstAttribute="bottomMargin" secondItem="vXQ-H4-pK7" secondAttribute="bottom" constant="-3" id="t0U-aQ-KyH"/>
