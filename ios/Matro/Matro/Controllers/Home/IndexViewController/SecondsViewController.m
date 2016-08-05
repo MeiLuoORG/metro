@@ -75,7 +75,7 @@
     
     _index_5_height = 740.0/750.0f*SIZE_WIDTH;
     
-    _index_6_height = 740.0/750.0f*SIZE_WIDTH+40.0f;
+    _index_6_height = 740.0/750.0f*SIZE_WIDTH+60.0f;
     
    // _index_7_height = (468.0/750.0*SIZE_WIDTH)*5 + 100;
     hotspArr = [NSMutableArray array];
@@ -974,7 +974,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     _pagecontrol.tintColor = [UIColor whiteColor];
     _pagecontrol.currentPageIndicatorTintColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
     
-   // [self addTimer];
+    [self addTimer];
 }
 
 - (void)photoTapped:(UITapGestureRecognizer *)tap{
@@ -1006,8 +1006,9 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
         page++;
         
     }
+    
     CGFloat x = page * _imageScrollView.frame.size.width;
-    _imageScrollView.contentOffset = CGPointMake(x, 0);
+    [_imageScrollView  setContentOffset:CGPointMake(x, 0) animated:YES];
     
 }
 //关闭定时器
@@ -1021,9 +1022,6 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     NSLog(@"scrollViewDidScroll6+++");
     
     if (scrollView == _imageScrollView) {
-//        NSInteger i = scrollView.contentOffset.x/scrollView.frame.size.width + 1;
-//        _pagecontrol.currentPage = i - 1;
-        
         CGFloat scrollviewW =  scrollView.frame.size.width;
         CGFloat x = scrollView.contentOffset.x;
         int page = (x + scrollviewW / 2) /  scrollviewW;
@@ -1039,7 +1037,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     NSLog(@"开始拖拽");
-   // [self removeTimer];
+    [self removeTimer];
     
     if (self.secondDelegate && [self.secondDelegate respondsToSelector:@selector(secondViewController:withBeginOffest:)]) {
         [self.secondDelegate secondViewController:self withBeginOffest:scrollView.contentOffset.y];
@@ -1047,10 +1045,10 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     
 }
 //拖拽结束后开启定时器
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-//{
-//    [self addTimer];
-//}
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [self addTimer];
+}
 
 #pragma end mark 代理方法结束
 - (void)pushToType:(NSString *)index withUi:(NSString *)sender{
