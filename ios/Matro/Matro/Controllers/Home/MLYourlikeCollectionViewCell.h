@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *likeNameLab;
 @property (weak, nonatomic) IBOutlet UILabel *likePriceLab;
 @property (weak, nonatomic) IBOutlet UILabel *cuxiaoPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *shouqingLabel;
 
 @end

@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="164" id="KGk-i7-Jjw" customClass="MLYourlikeTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="164"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="163"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="163"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RPD-fW-eaZ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jp0-kR-cA9">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -28,11 +29,17 @@
                             <constraint firstItem="jp0-kR-cA9" firstAttribute="leading" secondItem="RPD-fW-eaZ" secondAttribute="leading" id="Ipy-Zs-ojt"/>
                             <constraint firstAttribute="bottom" secondItem="jp0-kR-cA9" secondAttribute="bottom" id="Qwc-qt-isO"/>
                             <constraint firstAttribute="height" constant="40" id="YEm-Gl-Wvt"/>
+                            <constraint firstAttribute="width" secondItem="RPD-fW-eaZ" secondAttribute="height" multiplier="75:8" id="eVE-s3-NY6"/>
                             <constraint firstAttribute="trailing" secondItem="jp0-kR-cA9" secondAttribute="trailing" id="niW-2b-bmS"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="YEm-Gl-Wvt"/>
+                            </mask>
+                        </variation>
                     </view>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="QQo-oA-wwv">
-                        <rect key="frame" x="0.0" y="45" width="320" height="118"/>
+                        <rect key="frame" x="0.0" y="40" width="375" height="118"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="oLV-zq-xfm">
                             <size key="itemSize" width="50" height="50"/>
@@ -43,14 +50,34 @@
                     </collectionView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="QQo-oA-wwv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="48n-h1-0w7"/>
+                    <constraint firstItem="RPD-fW-eaZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="996-hf-bdU"/>
                     <constraint firstItem="QQo-oA-wwv" firstAttribute="top" secondItem="RPD-fW-eaZ" secondAttribute="bottom" constant="5" id="CNa-Ft-nh2"/>
                     <constraint firstAttribute="trailingMargin" secondItem="RPD-fW-eaZ" secondAttribute="trailing" constant="-8" id="KNC-dA-wyt"/>
                     <constraint firstAttribute="bottomMargin" secondItem="QQo-oA-wwv" secondAttribute="bottom" constant="-8" id="NQf-iS-MGB"/>
+                    <constraint firstItem="QQo-oA-wwv" firstAttribute="top" secondItem="RPD-fW-eaZ" secondAttribute="bottom" id="OTm-2m-Lh0"/>
+                    <constraint firstItem="QQo-oA-wwv" firstAttribute="top" secondItem="RPD-fW-eaZ" secondAttribute="bottom" constant="5" id="R3q-P0-NQq"/>
+                    <constraint firstAttribute="trailing" secondItem="QQo-oA-wwv" secondAttribute="trailing" id="TPZ-sb-6a6"/>
                     <constraint firstItem="RPD-fW-eaZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="TTq-i1-w4f"/>
                     <constraint firstAttribute="trailingMargin" secondItem="QQo-oA-wwv" secondAttribute="trailing" constant="-8" id="VUc-kF-gvW"/>
                     <constraint firstItem="RPD-fW-eaZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="cie-HK-S82"/>
                     <constraint firstItem="QQo-oA-wwv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="ec6-De-XGQ"/>
+                    <constraint firstAttribute="bottom" secondItem="QQo-oA-wwv" secondAttribute="bottom" constant="5" id="ffd-yF-lbj"/>
+                    <constraint firstItem="RPD-fW-eaZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="rUF-1j-h25"/>
+                    <constraint firstAttribute="trailing" secondItem="RPD-fW-eaZ" secondAttribute="trailing" id="zoO-OB-ht8"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="KNC-dA-wyt"/>
+                        <exclude reference="TTq-i1-w4f"/>
+                        <exclude reference="cie-HK-S82"/>
+                        <exclude reference="CNa-Ft-nh2"/>
+                        <exclude reference="NQf-iS-MGB"/>
+                        <exclude reference="R3q-P0-NQq"/>
+                        <exclude reference="VUc-kF-gvW"/>
+                        <exclude reference="ec6-De-XGQ"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>

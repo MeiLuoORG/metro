@@ -1076,6 +1076,9 @@
         vc.title = @"热门活动";
         vc.link = sender;
         vc.hidesBottomBarWhenPushed = YES;
+
+        
+        
         [self.navigationController pushViewController:vc animated:YES];
          
     }
@@ -1548,7 +1551,11 @@
         vc.title = @"热门活动";
         vc.link = sender;
         vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
+        NSLog(@"热门活动的链接为：%@",sender);
+        if (![sender isEqualToString:@""] && sender && sender != nil) {
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
         
     }
     if ([type isEqualToString:@"5"]) {

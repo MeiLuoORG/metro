@@ -31,6 +31,7 @@
 #import "MLSecondTableViewCell.h"
 #import "MLThirdTableViewCell.h"
 #import "MLYourlikeTableViewCell.h"
+#import "MLYourlikeCollectionViewCell.h"
 
 #define SecondCCELL_IDENTIFIER @"MLSecondCollectionViewCell"
 #define YourlikeCCELL_IDENTIFIER @"MLYourlikeCollectionViewCell"
@@ -69,6 +70,7 @@
 @property (strong, nonatomic) UILabel * index_5_titleLabel;
 @property (strong, nonatomic) UIImageView * index_5_titleImageView;
 
-
+@property (strong, nonatomic) UICollectionView * index_8_CollectionView;
+@property (strong, nonatomic) NSArray * index_8_goodARR;
 
 @end
