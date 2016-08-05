@@ -54,6 +54,7 @@
 }
 @property (strong,nonatomic)UIScrollView *imageScrollView;
 @property (strong,nonatomic)UIPageControl *pagecontrol;
+@property (strong,nonatomic)NSTimer *timer;
 
 @end
 
@@ -72,11 +73,11 @@
     
     _index_4_height = 300.0f/750.0f*SIZE_WIDTH+5;
     
-    _index_5_height = 724.0/750.0f*SIZE_WIDTH+40.0f;
+    _index_5_height = 740.0/750.0f*SIZE_WIDTH;
     
-    _index_6_height = 724.0/750.0f*SIZE_WIDTH+40.0f;
+    _index_6_height = 740.0/750.0f*SIZE_WIDTH+40.0f;
     
-    _index_7_height = (460.0/750.0*SIZE_WIDTH)*5;
+   // _index_7_height = (468.0/750.0*SIZE_WIDTH)*5 + 100;
     hotspArr = [NSMutableArray array];
     hotbrandArr = [NSMutableArray array];
     _imageArray = [NSMutableArray array];
@@ -93,23 +94,34 @@
     productArr = [NSMutableArray array];
     
     [self createTableviewML];
+    [self loadData];
+    [self loadYourlikeData];
     
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    [self loadData];
-    [self loadYourlikeData];
-
 }
 
 //获取全球购数据
 -(void)loadData{
-  //  http://bbctest.matrojp.com/api.php?m=product&s=foreginbuy&method=display
+
+    NSString *urlStr;
+    NSString *mstr;
+    if (self.indexType == 1) {
+        urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=foreginbuy&method=display&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
+        mstr = @"foreginbuy";
+    }else if (self.indexType == 2){
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=foreginbuy&method=display&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
-    
-    [MLHttpManager get:urlStr params:nil m:@"product" s:@"foreginbuy" success:^(id responseObject){
+        urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=mlgoods&method=display&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
+        mstr = @"mlgoods";
+    }else if (self.indexType == 3){
+        
+        urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=yttd&method=display&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
+        mstr = @"yttd";
+    }
+
+    [MLHttpManager get:urlStr params:nil m:@"product" s:mstr success:^(id responseObject){
         NSLog(@"responseObject===%@",responseObject);
         if ([[responseObject objectForKey:@"code"] isEqual:@0]) {
             
@@ -127,10 +139,10 @@
             watchArr = responseObject[@"data"][@"watch"];
             goodtitleArr = responseObject[@"data"][@"goodtitle"];
             if (adimageArr && adimageArr.count > 0) {
-                NSString *adimage;
-                for (NSDictionary *adDic in adimageArr) {
-                    adimage = adDic[@"imgurl"];
-                    [_imageArray addObject:adimage];
+               
+                for (int i =0 ; i< adimageArr.count; i++) {
+                    NSDictionary * adimageDic = adimageArr[i];
+                    [_imageArray addObject:adimageDic];
                 }
             }
             
@@ -148,26 +160,37 @@
 }
 //获取猜你喜欢数据
 -(void)loadYourlikeData{
+
+    NSString *urlStr;
+    NSString *mstr;
+    if (self.indexType == 1) {
+        
+        urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=foreginbuy&method=good&pageindex=1&pagesize=10&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
+        mstr = @"foreginbuy";
+        
+    }else if (self.indexType == 2){
+        
+        urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=mlgoods&method=good&pageindex=1&pagesize=8&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
+        mstr = @"mlgoods";
+        
+    }else if (self.indexType == 3){
+        
+       urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=yttd&method=good&pageindex=1&pagesize=8&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
+        mstr = @"yttd";
+    }
     
-//http://bbctest.matrojp.com/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=20&catid=11080601,11080201&brandid=
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=0&limit=8&catid=&brandid=&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
-    
-    [MLHttpManager get:urlStr params:nil m:@"product" s:@"guess_like" success:^(id responseObject){
+    [MLHttpManager get:urlStr params:nil m:@"product" s:mstr success:^(id responseObject){
         NSLog(@"responseObject===%@",responseObject);
         
         if ([[responseObject objectForKey:@"code"] isEqual:@0]) {
             
             if (responseObject) {
-                NSArray *arr = (NSArray*)responseObject[@"data"][@"product"];
-                NSLog(@"arr===%@",arr);
+                NSArray *arr = (NSArray*)responseObject[@"data"][@"good"];
                 if (arr && arr.count > 0) {
                     
                     [productArr addObjectsFromArray:arr];
                 }
             }
-            NSLog(@"-----%@",productArr);
-            
             [self.tableview reloadData];
         }
         
@@ -239,19 +262,16 @@
         }
             break;
         case 5:{
-//            height = _index_5_height;
-            height = 370;
-            
+            height = _index_5_height+40;
+    
         }
             break;
         case 6:{
-//            height = _index_6_height;
-            height = 370;
-            
+            height = _index_6_height;
         }
             break;
         case 7:{
-            height = _index_7_height - 80;
+            height = _index_7_height;
             
         }
             break;
@@ -274,9 +294,9 @@
     switch (indexPath.row) {
         case 0:{
           
-            UIView *headview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 232)];
-            _imageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 232)];
-            _pagecontrol = [[UIPageControl alloc] initWithFrame:CGRectMake((MAIN_SCREEN_WIDTH-80)/2, 212, 80, 20)];
+            UIView *headview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, _index_0_height)];
+            _imageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, _index_0_height)];
+            _pagecontrol = [[UIPageControl alloc] initWithFrame:CGRectMake((MAIN_SCREEN_WIDTH-80)/2, _index_0_height-20, 80, 20)];
             
             [headview addSubview:_imageScrollView];
             [headview addSubview: _pagecontrol];
@@ -537,23 +557,40 @@
                 NSArray *array = [[NSBundle mainBundle]loadNibNamed: YourlikeCellIdentifier owner:self options:nil];
                 YourlikeTableViewCell = [array objectAtIndex:0];
             }
-            if (goodtitleArr && goodtitleArr.count > 0) {
-                
-                NSString *imageurl = goodtitleArr[0][@"imgurl"]?:@"";
-                if (![imageurl isKindOfClass:[NSNull class]]) {
-                    [YourlikeTableViewCell.likeHeadImage  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
-                }else{
+            if (![goodtitleArr isKindOfClass:[NSString class]]) {
+                if (goodtitleArr && goodtitleArr.count > 0) {
                     
-                    YourlikeTableViewCell.likeHeadImage.image = [UIImage imageNamed:@"icon_default"];
+                    NSString *imageurl = goodtitleArr[0][@"imgurl"]?:@"";
+                    if (![imageurl isKindOfClass:[NSNull class]]) {
+                        [YourlikeTableViewCell.likeHeadImage  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
+                    }else{
+                        
+                        YourlikeTableViewCell.likeHeadImage.image = [UIImage imageNamed:@"icon_default"];
+                    }
+                    
                 }
-  
+            }else{
+            
+                YourlikeTableViewCell.likeHeadImage.image = [UIImage imageNamed:@"world_title"];
             }
+            
             
             YourlikeTableViewCell.LikeCollectionView.delegate = self;
             YourlikeTableViewCell.LikeCollectionView.dataSource = self;
             YourlikeTableViewCell.LikeCollectionView.tag = 7;
+            
             [YourlikeTableViewCell.LikeCollectionView registerNib:[UINib  nibWithNibName:@"MLYourlikeCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:YourlikeCCELL_IDENTIFIER];
             YourlikeTableViewCell.selectionStyle = UITableViewCellAccessoryNone;
+            
+            NSLog(@"----%lu",(unsigned long)productArr.count);
+            float cellW = (MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2;
+            
+            if (productArr.count >0) {
+                
+                _index_7_height = cellW*1.32*(productArr.count/2)+(8/75)*MAIN_SCREEN_WIDTH+(productArr.count/2)*5+30;
+
+            }
+            
             return YourlikeTableViewCell;
         }
             
@@ -570,21 +607,18 @@
     if (indexPath.row == 2) {
         if (newgoodsee1 && newgoodsee1.count >0) {
             NSDictionary *tempdic = newgoodsee1[0];
-            NSLog(@"111%@",tempdic);
             [self pushToType:tempdic[@"ggtype"]?:@"" withUi:tempdic[@"ggv"]?:@""];
         }
     }else if(indexPath.row == 3){
     
         if (newgoodsee2 && newgoodsee2.count >0) {
             NSDictionary *tempdic = newgoodsee2[0];
-            NSLog(@"222%@",tempdic);
             [self pushToType:tempdic[@"ggtype"]?:@"" withUi:tempdic[@"ggv"]?:@""];
         }
     }else if(indexPath.row == 4){
     
         if (newgoodsee3 && newgoodsee3.count >0) {
             NSDictionary *tempdic = newgoodsee3[0];
-            NSLog(@"333%@",tempdic);
             [self pushToType:tempdic[@"ggtype"]?:@"" withUi:tempdic[@"ggv"]?:@""];
         }
     }
@@ -597,23 +631,33 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (collectionView.tag == 1) {
         if (ishotSP == YES) {
-            if (hotspArr.count < 8) {
+            if (hotspArr.count <= 6) {
+                
                 return hotspArr.count;
             }
-            return 8;
-            
-        }else{
-            if (hotbrandArr.count < 8) {
-                return hotbrandArr.count;
+            else{
+                
+                return 8;
             }
-            return 8;
+ 
+        }else{
+            if (hotbrandArr.count <= 6) {
+                
+                return hotbrandArr.count;
+                
+            }else{
+                
+                return 8;
+            }
         }
     }else if(collectionView.tag == 5){
         
         return beutyArr.count;
+        
     }else if (collectionView.tag == 6){
     
         return watchArr.count;
+        
     }else{
     
         return productArr.count;
@@ -628,37 +672,67 @@
         cell.firstImageView.layer.cornerRadius = 40.f;
         cell.firstImageView.layer.masksToBounds = YES;
         if (ishotSP == YES) {
-            NSDictionary *tempDic = hotspArr[indexPath.row];
-            cell.firstNameLab.text = tempDic[@"mc"]?:@"";
-            NSString *imageurl = tempDic[@"imgurl"]?:@"";
-            if (![imageurl isKindOfClass:[NSNull class]]) {
-                [cell.firstImageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
-            }else{
-                
-                cell.firstImageView.image = [UIImage imageNamed:@"icon_default"];
-            }
+            
             if (hotspArr.count > 6) {
+                if (indexPath.row < 7) {
+                    
+                    NSDictionary *tempDic = hotspArr[indexPath.row];
+                    cell.firstNameLab.text = tempDic[@"mc"]?:@"";
+                    NSString *imageurl = tempDic[@"imgurl"]?:@"";
+                    if (![imageurl isKindOfClass:[NSNull class]]) {
+                        [cell.firstImageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
+                    }else{
+                        
+                        cell.firstImageView.image = [UIImage imageNamed:@"icon_default"];
+                    }
+                }
+                
                 if (indexPath.row == 7) {
                     cell.firstNameLab.text = @"更多";
                     cell.firstImageView.image = [UIImage imageNamed:@"more_goods"];
                 }
+            }else{
+            
+                NSDictionary *tempDic = hotspArr[indexPath.row];
+                cell.firstNameLab.text = tempDic[@"mc"]?:@"";
+                NSString *imageurl = tempDic[@"imgurl"]?:@"";
+                if (![imageurl isKindOfClass:[NSNull class]]) {
+                    [cell.firstImageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
+                }else{
+                    
+                    cell.firstImageView.image = [UIImage imageNamed:@"icon_default"];
+                }
             }
 
         }else{
-            NSDictionary *tempDic = hotbrandArr[indexPath.row];
-            cell.firstNameLab.text = tempDic[@"name"]?:@"";
-            NSString *imageurl = tempDic[@"imgurl"]?:@"";
-            if (![imageurl isKindOfClass:[NSNull class]]) {
-                [cell.firstImageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
-            }else{
-                
-                cell.firstImageView.image = [UIImage imageNamed:@"icon_default"];
-            }
-            
-            if (hotspArr.count > 6) {
+
+            if (hotbrandArr.count > 6) {
+                if (indexPath.row <7) {
+                    
+                    NSDictionary *tempDic = hotbrandArr[indexPath.row];
+                    cell.firstNameLab.text = tempDic[@"name"]?:@"";
+                    NSString *imageurl = tempDic[@"imgurl"]?:@"";
+                    if (![imageurl isKindOfClass:[NSNull class]]) {
+                        [cell.firstImageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
+                    }else{
+                        
+                        cell.firstImageView.image = [UIImage imageNamed:@"icon_default"];
+                    }
+                }
                 if (indexPath.row == 7) {
                     cell.firstNameLab.text = @"更多";
                     cell.firstImageView.image = [UIImage imageNamed:@"more_goods"];
+                }
+            }else{
+            
+                NSDictionary *tempDic = hotbrandArr[indexPath.row];
+                cell.firstNameLab.text = tempDic[@"name"]?:@"";
+                NSString *imageurl = tempDic[@"imgurl"]?:@"";
+                if (![imageurl isKindOfClass:[NSNull class]]) {
+                    [cell.firstImageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
+                }else{
+                    
+                    cell.firstImageView.image = [UIImage imageNamed:@"icon_default"];
                 }
             }
             
@@ -700,6 +774,13 @@
                     cell.cuxiaoPriceLabel.attributedText=attrStr; //原价要划掉
                 }
             }
+            float amount = [tempDic[@"amount"] floatValue];
+            if (amount < 1) {
+                cell.shouqingLabel.hidden = NO;
+            }else{
+                cell.shouqingLabel.hidden = YES;
+            }
+            
             NSString *imageurl = tempDic[@"pic"]?:@"";
             if (![imageurl isKindOfClass:[NSNull class]]) {
                 [cell.likeImage  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
@@ -818,11 +899,11 @@
         return CGSizeMake(width, 120);
     }else if (collectionView.tag == 7){
         CGFloat cellW = (MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2;
-        return CGSizeMake(cellW,cellW*1.4);
+        return CGSizeMake(cellW,cellW*1.32);
+    }else{
+        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
+        return CGSizeMake(width, width*1.72);
     }
-    float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
-    return CGSizeMake(width, 140);
-    
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
@@ -831,7 +912,8 @@
     }else if (collectionView.tag == 7){
         return UIEdgeInsetsMake(0, 0, 0, 0);
     }
-    return UIEdgeInsetsMake(CollectionViewCellMargin*2, CollectionViewCellMargin*2, CollectionViewCellMargin, CollectionViewCellMargin*2);
+    return UIEdgeInsetsMake(0, CollectionViewCellMargin*2, 0, CollectionViewCellMargin*2);
+   // return UIEdgeInsetsMake(CollectionViewCellMargin*2, CollectionViewCellMargin*2, CollectionViewCellMargin, CollectionViewCellMargin*2);
 }
 
 
@@ -863,13 +945,14 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     CGFloat imageScrollViewHeight = _imageScrollView.bounds.size.height;
     
     for(int i = 0; i<_imageArray.count; i++) {
-        if ([_imageArray[i] isKindOfClass:[NSNull class]]) {
+        if ([_imageArray[i][@"imgurl"] isKindOfClass:[NSNull class]]) {
             continue;
         }
     }
     for (int i=0; i<_imageArray.count; i++) {
+        
         UIImageView *imageview =[[UIImageView alloc]initWithFrame:CGRectMake(imageScrollViewWidth*i, 0, imageScrollViewWidth,imageScrollViewHeight)];
-        [imageview sd_setImageWithURL:[NSURL URLWithString:_imageArray[i]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        [imageview sd_setImageWithURL:[NSURL URLWithString:_imageArray[i][@"imgurl"]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
         NSLog(@"imageview == %@",imageview.sd_imageURL);
         
         // imageview.contentMode = UIViewContentModeScaleAspectFit;
@@ -888,13 +971,14 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     
     _pagecontrol.numberOfPages = _imageArray.count;
     
-    _pagecontrol.tintColor = [UIColor redColor];
-    _pagecontrol.currentPageIndicatorTintColor = [UIColor yellowColor];
+    _pagecontrol.tintColor = [UIColor whiteColor];
+    _pagecontrol.currentPageIndicatorTintColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
+    
+   // [self addTimer];
 }
 
 - (void)photoTapped:(UITapGestureRecognizer *)tap{
-    
-    NSLog(@"%ld",tap.view.tag);
+   
     if (adimageArr && adimageArr.count>0) {
         NSDictionary *tempdic = adimageArr[tap.view.tag];
         [self pushToType:tempdic[@"ggtype"]?:@"" withUi:tempdic[@"ggv"]?:@""];
@@ -902,17 +986,49 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     
 }
 
-#pragma end mark 代理方法结束
+//开启定时器
+- (void)addTimer{
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(nextImage) userInfo:nil repeats:YES];
+}
+
+//设置当前页 实现自动滚动
+- (void)nextImage
+{
+    int page = (int)_pagecontrol.currentPage;
+    
+    if (page == _imageArray.count-1) {
+        
+        page = 0;
+        
+    }else{
+        
+        page++;
+        
+    }
+    CGFloat x = page * _imageScrollView.frame.size.width;
+    _imageScrollView.contentOffset = CGPointMake(x, 0);
+    
+}
+//关闭定时器
+- (void)removeTimer
+ {
+    [self.timer invalidate];
+}
 
 #pragma mark ScrollView代理方法开始
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     NSLog(@"scrollViewDidScroll6+++");
     
     if (scrollView == _imageScrollView) {
-        NSInteger i = scrollView.contentOffset.x/scrollView.frame.size.width + 1;
-        _pagecontrol.currentPage = i - 1;
+//        NSInteger i = scrollView.contentOffset.x/scrollView.frame.size.width + 1;
+//        _pagecontrol.currentPage = i - 1;
+        
+        CGFloat scrollviewW =  scrollView.frame.size.width;
+        CGFloat x = scrollView.contentOffset.x;
+        int page = (x + scrollviewW / 2) /  scrollviewW;
+        _pagecontrol.currentPage = page;
     }
-    
     
     if (self.secondDelegate && [self.secondDelegate respondsToSelector:@selector(secondViewController:withContentOffest:)]) {
         [self.secondDelegate secondViewController:self withContentOffest:scrollView.contentOffset.y];
@@ -923,12 +1039,19 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     NSLog(@"开始拖拽");
+   // [self removeTimer];
     
     if (self.secondDelegate && [self.secondDelegate respondsToSelector:@selector(secondViewController:withBeginOffest:)]) {
         [self.secondDelegate secondViewController:self withBeginOffest:scrollView.contentOffset.y];
     }
     
 }
+//拖拽结束后开启定时器
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+//{
+//    [self addTimer];
+//}
+
 #pragma end mark 代理方法结束
 - (void)pushToType:(NSString *)index withUi:(NSString *)sender{
     

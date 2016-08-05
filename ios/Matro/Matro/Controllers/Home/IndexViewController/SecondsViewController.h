@@ -36,6 +36,8 @@
 @end
 
 @interface SecondsViewController : MLBaseViewController<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+
+@property (assign, nonatomic) int indexType;
 @property (strong, nonatomic) UITableView * tableview;
 @property (weak, nonatomic) id<SecondsViewControllerDelegate> secondDelegate;
 @end

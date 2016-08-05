@@ -623,12 +623,29 @@
         cvc.firstDelegate = self;
         return cvc;
     }
-    else{
+    else if(index == 1){
     
         SecondsViewController * cvc = [[SecondsViewController alloc]init];
         cvc.secondDelegate = self;
+        cvc.indexType = 1;
         return cvc;
     
+    }
+    else if(index == 2){
+        
+        SecondsViewController * cvc = [[SecondsViewController alloc]init];
+        cvc.secondDelegate = self;
+        cvc.indexType = 2;
+        return cvc;
+        
+    }
+    else {
+        
+        SecondsViewController * cvc = [[SecondsViewController alloc]init];
+        cvc.secondDelegate = self;
+        cvc.indexType = 3;
+        return cvc;
+        
     }
 }
 

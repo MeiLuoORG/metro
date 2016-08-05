@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -12,11 +12,11 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="332" id="KGk-i7-Jjw" customClass="MLThirdTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="375" height="420"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="419"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_default" translatesAutoresizingMaskIntoConstraints="NO" id="tfO-nl-eKG">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="icon_default" translatesAutoresizingMaskIntoConstraints="NO" id="tfO-nl-eKG">
                         <rect key="frame" x="0.0" y="40" width="375" height="200"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="tfO-nl-eKG" secondAttribute="height" multiplier="15:8" id="p1Q-QI-N9t"/>
@@ -28,23 +28,23 @@
                             </mask>
                         </variation>
                     </imageView>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vXQ-H4-pK7">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vXQ-H4-pK7">
                         <rect key="frame" x="0.0" y="240" width="375" height="175"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="vXQ-H4-pK7" secondAttribute="height" multiplier="15:7" id="E0s-Mq-yds"/>
                         </constraints>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="a0O-Qw-8xq">
-                            <size key="itemSize" width="50" height="50"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="a0O-Qw-8xq">
+                            <size key="itemSize" width="0.0" height="0.0"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TQZ-HV-50b">
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TQZ-HV-50b">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dho-eo-9Vh">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dho-eo-9Vh">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                             </imageView>
                         </subviews>
@@ -63,7 +63,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7M-F4-D8r">
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7M-F4-D8r">
                         <rect key="frame" x="0.0" y="40" width="375" height="200"/>
                         <connections>
                             <action selector="imageClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JZU-Qj-rpk"/>
@@ -107,13 +107,13 @@
                         <exclude reference="9PM-PH-f6T"/>
                         <exclude reference="Boh-lh-V2Y"/>
                         <exclude reference="GaO-al-jAp"/>
-                        <exclude reference="81j-iY-E3w"/>
-                        <exclude reference="crx-44-RFr"/>
                         <exclude reference="HmZ-fu-9lh"/>
                         <exclude reference="WjJ-kw-vZM"/>
                         <exclude reference="bDX-Ju-2QZ"/>
                         <exclude reference="eWd-QH-gTd"/>
                         <exclude reference="h1u-Ta-H5k"/>
+                        <exclude reference="81j-iY-E3w"/>
+                        <exclude reference="crx-44-RFr"/>
                         <exclude reference="QUB-ae-dwn"/>
                         <exclude reference="lZ0-F7-Rn8"/>
                         <exclude reference="t0U-aQ-KyH"/>
@@ -127,7 +127,7 @@
                 <outlet property="thirdHeadImage" destination="dho-eo-9Vh" id="RTQ-jl-2Jx"/>
                 <outlet property="thirdImage" destination="tfO-nl-eKG" id="73X-i8-8pv"/>
             </connections>
-            <point key="canvasLocation" x="431.5" y="546"/>
+            <point key="canvasLocation" x="542.5" y="482"/>
         </tableViewCell>
     </objects>
     <resources>
