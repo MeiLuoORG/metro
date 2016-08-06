@@ -73,9 +73,9 @@
     
     _index_4_height = 300.0f/750.0f*SIZE_WIDTH+5;
     
-    _index_5_height = 740.0/750.0f*SIZE_WIDTH;
+   // _index_5_height = 740.0/750.0f*SIZE_WIDTH;
     
-    _index_6_height = 740.0/750.0f*SIZE_WIDTH+60.0f;
+   // _index_6_height = 740.0/750.0f*SIZE_WIDTH+60.0f;
     
    // _index_7_height = (468.0/750.0*SIZE_WIDTH)*5 + 100;
     hotspArr = [NSMutableArray array];
@@ -96,6 +96,7 @@
     [self createTableviewML];
     [self loadData];
     [self loadYourlikeData];
+    [self addTimer];
     
 }
 
@@ -267,7 +268,7 @@
         }
             break;
         case 6:{
-            height = _index_6_height;
+            height = _index_6_height+40;
         }
             break;
         case 7:{
@@ -322,10 +323,10 @@
             }
             
             if (ishotSP == YES) {
-                FristTableViewCell.hotppLab.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+                FristTableViewCell.hotppLab.textColor = [UIColor grayColor];
                 FristTableViewCell.hotppView.hidden = YES;
             }else{
-                FristTableViewCell.hotspLab.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+                FristTableViewCell.hotspLab.textColor = [UIColor grayColor];
                 FristTableViewCell.hotspView.hidden = YES;
                 
             }
@@ -333,7 +334,7 @@
             FristTableViewCell.hotspClick = ^(){
                 
                 ishotSP = YES;
-                FristTableViewCell.hotppLab.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+                FristTableViewCell.hotppLab.textColor = [UIColor grayColor];
                 FristTableViewCell.hotppView.hidden = YES;
                 FristTableViewCell.hotspLab.textColor = [UIColor colorWithHexString:@"260E00"];
                 FristTableViewCell.hotspView.hidden = NO;
@@ -345,7 +346,7 @@
                 ishotSP = NO;
                 FristTableViewCell.hotppLab.textColor = [UIColor colorWithHexString:@"260E00"];
                 FristTableViewCell.hotppView.hidden = NO;
-                FristTableViewCell.hotspLab.textColor = [UIColor colorWithHexString:@"aaaaaa"];
+                FristTableViewCell.hotspLab.textColor = [UIColor grayColor];
                 FristTableViewCell.hotspView.hidden = YES;
                 [self.tableview reloadData];
             };
@@ -456,6 +457,7 @@
                 }
                 
             }
+            
             if (beutyadvertiseArr && beutyadvertiseArr.count > 0) {
                
                 NSString *imageurl0 = beutyadvertiseArr[0][@"imgurl"]?:@"";
@@ -496,6 +498,12 @@
             SecondTableViewCell.secondCollectionView.dataSource = self;
             SecondTableViewCell.secondCollectionView.tag = 5;
             [SecondTableViewCell.secondCollectionView registerNib:[UINib  nibWithNibName:@"MLSecondCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:SecondCCELL_IDENTIFIER];
+            
+            if (beutyArr && beutyArr.count > 0 ) {
+                
+                _index_5_height = 185.f/375.f*MAIN_SCREEN_WIDTH +(((MAIN_SCREEN_WIDTH) - (CollectionViewCellMargin*10))/4)*1.72 +40;
+            }
+            
             SecondTableViewCell.selectionStyle = UITableViewCellAccessoryNone;
             return SecondTableViewCell;
         }
@@ -545,6 +553,10 @@
             ThirdTableViewCell.thirdCollectionView.dataSource = self;
             ThirdTableViewCell.thirdCollectionView.tag = 6;
             [ThirdTableViewCell.thirdCollectionView registerNib:[UINib  nibWithNibName:@"MLSecondCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:SecondCCELL_IDENTIFIER];
+            if (watchArr && watchArr.count > 0) {
+                _index_6_height = 8.f/15.f*MAIN_SCREEN_WIDTH+(((MAIN_SCREEN_WIDTH) - (CollectionViewCellMargin*10))/4)*1.72 + 40;
+            }
+            
             ThirdTableViewCell.selectionStyle = UITableViewCellAccessoryNone;
             return ThirdTableViewCell;
         }
@@ -585,9 +597,9 @@
             NSLog(@"----%lu",(unsigned long)productArr.count);
             float cellW = (MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2;
             
-            if (productArr.count >0) {
+            if ( productArr && productArr.count >0) {
                 
-                _index_7_height = cellW*1.32*(productArr.count/2)+(8/75)*MAIN_SCREEN_WIDTH+(productArr.count/2)*5+30;
+                _index_7_height = cellW*1.35*(productArr.count/2)+(8/75)*MAIN_SCREEN_WIDTH+(productArr.count/2)*5+30;
 
             }
             
@@ -669,7 +681,7 @@
         MLFristCollectionViewCell *cell = (MLFristCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:FristCCELL_IDENTIFIER forIndexPath:indexPath];
         cell.firstImageView.layer.borderWidth = 1.f;
         cell.firstImageView.layer.borderColor = [UIColor colorWithHexString:@"F5F5F5"].CGColor;
-        cell.firstImageView.layer.cornerRadius = 40.f;
+        cell.firstImageView.layer.cornerRadius = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)/2;
         cell.firstImageView.layer.masksToBounds = YES;
         if (ishotSP == YES) {
             
@@ -899,7 +911,7 @@
         return CGSizeMake(width, 120);
     }else if (collectionView.tag == 7){
         CGFloat cellW = (MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2;
-        return CGSizeMake(cellW,cellW*1.32);
+        return CGSizeMake(cellW,cellW*1.35);
     }else{
         float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
         return CGSizeMake(width, width*1.72);
@@ -974,7 +986,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     _pagecontrol.tintColor = [UIColor whiteColor];
     _pagecontrol.currentPageIndicatorTintColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
     
-    [self addTimer];
+    
 }
 
 - (void)photoTapped:(UITapGestureRecognizer *)tap{

@@ -19,7 +19,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RPD-fW-eaZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jp0-kR-cA9">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_default" translatesAutoresizingMaskIntoConstraints="NO" id="jp0-kR-cA9">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                             </imageView>
                         </subviews>
@@ -87,4 +87,7 @@
             <point key="canvasLocation" x="456" y="376"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_default" width="256" height="256"/>
+    </resources>
 </document>

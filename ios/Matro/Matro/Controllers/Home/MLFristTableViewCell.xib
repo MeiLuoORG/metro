@@ -38,9 +38,9 @@
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KX7-mu-VT2" userLabel="View1">
                                 <rect key="frame" x="60" y="0.0" width="70" height="41"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="热门分类" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYC-Nx-bhh">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="热门分类" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYC-Nx-bhh">
                                         <rect key="frame" x="0.0" y="5" width="70" height="20"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -74,23 +74,23 @@
                                     <constraint firstItem="2eJ-hj-DIl" firstAttribute="leading" secondItem="KX7-mu-VT2" secondAttribute="leading" constant="5" id="xsB-2v-39g"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FQr-Bn-ZSn" userLabel="View2">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FQr-Bn-ZSn" userLabel="View2">
                                 <rect key="frame" x="245" y="0.0" width="70" height="41"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="热门品牌" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFn-bD-ACG">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="热门品牌" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wFn-bD-ACG">
                                         <rect key="frame" x="0.0" y="5" width="70" height="20"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JO3-0F-Ki7">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JO3-0F-Ki7">
                                         <rect key="frame" x="5" y="33" width="60" height="2"/>
                                         <color key="backgroundColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="y5B-XQ-wiT"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sRq-QW-2HR">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sRq-QW-2HR">
                                         <rect key="frame" x="0.0" y="0.0" width="70" height="36"/>
                                         <connections>
                                             <action selector="hotppClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xCW-xA-Vjf"/>
@@ -120,12 +120,12 @@
                             <constraint firstItem="KX7-mu-VT2" firstAttribute="top" secondItem="VgO-xc-fT4" secondAttribute="top" constant="5" id="Lsp-1Y-nyw"/>
                             <constraint firstItem="FQr-Bn-ZSn" firstAttribute="top" secondItem="VgO-xc-fT4" secondAttribute="top" constant="5" id="O9j-Gt-zbM"/>
                             <constraint firstItem="FQr-Bn-ZSn" firstAttribute="width" secondItem="KX7-mu-VT2" secondAttribute="width" id="PBa-Nu-oZd"/>
-                            <constraint firstItem="FQr-Bn-ZSn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KX7-mu-VT2" secondAttribute="trailing" constant="115" id="X9E-NU-C7h"/>
                             <constraint firstItem="KX7-mu-VT2" firstAttribute="leading" secondItem="VgO-xc-fT4" secondAttribute="leading" constant="60" id="c0G-3O-bAb"/>
                             <constraint firstAttribute="bottom" secondItem="CzH-8d-uzE" secondAttribute="bottom" id="hlT-k6-Ebl"/>
                             <constraint firstItem="CzH-8d-uzE" firstAttribute="leading" secondItem="VgO-xc-fT4" secondAttribute="leading" id="jqB-P6-Sot"/>
                             <constraint firstAttribute="bottom" secondItem="KX7-mu-VT2" secondAttribute="bottom" constant="8" id="qTh-cW-IG6"/>
                             <constraint firstAttribute="bottom" secondItem="FQr-Bn-ZSn" secondAttribute="bottom" constant="8" id="tts-12-xp4"/>
+                            <constraint firstAttribute="trailing" secondItem="FQr-Bn-ZSn" secondAttribute="trailing" constant="60" id="vvd-bl-aLw"/>
                         </constraints>
                     </view>
                 </subviews>

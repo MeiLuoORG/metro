@@ -29,7 +29,7 @@
                                 <color key="textColor" red="1" green="0.30588235289999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="lPn-Az-OIM">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_default" translatesAutoresizingMaskIntoConstraints="NO" id="lPn-Az-OIM">
                                 <rect key="frame" x="0.0" y="0.0" width="185" height="185"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="lPn-Az-OIM" secondAttribute="height" multiplier="1:1" id="cWj-tH-K7y"/>
@@ -85,6 +85,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="0.JPG" width="194" height="145"/>
+        <image name="icon_default" width="256" height="256"/>
     </resources>
 </document>

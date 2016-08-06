@@ -15,13 +15,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="404"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="3.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="R3L-hh-pHg" userLabel="Image View1">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_default" translatesAutoresizingMaskIntoConstraints="NO" id="R3L-hh-pHg" userLabel="Image View1">
                         <rect key="frame" x="0.0" y="40" width="185" height="185"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="R3L-hh-pHg" secondAttribute="height" multiplier="1:1" id="9uW-es-Jhn"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="uF3-VE-Adi" userLabel="Image View2">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_default" translatesAutoresizingMaskIntoConstraints="NO" id="uF3-VE-Adi" userLabel="Image View2">
                         <rect key="frame" x="190" y="40" width="185" height="185"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="uF3-VE-Adi" secondAttribute="height" multiplier="1:1" id="lmK-WT-dKH"/>
@@ -52,7 +52,7 @@
                             <action selector="actRight:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="eGP-tw-SSB"/>
                         </connections>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yuC-Ew-C92">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_default" translatesAutoresizingMaskIntoConstraints="NO" id="yuC-Ew-C92">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="yuC-Ew-C92" secondAttribute="height" multiplier="75:8" id="ukO-Bu-RDj"/>
@@ -98,7 +98,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="1.JPG" width="199" height="149"/>
-        <image name="3.JPG" width="181" height="136"/>
+        <image name="icon_default" width="256" height="256"/>
     </resources>
 </document>
