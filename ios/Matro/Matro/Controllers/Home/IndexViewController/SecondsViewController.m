@@ -1031,7 +1031,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 
 #pragma mark ScrollView代理方法开始
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSLog(@"scrollViewDidScroll6+++");
+
     
     if (scrollView == _imageScrollView) {
         CGFloat scrollviewW =  scrollView.frame.size.width;
@@ -1039,12 +1039,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
         int page = (x + scrollviewW / 2) /  scrollviewW;
         _pagecontrol.currentPage = page;
     }
-    
-    if (self.secondDelegate && [self.secondDelegate respondsToSelector:@selector(secondViewController:withContentOffest:)]) {
+    else{
+        if (self.secondDelegate && [self.secondDelegate respondsToSelector:@selector(secondViewController:withContentOffest:)]) {
         [self.secondDelegate secondViewController:self withContentOffest:scrollView.contentOffset.y];
 
+        }
     }
-    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{

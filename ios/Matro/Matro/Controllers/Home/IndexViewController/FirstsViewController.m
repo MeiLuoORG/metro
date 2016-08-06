@@ -54,7 +54,7 @@
 
     _index_7_height = 830.0/750.0f*SIZE_WIDTH+5;
 
-    _index_8_height = 80.0/750.0*SIZE_WIDTH+((MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2.0*1.3)*4;//80.0/750.0*SIZE_WIDTH+(460.0/750.0*SIZE_WIDTH+5)*4;
+    _index_8_height = 80.0/750.0*SIZE_WIDTH+((MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2.0*1.35)*4;//80.0/750.0*SIZE_WIDTH+(460.0/750.0*SIZE_WIDTH+5)*4;
 
     self.lunXianImageARR = [[NSMutableArray alloc]init];
     self.index_2_GoodARR = [[NSMutableArray alloc]init];
@@ -430,9 +430,7 @@
     else{
         
         MLSecondCollectionViewCell * cell = (MLSecondCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:SecondCCELL_IDENTIFIER forIndexPath:indexPath];
-        
 
-        
         if (collectionView.tag == 101) {
             NSDictionary * goodDic = _newGoodARR[indexPath.row];
             
@@ -446,7 +444,7 @@
             
             [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
             cell.secondNameLab.text = pname;
-            cell.secondPriceLab.text = price;
+            cell.secondPriceLab.text = [NSString stringWithFormat:@"￥%@",price];
         }
         if (collectionView.tag == 102) {
             NSDictionary * goodDic = _tuiJianGoodARR[indexPath.row];
@@ -461,7 +459,7 @@
             
             [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
             cell.secondNameLab.text = pname;
-            cell.secondPriceLab.text = price;
+            cell.secondPriceLab.text = [NSString stringWithFormat:@"￥%@",price];
         }
         if (collectionView.tag == 103) {
             NSDictionary * goodDic = _meiGoodARR[indexPath.row];
@@ -476,7 +474,7 @@
             
             [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
             cell.secondNameLab.text = pname;
-            cell.secondPriceLab.text = price;
+            cell.secondPriceLab.text = [NSString stringWithFormat:@"￥%@",price];
         }
         if (collectionView.tag == 104) {
             NSDictionary * goodDic = _daPaiGoodARR[indexPath.row];
@@ -491,7 +489,7 @@
             
             [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
             cell.secondNameLab.text = pname;
-            cell.secondPriceLab.text = price;
+            cell.secondPriceLab.text = [NSString stringWithFormat:@"￥%@",price];
         }
         return cell;
     }
@@ -531,7 +529,7 @@
     if (collectionView.tag == 105) {
         width =  (MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2.0;
         //height = 460.0/750.0*SIZE_WIDTH;
-        height = 1.3*width;
+        height = 1.35*width;
     }
     else{
         width =  (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*5))/4.0);

@@ -735,7 +735,7 @@
 //请求 标题数据
 - (void)getRequestTitleARR{
 
-    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     /*
      语言的力量  11:45:07
      client_type=[android|ios]
