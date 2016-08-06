@@ -54,7 +54,7 @@
 
     _index_7_height = 830.0/750.0f*SIZE_WIDTH+5;
 
-    _index_8_height = 80.0/750.0*SIZE_WIDTH+((MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2.0*1.4)*4;//80.0/750.0*SIZE_WIDTH+(460.0/750.0*SIZE_WIDTH+5)*4;
+    _index_8_height = 80.0/750.0*SIZE_WIDTH+((MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2.0*1.3)*4;//80.0/750.0*SIZE_WIDTH+(460.0/750.0*SIZE_WIDTH+5)*4;
 
     self.lunXianImageARR = [[NSMutableArray alloc]init];
     self.index_2_GoodARR = [[NSMutableArray alloc]init];
@@ -77,7 +77,21 @@
     [self loadJieKouShuJi];
     [self shouyeCaiNiLike];
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(handleSchedule) userInfo:nil repeats:YES];
+
+    self.backTopButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.backTopButton setFrame:CGRectMake(SIZE_WIDTH-40, self.view.frame.size.height-45, 25, 25)];
+    [self.backTopButton setBackgroundImage:[UIImage imageNamed:@"backTop.png"] forState:UIControlStateNormal];
+    [self.backTopButton addTarget:self action:@selector(backTopButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.backTopButton];
+    self.backTopButton.hidden = YES;
 }
+
+- (void)backTopButtonAction:(UIButton *)sender{
+
+    [self.tableview setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+}
+
 #pragma mark  请求接口数据  开始
 /**/
 - (void)loadJieKouShuJi{
@@ -149,8 +163,9 @@
             }
             [self.tableview reloadData];
         }
-        
+        [self jieShuShuaXin];
     } failure:^(NSError *error) {
+        [self jieShuShuaXin];
         [MBProgressHUD showSuccess:REQUEST_ERROR_ZL toView:self.view];
     }];
     
@@ -182,9 +197,10 @@
             }
             
         }
-
+        [self jieShuShuaXin];
         
     } failure:^(NSError *error) {
+        [self jieShuShuaXin];
         [MBProgressHUD showSuccess:REQUEST_ERROR_ZL toView:self.view];
     }];
     
@@ -202,7 +218,50 @@
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableview];
     
+    
+    UIImage * image1 = [UIImage imageNamed:@"0001"];
+    UIImage * image2 = [UIImage imageNamed:@"0002"];
+    UIImage * image3 = [UIImage imageNamed:@"0003"];
+    UIImage * image4 = [UIImage imageNamed:@"0004"];
+    UIImage * image5 = [UIImage imageNamed:@"0005"];
+    UIImage * image6 = [UIImage imageNamed:@"0006"];
+    NSArray * arr = @[image1,image2,image3,image4,image5,image6];
+    NSMutableArray * arrM = [[NSMutableArray alloc]init];
+    
+    for (int i = 0; i<14; i++) {
+        UIImage * imagesss = [UIImage imageNamed:[NSString stringWithFormat:@"%@%d.png",@"100",i]];
+        [arrM addObject:imagesss];
+    }
+    
+    
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    // 设置普通状态的动画图片 (idleImages 是图片)
+    [header setImages:arrM forState:MJRefreshStateIdle];
+    // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+    [header setImages:arrM forState:MJRefreshStatePulling];
+    // 设置正在刷新状态的动画图片
+    [header setImages:arrM forState:MJRefreshStateRefreshing];
+    header.lastUpdatedTimeLabel.hidden = YES;
+    header.stateLabel.hidden = YES;
+    // 设置header
+     self.tableview.header = header;
+    
+    
+    
 }
+//头部刷新执行的方法
+- (void)loadNewData{
+    NSLog(@"头部刷新执行的方法");
+    [self loadJieKouShuJi];
+    [self shouyeCaiNiLike];
+}
+
+- (void)jieShuShuaXin{
+    NSLog(@"结束刷新");
+    [self.tableview.header endRefreshing];
+}
+
 //=================加载轮显视图  第一个======Start
 #pragma mark index_0_view加载方法
 - (void)loadIndex_0_View{
@@ -470,12 +529,12 @@
     float width = 0.0;
     float height = 0.0;
     if (collectionView.tag == 105) {
-        width =  (MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2;
+        width =  (MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2.0;
         //height = 460.0/750.0*SIZE_WIDTH;
-        height = 1.4*width;
+        height = 1.3*width;
     }
     else{
-        width =  (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*5))/4);
+        width =  (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*5))/4.0);
         height = 1.6*width;//350.0/750.0*SIZE_WIDTH;
     }
     
@@ -504,7 +563,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
     if (collectionView.tag == 105){
         
-        return 0.f;
+        return -2.f;
     }
     return 5.f;
 }
@@ -512,7 +571,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
     if (collectionView.tag == 105) {
-        return 5.f;
+        return 0.f;
     }
     return 0.0f;
 }
@@ -1078,20 +1137,36 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 
 #pragma mark ScrollView代理方法开始
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSLog(@"scrollViewDidScroll6+++");
     if (scrollView == self.lunXianScrollView) {
         NSInteger i = scrollView.contentOffset.x/scrollView.frame.size.width + 1;
         self.lunXianPageControl.currentPage = i - 1;
     }
-    if (self.firstDelegate && [self.firstDelegate respondsToSelector:@selector(firstViewController:withContentOffest:)]) {
+    else{
+        if (self.firstDelegate && [self.firstDelegate respondsToSelector:@selector(firstViewController:withContentOffest:)]) {
         [self.firstDelegate firstViewController:self withContentOffest:scrollView.contentOffset.y];
+        }
+        if(scrollView.contentOffset.y+20 < self.historyOffestY){
+        
+        
+        }
+        else{
+        
+        
+        }
+        //NSLog(@"scrollView.contentOffset.y的值为：%f",scrollView.contentOffset.y);
+        if (scrollView.contentOffset.y > 200.0f) {
+            self.backTopButton.hidden = NO;
+        }
+        else{
+            self.backTopButton.hidden = YES;
+        }
     }
     
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     NSLog(@"开始拖拽");
-    
+    self.historyOffestY = scrollView.contentOffset.y;
     if (self.firstDelegate && [self.firstDelegate respondsToSelector:@selector(firstViewController:withBeginOffest:)]) {
         [self.firstDelegate firstViewController:self withBeginOffest:scrollView.contentOffset.y];
     }

@@ -33,6 +33,8 @@
 #import "MLYourlikeTableViewCell.h"
 #import "MLYourlikeCollectionViewCell.h"
 
+#import "MJRefresh.h"
+
 #define SecondCCELL_IDENTIFIER @"MLSecondCollectionViewCell"
 #define YourlikeCCELL_IDENTIFIER @"MLYourlikeCollectionViewCell"
 #define CollectionViewCellMargin 5.0f//间隔5
@@ -73,4 +75,6 @@
 @property (strong, nonatomic) UICollectionView * index_8_CollectionView;
 @property (strong, nonatomic) NSArray * index_8_goodARR;
 
+@property (strong, nonatomic) UIButton * backTopButton;
+@property (assign, nonatomic) float historyOffestY;
 @end

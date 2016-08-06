@@ -337,6 +337,11 @@
 		3AFB0C751CA28CD100128368 /* HFSProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB0C731CA28CD100128368 /* HFSProductTableViewCell.m */; };
 		3AFB0C7A1CA28D6F00128368 /* HFSProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFB0C781CA28D6F00128368 /* HFSProductCollectionViewCell.m */; };
 		3AFB0C7B1CA28D6F00128368 /* HFSProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB0C791CA28D6F00128368 /* HFSProductCollectionViewCell.xib */; };
+		3C0032061D55B52D004DBD6D /* UIImage+WebP.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0032041D55B52D004DBD6D /* UIImage+WebP.m */; };
+		3C0032071D55B52D004DBD6D /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C0032051D55B52D004DBD6D /* WebP.framework */; };
+		3C00320B1D55BB39004DBD6D /* MLTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0032091D55BB39004DBD6D /* MLTestViewController.m */; };
+		3C00320C1D55BB39004DBD6D /* MLTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C00320A1D55BB39004DBD6D /* MLTestViewController.xib */; };
+		3C00320E1D55C31A004DBD6D /* zhoululu.webp in Resources */ = {isa = PBXBuildFile; fileRef = 3C00320D1D55C31A004DBD6D /* zhoululu.webp */; };
 		3C05567B1D236F8A0092D140 /* PulldownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C05567A1D236F8A0092D140 /* PulldownMenu.m */; };
 		3C0556801D239F330092D140 /* PinPaiZLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C05567E1D239F330092D140 /* PinPaiZLViewController.m */; };
 		3C0556811D239F330092D140 /* PinPaiZLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C05567F1D239F330092D140 /* PinPaiZLViewController.xib */; };
@@ -1360,6 +1365,13 @@
 		3AFB0C771CA28D6F00128368 /* HFSProductCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFSProductCollectionViewCell.h; sourceTree = "<group>"; };
 		3AFB0C781CA28D6F00128368 /* HFSProductCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFSProductCollectionViewCell.m; sourceTree = "<group>"; };
 		3AFB0C791CA28D6F00128368 /* HFSProductCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HFSProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		3C0032031D55B52D004DBD6D /* UIImage+WebP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WebP.h"; sourceTree = "<group>"; };
+		3C0032041D55B52D004DBD6D /* UIImage+WebP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WebP.m"; sourceTree = "<group>"; };
+		3C0032051D55B52D004DBD6D /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebP.framework; sourceTree = "<group>"; };
+		3C0032081D55BB39004DBD6D /* MLTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTestViewController.h; sourceTree = "<group>"; };
+		3C0032091D55BB39004DBD6D /* MLTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTestViewController.m; sourceTree = "<group>"; };
+		3C00320A1D55BB39004DBD6D /* MLTestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLTestViewController.xib; sourceTree = "<group>"; };
+		3C00320D1D55C31A004DBD6D /* zhoululu.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = zhoululu.webp; sourceTree = "<group>"; };
 		3C0556791D236F8A0092D140 /* PulldownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulldownMenu.h; sourceTree = "<group>"; };
 		3C05567A1D236F8A0092D140 /* PulldownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulldownMenu.m; sourceTree = "<group>"; };
 		3C05567D1D239F330092D140 /* PinPaiZLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinPaiZLViewController.h; sourceTree = "<group>"; };
@@ -2025,6 +2037,7 @@
 				3C5B0C861CFC431C003FFD25 /* CoreLocation.framework in Frameworks */,
 				7AF0BDAE1CDCA84D0093E2AF /* AVFoundation.framework in Frameworks */,
 				6839EF5C1CD9BDF200638B3D /* PassKit.framework in Frameworks */,
+				3C0032071D55B52D004DBD6D /* WebP.framework in Frameworks */,
 				687703D91CCF02780008ED46 /* JavaScriptCore.framework in Frameworks */,
 				3AA0E7C81CA925C90079AA90 /* MediaPlayer.framework in Frameworks */,
 				3AA0E7C61CA925BF0079AA90 /* CoreAudio.framework in Frameworks */,
@@ -3273,6 +3286,9 @@
 				3CF2A0A01D27733000ACCDD6 /* ZLHomeSubViewController.xib */,
 				3C3671381D2A165100BC5680 /* ZLLabelCustom.h */,
 				3C3671391D2A165100BC5680 /* ZLLabelCustom.m */,
+				3C0032081D55BB39004DBD6D /* MLTestViewController.h */,
+				3C0032091D55BB39004DBD6D /* MLTestViewController.m */,
+				3C00320A1D55BB39004DBD6D /* MLTestViewController.xib */,
 				3A16DC5D1CA15BB7007AE4A2 /* Search */,
 			);
 			path = Home;
@@ -3650,6 +3666,24 @@
 				2875856F1D210386000BDEF4 /* MLFootTableViewCell.xib */,
 			);
 			path = OredrInfo;
+			sourceTree = "<group>";
+		};
+		3C0032011D55B52D004DBD6D /* FrameWork */ = {
+			isa = PBXGroup;
+			children = (
+				3C0032021D55B52D004DBD6D /* iOS-WebP */,
+			);
+			path = FrameWork;
+			sourceTree = "<group>";
+		};
+		3C0032021D55B52D004DBD6D /* iOS-WebP */ = {
+			isa = PBXGroup;
+			children = (
+				3C0032031D55B52D004DBD6D /* UIImage+WebP.h */,
+				3C0032041D55B52D004DBD6D /* UIImage+WebP.m */,
+				3C0032051D55B52D004DBD6D /* WebP.framework */,
+			);
+			path = "iOS-WebP";
 			sourceTree = "<group>";
 		};
 		3C0556781D236F8A0092D140 /* xiaLacaiDan */ = {
@@ -4151,6 +4185,7 @@
 		3CFC2A491D127C5C00C43BFF /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				3C0032011D55B52D004DBD6D /* FrameWork */,
 				3CFC2A4A1D127C5C00C43BFF /* images */,
 			);
 			path = Resource;
@@ -4159,6 +4194,7 @@
 		3CFC2A4A1D127C5C00C43BFF /* images */ = {
 			isa = PBXGroup;
 			children = (
+				3C00320D1D55C31A004DBD6D /* zhoululu.webp */,
 				3C26A2EE1D362F160095E8AA /* 0001.png */,
 				3C26A2EF1D362F160095E8AA /* 0002.png */,
 				3C26A2F01D362F160095E8AA /* 0003.png */,
@@ -4468,6 +4504,7 @@
 				3CF2A09D1D27731100ACCDD6 /* ZLHomezlViewController.xib in Resources */,
 				3A633B961C9EA85800C11FD5 /* MLPersonViewController.xib in Resources */,
 				7A0928151D43743F002E9DFD /* arrwo_up.jpg in Resources */,
+				3C00320E1D55C31A004DBD6D /* zhoululu.webp in Resources */,
 				7A272EBB1D1A265500242F24 /* MLReturnsDetailHeadCell.xib in Resources */,
 				7A0720321D17D43C00E0B58E /* MLTuiHuoFukuanTableViewCell.xib in Resources */,
 				7AF15B071D129BA500F8CF03 /* MLSelAddressTableViewCell.xib in Resources */,
@@ -4493,6 +4530,7 @@
 				3AA0E7C21CA920D20079AA90 /* MLPayTableViewCell.xib in Resources */,
 				3CC5F7811D2BC83200E1A5B5 /* MLPayShiBaiViewController.xib in Resources */,
 				7A3A62771CDB874F00D265F2 /* MLRetrunsHeadCell.xib in Resources */,
+				3C00320C1D55BB39004DBD6D /* MLTestViewController.xib in Resources */,
 				7A07AC5E1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.xib in Resources */,
 				3C3D225A1D51DF6A00C14F40 /* Index3TableViewCell.xib in Resources */,
 				3AA0E7A31CA91E500079AA90 /* AlipaySDK.bundle in Resources */,
@@ -5090,6 +5128,7 @@
 				7A3486641D0EBFC4002EE211 /* MLLikeHeadCollectionReusableView.m in Sources */,
 				687703D31CCEF72B0008ED46 /* HQRSA.m in Sources */,
 				3A630BE21CA256BC006E67F4 /* MLClassHeader.m in Sources */,
+				3C0032061D55B52D004DBD6D /* UIImage+WebP.m in Sources */,
 				284073351D2DFAD4003A13AE /* MLOrderFootCollectionReusableView.m in Sources */,
 				3A1F72C61CA3F8CD000ECE08 /* HFSOrderListHeaderView.m in Sources */,
 				285808031D14F20B0097D334 /* MLCommentTableViewCell.m in Sources */,
@@ -5109,6 +5148,7 @@
 				3C36713F1D2A550C00BC5680 /* PinPaiSPListViewController.m in Sources */,
 				7A8613DE1D14E6F600C75D5A /* MLPersonOrderDetailFootView.m in Sources */,
 				3A633B781C9EA4E000C11FD5 /* MLBaseViewController.m in Sources */,
+				3C00320B1D55BB39004DBD6D /* MLTestViewController.m in Sources */,
 				28E8B12E1D5078310088B840 /* MLAdTableViewCell.m in Sources */,
 				7A0720401D17E98400E0B58E /* MLXuanZeTuPianTableViewCell.m in Sources */,
 				687703E51CCF3F720008ED46 /* EasyJSWebViewProxyDelegate.m in Sources */,
@@ -5327,9 +5367,15 @@
 					"$(PROJECT_DIR)/Matro/Vendors/AlipaySDK",
 					"$(PROJECT_DIR)/Matro/Vendors/UMeng/TencentOpenAPI",
 					"$(PROJECT_DIR)/Matro/Vendors/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/Matro/Common/Resource/FrameWork/iOS-WebP",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"SD_WEBP=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/Bugly\"",
@@ -5382,9 +5428,15 @@
 					"$(PROJECT_DIR)/Matro/Vendors/AlipaySDK",
 					"$(PROJECT_DIR)/Matro/Vendors/UMeng/TencentOpenAPI",
 					"$(PROJECT_DIR)/Matro/Vendors/UMeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/Matro/Common/Resource/FrameWork/iOS-WebP",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"SD_WEBP=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/Bugly\"",
