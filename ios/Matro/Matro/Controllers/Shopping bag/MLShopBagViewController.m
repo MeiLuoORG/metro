@@ -157,7 +157,9 @@ static NSInteger pageIndex = 0;
         make.left.right.bottom.mas_equalTo(self.view);
         make.bottom.mas_equalTo(self.footView.mas_top);
     }];
-    
+    if (self.view.blankPage) {
+        self.view.blankPage.hidden = YES;//zhoulu 修改
+    }
     [self configBlankPage];
     [self ctreateYOUHUIQuanView];
 }
@@ -691,6 +693,8 @@ static NSInteger pageIndex = 0;
 - (void)configBlankPage{
 
     __weak typeof(self) weakself = self;
+
+    
     [self.view configBlankPage:EaseBlankPageTypeGouWuDai hasData:(self.isLogin? self.shopCart.cart.count>0:self.offlineCart.count>0)];
     self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType curType){
         [weakself.tabBarController setSelectedIndex:0];
@@ -792,6 +796,9 @@ static NSInteger pageIndex = 0;
                 cart.is_check = 0;
             }
         }
+    }
+    if (self.view.blankPage) {
+        self.view.blankPage.hidden = YES;//zhoulu 修改
     }
     [self configBlankPage];
     self.loginView.hidden = self.isLogin;

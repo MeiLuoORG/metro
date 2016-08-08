@@ -79,7 +79,7 @@
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(handleSchedule) userInfo:nil repeats:YES];
 
     self.backTopButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.backTopButton setFrame:CGRectMake(SIZE_WIDTH-40, self.view.frame.size.height-45, 25, 25)];
+    [self.backTopButton setFrame:CGRectMake(SIZE_WIDTH-40, self.view.frame.size.height-45-49-22, 25, 25)];
     [self.backTopButton setBackgroundImage:[UIImage imageNamed:@"backTop.png"] forState:UIControlStateNormal];
     [self.backTopButton addTarget:self action:@selector(backTopButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backTopButton];

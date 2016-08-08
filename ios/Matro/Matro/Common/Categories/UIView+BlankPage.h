@@ -20,9 +20,9 @@ typedef NS_ENUM(NSInteger,EaseBlankPageType){
     EaseBlankPageTypeDingdan,
     EaseBlankPageTypeLiuLan,
     EaseBlankPageTypePingjia,
-    
-   
 };
+
+
 @interface UIView (BlankPage)
 
 @property (nonatomic,strong)EaseBlankPageView *blankPage;
