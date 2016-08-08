@@ -374,6 +374,7 @@
 		3C26A2F81D362F160095E8AA /* 0005.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C26A2F21D362F160095E8AA /* 0005.png */; };
 		3C26A2F91D362F160095E8AA /* 0006.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C26A2F31D362F160095E8AA /* 0006.png */; };
 		3C26A2FC1D363A1E0095E8AA /* ZLCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C26A2FB1D363A1E0095E8AA /* ZLCustomButton.m */; };
+		3C26BDA21D587B4800350C5C /* UIImageView+ZLWebPsetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C26BDA11D587B4800350C5C /* UIImageView+ZLWebPsetImage.m */; };
 		3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */; };
 		3C36713A1D2A165100BC5680 /* ZLLabelCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3671391D2A165100BC5680 /* ZLLabelCustom.m */; };
 		3C36713F1D2A550C00BC5680 /* PinPaiSPListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C36713E1D2A550C00BC5680 /* PinPaiSPListViewController.m */; };
@@ -1423,6 +1424,8 @@
 		3C26A2F31D362F160095E8AA /* 0006.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0006.png; sourceTree = "<group>"; };
 		3C26A2FA1D363A1E0095E8AA /* ZLCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLCustomButton.h; sourceTree = "<group>"; };
 		3C26A2FB1D363A1E0095E8AA /* ZLCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLCustomButton.m; sourceTree = "<group>"; };
+		3C26BDA01D587B4800350C5C /* UIImageView+ZLWebPsetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+ZLWebPsetImage.h"; sourceTree = "<group>"; };
+		3C26BDA11D587B4800350C5C /* UIImageView+ZLWebPsetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+ZLWebPsetImage.m"; sourceTree = "<group>"; };
 		3C2E204C1D0ABDAF00184D48 /* UIButton+Badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Badge.h"; sourceTree = "<group>"; };
 		3C2E204D1D0ABDAF00184D48 /* UIButton+Badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Badge.m"; sourceTree = "<group>"; };
 		3C3671381D2A165100BC5680 /* ZLLabelCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLLabelCustom.h; sourceTree = "<group>"; };
@@ -3672,6 +3675,8 @@
 			isa = PBXGroup;
 			children = (
 				3C0032021D55B52D004DBD6D /* iOS-WebP */,
+				3C26BDA01D587B4800350C5C /* UIImageView+ZLWebPsetImage.h */,
+				3C26BDA11D587B4800350C5C /* UIImageView+ZLWebPsetImage.m */,
 			);
 			path = FrameWork;
 			sourceTree = "<group>";
@@ -4937,6 +4942,7 @@
 				7A01A8451D24C1050067F4E9 /* MLShopInfoViewController.m in Sources */,
 				687704241CD34E4A0008ED46 /* SBJsonParser.m in Sources */,
 				3A633B4E1C9EA36E00C11FD5 /* SSKeychain.m in Sources */,
+				3C26BDA21D587B4800350C5C /* UIImageView+ZLWebPsetImage.m in Sources */,
 				3C3D22611D51F1B100C14F40 /* Index5TableViewCell.m in Sources */,
 				3C0556851D23AA820092D140 /* ZLCollectionViewCell.m in Sources */,
 				3AA0E7A21CA91E500079AA90 /* AliPayOrder.m in Sources */,

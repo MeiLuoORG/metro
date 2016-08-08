@@ -342,5 +342,5 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 
 
 
-
+#import "UIImageView+ZLWebPsetImage.h"
 #endif /* HFSConstants_h */

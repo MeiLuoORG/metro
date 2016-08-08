@@ -10,6 +10,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDwebImage/UIimage+MultiFormat.h>
 #import "UIImage+WebP.h"
+#import "UIImageView+ZLWebPsetImage.h"
 
 @interface MLTestViewController : MLBaseViewController
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
