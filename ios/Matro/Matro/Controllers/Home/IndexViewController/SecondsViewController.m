@@ -50,11 +50,14 @@
     NSMutableArray *beutyArr;//第二类下面的商品
     NSMutableArray *watchArr;//第三类下面的商品
     NSMutableArray *productArr;//猜你喜欢数据
+    
   
 }
 @property (strong,nonatomic)UIScrollView *imageScrollView;
 @property (strong,nonatomic)UIPageControl *pagecontrol;
 @property (strong,nonatomic)NSTimer *timer;
+@property (strong,nonatomic)UIButton *backBtn ;//置顶按钮
+
 
 @end
 
@@ -92,12 +95,28 @@
     beutyArr = [NSMutableArray array];
     watchArr = [NSMutableArray array];
     productArr = [NSMutableArray array];
-    
+
     [self createTableviewML];
     [self loadData];
     [self loadYourlikeData];
     [self addTimer];
     
+    self.backBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.backBtn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-40,self.view.frame.size.height-45-49-22, 25, 25)];
+    [self.backBtn setBackgroundImage:[UIImage imageNamed:@"backTop.png"] forState:UIControlStateNormal];
+    [self.backBtn addTarget:self action:@selector(backTopButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.backBtn];
+    self.backBtn.hidden = YES;
+    
+}
+
+-(void)backTopButtonAction:(UIButton*)sender{
+
+    [self.tableview setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    [self.tableview scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+    
+    [self.tableview scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -125,20 +144,6 @@
     [MLHttpManager get:urlStr params:nil m:@"product" s:mstr success:^(id responseObject){
         NSLog(@"responseObject===%@",responseObject);
         if ([[responseObject objectForKey:@"code"] isEqual:@0]) {
-            
-//            hotspArr = responseObject[@"data"][@"hotcategory"];
-//            hotbrandArr = responseObject[@"data"][@"hotbrand"];
-//            adimageArr = responseObject[@"data"][@"advertise"];
-//            newgoodsee1 = responseObject[@"data"][@"newgoodsee1"];
-//            newgoodsee2 = responseObject[@"data"][@"newgoodsee2"];
-//            newgoodsee3 = responseObject[@"data"][@"newgoodsee3"];
-//            beutytitleArr = responseObject[@"data"][@"beutytitle"];
-//            beutyadvertiseArr = responseObject[@"data"][@"beutyadvertise"];
-//            beutyArr = responseObject[@"data"][@"beuty"];
-//            watchtitleArr = responseObject[@"data"][@"watchtitle"];
-//            havewatchArr = responseObject[@"data"][@"havewatch"];
-//            watchArr = responseObject[@"data"][@"watch"];
-//            goodtitleArr = responseObject[@"data"][@"goodtitle"];
             
             if ([responseObject[@"data"][@"hotcategory"] isKindOfClass:[NSArray class]]) {
                 
@@ -1100,7 +1105,16 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
         [self.secondDelegate secondViewController:self withContentOffest:scrollView.contentOffset.y];
 
         }
+        
+        if (scrollView.contentOffset.y > 200.0f) {
+            self.backBtn.hidden = NO;
+        }
+        else{
+            self.backBtn.hidden = YES;
+        }
     }
+    
+    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -1116,6 +1130,8 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [self addTimer];
+    
+    
 }
 
 #pragma end mark 代理方法结束
