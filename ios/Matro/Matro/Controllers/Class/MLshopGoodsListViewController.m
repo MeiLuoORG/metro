@@ -204,8 +204,8 @@ static NSInteger page = 1;
     [currentWindow addSubview:_sxView];
     
     
-    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-    [frameView addGestureRecognizer:singleTap];
+//    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+//    [frameView addGestureRecognizer:singleTap];
     
     
     //隐藏键盘

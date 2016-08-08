@@ -126,19 +126,75 @@
         NSLog(@"responseObject===%@",responseObject);
         if ([[responseObject objectForKey:@"code"] isEqual:@0]) {
             
-            hotspArr = responseObject[@"data"][@"hotcategory"];
-            hotbrandArr = responseObject[@"data"][@"hotbrand"];
-            adimageArr = responseObject[@"data"][@"advertise"];
-            newgoodsee1 = responseObject[@"data"][@"newgoodsee1"];
-            newgoodsee2 = responseObject[@"data"][@"newgoodsee2"];
-            newgoodsee3 = responseObject[@"data"][@"newgoodsee3"];
-            beutytitleArr = responseObject[@"data"][@"beutytitle"];
-            beutyadvertiseArr = responseObject[@"data"][@"beutyadvertise"];
-            beutyArr = responseObject[@"data"][@"beuty"];
-            watchtitleArr = responseObject[@"data"][@"watchtitle"];
-            havewatchArr = responseObject[@"data"][@"havewatch"];
-            watchArr = responseObject[@"data"][@"watch"];
+//            hotspArr = responseObject[@"data"][@"hotcategory"];
+//            hotbrandArr = responseObject[@"data"][@"hotbrand"];
+//            adimageArr = responseObject[@"data"][@"advertise"];
+//            newgoodsee1 = responseObject[@"data"][@"newgoodsee1"];
+//            newgoodsee2 = responseObject[@"data"][@"newgoodsee2"];
+//            newgoodsee3 = responseObject[@"data"][@"newgoodsee3"];
+//            beutytitleArr = responseObject[@"data"][@"beutytitle"];
+//            beutyadvertiseArr = responseObject[@"data"][@"beutyadvertise"];
+//            beutyArr = responseObject[@"data"][@"beuty"];
+//            watchtitleArr = responseObject[@"data"][@"watchtitle"];
+//            havewatchArr = responseObject[@"data"][@"havewatch"];
+//            watchArr = responseObject[@"data"][@"watch"];
+//            goodtitleArr = responseObject[@"data"][@"goodtitle"];
+            
+            if ([responseObject[@"data"][@"hotcategory"] isKindOfClass:[NSArray class]]) {
+                
+                hotspArr = responseObject[@"data"][@"hotcategory"];
+            }
+            if ([responseObject[@"data"][@"hotbrand"] isKindOfClass:[NSArray class]]) {
+                
+                hotbrandArr = responseObject[@"data"][@"hotbrand"];
+            }
+            
+            if ([responseObject[@"data"][@"advertise"] isKindOfClass:[NSArray class]]) {
+                
+                adimageArr = responseObject[@"data"][@"advertise"];
+            }
+            if ([responseObject[@"data"][@"newgoodsee1"] isKindOfClass:[NSArray class]]) {
+                
+                newgoodsee1 = responseObject[@"data"][@"newgoodsee1"];
+            }
+            
+            if ([responseObject[@"data"][@"newgoodsee2"] isKindOfClass:[NSArray class]]) {
+                
+                newgoodsee2 = responseObject[@"data"][@"newgoodsee2"];
+            }
+            
+            if ([responseObject[@"data"][@"newgoodsee3"] isKindOfClass:[NSArray class]]) {
+                
+                newgoodsee3 = responseObject[@"data"][@"newgoodsee3"];
+            }
+            
+            if ([responseObject[@"data"][@"beutytitle"] isKindOfClass:[NSArray class]]) {
+                
+                beutytitleArr = responseObject[@"data"][@"beutytitle"];
+            }
+            if ([responseObject[@"data"][@"beutyadvertise"] isKindOfClass:[NSArray class]]) {
+                
+                beutyadvertiseArr = responseObject[@"data"][@"beutyadvertise"];
+            }
+            if ([responseObject[@"data"][@"beuty"] isKindOfClass:[NSArray class]]) {
+                
+                beutyArr = responseObject[@"data"][@"beuty"];
+            }
+            if ([responseObject[@"data"][@"watchtitle"] isKindOfClass:[NSArray class]]) {
+                
+                watchtitleArr = responseObject[@"data"][@"watchtitle"];
+            }
+            if ([responseObject[@"data"][@"havewatch"] isKindOfClass:[NSArray class]]) {
+                
+                havewatchArr = responseObject[@"data"][@"havewatch"];
+            }
+            if ([responseObject[@"data"][@"watch"] isKindOfClass:[NSArray class]]) {
+                
+                watchArr = responseObject[@"data"][@"watch"];
+            }
+            
             goodtitleArr = responseObject[@"data"][@"goodtitle"];
+            
             if (adimageArr && adimageArr.count > 0) {
                
                 for (int i =0 ; i< adimageArr.count; i++) {
