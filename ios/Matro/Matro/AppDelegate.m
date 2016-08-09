@@ -40,6 +40,7 @@
 
 #import "UMMobClick/MobClick.h"
 #import "CoreNewFeatureVC.h"
+#import <Bugly/Bugly.h>
 
 @interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>
 
@@ -172,6 +173,8 @@
         
     }
 
+    [Bugly startWithAppId:@"fef22c2596"];
+    
     return YES;
 }
 

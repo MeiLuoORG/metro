@@ -36,7 +36,10 @@
         self.usernameLabel.text = address.name;
         self.addressLabel.text = [NSString stringWithFormat:@"%@ %@",_address.area,_address.address];
         self.phoneLabel.text = _address.mobile;
-        self.checkBtn.addSelected = [address.default_set isEqualToString:@"2"];
+        if ([address.default_set isKindOfClass:[NSString class]]) {
+            self.checkBtn.addSelected = [address.default_set isEqualToString:@"2"];
+        }
+        
     }
 }
 

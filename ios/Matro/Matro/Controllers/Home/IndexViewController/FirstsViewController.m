@@ -89,7 +89,12 @@
 - (void)backTopButtonAction:(UIButton *)sender{
 
     [self.tableview setContentOffset:CGPointMake(0, 0) animated:YES];
-    
+    /*
+    NSNull * null = [NSNull null];
+    //NSString * str = null;
+    if ([str isEqualToString:@"dd"]) {
+    }
+    */
 }
 
 #pragma mark  请求接口数据  开始
@@ -113,12 +118,8 @@
                         for (int i =0 ; i< adARR.count; i++) {
                             NSDictionary * adDic = adARR[i];
                             [self.lunXianImageARR addObject:adDic];
-                            
-                            
                         }
-    
                     }
-
                 }
             //3.0  新品会
                 //[self.index_2_titleImageView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];

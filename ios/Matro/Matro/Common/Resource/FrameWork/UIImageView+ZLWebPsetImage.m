@@ -25,10 +25,10 @@
     [request setHTTPMethod:@"get"];
     
     //创建响应对象(有时会出错)
-    NSURLResponse *response = nil;
+    //NSURLResponse *response = nil;
     
     //创建连接对象
-    NSError *error = nil;
+    //NSError *error = nil;
     //NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     //self.image = [UIImage imageWithWebPData:data];
     
@@ -45,10 +45,10 @@
     */
     
     NSURLSessionDataTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        [self performSelectorOnMainThread:@selector(changeImage:) withObject:data waitUntilDone:YES];
+        if (!error) {
+            [self performSelectorOnMainThread:@selector(changeImage:) withObject:data waitUntilDone:YES];
+        }
         //NSLog(@"是否是主线程%d",[[NSThread mainThread] isMainThread]);
-        
     }];
     
     //启动回话
@@ -56,7 +56,6 @@
 
 }
 - (void)changeImage:(NSData *)data{
-    
     [self setImage:[UIImage imageWithWebPData:data]];
 }
 
