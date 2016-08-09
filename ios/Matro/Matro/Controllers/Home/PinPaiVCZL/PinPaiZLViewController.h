@@ -31,5 +31,6 @@
 
 @interface PinPaiZLViewController : MLBaseViewController<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDelegate,UITableViewDataSource>
 
+@property (strong, nonatomic) UIButton * backTopButton;
 
 @end

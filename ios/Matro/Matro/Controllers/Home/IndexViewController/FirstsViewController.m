@@ -655,7 +655,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 #pragma mark Index_5_View  开始
 - (void)loadIndex_5_view{
 
-    self.index_5_View = [[Index_5_View alloc]initWithFrame:CGRectMake(0, 120.0/1125.0*SIZE_WIDTH-5, SIZE_WIDTH, _index_5_height-120.0/1125.0*SIZE_WIDTH-350.0/750.0*SIZE_WIDTH)];
+    self.index_5_View = [[Index_5_View alloc]initWithFrame:CGRectMake(0, 120.0/1125.0*SIZE_WIDTH, SIZE_WIDTH, _index_5_height-5-120.0/1125.0*SIZE_WIDTH-350.0/750.0*SIZE_WIDTH)];
     [self.index_5_View.topButton addTarget:self action:@selector(index5TopButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.index_5_View.leftButton addTarget:self action:@selector(index5LeftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.index_5_View.rightButton addTarget:self action:@selector(index5RightButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -892,7 +892,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 //            self.index_5_titleLabel.text = @"为你推荐";
 //            self.index_5_titleLabel.font = [UIFont systemFontOfSize:12.0f];
 //            self.index_5_titleLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
-            self.index_5_titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0 , 0, SIZE_WIDTH, 120.0/1225.0*SIZE_WIDTH)];
+            self.index_5_titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0 , 0, SIZE_WIDTH, 120.0/1125.0*SIZE_WIDTH)];
             if ([_dataZongDic[@"foryoutitle"] isKindOfClass:[NSArray class]]) {
                 NSArray * arrd = _dataZongDic[@"foryoutitle"];
                 

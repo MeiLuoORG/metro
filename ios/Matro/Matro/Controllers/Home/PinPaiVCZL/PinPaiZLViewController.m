@@ -90,8 +90,21 @@
     [self loadSearchButton];
     [self loadDataWithPageIndex:1 withPagesize:15];
     [self loadCloseButton];
+    
+    self.backTopButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.backTopButton setFrame:CGRectMake(SIZE_WIDTH-40, SIZE_HEIGHT-64-40, 25, 25)];
+    [self.backTopButton setBackgroundImage:[UIImage imageNamed:@"backTop"] forState:UIControlStateNormal];
+    [self.backTopButton addTarget:self action:@selector(backTopAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.backTopButton];
+    self.backTopButton.hidden = YES;
+    
 }
 
+- (void)backTopAction:(UIButton *)sender{
+    [_collectionView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+}
 
 
 - (void)createCollecttionView{
@@ -455,6 +468,7 @@
     } completion:^(BOOL finished) {
         _indexButton.hidden = YES;
         _closeButton.hidden = NO;
+        self.backTopButton.hidden = YES;
     }];
 
 }
@@ -466,6 +480,7 @@
     } completion:^(BOOL finished) {
         _closeButton.hidden = YES;
         _indexButton.hidden = NO;
+        self.backTopButton.hidden  = NO;
     }];
     //[_zongARR removeAllObjects];
 }
@@ -680,6 +695,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (scrollView.contentOffset.y > 200.0f) {
+        self.backTopButton.hidden = NO;
+    }
+    else{
+        self.backTopButton.hidden = YES;
+    }
+    
+    
+}
 /*
 #pragma mark - Navigation
 
