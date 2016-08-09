@@ -51,6 +51,19 @@ static CGFloat kHeight = 0;
     [self registerForKeyboardNotifications];
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 44)];
     [ _searchBar setImage:[UIImage imageNamed:@"sousuo2"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
+    for(id cc in [_searchBar subviews])
+    {
+        if([cc isKindOfClass:[UITextField class]])
+        {
+            UITextField *textField = (UITextField *)textField;
+            textField.clipsToBounds = NO;
+            textField.leftView = nil;
+        }
+    }
+    
+    _searchBar.delegate = self;
+    self.navigationItem.titleView = _searchBar;
     
     
     hotSearchArray = [NSMutableArray new];
@@ -82,10 +95,7 @@ static CGFloat kHeight = 0;
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [_rootScrollView addGestureRecognizer:gestureRecognizer];
     gestureRecognizer.cancelsTouchesInView = NO;
-    
-    self.edgesForExtendedLayout = UIRectEdgeBottom;
-    
-    
+
     _context = [NSManagedObjectContext MR_defaultContext];
     
     //历史
@@ -103,6 +113,10 @@ static CGFloat kHeight = 0;
     [self gethotKeywords];
     
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:NO];
+    [self.historyTableView reloadData];
+}
 
 //隐藏键盘
 - (void) hideKeyboard {
@@ -119,36 +133,7 @@ static CGFloat kHeight = 0;
     //热门搜索关键字推荐
 
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=input_recommend&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
-    /*
-    [[HFSServiceClient sharedClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"responseObject====%@",responseObject);
-        NSDictionary *dataDic = responseObject[@"data"];
-        hotSearchplaceholderArray = dataDic[@"recommend"];
-        
-        NSLog(@"hotSearchplaceholderArray===%@",hotSearchplaceholderArray);
-        
-        
-        if (hotSearchplaceholderArray.count == 0) {
-            _searchBar.placeholder  = @"默认搜索内容";
-        }else{
-            _searchBar.placeholder = hotSearchplaceholderArray[0];
-        }
-        
-        _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
-        
-        _searchBar.delegate = self;
-        self.navigationItem.titleView = _searchBar;
-        
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
-    }];
-    */
+   
     [MLHttpManager get:str params:nil m:@"product" s:@"recommend" success:^(id responseObject){
         
         NSLog(@"responseObject====%@",responseObject);
@@ -163,12 +148,7 @@ static CGFloat kHeight = 0;
         }else{
             _searchBar.placeholder = hotSearchplaceholderArray[0];
         }
-        
-        _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
-        
-        _searchBar.delegate = self;
-        self.navigationItem.titleView = _searchBar;
-        
+  
     } failure:^( NSError *error){
         
         [_hud show:YES];
@@ -185,47 +165,7 @@ static CGFloat kHeight = 0;
     //热门搜索关键字
  
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=list_recommend&pageindex=1&pagesize=20&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
-    /*
-    [[HFSServiceClient sharedClient] GET:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (responseObject) {
-            NSLog(@"responseObject===1111%@",responseObject);
-            
-            NSDictionary *dataDic = responseObject[@"data"];
-            NSArray *dic = dataDic[@"recommend"];
-            int i=0;
-            if (dic && dic.count>0) {
-                for (NSDictionary *tempDic in dic) {
-                    if (i>20) {
-                        break;
-                    }
-                    
-                    [hotSearchTagArray addObject:tempDic[@"statu"]];
-                    [hotSearchArray addObject:tempDic[@"keyword"]];
-                    i++;
-                }
-                
-                _hotSearchTagList = [[DWTagList alloc]initWithFrame:CGRectMake(12, 0, MAIN_SCREEN_WIDTH - 24, 35)];
-                _hotSearchTagList.tagDelegate = self;
-                
-    
-                
-                [_hotSearchTagList setTags:dic];
-                [_hotSearchTagView addSubview:_hotSearchTagList];
-                _hotSearchTagHeightConstraint.constant = _hotSearchTagList.contentSize.height;
-                [self.view layoutIfNeeded];
-                _hotSearchTagList.frame = _hotSearchTagView.bounds;
-                
-            }
-        }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
-    }];
-    */
+   
     [MLHttpManager get:str params:nil m:@"product" s:@"recommend" success:^(id responseObject){
         
         if (responseObject) {
@@ -247,9 +187,6 @@ static CGFloat kHeight = 0;
                 
                 _hotSearchTagList = [[DWTagList alloc]initWithFrame:CGRectMake(12, 0, MAIN_SCREEN_WIDTH - 24, 35)];
                 _hotSearchTagList.tagDelegate = self;
-                
-                
-                
                 [_hotSearchTagList setTags:dic];
                 [_hotSearchTagView addSubview:_hotSearchTagList];
                 _hotSearchTagHeightConstraint.constant = _hotSearchTagList.contentSize.height;
@@ -405,11 +342,6 @@ static CGFloat kHeight = 0;
     _searchBar.text  = _historySearchTextArray[indexPath.row];
     [_delegate SearchText:_historySearchTextArray[indexPath.row]];
     
-}
-
--(void)viewWillAppear:(BOOL)animated{
-
-    [self.historyTableView reloadData];
 }
 
 #pragma mark - DWTagListDelegate

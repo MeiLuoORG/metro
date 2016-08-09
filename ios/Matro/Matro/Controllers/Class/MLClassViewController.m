@@ -206,38 +206,14 @@
 
 #pragma mark- 获取一级分类
 - (void)loadAllClass {
-    
-   // NSString *urlStr = [NSString stringWithFormat:@"%@ajax/app/index.ashx?op=allfirst&webframecode=0303",SERVICE_GETBASE_URL];
-    
-   
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=top&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
-    /*
-    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"responseObject===%@",responseObject);
-        
-        NSArray *arr = responseObject[@"data"][@"ret"];
 
-        _classTitleArray = [MTLJSONAdapter modelsOfClass:[MLClass class] fromJSONArray:arr error:nil];
-        NSMutableArray *tempTitleArr = [NSMutableArray array];
-        for (MLClass *title in _classTitleArray) {
-            [tempTitleArr addObject:title.MC];
-        }
-        
-        //标题按钮的使用的仅仅是大类里面的标题，在点击事件里面还是要用 MLClass 的
-        
-        _topScrollSegmentControl.buttons = tempTitleArr;
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
-    }];
-    */
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=top&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     
     [MLHttpManager get:urlStr params:nil m:@"category" s:@"list" success:^(id responseObject){
         NSLog(@"responseObject===%@",responseObject);
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSArray *arr = responseObject[@"data"][@"ret"];
         
         _classTitleArray = [MTLJSONAdapter modelsOfClass:[MLClass class] fromJSONArray:arr error:nil];
@@ -249,6 +225,7 @@
         _topScrollSegmentControl.buttons = tempTitleArr;
         
     } failure:^(NSError *error){
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
@@ -261,65 +238,11 @@
 }
 #pragma mark- 获取二级、三级分类
 - (void)loadDateSubClass:(NSInteger)index{
-    
-//    NSString *urlStr = [NSString stringWithFormat:@"%@ajax/app/index.ashx?op=child&webframecode=%@",SERVICE_GETBASE_URL,title.CODE];
-    
 
-    
-     MLClass *title = _classTitleArray[index];
+    MLClass *title = _classTitleArray[index];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=next&code=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,title.CODE,vCFBundleShortVersionStr];
-    /*
-    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"responseObject===%@",responseObject);
-        [_classSecondArray removeAllObjects];
-        
-        actimageArr = responseObject[@"data"][@"advertise"];
-        if (actimageArr .count >0) {
-            NSDictionary *actimageDic = actimageArr[0];
-            NSString *imgurl = actimageDic[@"imgurl"];
-            if (![imgurl isKindOfClass:[NSNull class]]) {
-                [imageview sd_setImageWithURL:[NSURL URLWithString:imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
-            }else{
-            
-                imageview.image = [UIImage imageNamed:@"icon_default"];
-            }
-            
-        }else{
-            
-            imageview.image = [UIImage imageNamed:@"icon_default"];
-        }
 
-        
-        
-        NSArray *arr = responseObject[@"data"][@"ret"];
-        brandDic = responseObject[@"data"][@"brandtitle"];
-        brandArr = responseObject[@"data"][@"brand"];
-         _classSecondArray = [[MTLJSONAdapter modelsOfClass:[MLSecondClass class] fromJSONArray:arr error:nil] mutableCopy];
-        [MLSecondClass mj_setupObjectClassInArray:^NSDictionary *{
-            return @{@"SecondaryClassification_Ggw":[MLClassInfo class]};
-        }];
-        
-        [_classSecondArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            MLSecondClass *model = (MLSecondClass*)obj;
-            
-            if (!model.SecondaryClassification_Ggw || [model.SecondaryClassification_Ggw isKindOfClass:[NSNull class]]) {
-                [_classSecondArray removeObject:model];
-            }
-        }];
-        
-        
-        
-        [_tableView reloadData];
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:1];
-    }];
-    */
     
     [MLHttpManager get:urlStr params:nil m:@"category" s:@"list" success:^(id responseObject){
         NSLog(@"responseObject===%@",responseObject);
@@ -341,8 +264,6 @@
             imageview.image = [UIImage imageNamed:@"icon_default"];
         }
         
-        
-        
         NSArray *arr = responseObject[@"data"][@"ret"];
         brandDic = responseObject[@"data"][@"brandtitle"];
         brandArr = responseObject[@"data"][@"brand"];
@@ -358,9 +279,7 @@
                 [_classSecondArray removeObject:model];
             }
         }];
-        
-        
-        
+
         [_tableView reloadData];
         
     } failure:^(NSError *error){
@@ -371,7 +290,6 @@
         
     }];
     
-  
 }
 
 
@@ -403,12 +321,7 @@
             return 0;
         }
     }
-    /*
-    MLSecondClass * secondClass = _classSecondArray[section];
     
-    if (secondClass.ThreeClassificationList.count == 0 || !secondClass.ThreeClassificationList || [secondClass.ThreeClassificationList isEqual:[NSNull null]]) {
-        return 0;
-    }*/
     return 1;//二级分下只有一个cell，当二级分类下没有三级分类的时候返回0
     
 }

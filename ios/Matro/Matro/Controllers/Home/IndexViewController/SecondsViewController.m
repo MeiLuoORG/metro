@@ -97,8 +97,8 @@
     productArr = [NSMutableArray array];
 
     [self createTableviewML];
-    [self loadData];
-    [self loadYourlikeData];
+//    [self loadData];
+//    [self loadYourlikeData];
     [self addTimer];
     
     self.backBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -121,6 +121,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    [self loadData];
+    [self loadYourlikeData];
 }
 
 //获取全球购数据
