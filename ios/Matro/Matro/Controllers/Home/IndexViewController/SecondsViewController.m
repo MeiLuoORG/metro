@@ -97,8 +97,8 @@
     productArr = [NSMutableArray array];
 
     [self createTableviewML];
-//    [self loadData];
-//    [self loadYourlikeData];
+    [self loadData];
+    [self loadYourlikeData];
     [self addTimer];
     
     self.backBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -121,8 +121,8 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    [self loadData];
-    [self loadYourlikeData];
+//    [self loadData];
+//    [self loadYourlikeData];
 }
 
 //获取全球购数据
@@ -203,7 +203,7 @@
             goodtitleArr = responseObject[@"data"][@"goodtitle"];
             
             if (adimageArr && adimageArr.count > 0) {
-               
+                [_imageArray removeAllObjects];
                 for (int i =0 ; i< adimageArr.count; i++) {
                     NSDictionary * adimageDic = adimageArr[i];
                     [_imageArray addObject:adimageDic];
@@ -212,8 +212,10 @@
             
             [self.tableview reloadData];
         }
+         [self endRefrsesh];
         
     } failure:^(NSError *error){
+         [self endRefrsesh];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
@@ -257,12 +259,15 @@
             }
             [self.tableview reloadData];
         }
+        [self endRefrsesh];
         
     } failure:^(NSError *error){
+         [self endRefrsesh];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:1];
+       
         
     }];
 }
@@ -275,6 +280,38 @@
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
 //    self.tableview.footer = [self loadMoreDataFooterWith:self.tableview];
     [self.view addSubview:self.tableview];
+    
+    NSMutableArray * arrM = [[NSMutableArray alloc]init];
+    
+    for (int i = 0; i<14; i++) {
+        UIImage * imagesss = [UIImage imageNamed:[NSString stringWithFormat:@"%@%d.png",@"100",i]];
+        [arrM addObject:imagesss];
+    }
+    
+    
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    // 设置普通状态的动画图片 (idleImages 是图片)
+    [header setImages:arrM forState:MJRefreshStateIdle];
+    // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+    [header setImages:arrM forState:MJRefreshStatePulling];
+    // 设置正在刷新状态的动画图片
+    [header setImages:arrM forState:MJRefreshStateRefreshing];
+    header.lastUpdatedTimeLabel.hidden = YES;
+    header.stateLabel.hidden = YES;
+    // 设置header
+    self.tableview.header = header;
+    
+}
+-(void)loadNewData{
+    
+    [self loadData];
+    [self loadYourlikeData];
+    
+}
+
+-(void)endRefrsesh{
+    [self.tableview.header endRefreshing];
     
 }
 

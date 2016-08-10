@@ -166,6 +166,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *jiarugouwucheBtn;
 @property (weak, nonatomic) IBOutlet UILabel *xiangouLab;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *xiangouW;
+@property (weak, nonatomic) IBOutlet UIView *frashView;
 
 
 
@@ -222,6 +223,7 @@
     MJRefreshAutoStateFooter * footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         //上拉，执行对应的操作---改变底层滚动视图的滚动到对应位置
         //设置动画效果
+       
         [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionLayoutSubviews animations:^{
             self.mainScrollView.contentOffset = CGPointMake(0, MAIN_SCREEN_HEIGHT - 64);
             titleView.selectedIndex = 1;
@@ -290,6 +292,9 @@
 
 - (void)rightbackButtonAction{
     [self didSelectItemAtIndex:0];
+    self.mainScrollView.contentOffset = CGPointMake(0, 0);
+    [self.pingmu1rootScrollView setContentOffset:CGPointMake(0, 0)];
+    
     titleView.selectedIndex = 0;
     
 }
@@ -297,6 +302,7 @@
 - (void)leftbackButtonAction{
     
     [self didSelectItemAtIndex:1];
+    self.mainScrollView.contentOffset = CGPointMake(0, MAIN_SCREEN_HEIGHT - 64);
     titleView.selectedIndex = 1;
 }
 
@@ -1344,6 +1350,7 @@
             [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionLayoutSubviews animations:^{
                 //下拉执行对应的操作
                 self.mainScrollView.contentOffset = CGPointMake(0, 0);
+                [self.pingmu1rootScrollView setContentOffset:CGPointMake(0, 0)];
             } completion:^(BOOL finished) {
                 //结束加载
                 [_webView.scrollView.header endRefreshing];
