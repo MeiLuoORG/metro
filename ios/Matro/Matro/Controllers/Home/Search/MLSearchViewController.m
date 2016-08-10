@@ -184,13 +184,20 @@ static CGFloat kHeight = 0;
         
         NSLog(@"hotSearchplaceholderArray===%@",hotSearchplaceholderArray);
         
-        
-        if (hotSearchplaceholderArray.count == 0) {
-//            _searchBar.placeholder  = @"默认搜索内容";
-            searchText.placeholder = @"默认搜索内容";
+        if ([self.searchDic objectForKey:@"keyWord"]) {
+            
+            NSString *str = self.searchDic[@"keyWord"];
+            searchText.text = str;
+            
         }else{
-//            _searchBar.placeholder = hotSearchplaceholderArray[0];
-            searchText.placeholder = hotSearchplaceholderArray[0];
+            
+            if (hotSearchplaceholderArray.count == 0) {
+                //_searchBar.placeholder  = @"默认搜索内容";
+                searchText.placeholder = @"默认搜索内容";
+            }else{
+                //_searchBar.placeholder = hotSearchplaceholderArray[0];
+                searchText.placeholder = hotSearchplaceholderArray[0];
+            }
         }
   
     } failure:^( NSError *error){

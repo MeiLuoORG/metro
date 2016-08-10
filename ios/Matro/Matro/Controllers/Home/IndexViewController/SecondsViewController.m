@@ -101,8 +101,8 @@ static NSInteger page3 = 1;
     productArr = [NSMutableArray array];
 
     [self createTableviewML];
-    [self loadData];
-    [self loadYourlikeData];
+//    [self loadData];
+//    [self loadYourlikeData];
     [self addTimer];
     
     self.backBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -125,8 +125,9 @@ static NSInteger page3 = 1;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-//    [self loadData];
-//    [self loadYourlikeData];
+    [self loadData];
+    [self loadYourlikeData];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 //获取全球购数据
@@ -150,7 +151,7 @@ static NSInteger page3 = 1;
 
     [MLHttpManager get:urlStr params:nil m:@"product" s:mstr success:^(id responseObject){
         NSLog(@"responseObject===%@",responseObject);
-
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([[responseObject objectForKey:@"code"] isEqual:@0]) {
             
             if ([responseObject[@"data"][@"hotcategory"] isKindOfClass:[NSArray class]]) {
@@ -221,7 +222,7 @@ static NSInteger page3 = 1;
          [self endRefrsesh];
         
     } failure:^(NSError *error){
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self endRefrsesh];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
@@ -255,7 +256,7 @@ static NSInteger page3 = 1;
     
     [MLHttpManager get:urlStr params:nil m:@"product" s:mstr success:^(id responseObject){
         NSLog(@"responseObject===%@",responseObject);
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([[responseObject objectForKey:@"code"] isEqual:@0]) {
 
             if (responseObject) {
@@ -295,7 +296,7 @@ static NSInteger page3 = 1;
         [self endRefrsesh];
         
     } failure:^(NSError *error){
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self endRefrsesh];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;

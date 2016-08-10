@@ -21,5 +21,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *clearBtn;
 @property (weak, nonatomic) IBOutlet UILabel *labsearch;
 @property (weak, nonatomic) IBOutlet UIView *searchView;
-
+@property (copy,nonatomic)NSDictionary *searchDic;
 @end

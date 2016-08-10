@@ -108,8 +108,8 @@ static NSInteger page = 1;
     MLSearchViewController *searchViewController = [[MLSearchViewController alloc]init];
     searchViewController.delegate = self;
     searchViewController.activeViewController = self;
-    [searchViewController.delegate SearchText:textField.text];
-    
+    //[searchViewController.delegate SearchText:textField.text];
+    searchViewController.searchDic = @{@"keyWord":textField.text};
     MLNavigationController *searchNavigationViewController = [[MLNavigationController alloc]initWithRootViewController:searchViewController];
     
     UIViewController *rootViewController = ((AppDelegate *)[UIApplication sharedApplication].delegate).window.rootViewController;
