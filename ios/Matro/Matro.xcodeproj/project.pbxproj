@@ -455,6 +455,7 @@
 		3CF538F41D213AA800395779 /* YouHuiQuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF538F31D213AA800395779 /* YouHuiQuanModel.m */; };
 		3CF8CF761D0E72FA00C548AC /* SettingMoCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */; };
 		3CFC2A4C1D127C5C00C43BFF /* b54504436257.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3CFC2A4B1D127C5C00C43BFF /* b54504436257.jpg */; };
+		3CFCBCA11D5ABA9E0017BD50 /* ZLPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFCBCA01D5ABA9E0017BD50 /* ZLPageControl.m */; };
 		3CFD3A3B1D472FCC00F4F062 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFD3A3A1D472FCC00F4F062 /* Reachability.m */; };
 		4F634A77A9985A18C9E56D1D /* Pods_Matro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C6CE0BB33E839F3EBF5309 /* Pods_Matro.framework */; };
 		6839EF0D1CD5187800638B3D /* MLBagFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6839EF0C1CD5187800638B3D /* MLBagFootView.m */; };
@@ -1561,6 +1562,8 @@
 		3CF8CF721D0E72FA00C548AC /* SettingMoCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMoCardView.h; sourceTree = "<group>"; };
 		3CF8CF731D0E72FA00C548AC /* SettingMoCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMoCardView.m; sourceTree = "<group>"; };
 		3CFC2A4B1D127C5C00C43BFF /* b54504436257.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = b54504436257.jpg; sourceTree = "<group>"; };
+		3CFCBC9F1D5ABA9E0017BD50 /* ZLPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLPageControl.h; sourceTree = "<group>"; };
+		3CFCBCA01D5ABA9E0017BD50 /* ZLPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLPageControl.m; sourceTree = "<group>"; };
 		3CFD3A391D472FCC00F4F062 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3CFD3A3A1D472FCC00F4F062 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		5DBB37CE6C3BF0EADC461009 /* Pods-Matro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Matro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Matro/Pods-Matro.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2482,6 +2485,8 @@
 				7A40B4BC1D1929180026AFD2 /* KZPhotoManager.m */,
 				7AFFC45B1D1A88BB0038B176 /* MLHttpManager.h */,
 				7AFFC45C1D1A88BB0038B176 /* MLHttpManager.m */,
+				3CFCBC9F1D5ABA9E0017BD50 /* ZLPageControl.h */,
+				3CFCBCA01D5ABA9E0017BD50 /* ZLPageControl.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -4886,6 +4891,7 @@
 				3C1306DE1D260BBC005CFCEC /* HASortButton.m in Sources */,
 				280F7D6A1CF9729A00D42FA6 /* MLPropertyCell.m in Sources */,
 				7A4D9DFF1D13916C006E6AB2 /* MLZTextTableViewCell.m in Sources */,
+				3CFCBCA11D5ABA9E0017BD50 /* ZLPageControl.m in Sources */,
 				7ABB22451D210C5000529B2B /* MLActMessageBodyCell.m in Sources */,
 				3C5B0C801CFC37E3003FFD25 /* CustomButton.m in Sources */,
 				3ACF2CF11CA5070E003D1F67 /* ZipArchive.mm in Sources */,

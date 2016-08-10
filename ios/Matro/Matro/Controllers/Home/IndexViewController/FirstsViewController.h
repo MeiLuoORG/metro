@@ -34,7 +34,7 @@
 #import "MLYourlikeCollectionViewCell.h"
 
 #import "MJRefresh.h"
-
+#import "ZLPageControl.h"
 #define SecondCCELL_IDENTIFIER @"MLSecondCollectionViewCell"
 #define YourlikeCCELL_IDENTIFIER @"MLYourlikeCollectionViewCell"
 #define CollectionViewCellMargin 5.0f//间隔5
@@ -57,6 +57,7 @@
 @property (strong, nonatomic) UIView * lunXianView;
 @property (strong, nonatomic) UIScrollView * lunXianScrollView;
 @property (strong, nonatomic) UIPageControl * lunXianPageControl;
+@property (strong, nonatomic) ZLPageControl * pageControl;
 
 @property (strong, nonatomic) FourButtonsView * fourButtonView;
 

@@ -270,9 +270,12 @@
     self.lunXianView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, _index_0_height)];
     self.lunXianScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, _index_0_height)];
     self.lunXianPageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(SIZE_WIDTH/2.0-40, _index_0_height-20, 80, 20)];
+    self.pageControl = [[ZLPageControl alloc]initWithFrame:CGRectMake(SIZE_WIDTH-100, _index_0_height-20, 100, 20)];
+    self.pageControl.userInteractionEnabled = NO;
     
     [self.lunXianView addSubview:self.lunXianScrollView];
-    [self.lunXianView addSubview: self.lunXianPageControl];
+    //[self.lunXianView addSubview: self.lunXianPageControl];
+    [self.lunXianView addSubview:self.pageControl];
     
     if (![self.lunXianImageARR isKindOfClass:[NSNull class]]) {//防崩溃
         [self imageUIInit];
@@ -312,6 +315,8 @@
     self.lunXianScrollView.showsHorizontalScrollIndicator = NO;
     
     self.lunXianPageControl.numberOfPages = self.lunXianImageARR.count;
+    self.pageControl.numberOfPages = self.lunXianImageARR.count;
+   
     
     self.lunXianPageControl.tintColor = [UIColor whiteColor];
     self.lunXianPageControl.currentPageIndicatorTintColor = [HFSUtility hexStringToColor:Main_home_jinse_backgroundColor];
@@ -1139,6 +1144,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     if (scrollView == self.lunXianScrollView) {
         NSInteger i = scrollView.contentOffset.x/scrollView.frame.size.width + 1;
         self.lunXianPageControl.currentPage = i - 1;
+        self.pageControl.currentPage = i-1;
     }
     else{
         if (self.firstDelegate && [self.firstDelegate respondsToSelector:@selector(firstViewController:withContentOffest:)]) {
@@ -1189,20 +1195,21 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 -(void)handleSchedule{
     
     self.lunXianPageControl.currentPage++;
-    
+    self.pageControl.currentPage++;
     if(_Tend){
         
         [self.lunXianScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         
         self.lunXianPageControl.currentPage=0;
+        self.pageControl.currentPage = 0;
         
     }else{
         
-        [self.lunXianScrollView  setContentOffset:CGPointMake(self.lunXianPageControl.currentPage*SIZE_WIDTH, 0) animated:YES];
+        [self.lunXianScrollView  setContentOffset:CGPointMake(self.pageControl.currentPage*SIZE_WIDTH, 0) animated:YES];
         
     }
     
-    if (self.lunXianPageControl.currentPage==self.lunXianPageControl.numberOfPages-1) {
+    if (self.pageControl.currentPage==self.pageControl.numberOfPages-1) {
         
         _Tend=YES;
         

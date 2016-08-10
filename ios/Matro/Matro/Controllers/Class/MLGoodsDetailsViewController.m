@@ -223,7 +223,7 @@
     
     //设置SV1 上拉加载
     
-    MJRefreshAutoStateFooter * footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+    MJRefreshBackStateFooter * footer = [MJRefreshBackStateFooter footerWithRefreshingBlock:^{
         //上拉，执行对应的操作---改变底层滚动视图的滚动到对应位置
         //设置动画效果
        self.navigationItem.title = @"图文详情";
@@ -234,10 +234,9 @@
             //结束加载
             [_pingmu1rootScrollView.footer endRefreshing];
         }];
-        
     }];
     
-    [footer setTitle:@"点击或继续拖动，查看图文详情" forState:MJRefreshStateIdle];
+    [footer setTitle:@"继续拖动，查看图文详情" forState:MJRefreshStateIdle];
     [footer setTitle:@"加载中..." forState:MJRefreshStateRefreshing];
     [footer setTitle:@"加载失败" forState:MJRefreshStateNoMoreData];
     _pingmu1rootScrollView.footer = footer;
