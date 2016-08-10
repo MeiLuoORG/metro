@@ -54,12 +54,16 @@
   
 }
 @property (strong,nonatomic)UIScrollView *imageScrollView;
-@property (strong,nonatomic)UIPageControl *pagecontrol;
+@property (strong,nonatomic)ZLPageControl *pagecontrol;
 @property (strong,nonatomic)NSTimer *timer;
 @property (strong,nonatomic)UIButton *backBtn ;//置顶按钮
 
 
 @end
+
+static NSInteger page1 = 1;
+static NSInteger page2 = 1;
+static NSInteger page3 = 1;
 
 @implementation SecondsViewController
 
@@ -130,6 +134,7 @@
 
     NSString *urlStr;
     NSString *mstr;
+
     if (self.indexType == 1) {
         urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=foreginbuy&method=display&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
         mstr = @"foreginbuy";
@@ -145,6 +150,7 @@
 
     [MLHttpManager get:urlStr params:nil m:@"product" s:mstr success:^(id responseObject){
         NSLog(@"responseObject===%@",responseObject);
+
         if ([[responseObject objectForKey:@"code"] isEqual:@0]) {
             
             if ([responseObject[@"data"][@"hotcategory"] isKindOfClass:[NSArray class]]) {
@@ -215,7 +221,8 @@
          [self endRefrsesh];
         
     } failure:^(NSError *error){
-         [self endRefrsesh];
+        
+        [self endRefrsesh];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
@@ -229,19 +236,20 @@
 
     NSString *urlStr;
     NSString *mstr;
+  
     if (self.indexType == 1) {
         
-        urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=foreginbuy&method=good&pageindex=1&pagesize=10&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
+        urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=foreginbuy&method=good&pageindex=%ld&pagesize=8&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,(long)page1,vCFBundleShortVersionStr];
         mstr = @"foreginbuy";
         
     }else if (self.indexType == 2){
         
-        urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=mlgoods&method=good&pageindex=1&pagesize=8&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
+        urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=mlgoods&method=good&pageindex=%ld&pagesize=8&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,(long)page2,vCFBundleShortVersionStr];
         mstr = @"mlgoods";
         
     }else if (self.indexType == 3){
         
-       urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=yttd&method=good&pageindex=1&pagesize=8&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,vCFBundleShortVersionStr];
+       urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=yttd&method=good&pageindex=%ld&pagesize=8&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,(long)page3,vCFBundleShortVersionStr];
         mstr = @"yttd";
     }
     
@@ -249,20 +257,46 @@
         NSLog(@"responseObject===%@",responseObject);
         
         if ([[responseObject objectForKey:@"code"] isEqual:@0]) {
-            
+
             if (responseObject) {
                 NSArray *arr = (NSArray*)responseObject[@"data"][@"good"];
+                if (self.indexType == 1) {
+                    if (page1 == 1) {
+                        [productArr removeAllObjects];
+                    }
+                }else if (self.indexType == 2){
+                    if (page2 == 1) {
+                        [productArr removeAllObjects];
+                    }
+                }else if(self.indexType == 3){
+                
+                    if (page3 == 1) {
+                        [productArr removeAllObjects];
+                    }
+                }
+                
+                
                 if (arr && arr.count > 0) {
-                    [productArr removeAllObjects];
+                    //[productArr removeAllObjects];
                     [productArr addObjectsFromArray:arr];
                 }
+                
+                NSNumber *count = responseObject[@"data"][@"retcount"];
+                NSLog(@"count====%@",count);
+                if ([count isEqualToNumber:@0] ) {
+                    MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableview.footer;
+                    footer.stateLabel.text = @"没有更多了";
+                    return ;
+                }
             }
+            
             [self.tableview reloadData];
         }
         [self endRefrsesh];
         
     } failure:^(NSError *error){
-         [self endRefrsesh];
+        
+        [self endRefrsesh];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
@@ -278,7 +312,7 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    self.tableview.footer = [self loadMoreDataFooterWith:self.tableview];
+    self.tableview.footer = [self loadMoreDataFooterWith:self.tableview];
     [self.view addSubview:self.tableview];
     
     NSMutableArray * arrM = [[NSMutableArray alloc]init];
@@ -315,14 +349,22 @@
     
 }
 
-//-(MJRefreshAutoNormalFooter *)loadMoreDataFooterWith:(UIScrollView *)scrollView {
-//    MJRefreshAutoNormalFooter *loadMoreFooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-//        [self loadYourlikeData];
-//        [scrollView.footer endRefreshing];
-//    }];
-//
-//    return loadMoreFooter;
-//}
+-(MJRefreshAutoNormalFooter *)loadMoreDataFooterWith:(UIScrollView *)scrollView {
+    MJRefreshAutoNormalFooter *loadMoreFooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        if (self.indexType == 1) {
+            page1++;
+        }else if(self.indexType == 2){
+            page2++;
+        }else if(self.indexType == 3){
+            page3++;
+        }
+        
+        [self loadYourlikeData];
+        [scrollView.footer endRefreshing];
+    }];
+
+    return loadMoreFooter;
+}
 
 #pragma mark TableViewDelegate代理方法Start
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -397,16 +439,15 @@
           
             UIView *headview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, _index_0_height)];
             _imageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, _index_0_height)];
-            _pagecontrol = [[UIPageControl alloc] initWithFrame:CGRectMake((MAIN_SCREEN_WIDTH-80)/2, _index_0_height-20, 80, 20)];
-            
+            _pagecontrol = [[ZLPageControl alloc]initWithFrame:CGRectMake(SIZE_WIDTH-100, _index_0_height-20, 100, 20)];
+            _pagecontrol.userInteractionEnabled = NO;
             [headview addSubview:_imageScrollView];
             [headview addSubview: _pagecontrol];
 
             if (![_imageArray isKindOfClass:[NSNull class]]) {//防崩溃
                 [self imageUIInit];
             }
-            
-            
+   
             [cell addSubview:headview];
             
         }

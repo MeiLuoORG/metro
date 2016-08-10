@@ -22,7 +22,7 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "CityFuWuViewController.h"
-
+#import "ZLPageControl.h"
 
 @class SecondsViewController;
 
