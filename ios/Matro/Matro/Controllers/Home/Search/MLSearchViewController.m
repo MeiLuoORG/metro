@@ -18,7 +18,7 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "CommonHeader.h"
 #import "MLHttpManager.h"
-@interface MLSearchViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,DWTagListDelegate>
+@interface MLSearchViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,DWTagListDelegate,UITextFieldDelegate>
 {
     
     NSMutableArray *_historySearchTextArray;//搜索历史的数组，用于保存热门搜索历史
@@ -30,6 +30,7 @@
     NSManagedObjectContext *_context;
     NSMutableArray *hotSearchArray;
     NSMutableArray *hotSearchplaceholderArray;
+    UITextField *searchText;
 }
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIView *hotSearchTagView;
@@ -49,31 +50,65 @@ static CGFloat kHeight = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self registerForKeyboardNotifications];
-    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 44)];
-    [ _searchBar setImage:[UIImage imageNamed:@"sousuo2"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
-    for(id cc in [_searchBar subviews])
-    {
-        if([cc isKindOfClass:[UITextField class]])
-        {
-            UITextField *textField = (UITextField *)textField;
-            textField.clipsToBounds = NO;
-            textField.leftView = nil;
-        }
-    }
-    
+//    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 44)];
+//    [ _searchBar setImage:[UIImage imageNamed:@"sousuo2"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+//    _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
+//    for(id cc in [_searchBar subviews])
+//    {
+//        if([cc isKindOfClass:[UITextField class]])
+//        {
+//            UITextField *textField = (UITextField *)textField;
+//            textField.clipsToBounds = NO;
+//            textField.leftView = nil;
+//        }
+//    }
+//    
+//    _searchBar.delegate = self;
+//    self.navigationItem.titleView = _searchBar;
     _searchBar.delegate = self;
-    self.navigationItem.titleView = _searchBar;
+    
+    //添加边框和提示
+    UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(45, 25, MAIN_SCREEN_WIDTH-45-46, 28)] ;
+    frameView.backgroundColor = [UIColor whiteColor];
+    frameView.layer.cornerRadius = 4.f;
+    frameView.layer.masksToBounds = YES;
+    
+    CGFloat H = frameView.bounds.size.height - 8;
+    CGFloat imgW = H;
+    CGFloat textW = frameView.bounds.size.width - imgW - 6;
+    NSLog(@"textW===%f",textW);
+    
+    UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuozhou"]];
+    
+    searchText = [[UITextField alloc] initWithFrame:CGRectMake(imgW+6, 4, textW, H)];
+    searchText.returnKeyType = UIReturnKeySearch;
+    searchText.enablesReturnKeyAutomatically = YES;
+    searchText.delegate = self;
+    searchText.enabled = YES;
+    
+    
+    [frameView addSubview:searchText];
+    [frameView addSubview:searchImg];
+    searchImg.frame = CGRectMake(8 , 6, imgW-6, imgW-6);
+    
+    searchText.textColor = [UIColor grayColor];
+    searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
+    
+    self.navigationItem.titleView = frameView;
+
+    UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    [frameView addGestureRecognizer:singleTap];
     
     
     hotSearchArray = [NSMutableArray new];
     hotSearchTagArray = [NSMutableArray new];
 
     hotSearchplaceholderArray = [NSMutableArray new];
-    [self getSearchplaceholder];
-    //弹出系统键盘
-    [_searchBar becomeFirstResponder];
     
+    //弹出系统键盘
+//    [_searchBar becomeFirstResponder];
+    [searchText becomeFirstResponder];
+ 
     
     UIBarButtonItem *returnBtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(returnAction :)];
     
@@ -97,19 +132,19 @@ static CGFloat kHeight = 0;
     gestureRecognizer.cancelsTouchesInView = NO;
 
     _context = [NSManagedObjectContext MR_defaultContext];
-    
-    //历史
-    [self loadSearchHistory];
-    
+ 
     self.edgesForExtendedLayout = UIRectEdgeBottom;
-    //热门搜索
-    ;
+
     self.clearBtn.backgroundColor = RGBA(174, 142, 93, 1);
     self.clearBtn.layer.borderWidth =1;
     self.clearBtn.layer.borderColor = (__bridge CGColorRef _Nullable)([UIColor lightGrayColor]);//201,201,201
     self.clearBtn.layer.cornerRadius = 4.f;
     self.clearBtn.layer.masksToBounds = YES;
-    
+    //推荐关键字
+    [self getSearchplaceholder];
+    //历史
+    [self loadSearchHistory];
+    //热门搜索
     [self gethotKeywords];
     
 }
@@ -118,9 +153,16 @@ static CGFloat kHeight = 0;
     [self.historyTableView reloadData];
 }
 
+-(void)handleSingleTap:(UITapGestureRecognizer *)sender
+{
+    
+    
+}
+
 //隐藏键盘
 - (void) hideKeyboard {
-    [_searchBar resignFirstResponder];
+//    [_searchBar resignFirstResponder];
+    [searchText resignFirstResponder];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -144,9 +186,11 @@ static CGFloat kHeight = 0;
         
         
         if (hotSearchplaceholderArray.count == 0) {
-            _searchBar.placeholder  = @"默认搜索内容";
+//            _searchBar.placeholder  = @"默认搜索内容";
+            searchText.placeholder = @"默认搜索内容";
         }else{
-            _searchBar.placeholder = hotSearchplaceholderArray[0];
+//            _searchBar.placeholder = hotSearchplaceholderArray[0];
+            searchText.placeholder = hotSearchplaceholderArray[0];
         }
   
     } failure:^( NSError *error){
@@ -256,6 +300,40 @@ static CGFloat kHeight = 0;
 
 #pragma mark- UISearchBarDelegate
 //点击键盘上的search按钮时调用
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    NSString *searchTerm = textField.text;
+    [searchText resignFirstResponder];
+    searchText.text  = textField.text;
+    
+    if (![searchTerm isEqualToString:@""])
+    {
+        BOOL isRepeat = NO;
+        for (NSString *searhStr in _historySearchTextArray) {
+            if ([searhStr isEqualToString:searchTerm]) {
+                isRepeat = YES;
+            }
+        }
+        if (!isRepeat) {
+            SearchHistory *searchHistory = [SearchHistory MR_createEntityInContext:_context];
+            searchHistory.keywork = textField.text;
+            
+            [_context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError *error) {
+                [self loadSearchHistory];
+            }];
+        }
+        //隐藏就是关闭当前的搜索的页面
+        [self hide];
+        //将搜索框的值带回上一个页面
+        [_delegate SearchText:searchTerm];
+        
+    }
+
+    return YES;
+}
+
+/*
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     NSString *searchTerm = searchBar.text;
@@ -285,6 +363,8 @@ static CGFloat kHeight = 0;
 
     }
 }
+ */
+
 //输入文本实时更新时调用
 - (void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 

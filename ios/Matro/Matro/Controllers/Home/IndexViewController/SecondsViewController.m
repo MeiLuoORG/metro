@@ -253,7 +253,7 @@
             if (responseObject) {
                 NSArray *arr = (NSArray*)responseObject[@"data"][@"good"];
                 if (arr && arr.count > 0) {
-                    
+                    [productArr removeAllObjects];
                     [productArr addObjectsFromArray:arr];
                 }
             }
@@ -779,10 +779,10 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView.tag == 1) {
         MLFristCollectionViewCell *cell = (MLFristCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:FristCCELL_IDENTIFIER forIndexPath:indexPath];
-        cell.firstImageView.layer.borderWidth = 1.f;
-        cell.firstImageView.layer.borderColor = [UIColor colorWithHexString:@"F5F5F5"].CGColor;
-        cell.firstImageView.layer.cornerRadius = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)/2;
-        cell.firstImageView.layer.masksToBounds = YES;
+//        cell.firstImageView.layer.borderWidth = 1.f;
+//        cell.firstImageView.layer.borderColor = [UIColor colorWithHexString:@"F5F5F5"].CGColor;
+//        cell.firstImageView.layer.cornerRadius = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)/2;
+//        cell.firstImageView.layer.masksToBounds = YES;
         if (ishotSP == YES) {
             
             if (hotspArr.count > 6) {

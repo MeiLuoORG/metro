@@ -189,7 +189,10 @@
 //    [titleView setBackgroundImage:[UIImage imageNamed:@"sel_type_g"] forState:UIControlStateSelected];
 //    [titleView setBackgroundImage:[UIImage imageNamed:@"TM.jpg"] forState:UIControlStateNormal];
     titleView.delegate = self;
-    self.navigationItem.titleView = titleView;
+    //self.navigationItem.titleView = titleView;
+    self.navigationItem.title = @"商品详情";
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"260E00"]}];
+    
     pDic = [[NSDictionary alloc] init];
     _recommendArray = [[NSMutableArray alloc] init];
     _titleArray = [[NSArray alloc] init];
@@ -223,7 +226,7 @@
     MJRefreshAutoStateFooter * footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         //上拉，执行对应的操作---改变底层滚动视图的滚动到对应位置
         //设置动画效果
-       
+       self.navigationItem.title = @"图文详情";
         [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionLayoutSubviews animations:^{
             self.mainScrollView.contentOffset = CGPointMake(0, MAIN_SCREEN_HEIGHT - 64);
             titleView.selectedIndex = 1;
@@ -243,7 +246,7 @@
     //设置SV2 有下拉操作
     
     MJRefreshStateHeader * header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
+        self.navigationItem.title = @"商品详情";
         [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionLayoutSubviews animations:^{
             //下拉执行对应的操作
             self.mainScrollView.contentOffset = CGPointMake(0, 0);
@@ -1348,6 +1351,7 @@
     }else{
         if (index == 0) {
             [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionLayoutSubviews animations:^{
+                self.navigationItem.title = @"商品详情";
                 //下拉执行对应的操作
                 self.mainScrollView.contentOffset = CGPointMake(0, 0);
                 [self.pingmu1rootScrollView setContentOffset:CGPointMake(0, 0)];
@@ -1359,6 +1363,7 @@
         }else{
             
             [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionLayoutSubviews animations:^{
+                self.navigationItem.title = @"图文详情";
                 self.mainScrollView.contentOffset = CGPointMake(0, MAIN_SCREEN_HEIGHT - 64);
             } completion:^(BOOL finished) {
                 //结束加载

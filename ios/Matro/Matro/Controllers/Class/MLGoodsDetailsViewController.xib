@@ -866,7 +866,7 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3tF-gA-zKf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="猜你喜欢：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pj4-En-CBW">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="---猜你喜欢---" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pj4-En-CBW">
                                                                             <rect key="frame" x="10" y="11" width="75" height="18"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                             <color key="textColor" red="0.14901960780000001" green="0.054901960780000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -877,6 +877,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="40" id="4j4-sg-SAP"/>
                                                                         <constraint firstAttribute="centerY" secondItem="pj4-En-CBW" secondAttribute="centerY" id="KAQ-c6-GRd"/>
+                                                                        <constraint firstItem="pj4-En-CBW" firstAttribute="centerX" secondItem="3tF-gA-zKf" secondAttribute="centerX" id="PDT-7J-qTj"/>
                                                                     </constraints>
                                                                 </view>
                                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="5oY-Ke-s4V">
@@ -1349,7 +1350,6 @@
                                                         <constraint firstAttribute="trailing" secondItem="zoz-sW-JFw" secondAttribute="trailing" id="OLX-yw-IMz"/>
                                                         <constraint firstItem="OKA-mx-0kw" firstAttribute="leading" secondItem="dOx-2T-Iv0" secondAttribute="leading" id="PPg-cM-yWA"/>
                                                         <constraint firstAttribute="trailing" secondItem="Ieg-Is-rsH" secondAttribute="trailing" id="PZy-MJ-HAm"/>
-                                                        <constraint firstItem="pj4-En-CBW" firstAttribute="leading" secondItem="C24-3N-Ung" secondAttribute="leading" id="Qg8-bU-q8J"/>
                                                         <constraint firstItem="kzQ-3a-39k" firstAttribute="leading" secondItem="rZx-a0-iaj" secondAttribute="leading" id="R9f-tS-Jqp"/>
                                                         <constraint firstItem="zoz-sW-JFw" firstAttribute="leading" secondItem="rZx-a0-iaj" secondAttribute="leading" id="RI3-5b-HZd"/>
                                                         <constraint firstAttribute="trailing" secondItem="ynW-UQ-VMD" secondAttribute="trailing" id="RbG-yP-l4j"/>

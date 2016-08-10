@@ -42,8 +42,8 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViR-dF-djh">
                         <rect key="frame" x="59" y="189" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -52,11 +52,11 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="ejc-X6-sOy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8QQ-lS-x4j"/>
-                <constraint firstAttribute="trailing" secondItem="yVK-OX-RJu" secondAttribute="trailing" constant="8" id="9nH-px-moO"/>
+                <constraint firstAttribute="trailing" secondItem="yVK-OX-RJu" secondAttribute="trailing" constant="5" id="9nH-px-moO"/>
                 <constraint firstAttribute="trailing" secondItem="ejc-X6-sOy" secondAttribute="trailing" id="G6P-hy-bsW"/>
                 <constraint firstItem="yVK-OX-RJu" firstAttribute="centerY" secondItem="pq6-oU-sP5" secondAttribute="centerY" id="HTO-qz-fHz"/>
                 <constraint firstItem="ejc-X6-sOy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="12" id="J7Y-2Z-H4D"/>
-                <constraint firstItem="ViR-dF-djh" firstAttribute="leading" secondItem="pq6-oU-sP5" secondAttribute="trailing" constant="10" id="WSx-B8-YmA"/>
+                <constraint firstItem="ViR-dF-djh" firstAttribute="leading" secondItem="pq6-oU-sP5" secondAttribute="trailing" constant="5" id="WSx-B8-YmA"/>
                 <constraint firstItem="pq6-oU-sP5" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="YRn-9C-eAr"/>
                 <constraint firstItem="vq8-4R-erO" firstAttribute="top" secondItem="ejc-X6-sOy" secondAttribute="bottom" constant="6" id="ZuH-7t-hEy"/>
                 <constraint firstAttribute="trailing" secondItem="vq8-4R-erO" secondAttribute="trailing" constant="5" id="jyG-sQ-EGh"/>
