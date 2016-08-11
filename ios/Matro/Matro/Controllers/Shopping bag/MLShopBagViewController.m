@@ -175,6 +175,8 @@ static NSInteger pageIndex = 0;
         make.left.right.bottom.mas_equalTo(self.view);
         make.bottom.mas_equalTo(self.footView.mas_top);
     }];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self configBlankPage];
     [self ctreateYOUHUIQuanView];
 }
@@ -596,6 +598,7 @@ static NSInteger pageIndex = 0;
                 [self.collectionView reloadData];
 
             }
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [self countAllPrice];
             [self.tableView reloadData];
             [self configBlankPage];
@@ -881,7 +884,7 @@ static NSInteger pageIndex = 0;
 }
 
 - (void)configBlankPage{
-
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     __weak typeof(self) weakself = self;
 /*
     if (self.view.blankPage) {
@@ -963,11 +966,13 @@ static NSInteger pageIndex = 0;
     [self.tableView reloadData];
     [self.collectionView reloadData];
     if (loginid) { //已登录情况
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         self.isLogin = YES;
         [self addShopCart];
         [self getDataSource];
     }
     else{ //未登录情况
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         self.isLogin = NO;
         NSArray *allCart = [CompanyInfo MR_findAll];
         NSMutableArray *tmp = [NSMutableArray array];
@@ -1008,6 +1013,7 @@ static NSInteger pageIndex = 0;
     
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",MATROJP_BASE_URL];
     [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.tableView.header endRefreshing];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
@@ -1023,6 +1029,7 @@ static NSInteger pageIndex = 0;
         }
         [self configBlankPage];
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self.tableView.header endRefreshing];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
@@ -1035,6 +1042,7 @@ static NSInteger pageIndex = 0;
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=%@&limit=10",MATROJP_BASE_URL,[NSNumber numberWithInteger:pageIndex]];
     
     [MLHttpManager get:url params:nil m:@"product" s:@"guess_like" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             [self.likeArray removeAllObjects];
@@ -1048,6 +1056,7 @@ static NSInteger pageIndex = 0;
         }
 
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
          [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
