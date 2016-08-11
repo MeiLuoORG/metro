@@ -74,8 +74,11 @@
 @property (strong, nonatomic) UIImageView * index_5_titleImageView;
 
 @property (strong, nonatomic) UICollectionView * index_8_CollectionView;
-@property (strong, nonatomic) NSArray * index_8_goodARR;
+@property (strong, nonatomic) NSMutableArray * index_8_goodARR;
 
 @property (strong, nonatomic) UIButton * backTopButton;
 @property (assign, nonatomic) float historyOffestY;
+
+@property (assign, nonatomic) int likePage;
+
 @end

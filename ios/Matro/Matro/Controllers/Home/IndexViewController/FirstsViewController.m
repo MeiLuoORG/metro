@@ -38,6 +38,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.lunXianImageARR = [[NSMutableArray alloc]init];
+    self.index_2_GoodARR = [[NSMutableArray alloc]init];
+    _newGoodARR = [[NSArray alloc]init];
+    _dataZongDic = [[NSDictionary alloc]init];
+    _likeDataZongDic = [[NSDictionary alloc]init];
+    self.index_8_goodARR = [[NSMutableArray alloc]init];
+    _tuiJianGoodARR = [[NSArray alloc]init];
+    _daPaiGoodARR = [[NSArray alloc]init];
+    _meiGoodARR = [[NSArray alloc]init];
+    
     _index_0_height = 464.0f/750.0f*SIZE_WIDTH;
 
     _index_1_height = 80+5;//160.0f/750.0f*SIZE_WIDTH+5;
@@ -54,17 +64,17 @@
 
     _index_7_height = 830.0/750.0f*SIZE_WIDTH+5;
 
-    _index_8_height = 80.0/750.0*SIZE_WIDTH+((MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2.0*1.35)*4;//80.0/750.0*SIZE_WIDTH+(460.0/750.0*SIZE_WIDTH+5)*4;
+    float height_8 = 0.0f;
+    if (self.index_8_goodARR.count % 2 == 0) {
+        height_8 = 80.0/750.0*SIZE_WIDTH+((MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2.0*1.35)*(self.index_8_goodARR.count / 2);//80.0/750.0*SIZE_WIDTH+(460.0/750.0*SIZE_WIDTH+5)*4;
+    }
+    else{
+        height_8 = 80.0/750.0*SIZE_WIDTH+((MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2.0*1.35)*((self.index_8_goodARR.count+1)/ 2);
+    }
+    
+    _index_8_height = height_8;
 
-    self.lunXianImageARR = [[NSMutableArray alloc]init];
-    self.index_2_GoodARR = [[NSMutableArray alloc]init];
-    _newGoodARR = [[NSArray alloc]init];
-    _dataZongDic = [[NSDictionary alloc]init];
-    _likeDataZongDic = [[NSDictionary alloc]init];
-    self.index_8_goodARR = [[NSArray alloc]init];
-    _tuiJianGoodARR = [[NSArray alloc]init];
-    _daPaiGoodARR = [[NSArray alloc]init];
-    _meiGoodARR = [[NSArray alloc]init];
+
     //[self loadIndex_0_View];
     [self loadIndex_1_view];
     //[self loadIndex_2_view];
@@ -75,7 +85,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(index3ButtonRightAction:) name:Index3Button_RIGHT_NOTICIFICATION object:nil];
     
     [self loadJieKouShuJi];
-    [self shouyeCaiNiLike];
+    [self shouyeCaiNiLikeSWithIndex:1 withPagesize:10];
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(handleSchedule) userInfo:nil repeats:YES];
 
     self.backTopButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -84,6 +94,8 @@
     [self.backTopButton addTarget:self action:@selector(backTopButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backTopButton];
     self.backTopButton.hidden = YES;
+    
+    self.likePage = 1;
 }
 
 - (void)backTopButtonAction:(UIButton *)sender{
@@ -174,8 +186,8 @@
 }
 //首页猜你喜欢
 
-- (void)shouyeCaiNiLike{
-    NSString *urls = [NSString stringWithFormat:@"%@/api.php?m=product&s=webframe&method=good&pageindex=1&pagesize=8",ZHOULU_ML_BASE_URLString];
+- (void)shouyeCaiNiLikeSWithIndex:(int) index withPagesize:(int) size{
+    NSString *urls = [NSString stringWithFormat:@"%@/api.php?m=product&s=webframe&method=good&pageindex=%d&pagesize=%d",ZHOULU_ML_BASE_URLString,index,size];
     [MLHttpManager get:urls params:nil m:@"product" s:@"webframe" success:^(id responseObject) {
         NSLog(@"请求首页 彩泥喜欢数据接口的数据为：%@",responseObject);
         NSDictionary * result = (NSDictionary *)responseObject;
@@ -184,28 +196,18 @@
                 //NSDictionary * dataDic = result[@"data"];
                 _likeDataZongDic = result[@"data"];
                 if ([_likeDataZongDic[@"good"] isKindOfClass:[NSArray class]]) {
-                    self.index_8_goodARR = _likeDataZongDic[@"good"];
-                    
-                    
-                    
-                    
+                    //self.index_8_goodARR = _likeDataZongDic[@"good"];
+                    [self.index_8_goodARR addObjectsFromArray:_likeDataZongDic[@"good"]];
                     [self.tableview reloadData];
                     //[self.index_8_CollectionView reloadData];
-
                 }
-                
-                
             }
-            
         }
         [self jieShuShuaXin];
-        
     } failure:^(NSError *error) {
         [self jieShuShuaXin];
         [MBProgressHUD showSuccess:REQUEST_ERROR_ZL toView:self.view];
     }];
-    
-    
 }
 
 
@@ -248,6 +250,10 @@
     // 设置header
      self.tableview.header = header;
     
+    self.tableview.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [self footerShuaXin];
+    }];
+    
     
     
 }
@@ -255,12 +261,21 @@
 - (void)loadNewData{
     NSLog(@"头部刷新执行的方法");
     [self loadJieKouShuJi];
-    [self shouyeCaiNiLike];
+    [self.index_8_goodARR removeAllObjects];
+    [self shouyeCaiNiLikeSWithIndex:1 withPagesize:10];
+    self.likePage = 1;
+}
+
+- (void)footerShuaXin{
+    self.likePage++;
+    NSLog(@"首页猜你的页面index；%d",self.likePage);
+    [self shouyeCaiNiLikeSWithIndex:self.likePage withPagesize:10];
 }
 
 - (void)jieShuShuaXin{
     NSLog(@"结束刷新");
     [self.tableview.header endRefreshing];
+    [self.tableview.footer endRefreshing];
 }
 
 //=================加载轮显视图  第一个======Start
@@ -791,15 +806,20 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
         }
             break;
         case 8:{
+            float height_8 = 0.0f;
+            if (self.index_8_goodARR.count % 2 == 0) {
+                height_8 = 80.0/750.0*SIZE_WIDTH+((MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2.0*1.35)*(self.index_8_goodARR.count / 2);//80.0/750.0*SIZE_WIDTH+(460.0/750.0*SIZE_WIDTH+5)*4;
+            }
+            else{
+                height_8 = 80.0/750.0*SIZE_WIDTH+((MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2.0*1.35)*((self.index_8_goodARR.count+1)/2);
+            }
+            _index_8_height = height_8;
             height = _index_8_height;
-            
         }
             break;
-            
         default:
             break;
     }
-    
     return height;
 }
 

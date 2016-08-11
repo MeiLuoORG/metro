@@ -14,4 +14,6 @@
 @property (weak, nonatomic) IBOutlet MLCheckBoxButton *checkBox;
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 @property (weak, nonatomic) IBOutlet UIButton *clearingBtn;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+
 @end

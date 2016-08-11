@@ -118,6 +118,20 @@ NSString *const NewFeatureVersionKey = @"NewFeatureVersionKey";
             
             //添加手势
             [imageV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gestureAction:)]];
+            /*
+             zhoulu修改 start
+            */
+            UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-200, [[UIScreen mainScreen] bounds].size.width, 30)];
+            label.text = @"立即体验";
+            label.textColor = [UIColor whiteColor];
+            label.textAlignment = NSTextAlignmentCenter;
+            [imageV addSubview:label];
+            
+            /*
+             zhoulu修改 end
+            */
+            
+            
         }
         
         [_scrollView addSubview:imageV];

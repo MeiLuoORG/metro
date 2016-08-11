@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -95,12 +95,19 @@
                         </mask>
                     </variation>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QOV-Dg-5lA">
+                    <rect key="frame" x="524" y="10" width="46" height="30"/>
+                    <state key="normal" title="删除">
+                        <color key="titleColor" red="0.68235294117647061" green="0.55686274509803924" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="8At-Jd-lOg" secondAttribute="trailing" id="0qg-c9-mXC"/>
                 <constraint firstItem="KuD-az-O47" firstAttribute="leading" secondItem="TXV-Fh-GoO" secondAttribute="trailing" constant="8" id="6V7-5g-o4e"/>
                 <constraint firstItem="TXV-Fh-GoO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="73m-BU-OlN"/>
+                <constraint firstItem="QOV-Dg-5lA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="8ot-B0-9Mb"/>
                 <constraint firstItem="TXV-Fh-GoO" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Agz-6m-1Zj"/>
                 <constraint firstItem="HLL-OD-8v1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Gdv-Ci-hFa"/>
                 <constraint firstAttribute="trailing" secondItem="HLL-OD-8v1" secondAttribute="trailing" id="MEJ-S5-11v"/>
@@ -112,6 +119,7 @@
                 <constraint firstItem="eJB-MM-5DP" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Zt5-rE-CT6"/>
                 <constraint firstItem="KuD-az-O47" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="as7-PT-PGc"/>
                 <constraint firstItem="8At-Jd-lOg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="azI-Tc-2Cr"/>
+                <constraint firstAttribute="trailing" secondItem="QOV-Dg-5lA" secondAttribute="trailing" constant="30" id="caT-ew-wrM"/>
                 <constraint firstItem="8At-Jd-lOg" firstAttribute="leading" secondItem="eJB-MM-5DP" secondAttribute="trailing" constant="8" id="rjj-kX-f7c"/>
                 <constraint firstItem="eJB-MM-5DP" firstAttribute="leading" secondItem="KuD-az-O47" secondAttribute="trailing" constant="8" id="wXe-SH-dIv"/>
                 <constraint firstItem="8At-Jd-lOg" firstAttribute="leading" secondItem="eJB-MM-5DP" secondAttribute="trailing" constant="8" id="zni-Lf-hnk"/>
@@ -125,6 +133,7 @@
                     <exclude reference="eJB-MM-5DP"/>
                     <exclude reference="HLL-OD-8v1"/>
                     <exclude reference="TXV-Fh-GoO"/>
+                    <exclude reference="QOV-Dg-5lA"/>
                 </mask>
                 <mask key="constraints">
                     <exclude reference="0qg-c9-mXC"/>
@@ -144,6 +153,8 @@
                     <exclude reference="Gdv-Ci-hFa"/>
                     <exclude reference="MEJ-S5-11v"/>
                     <exclude reference="Oaz-Co-XtB"/>
+                    <exclude reference="8ot-B0-9Mb"/>
+                    <exclude reference="caT-ew-wrM"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -153,6 +164,7 @@
                     <include reference="eJB-MM-5DP"/>
                     <include reference="HLL-OD-8v1"/>
                     <include reference="TXV-Fh-GoO"/>
+                    <include reference="QOV-Dg-5lA"/>
                 </mask>
                 <mask key="constraints">
                     <include reference="0qg-c9-mXC"/>
@@ -172,14 +184,17 @@
                     <include reference="Gdv-Ci-hFa"/>
                     <include reference="MEJ-S5-11v"/>
                     <include reference="Oaz-Co-XtB"/>
+                    <include reference="8ot-B0-9Mb"/>
+                    <include reference="caT-ew-wrM"/>
                 </mask>
             </variation>
             <connections>
                 <outlet property="checkBox" destination="TXV-Fh-GoO" id="541-Du-yI0"/>
                 <outlet property="clearingBtn" destination="8At-Jd-lOg" id="8fs-yq-dhd"/>
+                <outlet property="deleteButton" destination="QOV-Dg-5lA" id="bY5-cb-yp5"/>
                 <outlet property="detailLabel" destination="eJB-MM-5DP" id="Wmn-Hw-dI5"/>
             </connections>
-            <point key="canvasLocation" x="133" y="398"/>
+            <point key="canvasLocation" x="202" y="379"/>
         </view>
     </objects>
     <resources>

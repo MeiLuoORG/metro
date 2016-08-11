@@ -228,9 +228,7 @@ static NSInteger page3 = 1;
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
         [_hud hide:YES afterDelay:1];
-        
     }];
-    
 }
 //获取猜你喜欢数据
 -(void)loadYourlikeData{

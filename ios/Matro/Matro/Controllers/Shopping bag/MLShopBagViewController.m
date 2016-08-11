@@ -54,6 +54,7 @@
 @property (nonatomic,assign)BOOL isLogin;
 @property (nonatomic,strong)MLShopingCartlistModel *shopCart;
 @property (nonatomic,strong)UICollectionView *collectionView;
+@property (strong, nonatomic) UIBarButtonItem * rightBarButtonzl;
 @end
 static float allPrice = 0;
 static NSInteger pageIndex = 0;
@@ -66,6 +67,22 @@ static NSInteger pageIndex = 0;
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.title = @"购物袋";
+    
+    /*
+     zhoulu修改 START
+     */
+    
+    
+    self.rightBarButtonzl = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightBianjiButtonAction:)];
+    self.rightBarButtonzl.tintColor = [UIColor colorWithHexString:@"ae8e5d"];//625046
+    
+    //self.navigationItem.rightBarButtonItem = self.rightBarButtonzl;
+    self.navigationItem.rightBarButtonItem = nil;
+    /*
+     ZHOULU 修改 END
+     */
+
+    
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"260E00"]}];
     _loginView = ({
         UIView *headView = [[UIView alloc]initWithFrame:CGRectZero];
@@ -137,6 +154,7 @@ static NSInteger pageIndex = 0;
         MLShopCartFootView *footView = [MLShopCartFootView footView];
         [footView.checkBox addTarget:self action:@selector(selectAllGoods:) forControlEvents:UIControlEventTouchUpInside];
         [footView.clearingBtn addTarget:self action:@selector(clearingAction) forControlEvents:UIControlEventTouchUpInside];
+        [footView.deleteButton addTarget:self action:@selector(shanchuShangpin:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:footView];
         footView;
     });
@@ -160,6 +178,161 @@ static NSInteger pageIndex = 0;
     [self configBlankPage];
     [self ctreateYOUHUIQuanView];
 }
+/*
+ zhoulu修改 START
+ */
+- (void)rightBianjiButtonAction:(id)sender{
+    NSLog(@"点击了编辑按钮");
+    if ([self.rightBarButtonzl.title isEqualToString:@"编辑"]) {
+        self.rightBarButtonzl.title  = @"完成";
+        
+        self.footView.clearingBtn.hidden = YES;
+        self.footView.detailLabel.hidden = YES;
+        self.footView.deleteButton.hidden = NO;
+    }
+    else{
+        self.rightBarButtonzl.title = @"编辑";
+        self.footView.clearingBtn.hidden = NO;
+        self.footView.detailLabel.hidden = NO;
+        self.footView.deleteButton.hidden = YES;
+    }
+}
+
+- (void)shanchuShangpin:(UIButton *)sender{
+    NSLog(@"删除按钮");
+    if (self.isLogin == YES) {//登录状态
+        NSMutableArray *temp = [NSMutableArray array];
+        for (MLShopingCartModel *model in self.shopCart.cart) {
+            for (MLProlistModel *prolist in model.prolist) {
+                if (prolist.is_check == 1) {
+                    NSDictionary *dic = @{@"product_id":prolist.ID};
+                    [temp addObject:dic];
+                }
+            }
+        }
+        if (temp.count == 0) {
+            NSLog(@"还没有商品加入购物车");
+            [MBProgressHUD showMessag:@"您还没有选择商品" toView:self.view];
+        }
+        else{
+            NSMutableDictionary *tempdic = [NSMutableDictionary dictionary ];
+            for (int i=0; i < temp.count; i++) {
+                NSString *productid = temp[i][@"product_id"];
+                NSString *cart_list = [NSString stringWithFormat:@"product_id[%d]",i];
+                [tempdic setObject:productid forKey:cart_list];
+            }
+            NSLog(@"购物车中的选中商品信息：%@",tempdic);
+            NSArray * allIDArr = tempdic.allValues;
+            NSString * str  = @"";
+            for (int i = 0;i < allIDArr.count;i++) {
+                if (i == allIDArr.count - 1) {
+                    str = [str stringByAppendingString:allIDArr[i]];
+                }
+                else{
+                    str = [str stringByAppendingString:[NSString stringWithFormat:@"%@,",allIDArr[i]]];
+                }
+            }
+            NSLog(@"删除的商品的ID串：%@+",str);
+            if (str && ![str isEqualToString:@""]) {
+                [self shanChuGOOD:str];
+            }
+            
+            //[self.shopCart.cart removeObject:model];
+            self.footView.checkBox.cartSelected = NO;
+            [self.tableView reloadData];
+            
+        }
+    }
+    else{//未登录 状态
+    
+        //离线购物车
+        //MLOffLineShopCart *cart = [self.offlineCart objectAtIndex:indexPath.section];
+        NSMutableArray *temp = [NSMutableArray array];
+        NSMutableArray *cartTemp = [NSMutableArray array];
+        for (MLOffLineShopCart * cartzl in self.offlineCart) {
+            for (OffLlineShopCart * goods in cartzl.goodsArray) {
+                if (goods.is_check == 1) {
+                    
+                    [temp addObject:goods];
+                    [cartTemp addObject:cartzl];
+                }
+                
+            }
+        }
+        if (temp.count == 0) {
+            NSLog(@"还没有商品加入购物车");
+            [MBProgressHUD showMessag:@"您还没有选择商品" toView:self.view];
+        }
+        NSLog(@"离线购物车的选中的商品为个数为：%ld-----%ld",temp.count,cartTemp.count);
+        for (int i = 0; i<temp.count; i++) {
+            MLOffLineShopCart * cartzl = [cartTemp objectAtIndex:i];
+            NSMutableArray *pids = [[cartzl.cpInfo.shopCart componentsSeparatedByString:@","] mutableCopy];
+            
+            OffLlineShopCart * good = [temp objectAtIndex:i];
+            [pids removeObject:good.pid];
+            
+            if (pids.count > 0) { //说明还有其他商品
+                cartzl.isMore = pids.count>2;
+                cartzl.cpInfo.shopCart = [pids componentsJoinedByString:@","];
+                [cartzl.goodsArray removeObject:good];
+            }else{//没有其他商品 直接删除记录
+                [self.offlineCart removeObject:cartzl];
+                [cartzl.cpInfo MR_deleteEntity];
+            }
+            
+            [good MR_deleteEntity];
+        }
+         
+        [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+        NSArray *all = [CompanyInfo MR_findAll];
+        if (all.count == 0) {
+            [self.likeArray removeAllObjects];
+            [self.collectionView reloadData];
+            
+        }
+        [self countAllPrice];
+        [self.tableView reloadData];
+        [self configBlankPage];
+        
+        /*
+        MGSwipeButton * button = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell * sender){
+            //先删除店铺下的 cart记录
+            NSMutableArray *pids = [[cart.cpInfo.shopCart componentsSeparatedByString:@","] mutableCopy];
+            [pids removeObject:goods.pid];
+            if (pids.count > 0) { //说明还有其他商品
+                cart.isMore = pids.count>2;
+                cart.cpInfo.shopCart = [pids componentsJoinedByString:@","];
+                [cart.goodsArray removeObject:goods];
+            }else{//没有其他商品 直接删除记录
+                [self.offlineCart removeObject:cart];
+                [cart.cpInfo MR_deleteEntity];
+            }
+            [goods MR_deleteEntity];
+            [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+            
+            NSArray *all = [CompanyInfo MR_findAll];
+            if (all.count == 0) {
+                [self.likeArray removeAllObjects];
+                [self.collectionView reloadData];
+                
+            }
+            [self countAllPrice];
+            [self.tableView reloadData];
+            [self configBlankPage];
+            return YES;
+        }];
+
+*/
+
+    
+    }
+
+    
+}
+
+/*
+ ZHOULU x修改 END
+ */
 
 
 #pragma mark UICollectionViewDelegate
@@ -239,6 +412,26 @@ static NSInteger pageIndex = 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    /*
+    if(self.isLogin){
+    
+        if (self.shopCart.cart.count> 0) {
+            self.navigationItem.rightBarButtonItem = self.rightBarButtonzl;
+        }
+        else{
+            self.navigationItem.rightBarButtonItem = nil;
+        }
+        
+    }else{
+        if (self.offlineCart.count > 0) {
+            self.navigationItem.rightBarButtonItem = self.rightBarButtonzl;
+        }
+        else{
+            self.navigationItem.rightBarButtonItem = nil;
+        }
+    
+    }
+    */
    return  self.isLogin?self.shopCart.cart.count:self.offlineCart.count;
 }
 
@@ -802,6 +995,9 @@ static NSInteger pageIndex = 0;
     [self configBlankPage];
     self.loginView.hidden = self.isLogin;
     [self countAllPrice];
+    
+    self.rightBarButtonzl.title = @"完成";
+    [self rightBianjiButtonAction:self.rightBarButtonzl];
 }
  
 
@@ -953,7 +1149,37 @@ static NSInteger pageIndex = 0;
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
 }
+/*
+ 删除 商品 zhoulu  xiugai  START
+ */
+- (void) shanChuGOOD:(NSString * )goodIDstring{
 
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=delete",MATROJP_BASE_URL];
+    [MLHttpManager post:url params:@{@"cart_id":goodIDstring} m:@"product" s:@"cart" success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            [MBProgressHUD showMessag:@"删除成功" toView:self.view];
+            [self.likeArray removeAllObjects];
+            [self.collectionView reloadData];
+            [self getDataSource];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+    
+
+}
+
+
+/*
+ 删除 商品 zhoulu  xiugai END
+ */
 
 /**
  *  生成订单操作
@@ -1039,4 +1265,10 @@ static NSInteger pageIndex = 0;
         }];
     }
 }
+
+
+
+
+
+
 @end
