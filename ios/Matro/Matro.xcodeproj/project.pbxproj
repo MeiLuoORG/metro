@@ -122,6 +122,8 @@
 		28C88D051D5C728D00564C69 /* Loading007.png in Resources */ = {isa = PBXBuildFile; fileRef = 28C88CF11D5C728D00564C69 /* Loading007.png */; };
 		28C88D061D5C728D00564C69 /* Loading008.png in Resources */ = {isa = PBXBuildFile; fileRef = 28C88CF21D5C728D00564C69 /* Loading008.png */; };
 		28C88D071D5C728D00564C69 /* Loading009.png in Resources */ = {isa = PBXBuildFile; fileRef = 28C88CF31D5C728D00564C69 /* Loading009.png */; };
+		28C88D0B1D5D71F700564C69 /* MLFirstPPCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C88D091D5D71F700564C69 /* MLFirstPPCollectionViewCell.m */; };
+		28C88D0C1D5D71F700564C69 /* MLFirstPPCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C88D0A1D5D71F700564C69 /* MLFirstPPCollectionViewCell.xib */; };
 		28CEFB1A1CF99C940070E2CA /* JSBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CEFB191CF99C940070E2CA /* JSBadgeView.m */; };
 		28CF86041CEDC59A00E582EE /* UMSocialLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85CE1CEDC59900E582EE /* UMSocialLocalizable.strings */; };
 		28CF86051CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85DC1CEDC59A00E582EE /* libUMSocial_Sdk_5.1.a */; };
@@ -919,6 +921,9 @@
 		28C88CF11D5C728D00564C69 /* Loading007.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Loading007.png; sourceTree = "<group>"; };
 		28C88CF21D5C728D00564C69 /* Loading008.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Loading008.png; sourceTree = "<group>"; };
 		28C88CF31D5C728D00564C69 /* Loading009.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Loading009.png; sourceTree = "<group>"; };
+		28C88D081D5D71F700564C69 /* MLFirstPPCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFirstPPCollectionViewCell.h; sourceTree = "<group>"; };
+		28C88D091D5D71F700564C69 /* MLFirstPPCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFirstPPCollectionViewCell.m; sourceTree = "<group>"; };
+		28C88D0A1D5D71F700564C69 /* MLFirstPPCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLFirstPPCollectionViewCell.xib; sourceTree = "<group>"; };
 		28CEFB181CF99C940070E2CA /* JSBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSBadgeView.h; sourceTree = "<group>"; };
 		28CEFB191CF99C940070E2CA /* JSBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBadgeView.m; sourceTree = "<group>"; };
 		28CF85CF1CEDC59900E582EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UMSocialLocalizable.strings; sourceTree = "<group>"; };
@@ -2390,6 +2395,9 @@
 				28E8B1211D5041E10088B840 /* MLFristCollectionViewCell.h */,
 				28E8B1221D5041E10088B840 /* MLFristCollectionViewCell.m */,
 				28E8B1231D5041E10088B840 /* MLFristCollectionViewCell.xib */,
+				28C88D081D5D71F700564C69 /* MLFirstPPCollectionViewCell.h */,
+				28C88D091D5D71F700564C69 /* MLFirstPPCollectionViewCell.m */,
+				28C88D0A1D5D71F700564C69 /* MLFirstPPCollectionViewCell.xib */,
 				28E8B1261D504ED00088B840 /* MLFirstHeaderView.h */,
 				28E8B1271D504ED00088B840 /* MLFirstHeaderView.m */,
 				28E8B1291D504EE70088B840 /* MLFirstHeaderView.xib */,
@@ -4692,6 +4700,7 @@
 				3A1AA8C71CAA58F200AF73C2 /* MLAddressInfoViewController.xib in Resources */,
 				7A07203C1D17E76100E0B58E /* MLWenTiBiaoQianTableViewCell.xib in Resources */,
 				2832619A1D192D6E00C9EE4E /* MLStoreCollectViewController.xib in Resources */,
+				28C88D0C1D5D71F700564C69 /* MLFirstPPCollectionViewCell.xib in Resources */,
 				7ABB22391D20F96100529B2B /* MLSystemHeaderCell.xib in Resources */,
 				280AADB41CFEDC7500E7A2FA /* 3.JPG in Resources */,
 				3C197A311D2E831D0087BAF1 /* app_bg.jpg in Resources */,
@@ -4926,6 +4935,7 @@
 				7A272EC91D1A437C00242F24 /* MLReturnsDetailPhototCell.m in Sources */,
 				7A3A62721CDB874F00D265F2 /* MLOrderSubHeadCell.m in Sources */,
 				285326E71CFD3A5800FA2AB0 /* MLYHQOutdateCell.m in Sources */,
+				28C88D0B1D5D71F700564C69 /* MLFirstPPCollectionViewCell.m in Sources */,
 				3A21486A1CB3A5CC007DF97D /* LoginHistory.m in Sources */,
 				7A50BA321D1E50C400E76AC5 /* MLChangePhotoViewController.m in Sources */,
 				3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */,
@@ -5454,8 +5464,8 @@
 			baseConfigurationReference = 5DBB37CE6C3BF0EADC461009 /* Pods-Matro.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5505,7 +5515,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d42c8b83-e9b6-4553-8685-766a702789a0";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -5515,8 +5525,8 @@
 			baseConfigurationReference = 665E7595487B22B165F5C4BB /* Pods-Matro.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5566,7 +5576,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d42c8b83-e9b6-4553-8685-766a702789a0";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

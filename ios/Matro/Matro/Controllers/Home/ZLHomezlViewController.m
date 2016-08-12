@@ -862,8 +862,8 @@
             
             
             
-            if (qrString.length >0) {
-                if ([qrString containsString:@"id"]) {
+            if (qrString.length >0 && [qrString containsString:@"www.matrojp.com"]) {
+                if ([qrString containsString:@"detail"]) {
                     NSString *idstr = [self jiexi:@"id" webaddress:qrString];
                     if (idstr.length > 0 ) {
                         MLGoodsDetailsViewController *detailVc = [[MLGoodsDetailsViewController alloc]init];
@@ -871,6 +871,15 @@
                         detailVc.hidesBottomBarWhenPushed = YES;
                         [self.navigationController pushViewController:detailVc animated:YES];
                     }
+                }else if ([qrString containsString:@"shop"]){
+                    NSString *uidstr = [self jiexi:@"uid" webaddress:qrString];
+                    MLShopInfoViewController *vc = [[MLShopInfoViewController alloc]init];
+                    vc.uid = uidstr;
+                    vc.shopparamDic = @{@"userid":uidstr,@"company":@""};
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                
+                    
                 }else{
                     
                     _hud = [[MBProgressHUD alloc]initWithView:self.view];
@@ -958,11 +967,11 @@
                 }
                 
             }else{
-                
-                [_hud show:YES];
-                _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"加载失败";
-                [_hud hide:YES afterDelay:2];
+                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:qrString]];
+//                [_hud show:YES];
+//                _hud.mode = MBProgressHUDModeText;
+//                _hud.labelText = @"加载失败";
+//                [_hud hide:YES afterDelay:2];
             }
             
         }];

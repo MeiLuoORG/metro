@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="oBN-JY-Z5W">
-                        <rect key="frame" x="0.0" y="45" width="375" height="140"/>
+                        <rect key="frame" x="0.0" y="45" width="375" height="135"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="0ML-N0-XaO">
                             <size key="itemSize" width="0.0" height="0.0"/>
@@ -130,13 +130,13 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="oBN-JY-Z5W" secondAttribute="bottom" constant="-8" id="hfi-zy-9on"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="oBN-JY-Z5W" secondAttribute="bottom" constant="-3" id="hfi-zy-9on"/>
                     <constraint firstItem="oBN-JY-Z5W" firstAttribute="top" secondItem="VgO-xc-fT4" secondAttribute="bottom" id="nGg-ap-gFm"/>
                     <constraint firstItem="oBN-JY-Z5W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="wfQ-2J-Z3d"/>
                     <constraint firstAttribute="trailingMargin" secondItem="oBN-JY-Z5W" secondAttribute="trailing" constant="-8" id="x0w-j5-X8x"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="VgO-xc-fT4" firstAttribute="leading" secondItem="KGk-i7-Jjw" secondAttribute="leading" id="gfr-zF-ziS"/>
                 <constraint firstItem="VgO-xc-fT4" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" id="oxq-dU-Jfd"/>
