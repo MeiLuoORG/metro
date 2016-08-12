@@ -305,7 +305,7 @@ static NSInteger page3 = 1;
         [self endRefrsesh];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:1];
        
         

@@ -68,10 +68,10 @@
     
     [_payTitleArray addObject:@"支付宝"];
     [_payImageArray addObject:@"zhifubao-1"];
-    if (!_isGlobal){
+    //if (!_isGlobal){
         [_payTitleArray addObject:@"微信支付"];
         [_payImageArray addObject:@"weixin"];
-    }
+    //}
     [_payTitleArray addObject:@"银联支付"];
     [_payImageArray addObject:@"yinglian"];
     

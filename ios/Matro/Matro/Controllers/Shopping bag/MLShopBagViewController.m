@@ -178,7 +178,7 @@ static NSInteger pageIndex = 0;
     
     //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self showLoadingView];
-    [self configBlankPage];
+    //[self configBlankPage];
     [self ctreateYOUHUIQuanView];
     
 }
@@ -888,7 +888,7 @@ static NSInteger pageIndex = 0;
 
 - (void)configBlankPage{
 //    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    [self closeLoadingView];
+    //[self closeLoadingView];
     __weak typeof(self) weakself = self;
 /*
     if (self.view.blankPage) {
@@ -961,12 +961,13 @@ static NSInteger pageIndex = 0;
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    self.view.blankPage.hidden = YES;
 //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
     
     NSString  *loginid = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
     [self.likeArray removeAllObjects];
     [self.offlineCart removeAllObjects];
+    [self.shopCart.cart removeAllObjects];
     [self.tableView reloadData];
     [self.collectionView reloadData];
     if (loginid) { //已登录情况
@@ -993,7 +994,8 @@ static NSInteger pageIndex = 0;
             [self showLoadingView];
             [self guessYourLike];
         }
-        [self.tableView reloadData];
+        //[self.tableView reloadData];
+        [self configBlankPage];
     }
     self.footView.checkBox.cartSelected = NO;
     if (!self.isLogin) {  //遍历所有商品  取消选中
@@ -1004,7 +1006,7 @@ static NSInteger pageIndex = 0;
         }
     }
     
-    [self configBlankPage];
+    //[self configBlankPage];
     self.loginView.hidden = self.isLogin;
     [self countAllPrice];
     
@@ -1060,6 +1062,11 @@ static NSInteger pageIndex = 0;
             NSArray *product = data[@"product"];
             [self.likeArray addObjectsFromArray:[MLGuessLikeModel mj_objectArrayWithKeyValuesArray:product]];
             [self.collectionView reloadData];
+            
+            if (self.isLogin == NO) {
+                [self.tableView reloadData];
+            }
+            
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD show:msg view:self.view];
@@ -1273,7 +1280,7 @@ static NSInteger pageIndex = 0;
         }];
         NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=mul_add_cart",MATROJP_BASE_URL];
         [MLHttpManager post:url params:dic m:@"product" s:@"cart" success:^(id responseObject) {
-            [self closeLoadingView];
+            //[self closeLoadingView];
             NSDictionary *result = (NSDictionary *)responseObject;
             if ([result[@"code"] isEqual:@0]) {
                 NSArray *tmp = [OffLlineShopCart MR_findAll];
@@ -1291,7 +1298,7 @@ static NSInteger pageIndex = 0;
                 [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
             }
         } failure:^(NSError *error) {
-            [self closeLoadingView];
+            //[self closeLoadingView];
             
         }];
     }

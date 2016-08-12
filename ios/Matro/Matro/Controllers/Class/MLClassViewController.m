@@ -117,8 +117,9 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadAllClass];
     [self showLoadingView];
+    [self loadAllClass];
+    
 }
 
 
@@ -588,8 +589,9 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     }
     */
     //根据所选的一级大类来刷新二三级大类
-    [self loadDateSubClass:index];
     [self showLoadingView];
+    [self loadDateSubClass:index];
+    
 }
 
 #pragma mark-SearchDelegate
