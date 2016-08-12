@@ -125,8 +125,11 @@
     
         [self headerShuaXin];
     }];
-    _collectionView.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    
+    _collectionView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self footerShuaXin];
+        [_collectionView.footer endRefreshing];
+        
     }];
 //close-2
 }
@@ -500,33 +503,56 @@
     
     [MLHttpManager get:urlStr params:nil m:@"brand" s:@"brand" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [_collectionView.header endRefreshing];
-        [_collectionView.footer endRefreshing];
+
         
         NSDictionary * result = (NSDictionary *)responseObject;
-        NSLog(@"请求品牌馆：%@",result);
-        NSDictionary * dataDic = result[@"data"];
-        NSString * sumStr = dataDic[@"sum"];
-        if (![sumStr isEqualToString:@"0"]) {
-            NSArray * brandARR = dataDic[@"brand"];
-            if (brandARR.count > 0 ) {
-                for (NSDictionary * brandDic in brandARR) {
-                    //[PinPaiModelZl modelWithDictionary:brandDic error:nil];
-                    PinPaiModelZl * pinPaiModel = [[PinPaiModelZl alloc]init];
-                    pinPaiModel.id = brandDic[@"id"];
-                    pinPaiModel.char_index = brandDic[@"char_index"];
-                    pinPaiModel.name = brandDic[@"name"];
-                    pinPaiModel.ishot = brandDic[@"ishot"];
-                    pinPaiModel.logo = brandDic[@"logo"];
-                    [_pinPaiARR addObject:pinPaiModel];
+        if ([result[@"code"] isEqual:@0]) {
+            NSLog(@"请求品牌馆：%@",result);
+            NSDictionary * dataDic = result[@"data"];
+            NSString * sumStr = dataDic[@"sum"];
+            if (![sumStr isEqualToString:@"0"]) {
+                if ([dataDic[@"brand"] isKindOfClass:[NSArray class]]) {
+                    NSArray * brandARR = dataDic[@"brand"];
+                    
+                    
+                    NSNumber *count = dataDic[@"retcount"];
+                    NSLog(@"count====%@",count);
+                    if ([count isEqualToNumber:@0] ) {
+                        MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)_collectionView.footer;
+                        footer.stateLabel.text = @"没有更多了";
+                        return ;
+                    }
+                    
+                    if (brandARR.count > 0 ) {
+                        for (NSDictionary * brandDic in brandARR) {
+                            //[PinPaiModelZl modelWithDictionary:brandDic error:nil];
+                            PinPaiModelZl * pinPaiModel = [[PinPaiModelZl alloc]init];
+                            pinPaiModel.id = brandDic[@"id"];
+                            pinPaiModel.char_index = brandDic[@"char_index"];
+                            pinPaiModel.name = brandDic[@"name"];
+                            pinPaiModel.ishot = brandDic[@"ishot"];
+                            pinPaiModel.logo = brandDic[@"logo"];
+                            [_pinPaiARR addObject:pinPaiModel];
+                            
+                        }
+                        _indexButton.hidden = NO;
+                        [_collectionView reloadData];
+                        
+                    }
                     
                 }
-                _indexButton.hidden = NO;
-                [_collectionView reloadData];
+                
                 
             }
-            
-            
+            else{
+                _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+                [self.view addSubview:_hud];
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"没有品牌信息";
+                [_hud hide:YES afterDelay:2];
+                
+            }
         }
         else{
             _hud  = [[MBProgressHUD alloc]initWithView:self.view];
@@ -536,7 +562,10 @@
             _hud.labelText = @"没有品牌信息";
             [_hud hide:YES afterDelay:2];
             
+            
         }
+        [_collectionView.header endRefreshing];
+        [_collectionView.footer endRefreshing];
     } failure:^(NSError *error) {
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
@@ -544,6 +573,8 @@
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"没有品牌信息";
         [_hud hide:YES afterDelay:1];
+        [_collectionView.header endRefreshing];
+        [_collectionView.footer endRefreshing];
     }];
     
     /*
@@ -696,14 +727,16 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView.contentOffset.y > 200.0f) {
-        self.backTopButton.hidden = NO;
-    }
-    else{
-        self.backTopButton.hidden = YES;
-    }
     
-    
+    if (_closeButton.isHidden == YES) {
+        if (scrollView.contentOffset.y > 200.0f) {
+            self.backTopButton.hidden = NO;
+        }
+        else{
+            self.backTopButton.hidden = YES;
+        }
+    }
+
 }
 /*
 #pragma mark - Navigation

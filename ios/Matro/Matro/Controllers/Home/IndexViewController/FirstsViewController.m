@@ -85,7 +85,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(index3ButtonRightAction:) name:Index3Button_RIGHT_NOTICIFICATION object:nil];
     
     [self loadJieKouShuJi];
-    [self shouyeCaiNiLikeSWithIndex:1 withPagesize:10];
+    [self shouyeCaiNiLikeSWithIndex:1 withPagesize:8];
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(handleSchedule) userInfo:nil repeats:YES];
 
     self.backTopButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -200,6 +200,16 @@
                     [self.index_8_goodARR addObjectsFromArray:_likeDataZongDic[@"good"]];
                     [self.tableview reloadData];
                     //[self.index_8_CollectionView reloadData];
+                    NSNumber *count = _likeDataZongDic[@"retcount"];
+                    NSLog(@"count====%@",count);
+                    if ([count isEqualToNumber:@0] ) {
+                        MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableview.footer;
+                        footer.stateLabel.text = @"没有更多了";
+                        //[self jieShuShuaXin];
+                        //[self.tableview.footer endRefreshing];
+                        return ;
+                    }
+                    
                 }
             }
         }
@@ -250,8 +260,9 @@
     // 设置header
      self.tableview.header = header;
     
-    self.tableview.footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    self.tableview.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self footerShuaXin];
+        [self.tableview.footer endRefreshing];
     }];
     
     
@@ -262,14 +273,14 @@
     NSLog(@"头部刷新执行的方法");
     [self loadJieKouShuJi];
     [self.index_8_goodARR removeAllObjects];
-    [self shouyeCaiNiLikeSWithIndex:1 withPagesize:10];
+    [self shouyeCaiNiLikeSWithIndex:1 withPagesize:8];
     self.likePage = 1;
 }
 
 - (void)footerShuaXin{
     self.likePage++;
     NSLog(@"首页猜你的页面index；%d",self.likePage);
-    [self shouyeCaiNiLikeSWithIndex:self.likePage withPagesize:10];
+    [self shouyeCaiNiLikeSWithIndex:self.likePage withPagesize:8];
 }
 
 - (void)jieShuShuaXin{
