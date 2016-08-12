@@ -172,7 +172,7 @@
     
     [MLHttpManager get:urlStr params:nil m:@"brand" s:@"brand" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        
+        [self closeLoadingView];
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"请求品牌馆：%@",result);
         NSDictionary * dataDic = result[@"data"];
@@ -207,6 +207,7 @@
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
         [_hud show:YES];
@@ -492,7 +493,8 @@
 
 - (void)loadDataWithPageIndex:(int) pageIndex withPagesize:(int) pageSize{
 
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     /*
      HFSServiceClient
      client_type=[android|ios]
@@ -503,7 +505,7 @@
     
     [MLHttpManager get:urlStr params:nil m:@"brand" s:@"brand" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-
+        [self closeLoadingView];
         
         NSDictionary * result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {

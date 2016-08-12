@@ -150,7 +150,8 @@
     
     NSDictionary *params = @{@"do":@"1",@"data[content]":@"明细",@"data[type]":@"1",@"data[rise]":_gongsi.selected?titou:@"个人"};
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=invoice",MATROJP_BASE_URL];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     [MLHttpManager post:url params:params m:@"product" s:@"invoice" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
@@ -170,6 +171,7 @@
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     

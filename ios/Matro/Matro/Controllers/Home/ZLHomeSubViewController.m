@@ -114,7 +114,8 @@
 #pragma mark WebView代理方法
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     NSLog(@"HATestView.h网页开始加载");
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     self.failView.hidden = YES;
 }
 
@@ -130,6 +131,7 @@
         NSLog(@"JavaScript异常信息：%@", exceptionValue);
     };
     [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self closeLoadingView];
     /*
     NSString *alertJS=@"alert('test js OC')"; //准备执行的js代码
     [self.contextjs evaluateScript:alertJS];//通过oc方法调用js的alert
@@ -138,6 +140,7 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     NSLog(@"HATestView.h网页加载错误：%@",error);
     [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self closeLoadingView];
     self.failView.hidden = NO;
 }
 

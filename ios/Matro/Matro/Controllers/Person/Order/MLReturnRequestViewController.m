@@ -34,13 +34,14 @@
 #import "MLHttpManager.h"
 #import "MLPersonAlertViewController.h"
 #import "UMMobClick/MobClick.h"
-
+#import "CommonHeader.h"
 @interface MLReturnRequestViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     BOOL isOpen;
     PlaceholderTextView *messageText;
     MLReturnsQuestiontype *selQuestion;
     NSArray *tagsArray;
+    YYAnimationIndicator *indicator;
 }
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,assign)BOOL fapiao;
@@ -268,6 +269,7 @@
     }
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[self showLoadingView];
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:3];
     MLXuanZeTuPianTableViewCell *cell  =[self.tableView cellForRowAtIndexPath:index];
     if (cell.imgsArray.count > 1) {
@@ -304,6 +306,7 @@
                         }
                     } failure:^(NSError *error) {
                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                        //[self closeLoadingView];
                     }];
 
                 }
@@ -318,6 +321,7 @@
 
 - (void)submitTuihuoActionWithPic:(BOOL)isUpImage{
    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[self showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=save_return",MATROJP_BASE_URL];
     NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":selQuestion.ID,@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"pic":isUpImage?[self.imgsUrlArray componentsJoinedByString:@","]:@""};
     [MLHttpManager post:url params:params m:@"return" s:@"save_return" success:^(id responseObject) {
@@ -412,6 +416,40 @@
     
 }
 
+#pragma mark - 窗体加载进度条
+- (void)showLoadingView
+{/*
+  _hud = [[MBProgressHUD alloc] initWithView:self.view];
+  _hud.mode = MBProgressHUDModeCustomView;
+  [self.view addSubview:_hud];
+  _hud.color=[UIColor clearColor];
+  [_hud show:true];
+  */
+    indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(SIZE_WIDTH/2.0-50, SIZE_HEIGHT/2.0-15, 100, 25)];
+    indicator.backgroundColor = [UIColor clearColor];
+    
+    //NSLog(@"indicator的frame值为：x=%g,  y= %g",indicator.frame.origin.x,indicator.frame.origin.y);
+    
+    //[indicator setLoadText:@"努力加载中..."];
+    
+    [self.view addSubview:indicator];
+    
+    [indicator startAnimation];
+    
+}
 
+- (void)closeLoadingView
+{
+
+    [indicator stopAnimationWithLoadText:@"" withType:YES];//加载成功
+}
+
+- (void)viewDidUnload
+{
+
+    indicator=nil;
+    
+    [super viewDidUnload];
+}
 
 @end

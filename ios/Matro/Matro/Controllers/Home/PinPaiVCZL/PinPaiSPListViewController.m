@@ -352,7 +352,7 @@ static NSInteger page = 1;
 }
 #warning 先加分页index，之后还会加别的  关键字搜索
 - (void)getGoodsList{
-    
+    [self showLoadingView];
     //    http://bbctest.matrojp.com/api.php?m=product&s=list&key=水&startprice=0&endprice=60&pageindex=1&pagesize=20&listtype=1&searchType=1&orderby=amount&sort=desc&brand_id=1853
     
     //    key : 产品搜索关键字
@@ -464,7 +464,7 @@ static NSInteger page = 1;
                         MJRefreshAutoNormalFooter *footer1 = (MJRefreshAutoNormalFooter *)self.collectionView.footer;
                         footer.stateLabel.text = @"没有更多了";
                         footer1.stateLabel.text = @"没有更多了";
-                        
+                        [self closeLoadingView];
                         return ;
                     }
                 }
@@ -485,9 +485,11 @@ static NSInteger page = 1;
             [_collectionView reloadData];
             
         }
-        [_hud show:YES];
-        [_hud hide:YES afterDelay:1];
+        //[_hud show:YES];
+        //[_hud hide:YES afterDelay:1];
+        [self closeLoadingView];
     } failure:^(NSError *error) {
+        [self closeLoadingView];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = REQUEST_ERROR_ZL;

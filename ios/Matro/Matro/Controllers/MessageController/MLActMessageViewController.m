@@ -178,10 +178,12 @@
 
 - (void)deleteMessage:(MLActiveMessageModel *)message{
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=delete",MATROJP_BASE_URL];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     NSDictionary *params = @{@"type":@"2",@"delete_id":message.ID?:@""};
     [MLHttpManager post:url params:params m:@"push" s:@"delete" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             [MBProgressHUD showMessag:@"删除成功" toView:self.view];
@@ -192,6 +194,7 @@
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
 }

@@ -181,7 +181,8 @@
 }
 
 - (void)getOrderDetail{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=detail&order_id=%@",MATROJP_BASE_URL,self.order_id?:@""];
     [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -269,8 +270,11 @@
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
         }
+        [self closeLoadingView];
     } failure:^(NSError *error) {
+        [self closeLoadingView];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
@@ -683,7 +687,8 @@
 
 
 - (void)downLoadLogTrackWithCompany:(NSString *)company AndNum:(NSString *)num{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=getkd",MATROJP_BASE_URL];
     NSDictionary *params = @{@"express_company":company?:@"",@"express_number":num?:@""};
     [MLHttpManager post:url params:params m:@"member" s:@"getkd" success:^(id responseObject) {

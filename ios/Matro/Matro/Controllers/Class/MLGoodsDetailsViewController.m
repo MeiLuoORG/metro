@@ -892,7 +892,7 @@
             [self closeLoadingView];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"请求失败";
+            _hud.labelText = REQUEST_ERROR_ZL;
             [_hud hide:YES afterDelay:2];
         }];
    // }
@@ -985,7 +985,7 @@
         [self closeLoadingView];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:1];
         
     }];
@@ -1026,7 +1026,7 @@
         [self closeLoadingView];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"猜你喜欢 请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:2];
     }];
    

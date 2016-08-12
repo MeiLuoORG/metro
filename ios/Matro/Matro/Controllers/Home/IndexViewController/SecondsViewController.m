@@ -128,7 +128,7 @@ static NSInteger page3 = 1;
     [self loadData];
     [self loadYourlikeData];
     //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [self showLoadingView];
+    //[self showLoadingView];
 }
 
 //获取全球购数据
@@ -345,7 +345,7 @@ static NSInteger page3 = 1;
     
     [self loadData];
     [self loadYourlikeData];
-    [self showLoadingView];
+    //[self showLoadingView];
     
 }
 
@@ -366,7 +366,7 @@ static NSInteger page3 = 1;
         }
         
         [self loadYourlikeData];
-        [self showLoadingView];
+        //[self showLoadingView];
         [scrollView.footer endRefreshing];
     }];
 

@@ -32,7 +32,7 @@ alpha:(a)]
         self.backgroundColor = [UIColor whiteColor];
         _isAnimating = NO;
         
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,0, frame.size.width-20,(frame.size.width-20)/4)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,frame.size.width,(frame.size.width)/4)];
         imageView.backgroundColor= [UIColor clearColor];
         [self addSubview:imageView];
         //设置动画帧

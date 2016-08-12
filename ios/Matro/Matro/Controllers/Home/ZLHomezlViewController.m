@@ -17,11 +17,11 @@
 
 #import "MLQuanqiugouViewController.h"
 
-@interface ZLHomezlViewController ()
-{
+@interface ZLHomezlViewController (){
     MBProgressHUD *_hub;
     NSString *version;
     NSString *userid;
+    YYAnimationIndicator *indicator;
 }
 
 @property ( strong , nonatomic ) AVCaptureDevice * device;
@@ -730,7 +730,8 @@
 //请求 标题数据
 - (void)getRequestTitleARR{
 
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     /*
      语言的力量  11:45:07
      client_type=[android|ios]
@@ -742,7 +743,8 @@
     
     //m=product&s=webframe
     [MLHttpManager get:HomeTitles_URLString params:nil m:@"product" s:@"webframe" success:^(id responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         self.failView.hidden = YES;
         
         NSDictionary * result = (NSDictionary *)responseObject;
@@ -782,7 +784,8 @@
     } failure:^(NSError *error) {
         self.failView.hidden = NO;
         self.titleLoadFinished = NO;
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
         [_hud show:YES];
@@ -1072,7 +1075,8 @@
                 
             });
             */
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [self showLoadingView];
             [self performSelector:@selector(selectedSecondNotificationAction) withObject:self afterDelay:1.0f];
 
         }else{
@@ -1309,7 +1313,8 @@
 }
 
 - (void)selectedSecondNotificationAction{
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    //[MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self closeLoadingView];
     [[NSNotificationCenter defaultCenter]postNotificationName:SelectSecondVC_NOTIFICATION object:nil];
 }
 
@@ -1547,7 +1552,8 @@
              
              });
              */
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [self showLoadingView];
             [self performSelector:@selector(selectedSecondNotificationAction) withObject:self afterDelay:1.0f];
             
         }else{
@@ -1747,7 +1753,43 @@
     }];
     
 }
+#pragma mark - 窗体加载进度条
+- (void)showLoadingView
+{/*
+    _hud = [[MBProgressHUD alloc] initWithView:self.view];
+    _hud.mode = MBProgressHUDModeCustomView;
+    [self.view addSubview:_hud];
+    _hud.color=[UIColor clearColor];
+    [_hud show:true];
+    */
+    indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(SIZE_WIDTH/2.0-50, SIZE_HEIGHT/2.0-15, 100, 25)];
+    indicator.backgroundColor = [UIColor clearColor];
+    
+    //NSLog(@"indicator的frame值为：x=%g,  y= %g",indicator.frame.origin.x,indicator.frame.origin.y);
+    
+    //[indicator setLoadText:@"努力加载中..."];
+    
+    [self.view addSubview:indicator];
+    
+    [indicator startAnimation];
+    
+}
 
+- (void)closeLoadingView
+{
+    if (_hud) {
+        [_hud hide:true];
+    }
+    [indicator stopAnimationWithLoadText:@"" withType:YES];//加载成功
+}
+
+- (void)viewDidUnload
+{
+    _hud  = nil;
+    indicator=nil;
+    
+    [super viewDidUnload];
+}
 /*
 #pragma mark - Navigation
 

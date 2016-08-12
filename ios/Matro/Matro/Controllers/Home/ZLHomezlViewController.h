@@ -64,7 +64,7 @@
 #import "SecondsViewController.h"
 
 #import "MLTestViewController.h"
-
+#import "YYAnimationIndicator.h"
 @interface ZLHomezlViewController : ViewPagerController<ViewPagerDataSource, ViewPagerDelegate,UIGestureRecognizerDelegate,SearchDelegate,UIWebViewDelegate,AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate,ZLHomeSubVieDragProtocol,UIAlertViewDelegate,FirsrtViewControllerDelegate,SecondsViewControllerDelegate>
 @property (strong, nonatomic) UIView * firstTopView;
 @property(nonatomic,strong)JSContext *contextjs;
@@ -79,4 +79,8 @@
 @property (assign, nonatomic) BOOL titleLoadFinished;
 
 @property (strong, nonatomic) UIView * failView;
+
+//窗体加载进度
+- (void)showLoadingView;
+- (void)closeLoadingView;
 @end

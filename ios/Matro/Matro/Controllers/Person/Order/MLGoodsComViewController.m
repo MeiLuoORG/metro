@@ -22,8 +22,12 @@
 #import "MBProgressHUD+Add.h"
 #import "MLHttpManager.h"
 #import "UMMobClick/MobClick.h"
+#import "CommonHeader.h"
 
-@interface MLGoodsComViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface MLGoodsComViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+    YYAnimationIndicator *indicator;
+
+}
 
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *imgsArray;
@@ -127,11 +131,13 @@
 }
 
 - (void)uploadCommentInfoWithUpImage:(BOOL)isUpImage{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     NSDictionary *params = @{@"pid":self.pid,@"comment_text":self.headView.textView.text,@"stars":[NSNumber numberWithInteger:self.comScore],@"pic":isUpImage?[self.imgUrlArray componentsJoinedByString:@","]:@"",@"order_id":self.order_id?:@""};
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=comment_submit&method=product_submit",MATROJP_BASE_URL];
     [MLHttpManager post:url params:params m:@"product" s:@"comment_submit" success:^(id responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             if (self.goodsComSuccess) {
@@ -146,7 +152,8 @@
         }
 
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
@@ -222,6 +229,39 @@
 }
 
 
+#pragma mark - 窗体加载进度条
+- (void)showLoadingView
+{/*
+  _hud = [[MBProgressHUD alloc] initWithView:self.view];
+  _hud.mode = MBProgressHUDModeCustomView;
+  [self.view addSubview:_hud];
+  _hud.color=[UIColor clearColor];
+  [_hud show:true];
+  */
+    indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(SIZE_WIDTH/2.0-50, SIZE_HEIGHT/2.0-15, 100, 25)];
+    indicator.backgroundColor = [UIColor clearColor];
+    
+    //NSLog(@"indicator的frame值为：x=%g,  y= %g",indicator.frame.origin.x,indicator.frame.origin.y);
+    
+    //[indicator setLoadText:@"努力加载中..."];
+    
+    [self.view addSubview:indicator];
+    
+    [indicator startAnimation];
+    
+}
 
+- (void)closeLoadingView
+{
+
+    [indicator stopAnimationWithLoadText:@"" withType:YES];//加载成功
+}
+
+- (void)viewDidUnload
+{
+    indicator=nil;
+    
+    [super viewDidUnload];
+}
 
 @end

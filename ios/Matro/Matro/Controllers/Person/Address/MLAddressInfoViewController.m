@@ -161,10 +161,12 @@ static MLShippingaddress *province,*city,*area;
 
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=lists",MATROJP_BASE_URL];
     [MLHttpManager get:urlStr params:nil m:@"member" s:@"admin_orderadder" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if([result[@"code"] isEqual:@0])
         {
@@ -308,10 +310,11 @@ static MLShippingaddress *province,*city,*area;
         params =@{@"data[name]":self.nameTextField.text,@"data[areaid]":area.ID?:self.addressDetail.areaid,@"data[area]":area_Text,@"data[address]":self.inputTextField.text,@"data[provinceid]":province.ID?:self.addressDetail.provinceid,@"data[cityid]":city.ID?:self.addressDetail.cityid,@"data[mobile]":self.phoneTextField.text,@"id":self.addressDetail.ID?:@""};
     }
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     [MLHttpManager post:urlStr params:params m:@"member" s:@"admin_orderadder" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //添加成功
             if (moren) { //需要默认的情况
@@ -340,6 +343,7 @@ static MLShippingaddress *province,*city,*area;
 
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     

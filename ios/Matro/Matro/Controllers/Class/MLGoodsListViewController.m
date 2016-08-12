@@ -415,15 +415,15 @@ static NSInteger page = 1;
             [_collectionView reloadData];
             
         }
-        [_hud show:YES];
-        [_hud hide:YES afterDelay:1];
+        //[_hud show:YES];
+        //[_hud hide:YES afterDelay:1];
         
     } failure:^( NSError *error){
 //        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self closeLoadingView];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = REQUEST_ERROR_ZL;
         [_hud hide:YES afterDelay:1];
         NSLog(@"error===%@",error);
     }];

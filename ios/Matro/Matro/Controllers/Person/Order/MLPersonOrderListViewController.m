@@ -385,8 +385,8 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     }else{
         action = @"";
     }
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     NSString *url= [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@",MATROJP_BASE_URL,action,order_id];
     [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];

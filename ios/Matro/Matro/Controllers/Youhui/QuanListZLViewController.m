@@ -105,10 +105,11 @@
 
 - (void)loadData{
 
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     [MLHttpManager get:YOUHUIQUANLIST_YiLingQu_URLString params:nil m:@"member" s:@"admin_coupons" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         NSLog(@"请求用户已领取的优惠券：%@",responseObject);
         NSDictionary * result = (NSDictionary *)responseObject;
         NSDictionary * dataDic = result[@"data"];
@@ -150,6 +151,7 @@
         
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         _hud = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
         [_hud show:YES];

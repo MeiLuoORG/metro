@@ -8,10 +8,12 @@
 
 #import "MLBaseViewController.h"
 #import "MLTuiHuoModel.h"
-
+#import "YYAnimationIndicator.h"
 @interface MLReturnRequestViewController : UIViewController
 
 @property (nonatomic,copy)NSString *order_id;
 
-
+//窗体加载进度
+- (void)showLoadingView;
+- (void)closeLoadingView;
 @end

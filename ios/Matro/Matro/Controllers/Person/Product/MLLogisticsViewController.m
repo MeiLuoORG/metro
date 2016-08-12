@@ -39,7 +39,8 @@
 
 
 - (void)downLoadLogTrack {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=getkd",MATROJP_BASE_URL];
     NSDictionary *params = @{@"express_company":self.express_company?:@"",@"express_number":self.express_number?:@""};
     

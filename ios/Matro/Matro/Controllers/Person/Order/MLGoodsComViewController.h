@@ -7,7 +7,7 @@
 //
 
 #import "MLCommentProductModel.h"
-
+#import "YYAnimationIndicator.h"
 
 typedef void(^GoodsComSuccess)();
 
@@ -17,5 +17,7 @@ typedef void(^GoodsComSuccess)();
 @property (nonatomic,copy)NSString *pid;
 @property (nonatomic,copy)GoodsComSuccess goodsComSuccess;
 @property (nonatomic,copy)NSString *order_id;
-
+//窗体加载进度
+- (void)showLoadingView;
+- (void)closeLoadingView;
 @end

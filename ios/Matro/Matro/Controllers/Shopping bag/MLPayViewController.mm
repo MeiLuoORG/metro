@@ -342,13 +342,14 @@
 
 //显示 风火轮
 - (void)showFengHuoLun{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
 }
 
 //隐藏 风火轮
 - (void)hideFengHuoLun{
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-
+    [self closeLoadingView];
 }
 
 

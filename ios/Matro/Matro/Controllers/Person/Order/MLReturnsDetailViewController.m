@@ -251,12 +251,13 @@
 #pragma mark 网络请求
 
 - (void)getOrderDetail{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_detail",MATROJP_BASE_URL];
     NSDictionary *params = @{@"order_id":self.order_id?:@""};
     [MLHttpManager post:url params:params m:@"return" s:@"order_detail" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
@@ -272,6 +273,7 @@
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
