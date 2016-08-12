@@ -118,6 +118,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self loadAllClass];
+    [self showLoadingView];
 }
 
 
@@ -207,13 +208,14 @@
 #pragma mark- 获取一级分类
 - (void)loadAllClass {
 
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=category&s=list&method=top&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
     
     [MLHttpManager get:urlStr params:nil m:@"category" s:@"list" success:^(id responseObject){
+        [self closeLoadingView];
         NSLog(@"responseObject===%@",responseObject);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
         NSArray *arr = responseObject[@"data"][@"ret"];
         
         _classTitleArray = [MTLJSONAdapter modelsOfClass:[MLClass class] fromJSONArray:arr error:nil];
@@ -225,7 +227,8 @@
         _topScrollSegmentControl.buttons = tempTitleArr;
         
     } failure:^(NSError *error){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
@@ -245,6 +248,7 @@
 
     
     [MLHttpManager get:urlStr params:nil m:@"category" s:@"list" success:^(id responseObject){
+        [self closeLoadingView];
         NSLog(@"responseObject===%@",responseObject);
         [_classSecondArray removeAllObjects];
         
@@ -283,6 +287,7 @@
         [_tableView reloadData];
         
     } failure:^(NSError *error){
+        [self closeLoadingView];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
@@ -584,6 +589,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     */
     //根据所选的一级大类来刷新二三级大类
     [self loadDateSubClass:index];
+    [self showLoadingView];
 }
 
 #pragma mark-SearchDelegate

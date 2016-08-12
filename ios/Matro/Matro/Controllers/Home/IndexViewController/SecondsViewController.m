@@ -72,7 +72,7 @@ static NSInteger page3 = 1;
     ishotSP = YES;
     _index_0_height = 464.0f/750.0f*SIZE_WIDTH;
     
-    _index_1_height = 460.0f/750.0f*SIZE_WIDTH+5;
+   // _index_1_height = 460.0f/750.0f*SIZE_WIDTH+5;
     
     _index_2_height = 300.0f/750.0f*SIZE_WIDTH+5;
     
@@ -127,7 +127,8 @@ static NSInteger page3 = 1;
     [super viewWillAppear:YES];
     [self loadData];
     [self loadYourlikeData];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
 }
 
 //获取全球购数据
@@ -151,7 +152,8 @@ static NSInteger page3 = 1;
 
     [MLHttpManager get:urlStr params:nil m:@"product" s:mstr success:^(id responseObject){
         NSLog(@"responseObject===%@",responseObject);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         if ([[responseObject objectForKey:@"code"] isEqual:@0]) {
             
             if ([responseObject[@"data"][@"hotcategory"] isKindOfClass:[NSArray class]]) {
@@ -222,7 +224,8 @@ static NSInteger page3 = 1;
          [self endRefrsesh];
         
     } failure:^(NSError *error){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         [self endRefrsesh];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
@@ -254,7 +257,8 @@ static NSInteger page3 = 1;
     
     [MLHttpManager get:urlStr params:nil m:@"product" s:mstr success:^(id responseObject){
         NSLog(@"responseObject===%@",responseObject);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         if ([[responseObject objectForKey:@"code"] isEqual:@0]) {
 
             if (responseObject) {
@@ -294,7 +298,8 @@ static NSInteger page3 = 1;
         [self endRefrsesh];
         
     } failure:^(NSError *error){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+       // [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         [self endRefrsesh];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
@@ -340,11 +345,13 @@ static NSInteger page3 = 1;
     
     [self loadData];
     [self loadYourlikeData];
+    [self showLoadingView];
     
 }
 
 -(void)endRefrsesh{
     [self.tableview.header endRefreshing];
+    [self closeLoadingView];
     
 }
 
@@ -359,6 +366,7 @@ static NSInteger page3 = 1;
         }
         
         [self loadYourlikeData];
+        [self showLoadingView];
         [scrollView.footer endRefreshing];
     }];
 
@@ -382,8 +390,8 @@ static NSInteger page3 = 1;
         }
             break;
         case 1:{
-          //  height = _index_1_height;
-            height = 294;
+            height = _index_1_height;
+           // height = 294;
            
             
         }
@@ -463,9 +471,11 @@ static NSInteger page3 = 1;
             }
             
             if (ishotSP == YES) {
+                _index_1_height = 294;
                 FristTableViewCell.hotppLab.textColor = [UIColor grayColor];
                 FristTableViewCell.hotppView.hidden = YES;
             }else{
+                _index_1_height = 234;
                 FristTableViewCell.hotspLab.textColor = [UIColor grayColor];
                 FristTableViewCell.hotspView.hidden = YES;
                 
@@ -857,12 +867,13 @@ static NSInteger page3 = 1;
             }
 
         }else{
-
+            
             if (hotbrandArr.count > 6) {
                 if (indexPath.row <7) {
                     
                     NSDictionary *tempDic = hotbrandArr[indexPath.row];
-                    cell.firstNameLab.text = tempDic[@"name"]?:@"";
+                    //cell.firstNameLab.text = tempDic[@"name"]?:@"";
+                    cell.firstNameLab.hidden = YES;
                     NSString *imageurl = tempDic[@"imgurl"]?:@"";
                     if (![imageurl isKindOfClass:[NSNull class]]) {
                         [cell.firstImageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
@@ -872,13 +883,15 @@ static NSInteger page3 = 1;
                     }
                 }
                 if (indexPath.row == 7) {
-                    cell.firstNameLab.text = @"更多";
+                   // cell.firstNameLab.text = @"更多";
+                    cell.firstNameLab.hidden = YES;
                     cell.firstImageView.image = [UIImage imageNamed:@"more_goods"];
                 }
             }else{
             
                 NSDictionary *tempDic = hotbrandArr[indexPath.row];
-                cell.firstNameLab.text = tempDic[@"name"]?:@"";
+                //cell.firstNameLab.text = tempDic[@"name"]?:@"";
+                cell.firstNameLab.hidden = YES;
                 NSString *imageurl = tempDic[@"imgurl"]?:@"";
                 if (![imageurl isKindOfClass:[NSNull class]]) {
                     [cell.firstImageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
@@ -893,6 +906,7 @@ static NSInteger page3 = 1;
         
         
         return cell;
+        
     }else if(collectionView.tag == 7){
         
         MLYourlikeCollectionViewCell *cell = (MLYourlikeCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:YourlikeCCELL_IDENTIFIER forIndexPath:indexPath];
@@ -1047,8 +1061,15 @@ static NSInteger page3 = 1;
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView.tag == 1) {
-        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
-        return CGSizeMake(width, 120);
+        if (ishotSP == YES) {
+            float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
+            return CGSizeMake(width, 120);
+        }else{
+        
+            float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
+            return CGSizeMake(width, 80);
+        }
+        
     }else if (collectionView.tag == 7){
         CGFloat cellW = (MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2;
         return CGSizeMake(cellW,cellW*1.35);

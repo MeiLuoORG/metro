@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "YYAnimationIndicator.h"
 
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
 #define SCREENWIDTH [UIScreen mainScreen].bounds.size.width
@@ -33,4 +34,7 @@ static NSString *base64_encode_data(NSData *data){
 - (void)showTransparentController:(UIViewController *)controller;
 
 - (void)backBtnAction;
+//窗体加载进度
+- (void)showLoadingView;
+- (void)closeLoadingView;
 @end

@@ -26,31 +26,39 @@ alpha:(a)]
 
 - (id)initWithFrame:(CGRect)frame
 {
+
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor whiteColor];
         _isAnimating = NO;
-        //imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, frame.size.width,frame.size.height-10)];
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,0, frame.size.width-20,49)];
+        
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,0, frame.size.width-20,(frame.size.width-20)/4)];
         imageView.backgroundColor= [UIColor clearColor];
         [self addSubview:imageView];
         //设置动画帧
-        imageView.animationImages=[NSArray arrayWithObjects: [UIImage imageNamed:@"progress_bg_01"],
-                                   [UIImage imageNamed:@"progress_bg_02"],
-                                   [UIImage imageNamed:@"progress_bg_03"],
-                                   [UIImage imageNamed:@"progress_bg_04"],
-                                   [UIImage imageNamed:@"progress_bg_05"],
-                                   [UIImage imageNamed:@"progress_bg_06"],
-                                   [UIImage imageNamed:@"progress_bg_07"],
-                                   [UIImage imageNamed:@"progress_bg_08"],
-                                   [UIImage imageNamed:@"progress_bg_09"],
-                                   [UIImage imageNamed:@"progress_bg_10"],
-                                   [UIImage imageNamed:@"progress_bg_11"],
-                                   [UIImage imageNamed:@"progress_bg_12"],
+        imageView.animationImages=[NSArray arrayWithObjects:
+                                   [UIImage imageNamed:@"Loading001"],
+                                   [UIImage imageNamed:@"Loading002"],
+                                   [UIImage imageNamed:@"Loading003"],
+                                   [UIImage imageNamed:@"Loading004"],
+                                   [UIImage imageNamed:@"Loading005"],
+                                   [UIImage imageNamed:@"Loading006"],
+                                   [UIImage imageNamed:@"Loading007"],
+                                   [UIImage imageNamed:@"Loading008"],
+                                   [UIImage imageNamed:@"Loading009"],
+                                   [UIImage imageNamed:@"Loading0010"],
+                                   [UIImage imageNamed:@"Loading0011"],
+                                   [UIImage imageNamed:@"Loading0012"],
+                                   [UIImage imageNamed:@"Loading0013"],
+                                   [UIImage imageNamed:@"Loading0014"],
+                                   [UIImage imageNamed:@"Loading0015"],
+                                   [UIImage imageNamed:@"Loading0016"],
+                                   [UIImage imageNamed:@"Loading0017"],
+                                   [UIImage imageNamed:@"Loading0018"],
+                                   [UIImage imageNamed:@"Loading0019"],
+                                   [UIImage imageNamed:@"Loading0020"],
                                    nil ];
         
-        
-       // Infolabel = [[UILabel alloc]initWithFrame:CGRectMake(0, frame.size.height-20, frame.size.width, 20)];
         Infolabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 59, frame.size.width, 20)];
         Infolabel.backgroundColor = [UIColor clearColor];
         Infolabel.textAlignment = NSTextAlignmentCenter;

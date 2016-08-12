@@ -10,7 +10,10 @@
 #import "AppDelegate.h"
 #import "UIColor+HeinQi.h"
 #import "UMMobClick/MobClick.h"
-@interface MLBaseViewController ()
+@interface MLBaseViewController (){
+    
+    YYAnimationIndicator *indicator;
+}
 
 @end
 
@@ -71,6 +74,39 @@
     [self presentViewController:controller animated:NO completion:^(void){
         controller.view.superview.backgroundColor = [UIColor clearColor];
     }];
+}
+
+#pragma mark - 窗体加载进度条
+- (void)showLoadingView
+{
+    _hud = [[MBProgressHUD alloc] initWithView:self.view];
+    _hud.mode = MBProgressHUDModeCustomView;
+    [self.view addSubview:_hud];
+    _hud.color=[UIColor clearColor];
+    [_hud show:true];
+    indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-50, self.view.frame.size.height/2-60, 100, 120)];
+    //[indicator setLoadText:@"努力加载中..."];
+    
+    [self.view addSubview:indicator];
+    
+    [indicator startAnimation];
+    
+}
+
+- (void)closeLoadingView
+{
+    if (_hud) {
+        [_hud hide:true];
+    }
+    [indicator stopAnimationWithLoadText:@"" withType:YES];//加载成功
+}
+
+- (void)viewDidUnload
+{
+    _hud  = nil;
+    indicator=nil;
+    
+    [super viewDidUnload];
 }
 
 @end

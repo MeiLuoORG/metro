@@ -176,9 +176,11 @@ static NSInteger pageIndex = 0;
         make.bottom.mas_equalTo(self.footView.mas_top);
     }];
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     [self configBlankPage];
     [self ctreateYOUHUIQuanView];
+    
 }
 /*
  zhoulu修改 START
@@ -860,7 +862,7 @@ static NSInteger pageIndex = 0;
 
 - (void)countAllPrice{
     allPrice = 0.f;
-    
+    [self closeLoadingView];
     if (self.isLogin) {
         for (MLShopingCartModel *model in self.shopCart.cart) {
             for (MLProlistModel *prolist in model.prolist) {
@@ -884,7 +886,8 @@ static NSInteger pageIndex = 0;
 }
 
 - (void)configBlankPage{
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+//    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self closeLoadingView];
     __weak typeof(self) weakself = self;
 /*
     if (self.view.blankPage) {
@@ -915,7 +918,7 @@ static NSInteger pageIndex = 0;
 
 //领取优惠券视图
 - (void)ctreateYOUHUIQuanView{
-    
+    [self closeLoadingView];
     __weak typeof (self) weakSelf = self;
     self.lingQuQuanView = [[LingQuYouHuiQuanView alloc]initWithFrame:CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT)];
     self.lingQuQuanView.quanARR = [[NSMutableArray alloc]init];
@@ -966,13 +969,15 @@ static NSInteger pageIndex = 0;
     [self.tableView reloadData];
     [self.collectionView reloadData];
     if (loginid) { //已登录情况
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
         self.isLogin = YES;
+        [self showLoadingView];
         [self addShopCart];
         [self getDataSource];
     }
     else{ //未登录情况
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         self.isLogin = NO;
         NSArray *allCart = [CompanyInfo MR_findAll];
         NSMutableArray *tmp = [NSMutableArray array];
@@ -984,6 +989,7 @@ static NSInteger pageIndex = 0;
         self.offlineCart = nil;
         self.offlineCart = tmp;
         if (self.offlineCart.count > 0) {
+            [self showLoadingView];
             [self guessYourLike];
         }
         [self.tableView reloadData];
@@ -996,7 +1002,7 @@ static NSInteger pageIndex = 0;
             }
         }
     }
-
+    
     [self configBlankPage];
     self.loginView.hidden = self.isLogin;
     [self countAllPrice];
@@ -1013,7 +1019,8 @@ static NSInteger pageIndex = 0;
     
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",MATROJP_BASE_URL];
     [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         [self.tableView.header endRefreshing];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
@@ -1029,7 +1036,8 @@ static NSInteger pageIndex = 0;
         }
         [self configBlankPage];
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         [self.tableView.header endRefreshing];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
@@ -1042,7 +1050,8 @@ static NSInteger pageIndex = 0;
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=guess_like&method=get_guess_like&start=%@&limit=10",MATROJP_BASE_URL,[NSNumber numberWithInteger:pageIndex]];
     
     [MLHttpManager get:url params:nil m:@"product" s:@"guess_like" success:^(id responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             [self.likeArray removeAllObjects];
@@ -1056,7 +1065,8 @@ static NSInteger pageIndex = 0;
         }
 
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
          [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
@@ -1253,6 +1263,7 @@ static NSInteger pageIndex = 0;
         }];
         NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=mul_add_cart",MATROJP_BASE_URL];
         [MLHttpManager post:url params:dic m:@"product" s:@"cart" success:^(id responseObject) {
+            [self closeLoadingView];
             NSDictionary *result = (NSDictionary *)responseObject;
             if ([result[@"code"] isEqual:@0]) {
                 NSArray *tmp = [OffLlineShopCart MR_findAll];
@@ -1270,6 +1281,7 @@ static NSInteger pageIndex = 0;
                 [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
             }
         } failure:^(NSError *error) {
+            [self closeLoadingView];
             
         }];
     }

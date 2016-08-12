@@ -298,7 +298,8 @@ static NSInteger page = 1;
     //              "公司名称","国家图片","国家名称"]
     //    retcount : 查询结果集条数
     //    sum: 不分页查询总条数
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     
     NSString *listtepy = @"";
     NSString *sort = @"desc";//排列方式
@@ -356,7 +357,8 @@ static NSInteger page = 1;
     [MLHttpManager get:str params:nil m:@"product" s:@"list" success:^(id responseObject){
         
         NSLog(@"responseObject ====%@",responseObject);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         NSString *sum = responseObject[@"data"][@"sum"];
         if (sum.floatValue == 0) {
             
@@ -417,7 +419,8 @@ static NSInteger page = 1;
         [_hud hide:YES afterDelay:1];
         
     } failure:^( NSError *error){
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self closeLoadingView];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";

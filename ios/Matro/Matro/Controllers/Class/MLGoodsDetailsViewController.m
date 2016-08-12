@@ -280,10 +280,8 @@
     self.jinrudianpuView.layer.cornerRadius = 4.f;
     self.jinrudianpuView.layer.masksToBounds = YES;
     
+    [self showLoadingView];
     [self loadDateProDetail];
-    
-   // [self loaddataDianpu];
-
     [self guessYLike];
 
 }
@@ -336,7 +334,7 @@
 #pragma mark 获取商品详情数据
 - (void)loadDateProDetail {
  
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSLog(@"===%@",_paramDic);
     
   //  if (userid) {
@@ -347,7 +345,8 @@
         
         [ MLHttpManager get:urlStr params:nil m:@"product" s:@"detail" success:^ (id responseObject) {
             NSLog(@"responseObject===%@",responseObject);
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+//            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self closeLoadingView];
             NSDictionary *dic = responseObject[@"data"];
             if (dic[@"pinfo"][@"userid"]) {
                 if ([DPuid isEqualToString:dic[@"pinfo"][@"userid"]]) {
@@ -889,7 +888,8 @@
             self.jiarugouwucheBtn.enabled = NO;
             
             [overView removeFromSuperview];
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+//            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self closeLoadingView];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"请求失败";
@@ -911,7 +911,7 @@
     
     [MLHttpManager get:urlStr params:nil m:@"shop" s:@"shop" success:^(id responseObject){
         NSLog(@"responseObject===%@",responseObject);
-        
+        [self closeLoadingView];
         if ([responseObject[@"code"] isEqual:@0]) {
             NSDictionary *shop_info = responseObject[@"data"][@"shop_info"];
             dPDic = shop_info;
@@ -982,7 +982,7 @@
         }
         
     } failure:^(NSError *error){
-        
+        [self closeLoadingView];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";
@@ -1001,7 +1001,7 @@
     
     [MLHttpManager get:urlStr params:nil m:@"product" s:@"guess_like" success:^(id responseObject) {
         //NSLog(@"responseObject===%@",responseObject);
-        
+        [self closeLoadingView];
         if(responseObject)
         {
             [_recommendArray removeAllObjects];
@@ -1023,6 +1023,7 @@
         }
         [_collectionView reloadData];
     } failure:^(NSError *error) {
+        [self closeLoadingView];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"猜你喜欢 请求失败";
