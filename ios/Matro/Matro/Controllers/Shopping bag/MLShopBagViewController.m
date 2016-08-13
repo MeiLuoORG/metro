@@ -943,10 +943,10 @@ static NSInteger pageIndex = 0;
     if (loginid) { //已登录情况
 //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
-        self.isLogin = YES;
         [self showLoadingView];
-        [self addShopCart];
         //[self getDataSource];
+        [self performSelector:@selector(loginAfter1) withObject:nil afterDelay:1.0];
+        
     }
     else{ //未登录情况
 //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -986,7 +986,15 @@ static NSInteger pageIndex = 0;
     self.rightBarButtonzl.title = @"完成";
     [self rightBianjiButtonAction:self.rightBarButtonzl];
 }
- 
+
+- (void)loginAfter1{
+
+    self.isLogin = YES;
+    
+    [self addShopCart];
+    
+}
+
 
 /**
  *  获取购物车商品
