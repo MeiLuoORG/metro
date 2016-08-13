@@ -96,9 +96,9 @@
     _topScrollSegmentControl.selectedIndex = 0;
     
    
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 205)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
     imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 200)];
-    view.backgroundColor = [UIColor colorWithHexString:@"F1F1F1"];
+    view.backgroundColor = [UIColor whiteColor];
     [view addSubview:imageview];
     self.tableView.tableHeaderView = view;
     
