@@ -528,7 +528,8 @@ static NSInteger page3 = 1;
 //                [FristTableViewCell.firstCollectionView registerNib:[UINib  nibWithNibName:@"MLFirstPPCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:FristPPCCELL_IDENTIFIER];
 //            }
             FristTableViewCell.firstCollectionView.scrollEnabled = NO;
-            _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-25)/4)*1.4769*2 +44 +15;
+            _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-30)/4)*1.4769*2 +44 +15;
+//            _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)*2 +44 +15;
             FristTableViewCell.selectionStyle = UITableViewCellAccessoryNone;
             return FristTableViewCell;
         }
@@ -1091,8 +1092,9 @@ static NSInteger page3 = 1;
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView.tag == 1) {
-        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-25)/4);
+        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-30)/4);
         return CGSizeMake(width, width*1.4769);
+//        return CGSizeMake(width, width);
         /*
         if (ishotSP == YES) {
             float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-25)/4);
@@ -1115,7 +1117,7 @@ static NSInteger page3 = 1;
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     if (collectionView.tag == 1) {
-         return UIEdgeInsetsMake(CollectionViewCellMargin, CollectionViewCellMargin*2, 0, CollectionViewCellMargin*2);
+         return UIEdgeInsetsMake(CollectionViewCellMargin, CollectionViewCellMargin*3, 0, CollectionViewCellMargin*3);
         
     }else if (collectionView.tag == 7){
         return UIEdgeInsetsMake(0, 0, 0, 0);
