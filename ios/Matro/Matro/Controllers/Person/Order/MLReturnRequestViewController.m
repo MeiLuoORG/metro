@@ -268,8 +268,8 @@
         return;
     }
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    //[self showLoadingView];
+    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:3];
     MLXuanZeTuPianTableViewCell *cell  =[self.tableView cellForRowAtIndexPath:index];
     if (cell.imgsArray.count > 1) {
@@ -304,9 +304,10 @@
                         }else{//上传失败就跳过 少传一张
                             uploadCount -- ;
                         }
+                        [self closeLoadingView];
                     } failure:^(NSError *error) {
                        [MBProgressHUD hideHUDForView:self.view animated:YES];
-                        //[self closeLoadingView];
+                        [self closeLoadingView];
                     }];
 
                 }
@@ -320,12 +321,13 @@
 }
 
 - (void)submitTuihuoActionWithPic:(BOOL)isUpImage{
-   [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    //[self showLoadingView];
+   //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=save_return",MATROJP_BASE_URL];
     NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":selQuestion.ID,@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"pic":isUpImage?[self.imgsUrlArray componentsJoinedByString:@","]:@""};
     [MLHttpManager post:url params:params m:@"return" s:@"save_return" success:^(id responseObject) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             MLTuiHuoChengGongViewController *vc = [[MLTuiHuoChengGongViewController alloc]init];
@@ -339,6 +341,7 @@
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
@@ -425,7 +428,7 @@
   _hud.color=[UIColor clearColor];
   [_hud show:true];
   */
-    indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(SIZE_WIDTH/2.0-50, SIZE_HEIGHT/2.0-15, 100, 25)];
+    indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(SIZE_WIDTH/2.0-50, SIZE_HEIGHT/2.0-100, 100, 25)];
     indicator.backgroundColor = [UIColor clearColor];
     
     //NSLog(@"indicator的frame值为：x=%g,  y= %g",indicator.frame.origin.x,indicator.frame.origin.y);

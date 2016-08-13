@@ -76,8 +76,8 @@ static NSInteger pageIndex = 0;
     self.rightBarButtonzl = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightBianjiButtonAction:)];
     self.rightBarButtonzl.tintColor = [UIColor colorWithHexString:@"ae8e5d"];//625046
     
-    //self.navigationItem.rightBarButtonItem = self.rightBarButtonzl;
-    self.navigationItem.rightBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItem = self.rightBarButtonzl;
+    //self.navigationItem.rightBarButtonItem = nil;
     /*
      ZHOULU 修改 END
      */
@@ -177,7 +177,7 @@ static NSInteger pageIndex = 0;
     }];
     
     //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [self showLoadingView];
+    //[self showLoadingView];
     //[self configBlankPage];
     [self ctreateYOUHUIQuanView];
     
@@ -297,37 +297,6 @@ static NSInteger pageIndex = 0;
         [self countAllPrice];
         [self.tableView reloadData];
         [self configBlankPage];
-        
-        /*
-        MGSwipeButton * button = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell * sender){
-            //先删除店铺下的 cart记录
-            NSMutableArray *pids = [[cart.cpInfo.shopCart componentsSeparatedByString:@","] mutableCopy];
-            [pids removeObject:goods.pid];
-            if (pids.count > 0) { //说明还有其他商品
-                cart.isMore = pids.count>2;
-                cart.cpInfo.shopCart = [pids componentsJoinedByString:@","];
-                [cart.goodsArray removeObject:goods];
-            }else{//没有其他商品 直接删除记录
-                [self.offlineCart removeObject:cart];
-                [cart.cpInfo MR_deleteEntity];
-            }
-            [goods MR_deleteEntity];
-            [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
-            
-            NSArray *all = [CompanyInfo MR_findAll];
-            if (all.count == 0) {
-                [self.likeArray removeAllObjects];
-                [self.collectionView reloadData];
-                
-            }
-            [self countAllPrice];
-            [self.tableView reloadData];
-            [self configBlankPage];
-            return YES;
-        }];
-
-*/
-
     
     }
 
@@ -416,7 +385,7 @@ static NSInteger pageIndex = 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    /*
+    
     if(self.isLogin){
     
         if (self.shopCart.cart.count> 0) {
@@ -435,7 +404,7 @@ static NSInteger pageIndex = 0;
         }
     
     }
-    */
+    
    return  self.isLogin?self.shopCart.cart.count:self.offlineCart.count;
 }
 
@@ -601,7 +570,7 @@ static NSInteger pageIndex = 0;
 
             }
             //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            [self showLoadingView];
+            //[self showLoadingView];
             [self countAllPrice];
             [self.tableView reloadData];
             [self configBlankPage];
@@ -863,7 +832,7 @@ static NSInteger pageIndex = 0;
 
 - (void)countAllPrice{
     allPrice = 0.f;
-    [self closeLoadingView];
+    //[self closeLoadingView];
     if (self.isLogin) {
         for (MLShopingCartModel *model in self.shopCart.cart) {
             for (MLProlistModel *prolist in model.prolist) {
@@ -919,7 +888,7 @@ static NSInteger pageIndex = 0;
 
 //领取优惠券视图
 - (void)ctreateYOUHUIQuanView{
-    [self closeLoadingView];
+    //[self closeLoadingView];
     __weak typeof (self) weakSelf = self;
     self.lingQuQuanView = [[LingQuYouHuiQuanView alloc]initWithFrame:CGRectMake(0, SIZE_HEIGHT, SIZE_WIDTH, SIZE_HEIGHT)];
     self.lingQuQuanView.quanARR = [[NSMutableArray alloc]init];
@@ -962,6 +931,7 @@ static NSInteger pageIndex = 0;
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.view.blankPage.hidden = YES;
+    self.footView.hidden = YES;
 //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
     
     NSString  *loginid = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
@@ -976,7 +946,7 @@ static NSInteger pageIndex = 0;
         self.isLogin = YES;
         [self showLoadingView];
         [self addShopCart];
-        [self getDataSource];
+        //[self getDataSource];
     }
     else{ //未登录情况
 //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -993,6 +963,9 @@ static NSInteger pageIndex = 0;
         if (self.offlineCart.count > 0) {
             [self showLoadingView];
             [self guessYourLike];
+        }
+        else{
+            [self closeLoadingView];
         }
         //[self.tableView reloadData];
         [self configBlankPage];
@@ -1022,8 +995,8 @@ static NSInteger pageIndex = 0;
     
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=index",MATROJP_BASE_URL];
     [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
-//        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self closeLoadingView];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[self closeLoadingView];
         [self.tableView.header endRefreshing];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
@@ -1032,14 +1005,19 @@ static NSInteger pageIndex = 0;
             [self.tableView reloadData];
             if (self.shopCart.cart.count > 0) {
                 [self guessYourLike];
+            }else{
+                [self closeLoadingView];
+                [self configBlankPage];
             }
         }else{
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
+            [self configBlankPage];
+            [self closeLoadingView];
         }
-        [self configBlankPage];
+        //[self configBlankPage];
     } failure:^(NSError *error) {
-//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        //[MBProgressHUD hideHUDForView:self.view animated:YES];
         [self closeLoadingView];
         [self.tableView.header endRefreshing];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
@@ -1054,7 +1032,7 @@ static NSInteger pageIndex = 0;
     
     [MLHttpManager get:url params:nil m:@"product" s:@"guess_like" success:^(id responseObject) {
 //        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self closeLoadingView];
+        
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             [self.likeArray removeAllObjects];
@@ -1071,7 +1049,8 @@ static NSInteger pageIndex = 0;
             NSString *msg = result[@"msg"];
             [MBProgressHUD show:msg view:self.view];
         }
-
+        [self closeLoadingView];
+        [self configBlankPage];
     } failure:^(NSError *error) {
 //        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self closeLoadingView];
@@ -1189,7 +1168,7 @@ static NSInteger pageIndex = 0;
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=delete",MATROJP_BASE_URL];
     [MLHttpManager post:url params:@{@"cart_id":goodIDstring} m:@"product" s:@"cart" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self closeLoadingView];
+        //[self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             [MBProgressHUD showMessag:@"删除成功" toView:self.view];
@@ -1199,6 +1178,7 @@ static NSInteger pageIndex = 0;
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD show:msg view:self.view];
+            [self closeLoadingView];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -1296,11 +1276,18 @@ static NSInteger pageIndex = 0;
                     }
                 }
                 [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+                //请求购物车商品 线上
+                [self getDataSource];
             }
         } failure:^(NSError *error) {
             //[self closeLoadingView];
             
         }];
+    }
+    else{
+    //离线购物车 < 0
+        [self getDataSource];
+    
     }
 }
 

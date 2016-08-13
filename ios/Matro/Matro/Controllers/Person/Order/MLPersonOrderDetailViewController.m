@@ -186,6 +186,7 @@
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=detail&order_id=%@",MATROJP_BASE_URL,self.order_id?:@""];
     [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = [result objectForKey:@"data"];
@@ -274,7 +275,6 @@
     } failure:^(NSError *error) {
         [self closeLoadingView];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     
@@ -693,6 +693,7 @@
     NSDictionary *params = @{@"express_company":company?:@"",@"express_number":num?:@""};
     [MLHttpManager post:url params:params m:@"member" s:@"getkd" success:^(id responseObject) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //下载记录  如果有记录就显示第一条
             NSDictionary *data = result[@"data"];
@@ -705,6 +706,7 @@
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     

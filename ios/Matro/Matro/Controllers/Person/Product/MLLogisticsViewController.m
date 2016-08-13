@@ -46,6 +46,7 @@
     
     [MLHttpManager post:url params:params m:@"member" s:@"getkd" success:^(id responseObject) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
@@ -61,6 +62,7 @@
 
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
     

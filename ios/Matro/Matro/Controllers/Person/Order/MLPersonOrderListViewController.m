@@ -390,6 +390,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     NSString *url= [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=%@&order_id=%@",MATROJP_BASE_URL,action,order_id];
     [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) { //操作成功
           [MBProgressHUD showSuccess:@"操作成功" toView:self.view];
@@ -400,6 +401,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
 
