@@ -941,15 +941,15 @@ static NSInteger pageIndex = 0;
     [self.tableView reloadData];
     [self.collectionView reloadData];
     if (loginid) { //已登录情况
-//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        
+
+        self.isLogin = YES;
         [self showLoadingView];
         //[self getDataSource];
         [self performSelector:@selector(loginAfter1) withObject:nil afterDelay:1.0];
         
     }
     else{ //未登录情况
-//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
         self.isLogin = NO;
         NSArray *allCart = [CompanyInfo MR_findAll];
         NSMutableArray *tmp = [NSMutableArray array];
@@ -989,7 +989,7 @@ static NSInteger pageIndex = 0;
 
 - (void)loginAfter1{
 
-    self.isLogin = YES;
+    
     
     [self addShopCart];
     
