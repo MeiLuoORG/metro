@@ -83,7 +83,7 @@ alpha:(a)]
     Infolabel.text = _loadtext;
     
     //设置动画总时间
-    imageView.animationDuration=2.0;
+    imageView.animationDuration=0.7;
     //设置重复次数,0表示不重复
     imageView.animationRepeatCount=0;
     //开始动画

@@ -349,14 +349,17 @@
             [self closeLoadingView];
             NSDictionary *dic = responseObject[@"data"];
             if (dic[@"pinfo"][@"userid"]) {
-                if ([DPuid isEqualToString:dic[@"pinfo"][@"userid"]]) {
-                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"aaaaaa"]];
-                    self.jiarugouwucheBtn.enabled = NO;
-                }else{
-                
-                    [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
-                    self.jiarugouwucheBtn.enabled = YES;
+                if ([dic[@"pinfo"][@"userid"] isKindOfClass:[NSString class]]) {
+                    if ([DPuid isEqualToString:dic[@"pinfo"][@"userid"]]) {
+                        [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"aaaaaa"]];
+                        self.jiarugouwucheBtn.enabled = NO;
+                    }else{
+                        
+                        [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
+                        self.jiarugouwucheBtn.enabled = YES;
+                    }
                 }
+                
             }
             
             pDic = responseObject[@"data"];
@@ -577,32 +580,35 @@
                     NSString *is_promotion = dic[@"pinfo"][@"is_promotion"];
                     NSLog(@"%f===111%f===222%f",timeSp.doubleValue,promition_start_time.doubleValue,promition_end_time.doubleValue);
                     
-                    if ([is_promotion isEqualToString:@"1"] && promition_start_time.doubleValue < timeSp.doubleValue && promition_end_time.doubleValue > timeSp.doubleValue) {
-                        
-                        float pricef = [dic[@"pinfo"][@"promotion_price"]floatValue] ;
-                        self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-                        float  originprice= [dic[@"pinfo"][@"price"] floatValue];
-                        if (originprice == 0.0) {
-                            self.yuanjiaLabel.hidden = YES;
+                    if ([is_promotion isKindOfClass:[NSString class]]) {
+                        if ([is_promotion isEqualToString:@"1"] && promition_start_time.doubleValue < timeSp.doubleValue && promition_end_time.doubleValue > timeSp.doubleValue) {
+                            
+                            float pricef = [dic[@"pinfo"][@"promotion_price"]floatValue] ;
+                            self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+                            float  originprice= [dic[@"pinfo"][@"price"] floatValue];
+                            if (originprice == 0.0) {
+                                self.yuanjiaLabel.hidden = YES;
+                            }
+                            
+                            NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
+                            
+                            NSAttributedString *attrStr =
+                            [[NSAttributedString alloc]initWithString:pricestr
+                                                           attributes:
+                             @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
+                               NSForegroundColorAttributeName:[UIColor grayColor],
+                               NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
+                               NSStrikethroughColorAttributeName:[UIColor grayColor]}];
+                            self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
+                            
+                        }else{
+                            
+                            float pricef = [dic[@"pinfo"][@"price"] floatValue];
+                            self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
+                            
                         }
-                        
-                        NSString *pricestr = [NSString stringWithFormat:@"￥%.2f",originprice];
-                        
-                        NSAttributedString *attrStr =
-                        [[NSAttributedString alloc]initWithString:pricestr
-                                                       attributes:
-                         @{NSFontAttributeName:[UIFont systemFontOfSize:13.f],
-                           NSForegroundColorAttributeName:[UIColor grayColor],
-                           NSStrikethroughStyleAttributeName:@(NSUnderlineStyleSingle|NSUnderlinePatternSolid),
-                           NSStrikethroughColorAttributeName:[UIColor grayColor]}];
-                        self.yuanjiaLabel.attributedText=attrStr; //原价要划掉
-                        
-                    }else{
-                        
-                        float pricef = [dic[@"pinfo"][@"price"] floatValue];
-                        self.jiageLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];
-   
                     }
+                    
                 }
                 
                 self.shuliangStepper.paramDic = dic;
@@ -836,27 +842,29 @@
                         
                         NSString *is_promotion = dic[@"pinfo"][@"is_promotion"];
                         NSLog(@"%f===111%f===222%f",timeSp.doubleValue,promition_start_time.doubleValue,promition_end_time.doubleValue);
-                        
-                        if ([is_promotion isEqualToString:@"1"] && promition_start_time.doubleValue < timeSp.doubleValue && promition_end_time.doubleValue > timeSp.doubleValue) {
-                            
-                            float pricef = [dic[@"pinfo"][@"promotion_price"]floatValue];
-                            
-                            float xiaofeishuilv = [dic[@"pinfo"][@"tax"] floatValue];
-                            
-                            float zengzhishuilv = [dic[@"tax"][@"vat"] floatValue];
-                            float shuifei =(((xiaofeishuilv + zengzhishuilv)/(1 - xiaofeishuilv)) * 0.7) * pricef;
-                            self.shuilvLabel.text =[NSString stringWithFormat:@"预计￥%.2f",shuifei];
-                            NSLog(@"self.shuilvLabel.text===%@",self.shuilvLabel.text);
-                            
-                        }else{
-                            
-                            float xiaofeishuilv = [dic[@"pinfo"][@"tax"] floatValue];
-                            float pricef = [dic[@"pinfo"][@"price"] floatValue];
-                            float zengzhishuilv = [dic[@"tax"][@"vat"] floatValue];
-                            float shuifei =(((xiaofeishuilv + zengzhishuilv)/(1 - xiaofeishuilv)) * 0.7) * pricef;
-                            self.shuilvLabel.text =[NSString stringWithFormat:@"预计￥%.2f",shuifei];
-                            
+                        if ([is_promotion isKindOfClass:[NSString class]]) {
+                            if ([is_promotion isEqualToString:@"1"] && promition_start_time.doubleValue < timeSp.doubleValue && promition_end_time.doubleValue > timeSp.doubleValue) {
+                                
+                                float pricef = [dic[@"pinfo"][@"promotion_price"]floatValue];
+                                
+                                float xiaofeishuilv = [dic[@"pinfo"][@"tax"] floatValue];
+                                
+                                float zengzhishuilv = [dic[@"tax"][@"vat"] floatValue];
+                                float shuifei =(((xiaofeishuilv + zengzhishuilv)/(1 - xiaofeishuilv)) * 0.7) * pricef;
+                                self.shuilvLabel.text =[NSString stringWithFormat:@"预计￥%.2f",shuifei];
+                                NSLog(@"self.shuilvLabel.text===%@",self.shuilvLabel.text);
+                                
+                            }else{
+                                
+                                float xiaofeishuilv = [dic[@"pinfo"][@"tax"] floatValue];
+                                float pricef = [dic[@"pinfo"][@"price"] floatValue];
+                                float zengzhishuilv = [dic[@"tax"][@"vat"] floatValue];
+                                float shuifei =(((xiaofeishuilv + zengzhishuilv)/(1 - xiaofeishuilv)) * 0.7) * pricef;
+                                self.shuilvLabel.text =[NSString stringWithFormat:@"预计￥%.2f",shuifei];
+                                
+                            }
                         }
+                        
                     }
      
                     isglobal = YES;
@@ -930,10 +938,15 @@
                 for (NSDictionary *tempdic in csarr) {
                     NSString *tool = tempdic[@"tool"];
                     NSString *number = tempdic[@"number"];
-                    if ([tool isEqualToString:@"4"]) {
-                        phoneNum = number;
-                        break;
+                    
+                    if ([tool isKindOfClass:[NSString class]]) {
+                        if ([tool isEqualToString:@"4"]) {
+                            phoneNum = number;
+                            break;
+                        }
                     }
+                    
+
                     
                 }
                 
@@ -950,21 +963,23 @@
             
             self.dianpuname.text = shop_info[@"company"];
             NSString *tempstr = shop_info[@"main_pro"];
-           
-            if ([tempstr isEqualToString:@""]) {
-                
-                self.dianputexing.hidden = YES;
-                [self.dianpuname mas_makeConstraints:^(MASConstraintMaker *make) {
+            if ([tempstr isKindOfClass:[NSString class]]) {
+                if ([tempstr isEqualToString:@""]) {
                     
-                    make.centerY.mas_equalTo(self.dianpuimage);
+                    self.dianputexing.hidden = YES;
+                    [self.dianpuname mas_makeConstraints:^(MASConstraintMaker *make) {
+                        
+                        make.centerY.mas_equalTo(self.dianpuimage);
+                        
+                    }];
                     
-                }];
-                
-            }else{
-                
-                self.dianputexing.text = shop_info[@"main_pro"];
-            
+                }else{
+                    
+                    self.dianputexing.text = shop_info[@"main_pro"];
+                    
+                }
             }
+
             
             
             NSString  *score_a = shop_info[@"score_a"];
