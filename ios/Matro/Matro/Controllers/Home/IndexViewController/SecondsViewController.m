@@ -20,7 +20,8 @@
 #import "MJRefresh.h"
 
 #define FristCCELL_IDENTIFIER @"MLFristCollectionViewCell"
-#define FristPPCCELL_IDENTIFIER @"MLFirstPPCollectionViewCell"
+//#define FristPPCCELL_IDENTIFIER @"MLFirstPPCollectionViewCell"
+
 #define SecondCCELL_IDENTIFIER @"MLSecondCollectionViewCell"
 #define YourlikeCCELL_IDENTIFIER @"MLYourlikeCollectionViewCell"
 
@@ -471,20 +472,26 @@ static NSInteger page3 = 1;
                 NSArray *array = [[NSBundle mainBundle]loadNibNamed: FristCellIdentifier owner:self options:nil];
                 FristTableViewCell = [array objectAtIndex:0];
             }
+//            _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-25)/4)*1.4769*2 +44 +15;
+//            
+//            FristTableViewCell.hotppLab.textColor = [UIColor grayColor];
+//            FristTableViewCell.hotppView.hidden = YES;
+            
             
             if (ishotSP == YES) {
                 //_index_1_height = 299;
-                _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)*1.4769*2 +44 +15;
+//                _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-25)/4)*1.4769*2 +44 +15;
                 
                 FristTableViewCell.hotppLab.textColor = [UIColor grayColor];
                 FristTableViewCell.hotppView.hidden = YES;
             }else{
                 //_index_1_height = 244;
-                _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)*1.0462*2 +44 +15;
+//                _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)*1.0462*2 +44 +15;
                 FristTableViewCell.hotspLab.textColor = [UIColor grayColor];
                 FristTableViewCell.hotspView.hidden = YES;
                 
             }
+             
             
             FristTableViewCell.hotspClick = ^(){
                 
@@ -509,13 +516,19 @@ static NSInteger page3 = 1;
             FristTableViewCell.firstCollectionView.delegate = self;
             FristTableViewCell.firstCollectionView.dataSource = self;
             FristTableViewCell.firstCollectionView.tag = 1;
-            if (ishotSP) {
-                [FristTableViewCell.firstCollectionView registerNib:[UINib  nibWithNibName:@"MLFristCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:FristCCELL_IDENTIFIER];
-            }else{
             
-                [FristTableViewCell.firstCollectionView registerNib:[UINib  nibWithNibName:@"MLFirstPPCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:FristPPCCELL_IDENTIFIER];
-            }
+//            FristTableViewCell.firstCollectionView.userInteractionEnabled = NO;
+//            [FristTableViewCell.firstCollectionView setContentSize:CGSizeMake(MAIN_SCREEN_WIDTH, 10)];
             
+            [FristTableViewCell.firstCollectionView registerNib:[UINib  nibWithNibName:@"MLFristCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:FristCCELL_IDENTIFIER];
+//            if (ishotSP) {
+//                [FristTableViewCell.firstCollectionView registerNib:[UINib  nibWithNibName:@"MLFristCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:FristCCELL_IDENTIFIER];
+//            }else{
+//            
+//                [FristTableViewCell.firstCollectionView registerNib:[UINib  nibWithNibName:@"MLFirstPPCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:FristPPCCELL_IDENTIFIER];
+//            }
+            FristTableViewCell.firstCollectionView.scrollEnabled = NO;
+            _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-25)/4)*1.4769*2 +44 +15;
             FristTableViewCell.selectionStyle = UITableViewCellAccessoryNone;
             return FristTableViewCell;
         }
@@ -844,8 +857,9 @@ static NSInteger page3 = 1;
 //        cell.firstImageView.layer.borderColor = [UIColor colorWithHexString:@"F5F5F5"].CGColor;
 //        cell.firstImageView.layer.cornerRadius = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)/2;
 //        cell.firstImageView.layer.masksToBounds = YES;
+         MLFristCollectionViewCell *cell = (MLFristCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:FristCCELL_IDENTIFIER forIndexPath:indexPath];
         if (ishotSP == YES) {
-             MLFristCollectionViewCell *cell = (MLFristCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:FristCCELL_IDENTIFIER forIndexPath:indexPath];
+            
             if (hotspArr.count > 6) {
                 if (indexPath.row < 7) {
                     
@@ -876,47 +890,52 @@ static NSInteger page3 = 1;
                     cell.firstImageView.image = [UIImage imageNamed:@"icon_default"];
                 }
             }
-            return cell;
+//            return cell;
 
         }else{
             
-            MLFirstPPCollectionViewCell *cell = (MLFirstPPCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:FristPPCCELL_IDENTIFIER forIndexPath:indexPath];
+//            MLFirstPPCollectionViewCell *cell = (MLFirstPPCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:FristPPCCELL_IDENTIFIER forIndexPath:indexPath];
             
+            cell.firstImageView.layer.borderWidth = 1.f;
+            cell.firstImageView.layer.borderColor = [UIColor colorWithHexString:@"F5F5F5"].CGColor;
+            cell.firstImageView.layer.cornerRadius = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)/2;
+            cell.firstImageView.layer.masksToBounds = YES;
             if (hotbrandArr.count > 6) {
                 if (indexPath.row <7) {
                     
                     NSDictionary *tempDic = hotbrandArr[indexPath.row];
                     NSString *imageurl = tempDic[@"imgurl"]?:@"";
+                    cell.firstNameLab.text = tempDic[@"name"]?:@"";
                     if (![imageurl isKindOfClass:[NSNull class]]) {
-                        [cell.ppimageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
+                        [cell.firstImageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
                     }else{
                         
-                        cell.ppimageView.image = [UIImage imageNamed:@"icon_default"];
+                        cell.firstImageView.image = [UIImage imageNamed:@"icon_default"];
                     }
                 }
                 if (indexPath.row == 7) {
-                   // cell.firstNameLab.text = @"更多";
-                   // cell.firstNameLab.hidden = YES;
-                    cell.ppimageView.image = [UIImage imageNamed:@"more_goods"];
+                    cell.firstNameLab.text = @"更多";
+                    
+                    cell.firstImageView.image = [UIImage imageNamed:@"more_goods"];
                 }
             }else{
             
                 NSDictionary *tempDic = hotbrandArr[indexPath.row];
-                //cell.firstNameLab.text = tempDic[@"name"]?:@"";
-               // cell.firstNameLab.hidden = YES;
+                cell.firstNameLab.text = tempDic[@"name"]?:@"";
+                
                 NSString *imageurl = tempDic[@"imgurl"]?:@"";
                 if (![imageurl isKindOfClass:[NSNull class]]) {
-                    [cell.ppimageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
+                    [cell.firstImageView  sd_setImageWithURL:[NSURL URLWithString:imageurl] placeholderImage: [UIImage imageNamed:@"icon_default"]];
                 }else{
                     
-                    cell.ppimageView.image = [UIImage imageNamed:@"icon_default"];
+                    cell.firstImageView.image = [UIImage imageNamed:@"icon_default"];
                 }
             }
             
-            return cell;
+//            return cell;
         }
  
-//        return cell;
+        return cell;
         
     }else if(collectionView.tag == 7){
         
@@ -1072,14 +1091,18 @@ static NSInteger page3 = 1;
 
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView.tag == 1) {
+        float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-25)/4);
+        return CGSizeMake(width, width*1.4769);
+        /*
         if (ishotSP == YES) {
-            float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
+            float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-25)/4);
             return CGSizeMake(width, width*1.4769);
         }else{
         
             float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4);
             return CGSizeMake(width, width*1.0462);
         }
+         */
         
     }else if (collectionView.tag == 7){
         CGFloat cellW = (MAIN_SCREEN_WIDTH - CollectionViewCellMargin)/2;
@@ -1092,7 +1115,8 @@ static NSInteger page3 = 1;
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     if (collectionView.tag == 1) {
-         return UIEdgeInsetsMake(CollectionViewCellMargin, CollectionViewCellMargin, 0, CollectionViewCellMargin);
+         return UIEdgeInsetsMake(CollectionViewCellMargin, CollectionViewCellMargin*2, 0, CollectionViewCellMargin*2);
+        
     }else if (collectionView.tag == 7){
         return UIEdgeInsetsMake(0, 0, 0, 0);
     }
@@ -1109,7 +1133,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
         return 0.f;
     }else if (collectionView.tag == 7){
     
-        return 0.f;
+        return -3.f;
     }
     return 10.f;
 }
