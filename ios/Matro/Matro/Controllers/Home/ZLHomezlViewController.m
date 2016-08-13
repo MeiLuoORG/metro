@@ -317,6 +317,8 @@
                          vc.view.superview.backgroundColor = [UIColor clearColor];
                          
                      }];
+                    
+                    self.tabBarController.tabBar.hidden = YES;
                 }
                 
             }
