@@ -249,7 +249,7 @@
                                                       
                                                       NSString *bbc_token = [data objectForKey:@"bbc_token"];
                                                       NSString *timestamp = data[@"timestamp"];
-                                                      
+                                                      NSLog(@"李佳认证返回的时间戳+++++：%@",timestamp);
                                                       NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
                                                       model1.timeInterval =[timestamp integerValue];
                                                       model1.firstDate = [NSDate date];
