@@ -81,4 +81,9 @@
 
 @property (assign, nonatomic) int likePage;
 
+@property (strong, nonatomic) NSString * firstImageURLStr;
+@property (strong, nonatomic) NSString * secondImageURLStr;
+@property (strong, nonatomic) NSString * threeImageURLStr;
+@property (strong, nonatomic) NSString * fourImageURLStr;
+
 @end

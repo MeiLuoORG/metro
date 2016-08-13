@@ -14,6 +14,14 @@ typedef void(^FourButtonBlock)(NSInteger tag);
 @interface FourButtonsView : UIView
 
 @property (copy, nonatomic) FourButtonBlock block;
+@property (weak, nonatomic) IBOutlet UIImageView *firstImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *secondImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *thirdImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *fourImageView;
+
+
+
+
 
 - (void)fourButtonBlockAction:(FourButtonBlock )block;
 

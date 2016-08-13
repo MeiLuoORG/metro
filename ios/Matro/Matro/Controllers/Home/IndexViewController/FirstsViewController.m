@@ -76,7 +76,7 @@
 
 
     //[self loadIndex_0_View];
-    [self loadIndex_1_view];
+    //[self loadIndex_1_view];
     //[self loadIndex_2_view];
     //[self loadIndex_5_view];
     [self createTableviewML];
@@ -96,6 +96,11 @@
     self.backTopButton.hidden = YES;
     
     self.likePage = 1;
+    
+    self.firstImageURLStr = @"";
+    self.secondImageURLStr = @"";
+    self.threeImageURLStr = @"";
+    self.fourImageURLStr = @"";
 }
 
 - (void)backTopButtonAction:(UIButton *)sender{
@@ -133,6 +138,27 @@
                         }
                     }
                 }
+                //4个按钮
+                if ([dataDic[@"mark"] isKindOfClass:[NSArray class]]) {
+                    NSArray * fARR = dataDic[@"mark"];
+                    for (int i = 0; i < fARR.count; i++) {
+                        if (i == 0) {
+                            self.firstImageURLStr = fARR[0][@"imgurl"];
+                        }
+                        if (i == 1) {
+                            self.secondImageURLStr = fARR[1][@"imgurl"];
+                        }
+                        if (i == 2) {
+                            self.threeImageURLStr = fARR[2][@"imgurl"];
+                        }
+                        if (i == 3) {
+                            self.fourImageURLStr = fARR[3][@"imgurl"];
+                        }
+                        
+                    }
+                    
+                }
+                
             //3.0  新品会
                 //[self.index_2_titleImageView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
                 if ([dataDic[@"newgoodtitle"] isKindOfClass:[NSArray class]]) {
@@ -363,6 +389,13 @@
 - (void)loadIndex_1_view{
     __weak typeof(self)  weakSelf = self;
     self.fourButtonView = [[FourButtonsView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 80)];
+    
+    [self.fourButtonView.firstImageView sd_setImageWithURL:[NSURL URLWithString:self.firstImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
+    [self.fourButtonView.secondImageView sd_setImageWithURL:[NSURL URLWithString:self.secondImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
+    [self.fourButtonView.thirdImageView sd_setImageWithURL:[NSURL URLWithString:self.threeImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
+    [self.fourButtonView.fourImageView sd_setImageWithURL:[NSURL URLWithString:self.fourImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
+    
+    
     [self.fourButtonView fourButtonBlockAction:^(NSInteger tag) {
        
         NSString * sender = [NSString stringWithFormat:@"%ld",tag-1];
@@ -851,6 +884,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
         }
             break;
         case 1:{
+            [self loadIndex_1_view];
             cell.backgroundColor = [HFSUtility hexStringToColor:Main_beijingGray_BackgroundColor];
             [cell addSubview:self.fourButtonView];
         }

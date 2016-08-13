@@ -5,7 +5,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FourButtonsView"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FourButtonsView">
+            <connections>
+                <outlet property="firstImageView" destination="iqW-gi-Vaa" id="WK3-4Z-6D0"/>
+                <outlet property="fourImageView" destination="Woc-nS-IWp" id="4ht-lk-1Ok"/>
+                <outlet property="secondImageView" destination="YZT-gv-fce" id="Uhf-5H-THq"/>
+                <outlet property="thirdImageView" destination="mcu-6m-i57" id="emU-qV-VU0"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FourButtonsView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
@@ -18,19 +25,19 @@
                 <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTT-AJ-mys" userLabel="1View1" customClass="UIControl">
                     <rect key="frame" x="27" y="0.0" width="60" height="85"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pinpaiguanl" translatesAutoresizingMaskIntoConstraints="NO" id="iqW-gi-Vaa">
-                            <rect key="frame" x="14" y="15" width="32" height="32"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="32" id="1Ns-ra-yMM"/>
-                                <constraint firstAttribute="height" constant="32" id="dcZ-C7-dOj"/>
-                            </constraints>
-                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="品牌馆" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvc-NW-pCr">
                             <rect key="frame" x="14" y="56" width="36" height="15"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="pinpaiguanl" translatesAutoresizingMaskIntoConstraints="NO" id="iqW-gi-Vaa">
+                            <rect key="frame" x="14" y="16" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="32" id="1Ns-ra-yMM"/>
+                                <constraint firstAttribute="height" constant="32" id="dcZ-C7-dOj"/>
+                            </constraints>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
