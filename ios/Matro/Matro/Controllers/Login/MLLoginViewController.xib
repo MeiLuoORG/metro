@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -28,7 +28,7 @@
                 <outlet property="tableViewH" destination="Txh-zA-Lan" id="0jC-jN-39V"/>
                 <outlet property="termBtn" destination="l1R-Th-65i" id="ZY7-mZ-fNm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="wxLoginBgView" destination="RDw-LW-hky" id="prc-g0-1iI"/>
+                <outlet property="wxLoginButton" destination="i9L-lu-8kP" id="UgX-A5-8LM"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -292,7 +292,7 @@
                 <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9l-OH-CWc">
                     <rect key="frame" x="0.0" y="100" width="600" height="460"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dx9-Um-hHg">
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dx9-Um-hHg">
                             <rect key="frame" x="22" y="99" width="556" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BGJ-jl-lEE">
@@ -407,7 +407,7 @@
                                 </mask>
                             </variation>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Izg-Cr-Hol">
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Izg-Cr-Hol">
                             <rect key="frame" x="22" y="199" width="556" height="42"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="42" id="jG7-iC-5Qf"/>
@@ -462,7 +462,7 @@
                         <constraint firstItem="5B3-lD-2N3" firstAttribute="leading" secondItem="L4n-5y-OBn" secondAttribute="trailing" constant="12" id="4qg-8d-a5h"/>
                         <constraint firstAttribute="trailing" secondItem="dQ7-Hi-EI6" secondAttribute="trailing" constant="22" id="D8G-v9-zeX"/>
                         <constraint firstItem="gvR-9x-ySr" firstAttribute="trailing" secondItem="dQ7-Hi-EI6" secondAttribute="trailing" id="FSf-JL-8cq"/>
-                        <constraint firstItem="dQ7-Hi-EI6" firstAttribute="top" secondItem="U9l-OH-CWc" secondAttribute="top" constant="100" id="NlI-io-tf1"/>
+                        <constraint firstItem="dQ7-Hi-EI6" firstAttribute="top" secondItem="U9l-OH-CWc" secondAttribute="top" constant="42" id="NlI-io-tf1"/>
                         <constraint firstItem="dQ7-Hi-EI6" firstAttribute="top" secondItem="U9l-OH-CWc" secondAttribute="top" constant="30" id="RKN-HI-Ar2"/>
                         <constraint firstItem="dQ7-Hi-EI6" firstAttribute="leading" secondItem="U9l-OH-CWc" secondAttribute="leading" constant="22" id="ThM-iW-hUi"/>
                         <constraint firstItem="5B3-lD-2N3" firstAttribute="top" secondItem="dQ7-Hi-EI6" secondAttribute="bottom" constant="-1" id="YId-P0-KKt"/>
@@ -477,6 +477,7 @@
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
+                            <exclude reference="RKN-HI-Ar2"/>
                             <exclude reference="4qg-8d-a5h"/>
                             <exclude reference="1NL-3k-JkM"/>
                         </mask>
@@ -522,45 +523,33 @@
                                 <action selector="qqLoginBtnAction:" destination="-1" eventType="touchUpInside" id="eE2-31-ZH6"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RDw-LW-hky">
-                            <rect key="frame" x="300" y="0.0" width="200" height="100"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9L-lu-8kP" userLabel="微信登录">
-                                    <rect key="frame" x="0.0" y="41" width="200" height="45"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="200" id="I4r-QH-XaH"/>
-                                        <constraint firstAttribute="height" constant="45" id="W5S-hF-jaV"/>
-                                        <constraint firstAttribute="width" secondItem="i9L-lu-8kP" secondAttribute="height" multiplier="40:9" id="nc6-sn-0XF"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <state key="normal" image="weixin-1">
-                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="wxLoginButtonAction:" destination="-1" eventType="touchUpInside" id="A3d-fG-u9y"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9L-lu-8kP" userLabel="微信登录">
+                            <rect key="frame" x="300" y="41" width="200" height="45"/>
                             <constraints>
-                                <constraint firstItem="i9L-lu-8kP" firstAttribute="centerX" secondItem="RDw-LW-hky" secondAttribute="centerX" id="mcm-eQ-en6"/>
-                                <constraint firstItem="i9L-lu-8kP" firstAttribute="centerY" secondItem="RDw-LW-hky" secondAttribute="centerY" id="yvg-iu-WNa"/>
+                                <constraint firstAttribute="width" constant="200" id="I4r-QH-XaH"/>
+                                <constraint firstAttribute="height" constant="45" id="W5S-hF-jaV"/>
+                                <constraint firstAttribute="width" secondItem="i9L-lu-8kP" secondAttribute="height" multiplier="40:9" id="nc6-sn-0XF"/>
                             </constraints>
-                        </view>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <state key="normal" image="weixin-1">
+                                <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="wxLoginButtonAction:" destination="-1" eventType="touchUpInside" id="A3d-fG-u9y"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="i9L-lu-8kP" firstAttribute="centerY" secondItem="ObL-Qc-1VK" secondAttribute="centerY" id="0hN-z3-mvN"/>
                         <constraint firstItem="JHa-JV-KLU" firstAttribute="top" secondItem="ObL-Qc-1VK" secondAttribute="top" id="13K-Ty-lnM"/>
                         <constraint firstItem="JHa-JV-KLU" firstAttribute="centerX" secondItem="ObL-Qc-1VK" secondAttribute="centerX" id="1ew-bR-rI8"/>
-                        <constraint firstAttribute="bottom" secondItem="RDw-LW-hky" secondAttribute="bottom" id="9O8-Ta-sJb"/>
                         <constraint firstItem="T33-Pb-sYo" firstAttribute="centerY" secondItem="JHa-JV-KLU" secondAttribute="centerY" id="G1Y-j4-zp7"/>
-                        <constraint firstAttribute="trailing" secondItem="RDw-LW-hky" secondAttribute="trailing" constant="100" id="KDI-YE-ezr"/>
-                        <constraint firstItem="RDw-LW-hky" firstAttribute="centerX" secondItem="ObL-Qc-1VK" secondAttribute="centerX" constant="80" id="M9F-w0-TUl"/>
                         <constraint firstItem="JHa-JV-KLU" firstAttribute="leading" secondItem="T33-Pb-sYo" secondAttribute="trailing" constant="12" id="OQs-Hg-gKV"/>
-                        <constraint firstItem="RDw-LW-hky" firstAttribute="centerY" secondItem="ObL-Qc-1VK" secondAttribute="centerY" id="P94-i4-PDz"/>
                         <constraint firstItem="gBS-9c-g50" firstAttribute="centerY" secondItem="ObL-Qc-1VK" secondAttribute="centerY" id="TUY-4v-rb2"/>
                         <constraint firstAttribute="height" constant="100" id="U6a-uU-GO3"/>
+                        <constraint firstItem="i9L-lu-8kP" firstAttribute="centerX" secondItem="ObL-Qc-1VK" secondAttribute="centerX" constant="80" id="bNt-qT-IJw"/>
                         <constraint firstItem="9KH-j4-qDd" firstAttribute="centerY" secondItem="JHa-JV-KLU" secondAttribute="centerY" id="eoy-pz-Pgz"/>
                         <constraint firstAttribute="trailing" secondItem="9KH-j4-qDd" secondAttribute="trailing" id="iKF-hQ-c37"/>
                         <constraint firstItem="9KH-j4-qDd" firstAttribute="leading" secondItem="JHa-JV-KLU" secondAttribute="trailing" constant="12" id="r86-Uo-dhl"/>
@@ -580,7 +569,7 @@
                 <constraint firstAttribute="bottom" secondItem="U9l-OH-CWc" secondAttribute="bottom" id="CkP-QL-lJl"/>
                 <constraint firstItem="U9l-OH-CWc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DYM-GX-unc"/>
                 <constraint firstAttribute="trailing" secondItem="ObL-Qc-1VK" secondAttribute="trailing" id="OeT-xS-FBM"/>
-                <constraint firstItem="U9l-OH-CWc" firstAttribute="top" secondItem="ANm-KJ-AaO" secondAttribute="bottom" constant="29" id="P4S-rd-qc4"/>
+                <constraint firstItem="U9l-OH-CWc" firstAttribute="top" secondItem="ANm-KJ-AaO" secondAttribute="bottom" id="P4S-rd-qc4"/>
                 <constraint firstItem="F4z-Ib-9QC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Pnh-9C-09s"/>
                 <constraint firstAttribute="trailing" secondItem="U9l-OH-CWc" secondAttribute="trailing" id="V8f-ty-om2"/>
                 <constraint firstAttribute="bottom" secondItem="U9l-OH-CWc" secondAttribute="bottom" constant="100" id="aqb-jz-TeX"/>

@@ -61,7 +61,8 @@
     if (indexPath.row == 0) {
         for (NSDictionary *dic in self.settingArray) {
             if ([dic[@"type"] isEqual:@2]) {
-                cell.switchs.on = [dic[@"status"] isEqualToString:@"1"];
+                NSString * strss = dic[@"status"]?:@"";
+                cell.switchs.on = [strss isEqualToString:@"1"];
             }
         }
         cell.titleLabel.text = @"促销优惠";
@@ -71,7 +72,8 @@
     }else{
         for (NSDictionary *dic in self.settingArray) {
             if ([dic[@"type"] isEqual:@1]) {
-                cell.switchs.on = [dic[@"status"] isEqualToString:@"1"];
+                NSString * strss = dic[@"status"]?:@"";
+                cell.switchs.on = [strss isEqualToString:@"1"];
             }
         }
         cell.titleLabel.text = @"系统通知";

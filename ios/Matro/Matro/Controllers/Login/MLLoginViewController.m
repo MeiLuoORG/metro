@@ -84,6 +84,7 @@
 @property (strong, nonatomic) IBOutlet UIView *qqLoginBgView;
 @property (strong, nonatomic) IBOutlet UIView *wxLoginBgView;
 @property (weak, nonatomic) IBOutlet UIButton *qqLoginButton;
+@property (weak, nonatomic) IBOutlet UIButton *wxLoginButton;
 
 
 @end
@@ -130,15 +131,16 @@
     _hud = [[MBProgressHUD alloc]initWithView:self.view];
     [self.view addSubview:_hud];
     
-    
+    /*
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weixin://"]]) {
         self.wxLoginBgView.hidden = YES;
+        self.wxLoginButton.hidden = YES;
     }
     
     if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqq://"]]) {
         self.qqLoginButton.hidden = YES;
     }
-    
+    */
     
     //UiTextField变化通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChangeAction:) name:UITextFieldTextDidChangeNotification object:nil];
