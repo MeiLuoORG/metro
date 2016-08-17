@@ -20,6 +20,7 @@
 #import "MyAddressManagerViewController.h"
 #import "MLChangePhotoViewController.h"
 #import "CommonHeader.h"
+#import "MBProgressHUD+Add.h"
 
 @interface MNNManagementViewController ()<UITableViewDataSource,UITableViewDelegate,MNNModifyNameViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> {
     UITableView *_tableView;
@@ -372,7 +373,7 @@
             SBJSON *sbjson = [SBJSON new];
             NSString *sbstr = [sbjson stringWithObject:persondic error:nil];
             
-            
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [[HFSServiceClient sharedClientwithUrl:SERVICE_BASE_URL] POST:@"image/upload" parameters:sbstr success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"%@",responseObject);
                 if (responseObject) {
@@ -388,6 +389,7 @@
                 }
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [_hud show:YES];
                 _hud.mode = MBProgressHUDModeText;
                 _hud.labelText = @"请求失败";
@@ -466,14 +468,16 @@
             [_imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
             
             [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_CHANGEUSERINFO object:nil];
-            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         }else{
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = result[@"msg"];
             [_hud hide:YES afterDelay:2];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = @"请求失败";

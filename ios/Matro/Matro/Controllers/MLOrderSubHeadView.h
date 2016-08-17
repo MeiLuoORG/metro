@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MBProgressHUD+Add.h"
 
 
 typedef void(^AddressHeadClick)();

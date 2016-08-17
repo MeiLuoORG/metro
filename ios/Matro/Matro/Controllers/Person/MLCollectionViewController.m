@@ -346,7 +346,7 @@ static NSInteger page = 1;
         if ([code isEqual:@0]) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"加入购物车成功";
+            _hud.labelText = @"加入购物袋成功";
             [_hud hide:YES afterDelay:1];
         }
         NSLog(@"请求成功 result====%@",result);

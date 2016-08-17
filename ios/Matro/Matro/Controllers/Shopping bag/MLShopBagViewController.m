@@ -561,7 +561,7 @@ static NSInteger pageIndex = 0;
                 [cart.cpInfo MR_deleteEntity];
             }
             [goods MR_deleteEntity];
-            [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
+            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
             
             NSArray *all = [CompanyInfo MR_findAll];
             if (all.count == 0) {

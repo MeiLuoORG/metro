@@ -87,6 +87,7 @@
         NSData *imageData = UIImageJPEGRepresentation([info[UIImagePickerControllerEditedImage] scaleToSize:CGSizeMake(256.0f, 256.0f)], 1);
         UIImage *avatorimg = [UIImage imageWithData:imageData];
         */
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
         NSString *accessToken = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
@@ -115,6 +116,7 @@
          
          order_id: 订单号
          */
+        
         [manager POST:newUrl parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             [formData appendPartWithFileData:imgData name:@"picture" fileName:@"uploadimg.jpg" mimeType:@"image/jpg"];
             
@@ -135,6 +137,7 @@
             }
             NSLog(@"%@",responseObject);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             NSLog(@"%@",error);
         }];
         
@@ -215,12 +218,14 @@
             [_hud hide:YES afterDelay:2];
             
         }
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self dismissViewControllerAnimated:NO completion:^{
             
         }];
 
     } failure:^(NSError *error) {
         [_hud show:YES];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = REQUEST_ERROR_ZL;
         _hud.labelFont = [UIFont systemFontOfSize:13];

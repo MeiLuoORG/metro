@@ -32,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"重置密码";
+    self.title = @"找回密码";
     
     
     
@@ -68,7 +68,7 @@
 //Lock_xiugaimima锁     Profile_xiugaimima人    golden_button
 - (void)loadTopView{
     
-    NavTopCommonImage * img = [[NavTopCommonImage alloc]initWithTitle:@"重置密码"];
+    NavTopCommonImage * img = [[NavTopCommonImage alloc]initWithTitle:@"找回密码"];
     [img loadLeftBackButtonwith:0];
     [img backButtonAction:^(BOOL succes) {
         [self dismissViewControllerAnimated:NO completion:nil];

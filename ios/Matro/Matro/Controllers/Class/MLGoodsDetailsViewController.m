@@ -1199,7 +1199,7 @@
         if ([code isEqual:@0]) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"加入购物车成功";
+            _hud.labelText = @"加入购物袋成功";
             [_hud hide:YES afterDelay:1];
         }
     }
@@ -1255,7 +1255,7 @@
     if (model2) { //说明已经存在了 Num加
         model2.num ++;
         [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
-        [MBProgressHUD showMessag:@"加入购物车成功" toView:self.view];
+        [MBProgressHUD showMessag:@"加入购物袋成功" toView:self.view];
     }
     else{ //如果没有就直接加进去
         OffLlineShopCart  *model = [OffLlineShopCart MR_createEntity];
@@ -1269,7 +1269,7 @@
         model.sid = pDic[@"pinfo"][@"property"][@"id"]?:@"0";
         model.sku = pDic[@"pinfo"][@"property"][@"sku"]?:pDic[@"pinfo"][@"code"];
         [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-            [MBProgressHUD showMessag:@"加入购物车成功" toView:self.view];
+            [MBProgressHUD showMessag:@"加入购物袋成功" toView:self.view];
         }];
         
     }

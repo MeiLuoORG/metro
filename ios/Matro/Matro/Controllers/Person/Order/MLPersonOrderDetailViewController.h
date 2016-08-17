@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MLBaseViewController.h"
-
+#import "Reachability.h"
 
 typedef void(^OrderHandleBlock)();
 @interface MLPersonOrderDetailViewController : MLBaseViewController
@@ -16,5 +16,6 @@ typedef void(^OrderHandleBlock)();
 @property (assign, nonatomic) float order_price;
 
 @property (nonatomic,copy)OrderHandleBlock orderHandleBlock;
-
+@property (nonatomic, strong) Reachability *conn;
+@property (assign, nonatomic) BOOL titleLoadFinished;
 @end

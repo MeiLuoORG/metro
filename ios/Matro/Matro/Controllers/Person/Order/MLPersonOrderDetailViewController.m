@@ -176,10 +176,77 @@
         make.left.right.top.equalTo(self.view);
         make.bottom.mas_equalTo(self.footView.mas_top);
     }];
- 
-    [self getOrderDetail];
+    self.titleLoadFinished = NO;
+    
+    
+    //检测网络环境
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkStateChange) name:kReachabilityChangedNotification object:nil];
+    self.conn = [Reachability reachabilityForInternetConnection];
+    [self.conn startNotifier];
+    [self checkNetworkState];
+    
+    //[self getOrderDetail];
+}
+//检测网络状态
+- (void)networkStateChange{
+    [self checkNetworkState];
+    
 }
 
+- (void)checkNetworkState
+{
+    // 1.检测wifi状态
+    //Reachability *wifi = [Reachability reachabilityForLocalWiFi];
+    
+    // 2.检测手机是否能上网络(WIFI\3G\2.5G)
+    Reachability *conn = [Reachability reachabilityForInternetConnection];
+    
+    if ([conn currentReachabilityStatus] != NotReachable) { // 没有使用wifi, 使用手机自带网络进行上网
+        //self.wangluoImageView.hidden = YES;
+        //[conn currentReachabilityStatus]  == reachable
+        if ([conn currentReachabilityStatus] == ReachableViaWiFi) {
+            NSLog(@"使用WIFI网络进行上网");
+        }
+        if ([conn currentReachabilityStatus] == ReachableViaWWAN) {
+            NSLog(@"使用手机自带网络进行上网");
+        }
+        
+        if (self.titleLoadFinished == NO) {
+            [self getOrderDetail];
+            NSLog(@"执行了测试方法getRequestTitleARR");
+        }
+        
+    }else { // 没有网络
+
+        //self.wangluoImageView inser
+        //[self.view insertSubview:self.wangluoImageView atIndex:0];
+        /*
+         UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"网络不顺畅，请检查网络！" message:nil delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+         [self.view addSubview:alert];
+         [alert show];
+         */
+    }
+    
+    
+}
+
+
+// 用WIFI
+// [wifi currentReachabilityStatus] != NotReachable
+// [conn currentReachabilityStatus] != NotReachable
+
+// 没有用WIFI, 只用了手机网络
+// [wifi currentReachabilityStatus] == NotReachable
+// [conn currentReachabilityStatus] != NotReachable
+
+// 没有网络
+// [wifi currentReachabilityStatus] == NotReachable
+// [conn currentReachabilityStatus] == NotReachable
+
+- (void)dealloc{
+    [self.conn stopNotifier];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (void)getOrderDetail{
     //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self showLoadingView];
@@ -267,12 +334,15 @@
             if (self.orderDetail.deliver_code.length > 0 && self.orderDetail.deliver_name.length > 0) {
                 [self downLoadLogTrackWithCompany:self.orderDetail.deliver_name AndNum:self.orderDetail.deliver_code];
             }
+            self.titleLoadFinished = YES;
         }else{
+            self.titleLoadFinished = NO;
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
         }
         [self closeLoadingView];
     } failure:^(NSError *error) {
+        self.titleLoadFinished = NO;
         [self closeLoadingView];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];

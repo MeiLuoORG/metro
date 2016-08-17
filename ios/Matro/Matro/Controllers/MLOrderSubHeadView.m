@@ -85,36 +85,51 @@
     if (self.shenfenzhengField.text.length > 0) { //
         
     }
+    
+
+    
     NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_member&action=edit_identity_card&accessToken=%@",MATROJP_BASE_URL,[token URLEncodedString]];
-    NSDictionary *params = @{@"identity_card":self.shenfenzhengField.text,@"mobile":self.phoneLabel.text,@"username":self.nameLabel.text};
-    [MLHttpManager post:url params:params m:@"member" s:@"admin_member" success:^(id responseObject) {
-        NSDictionary *result = (NSDictionary *)responseObject;
-        newSFZ = self.shenfenzhengField.text;
-        if ([result[@"code"] isEqual:@0]) {
-             self.shenfenzhengField.userInteractionEnabled = NO;
-            [self.editBtn setTitle:@"编辑" forState:UIControlStateNormal];
-            NSMutableString *str = [NSMutableString stringWithString:self.shenfenzhengField.text];
-            [str replaceCharactersInRange:NSMakeRange(6, 8)withString:@"********"];
-            oldSFZ = [str copy];
-            self.shenfenzhengField.text = oldSFZ;
-            if (self.idcardisOk) {
-                self.idcardisOk(YES);
+
+    if (self.shenfenzhengField.text != nil && self.phoneLabel.text != nil && self.nameLabel.text != nil) {
+        NSDictionary *params = @{@"identity_card":self.shenfenzhengField.text,@"mobile":self.phoneLabel.text,@"username":self.nameLabel.text};
+        [MLHttpManager post:url params:params m:@"member" s:@"admin_member" success:^(id responseObject) {
+            NSDictionary *result = (NSDictionary *)responseObject;
+            newSFZ = self.shenfenzhengField.text;
+            if ([result[@"code"] isEqual:@0]) {
+                self.shenfenzhengField.userInteractionEnabled = NO;
+                [self.editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+                NSMutableString *str = [NSMutableString stringWithString:self.shenfenzhengField.text];
+                [str replaceCharactersInRange:NSMakeRange(6, 8)withString:@"********"];
+                oldSFZ = [str copy];
+                self.shenfenzhengField.text = oldSFZ;
+                if (self.idcardisOk) {
+                    self.idcardisOk(YES);
+                }
+                self.sfLeading.constant = 16;
+                self.fieldLeading.constant = 0;
             }
-            self.sfLeading.constant = 16;
-            self.fieldLeading.constant = 0;
+            else{
+                NSString *msg = result[@"msg"];
+                if (self.orderSubChangeInfo) {
+                    self.orderSubChangeInfo(msg);
+                }
+                if (self.idcardisOk) {
+                    self.idcardisOk(NO);
+                }
+            }
+        } failure:^(NSError *error) {
+        }];
+
+    }else{
+        
+        [MBProgressHUD showSuccess:@"请完善地址信息" toView:self];
+        [self.editBtn setTitle:@"编辑" forState:UIControlStateNormal];
+        if (self.idcardisOk) {
+            self.idcardisOk(NO);
         }
-        else{
-            NSString *msg = result[@"msg"];
-            if (self.orderSubChangeInfo) {
-                self.orderSubChangeInfo(msg);
-            }
-            if (self.idcardisOk) {
-                self.idcardisOk(NO);
-            }
-        }
-    } failure:^(NSError *error) {
-    }];
+    }
+    
 }
 
 - (void)setIsShowSFZ:(BOOL)isShowSFZ{
