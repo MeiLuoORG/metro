@@ -120,6 +120,6 @@
     <resources>
         <image name="btn_shanchu" width="78" height="32"/>
         <image name="golden_button" width="73" height="33"/>
-        <image name="loadinghome" width="213" height="360"/>
+        <image name="loadinghome" width="640" height="1080"/>
     </resources>
 </document>

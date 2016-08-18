@@ -70,10 +70,11 @@
     
     self.closeBtn.hidden = YES;
     UIImage *img =  [self getImage];
-    UMSocialUrlResource *resource = [[UMSocialUrlResource alloc]init];
-    resource.resourceType = UMSocialUrlResourceTypeImage;
+    //UMSocialUrlResource *resource = [[UMSocialUrlResource alloc]init];
+    //resource.resourceType = UMSocialUrlResourceTypeImage;
     self.closeBtn.hidden = NO;
-//    [UMSocialData defaultData].extConfig.qqData.url = share_Url;
+    //[UMSocialData defaultData].extConfig.qqData.url = share_Url;
+    [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeImage;
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:self.titleLabel.text image:img location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             [MBProgressHUD showMessag:@"分享成功" toView:self.view];
@@ -97,7 +98,8 @@
     self.closeBtn.hidden = YES;
     UIImage *img =  [self getImage];
     self.closeBtn.hidden = NO;
-    [UMSocialData defaultData].extConfig.wechatSessionData.url = share_Url;
+    //[UMSocialData defaultData].extConfig.wechatSessionData.url = share_Url;
+    [UMSocialData defaultData].extConfig.wechatSessionData.wxMessageType = UMSocialWXMessageTypeImage;
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:self.titleLabel.text image:img location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             [MBProgressHUD showMessag:@"分享成功" toView:self.view];
@@ -181,7 +183,7 @@
 
 - (UIImage *)getImage {
     
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(228, 400), NO, 1);  //NO，YES 控制是否透明
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(240, 400), NO, 1);  //NO，YES 控制是否透明
     [self.shareImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

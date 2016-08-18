@@ -62,7 +62,11 @@
         for (NSDictionary *dic in self.settingArray) {
             if ([dic[@"type"] isEqual:@2]) {
                 NSString * strss = dic[@"status"]?:@"";
-                cell.switchs.on = [strss isEqualToString:@"1"];
+                if (![strss isKindOfClass:[NSNull class]]) {
+                    
+                    cell.switchs.on = [strss isEqualToString:@"1"];
+                }
+                
             }
         }
         cell.titleLabel.text = @"促销优惠";
@@ -73,7 +77,9 @@
         for (NSDictionary *dic in self.settingArray) {
             if ([dic[@"type"] isEqual:@1]) {
                 NSString * strss = dic[@"status"]?:@"";
-                cell.switchs.on = [strss isEqualToString:@"1"];
+                if (![strss isKindOfClass:[NSNull class]]) {
+                    cell.switchs.on = [strss isEqualToString:@"1"];
+                }
             }
         }
         cell.titleLabel.text = @"系统通知";
@@ -132,8 +138,10 @@
 
 - (void)getSettingInfo{
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=get_setting",MATROJP_BASE_URL];
+    NSLog(@"消息设置的URL为：%@",url);
     [MLHttpManager get:url params:nil m:@"push" s:@"get_setting" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"消息设置为：%@",result);
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data= result[@"data"];
             NSArray *list = data[@"list"];

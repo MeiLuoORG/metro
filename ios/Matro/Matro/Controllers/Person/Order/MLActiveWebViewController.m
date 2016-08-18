@@ -27,6 +27,42 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.link]];
     [self.webView loadRequest:request];
 }
+- (void)skip:(NSString *)index Ui:(NSString *)sender{
+    NSLog(@"JS传入index:%@++++sender:%@",index,sender);
+    /*
+     dispatch_sync(dispatch_get_main_queue(), ^{
+     [self pushToGoodsDetail:index withUi:sender];
+     });
+     */
+    
+    if (index != nil && sender != nil && ![index isEqualToString:@""] && ![sender isEqualToString:@""]) {
+        NSArray * arr = @[index,sender];
+        [self performSelectorOnMainThread:@selector(pushTest:) withObject:arr waitUntilDone:YES];
+    }
+    
+}
+- (void)pushTest:(NSArray *)senderARR{
+    
+    NSString * index = senderARR[0];
+    NSString * sender = senderARR[1];
+    NSLog(@"数组中index:%@,sender:%@",index,sender);
+//    if (self.homeSubDelegate && [self.homeSubDelegate respondsToSelector:@selector(homeSubViewController:JavaScriptActionFourButton:withUi:)]) {
+//        [self.homeSubDelegate homeSubViewController:self JavaScriptActionFourButton:index withUi:sender];
+//    }
+    if ([index isEqualToString:@"1"]) {
+        //商品
+        NSDictionary *params = @{@"id":sender?:@""};
+        MLGoodsDetailsViewController * vc = [[MLGoodsDetailsViewController alloc]init];
+        vc.paramDic = params;
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+    }
+
+    
+}
+
+
 
 
 

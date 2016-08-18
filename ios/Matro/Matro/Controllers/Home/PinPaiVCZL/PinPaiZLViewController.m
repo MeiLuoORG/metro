@@ -136,7 +136,7 @@
 
 - (void)headerShuaXin{
     _currentPageIndex = 1;
-    [_pinPaiARR removeAllObjects];
+    //[_pinPaiARR removeAllObjects];
     [self loadDataWithPageIndex:1 withPagesize:15];
 }
 - (void)footerShuaXin{
@@ -382,9 +382,7 @@
     [bkView addSubview:lael];
     
     lael.text = [_allKeysARR objectAtIndex:section];
-    
-    
-    
+
     if (section == 0) {
 
     }
@@ -501,7 +499,7 @@
      语言的力量  11:45:15
      app_version=1.0
      */
-        NSString * urlStr = [NSString stringWithFormat:@"%@/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,pageIndex,pageSize,vCFBundleShortVersionStr];
+    NSString * urlStr = [NSString stringWithFormat:@"%@/api.php?m=brand&s=brand&method=list&pageindex=%d&pagesize=%d&type=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,pageIndex,pageSize,vCFBundleShortVersionStr];
     
     [MLHttpManager get:urlStr params:nil m:@"brand" s:@"brand" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -509,7 +507,7 @@
         
         NSDictionary * result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
-            NSLog(@"请求品牌馆：%@",result);
+            //NSLog(@"请求品牌馆：%@",result);
             NSDictionary * dataDic = result[@"data"];
             NSString * sumStr = dataDic[@"sum"];
             if (![sumStr isEqualToString:@"0"]) {
@@ -526,6 +524,12 @@
                     }
                     
                     if (brandARR.count > 0 ) {
+                        if(pageIndex == 1){
+                        
+                        [_pinPaiARR removeAllObjects];
+                        }
+                            
+                        
                         for (NSDictionary * brandDic in brandARR) {
                             //[PinPaiModelZl modelWithDictionary:brandDic error:nil];
                             PinPaiModelZl * pinPaiModel = [[PinPaiModelZl alloc]init];
@@ -569,6 +573,7 @@
         [_collectionView.header endRefreshing];
         [_collectionView.footer endRefreshing];
     } failure:^(NSError *error) {
+        [self closeLoadingView];
         _hud  = [[MBProgressHUD alloc]initWithView:self.view];
         [self.view addSubview:_hud];
         [_hud show:YES];
@@ -677,7 +682,7 @@
     
     ZLCollectionViewCell * cell = (ZLCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
     //UICollectionViewCell * cell2 = [collectionView cellForItemAtIndexPath:indexPath];
-
+    NSLog(@"品牌馆_pinPaiARR.count=:%d+++++,index.row=%d",_pinPaiARR.count,indexPath.row);
     PinPaiModelZl * model = [_pinPaiARR objectAtIndex:indexPath.row];
     
     //NSURL * url = [NSURL URLWithString:@"http://61.155.212.169/img/SPXSM/o_1a6kr95qe19jmg057qc10m5169g5_M.jpg"];
