@@ -28,11 +28,22 @@
     if (_prolistModel != prolistModel) {
         _prolistModel = prolistModel;
         [self.countField setTextValue:_prolistModel.num];
-        self.countField.maxValue = _prolistModel.amount - _prolistModel.safe_amount;
+        if ([_prolistModel.stock isKindOfClass:[NSNull class]]) {
+            self.countField.maxValue = _prolistModel.amount;
+        }else{
+        
+            self.countField.maxValue = [_prolistModel.stock integerValue];
+        }
         self.countField.minValue = 1;
         [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic] placeholderImage:PLACEHOLDER_IMAGE];
         self.goodName.text = _prolistModel.pname;
-        self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.realPrice];
+//        if ([_prolistModel.pro_setmeal_price isEqual:nil]) {
+//             self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.realPrice];
+//        }else{
+//            float realPrice = [_prolistModel.pro_setmeal_price floatValue];
+//             self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f",realPrice];
+//        }
+       self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.realPrice];
         self.checkBox.cartSelected = (_prolistModel.is_check == 1);
         self.manjianLabel.hidden = !(_prolistModel.mjtitle.length > 0);
         if (_prolistModel.setmealname.length> 0 ) {
@@ -49,7 +60,6 @@
         self.goodName.text = _offlineCart.pname;
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _offlineCart.pro_price];
         self.checkBox.cartSelected = NO;
-//        self.goodDesc.hidden = YES;
         self.manjianLabel.hidden = !(_offlineCart.mjtitle.length > 0);
         [self.countField setTextValue:_offlineCart.num];
         self.countField.maxValue = _offlineCart.amount;

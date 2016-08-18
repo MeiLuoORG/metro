@@ -110,7 +110,8 @@
                 self.fieldLeading.constant = 0;
             }
             else{
-                NSString *msg = result[@"msg"];
+//                NSString *msg = result[@"msg"];
+                NSString *msg = @"请填写身份证号码";
                 if (self.orderSubChangeInfo) {
                     self.orderSubChangeInfo(msg);
                 }
