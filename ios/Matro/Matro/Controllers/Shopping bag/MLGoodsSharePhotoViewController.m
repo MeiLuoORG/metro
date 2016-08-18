@@ -70,8 +70,10 @@
     
     self.closeBtn.hidden = YES;
     UIImage *img =  [self getImage];
+    UMSocialUrlResource *resource = [[UMSocialUrlResource alloc]init];
+    resource.resourceType = UMSocialUrlResourceTypeImage;
     self.closeBtn.hidden = NO;
-    [UMSocialData defaultData].extConfig.qqData.url = share_Url;
+//    [UMSocialData defaultData].extConfig.qqData.url = share_Url;
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:self.titleLabel.text image:img location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
             [MBProgressHUD showMessag:@"分享成功" toView:self.view];
@@ -95,9 +97,6 @@
     self.closeBtn.hidden = YES;
     UIImage *img =  [self getImage];
     self.closeBtn.hidden = NO;
-//    UMSocialUrlResource *resource = [[UMSocialUrlResource alloc]init];
-//    resource.url = share_Url;
-//    resource.resourceType = UMSocialUrlResourceTypeWeb;
     [UMSocialData defaultData].extConfig.wechatSessionData.url = share_Url;
     [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:self.titleLabel.text image:img location:nil urlResource:nil presentedController:self completion:^(UMSocialResponseEntity *response){
         if (response.responseCode == UMSResponseCodeSuccess) {
@@ -133,6 +132,7 @@
         
         [[HFSServiceClient sharedClientwithUrl:SERVICE_BASE_URL] POST:@"image/upload" parameters:sbstr success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"%@",responseObject);
+            
             if (responseObject) {
                 NSDictionary *result = (NSDictionary *)responseObject;
                 if(result) {
@@ -181,7 +181,7 @@
 
 - (UIImage *)getImage {
     
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(228, 322), NO, 1.0);  //NO，YES 控制是否透明
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(228, 400), NO, 1);  //NO，YES 控制是否透明
     [self.shareImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

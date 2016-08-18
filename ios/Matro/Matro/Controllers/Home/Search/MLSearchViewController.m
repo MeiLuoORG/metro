@@ -18,12 +18,15 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "CommonHeader.h"
 #import "MLHttpManager.h"
+#import "Masonry.h"
+
 @interface MLSearchViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,DWTagListDelegate,UITextFieldDelegate>
 {
     
     NSMutableArray *_historySearchTextArray;//搜索历史的数组，用于保存热门搜索历史
     
     DWTagList *_hotSearchTagList;//标签控件，标签的形式显示热门列表
+    DWTagList *mySearchTagList;//标签控件，标签的形式显示热门列表
     NSMutableArray *hotSearchTagArray;
     
     
@@ -36,9 +39,17 @@
 @property (weak, nonatomic) IBOutlet UIView *hotSearchTagView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *hotSearchTagHeightConstraint;
 @property (strong, nonatomic) IBOutlet UITableView *historyTableView;//用于显示历史记录的tableview
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mySearchTagHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIView *mySearchTagView;//搜索历史
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tbvH;
 
 @property (strong, nonatomic) IBOutlet UIScrollView *rootScrollView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchViewH;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *myViewH;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hotViewH;
+@property (weak, nonatomic) IBOutlet UIView *myView;
+@property (weak, nonatomic) IBOutlet UIView *ScrollContentView;
+@property (weak, nonatomic) IBOutlet UIView *hotView;
 
 
 @end
@@ -150,7 +161,10 @@ static CGFloat kHeight = 0;
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:NO];
-    [self.historyTableView reloadData];
+//    [self.historyTableView reloadData];
+    [self loadSearchHistory];
+    
+    
 }
 
 -(void)handleSingleTap:(UITapGestureRecognizer *)sender
@@ -214,10 +228,13 @@ static CGFloat kHeight = 0;
 -(void)gethotKeywords
 {
     //热门搜索关键字
- 
+    self.hotView.hidden = YES;
+    
     NSString *str = [NSString stringWithFormat:@"%@/api.php?m=product&s=recommend&method=list_recommend&pageindex=1&pagesize=20&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
    
     [MLHttpManager get:str params:nil m:@"product" s:@"recommend" success:^(id responseObject){
+        
+        self.hotView.hidden = NO;
         
         if (responseObject) {
             NSLog(@"responseObject===1111%@",responseObject);
@@ -265,30 +282,51 @@ static CGFloat kHeight = 0;
     
     _historySearchTextArray = [NSMutableArray array];
     if (historySearchArray.count == 0) {
-        self.labsearch.hidden = YES;
-        self.searchView.hidden = YES;
-    }
+        
+        self.myViewH.constant = 0;
+        [self.hotView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.ScrollContentView).offset(0);
+        }];
+        
+    }else{
+    
     for (SearchHistory *searchHistory in historySearchArray) {
- 
+        
             [_historySearchTextArray addObject:searchHistory.keywork];
   
     }
     
     _historySearchTextArray = (NSMutableArray *)[[_historySearchTextArray reverseObjectEnumerator] allObjects];
     
-    _tbvH.constant = _historySearchTextArray.count * 30;
+    //采用标题形式
+    mySearchTagList = [[DWTagList alloc]initWithFrame:CGRectMake(12, 0, MAIN_SCREEN_WIDTH - 24, 35)];
+    mySearchTagList.tagDelegate = self;
+    [mySearchTagList setTag:_historySearchTextArray];
+    [self.mySearchTagView addSubview:mySearchTagList];
+    _mySearchTagHeightConstraint.constant = mySearchTagList.contentSize.height;
+   [self.view layoutIfNeeded];
+    mySearchTagList.frame = self.mySearchTagView.bounds;
+    self.myViewH.constant = self.mySearchTagView.bounds.size.height + 40;
     
-    
+        
+    }
+
     self.clearBtn.hidden = (_historySearchTextArray.count == 0);
-    [_historyTableView reloadData];
+    self.myView.hidden = (_historySearchTextArray.count == 0);
+    
+    // _tbvH.constant = _historySearchTextArray.count * 30;
+    //[_historyTableView reloadData];
 }
 
 //清除搜索历史纪录
 - (IBAction)clearSearchHistoryAction:(id)sender {
     
     [SearchHistory MR_truncateAllInContext:_context];
-    self.labsearch.hidden = YES;
-    self.searchView.hidden = YES;
+    self.myViewH.constant = 0;
+    
+    [self.hotView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.ScrollContentView).offset(0);
+    }];
     [self loadSearchHistory];
 }
 

@@ -472,12 +472,7 @@ static NSInteger page3 = 1;
                 NSArray *array = [[NSBundle mainBundle]loadNibNamed: FristCellIdentifier owner:self options:nil];
                 FristTableViewCell = [array objectAtIndex:0];
             }
-//            _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-25)/4)*1.4769*2 +44 +15;
-//            
-//            FristTableViewCell.hotppLab.textColor = [UIColor grayColor];
-//            FristTableViewCell.hotppView.hidden = YES;
-            
-            
+
             if (ishotSP == YES) {
                 //_index_1_height = 299;
 //                _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-25)/4)*1.4769*2 +44 +15;
@@ -516,10 +511,7 @@ static NSInteger page3 = 1;
             FristTableViewCell.firstCollectionView.delegate = self;
             FristTableViewCell.firstCollectionView.dataSource = self;
             FristTableViewCell.firstCollectionView.tag = 1;
-            
-//            FristTableViewCell.firstCollectionView.userInteractionEnabled = NO;
-//            [FristTableViewCell.firstCollectionView setContentSize:CGSizeMake(MAIN_SCREEN_WIDTH, 10)];
-            
+
             [FristTableViewCell.firstCollectionView registerNib:[UINib  nibWithNibName:@"MLFristCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:FristCCELL_IDENTIFIER];
 //            if (ishotSP) {
 //                [FristTableViewCell.firstCollectionView registerNib:[UINib  nibWithNibName:@"MLFristCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:FristCCELL_IDENTIFIER];
@@ -527,9 +519,10 @@ static NSInteger page3 = 1;
 //            
 //                [FristTableViewCell.firstCollectionView registerNib:[UINib  nibWithNibName:@"MLFirstPPCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:FristPPCCELL_IDENTIFIER];
 //            }
+            
             FristTableViewCell.firstCollectionView.scrollEnabled = NO;
-            _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-30)/4)*1.4769*2 +44 +15;
-//            _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)*2 +44 +15;
+
+            _index_1_height = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-30)/4)*1.15*2 +44 +15;
             FristTableViewCell.selectionStyle = UITableViewCellAccessoryNone;
             return FristTableViewCell;
         }
@@ -853,11 +846,7 @@ static NSInteger page3 = 1;
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView.tag == 1) {
-//        MLFristCollectionViewCell *cell = (MLFristCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:FristCCELL_IDENTIFIER forIndexPath:indexPath];
-//        cell.firstImageView.layer.borderWidth = 1.f;
-//        cell.firstImageView.layer.borderColor = [UIColor colorWithHexString:@"F5F5F5"].CGColor;
-//        cell.firstImageView.layer.cornerRadius = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)/2;
-//        cell.firstImageView.layer.masksToBounds = YES;
+
          MLFristCollectionViewCell *cell = (MLFristCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:FristCCELL_IDENTIFIER forIndexPath:indexPath];
         if (ishotSP == YES) {
             
@@ -898,8 +887,8 @@ static NSInteger page3 = 1;
 //            MLFirstPPCollectionViewCell *cell = (MLFirstPPCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:FristPPCCELL_IDENTIFIER forIndexPath:indexPath];
             
             cell.firstImageView.layer.borderWidth = 1.f;
-            cell.firstImageView.layer.borderColor = [UIColor colorWithHexString:@"F5F5F5"].CGColor;
-            cell.firstImageView.layer.cornerRadius = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10))/4)/2;
+            cell.firstImageView.layer.borderColor = [UIColor colorWithHexString:@"F3F3F3"].CGColor;
+            cell.firstImageView.layer.cornerRadius = ((((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-30)/4)-20)/2;
             cell.firstImageView.layer.masksToBounds = YES;
             if (hotbrandArr.count > 6) {
                 if (indexPath.row <7) {
@@ -1093,8 +1082,8 @@ static NSInteger page3 = 1;
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView.tag == 1) {
         float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-30)/4);
-        return CGSizeMake(width, width*1.4769);
-//        return CGSizeMake(width, width);
+//        return CGSizeMake(width, width*1.4769);
+        return CGSizeMake(width, width*1.15);
         /*
         if (ishotSP == YES) {
             float width = (((MAIN_SCREEN_WIDTH)  - (CollectionViewCellMargin*10)-25)/4);

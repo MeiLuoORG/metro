@@ -8,7 +8,9 @@
 
 #import "SYQRCodeViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 #import "MLGoodsDetailsViewController.h"
+
 //设备宽/高/坐标
 #define kDeviceWidth [UIScreen mainScreen].bounds.size.width
 #define KDeviceHeight [UIScreen mainScreen].bounds.size.height
@@ -19,7 +21,10 @@ static const float kLineMaxY = 385;
 static const float kReaderViewWidth = 250;
 static const float kReaderViewHeight = 250;
 
-@interface SYQRCodeViewController () <AVCaptureMetadataOutputObjectsDelegate>
+@interface SYQRCodeViewController () <AVCaptureMetadataOutputObjectsDelegate,UIAlertViewDelegate>{
+    MBProgressHUD *_hud;
+    
+}
 
 @property (nonatomic, strong) AVCaptureSession *qrSession;//回话
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *qrVideoPreviewLayer;//读取
@@ -41,7 +46,7 @@ static const float kReaderViewHeight = 250;
 //    labTitle.text = @"对准二维码到框内即可扫描";
 //    labTitle.textAlignment = NSTextAlignmentCenter;
 //    [self.view addSubview:labTitle];
-    
+
     [self initUI];
     [self setOverlayPickerView];
     [self startSYQRCodeReading];
@@ -111,10 +116,13 @@ static const float kReaderViewHeight = 250;
     if (error)
     {
         NSLog(@"没有摄像头-%@", error.localizedDescription);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"请到设置里设置相机权限" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [alert show];
         
         return;
     }
-    
+
     //设置输出(Metadata元数据)
     AVCaptureMetadataOutput *output = [[AVCaptureMetadataOutput alloc] init];
     
@@ -171,6 +179,14 @@ static const float kReaderViewHeight = 250;
     //[self.view.layer addSublayer:preview];
     self.qrVideoPreviewLayer = preview;
     self.qrSession = session;
+}
+
+#pragma alertview delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        
+    }
 }
 
 - (CGRect)getReaderViewBoundsWithSize:(CGSize)asize

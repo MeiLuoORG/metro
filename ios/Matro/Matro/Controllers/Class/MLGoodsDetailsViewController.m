@@ -309,7 +309,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    self.hidesBottomBarWhenPushed = YES;
     _pingmuH.constant = MAIN_SCREEN_HEIGHT - 64 - 45;
     _pingmuW.constant = MAIN_SCREEN_WIDTH;
     
@@ -449,13 +449,13 @@
                     if (limit_quantity && [limit_quantity isEqualToString:@"0"]) {
                         self.xiangouW.constant = 0;
                         self.shuliangStepper.maxValue = amount.intValue;
-                        if ((amount.floatValue - safe_amount.floatValue)>5) {
+                        if ( amount.floatValue >5) {
                             
                             self.kuncuntisLabel.text = @"库存充足";
                             self.shuliangStepper.minValue = 1;
                             [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
                             self.jiarugouwucheBtn.enabled = YES;
-                        }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
+                        }else if(amount.floatValue >0 && amount.floatValue <=5){
                             
                             self.kuncuntisLabel.text = @"库存紧张";
                             self.shuliangStepper.minValue = 1;
@@ -463,7 +463,7 @@
                             self.jiarugouwucheBtn.enabled = YES;
                         }
                         
-                        if ((amount.floatValue - safe_amount.floatValue) <= 0) {
+                        if (amount.floatValue <= 0) {
                             [self.shuliangStepper setTextValue:0];
                             leftbtn.enabled=NO;
                             rightbtn.enabled = NO;
@@ -480,16 +480,16 @@
                             self.xiangouW.constant = 60;
                             self.xiangouLab.text = [NSString stringWithFormat:@"(限购%@-%@件)",limit_num,limit_quantity];
                             self.shuliangStepper.maxValue = limit_quantity.intValue;
-                            if ((amount.floatValue - safe_amount.floatValue)>5) {
+                            if (amount.floatValue >5) {
                                 self.kuncuntisLabel.text = @"库存充足";
                                 self.shuliangStepper.minValue = 1;
-                            }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
+                            }else if(amount.floatValue >0 && amount.floatValue <=5){
                                 
                                 self.kuncuntisLabel.text = @"库存紧张";
                                 self.shuliangStepper.minValue = 1;
                             }
                             
-                            if ((amount.floatValue - safe_amount.floatValue) <= 0) {
+                            if (amount.floatValue  <= 0) {
                                 [self.shuliangStepper setTextValue:0];
                                 leftbtn.enabled=NO;
                                 rightbtn.enabled = NO;
@@ -504,16 +504,16 @@
                             self.xiangouW.constant = 75;
                             self.xiangouLab.text = [NSString stringWithFormat:@"(限购%@-%@件)",limit_num,limit_quantity];
                             self.shuliangStepper.maxValue = limit_quantity.intValue;
-                            if ((amount.floatValue - safe_amount.floatValue)>5) {
+                            if (amount.floatValue >5) {
                                 self.kuncuntisLabel.text = @"库存充足";
                                 self.shuliangStepper.minValue = 1;
-                            }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
+                            }else if(amount.floatValue >0 && amount.floatValue <=5){
                                 
                                 self.kuncuntisLabel.text = @"库存紧张";
                                 self.shuliangStepper.minValue = 1;
                             }
                             
-                            if ((amount.floatValue - safe_amount.floatValue) <= 0) {
+                            if (amount.floatValue  <= 0) {
                                 [self.shuliangStepper setTextValue:0];
                                 leftbtn.enabled=NO;
                                 rightbtn.enabled = NO;
@@ -658,17 +658,17 @@
                 if (limit_quantity && [limit_quantity isEqualToString:@"0"]) {
                     self.xiangouW.constant = 0;
                     self.shuliangStepper.maxValue = amount.intValue;
-                    if ((amount.floatValue - safe_amount.floatValue)>5) {
+                    if (amount.floatValue >5) {
                         self.kuncuntisLabel.text = @"库存充足";
                         
                         self.shuliangStepper.minValue = 1;
-                    }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
+                    }else if(amount.floatValue >0 && amount.floatValue <=5){
                         
                         self.kuncuntisLabel.text = @"库存紧张";
                         self.shuliangStepper.minValue = 1;
                     }
                     
-                    if ((amount.floatValue - safe_amount.floatValue) <= 0) {
+                    if (amount.floatValue  <= 0) {
                         [self.shuliangStepper setTextValue:0];
                         leftbtn.enabled=NO;
                         rightbtn.enabled = NO;
@@ -685,16 +685,16 @@
                         self.xiangouW.constant = 60;
                         self.xiangouLab.text = [NSString stringWithFormat:@"(限购%@-%@件)",limit_num,limit_quantity];
                         self.shuliangStepper.maxValue = limit_quantity.intValue;
-                        if ((amount.floatValue - safe_amount.floatValue)>5) {
+                        if (amount.floatValue >5) {
                             self.kuncuntisLabel.text = @"库存充足";
                             self.shuliangStepper.minValue = 1;
-                        }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
+                        }else if(amount.floatValue >0 && amount.floatValue <=5){
                             
                             self.kuncuntisLabel.text = @"库存紧张";
                             self.shuliangStepper.minValue = 1;
                         }
                         
-                        if ((amount.floatValue - safe_amount.floatValue) <= 0) {
+                        if (amount.floatValue <= 0) {
                             [self.shuliangStepper setTextValue:0];
                             leftbtn.enabled=NO;
                             rightbtn.enabled = NO;
@@ -709,16 +709,16 @@
                         self.xiangouW.constant = 75;
                         self.xiangouLab.text = [NSString stringWithFormat:@"(限购%@-%@件)",limit_num,limit_quantity];
                         self.shuliangStepper.maxValue = limit_quantity.intValue;
-                        if ((amount.floatValue - safe_amount.floatValue)>5) {
+                        if (amount.floatValue >5) {
                             self.kuncuntisLabel.text = @"库存充足";
                             self.shuliangStepper.minValue = 1;
-                        }else if((amount.floatValue - safe_amount.floatValue)>0 && (amount.floatValue - safe_amount.floatValue)<=5){
+                        }else if(amount.floatValue >0 && amount.floatValue <=5){
                             
                             self.kuncuntisLabel.text = @"库存紧张";
                             self.shuliangStepper.minValue = 1;
                         }
                         
-                        if ((amount.floatValue - safe_amount.floatValue) <= 0) {
+                        if (amount.floatValue <= 0) {
                             [self.shuliangStepper setTextValue:0];
                             leftbtn.enabled=NO;
                             rightbtn.enabled = NO;
@@ -1162,6 +1162,15 @@
         return;
     }
     
+    if ([_shuliangStepper.text containsString:@"."]) {
+        
+        [_hud show:YES];
+        _hud.mode = MBProgressHUDModeText;
+        _hud.labelText = @"您输入的数量有误";
+        [_hud hide:YES afterDelay:1];
+        return;
+    }
+    
     if (userid) {
         
     NSString *pid = pDic[@"pinfo"][@"id"];
@@ -1187,6 +1196,7 @@
             sku= Searchdic[@"sku"]?:@"";
         }
     }
+    
  
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=add_cart",MATROJP_BASE_URL];
     NSDictionary *params = @{@"id":pid,@"nums":[NSNumber numberWithInteger:_shuliangStepper.value],@"sid":sid,@"sku":sku};
@@ -1207,7 +1217,7 @@
         NSLog(@"请求失败 error===%@",error);
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"加入购物车失败";
+        _hud.labelText = @"加入购物袋失败";
         [_hud hide:YES afterDelay:1];
     }];
         
@@ -1258,6 +1268,31 @@
         [MBProgressHUD showMessag:@"加入购物袋成功" toView:self.view];
     }
     else{ //如果没有就直接加进去
+        
+        NSString *sid ;
+        NSString *sku;
+        if (_titleArray && _titleArray.count ==0) {
+            sid = @"0";
+            sku = pDic[@"pinfo"][@"code"]?:@"";
+            
+        }else{
+            
+            if (isSelectguige == NO) {
+                
+                NSArray *temparr = pDic[@"pinfo"][@"porperty"];
+                if (temparr && temparr.count > 0) {
+                    NSDictionary *tempdic = temparr[0];
+                    sid = tempdic[@"id"]?:@"";
+                    sku = tempdic[@"sku"]?:@"";
+                }
+            }
+            else{
+                sid = Searchdic[@"id"]?:@"";
+                sku= Searchdic[@"sku"]?:@"";
+            }
+        }
+        
+        
         OffLlineShopCart  *model = [OffLlineShopCart MR_createEntity];
         model.pid = pDic[@"pinfo"][@"id"];
         model.pname = pDic[@"pinfo"][@"pname"];
@@ -1266,8 +1301,11 @@
         model.amount = [pDic[@"pinfo"][@"amount"] integerValue];
         model.num = self.shuliangStepper.value;
         model.company_id= _paramDic[@"userid"];
-        model.sid = pDic[@"pinfo"][@"property"][@"id"]?:@"0";
-        model.sku = pDic[@"pinfo"][@"property"][@"sku"]?:pDic[@"pinfo"][@"code"];
+        
+//        model.sid = pDic[@"pinfo"][@"property"][@"id"]?:@"0";
+//        model.sku = pDic[@"pinfo"][@"property"][@"sku"]?:pDic[@"pinfo"][@"code"];
+        model.sid = sid;
+        model.sku = sku;
         [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
             [MBProgressHUD showMessag:@"加入购物袋成功" toView:self.view];
         }];
@@ -1684,12 +1722,12 @@
                 self.xiangouW.constant = 0;
                 self.shuliangStepper.maxValue = stock.intValue;
                 
-                if ((stock.floatValue - safe_stock.floatValue)>5) {
+                if (stock.floatValue >5) {
                     self.kuncuntisLabel.text = @"库存充足";
                     self.shuliangStepper.minValue = 1;
                     [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
                     self.jiarugouwucheBtn.enabled = YES;
-                }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
+                }else if(stock.floatValue >0 && stock.floatValue <=5){
                     
                     self.kuncuntisLabel.text = @"库存紧张";
                     self.shuliangStepper.minValue = 1;
@@ -1697,7 +1735,7 @@
                     self.jiarugouwucheBtn.enabled = YES;
                 }
                 
-                if ((stock.floatValue - safe_stock.floatValue) <= 0) {
+                if (stock.floatValue  <= 0) {
                     [self.shuliangStepper setTextValue:0];
                     leftbtn.enabled=NO;
                     rightbtn.enabled = NO;
@@ -1717,12 +1755,12 @@
                     }else{
                         self.shuliangStepper.maxValue = limit_quantity.intValue;
                     }
-                    if ((stock.floatValue - safe_stock.floatValue)>5) {
+                    if (stock.floatValue >5) {
                         self.kuncuntisLabel.text = @"库存充足";
                         self.shuliangStepper.minValue = 1;
                         [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
                         self.jiarugouwucheBtn.enabled = YES;
-                    }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
+                    }else if(stock.floatValue >0 && stock.floatValue <=5){
                         
                         self.kuncuntisLabel.text = @"库存紧张";
                         self.shuliangStepper.minValue = 1;
@@ -1730,7 +1768,7 @@
                         self.jiarugouwucheBtn.enabled = YES;
                     }
                     
-                    if ((stock.floatValue - safe_stock.floatValue) <= 0) {
+                    if (stock.floatValue  <= 0) {
                         [self.shuliangStepper setTextValue:0];
                         leftbtn.enabled=NO;
                         rightbtn.enabled = NO;
@@ -1748,12 +1786,12 @@
                     }else{
                         self.shuliangStepper.maxValue = limit_quantity.intValue;
                     }
-                    if ((stock.floatValue - safe_stock.floatValue)>5) {
+                    if (stock.floatValue >5) {
                         self.kuncuntisLabel.text = @"库存充足";
                         self.shuliangStepper.minValue = 1;
                         [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
                         self.jiarugouwucheBtn.enabled = YES;
-                    }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
+                    }else if(stock.floatValue >0 && stock.floatValue <=5){
                         
                         self.kuncuntisLabel.text = @"库存紧张";
                         self.shuliangStepper.minValue = 1;
@@ -1761,7 +1799,7 @@
                         self.jiarugouwucheBtn.enabled = YES;
                     }
                     
-                    if ((stock.floatValue - safe_stock.floatValue) <= 0) {
+                    if (stock.floatValue  <= 0) {
                         [self.shuliangStepper setTextValue:0];
                         leftbtn.enabled=NO;
                         rightbtn.enabled = NO;
@@ -1932,12 +1970,12 @@
                 self.xiangouW.constant = 0;
                 self.shuliangStepper.maxValue = stock.intValue;
                 
-                if ((stock.floatValue - safe_stock.floatValue)>5) {
+                if (stock.floatValue >5) {
                     self.kuncuntisLabel.text = @"库存充足";
                     self.shuliangStepper.minValue = 1;
                     [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
                     self.jiarugouwucheBtn.enabled = YES;
-                }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
+                }else if(stock.floatValue >0 && stock.floatValue <=5){
                     
                     self.kuncuntisLabel.text = @"库存紧张";
                     self.shuliangStepper.minValue = 1;
@@ -1945,7 +1983,7 @@
                     self.jiarugouwucheBtn.enabled = YES;
                 }
                 
-                if ((stock.floatValue - safe_stock.floatValue) <= 0) {
+                if (stock.floatValue  <= 0) {
                     [self.shuliangStepper setTextValue:0];
                     leftbtn.enabled=NO;
                     rightbtn.enabled = NO;
@@ -1966,12 +2004,12 @@
                     }else{
                         self.shuliangStepper.maxValue = limit_quantity.intValue;
                     }
-                    if ((stock.floatValue - safe_stock.floatValue)>5) {
+                    if (stock.floatValue >5) {
                         self.kuncuntisLabel.text = @"库存充足";
                         self.shuliangStepper.minValue = 1;
                         [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
                         self.jiarugouwucheBtn.enabled = YES;
-                    }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
+                    }else if(stock.floatValue >0 && stock.floatValue <=5){
                         
                         self.kuncuntisLabel.text = @"库存紧张";
                         self.shuliangStepper.minValue = 1;
@@ -1979,7 +2017,7 @@
                         self.jiarugouwucheBtn.enabled = YES;
                     }
                     
-                    if ((stock.floatValue - safe_stock.floatValue) <= 0) {
+                    if (stock.floatValue  <= 0) {
                         [self.shuliangStepper setTextValue:0];
                         leftbtn.enabled=NO;
                         rightbtn.enabled = NO;
@@ -1997,12 +2035,12 @@
                 }else{
                     self.shuliangStepper.maxValue = limit_quantity.intValue;
                 }
-                if ((stock.floatValue - safe_stock.floatValue)>5) {
+                if (stock.floatValue >5) {
                     self.kuncuntisLabel.text = @"库存充足";
                     self.shuliangStepper.minValue = 1;
                     [self.jiarugouwucheBtn setBackgroundColor:[UIColor colorWithHexString:@"F1653E"]];
                     self.jiarugouwucheBtn.enabled = YES;
-                }else if((stock.floatValue - safe_stock.floatValue)>0&&(stock.floatValue - safe_stock.floatValue)<=5){
+                }else if(stock.floatValue>0 && stock.floatValue <=5){
                     
                     self.kuncuntisLabel.text = @"库存紧张";
                     self.shuliangStepper.minValue = 1;
@@ -2010,7 +2048,7 @@
                     self.jiarugouwucheBtn.enabled = YES;
                 }
                 
-                if ((stock.floatValue - safe_stock.floatValue) <= 0) {
+                if (stock.floatValue  <= 0) {
                     [self.shuliangStepper setTextValue:0];
                     leftbtn.enabled=NO;
                     rightbtn.enabled = NO;
@@ -2204,7 +2242,7 @@
                 NSLog(@"请求失败 error===%@",error);
                 [_hud show:YES];
                 _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"请求失败";
+                _hud.labelText = @"你的网络好像不给力";
                 [_hud hide:YES afterDelay:1];
                 
         }];

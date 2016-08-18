@@ -232,7 +232,7 @@
         //[MBProgressHUD hideHUDForView:self.view animated:YES];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = @"您的网络好像不太给力，请稍后重试";
         [_hud hide:YES afterDelay:1];
     
     }];
@@ -291,7 +291,7 @@
         [self closeLoadingView];
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
+        _hud.labelText = @"您的网络好像不太给力，请稍后重试";
         [_hud hide:YES afterDelay:1];
         
     }];
@@ -609,6 +609,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 - (void)scanning{
     //开始捕获
     //扫描二维码
+    
     SYQRCodeViewController *qrcodevc = [[SYQRCodeViewController alloc] init];
     qrcodevc.SYQRCodeSuncessBlock = ^(SYQRCodeViewController *aqrvc,NSString *qrString){
         NSLog(@"%@",qrString);

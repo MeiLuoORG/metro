@@ -854,7 +854,9 @@
 - (void)scanning{
     //开始捕获
     //扫描二维码
+
     SYQRCodeViewController *qrcodevc = [[SYQRCodeViewController alloc] init];
+ 
     qrcodevc.SYQRCodeSuncessBlock = ^(SYQRCodeViewController *aqrvc,NSString *qrString){
         NSLog(@"%@",qrString);
         

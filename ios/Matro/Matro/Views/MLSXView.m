@@ -16,9 +16,10 @@
 #import "HFSUtility.h"
 #import "CommonHeader.h"
 #import "MLHttpManager.h"
+#import "MBProgressHUD+Add.h"
 #define PriceCellIdentifier @"PriceCellIdentifier"
 
-@interface MLSXView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate>{
+@interface MLSXView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate>{
     
     //品牌分类相关数组，用treeview显示
 //
@@ -581,8 +582,9 @@ static BOOL selectPP = NO;
     if ([_titleLabel.text isEqualToString:@"筛选"]) {
 
     }else if ([_titleLabel.text isEqualToString:@"商品分类"]){
-        _fenlei.text = _selectedItem.name;
         
+        _fenlei.text = _selectedItem.name;
+       
     }else if ([_titleLabel.text isEqualToString:@"品牌"]){
         
         _pinpai.text = _selectedPP.name;
@@ -590,8 +592,13 @@ static BOOL selectPP = NO;
         [paramfilterDic setObject:_selectedPP.name?:@"" forKey:@"spsb"];
         
     }else if ([_titleLabel.text isEqualToString:@"价格"]){
-        _jiage.text = _selectedItem.name;
-        [self confirmAction];
+        if (_selectedIndexPath.row == 0) {
+            _jiage.text = @"不限";
+            [self confirmAction];
+        }else{
+            _jiage.text = _selectedItem.name;
+            [self confirmAction];
+        }
     }
     
     [self backButtonAction:nil];
@@ -1008,6 +1015,7 @@ static BOOL selectPP = NO;
     }
     
     _jiage.text = string;
+    
     NSArray *strs = [string componentsSeparatedByString:@"~"];
     if (strs.count>1) {
         [paramfilterDic setObject:strs[0] forKey:@"jgs"];
@@ -1019,13 +1027,28 @@ static BOOL selectPP = NO;
 }
 
 -(BOOL)priceValidate {
-   
+
     if (![fromPriceTextField.text isEqualToString:@""] && ![toPriceTextField.text isEqualToString:@""] &&fromPriceTextField.text.integerValue > toPriceTextField.text.integerValue) {
-//        [self alert:@"提示信息" msg:@"起始价格不能大于终止价格"];
+
+        UIAlertView* dialog = [[UIAlertView alloc] init];
+        [dialog setTitle:@"起始价格不能大于终止价格"];
+        [dialog addButtonWithTitle:@"确定"];
+        dialog.alertViewStyle = UIAlertViewStyleDefault;
+        [dialog show];
+        
         return NO;
     }
     return YES;
 }
+#pragma alertview delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        
+    }
+    
+}
+
 
 -(void)selectCell:(UITableViewCell *)cell {
     cell.textLabel.textColor = [UIColor colorWithHexString:@"#260E00"];

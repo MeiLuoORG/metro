@@ -19,6 +19,8 @@
 #import "MLGoodsComViewController.h"
 #import "MLProductComDetailViewController.h"
 #import "MLHttpManager.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "MBProgressHUD+Add.h"
 #define CollectionViewCellMargin 10.0f//间隔10
 @interface MLPingjiaListViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 {
@@ -206,6 +208,8 @@ static float height;
         
     } failure:^(NSError *error){
          [self.commentTableView.header endRefreshing];
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
+        
         
     }];
     

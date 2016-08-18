@@ -186,28 +186,28 @@
         
         previousFrame = tagView.frame;
         gotPreviousFrame = YES;
-        if (tag == 0) {
-            [tagView setBackgroundColor:MS_RGB(252, 132, 106)];
-            [tagView setCornerRadius:4.f];
-            [tagView setBorderColor:self.borderColor.CGColor];
-            [tagView setBorderWidth:0.f];
-            [tagView setTextColor:[UIColor whiteColor]];
-            [tagView setTextShadowColor:self.textShadowColor];
-            [tagView setTextShadowOffset:self.textShadowOffset];
-            [tagView setTag:tag];
-            [tagView setDelegate:self];
-        }
-        else{
-            [tagView setBackgroundColor:[self getBackgroundColor]];
-            [tagView setCornerRadius:4.f];
-            [tagView setBorderColor:self.borderColor.CGColor];
-            [tagView setBorderWidth:self.borderWidth];
-            [tagView setTextColor:MS_RGB(38, 14, 0)];
-            [tagView setTextShadowColor:self.textShadowColor];
-            [tagView setTextShadowOffset:self.textShadowOffset];
-            [tagView setTag:tag];
-            [tagView setDelegate:self];
-        }
+//        if (tag == 0) {
+//            [tagView setBackgroundColor:MS_RGB(252, 132, 106)];
+//            [tagView setCornerRadius:4.f];
+//            [tagView setBorderColor:self.borderColor.CGColor];
+//            [tagView setBorderWidth:0.f];
+//            [tagView setTextColor:[UIColor whiteColor]];
+//            [tagView setTextShadowColor:self.textShadowColor];
+//            [tagView setTextShadowOffset:self.textShadowOffset];
+//            [tagView setTag:tag];
+//            [tagView setDelegate:self];
+//        }
+//        else{
+        [tagView setBackgroundColor:[self getBackgroundColor]];
+        [tagView setCornerRadius:4.f];
+        [tagView setBorderColor:self.borderColor.CGColor];
+        [tagView setBorderWidth:0.f];
+        [tagView setTextColor:MS_RGB(38, 14, 0)];
+        //[tagView setTextShadowColor:self.textShadowColor];
+        //[tagView setTextShadowOffset:self.textShadowOffset];
+        [tagView setTag:tag];
+        [tagView setDelegate:self];
+//        }
         tag++;
         
         [self addSubview:tagView];

@@ -22,6 +22,7 @@
 #import "MLLoginViewController.h"
 #import "MLShopDetailViewController.h"
 #import "MLActiveWebViewController.h"
+#import "MBProgressHUD+Add.h"
 @protocol JSObjectDelegate <JSExport>
 
 
@@ -178,7 +179,7 @@
     
     self.context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     self.context[@"_native"] = self;
-//    __weak typeof(self) weakself = self;
+    __weak typeof(self) weakself = self;
 //    self.context[@"skipUi"] = ^(NSString *productid){
 //        NSLog(@"%@",productid);
 ////            [weakself performSelectorOnMainThread:@selector(collectClick:) withObject:productid waitUntilDone:YES];
@@ -186,6 +187,7 @@
     self.context.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
         context.exception = exceptionValue;
         NSLog(@"异常信息：%@", exceptionValue);
+        [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:weakself.view];
     };
     
 }
