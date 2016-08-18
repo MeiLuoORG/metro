@@ -1177,10 +1177,17 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 }
 
 - (void)photoTapped:(UITapGestureRecognizer *)tap{
-   
+    NSString * sender;
+    NSString * type;
     if (adimageArr && adimageArr.count>0) {
         NSDictionary *tempdic = adimageArr[tap.view.tag];
-        [self pushToType:tempdic[@"ggtype"]?:@"" withUi:tempdic[@"ggv"]?:@""];
+        type = tempdic[@"ggtype"]?:@"";
+        if ([type isEqualToString:@"4"]) {
+            sender = tempdic[@"url"]?:@"";
+        }else{
+            sender = tempdic[@"ggv"]?:@"";
+        }
+        [self pushToType:type withUi:sender];
     }
     
 }

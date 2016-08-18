@@ -16,6 +16,7 @@
 #import "MLShopBagViewController.h"
 
 #import "MLQuanqiugouViewController.h"
+#import "MLErweimaResultViewController.h"
 
 @interface ZLHomezlViewController (){
     MBProgressHUD *_hub;
@@ -971,7 +972,13 @@
                 }
                 
             }else{
-                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:qrString]];
+                
+                MLErweimaResultViewController *vc = [[MLErweimaResultViewController alloc]init];
+                vc.hidesBottomBarWhenPushed = YES;
+                vc.erweimaStr = qrString;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+//                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:qrString]];
 //                [_hud show:YES];
 //                _hud.mode = MBProgressHUDModeText;
 //                _hud.labelText = @"加载失败";

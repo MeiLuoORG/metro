@@ -122,6 +122,7 @@
     NSString * url = [NSString stringWithFormat:@"%@/api.php?m=product&s=webframe&method=display",ZHOULU_ML_BASE_URLString];
     [MLHttpManager get:url params:nil m:@"product" s:@"webframe" success:^(id responseObject) {
         NSLog(@"请求首页 接口的数据为：%@",responseObject);
+        
         NSDictionary * result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             if ([result[@"data"] isKindOfClass:[NSDictionary class]]) {
@@ -375,11 +376,14 @@
 }
 
 - (void)photoTapped:(UITapGestureRecognizer *)tap{
-    
-    NSLog(@"轮显%ld",tap.view.tag);
+    NSString * sender;
     NSString * type = self.lunXianImageARR[tap.view.tag][@"ggtype"];
-    NSString * sender = self.lunXianImageARR[tap.view.tag][@"ggv"];
+    if ([type isEqualToString:@"4"]) {
+        sender = self.lunXianImageARR[tap.view.tag][@"url"];
+    }else{
     
+       sender = self.lunXianImageARR[tap.view.tag][@"ggv"];
+    }
     [self pushToType:type withUi:sender];
     
 }

@@ -81,6 +81,8 @@
 		285808041D14F20B0097D334 /* MLCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808021D14F20B0097D334 /* MLCommentTableViewCell.xib */; };
 		285808081D1517AA0097D334 /* MLgoodsCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */; };
 		285808091D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */; };
+		2867375D1D65492400EB0607 /* MLErweimaResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2867375B1D65492400EB0607 /* MLErweimaResultViewController.m */; };
+		2867375E1D65492400EB0607 /* MLErweimaResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2867375C1D65492400EB0607 /* MLErweimaResultViewController.xib */; };
 		2869F6891D221AF7003C4663 /* MLServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869F6871D221AF7003C4663 /* MLServiceViewController.m */; };
 		2869F68A1D221AF7003C4663 /* MLServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F6881D221AF7003C4663 /* MLServiceViewController.xib */; };
 		2869F68D1D2279B7003C4663 /* MLKefuHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869F68C1D2279B7003C4663 /* MLKefuHeader.m */; };
@@ -869,6 +871,9 @@
 		285808051D1517AA0097D334 /* MLgoodsCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLgoodsCollectTableViewCell.h; sourceTree = "<group>"; };
 		285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLgoodsCollectTableViewCell.m; sourceTree = "<group>"; };
 		285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLgoodsCollectTableViewCell.xib; sourceTree = "<group>"; };
+		2867375A1D65492400EB0607 /* MLErweimaResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLErweimaResultViewController.h; sourceTree = "<group>"; };
+		2867375B1D65492400EB0607 /* MLErweimaResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLErweimaResultViewController.m; sourceTree = "<group>"; };
+		2867375C1D65492400EB0607 /* MLErweimaResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLErweimaResultViewController.xib; sourceTree = "<group>"; };
 		2869F6861D221AF7003C4663 /* MLServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLServiceViewController.h; sourceTree = "<group>"; };
 		2869F6871D221AF7003C4663 /* MLServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLServiceViewController.m; sourceTree = "<group>"; };
 		2869F6881D221AF7003C4663 /* MLServiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLServiceViewController.xib; sourceTree = "<group>"; };
@@ -3054,6 +3059,9 @@
 				7AD815FC1CDD7736001761C8 /* YMNavigationController.m */,
 				7AED642C1CDD84F1008F55BD /* SYQRCodeViewController.h */,
 				7AED642D1CDD84F1008F55BD /* SYQRCodeViewController.m */,
+				2867375A1D65492400EB0607 /* MLErweimaResultViewController.h */,
+				2867375B1D65492400EB0607 /* MLErweimaResultViewController.m */,
+				2867375C1D65492400EB0607 /* MLErweimaResultViewController.xib */,
 				280F7CDC1CF829A100D42FA6 /* Youhui */,
 			);
 			path = Controllers;
@@ -4820,6 +4828,7 @@
 				3ACF2D061CA53046003D1F67 /* MLAddTableViewCell.xib in Resources */,
 				7AEC88E71CE47A6A00B43DD4 /* MLGoodsSharePhotoViewController.xib in Resources */,
 				7A09367F1D1BCB9B002325A2 /* MLProductComDetailHeadCell.xib in Resources */,
+				2867375E1D65492400EB0607 /* MLErweimaResultViewController.xib in Resources */,
 				28C88CF71D5C728D00564C69 /* Loading0012.png in Resources */,
 				28C88D011D5C728D00564C69 /* Loading003.png in Resources */,
 				6839EF231CD6C4B600638B3D /* APPSettingCell.xib in Resources */,
@@ -5251,6 +5260,7 @@
 				7A07AC5D1D1BD66C0007DA35 /* MLCommentDetailTextTableViewCell.m in Sources */,
 				7ACD3A751CE842A9004BAF8B /* MLWishlistFootView.m in Sources */,
 				3A0E99FD1CB3B19900364D6E /* MLLogisticsTableViewCell.m in Sources */,
+				2867375D1D65492400EB0607 /* MLErweimaResultViewController.m in Sources */,
 				3A633B791C9EA4E000C11FD5 /* MLNavigationController.m in Sources */,
 				3A633B541C9EA36E00C11FD5 /* ZLCameraView.m in Sources */,
 				7A0720351D17D5C300E0B58E /* MLTuiHuoFooterView.m in Sources */,

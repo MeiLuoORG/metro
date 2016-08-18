@@ -525,6 +525,7 @@ static NSInteger pageIndex = 0;
         cell.countField.value = goods.num;
         cell.countField.stepperDelegate = self;
         cell.countField.proList = goods;
+       
         cell.shopCartCheckBoxBlock = ^(BOOL isCheck){
             goods.is_check = isCheck?1:0;
             BOOL isAll = YES;
@@ -1005,6 +1006,8 @@ static NSInteger pageIndex = 0;
     [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
         //[MBProgressHUD hideHUDForView:self.view animated:YES];
         //[self closeLoadingView];
+        NSLog(@"data===%@",responseObject);
+        
         [self.tableView.header endRefreshing];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
@@ -1258,6 +1261,7 @@ static NSInteger pageIndex = 0;
 //同步购物车
 - (void)addShopCart{
     NSArray *cartArray = [OffLlineShopCart MR_findAll];
+    
     if (cartArray.count>0) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [cartArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -1269,6 +1273,8 @@ static NSInteger pageIndex = 0;
         NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=mul_add_cart",MATROJP_BASE_URL];
         [MLHttpManager post:url params:dic m:@"product" s:@"cart" success:^(id responseObject) {
             //[self closeLoadingView];
+            NSLog(@"data2222===%@",responseObject);
+            
             NSDictionary *result = (NSDictionary *)responseObject;
             if ([result[@"code"] isEqual:@0]) {
                 NSArray *tmp = [OffLlineShopCart MR_findAll];

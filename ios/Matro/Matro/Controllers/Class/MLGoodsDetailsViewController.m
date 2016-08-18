@@ -1223,7 +1223,7 @@
         
     }
     else{ //离线情况下 本地缓存
-        
+
         if (dPDic&&pDic) { //已经有店铺名称的和商品详情的情况
             //店铺id
             NSString *cid = _paramDic[@"userid"];
@@ -1251,7 +1251,35 @@
                 cp.checkAll = 0;
                 [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
              }
-           [self saveShopCartWithPid:pid];
+           
+            
+            if (_titleArray && _titleArray.count == 0) {
+                
+                [self saveShopCartWithPid:pid];
+                
+            }else{
+                
+                if (isSelectguige == NO) {
+                    
+                    NSArray *temparr = pDic[@"pinfo"][@"porperty"];
+                    if (temparr && temparr.count > 0) {
+                        NSDictionary *tempdic = temparr[0];
+                        NSString *idstr = tempdic[@"id"];
+                        [self saveShopCartWithPid:idstr];
+  
+                    }
+                }
+                else{
+                    
+                    NSString *idstr = Searchdic[@"id"];
+                    [self saveShopCartWithPid:idstr];
+                    
+                }
+            }
+            
+            
+            
+//           [self saveShopCartWithPid:pid];
             
         }
     }
@@ -1260,6 +1288,7 @@
 
 
 - (void)saveShopCartWithPid:(NSString *)pid{
+    NSLog(@"pid111===%@",pid);
     NSPredicate *pre = [NSPredicate predicateWithFormat:@"pid == %@",pid];
     OffLlineShopCart *model2 = (OffLlineShopCart *)[OffLlineShopCart MR_findFirstWithPredicate:pre];
     if (model2) { //说明已经存在了 Num加
@@ -1268,12 +1297,15 @@
         [MBProgressHUD showMessag:@"加入购物袋成功" toView:self.view];
     }
     else{ //如果没有就直接加进去
-        
+        OffLlineShopCart  *model = [OffLlineShopCart MR_createEntity];
+
         NSString *sid ;
         NSString *sku;
         if (_titleArray && _titleArray.count ==0) {
             sid = @"0";
             sku = pDic[@"pinfo"][@"code"]?:@"";
+            model.amount = [pDic[@"pinfo"][@"amount"] integerValue];
+            model.pro_price = [pDic[@"pinfo"][@"price"] floatValue];
             
         }else{
             
@@ -1284,21 +1316,57 @@
                     NSDictionary *tempdic = temparr[0];
                     sid = tempdic[@"id"]?:@"";
                     sku = tempdic[@"sku"]?:@"";
+                    model.amount = [tempdic[@"stock"] integerValue];
+                    model.pro_price = [tempdic[@"price"] floatValue];
+                    NSArray *setmealArr = temparr[0][@"setmeal"];
+                    
+                    if (setmealArr && setmealArr.count >0) {
+                        if (setmealArr.count == 1) {
+                            
+                            model.setmeal = setmealArr[0][@"name"]?:@"";
+                            
+                        }else if(setmealArr.count == 2 ){
+                            
+                            NSString *name1 = setmealArr[0][@"name"]?:@"";
+                            NSString *name2 = setmealArr[1][@"name"]?:@"";
+                            NSString *setmealname = [NSString stringWithFormat:@"%@,%@",name1,name2];
+                            model.setmeal = setmealname;
+   
+                        }
+                    }
+                    
                 }
             }
             else{
+                
                 sid = Searchdic[@"id"]?:@"";
                 sku= Searchdic[@"sku"]?:@"";
+                
+                model.amount = [Searchdic[@"stock"] integerValue];
+                model.pro_price = [Searchdic[@"price"] floatValue];
+                NSArray *setmealArr = Searchdic[@"setmeal"];
+                
+                if (setmealArr && setmealArr.count >0) {
+                    if (setmealArr.count == 1) {
+                        
+                        model.setmeal = setmealArr[0][@"name"]?:@"";
+                        
+                    }else if(setmealArr.count == 2 ){
+                        
+                        NSString *name1 = setmealArr[0][@"name"]?:@"";
+                        NSString *name2 = setmealArr[1][@"name"]?:@"";
+                        NSString *setmealname = [NSString stringWithFormat:@"%@,%@",name1,name2];
+                        model.setmeal = setmealname;
+  
+                    }
+                }
+                
             }
         }
-        
-        
-        OffLlineShopCart  *model = [OffLlineShopCart MR_createEntity];
+ 
         model.pid = pDic[@"pinfo"][@"id"];
         model.pname = pDic[@"pinfo"][@"pname"];
         model.pic = pDic[@"pinfo"][@"pic"];
-        model.pro_price = [pDic[@"pinfo"][@"price"] floatValue];
-        model.amount = [pDic[@"pinfo"][@"amount"] integerValue];
         model.num = self.shuliangStepper.value;
         model.company_id= _paramDic[@"userid"];
         
@@ -1306,6 +1374,8 @@
 //        model.sku = pDic[@"pinfo"][@"property"][@"sku"]?:pDic[@"pinfo"][@"code"];
         model.sid = sid;
         model.sku = sku;
+        NSLog(@"sid===%@sku===%@====%@",sid,sku,model.setmeal);
+        
         [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
             [MBProgressHUD showMessag:@"加入购物袋成功" toView:self.view];
         }];

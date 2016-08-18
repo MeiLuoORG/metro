@@ -49,12 +49,15 @@
         self.goodName.text = _offlineCart.pname;
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _offlineCart.pro_price];
         self.checkBox.cartSelected = NO;
-        self.goodDesc.hidden = YES;
+//        self.goodDesc.hidden = YES;
         self.manjianLabel.hidden = !(_offlineCart.mjtitle.length > 0);
         [self.countField setTextValue:_offlineCart.num];
         self.countField.maxValue = _offlineCart.amount;
         self.countField.minValue = 1;
-        
+        if (_offlineCart.setmeal.length> 0 ) {
+            self.goodDesc.text = [NSString stringWithFormat:@"%@",_offlineCart.setmeal];
+            
+        }
     }
 }
 

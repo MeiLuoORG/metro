@@ -41,10 +41,20 @@
     [_treeView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"TypeCellIdentifier"];
     spArray = [NSMutableArray array];
     secondArray = [NSMutableArray array];
-    [self addMenuButton];
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 22)];
+    [button setImage:[UIImage imageNamed:@"gengduozl"] forState:UIControlStateNormal];
+    button.imageEdgeInsets = UIEdgeInsetsMake(8, 9, 8, 9);
+    [button addTarget:self action:@selector(showDownMenu) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+    
     [self loadretCat];
 }
 
+-(void)showDownMenu{
+
+   [self dianpushowDownMenu];
+}
 
 //分类
 -(void)loadretCat{
