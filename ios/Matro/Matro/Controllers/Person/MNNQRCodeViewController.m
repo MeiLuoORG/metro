@@ -49,7 +49,7 @@
     
     //[self createViews];
     // Do any additional setup after loading the view.
-    //[NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(getCardInfo) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:120.0f target:self selector:@selector(getCardInfo) userInfo:nil repeats:YES];
     [self getCardInfo];
 }
 

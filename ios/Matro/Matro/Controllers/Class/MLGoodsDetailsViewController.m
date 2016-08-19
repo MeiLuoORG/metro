@@ -1314,7 +1314,7 @@
     NSPredicate *pre = [NSPredicate predicateWithFormat:@"sku == %@",pid];
     OffLlineShopCart *model2 = (OffLlineShopCart *)[OffLlineShopCart MR_findFirstWithPredicate:pre];
     if (model2) { //说明已经存在了 Num加
-        model2.num ++;
+        model2.num = model2.num + self.shuliangStepper.value;
         [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
             [MBProgressHUD showMessag:@"加入购物袋成功" toView:self.view];
         }];
