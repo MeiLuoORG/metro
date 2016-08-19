@@ -273,7 +273,7 @@ static NSInteger pageIndex = 0;
             NSMutableArray *pids = [[cartzl.cpInfo.shopCart componentsSeparatedByString:@","] mutableCopy];
             
             OffLlineShopCart * good = [temp objectAtIndex:i];
-            [pids removeObject:good.pid];
+            [pids removeObject:good.sku];
             
             if (pids.count > 0) { //说明还有其他商品
                 cartzl.isMore = pids.count>2;
@@ -470,7 +470,7 @@ static NSInteger pageIndex = 0;
         cell.rightButtons = @[button];
         cell.prolistModel = model;
         cell.checkBox.cartSelected = (model.is_check == 1);
-        cell.countField.value = model.num;
+        [cell.countField setValue:model.num];
         cell.countField.stepperDelegate = self;
         cell.countField.proList = model;
         cell.shopCartCheckBoxBlock = ^(BOOL isCheck){ //添加反向选择
@@ -522,7 +522,7 @@ static NSInteger pageIndex = 0;
         OffLlineShopCart *goods = [cart.goodsArray objectAtIndex:indexPath.row];
         cell.offlineCart = goods;
         cell.checkBox.cartSelected = (goods.is_check == 1);
-        cell.countField.value = goods.num;
+        [cell.countField setValue:goods.num];
         cell.countField.stepperDelegate = self;
         cell.countField.proList = goods;
        
@@ -552,7 +552,7 @@ static NSInteger pageIndex = 0;
         MGSwipeButton * button = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell * sender){
             //先删除店铺下的 cart记录
             NSMutableArray *pids = [[cart.cpInfo.shopCart componentsSeparatedByString:@","] mutableCopy];
-            [pids removeObject:goods.pid];
+            [pids removeObject:goods.sku];
             if (pids.count > 0) { //说明还有其他商品
                 cart.isMore = pids.count>2;
                 cart.cpInfo.shopCart = [pids componentsJoinedByString:@","];

@@ -1195,7 +1195,7 @@
     if (userid) {
         
     NSString *pid = pDic[@"pinfo"][@"id"];
-    NSString *sid ;
+    NSString *sid;
     NSString *sku;
     if (_titleArray && _titleArray.count ==0) {
         sid = @"0";
@@ -1248,7 +1248,33 @@
         if (dPDic&&pDic) { //已经有店铺名称的和商品详情的情况
             //店铺id
             NSString *cid = _paramDic[@"userid"];
-            NSString *pid = pDic[@"pinfo"][@"id"];
+            NSString *pid = @"";
+            
+            /*
+             zhoulu修改 START================================
+             */
+            if (_titleArray && _titleArray.count == 0) {
+                pid = pDic[@"pinfo"][@"code"];//pDic[@"pinfo"][@"id"];
+            }else{
+                
+                if (isSelectguige == NO) {
+                    
+                    NSArray *temparr = pDic[@"pinfo"][@"porperty"];
+                    if (temparr && temparr.count > 0) {
+                        NSDictionary *tempdic = temparr[0];
+                        pid = tempdic[@"sku"];
+                    }
+                }
+                else{
+                    pid = Searchdic[@"sku"];
+                    
+                }
+            }
+            
+            
+            /*
+             zhoulu修改 END================================
+             */
             //根据店铺id去查记录
             NSPredicate *cPre = [NSPredicate predicateWithFormat:@"cid == %@",cid];
             CompanyInfo *cp = [CompanyInfo MR_findFirstWithPredicate:cPre];
@@ -1274,33 +1300,8 @@
              }
            
             
-            if (_titleArray && _titleArray.count == 0) {
-                
-                [self saveShopCartWithPid:pid];
-                
-            }else{
-                
-                if (isSelectguige == NO) {
-                    
-                    NSArray *temparr = pDic[@"pinfo"][@"porperty"];
-                    if (temparr && temparr.count > 0) {
-                        NSDictionary *tempdic = temparr[0];
-                        NSString *idstr = tempdic[@"id"];
-                        [self saveShopCartWithPid:idstr];
-  
-                    }
-                }
-                else{
-                    
-                    NSString *idstr = Searchdic[@"id"];
-                    [self saveShopCartWithPid:idstr];
-                    
-                }
-            }
             
-            
-            
-//           [self saveShopCartWithPid:pid];
+            [self saveShopCartWithPid:pid];
             
         }
     }
@@ -1310,12 +1311,13 @@
 
 - (void)saveShopCartWithPid:(NSString *)pid{
     NSLog(@"pid111===%@",pid);
-    NSPredicate *pre = [NSPredicate predicateWithFormat:@"pid == %@",pid];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"sku == %@",pid];
     OffLlineShopCart *model2 = (OffLlineShopCart *)[OffLlineShopCart MR_findFirstWithPredicate:pre];
     if (model2) { //说明已经存在了 Num加
         model2.num ++;
-        [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
-        [MBProgressHUD showMessag:@"加入购物袋成功" toView:self.view];
+        [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+            [MBProgressHUD showMessag:@"加入购物袋成功" toView:self.view];
+        }];
     }
     else{ //如果没有就直接加进去
         OffLlineShopCart  *model = [OffLlineShopCart MR_createEntity];
