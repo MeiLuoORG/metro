@@ -592,13 +592,13 @@ static BOOL selectPP = NO;
         [paramfilterDic setObject:_selectedPP.name?:@"" forKey:@"spsb"];
         
     }else if ([_titleLabel.text isEqualToString:@"价格"]){
-        if (_selectedIndexPath.row == 0) {
-            _jiage.text = @"不限";
-            [self confirmAction];
-        }else{
+//        if (_selectedIndexPath.row == 0) {
+//            _jiage.text = @"不限";
+//            [self confirmAction];
+//        }else{
             _jiage.text = _selectedItem.name;
             [self confirmAction];
-        }
+//        }
     }
     
     [self backButtonAction:nil];
@@ -1001,7 +1001,7 @@ static BOOL selectPP = NO;
         _minPrice = nil;
         _maxPrice = nil;
         
-        string = @"";
+        string = @"不限";
     } else if ([_selectedIndexPath isEqual:_customIndexPath]) {
         if (![self priceValidate]) {
             return;
@@ -1020,6 +1020,10 @@ static BOOL selectPP = NO;
     if (strs.count>1) {
         [paramfilterDic setObject:strs[0] forKey:@"jgs"];
         [paramfilterDic setObject:strs[1] forKey:@"jge"];
+    }else{
+        [paramfilterDic setObject:@"" forKey:@"jgs"];
+        [paramfilterDic setObject:@"" forKey:@"jge"];
+        
     }
    
 

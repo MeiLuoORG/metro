@@ -18,7 +18,7 @@
 
 #define PriceCellIdentifier @"PriceCellIdentifier"
 
-@interface ShaiXuanZlView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate>{
+@interface ShaiXuanZlView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate>{
     
     //品牌分类相关数组，用treeview显示
     //
@@ -1110,7 +1110,7 @@ static BOOL selectPP = NO;
         _minPrice = nil;
         _maxPrice = nil;
         
-        string = @"";
+        string = @"不限";
     } else if ([_selectedIndexPath isEqual:_customIndexPath]) {
         if (![self priceValidate]) {
             return;
@@ -1137,10 +1137,23 @@ static BOOL selectPP = NO;
 -(BOOL)priceValidate {
     
     if (![fromPriceTextField.text isEqualToString:@""] && ![toPriceTextField.text isEqualToString:@""] &&fromPriceTextField.text.integerValue > toPriceTextField.text.integerValue) {
-        //        [self alert:@"提示信息" msg:@"起始价格不能大于终止价格"];
+        UIAlertView* dialog = [[UIAlertView alloc] init];
+        [dialog setTitle:@"起始价格不能大于终止价格"];
+        [dialog addButtonWithTitle:@"确定"];
+        dialog.alertViewStyle = UIAlertViewStyleDefault;
+        [dialog show];
         return NO;
     }
     return YES;
+}
+
+#pragma alertview delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        
+    }
+    
 }
 
 -(void)selectCell:(UITableViewCell *)cell {
