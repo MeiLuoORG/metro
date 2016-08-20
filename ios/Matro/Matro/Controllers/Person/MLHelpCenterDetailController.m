@@ -28,6 +28,7 @@
         webView;
     });
 
+    NSLog(@"currentthread==%@",[NSThread currentThread]);
     [self getWebContent];
     
     

@@ -42,6 +42,7 @@
     UITextField *searchText;
     NSDictionary *dpDic;
     NSString *userid;
+    NSString *shopDetailurl;
 
 
 }
@@ -107,9 +108,9 @@
    
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     [self isshoucang];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -319,14 +320,34 @@
 -(void)skipStoreDetaild:(NSString *)storeid{
 
     NSLog(@"storeid===%@",storeid);
+    shopDetailurl  = storeid;
+    [self performSelector:@selector(gotoMLshopDetail) withObject:self afterDelay:0.5f];
+//    [self performSelectorOnMainThread:@selector(shopdetail) withObject:nil waitUntilDone:YES];
     
-    MLShopDetailViewController *vc = [[MLShopDetailViewController alloc]init];
-    vc.urlstr = storeid;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+ 
+}
+-(void)gotoMLshopDetail{
+    
+//    [self performSelectorOnMainThread:@selector(shopdetail) withObject:nil waitUntilDone:YES];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        MLShopDetailViewController *vc = [[MLShopDetailViewController alloc]init];
+        vc.urlstr = shopDetailurl;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    });
     
 }
 
+//-(void)shopdetail{
+//
+//    MLShopDetailViewController *vc = [[MLShopDetailViewController alloc]init];
+//    vc.urlstr = shopDetailurl;
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
 
 //收藏店铺
 -(void)shoucangDianpu:(NSString*)typeStr{
