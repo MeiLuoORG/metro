@@ -82,12 +82,10 @@
 
 
 - (void)saveShenFenzheng{
-    if (self.shenfenzhengField.text.length > 0) { //
-        
+    if (self.shenfenzhengField.text.length == 0) { //
+       [MBProgressHUD showSuccess:@"请填写身份证号码" toView:self];
     }
-    
-
-    
+ 
     NSString *token = [[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_member&action=edit_identity_card&accessToken=%@",MATROJP_BASE_URL,[token URLEncodedString]];
 
@@ -110,8 +108,8 @@
                 self.fieldLeading.constant = 0;
             }
             else{
-//                NSString *msg = result[@"msg"];
-                NSString *msg = @"请填写身份证号码";
+                NSString *msg = result[@"msg"];
+//                NSString *msg = @"请填写身份证号码";
                 if (self.orderSubChangeInfo) {
                     self.orderSubChangeInfo(msg);
                 }
