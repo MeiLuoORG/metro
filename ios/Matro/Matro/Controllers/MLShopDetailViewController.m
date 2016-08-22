@@ -21,17 +21,7 @@
     self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-64)];
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
-    
-//    _webView = ({
-//        UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectZero];
-////        UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, MAIN_SCREEN_HEIGHT-64)];
-//        webView.delegate = self;
-//        [self.view addSubview:webView];
-//        webView;
-//    });
-//    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.mas_equalTo(0);
-//    }];
+
 
    // NSString *url = [NSString stringWithFormat:@"%@/store/detailed?sid=%@",HomeHTML_URLString,_storeid];
     
