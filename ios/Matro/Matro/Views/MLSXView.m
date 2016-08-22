@@ -252,18 +252,21 @@ static BOOL selectPP = NO;
     [MLHttpManager get:urlStr params:nil m:@"product" s:@"filter" success:^(id responseObject){
         NSLog(@"responseObject ====%@",responseObject);
         NSDictionary *dataDic = responseObject[@"data"];
-        NSArray *result = dataDic[@"retbrand"];
-        NSLog(@"result=111=%@",result);
-
-        if (result && result.count > 0) {
-            for (NSDictionary *temp in result) {
-                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:temp[@"id"] name:temp[@"name"] children:nil];
-                itemAll.level = @0;
-                itemAll.dataId = [NSNumber numberWithInt:1];
-                itemAll.selected = NO;
-                [ppArray addObject:itemAll];
+        
+        if ([dataDic[@"retbrand"] isKindOfClass:[NSArray class]]) {
+            
+            NSArray *result = dataDic[@"retbrand"];
+            NSLog(@"result=111=%@",result);
+            if (result && result.count > 0) {
+                for (NSDictionary *temp in result) {
+                    RADataObject *itemAll = [RADataObject dataObjectWithIdstr:temp[@"id"] name:temp[@"name"] children:nil];
+                    itemAll.level = @0;
+                    itemAll.dataId = [NSNumber numberWithInt:1];
+                    itemAll.selected = NO;
+                    [ppArray addObject:itemAll];
+                }
+                [_treeView reloadData];
             }
-            [_treeView reloadData];
         }
         
     } failure:^(NSError *error){
@@ -534,36 +537,36 @@ static BOOL selectPP = NO;
     [MLHttpManager get:urlStr params:nil m:@"product" s:@"filter" success:^(id responseObject){
         NSLog(@"responseObject ====%@",responseObject);
         NSDictionary *dataDic = responseObject[@"data"];
-        
-        NSArray *result = dataDic[@"retcat"];
-        
-        NSLog(@"result=222=%@",result);
-        
-        if (result && result.count > 0) {
-            int i=0;
-            for (NSDictionary *temp in result) {
-                NSDictionary *toptemp = temp[@"top"];
-                NSArray *secondArr = temp[@"second"];
-                
-                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:toptemp[@"catid"] name:toptemp[@"cat"] children:nil];
-                
-                for (NSDictionary *secondDic in secondArr) {
+        if ([dataDic[@"retcat"] isKindOfClass:[NSArray class]]) {
+            
+            NSArray *result = dataDic[@"retcat"];
+            NSLog(@"result=222=%@",result);
+            
+            if (result && result.count > 0) {
+                int i=0;
+                for (NSDictionary *temp in result) {
+                    NSDictionary *toptemp = temp[@"top"];
+                    NSArray *secondArr = temp[@"second"];
                     
-                    secondName = [RADataObject dataObjectWithIdstr:secondDic[@"catid"] name:secondDic[@"cat"] children:nil];
-                    [itemAll addChild:secondName];
+                    RADataObject *itemAll = [RADataObject dataObjectWithIdstr:toptemp[@"catid"] name:toptemp[@"cat"] children:nil];
+                    
+                    for (NSDictionary *secondDic in secondArr) {
+                        
+                        secondName = [RADataObject dataObjectWithIdstr:secondDic[@"catid"] name:secondDic[@"cat"] children:nil];
+                        [itemAll addChild:secondName];
+                    }
+                    
+                    itemAll.level = @0;
+                    itemAll.dataId = [NSNumber numberWithInt:0];
+                    itemAll.selected = NO;
+                    [spArray addObject:itemAll];
+                    
+                    i++;
+                    
                 }
-                
-                itemAll.level = @0;
-                itemAll.dataId = [NSNumber numberWithInt:0];
-                itemAll.selected = NO;
-                [spArray addObject:itemAll];
-                
-                i++;
-                
+                [_treeView reloadData];
             }
-            [_treeView reloadData];
         }
-        
         NSLog(@"请求成功");
         
     } failure:^(NSError *error){
