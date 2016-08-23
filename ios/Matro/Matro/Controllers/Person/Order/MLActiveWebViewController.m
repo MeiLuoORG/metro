@@ -62,8 +62,18 @@
     
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    self.contextjs = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    self.contextjs[@"_native"] = self;
+    self.contextjs.exceptionHandler = ^(JSContext *context, JSValue *exceptionValue) {
+        context.exception = exceptionValue;
+        NSLog(@"JavaScript异常信息：%@", exceptionValue);
+    };
+    [self closeLoadingView];
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
 
-
+}
 
 
 @end

@@ -16,7 +16,7 @@
 
 @end
 
-@interface MLActiveWebViewController : MLBaseViewController
-@property (nonatomic,copy)NSString *link;
-
+@interface MLActiveWebViewController : MLBaseViewController<ActiveWebJSObjectDelegate,UIWebViewDelegate>
+@property (nonatomic,copy)   NSString *link;
+@property (nonatomic,strong) JSContext *contextjs;
 @end
