@@ -379,7 +379,7 @@ static NSInteger page = 1;
     NSString *spflid = @"";//商品分类id
     NSString *jgs = @"";
     NSString *jge = @"";
-    NSString *ppid = self.searchString;//品牌id
+    NSString *ppid = @"";//品牌id
     
     NSLog(@"filterparamDic === %@",filterparamDic);
     if (filterparamDic) {
@@ -409,11 +409,13 @@ static NSInteger page = 1;
     NSString *keystr = @"";
     
     if (self.filterParam) {
-        //NSString *keyword = self.filterParam[@"keyword"];
-        //keystr = [keyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        keystr = [self.searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if (self.filterParam[@"ppid"]) {
+            ppid = self.filterParam[@"ppid"]?:@"";
+        }
         
     }else{
-        //keystr = [_searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        keystr = [self.searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     }
     
     /*
@@ -682,8 +684,8 @@ static NSInteger page = 1;
                 _sxView.frame = CGRectMake(MAIN_SCREEN_WIDTH, 0, MAIN_SCREEN_WIDTH - 60, MAIN_SCREEN_HEIGHT);
                 _blackControl.hidden = YES;
             }
-            if (searchText.text.length >0) {
-                _sxView.keywords = searchText.text;
+            if (self.filterParam[@"ppid"]) {
+                _sxView.keywords = self.filterParam[@"ppid"]?:@"";
             }
             
             else{

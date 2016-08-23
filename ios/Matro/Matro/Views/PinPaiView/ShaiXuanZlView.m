@@ -15,7 +15,7 @@
 #import "HFSServiceClient.h"
 #import "HFSUtility.h"
 #import "MLHttpManager.h"
-
+#import "CommonHeader.h"
 #define PriceCellIdentifier @"PriceCellIdentifier"
 
 @interface ShaiXuanZlView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate>{
@@ -335,7 +335,7 @@ static BOOL selectPP = NO;
     NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",keystr);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=%@&searchType=1",ZHOULU_ML_BASE_URLString,keystr];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=%@&searchType=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,keystr,vCFBundleShortVersionStr];
     [MLHttpManager get:urlStr params:nil m:@"product" s:@"filter" success:^(id responseObject){
         NSLog(@"responseObject ====%@",responseObject);
         NSDictionary *dataDic = responseObject[@"data"];
@@ -563,7 +563,7 @@ static BOOL selectPP = NO;
     NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",keystr);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=%@&searchType=1",ZHOULU_ML_BASE_URLString,keystr];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=filter&key=&brandid=%@&searchType=1&client_type=ios&app_version=%@",ZHOULU_ML_BASE_URLString,keystr,vCFBundleShortVersionStr];
     
     [MLHttpManager get:urlStr params:nil m:@"product" s:@"filter" success:^(id responseObject){
         NSLog(@"responseObject ====%@",responseObject);
@@ -891,8 +891,7 @@ static BOOL selectPP = NO;
             _tableView.hidden = NO;
             
             [self loadmaxPrice];
-            
-            
+  
         }
             break;
     }
@@ -1128,6 +1127,10 @@ static BOOL selectPP = NO;
     if (strs.count>1) {
         [paramfilterDic setObject:strs[0] forKey:@"jgs"];
         [paramfilterDic setObject:strs[1] forKey:@"jge"];
+    }else{
+        [paramfilterDic setObject:@"" forKey:@"jgs"];
+        [paramfilterDic setObject:@"" forKey:@"jge"];
+        
     }
     
     

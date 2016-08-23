@@ -529,7 +529,10 @@
         PinPaiSPListViewController * vc = [[PinPaiSPListViewController alloc]init];
         NSDictionary *dic = brandArr[indexPath.row];
         vc.title = dic[@"name"];
-        vc.searchString = dic[@"brand_id"];
+//        vc.searchString = dic[@"brand_id"];
+        vc.searchString = dic[@"name"];
+        NSString *brand_id = dic[@"brand_id"];
+        vc.filterParam = @{@"ppid":brand_id};
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
         
