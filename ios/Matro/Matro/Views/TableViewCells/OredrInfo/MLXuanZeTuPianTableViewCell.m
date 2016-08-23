@@ -47,7 +47,12 @@
     MLAddImgCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kAddImgCollectionViewCell forIndexPath:indexPath];
     id img = [_imgsArray objectAtIndex:indexPath.row];
     if ([img isKindOfClass:[NSString class]]) { //如果是string类型
-        [cell.imgView sd_setImageWithURL:[NSURL URLWithString:img] placeholderImage:PLACEHOLDER_IMAGE];
+        
+        if ([img hasSuffix:@"webp"]) {
+            [cell.imgView setZLWebPImageWithURLStr:img withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+           [cell.imgView sd_setImageWithURL:[NSURL URLWithString:img] placeholderImage:PLACEHOLDER_IMAGE];
+        }
     }else{
         cell.imgView.image = img;
     }

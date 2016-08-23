@@ -913,8 +913,10 @@
                     }
                     
                     if ([promition_start_time isEqual:@0] || [promition_end_time isEqual:@0] ) {
-                      
-                        float xiaofeishuilv = [dic[@"pinfo"][@"tax"] floatValue];
+                        float xiaofeishuilv = 0.00;
+                        if (dic[@"pinfo"][@"tax"] != [NSNull null] && dic[@"pinfo"][@"tax"]) {
+                            xiaofeishuilv = [dic[@"pinfo"][@"tax"] floatValue];
+                        }
                         float pricef = [dic[@"pinfo"][@"price"] floatValue];
                         float zengzhishuilv = [dic[@"tax"][@"vat"] floatValue];
                         float shuifei =(((xiaofeishuilv + zengzhishuilv)/(1 - xiaofeishuilv)) * 0.7) * pricef;
@@ -929,7 +931,10 @@
                                 
                                 float pricef = [dic[@"pinfo"][@"promotion_price"]floatValue];
                                 
-                                float xiaofeishuilv = [dic[@"pinfo"][@"tax"] floatValue];
+                                float xiaofeishuilv = 0.00;
+                                if (dic[@"pinfo"][@"tax"] != [NSNull null] && dic[@"pinfo"][@"tax"]) {
+                                    xiaofeishuilv = [dic[@"pinfo"][@"tax"] floatValue];
+                                }
                                 
                                 float zengzhishuilv = [dic[@"tax"][@"vat"] floatValue];
                                 float shuifei =(((xiaofeishuilv + zengzhishuilv)/(1 - xiaofeishuilv)) * 0.7) * pricef;
@@ -938,7 +943,10 @@
                                 
                             }else{
                                 
-                                float xiaofeishuilv = [dic[@"pinfo"][@"tax"] floatValue];
+                                float xiaofeishuilv = 0.00;
+                                if (dic[@"pinfo"][@"tax"] != [NSNull null] && dic[@"pinfo"][@"tax"]) {
+                                    xiaofeishuilv = [dic[@"pinfo"][@"tax"] floatValue];
+                                }
                                 float pricef = [dic[@"pinfo"][@"price"] floatValue];
                                 float zengzhishuilv = [dic[@"tax"][@"vat"] floatValue];
                                 float shuifei =(((xiaofeishuilv + zengzhishuilv)/(1 - xiaofeishuilv)) * 0.7) * pricef;
@@ -1007,7 +1015,12 @@
             dPDic = shop_info;
             NSString *logo = shop_info[@"logo"];
             if (![logo isKindOfClass:[NSNull class]]) {
-                [self.dianpuimage sd_setImageWithURL:[NSURL URLWithString:logo] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+                
+                if ([logo hasSuffix:@"webp"]) {
+                    [self.dianpuimage setZLWebPImageWithURLStr:logo withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                } else {
+                    [self.dianpuimage sd_setImageWithURL:[NSURL URLWithString:logo] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+                }
             }else{
                 
                 self.dianpuimage.image = [UIImage imageNamed:@"icon_default"];
@@ -1490,7 +1503,12 @@
         }
     for (int i=0; i<_imageArray.count; i++) {
         UIImageView *imageview =[[UIImageView alloc]initWithFrame:CGRectMake(imageScrollViewWidth*i, 0, imageScrollViewWidth,imageScrollViewHeight)];
-        [imageview sd_setImageWithURL:[NSURL URLWithString:_imageArray[i]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        
+        if ([_imageArray[i] hasSuffix:@"webp"]) {
+            [imageview setZLWebPImageWithURLStr:_imageArray[i] withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [imageview sd_setImageWithURL:[NSURL URLWithString:_imageArray[i]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        }
         NSLog(@"imageview == %@",imageview.sd_imageURL);
         
         imageview.contentMode = UIViewContentModeScaleAspectFit;
@@ -1613,7 +1631,12 @@
     cell.productNameLabel.text = paramdic[@"pname"];
     NSString *picstr = paramdic[@"pic"];
     if (![picstr isKindOfClass:[NSNull class]]) {
-        [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:paramdic[@"pic"]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        
+        if ([paramdic[@"pic"] hasSuffix:@"webp"]) {
+            [cell.productImageView setZLWebPImageWithURLStr:paramdic[@"pic"] withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:paramdic[@"pic"]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        }
     }else{
     
         cell.productImageView .image = [UIImage imageNamed:@"icon_default"];

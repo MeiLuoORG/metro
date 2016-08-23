@@ -75,7 +75,12 @@
         }
         NSLog(@"传入的身份证图片链接为：%@",self.shenFenImageURLStr);
         if (![self.shenFenImageURLStr isEqual:[NSNull null]] && ![self.shenFenImageURLStr isEqualToString:@""] && ![self.shenFenImageURLStr isKindOfClass:[NSNull class]]) {
-            [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
+
+            if ([self.shenFenImageURLStr hasSuffix:@"webp"]) {
+                [_shangChuanButton setZLWebPButton_BackgroundImageWithURLStr:self.shenFenImageURLStr withPlaceHolderImage:[UIImage imageNamed:@"jiahao"]];
+            } else {
+                [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
+            }
             _isUploadIMG_OK = YES;
             _uploadIMG_URLString = self.shenFenImageURLStr;
         }
@@ -111,7 +116,12 @@
         }
         
         //[_shangChuanButton sd_setImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@""]];
-        [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal];
+
+        if ([self.shenFenImageURLStr hasSuffix:@"webp"]) {
+            [_shangChuanButton setZLWebPButton_BackgroundImageWithURLStr:self.shenFenImageURLStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [_shangChuanButton sd_setBackgroundImageWithURL:[NSURL URLWithString:self.shenFenImageURLStr] forState:UIControlStateNormal];
+        }
     }
 
 
@@ -381,7 +391,12 @@
                 
                 _isUploadIMG_OK = YES;
                 _uploadIMG_URLString = dataDic[@"pic_url"];
-                [_shangChuanButton sd_setImageWithURL:[NSURL URLWithString:_uploadIMG_URLString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
+                
+                if ([_uploadIMG_URLString hasSuffix:@"webp"]) {
+                    [_shangChuanButton setZLWebPButton_ImageWithURLStr:_uploadIMG_URLString withPlaceHolderImage:[UIImage imageNamed:@"jiahao"]];
+                } else {
+                    [_shangChuanButton sd_setImageWithURL:[NSURL URLWithString:_uploadIMG_URLString] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
+                }
                 //[self uploadImageUrl:dataDic[@"pic_url"]];
             }
             else{

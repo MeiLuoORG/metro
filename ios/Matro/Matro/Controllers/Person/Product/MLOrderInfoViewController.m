@@ -545,7 +545,12 @@
                     NSArray *array = [[NSBundle mainBundle]loadNibNamed: CellIdentifier owner:self options:nil];
                     cell = [array objectAtIndex:0];
                 }
-                [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:dic.IMGURL] placeholderImage:[UIImage imageNamed:@""]];
+                
+                if ([dic.IMGURL hasSuffix:@"webp"]) {
+                    [cell.productImageView setZLWebPImageWithURLStr:dic.IMGURL withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                } else {
+                    [cell.productImageView sd_setImageWithURL:[NSURL URLWithString:dic.IMGURL] placeholderImage:[UIImage imageNamed:@""]];
+                }
                 cell.productNameLabel.text = dic.SPNAME;
                 cell.currentPriceLabel.text =[NSString stringWithFormat:@"￥%.2f",dic.LSDJ] ;
                 cell.tisLabel.hidden = YES;

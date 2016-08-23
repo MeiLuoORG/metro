@@ -51,8 +51,12 @@
                 make.centerY.equalTo(self.imgBaseView);
             }];
             NSString *imgUrl = [_imgUrlArray objectAtIndex:i];
-            [btn sd_setImageWithURL:[NSURL URLWithString:imgUrl] forState:UIControlStateNormal placeholderImage:PLACEHOLDER_IMAGE];
             
+            if ([imgUrl hasSuffix:@"webp"]) {
+                [btn setZLWebPButton_ImageWithURLStr:imgUrl withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+               [btn sd_setImageWithURL:[NSURL URLWithString:imgUrl] forState:UIControlStateNormal placeholderImage:PLACEHOLDER_IMAGE];
+            }
         }
 
     }

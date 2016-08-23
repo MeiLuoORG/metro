@@ -86,7 +86,13 @@
     }else if (indexPath.row == 1){
         MLActMessageBodyCell *cell = [tableView dequeueReusableCellWithIdentifier:kActMessageBodyCell forIndexPath:indexPath];
         cell.titleLabel.text = message.title;
-        [cell.actImage sd_setImageWithURL:[NSURL URLWithString:message.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        
+        
+        if ([message.pic hasSuffix:@"webp"]) {
+            [cell.actImage setZLWebPImageWithURLStr:message.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [cell.actImage sd_setImageWithURL:[NSURL URLWithString:message.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         cell.descLabel.text = message.desc;
         __weak typeof(self) weakself = self;
         cell.delAction = ^(){

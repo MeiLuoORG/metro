@@ -97,8 +97,12 @@
         self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",_wishlistModel.LSDJ];
         self.nameLabel.text = _wishlistModel.SPNAME;
         
-        [self.myImageView sd_setImageWithURL:[NSURL URLWithString:_wishlistModel.IMGURL] placeholderImage:PLACEHOLDER_IMAGE];
         
+        if ([_wishlistModel.IMGURL hasSuffix:@"webp"]) {
+            [self.myImageView setZLWebPImageWithURLStr:_wishlistModel.IMGURL withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.myImageView sd_setImageWithURL:[NSURL URLWithString:_wishlistModel.IMGURL] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         
     }
 }

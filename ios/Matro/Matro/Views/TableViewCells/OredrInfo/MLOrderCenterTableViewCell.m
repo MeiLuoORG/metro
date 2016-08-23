@@ -33,7 +33,12 @@
             self.goodsDesc.text = _productOrder.setmeal_str;
         }
         self.goodsDesc.text = [NSString stringWithFormat:@"%@",_productOrder.setmeal_str];
-        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productOrder.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        
+        if ([_productOrder.pic hasSuffix:@"webp"]) {
+            [self.goodsImg setZLWebPImageWithURLStr:_productOrder.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productOrder.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         
     }
 
@@ -44,7 +49,12 @@
         _tuiHuoProduct = tuiHuoProduct;
         self.goodsName.text = _tuiHuoProduct.name;
         self.goodsPrice.text = [NSString stringWithFormat:@"￥%.2f",_tuiHuoProduct.price];
-        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_tuiHuoProduct.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        
+        if ([_tuiHuoProduct.pic hasSuffix:@"webp"]) {
+            [self.goodsImg setZLWebPImageWithURLStr:_tuiHuoProduct.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_tuiHuoProduct.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         NSLog(@"%@",_tuiHuoProduct.pic);
         self.goodsCount.text = [NSString stringWithFormat:@"x%@",_tuiHuoProduct.num];
         
@@ -60,7 +70,12 @@
         if (_order_submit_product.setmealname.length > 0) {
                 self.goodsDesc.text = _order_submit_product.setmealname;
         }
-        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_order_submit_product.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        
+        if ([_order_submit_product.pic hasSuffix:@"webp"]) {
+            [self.goodsImg setZLWebPImageWithURLStr:_order_submit_product.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_order_submit_product.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         self.goodsCount.text = [NSString stringWithFormat:@"x%ld",(long)_order_submit_product.num];
     }
 }

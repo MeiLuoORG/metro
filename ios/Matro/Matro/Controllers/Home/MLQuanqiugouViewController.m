@@ -178,7 +178,12 @@
     }
     for (int i=0; i<_imageArray.count; i++) {
         UIImageView *imageview =[[UIImageView alloc]initWithFrame:CGRectMake(imageScrollViewWidth*i, 0, imageScrollViewWidth,imageScrollViewHeight)];
-        [imageview sd_setImageWithURL:[NSURL URLWithString:_imageArray[i]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        
+        if ([_imageArray[i] hasSuffix:@"webp"]) {
+            [imageview setZLWebPImageWithURLStr:_imageArray[i] withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [imageview sd_setImageWithURL:[NSURL URLWithString:_imageArray[i]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        }
         NSLog(@"imageview == %@",imageview.sd_imageURL);
         
        // imageview.contentMode = UIViewContentModeScaleAspectFit;

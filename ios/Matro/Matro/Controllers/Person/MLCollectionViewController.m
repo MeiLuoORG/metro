@@ -225,8 +225,12 @@ static NSInteger page = 1;
     NSString *image = tempDic.image;
     if (![image isKindOfClass:[NSNull class]]) {
         
-       [cell.pImage sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"imageloading"]];
-        
+      
+        if ([image hasSuffix:@"webp"]) {
+            [cell.pImage setZLWebPImageWithURLStr:image withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+             [cell.pImage sd_setImageWithURL:[NSURL URLWithString:image] placeholderImage:[UIImage imageNamed:@"imageloading"]];
+        }
     }else{
         cell.pImage.image = [UIImage imageNamed:@"imageloading"];
     }

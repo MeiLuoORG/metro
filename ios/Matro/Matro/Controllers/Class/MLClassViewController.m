@@ -258,7 +258,12 @@
             NSDictionary *actimageDic = actimageArr[0];
             NSString *imgurl = actimageDic[@"imgurl"];
             if (![imgurl isKindOfClass:[NSNull class]]) {
-                [imageview sd_setImageWithURL:[NSURL URLWithString:imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+                
+                if ([imgurl hasSuffix:@"webp"]) {
+                    [imageview setZLWebPImageWithURLStr:imgurl withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                } else {
+                    [imageview sd_setImageWithURL:[NSURL URLWithString:imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+                }
             }else{
                 
                 imageview.image = [UIImage imageNamed:@"icon_default"];
@@ -484,8 +489,12 @@
         NSDictionary *tempdic = brandArr[indexPath.row];
         
         if (![tempdic[@"imgurl"] isKindOfClass:[NSNull class]]) {
-            [cell.ppImg sd_setImageWithURL:[NSURL URLWithString:tempdic[@"imgurl"]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
             
+            if ([tempdic[@"imgurl"] hasSuffix:@"webp"]) {
+                [cell.ppImg setZLWebPImageWithURLStr:tempdic[@"imgurl"] withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [cell.ppImg sd_setImageWithURL:[NSURL URLWithString:tempdic[@"imgurl"]] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+            }
         }
         return cell;
     }
@@ -497,8 +506,12 @@
     
     cell.CNameLabel.text = iteminfo.mc;
     if (![iteminfo.imgurl isKindOfClass:[NSNull class]]) {
-        [cell.classImageView sd_setImageWithURL:[NSURL URLWithString:iteminfo.imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
-        
+       
+        if ([iteminfo.imgurl hasSuffix:@"webp"]) {
+            [cell.classImageView setZLWebPImageWithURLStr:iteminfo.imgurl withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+             [cell.classImageView sd_setImageWithURL:[NSURL URLWithString:iteminfo.imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        }
     }
     
     return cell;
@@ -528,8 +541,8 @@
     NSDictionary *dic = secondClass.ThreeClassificationList[indexPath.row];
     NSLog(@"dic===%@",dic);
         
-//    NSString  *selectTitle = dic[@"mc"];
-//    vc.filterParam = @{@"keyword":selectTitle};
+    NSString  *selectTitle = dic[@"mc"];
+    vc.searchString = selectTitle;
         
     NSString *catid = dic[@"catid"];
     vc.filterParam = @{@"flid":catid};

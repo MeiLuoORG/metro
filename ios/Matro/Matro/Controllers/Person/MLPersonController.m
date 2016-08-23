@@ -1344,7 +1344,12 @@
     
 
     
-    [self.headView.headBtn sd_setImageWithURL:[NSURL URLWithString:avatorurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+    
+    if ([avatorurl hasSuffix:@"webp"]) {
+        [self.headView.headBtn setZLWebPButton_ImageWithURLStr:avatorurl withPlaceHolderImage:PLACEHOLDER_IMAGE];
+    } else {
+        [self.headView.headBtn sd_setImageWithURL:[NSURL URLWithString:avatorurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+    }
     self.headView.biaoZhiImageView.hidden = YES;
     [self showZLMessageBtnAndSettingBtn];
     

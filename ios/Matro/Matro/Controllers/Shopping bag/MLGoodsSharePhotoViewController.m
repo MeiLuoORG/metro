@@ -44,7 +44,13 @@
     self.titleLabel.text = self.goodsDetail[@"pname"];
     
     
-    [self.goodsImage sd_setImageWithURL:[NSURL URLWithString:self.goodsDetail[@"pic"]] placeholderImage:PLACEHOLDER_IMAGE];
+   
+    if ([self.goodsDetail[@"pic"] hasSuffix:@"webp"]) {
+        [self.goodsImage setZLWebPImageWithURLStr:self.goodsDetail[@"pic"] withPlaceHolderImage:PLACEHOLDER_IMAGE];
+    } else {
+         [self.goodsImage sd_setImageWithURL:[NSURL URLWithString:self.goodsDetail[@"pic"]] placeholderImage:PLACEHOLDER_IMAGE];
+    }
+    
     
     float pricef = [_goodsDetail[@"price"] floatValue];
     self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",pricef];

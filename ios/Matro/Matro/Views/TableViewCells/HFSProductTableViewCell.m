@@ -54,7 +54,12 @@
 - (void)setProduct:(MLProductModel *)product{
     if (_product != product) {
         _product = product;
-        [self.productImageView sd_setImageWithURL:[NSURL URLWithString:_product.IMGURL] placeholderImage:PLACEHOLDER_IMAGE];
+        
+        if ([_product.IMGURL hasSuffix:@"webp"]) {
+            [self.productImageView setZLWebPImageWithURLStr:_product.IMGURL withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.productImageView sd_setImageWithURL:[NSURL URLWithString:_product.IMGURL] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         self.productNameLabel.text = _product.SPNAME?:_product.NAME;
         self.currentPriceLabel.text = [NSString stringWithFormat:@"￥%.2f",_product.LSDJ];
         self.numLabel.text = [NSString stringWithFormat:@"×%@",_product.XSSL];

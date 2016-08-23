@@ -689,8 +689,12 @@
     
     NSURL * url = [NSURL URLWithString:model.logo];
     
-    [cell.imageViewzl sd_setImageWithURL:url placeholderImage:PLACEHOLDER_IMAGE];
     
+    if ([model.logo hasSuffix:@"webp"]) {
+        [cell.imageViewzl setZLWebPImageWithURLStr:model.logo withPlaceHolderImage:PLACEHOLDER_IMAGE];
+    } else {
+        [cell.imageViewzl sd_setImageWithURL:url placeholderImage:PLACEHOLDER_IMAGE];
+    }
     /*
     [cell.spImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"login_title"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         

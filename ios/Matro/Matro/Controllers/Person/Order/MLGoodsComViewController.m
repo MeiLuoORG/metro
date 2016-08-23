@@ -64,7 +64,12 @@
     };
     headView.titleLabel.text = self.product.name;
     [headView bringSubviewToFront:headView.countLabel];
-    [headView.imageView sd_setImageWithURL:[NSURL URLWithString:self.product.pic] placeholderImage:PLACEHOLDER_IMAGE];
+    
+    if ([self.product.pic hasSuffix:@"webp"]) {
+        [headView.imageView setZLWebPImageWithURLStr:self.product.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+    } else {
+        [headView.imageView sd_setImageWithURL:[NSURL URLWithString:self.product.pic] placeholderImage:PLACEHOLDER_IMAGE];
+    }
     self.headView = headView;
     self.tableView.tableHeaderView = headView;
     MLGoodsComFootView *footView = [MLGoodsComFootView goodsComFootView];

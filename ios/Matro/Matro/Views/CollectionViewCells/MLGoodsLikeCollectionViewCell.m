@@ -21,7 +21,12 @@
 - (void)setLikeModel:(MLGuessLikeModel *)likeModel{
     if (_likeModel != likeModel) {
         _likeModel = likeModel;
-        [self.imgView sd_setImageWithURL:[NSURL URLWithString:_likeModel.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        
+        if ([_likeModel.pic hasSuffix:@"webp"]) {
+            [self.imgView setZLWebPImageWithURLStr:_likeModel.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.imgView sd_setImageWithURL:[NSURL URLWithString:_likeModel.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         NSString *priceStr = nil;
         if (_likeModel.promotion_price && _likeModel.promotion_price > 0) {
             priceStr = [NSString stringWithFormat:@"￥%.2f",_likeModel.promotion_price];

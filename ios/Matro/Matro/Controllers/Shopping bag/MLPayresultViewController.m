@@ -221,7 +221,13 @@
         MLGuessLikeModel *likeobjl = _likeArray[lnum];
         
         NSURL * url = [NSURL URLWithString:likeobjl.pic];
-            [cell.imageView01 sd_setImageWithURL:url placeholderImage:PLACEHOLDER_IMAGE];
+        
+        if ([likeobjl.pic hasSuffix:@"webp"]) {
+            [cell.imageView01 setZLWebPImageWithURLStr:likeobjl.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+             [cell.imageView01 sd_setImageWithURL:url placeholderImage:PLACEHOLDER_IMAGE];
+        }
+        
             cell.lBgView.tag = lnum;
             cell.nameLabel01.text = likeobjl.pname;
         
@@ -263,7 +269,12 @@
             
             cell.rBgView.hidden = NO;
             NSURL * url = [NSURL URLWithString:likeobjr.pic];
-            [cell.imageView02 sd_setImageWithURL:url placeholderImage:PLACEHOLDER_IMAGE];
+            
+            if ([likeobjr.pic hasSuffix:@"webp"]) {
+                [cell.imageView02 setZLWebPImageWithURLStr:likeobjr.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [cell.imageView02 sd_setImageWithURL:url placeholderImage:PLACEHOLDER_IMAGE];
+            }
             cell.rBgView.tag = rnum;
             cell.nameLabel02.text = likeobjr.pname;
             

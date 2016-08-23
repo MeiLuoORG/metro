@@ -140,8 +140,12 @@
         self.nicknameLb.hidden = YES;
 
     }
-    [_headerImageView sd_setImageWithURL:[NSURL URLWithString:avatorurl] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
-
+    
+    if ([avatorurl hasSuffix:@"webp"]) {
+        [_headerImageView setZLWebPImageWithURLStr:avatorurl withPlaceHolderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+    } else {
+        [_headerImageView sd_setImageWithURL:[NSURL URLWithString:avatorurl] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+    }
 
     //去掉弹簧效果
     _quanJuScrollView.bounces = NO;

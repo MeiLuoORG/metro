@@ -135,8 +135,12 @@
         cell.cardNOLabel.text = cardModel.cardNo;
     }
     
-    [cell.cardImageView sd_setImageWithURL:[NSURL URLWithString:cardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
     
+    if ([cardModel.cardImg hasSuffix:@"webp"]) {
+        [cell.cardImageView setZLWebPImageWithURLStr:cardModel.cardImg withPlaceHolderImage:PLACEHOLDER_IMAGE];
+    } else {
+        [cell.cardImageView sd_setImageWithURL:[NSURL URLWithString:cardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+    }
    // cell.cardImageView sd_setImageWithURL:<#(NSURL *)#> placeholderImage:<#(UIImage *)#> completed:<#^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)completedBlock#>
     /*
          NSMutableArray * urlArr = [[NSMutableArray alloc]initWithObjects:@"http://www.bz55.com/uploads/allimg/130406/1-130406122508.jpg",@"http://cdn.duitang.com/uploads/item/201206/11/20120611175238_aCNGz.jpeg",@"http://www.bz55.com/uploads/allimg/130406/1-130406122508.jpg",nil];

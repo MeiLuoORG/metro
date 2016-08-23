@@ -350,7 +350,12 @@
     for (int i=0; i<self.lunXianImageARR.count; i++) {
         UIImageView *imageview =[[UIImageView alloc]initWithFrame:CGRectMake(imageScrollViewWidth*i, 0, imageScrollViewWidth,imageScrollViewHeight)];
         NSString * urlStr = self.lunXianImageARR[i][@"imgurl"];
-        [imageview sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        
+        if ([urlStr hasSuffix:@"webp"]) {
+            [imageview setZLWebPImageWithURLStr:urlStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [imageview sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        }
         NSLog(@"imageview == %@",imageview.sd_imageURL);
         
         // imageview.contentMode = UIViewContentModeScaleAspectFit;
@@ -394,10 +399,31 @@
     __weak typeof(self)  weakSelf = self;
     self.fourButtonView = [[FourButtonsView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 80)];
     
-    [self.fourButtonView.firstImageView sd_setImageWithURL:[NSURL URLWithString:self.firstImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
-    [self.fourButtonView.secondImageView sd_setImageWithURL:[NSURL URLWithString:self.secondImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
-    [self.fourButtonView.thirdImageView sd_setImageWithURL:[NSURL URLWithString:self.threeImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
-    [self.fourButtonView.fourImageView sd_setImageWithURL:[NSURL URLWithString:self.fourImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
+    
+    if ([self.firstImageURLStr hasSuffix:@"webp"]) {
+        [self.fourButtonView.firstImageView setZLWebPImageWithURLStr:self.firstImageURLStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+    } else {
+        [self.fourButtonView.firstImageView sd_setImageWithURL:[NSURL URLWithString:self.firstImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
+    }
+    if ([self.secondImageURLStr hasSuffix:@"webp"]) {
+        [self.fourButtonView.secondImageView setZLWebPImageWithURLStr:self.secondImageURLStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+    } else {
+        [self.fourButtonView.secondImageView sd_setImageWithURL:[NSURL URLWithString:self.secondImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
+    }
+    if ([self.threeImageURLStr hasSuffix:@"webp"]) {
+        [self.fourButtonView.thirdImageView setZLWebPImageWithURLStr:self.threeImageURLStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+    } else {
+        [self.fourButtonView.thirdImageView sd_setImageWithURL:[NSURL URLWithString:self.threeImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
+    }
+    
+    //
+    if ([self.fourImageURLStr hasSuffix:@"webp"]) {
+        [self.fourButtonView.fourImageView setZLWebPImageWithURLStr:self.fourImageURLStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+    } else {
+        [self.fourButtonView.fourImageView sd_setImageWithURL:[NSURL URLWithString:self.fourImageURLStr] placeholderImage:PLACEHOLDER_IMAGE];
+    }
+    //
+    
     
     
     [self.fourButtonView fourButtonBlockAction:^(NSInteger tag) {
@@ -477,7 +503,13 @@
         int amout = [dics[@"amount"] intValue];
         NSString *price = dics[@"price"];
         NSString * name = dics[@"pname"];
-        [cell.likeImage sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:PLACEHOLDER_IMAGE];
+        
+        
+        if ([urls hasSuffix:@"webp"]) {
+            [cell.likeImage setZLWebPImageWithURLStr:urls withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [cell.likeImage sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         if (amout < 1) {
             cell.shouqingLabel.hidden = NO;
         }
@@ -511,7 +543,13 @@
             }
             NSString * price = goodDic[@"price"];
             
-            [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+            //
+           
+            if ([urlStr hasSuffix:@"webp"]) {
+                 [cell.secondImageView setZLWebPImageWithURLStr:urlStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+            }
             cell.secondNameLab.text = pname;
             cell.secondPriceLab.text = [NSString stringWithFormat:@"￥%@",price];
         }
@@ -526,7 +564,13 @@
             }
             NSString * price = goodDic[@"price"];
             
-            [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+            //
+            
+            if ([urlStr hasSuffix:@"webp"]) {
+                [cell.secondImageView setZLWebPImageWithURLStr:urlStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+            }
             cell.secondNameLab.text = pname;
             cell.secondPriceLab.text = [NSString stringWithFormat:@"￥%@",price];
         }
@@ -541,7 +585,13 @@
             }
             NSString * price = goodDic[@"price"];
             
-            [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+            //
+            
+            if ([urlStr hasSuffix:@"webp"]) {
+                [cell.secondImageView setZLWebPImageWithURLStr:urlStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+            }
             cell.secondNameLab.text = pname;
             cell.secondPriceLab.text = [NSString stringWithFormat:@"￥%@",price];
         }
@@ -556,7 +606,13 @@
             }
             NSString * price = goodDic[@"price"];
             
-            [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+            //
+            
+            if ([urlStr hasSuffix:@"webp"]) {
+                [cell.secondImageView setZLWebPImageWithURLStr:urlStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [cell.secondImageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+            }
             cell.secondNameLab.text = pname;
             cell.secondPriceLab.text = [NSString stringWithFormat:@"￥%@",price];
         }
@@ -900,7 +956,13 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 //            self.index_2_titleLabel.font = [UIFont systemFontOfSize:12.0f];
 //            self.index_2_titleLabel.textColor = [HFSUtility hexStringToColor:Main_textNormalBackgroundColor];
             self.index_2_titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 120.0/1125.0*SIZE_WIDTH)];
-           [self.index_2_titleImageView sd_setImageWithURL:[NSURL URLWithString:_xinPinHuiString] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+           //
+           
+            if ([_xinPinHuiString hasSuffix:@"webp"]) {
+                 [self.index_2_titleImageView setZLWebPImageWithURLStr:_xinPinHuiString withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [self.index_2_titleImageView sd_setImageWithURL:[NSURL URLWithString:_xinPinHuiString] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+            }
             //[cell addSubview:self.index_2_titleLabel];
             [cell addSubview:self.index_2_titleImageView];
             
@@ -930,9 +992,18 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 
                     UIButton * leftBtn = (UIButton *)[cell viewWithTag:10];
                     UIButton * rightBtn = (UIButton *)[cell viewWithTag:11];
-                    [leftBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:leftStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
-                    [rightBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:rightStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
-                    
+
+
+                    if ([leftStr hasSuffix:@"webp"]) {
+                        [leftBtn setZLWebPButton_BackgroundImageWithURLStr:leftStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [leftBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:leftStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
+                    if ([rightStr hasSuffix:@"webp"]) {
+                        [rightBtn setZLWebPButton_BackgroundImageWithURLStr:rightStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [rightBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:rightStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
                 }
   
             }
@@ -951,7 +1022,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                 if (arr.count > 0) {
                     NSDictionary * goodsDic = arr[0];
                     NSString * urls = goodsDic[@"imgurl"];
-                    [self.index_4_imageview sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    
+                    if ([urls hasSuffix:@"webp"]) {
+                        [self.index_4_imageview setZLWebPImageWithURLStr:urls withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [self.index_4_imageview sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
                 }
                 
             }
@@ -974,7 +1050,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                     NSDictionary * goodDicss = arrd[0];
                     NSString * urls = goodDicss[@"imgurl"];
                     
-                    [self.index_5_titleImageView sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    
+                    if ([urls hasSuffix:@"webp"]) {
+                        [self.index_5_titleImageView setZLWebPImageWithURLStr:urls withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [self.index_5_titleImageView sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
                     
                 }
                 
@@ -994,7 +1075,13 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                     NSDictionary * goodDicss = arrd[0];
                     NSString * urls = goodDicss[@"imgurl"];
 
-                    [self.index_5_View.topButton sd_setBackgroundImageWithURL:[NSURL URLWithString:urls] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    
+                    if ([urls hasSuffix:@"webp"]) {
+                        [self.index_5_View.topButton setZLWebPButton_BackgroundImageWithURLStr:urls withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                       [self.index_5_View.topButton sd_setBackgroundImageWithURL:[NSURL URLWithString:urls] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
+                    
                 }
                 
                 
@@ -1008,8 +1095,19 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                     NSDictionary * goodDicss2 = arrd[1];
                     NSString * urls2 = goodDicss2[@"imgurl"];
                     
-                    [self.index_5_View.leftButton sd_setBackgroundImageWithURL:[NSURL URLWithString:urls] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
-                     [self.index_5_View.rightButton sd_setBackgroundImageWithURL:[NSURL URLWithString:urls2] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    
+                    if ([urls hasSuffix:@"webp"]) {
+                        [self.index_5_View.leftButton setZLWebPButton_BackgroundImageWithURLStr:urls withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [self.index_5_View.leftButton sd_setBackgroundImageWithURL:[NSURL URLWithString:urls] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
+                    if ([urls2 hasSuffix:@"webp"]) {
+                        [self.index_5_View.rightButton setZLWebPButton_BackgroundImageWithURLStr:urls2 withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [self.index_5_View.rightButton sd_setBackgroundImageWithURL:[NSURL URLWithString:urls2] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
+                    
+                     
                 }
                 
                 
@@ -1067,8 +1165,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                 if (arrsd.count > 0) {
                     NSDictionary * beDic = arrsd[0];
                     NSString * urls = beDic[@"imgurl"];
-                    [SecondTableViewCell.secondHeadimage sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
                     
+                    if ([urls hasSuffix:@"webp"]) {
+                        [SecondTableViewCell.secondHeadimage setZLWebPImageWithURLStr:urls withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [SecondTableViewCell.secondHeadimage sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
                 }
             }
             if ([_dataZongDic[@"beutyadvertise"] isKindOfClass:[NSArray class]]) {
@@ -1076,10 +1178,21 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                 if (arrsd.count >= 2) {
                     NSDictionary * beDic = arrsd[0];
                     NSString * urls = beDic[@"imgurl"];
-                    [SecondTableViewCell.secondImage1 sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    
+                    if ([urls hasSuffix:@"webp"]) {
+                        [SecondTableViewCell.secondImage1 setZLWebPImageWithURLStr:urls withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [SecondTableViewCell.secondImage1 sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
+                    
                     NSDictionary * beDic2 = arrsd[1];
                     NSString * urls2 = beDic2[@"imgurl"];
-                    [SecondTableViewCell.secondImage2 sd_setImageWithURL:[NSURL URLWithString:urls2] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    
+                    if ([urls2 hasSuffix:@"webp"]) {
+                        [SecondTableViewCell.secondImage2 setZLWebPImageWithURLStr:urls2 withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [SecondTableViewCell.secondImage2 sd_setImageWithURL:[NSURL URLWithString:urls2] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
                 }
             }
             
@@ -1126,8 +1239,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                 if (arrsd.count > 0) {
                     NSDictionary * beDic = arrsd[0];
                     NSString * urls = beDic[@"imgurl"];
-                    [ThirdTableViewCell.thirdHeadImage sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
                     
+                    if ([urls hasSuffix:@"webp"]) {
+                        [ThirdTableViewCell.thirdHeadImage setZLWebPImageWithURLStr:urls withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [ThirdTableViewCell.thirdHeadImage sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
                 }
             }
             if ([_dataZongDic[@"havewatch"] isKindOfClass:[NSArray class]]) {
@@ -1135,7 +1252,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                 if (arrsd.count > 0) {
                     NSDictionary * beDic = arrsd[0];
                     NSString * urls = beDic[@"imgurl"];
-                    [ThirdTableViewCell.thirdImage sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    
+                    if ([urls hasSuffix:@"webp"]) {
+                        [ThirdTableViewCell.thirdImage setZLWebPImageWithURLStr:urls withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [ThirdTableViewCell.thirdImage sd_setImageWithURL:[NSURL URLWithString:urls] placeholderImage:[UIImage imageNamed:PlaceholderImage_Name]];
+                    }
                 }
             }
 
@@ -1156,7 +1278,13 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                
                 if (arr.count > 0) {
                      NSDictionary * dic = arr[0];
-                    [YourlikeTableViewCell.likeHeadImage sd_setImageWithURL:[NSURL URLWithString:dic[@"imgurl"]] placeholderImage:PLACEHOLDER_IMAGE];
+                    
+                    
+                    if ([dic[@"imgurl"] hasSuffix:@"webp"]) {
+                        [YourlikeTableViewCell.likeHeadImage setZLWebPImageWithURLStr:dic[@"imgurl"] withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [YourlikeTableViewCell.likeHeadImage sd_setImageWithURL:[NSURL URLWithString:dic[@"imgurl"]] placeholderImage:PLACEHOLDER_IMAGE];
+                    }
                 }
                 
             }

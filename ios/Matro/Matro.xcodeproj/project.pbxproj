@@ -481,6 +481,7 @@
 		3CFC2A4C1D127C5C00C43BFF /* b54504436257.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3CFC2A4B1D127C5C00C43BFF /* b54504436257.jpg */; };
 		3CFCBCA11D5ABA9E0017BD50 /* ZLPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFCBCA01D5ABA9E0017BD50 /* ZLPageControl.m */; };
 		3CFD3A3B1D472FCC00F4F062 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFD3A3A1D472FCC00F4F062 /* Reachability.m */; };
+		3CFE563C1D6AA55A0047C043 /* UIButton+ZLWebPSetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFE563B1D6AA55A0047C043 /* UIButton+ZLWebPSetImage.m */; };
 		4F634A77A9985A18C9E56D1D /* Pods_Matro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C6CE0BB33E839F3EBF5309 /* Pods_Matro.framework */; };
 		6839EF0D1CD5187800638B3D /* MLBagFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6839EF0C1CD5187800638B3D /* MLBagFootView.m */; };
 		6839EF0F1CD518AB00638B3D /* MLBagFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6839EF0E1CD518AB00638B3D /* MLBagFootView.xib */; };
@@ -1616,6 +1617,8 @@
 		3CFCBCA01D5ABA9E0017BD50 /* ZLPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLPageControl.m; sourceTree = "<group>"; };
 		3CFD3A391D472FCC00F4F062 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3CFD3A3A1D472FCC00F4F062 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		3CFE563A1D6AA55A0047C043 /* UIButton+ZLWebPSetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ZLWebPSetImage.h"; sourceTree = "<group>"; };
+		3CFE563B1D6AA55A0047C043 /* UIButton+ZLWebPSetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ZLWebPSetImage.m"; sourceTree = "<group>"; };
 		5DBB37CE6C3BF0EADC461009 /* Pods-Matro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Matro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Matro/Pods-Matro.debug.xcconfig"; sourceTree = "<group>"; };
 		665E7595487B22B165F5C4BB /* Pods-Matro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Matro.release.xcconfig"; path = "Pods/Target Support Files/Pods-Matro/Pods-Matro.release.xcconfig"; sourceTree = "<group>"; };
 		6839EF0B1CD5187800638B3D /* MLBagFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBagFootView.h; sourceTree = "<group>"; };
@@ -3765,6 +3768,8 @@
 				3C0032021D55B52D004DBD6D /* iOS-WebP */,
 				3C26BDA01D587B4800350C5C /* UIImageView+ZLWebPsetImage.h */,
 				3C26BDA11D587B4800350C5C /* UIImageView+ZLWebPsetImage.m */,
+				3CFE563A1D6AA55A0047C043 /* UIButton+ZLWebPSetImage.h */,
+				3CFE563B1D6AA55A0047C043 /* UIButton+ZLWebPSetImage.m */,
 			);
 			path = FrameWork;
 			sourceTree = "<group>";
@@ -5076,6 +5081,7 @@
 				284E363F1D2B615A000CC90F /* MLOrderListCollectionViewCell.m in Sources */,
 				7AF15AFF1D12822700F8CF03 /* MLPersonOrderModel.m in Sources */,
 				3A633B5B1C9EA36E00C11FD5 /* ZLPhotoPickerBrowserPhotoScrollView.m in Sources */,
+				3CFE563C1D6AA55A0047C043 /* UIButton+ZLWebPSetImage.m in Sources */,
 				3A633B3D1C9EA36E00C11FD5 /* SDCycleScrollView.m in Sources */,
 				7AED642E1CDD84F1008F55BD /* SYQRCodeViewController.m in Sources */,
 				3AA0E7A71CA91E500079AA90 /* base64.m in Sources */,

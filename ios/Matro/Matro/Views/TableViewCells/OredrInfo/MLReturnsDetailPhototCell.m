@@ -35,7 +35,12 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MLAddImgCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kAddImgCollectionViewCell forIndexPath:indexPath];
     NSString *url = [self.imgsArray objectAtIndex:indexPath.row];
-    [cell.imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:PLACEHOLDER_IMAGE];
+    
+    if ([url hasSuffix:@"webp"]) {
+        [cell.imgView setZLWebPImageWithURLStr:url withPlaceHolderImage:PLACEHOLDER_IMAGE];
+    } else {
+      [cell.imgView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:PLACEHOLDER_IMAGE];
+    }
     cell.delBtn.hidden = YES;
     return cell;
 }

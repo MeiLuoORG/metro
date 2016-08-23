@@ -32,7 +32,12 @@
 - (void)setProductModel:(MLProductCommentDetailProduct *)productModel{
     if (_productModel != productModel) {
         _productModel = productModel;
-        [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productModel.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        
+        if ([_productModel.pic hasSuffix:@"webp"]) {
+            [self.goodsImg setZLWebPImageWithURLStr:_productModel.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_productModel.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         self.goodsName.text = _productModel.pname;
         [self.scoreView setStaticScore:_productModel.stars];
     }

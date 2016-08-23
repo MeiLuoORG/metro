@@ -162,7 +162,12 @@
             VipCardModel * CardModel = [self.cardARR objectAtIndex:index];
             view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, (411.0/665.0)*(SIZE_WIDTH-28))];
             //((UIImageView *)view).image = [UIImage imageNamed:VIPCARDIMG_DEFAULTNAME];
-            [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:CardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+            
+            if ([CardModel.cardImg hasSuffix:@"webp"]) {
+                [((UIImageView *)view) setZLWebPImageWithURLStr:CardModel.cardImg withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:CardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+            }
             /*
             //加阴影 zhou
             view.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
@@ -229,7 +234,12 @@
             VipCardModel * CardModel = [self.cardARR objectAtIndex:index];
             view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SIZE_WIDTH-28, (411.0/665.0)*(SIZE_WIDTH - 28.0))];
             //((UIImageView *)view).image = [UIImage imageNamed:VIPCARDIMG_DEFAULTNAME];
-            [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:CardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+            
+            if ([CardModel.cardImg hasSuffix:@"webp"]) {
+                [((UIImageView *)view) setZLWebPImageWithURLStr:CardModel.cardImg withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [((UIImageView *)view) sd_setImageWithURL:[NSURL URLWithString:CardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+            }
             /*
             //加阴影 zhou
             view.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
@@ -540,8 +550,12 @@
             
             imageView.image=[UIImage imageNamed:str];
             */
-            [imageView sd_setImageWithURL:[NSURL URLWithString:cardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
-            
+           
+            if ([cardModel.cardImg hasSuffix:@"webp"]) {
+                [imageView setZLWebPImageWithURLStr:cardModel.cardImg withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                 [imageView sd_setImageWithURL:[NSURL URLWithString:cardModel.cardImg] placeholderImage:[UIImage imageNamed:VIPCARDIMG_DEFAULTNAME]];
+            }
             //加阴影 zhou
             imageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
             imageView.layer.shadowOffset = CGSizeMake(8,8);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用

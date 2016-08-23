@@ -34,7 +34,12 @@
 - (void)setProduct:(MLCommentProductModel *)product{
     if (_product != product) {
         _product = product;
-        [self.myImageView sd_setImageWithURL:[NSURL URLWithString:_product.pic]];
+        
+        if ([_product.pic hasSuffix:@"webp"]) {
+            [self.myImageView setZLWebPImageWithURLStr:_product.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.myImageView sd_setImageWithURL:[NSURL URLWithString:_product.pic]];
+        }
         self.titleLabel.text = _product.name;
         if (_product.is_commented == 0) {
             [self.shaidanBtn setTitle:@"评价晒单" forState:UIControlStateNormal];

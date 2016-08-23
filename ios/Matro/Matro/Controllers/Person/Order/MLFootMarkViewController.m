@@ -177,8 +177,12 @@
     
     if (![imageStr isKindOfClass:[NSNull class]]) {
         
-        [cell.pimage sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"icon_default"]];
         
+        if ([imageStr hasSuffix:@"webp"]) {
+            [cell.pimage setZLWebPImageWithURLStr:imageStr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [cell.pimage sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        }
     }else{
         cell.pimage.image = [UIImage imageNamed:@"icon_default"];
     }

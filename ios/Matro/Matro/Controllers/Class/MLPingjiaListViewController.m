@@ -364,7 +364,12 @@ static float height;
     imageList  = tempDic[@"photos"];
     NSString *imgstr = tempDic[@"logo"];
     if (![imgstr isKindOfClass:[NSNull class]]) {
-        [cell.imageHead sd_setImageWithURL:[NSURL URLWithString:imgstr] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        
+        if ([imgstr hasSuffix:@"webp"]) {
+            [cell.imageHead setZLWebPImageWithURLStr:imgstr withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [cell.imageHead sd_setImageWithURL:[NSURL URLWithString:imgstr] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        }
     }
     else{
         cell.imageHead.image = [UIImage imageNamed:@"icon_default"];
@@ -426,7 +431,12 @@ static float height;
     
     if (![src isKindOfClass:[NSNull class]]) {
         
-       [cell.imageCell sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+       
+        if ([src hasSuffix:@"webp"]) {
+            [cell.imageCell setZLWebPImageWithURLStr:src withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+           [cell.imageCell sd_setImageWithURL:[NSURL URLWithString:src] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        }
         
     }else{
         cell.imageCell.image = [UIImage imageNamed:@"icon_default"];

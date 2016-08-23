@@ -29,7 +29,12 @@
 - (void)setBuyUser:(MLProductCommentDetailByuser *)buyUser{
     if (_buyUser != buyUser) {
         _buyUser = buyUser;
-        [self.headImg sd_setImageWithURL:[NSURL URLWithString:_buyUser.logo] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+        
+        if ([_buyUser.logo hasSuffix:@"webp"]) {
+            [self.headImg setZLWebPImageWithURLStr:_buyUser.logo withPlaceHolderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+        } else {
+            [self.headImg sd_setImageWithURL:[NSURL URLWithString:_buyUser.logo] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+        }
         self.userName.text = _buyUser.user;
         self.timeLabel.text = _buyUser.uptime;
     }

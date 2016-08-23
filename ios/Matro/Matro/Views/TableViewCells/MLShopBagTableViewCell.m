@@ -35,7 +35,12 @@
             self.countField.maxValue = [_prolistModel.stock integerValue];
         }
         self.countField.minValue = 1;
-        [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        
+        if ([_prolistModel.pic hasSuffix:@"webp"]) {
+            [self.goodImgView setZLWebPImageWithURLStr:_prolistModel.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         self.goodName.text = _prolistModel.pname;
 //        if ([_prolistModel.pro_setmeal_price isEqual:nil]) {
 //             self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.realPrice];
@@ -56,7 +61,12 @@
 - (void)setOfflineCart:(OffLlineShopCart *)offlineCart{
     if (_offlineCart != offlineCart) {
         _offlineCart = offlineCart;
-        [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_offlineCart.pic] placeholderImage:PLACEHOLDER_IMAGE];
+       
+        if ([_offlineCart.pic hasSuffix:@"webp"]) {
+            [self.goodImgView setZLWebPImageWithURLStr:_offlineCart.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+             [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_offlineCart.pic] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         self.goodName.text = _offlineCart.pname;
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _offlineCart.pro_price];
         self.checkBox.cartSelected = NO;

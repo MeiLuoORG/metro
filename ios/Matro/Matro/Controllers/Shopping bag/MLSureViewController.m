@@ -130,7 +130,12 @@
                 break;
             }
             UIImageView *imgview = imgary[i];
-            [imgview sd_setImageWithURL:[NSURL URLWithString:tempdic[@"URL"]] placeholderImage:PLACEHOLDER_IMAGE];
+            
+            if ([tempdic[@"URL"] hasSuffix:@"webp"]) {
+                [imgview setZLWebPImageWithURLStr:tempdic[@"URL"] withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [imgview sd_setImageWithURL:[NSURL URLWithString:tempdic[@"URL"]] placeholderImage:PLACEHOLDER_IMAGE];
+            }
             i++;
         }
     }
@@ -152,7 +157,12 @@
                 break;
             }
             UIImageView *imgview = imgary[i];
-            [imgview sd_setImageWithURL:[NSURL URLWithString:tempdic[@"IMGURL"]] placeholderImage:PLACEHOLDER_IMAGE];
+           
+            if ([tempdic[@"IMGURL"] hasSuffix:@"webp"]) {
+                [imgview setZLWebPImageWithURLStr:tempdic[@"IMGURL"] withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                 [imgview sd_setImageWithURL:[NSURL URLWithString:tempdic[@"IMGURL"]] placeholderImage:PLACEHOLDER_IMAGE];
+            }
             NSString *count = tempdic[@"XSSL"];
             if (count.intValue>1 ) {
                 for (int m=1; m<count.intValue; m++) {
@@ -162,7 +172,12 @@
                     }
                     UIImageView *imgview = imgary[m];
                     
-                    [imgview sd_setImageWithURL:[NSURL URLWithString:tempdic[@"IMGURL"]] placeholderImage:PLACEHOLDER_IMAGE];
+                    
+                    if ([tempdic[@"IMGURL"] hasSuffix:@"webp"]) {
+                        [imgview setZLWebPImageWithURLStr:tempdic[@"IMGURL"] withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [imgview sd_setImageWithURL:[NSURL URLWithString:tempdic[@"IMGURL"]] placeholderImage:PLACEHOLDER_IMAGE];
+                    }
                     
                 }
             }

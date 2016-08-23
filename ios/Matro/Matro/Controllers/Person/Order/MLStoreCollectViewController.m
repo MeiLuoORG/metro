@@ -225,7 +225,12 @@ static NSInteger page = 1;
     NSString *logo = tempDic.logo;
     if (![logo isKindOfClass:[NSNull class]]) {
         
-        [cell.sImage sd_setImageWithURL:[NSURL URLWithString:logo] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        
+        if ([logo hasSuffix:@"webp"]) {
+            [cell.sImage setZLWebPImageWithURLStr:logo withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [cell.sImage sd_setImageWithURL:[NSURL URLWithString:logo] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        }
         
     }else{
         cell.sImage.image = [UIImage imageNamed:@"icon_default"];

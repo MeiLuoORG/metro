@@ -50,7 +50,15 @@
                         NSDictionary * dicss = arr[0];
                         NSString * imageURL = dicss[@"imgurl"];
                         if (![imageURL isEqualToString:@""]) {
-                            [self.topImageView sd_setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"cityfuwu02.jpg"]];
+                            if ([imageURL hasSuffix:@"webp"]) {
+                                
+                                [self.topImageView setZLWebPImageWithURLStr:imageURL withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                                
+                            } else {
+                                [self.topImageView sd_setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"cityfuwu02.jpg"]];
+     
+                            }
+                            
                         }
                         
                     }

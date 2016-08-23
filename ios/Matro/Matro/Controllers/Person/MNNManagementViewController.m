@@ -77,7 +77,12 @@
 
 - (void)updateUserInfo{
     avatorurl = [userDefaults objectForKey:kUSERDEFAULT_USERAVATOR];
-    [_imageView sd_setImageWithURL:[NSURL URLWithString:avatorurl] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+    
+    if ([avatorurl hasSuffix:@"webp"]) {
+        [_imageView setZLWebPImageWithURLStr:avatorurl withPlaceHolderImage:PLACEHOLDER_IMAGE];
+    } else {
+        [_imageView sd_setImageWithURL:[NSURL URLWithString:avatorurl] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+    }
     _lable.text = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];
 }
 
@@ -105,7 +110,12 @@
         _imageView.layer.masksToBounds = YES;
         if (avatorurl) {
             
-            [_imageView sd_setImageWithURL:[NSURL URLWithString:avatorurl] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+            
+            if ([avatorurl hasSuffix:@"webp"]) {
+                [_imageView setZLWebPImageWithURLStr:avatorurl withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [_imageView sd_setImageWithURL:[NSURL URLWithString:avatorurl] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+            }
         }
         [cell.contentView addSubview:_imageView];
         /*
@@ -465,8 +475,12 @@
             
             [userDefaults setObject:imgUrl forKey:kUSERDEFAULT_USERAVATOR];
             
-            [_imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
             
+            if ([imgUrl hasSuffix:@"webp"]) {
+                [_imageView setZLWebPImageWithURLStr:imgUrl withPlaceHolderImage:PLACEHOLDER_IMAGE];
+            } else {
+                [_imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"weidenglu_touxiang"]];
+            }
             [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_CHANGEUSERINFO object:nil];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         }else{

@@ -34,7 +34,12 @@
 -(void)setProductImageURL:(NSURL *)productImageURL {
     _productImageURL = productImageURL;
     if (productImageURL) {
-        [self.productImageView sd_setImageWithURL:productImageURL placeholderImage:PLACEHOLDER_IMAGE];
+        
+        if ([[productImageURL absoluteString] hasSuffix:@"webp"]) {
+            [self.productImageView setZLWebPImageWithURLStr:[productImageURL absoluteString] withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.productImageView sd_setImageWithURL:productImageURL placeholderImage:PLACEHOLDER_IMAGE];
+        }
     }
 }
 

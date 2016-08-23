@@ -80,7 +80,12 @@
         self.showDel = NO;
         self.countL.constant = 8;
         self.checkBoxL.constant = 16;
-        [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic]];
+        
+        if ([_prolistModel.pic hasSuffix:@"webp"]) {
+            [self.goodImgView setZLWebPImageWithURLStr:_prolistModel.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_prolistModel.pic]];
+        }
         self.goodName.text = _prolistModel.pname;
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _prolistModel.pro_price];
         self.checkBox.cartSelected = (_prolistModel.is_check == 1);
@@ -100,7 +105,12 @@
         self.showDel = NO;
         self.countL.constant = 8;
         self.checkBoxL.constant = 16;
-        [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_offlineCart.pic]];
+        
+        if ([_offlineCart.pic hasSuffix:@"webp"]) {
+            [self.goodImgView setZLWebPImageWithURLStr:_offlineCart.pic withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [self.goodImgView sd_setImageWithURL:[NSURL URLWithString:_offlineCart.pic]];
+        }
         self.goodName.text = _offlineCart.pname;
         self.goodPrice.text =[NSString stringWithFormat:@"￥%.2f", _offlineCart.pro_price];
         self.checkBox.cartSelected = NO;

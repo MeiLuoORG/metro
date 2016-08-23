@@ -105,8 +105,12 @@
         
         MLProductCommentImage *imageModel = [self.commentDetail.comment_detail.photos objectAtIndex:indexPath.row - 3];
         
-        [cell.myImageView sd_setImageWithURL:[NSURL URLWithString:imageModel.data_src] placeholderImage:PLACEHOLDER_IMAGE];
         
+        if ([imageModel.data_src hasSuffix:@"webp"]) {
+            [cell.myImageView setZLWebPImageWithURLStr:imageModel.data_src withPlaceHolderImage:PLACEHOLDER_IMAGE];
+        } else {
+            [cell.myImageView sd_setImageWithURL:[NSURL URLWithString:imageModel.data_src] placeholderImage:PLACEHOLDER_IMAGE];
+        }
         return cell;
     }
     return nil;

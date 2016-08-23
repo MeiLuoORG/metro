@@ -131,4 +131,5 @@
 #define Index3Button_RIGHT_NOTICIFICATION   @"Index3Button_RIGHT_NOTICIFICATION"
 
 #import "UIImageView+ZLWebPsetImage.h"
+#import "UIButton+ZLWebPSetImage.h"
 #endif
