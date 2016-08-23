@@ -725,8 +725,11 @@
     PinPaiModelZl * model = [_pinPaiARR objectAtIndex:indexPath.row];
      PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
     self.hidesBottomBarWhenPushed = YES;
-    vc.searchString = model.id;
+//    vc.searchString = model.id;
     vc.title = model.name;
+    vc.searchString = model.name;
+    NSString *brand_id = model.id;
+    vc.filterParam = @{@"ppid":brand_id};
     [self.navigationController pushViewController:vc animated:NO];
     self.hidesBottomBarWhenPushed = YES;
     
