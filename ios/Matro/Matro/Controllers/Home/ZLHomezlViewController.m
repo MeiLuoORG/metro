@@ -1288,7 +1288,8 @@
                 if (![name isEqualToString:@""]) {
                     PinPaiSPListViewController *vc =[[PinPaiSPListViewController alloc]init];
                     vc.hidesBottomBarWhenPushed = YES;
-                    vc.searchString = sender;
+                    vc.searchString = name;
+                    vc.filterParam = @{@"ppid":sender};
                     vc.title = name;
                     [self.navigationController pushViewController:vc animated:NO];
                     //self.hidesBottomBarWhenPushed = NO;
