@@ -404,40 +404,13 @@
         
     }
 
-/*
-    MLTestViewController *vc = [[MLTestViewController alloc]init];
-    [self presentViewController:vc animated:YES completion:^{
-        
-    }];
-    */
-//    MLQuanqiugouViewController * pinVC = [[MLQuanqiugouViewController alloc]init];
-//    pinVC.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:pinVC animated:YES];
-    
-     
     /*
-    PinPaiZLViewController * pinVC = [[PinPaiZLViewController alloc]init];
-    pinVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:pinVC animated:YES];
-    */
-    /*
-    MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
-    payResultVC.hidesBottomBarWhenPushed = YES;
-    payResultVC.isSuccess = YES;
-    [self.navigationController pushViewController:payResultVC animated:YES];
-     */
-    /*
-    MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
-    shiBaiVC.hidesBottomBarWhenPushed = YES;
-    
-    [self.navigationController pushViewController:shiBaiVC animated:YES];
-     */
-    /*
-    MLPayViewController *vc = [[MLPayViewController alloc]init];
+    MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
+    vc.title = @"热门活动";
+    vc.link = @"http://h5.matrojp.com/activity/?id=10";
     vc.hidesBottomBarWhenPushed = YES;
-    vc.paramDic = @{@"totalFee":@"0.1",@"order_trade_no":@"1206500002698"};
     [self.navigationController pushViewController:vc animated:YES];
-    */
+     */
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -466,7 +439,6 @@
             
         }];
     }
-    
 
 }
 
@@ -1115,9 +1087,6 @@
         vc.title = @"热门活动";
         vc.link = sender;
         vc.hidesBottomBarWhenPushed = YES;
-
-        
-        
         [self.navigationController pushViewController:vc animated:YES];
          
     }
