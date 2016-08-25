@@ -96,9 +96,9 @@ static NSInteger page = 1;
     if (_filterParam) {
         [self getGoodsFromClass];
     }
-    if (_searchString) {
-        [self getGoodsList];
-    }
+//    if (_searchString) {
+//        [self getGoodsList];
+//    }
      _context = [NSManagedObjectContext MR_defaultContext];
 
 }
