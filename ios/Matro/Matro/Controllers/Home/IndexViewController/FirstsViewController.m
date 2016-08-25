@@ -381,15 +381,17 @@
 }
 
 - (void)photoTapped:(UITapGestureRecognizer *)tap{
-    NSString * sender;
+    NSString * sender = @"";
+    NSString * title = @"";
     NSString * type = self.lunXianImageARR[tap.view.tag][@"ggtype"];
     if ([type isEqualToString:@"4"]) {
         sender = self.lunXianImageARR[tap.view.tag][@"url"];
+        title = self.lunXianImageARR[tap.view.tag][@"title"];
     }else{
     
        sender = self.lunXianImageARR[tap.view.tag][@"ggv"];
     }
-    [self pushToType:type withUi:sender];
+    [self pushToType:type withUi:sender withTitle:title];
     
 }
 //=================加载轮显视图  第一个======End
@@ -429,7 +431,7 @@
     [self.fourButtonView fourButtonBlockAction:^(NSInteger tag) {
        
         NSString * sender = [NSString stringWithFormat:@"%ld",tag-1];
-        [weakSelf pushToType:@"9" withUi:sender];
+        [weakSelf pushToType:@"9" withUi:sender withTitle:nil];
         
     }];
     //self.fourButtonView.backgroundColor = [UIColor blueColor];
@@ -706,27 +708,27 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     if (collectionView.tag == 101) {
         NSDictionary * goodDic = _newGoodARR[indexPath.row];
         NSString * sender = goodDic[@"id"];
-        [self pushToType:@"1" withUi:sender];
+        [self pushToType:@"1" withUi:sender withTitle:nil];
     }
     if (collectionView.tag == 102) {
         NSDictionary * goodDic = _tuiJianGoodARR[indexPath.row];
         NSString * sender = goodDic[@"id"];
-        [self pushToType:@"1" withUi:sender];
+        [self pushToType:@"1" withUi:sender withTitle:nil];
     }
     if (collectionView.tag == 103) {
         NSDictionary * goodDic = _meiGoodARR[indexPath.row];
         NSString * sender = goodDic[@"id"];
-        [self pushToType:@"1" withUi:sender];
+        [self pushToType:@"1" withUi:sender withTitle:nil];
     }
     if (collectionView.tag == 104) {
         NSDictionary * goodDic = _daPaiGoodARR[indexPath.row];
         NSString * sender = goodDic[@"id"];
-        [self pushToType:@"1" withUi:sender];
+        [self pushToType:@"1" withUi:sender withTitle:nil];
     }
     if (collectionView.tag == 105) {
         NSDictionary * dics = self.index_8_goodARR[indexPath.row];
         NSString * sender = dics[@"id"];
-        [self pushToType:@"1" withUi:sender];
+        [self pushToType:@"1" withUi:sender withTitle:nil];
     }
     /*
     PinPaiModelZl * model = [_pinPaiARR objectAtIndex:indexPath.row];
@@ -750,9 +752,17 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
         if (newArrs.count >= 2) {
             NSDictionary * goodDic1 = newArrs[0];
             NSString * type = goodDic1[@"ggtype"];
-            NSString * sender = goodDic1[@"ggv"];
+            NSString * sender = @"";
+            NSString * title = @"";
+            if ([type isEqualToString:@"4"]) {
+                sender  = goodDic1[@"url"];
+                title = goodDic1[@"title"];
+            }
+            else{
+                sender = goodDic1[@"ggv"];
+            }
             
-            [self pushToType:type withUi:sender];
+            [self pushToType:type withUi:sender withTitle:title];
         }
         
     }
@@ -766,9 +776,18 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
         if (newArrs.count >= 2) {
             NSDictionary * goodDic1 = newArrs[1];
             NSString * type = goodDic1[@"ggtype"];
-            NSString * sender = goodDic1[@"ggv"];
+            NSString * sender = @"";
+            NSString * title = @"";
             
-            [self pushToType:type withUi:sender];
+            if ([type isEqualToString:@"4"]) {
+                sender = goodDic1[@"url"];
+                title = goodDic1[@"title"];
+            }
+            else{
+                sender = goodDic1[@"ggv"];
+            }
+            
+            [self pushToType:type withUi:sender withTitle:title];
         }
         
     }
@@ -807,9 +826,18 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
             NSDictionary * goodDicss = arrd[0];
 
             NSString *type = goodDicss[@"ggtype"];
-            NSString * sender = goodDicss[@"ggv"];
-
-            [self pushToType:type withUi:sender];
+            NSString * sender = @"";
+            NSString * tittle = @"";
+            if ([type isEqualToString:@"4"]) {
+                sender = goodDicss[@"url"];
+                tittle = goodDicss[@"title"];
+                
+            }else{
+                sender = goodDicss[@"ggv"];
+            }
+            
+            
+            [self pushToType:type withUi:sender withTitle:tittle];
         }
         
         
@@ -825,9 +853,19 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
         if (arrd.count >= 2) {
             NSDictionary * goodDicss = arrd[0];
             NSString * type = goodDicss[@"ggtype"];
-            NSString * sender = goodDicss[@"ggv"];
+            NSString * sender = @"";
+            NSString * title = @"";
             
-            [self pushToType:type withUi:sender];
+            if ([type isEqualToString:@"4"]) {
+                sender = goodDicss[@"url"];
+                title = goodDicss[@"title"];
+            }
+            else{
+                sender = goodDicss[@"ggv"];
+            
+            }
+            
+            [self pushToType:type withUi:sender withTitle:title];
         }
         
         
@@ -843,9 +881,18 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
         if (arrd.count >= 2) {
             NSDictionary * goodDicss = arrd[1];
             NSString * type = goodDicss[@"ggtype"];
-            NSString * sender = goodDicss[@"ggv"];
+            NSString * sender = @"";
+            NSString * title = @"";
+            if ([type isEqualToString:@"4"]) {
+                sender = goodDicss[@"url"];
+                title = goodDicss[@"title"];
+            }
+            else{
+                sender = goodDicss[@"ggv"];
             
-            [self pushToType:type withUi:sender];
+            }
+            
+            [self pushToType:type withUi:sender withTitle:title];
         }
         
         
@@ -1135,8 +1182,18 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                     if (arrsd.count >= 2) {
                         NSDictionary * beDic = arrsd[0];
                         NSString * type = beDic[@"ggtype"];
-                        NSString * sender = beDic[@"ggv"];
-                        [self pushToType:type withUi:sender];
+                        NSString * sender = @"";
+                        NSString * title = @"";
+                        if ([type isEqualToString:@"4"]) {
+                            title = beDic[@"title"];
+                            sender = beDic[@"url"];
+                        }
+                        else{
+                            sender = beDic[@"ggv"];
+                        }
+                        
+                        
+                        [self pushToType:type withUi:sender withTitle:title];
                     }
                 }
 
@@ -1148,8 +1205,18 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                     if (arrsd.count >= 2) {
                         NSDictionary * beDic2 = arrsd[1];
                         NSString * type = beDic2[@"ggtype"];
-                        NSString * sender = beDic2[@"ggv"];
-                        [self pushToType:type withUi:sender];
+                        NSString * sender = @"";
+                        NSString * title = @"";
+                        if ([type isEqualToString:@"4"]) {
+                            title = beDic2[@"title"];
+                            sender = beDic2[@"url"];
+                        }
+                        else{
+                            sender = beDic2[@"ggv"];
+                        }
+                        
+                        
+                        [self pushToType:type withUi:sender withTitle:title];
                     }
                 }
 
@@ -1219,9 +1286,18 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                     if (arrsd.count > 0) {
                         NSDictionary * beDic = arrsd[0];
                         NSString * urls = beDic[@"ggtype"];
-                        NSString * sender = beDic[@"ggv"];
+                        NSString * sender = @"";
+                        NSString * title = @"";
+                        if ([urls isEqualToString:@"4"]) {
+                            title = beDic[@"title"];
+                            sender = beDic[@"url"];
+                            
+                        }else{
+                            sender = beDic[@"ggv"];
+                        }
                         
-                        [self pushToType:urls withUi:sender];
+                        
+                        [self pushToType:urls withUi:sender withTitle:title];
 
                     }
                 }
@@ -1322,7 +1398,18 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
                 //NSString * urls = goodsDic[@"imgurl"];
                 NSString *type = goodsDic[@"ggtype"];
                 NSString * sender = goodsDic[@"ggv"];
-                [self pushToType:type withUi:sender];
+                
+                NSString * title = @"";
+                
+                if ([type isEqualToString:@"4"]) {
+                    sender = goodsDic[@"url"];
+                    title = goodsDic[@"title"];
+                }
+                else{
+                    sender = goodsDic[@"ggv"];
+                }
+                
+                [self pushToType:type withUi:sender withTitle:title];
             }
             
         }
@@ -1375,10 +1462,10 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     
 }
 #pragma end mark 代理方法结束
-- (void)pushToType:(NSString *)index withUi:(NSString *)sender{
+- (void)pushToType:(NSString *)index withUi:(NSString *)sender withTitle:(NSString *)title{
     
-    if (self.firstDelegate && [self.firstDelegate respondsToSelector:@selector(firstViewController:JavaScriptActionFourButton:withUi:)]) {
-        [self.firstDelegate firstViewController:self JavaScriptActionFourButton:index withUi:sender];
+    if (self.firstDelegate && [self.firstDelegate respondsToSelector:@selector(firstViewController:JavaScriptActionFourButton:withUi:withTitle:)]) {
+        [self.firstDelegate firstViewController:self JavaScriptActionFourButton:index withUi:sender withTitle:title];
     }
     
     

@@ -1430,9 +1430,9 @@
     }
 }
 
-- (void)firstViewController:(FirstsViewController *)subVC JavaScriptActionFourButton:(NSString *)type withUi:(NSString *)sender{
+- (void)firstViewController:(FirstsViewController *)subVC JavaScriptActionFourButton:(NSString *)type withUi:(NSString *)sender withTitle:(NSString *)title{
 
-    [self toViewControllerwithIndexType:type withUi:sender];
+    [self toViewControllerwithIndexType:type withUi:sender withTitle:title];
 }
 
 #pragma end mark 代理方法结束
@@ -1495,15 +1495,15 @@
     }
 }
 
-- (void)secondViewController:(SecondsViewController *)subVC JavaScriptActionFourButton:(NSString *)type withUi:(NSString *)sender{
+- (void)secondViewController:(SecondsViewController *)subVC JavaScriptActionFourButton:(NSString *)type withUi:(NSString *)sender title:(NSString *)title{
 
 
-    [self toViewControllerwithIndexType:type withUi:sender];
+    [self toViewControllerwithIndexType:type withUi:sender withTitle:title];
     
 }
 
 
-- (void)toViewControllerwithIndexType:(NSString *)type withUi:(NSString *)sender{
+- (void)toViewControllerwithIndexType:(NSString *)type withUi:(NSString *)sender withTitle:(NSString *)title{
     
     if ([type isEqualToString:@"1"]) {
         //商品
@@ -1559,7 +1559,9 @@
         //链接
         //[self daKaQianDao];
         MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
-        vc.title = @"热门活动";
+        
+        NSString * str = title?:@"热门活动";
+        vc.title = str;
         vc.link = sender;
         vc.hidesBottomBarWhenPushed = YES;
         NSLog(@"热门活动的链接为：%@",sender);
