@@ -678,8 +678,14 @@ static NSInteger page3 = 1;
             SecondTableViewCell.leftClickblock = ^(){
                 
                 if (beutyadvertiseArr && beutyadvertiseArr.count > 0) {
+                 NSString *type = beutyadvertiseArr[0][@"ggtype"]?:@"";
+                    if ([type isEqualToString:@"4"]) {
+                        
+                        [self pushToType:type withUi:beutyadvertiseArr[0][@"url"]?:@"" title:beutyadvertiseArr[0][@"title"]?:@""];
+                    }else{
                     
-                 [self pushToType:beutyadvertiseArr[0][@"ggtype"]?:@"" withUi:beutyadvertiseArr[0][@"ggv"]?:@""];
+                        [self pushToType:type withUi:beutyadvertiseArr[0][@"ggv"]?:@"" title:@""];
+                    }
                     
                 }
                 
@@ -687,8 +693,15 @@ static NSInteger page3 = 1;
             SecondTableViewCell.rightClickblock = ^(){
                 
                 if (beutyadvertiseArr && beutyadvertiseArr.count > 0) {
-                    
-                    [self pushToType:beutyadvertiseArr[1][@"ggtype"]?:@"" withUi:beutyadvertiseArr[1][@"ggv"]?:@""];
+    
+                    NSString *type = beutyadvertiseArr[1][@"ggtype"]?:@"";
+                    if ([type isEqualToString:@"4"]) {
+                        
+                        [self pushToType:type withUi:beutyadvertiseArr[1][@"url"]?:@"" title:beutyadvertiseArr[1][@"title"]?:@""];
+                    }else{
+                        
+                        [self pushToType:type withUi:beutyadvertiseArr[1][@"ggv"]?:@"" title:@""];
+                    }
                   
                 }
             };
@@ -748,10 +761,16 @@ static NSInteger page3 = 1;
             }
             
             ThirdTableViewCell.imageClickBlock = ^(){
-                
+
                 if (havewatchArr && havewatchArr.count > 0) {
+                    NSString *type = havewatchArr[0][@"ggtype"]?:@"";
                     
-                    [self pushToType:havewatchArr[0][@"ggtype"]?:@"" withUi:havewatchArr[0][@"ggv"]?:@""];
+                    if ([type isEqualToString:@"4"]) {
+                        [self pushToType:type withUi:havewatchArr[0][@"url"]?:@"" title:havewatchArr[0][@"title"]?:@""];
+                        
+                    }else{
+                        [self pushToType:type withUi:havewatchArr[0][@"ggv"]?:@"" title:@""];
+                    }
                     
                 }
                 
@@ -832,19 +851,36 @@ static NSInteger page3 = 1;
     if (indexPath.row == 2) {
         if (newgoodsee1 && newgoodsee1.count >0) {
             NSDictionary *tempdic = newgoodsee1[0];
-            [self pushToType:tempdic[@"ggtype"]?:@"" withUi:tempdic[@"ggv"]?:@""];
+            NSString *type = tempdic[@"ggtype"]?:@"";
+            if ([type isEqualToString:@"4"]) {
+                [self pushToType:type withUi:tempdic[@"ggv"]?:@"" title:tempdic[@"title"]?:@""];
+            }else{
+                [self pushToType:type withUi:tempdic[@"ggv"]?:@"" title:@""];
+            }
         }
     }else if(indexPath.row == 3){
     
         if (newgoodsee2 && newgoodsee2.count >0) {
             NSDictionary *tempdic = newgoodsee2[0];
-            [self pushToType:tempdic[@"ggtype"]?:@"" withUi:tempdic[@"ggv"]?:@""];
+            NSString *type = tempdic[@"ggtype"]?:@"";
+            if ([type isEqualToString:@"4"]) {
+                [self pushToType:type withUi:tempdic[@"ggv"]?:@"" title:tempdic[@"title"]?:@""];
+            }else{
+                [self pushToType:type withUi:tempdic[@"ggv"]?:@"" title:@""];
+            }
+           
         }
     }else if(indexPath.row == 4){
     
         if (newgoodsee3 && newgoodsee3.count >0) {
             NSDictionary *tempdic = newgoodsee3[0];
-            [self pushToType:tempdic[@"ggtype"]?:@"" withUi:tempdic[@"ggv"]?:@""];
+            NSString *type = tempdic[@"ggtype"]?:@"";
+            if ([type isEqualToString:@"4"]) {
+                [self pushToType:type withUi:tempdic[@"ggv"]?:@"" title:tempdic[@"title"]?:@""];
+            }else{
+                [self pushToType:type withUi:tempdic[@"ggv"]?:@"" title:@""];
+            }
+            
         }
     }
     
@@ -1123,35 +1159,35 @@ static NSInteger page3 = 1;
     if (collectionView.tag == 1) {
         if (ishotSP == YES) {
             if (indexPath.row == 7) {
-                [self pushToType:@"3" withUi:@"all"];
+                [self pushToType:@"3" withUi:@"all" title:@""];
             }else{
                 NSDictionary *tempDic = hotspArr[indexPath.row];
-                [self pushToType:@"3" withUi:tempDic[@"catid"]?:@""];
+                [self pushToType:@"3" withUi:tempDic[@"catid"]?:@"" title:@""];
             }
    
         }else{
             if (indexPath.row == 7) {
-                [self pushToType:@"2" withUi:@"all"];
+                [self pushToType:@"2" withUi:@"all" title:@""];
             }else{
                 NSDictionary *tempDic = hotbrandArr[indexPath.row];
-                [self pushToType:@"2" withUi:tempDic[@"brand_id"]?:@""];
+                [self pushToType:@"2" withUi:tempDic[@"brand_id"]?:@"" title:@""];
             }
    
         }
     }else if (collectionView.tag == 5){
     
         NSDictionary *tempDic = beutyArr[indexPath.row];
-        [self pushToType:@"1" withUi:tempDic[@"id"]?:@""];
+        [self pushToType:@"1" withUi:tempDic[@"id"]?:@"" title:@""];
         
     }else if (collectionView.tag == 6){
         
         NSDictionary *tempDic = watchArr[indexPath.row];
-        [self pushToType:@"1" withUi:tempDic[@"id"]?:@""];
+        [self pushToType:@"1" withUi:tempDic[@"id"]?:@"" title:@""];
         
     }else if(collectionView.tag == 7){
         
         NSDictionary *tempDic = productArr[indexPath.row];
-        [self pushToType:@"1" withUi:tempDic[@"id"]?:@""];
+        [self pushToType:@"1" withUi:tempDic[@"id"]?:@"" title:@""];
         
     }
 
@@ -1264,15 +1300,20 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 - (void)photoTapped:(UITapGestureRecognizer *)tap{
     NSString * sender;
     NSString * type;
+    NSString * title;
     if (adimageArr && adimageArr.count>0) {
         NSDictionary *tempdic = adimageArr[tap.view.tag];
         type = tempdic[@"ggtype"]?:@"";
+        title = tempdic[@"title"]?:@"";
+        
         if ([type isEqualToString:@"4"]) {
             sender = tempdic[@"url"]?:@"";
+            
         }else{
             sender = tempdic[@"ggv"]?:@"";
+            title = @"";
         }
-        [self pushToType:type withUi:sender];
+        [self pushToType:type withUi:sender title:title];
     }
     
 }
@@ -1353,10 +1394,10 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 }
 
 #pragma end mark 代理方法结束
-- (void)pushToType:(NSString *)index withUi:(NSString *)sender{
+- (void)pushToType:(NSString *)index withUi:(NSString *)sender title:(NSString *)title{
     
-    if (self.secondDelegate && [self.secondDelegate respondsToSelector:@selector(secondViewController:JavaScriptActionFourButton:withUi:)]) {
-        [self.secondDelegate secondViewController:self JavaScriptActionFourButton:index withUi:sender];
+    if (self.secondDelegate && [self.secondDelegate respondsToSelector:@selector(secondViewController:JavaScriptActionFourButton:withUi:title:)]) {
+        [self.secondDelegate secondViewController:self JavaScriptActionFourButton:index withUi:sender title:title];
     }
     
     

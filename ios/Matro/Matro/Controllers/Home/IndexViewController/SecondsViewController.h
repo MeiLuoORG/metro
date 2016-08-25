@@ -30,7 +30,7 @@
 
 - (void)secondViewController:(SecondsViewController *)subVC withContentOffest:(float ) haViewOffestY;
 - (void)secondViewController:(SecondsViewController *)subVC withBeginOffest:(float)haViewOffestY;
-- (void)secondViewController:(SecondsViewController *)subVC JavaScriptActionFourButton:(NSString *)type withUi:(NSString *)sender;
+- (void)secondViewController:(SecondsViewController *)subVC JavaScriptActionFourButton:(NSString *)type withUi:(NSString *)sender title:(NSString *)title;
 
 
 @end
