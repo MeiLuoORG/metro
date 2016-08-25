@@ -156,8 +156,10 @@
         }else if([ggtype isEqualToString:@"4"]){
             
             MLActiveWebViewController *vc = [[MLActiveWebViewController alloc]init];
-            vc.title = @"热门活动";
-            vc.link = ggv;
+            NSString *title = tempDic[@"title"]?:@"热门活动";
+            NSString *url = tempDic[@"url"]?:@"";
+            vc.title = title;
+            vc.link = url;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
             
