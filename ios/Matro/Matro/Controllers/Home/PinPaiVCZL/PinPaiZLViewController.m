@@ -174,7 +174,7 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self closeLoadingView];
         NSDictionary * result = (NSDictionary *)responseObject;
-        NSLog(@"请求品牌馆：%@",result);
+        //NSLog(@"请求品牌馆：%@",result);
         NSDictionary * dataDic = result[@"data"];
         NSString * sumStr = dataDic[@"sum"];
         if (![sumStr isEqualToString:@"0"]) {
@@ -507,7 +507,7 @@
         
         NSDictionary * result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
-            //NSLog(@"请求品牌馆：%@",result);
+            NSLog(@"请求品牌馆：%@",result);
             NSDictionary * dataDic = result[@"data"];
             NSString * sumStr = dataDic[@"sum"];
             if (![sumStr isEqualToString:@"0"]) {

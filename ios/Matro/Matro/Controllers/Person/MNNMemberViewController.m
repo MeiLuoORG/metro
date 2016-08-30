@@ -896,23 +896,24 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
-        VipCardModel * cardModel = [self.cardARR objectAtIndex:self.currentCardIndex];
-        if (![cardModel.cardNo isEqualToString:@""] && cardModel.cardNo != nil) {
-            self.hidesBottomBarWhenPushed = YES;
-            MNNQRCodeViewController *qrCodeVC = [MNNQRCodeViewController new];
-            
-            qrCodeVC.cardNo = cardModel.cardNo;
-            /*
-             if (self.currentCardModel.qrCode) {
-             
-             qrCodeVC.cardNo = self.currentCardModel.qrCode;
-             
-             }
-             */
-            [self.navigationController pushViewController:qrCodeVC animated:YES];
+        if (self.cardARR.count > 0) {
+            VipCardModel * cardModel = [self.cardARR objectAtIndex:self.currentCardIndex];
+            if (![cardModel.cardNo isEqualToString:@""] && cardModel.cardNo != nil) {
+                self.hidesBottomBarWhenPushed = YES;
+                MNNQRCodeViewController *qrCodeVC = [MNNQRCodeViewController new];
+                
+                qrCodeVC.cardNo = cardModel.cardNo;
+                /*
+                 if (self.currentCardModel.qrCode) {
+                 
+                 qrCodeVC.cardNo = self.currentCardModel.qrCode;
+                 
+                 }
+                 */
+                [self.navigationController pushViewController:qrCodeVC animated:YES];
+            }
         }
-
-        
+   
     }
     if (indexPath.row == 3) {
         self.hidesBottomBarWhenPushed = YES;
