@@ -343,6 +343,7 @@
     NSLog(@"===%@",_paramDic);
 
         NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=%@&client_type=ios&app_version=%@",MATROJP_BASE_URL,_paramDic[@"id"],vCFBundleShortVersionStr];
+//    NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=product&s=detail&id=18038&client_type=ios&app_version=%@",MATROJP_BASE_URL,vCFBundleShortVersionStr];
         //测试链接
         //NSString *urlStr = @"http://bbctest.matrojp.com/api.php?m=product&s=detail&id=15233";
         
@@ -506,7 +507,7 @@
                             
                             [self.xiangouLab setFont:[UIFont systemFontOfSize:13]];
                             [self.kuncuntisLabel setFont:[UIFont systemFontOfSize:13]];
-                            self.xiangouW.constant = 75;
+                            self.xiangouW.constant = 90;
                             self.xiangouLab.text = [NSString stringWithFormat:@"(限购%@-%@件)",limit_num,limit_quantity];
                             self.shuliangStepper.maxValue = limit_quantity.intValue;
                             if (amount.floatValue >5) {
@@ -541,6 +542,7 @@
                     
                     if (setmealArr.count == 1) {
                         self.guigeH.constant = 40;
+                        jieduanIndex = 0;
                         NSDictionary *guigeDic1 = setmealArr[0];
                         NSString *guigestr1 = guigeDic1[@"name"];
                         NSString *guigeidstr1 = guigeDic1[@"property_value_id"];
@@ -727,7 +729,7 @@
                         
                         [self.xiangouLab setFont:[UIFont systemFontOfSize:13]];
                         [self.kuncuntisLabel setFont:[UIFont systemFontOfSize:13]];
-                        self.xiangouW.constant = 75;
+                        self.xiangouW.constant = 90;
                         self.xiangouLab.text = [NSString stringWithFormat:@"(限购%@-%@件)",limit_num,limit_quantity];
                         self.shuliangStepper.maxValue = limit_quantity.intValue;
                         if (amount.floatValue >5) {
@@ -874,9 +876,9 @@
                     self.kujingBgView.hidden = YES;
                     self.kuajingHeight.constant = 0;
                     isglobal = NO;
-                    [self.tedianView mas_updateConstraints:^(MASConstraintMaker *make) {
-                        make.top.mas_equalTo(self.biaotiView.mas_bottom);
-                    }];
+//                    [self.tedianView mas_updateConstraints:^(MASConstraintMaker *make) {
+//                        make.top.mas_equalTo(self.biaotiView.mas_bottom);
+//                    }];
                 }
                 else if ([dic[@"pinfo"][@"way"] isEqualToString:@"3"]){
                     
@@ -1732,7 +1734,14 @@
             
             NSString *str = [huoyuanArray objectAtIndex:index];
             NSString *idstr1 = [huoyuanIDArray objectAtIndex:index];
-            NSString *idstr2 = [jieduanIDArray objectAtIndex:jieduanIndex];
+            NSString *idstr2 = nil;
+            if (jieduanIDArray && jieduanIDArray.count == 0) {
+                
+            }else{
+                
+                idstr2 = [jieduanIDArray objectAtIndex:jieduanIndex];
+
+            }
             NSLog(@"%ld%@%@%@",(long)index,str,idstr1,idstr2);
             
             NSString *promotion_price;
@@ -1748,9 +1757,17 @@
                     NSDictionary *guigeDic1 = setmealArr[0];
                     
                     NSString *guigestr1 = guigeDic1[@"name"];
+                    NSString *guigeIDstr1 = guigeDic1[@"property_value_id"];
                     
+                    if ([guigeIDstr1 isEqual:idstr1] ) {
+                        
+                        [guige addObject:guigestr1];
+                        
+                        Searchdic = searchDic;
+                        break;
+                    }
                     
-                    [guige addObject:guigestr1];
+//                    [guige addObject:guigestr1];
                     
                 }else{
                     
@@ -1768,6 +1785,7 @@
                         Searchdic = searchDic;
                         break;
                     }
+                   
                 }
                 
                 /*
@@ -1923,7 +1941,7 @@
                 }else{
                     [self.xiangouLab setFont:[UIFont systemFontOfSize:13]];
                     [self.kuncuntisLabel setFont:[UIFont systemFontOfSize:13]];
-                    self.xiangouW.constant = 75;
+                    self.xiangouW.constant = 90;
                     self.xiangouLab.text = [NSString stringWithFormat:@"(限购%@-%@件)",limit_num,limit_quantity];
                     if (limit_quantity.intValue > stock.intValue) {
                         
@@ -2172,7 +2190,7 @@
                 }else{
                     [self.xiangouLab setFont:[UIFont systemFontOfSize:13]];
                     [self.kuncuntisLabel setFont:[UIFont systemFontOfSize:13]];
-                    self.xiangouW.constant = 75;
+                    self.xiangouW.constant = 90;
                     self.xiangouLab.text = [NSString stringWithFormat:@"(限购%@-%@件)",limit_num,limit_quantity];
                 if (limit_quantity.intValue > stock.intValue) {
                     
