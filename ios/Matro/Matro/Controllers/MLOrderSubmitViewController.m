@@ -169,10 +169,13 @@
 
 
 - (void)refreshHeadView{
-    if (self.order_info.identity_card.length>0) { //如果有身份证直接显示
+    if (self.order_info.identity_card.length>0 && ![self.order_info.identity_card isEqualToString:@""]) { //如果有身份证直接显示
         self.headView.shenfenzhengField.text = self.order_info.identity_card;
         [self.headView haveIdCardSave];
         idCardOk = YES;
+    }else{
+    
+        self.headView.shenfenzhengField.text = @"";
     }
     self.headView.nameLabel.text = self.order_info.consignee.name;
     self.headView.phoneLabel.text = self.order_info.consignee.mobile;
