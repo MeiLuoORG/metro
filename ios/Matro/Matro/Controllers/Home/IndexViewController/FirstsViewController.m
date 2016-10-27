@@ -202,6 +202,10 @@
                 
             }
             [self.tableview reloadData];
+        }else if ([result[@"code"] isEqual:@1002]){
+        
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
         [self jieShuShuaXin];
     } failure:^(NSError *error) {
@@ -239,6 +243,10 @@
                     
                 }
             }
+        }else if ([result[@"code"] isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
         [self jieShuShuaXin];
     } failure:^(NSError *error) {
@@ -1504,6 +1512,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     }
     
 }
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
+
 /*
 #pragma mark - Navigation
 

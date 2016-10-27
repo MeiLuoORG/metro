@@ -721,41 +721,50 @@
         //[MBProgressHUD hideHUDForView:self.view animated:YES];
         [self closeLoadingView];
         self.failView.hidden = YES;
-        
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"请求首页标题数据：%@",result);
-        NSDictionary * dataDic = result[@"data"];
-        NSArray * titARR = dataDic[@"menu"];
-        
-        if (titARR.count > 0) {
-            [_titlesARR removeAllObjects];
-            [_urlsARR removeAllObjects];
-            for (int i = 0; i<titARR.count; i++) {
+        if ([result[@"code"]isEqual:@0]) {
+            NSDictionary * dataDic = result[@"data"];
+            NSArray * titARR = dataDic[@"menu"];
+            
+            if (titARR.count > 0) {
+                [_titlesARR removeAllObjects];
+                [_urlsARR removeAllObjects];
+                for (int i = 0; i<titARR.count; i++) {
+                    
+                    NSDictionary * titleDIC = [titARR objectAtIndex:i];
+                    
+                    NSString * name = titleDIC[@"title"];
+                    NSString * url = titleDIC[@"ggv"];
+                    [_titlesARR addObject:name];
+                    [_urlsARR addObject:url];
+                    
+                }
                 
-                NSDictionary * titleDIC = [titARR objectAtIndex:i];
-                
-                NSString * name = titleDIC[@"title"];
-                NSString * url = titleDIC[@"ggv"];
-                [_titlesARR addObject:name];
-                [_urlsARR addObject:url];
-                
+                [self reloadData];
+                self.titleLoadFinished = YES;
             }
             
-            [self reloadData];
-            self.titleLoadFinished = YES;
-        }
-        
-        else{
+            else{
+                _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+                [self.view addSubview:_hud];
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"没有首页信息";
+                [_hud hide:YES afterDelay:2];
+                
+            }
+        }else if ([result[@"code"]isEqual:@1002]){
             _hud  = [[MBProgressHUD alloc]initWithView:self.view];
             [self.view addSubview:_hud];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"没有首页信息";
-            [_hud hide:YES afterDelay:2];
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
             
         }
-        
-        
+   
     } failure:^(NSError *error) {
         self.failView.hidden = NO;
         self.titleLoadFinished = NO;
@@ -1198,16 +1207,17 @@
                 [_hud show:YES];
                 _hud.mode = MBProgressHUDModeText;
                 _hud.labelText = @"没有分类信息";
-                [_hud hide:YES afterDelay:2];
+                [_hud hide:YES afterDelay:1];
             }
         }
-        else{
+        else if([result[@"code"] isEqual:@1002]){
             _hud  = [[MBProgressHUD alloc]initWithView:self.view];
             [self.view addSubview:_hud];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"没有分类信息";
-            [_hud hide:YES afterDelay:2];
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
             
         }
 
@@ -1218,7 +1228,7 @@
         [_hud show:YES];
         _hud.mode = MBProgressHUDModeText;
         _hud.labelText = REQUEST_ERROR_ZL;
-        [_hud hide:YES afterDelay:2];
+        [_hud hide:YES afterDelay:1];
     }];
     /*
     [[HFSServiceClient sharedJSONClient] GET:urls parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1270,16 +1280,17 @@
                 [_hud show:YES];
                 _hud.mode = MBProgressHUDModeText;
                 _hud.labelText = @"没有品牌信息";
-                [_hud hide:YES afterDelay:2];
+                [_hud hide:YES afterDelay:1];
             }
         }
-        else{
+        else if([result[@"code"] isEqual:@1002]){
             _hud  = [[MBProgressHUD alloc]initWithView:self.view];
             [self.view addSubview:_hud];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"没有品牌信息";
-            [_hud hide:YES afterDelay:2];
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
             
         }
 
@@ -1693,6 +1704,15 @@
 
             
             }
+        }else if([result[@"code"] isEqual:@1002]){
+            _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
+            
         }
         else{
             [MBProgressHUD showMessag:@"今日已打卡" toView:self.view];
@@ -1729,7 +1749,17 @@
                 NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
                 [userdefaults setObject:@"0" forKey:Message_badge_num];
             }
-        }else{
+        }else if([result[@"code"] isEqual:@1002]){
+            _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
+            
+        }
+        else{
             NSString *msg = result[@"msg"];
             self.messageBadgeView.hidden = YES;
             NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
@@ -1774,6 +1804,13 @@
     }
     [indicator stopAnimationWithLoadText:@"" withType:YES];//加载成功
 }
+
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
+
 
 - (void)viewDidUnload
 {

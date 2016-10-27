@@ -18,7 +18,7 @@
 #import "MBProgressHUD+Add.h"
 #import "MLHttpManager.h"
 #import "HFSUtility.h"
-
+#import "MLLoginViewController.h"
 @interface MLAddressInfoViewController ()<UIPickerViewDataSource,UIPickerViewDelegate>{
     UIControl *_blackView;
     
@@ -158,6 +158,11 @@ static MLShippingaddress *province,*city,*area;
     
     
 }
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 #pragma mark 获取收货地址清单
 - (void)loadDateAddressList {
@@ -177,6 +182,10 @@ static MLShippingaddress *province,*city,*area;
             }else{
                 moren = YES;
             }
+        }else if ([result[@"code"]isEqual:@1002]){
+            [ MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+        
         }
     } failure:^(NSError *error) {
     }];
@@ -336,6 +345,10 @@ static MLShippingaddress *province,*city,*area;
                 [self.navigationController popViewControllerAnimated:YES];
             }
             
+        }else if ([result[@"code"]isEqual:@1002]){
+            [ MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD show:msg view:self.view];
@@ -356,10 +369,16 @@ static MLShippingaddress *province,*city,*area;
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_orderadder&do=setdef",MATROJP_BASE_URL];
     NSDictionary *params = @{@"id":addId?:@""};
     [MLHttpManager post:url params:params m:@"member" s:@"admin_orderadder" success:^(id responseObject) {
-        if (self.addressSuccess) {
-            self.addressSuccess();
+        if ([responseObject[@"code"]isEqual:@0]) {
+            if (self.addressSuccess) {
+                self.addressSuccess();
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
-        [self.navigationController popViewControllerAnimated:YES];
+        
     } failure:^(NSError *error) {
     }];
 }
@@ -516,6 +535,9 @@ static MLShippingaddress *province,*city,*area;
                 }
             }
             [self.addressPickerView reloadAllComponents];
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }else{
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];

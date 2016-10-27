@@ -11,6 +11,7 @@
 #import "HFSConstants.h"
 #import "MLHttpManager.h"
 #import "MBProgressHUD+Add.h"
+#import "MLLoginViewController.h"
 
 @interface MLPushConfigViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)NSMutableArray *settingArray;
@@ -99,13 +100,24 @@
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             [MBProgressHUD showMessag:@"操作成功" toView:self.view];
-        }else{
+        }else if ([result[@"code"]isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+        }
+        else{
             NSString *msg = result[@"msg"];
            [MBProgressHUD show:msg view:self.view];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
     }];
+}
+
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
 }
 
 - (void)clearAction:(id)sender{ //请空全部消息操作
@@ -122,6 +134,10 @@
             if (self.removeAllMessage) {
                 self.removeAllMessage();
             }
+        }else if ([result[@"code"]isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }else{
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
@@ -147,6 +163,10 @@
             NSArray *list = data[@"list"];
             [self.settingArray addObjectsFromArray:list];
             [self.tableView reloadData];
+        }else if ([result[@"code"]isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }else{
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];

@@ -13,9 +13,9 @@
 #import "SDImageCache.h"
 #import "MLPushConfigViewController.h"
 #import "UIViewController+MLMenu.h"
-
+#import "MBProgressHUD+Add.h"
 #import "AppDelegate.h"
-
+#import "MLLoginViewController.h"
 
 
 @interface APPSettingViewController ()<UITableViewDataSource,UITableViewDelegate,PulldownMenuDelegate>{
@@ -187,6 +187,10 @@
                                                       //认证成功后发送通知
                                                       //[[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
                                                       //[[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_HOME_Notification object:nil];
+                                                  }else if ([result[@"code"]isEqual:@1002]){
+                                                      
+                                                      [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                                                      [self loginAction:nil];
                                                   }
                                               }
                                               NSLog(@"%@",result);
@@ -203,7 +207,11 @@
     [task resume];
     //});
 }
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 #pragma mark 退出登录
 - (void)logoutAction{

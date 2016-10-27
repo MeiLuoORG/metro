@@ -19,7 +19,7 @@
 #import "HFSServiceClient.h"
 #import "HFSConstants.h"
 #import "MJExtension.h"
-
+#import "MLLoginViewController.h"
 
 #define HEADER_IDENTIFIER @"MLPayresultHeader"
 #define HEADER_IDENTIFIER01 @"OrderListHeaderIdentifier"
@@ -112,6 +112,9 @@
             [MLGuessLikeModel mj_objectArrayWithKeyValuesArray:product];
             [_likeArray addObjectsFromArray:[MLGuessLikeModel mj_objectArrayWithKeyValuesArray:product]];
             [_tableView reloadData];
+        }else if ([result[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
         else{
             NSString *msg = result[@"msg"];
@@ -142,6 +145,12 @@
      */
 }
 
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
+
 /*
 - (void)loadDateOrLike {
     NSString *urlStr = [NSString stringWithFormat:@"%@Ajax/order/shoppingcart.ashx?op=getcnxh&spsl=2",SERVICE_GETBASE_URL];
@@ -161,6 +170,7 @@
     }];
 }
 */
+
 
 - (void)likeAction:(id)sender{
     UIControl * control = ((UIControl *)sender);

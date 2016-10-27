@@ -131,6 +131,7 @@
    
 }
 
+
 - (void)selectYouHuiQuan:(YouHuiQuanModel *)model withCell:(LingQuQuanCell *) cell withIndexPath:(NSIndexPath *)indexPath{
     
     __weak typeof(self) weakself = self;

@@ -23,6 +23,7 @@
 #import "MLHttpManager.h"
 #import "UMMobClick/MobClick.h"
 #import "CommonHeader.h"
+//#import "MLLoginViewController.h"
 
 @interface MLGoodsComViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     YYAnimationIndicator *indicator;
@@ -82,6 +83,11 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:backButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
 }
 
+//- (void)loginAction:(id)sender{
+//    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+//    loginVc.isLogin = YES;
+//    [self presentViewController:loginVc animated:YES completion:nil];
+//}
 
 /**
  *  发送商品评价
@@ -120,6 +126,10 @@
                     if (already == uploadCount) { //图片上传完成  请求退货操作
                         [self uploadCommentInfoWithUpImage:YES];
                     }
+                }else if ([result[@"code"]isEqual:@1002]){
+                    
+                    [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+//                    [self loginAction:nil];
                 }else{//上传失败就跳过 少传一张
                     uploadCount -- ;
                 }
@@ -150,6 +160,10 @@
             }
             [MBProgressHUD showMessag:@"评价成功" toView:self.view];
             [self performSelector:@selector(goBack) withObject:nil afterDelay:1];
+        }else if ([result[@"code"]isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+//            [self loginAction:nil];
         }
         else{
             NSString *msg = result[@"msg"];

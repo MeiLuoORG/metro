@@ -27,6 +27,7 @@
 #import "AppDelegate.h"
 #import "MLshopFLViewController.h"
 #import "MLHttpManager.h"
+#import "MLLoginViewController.h"
 
 #define SEARCH_PAGE_SIZE @10
 #define HFSProductTableViewCellIdentifier @"HFSProductTableViewCellIdentifier"
@@ -359,65 +360,77 @@ static NSInteger page = 1;
     
     [MLHttpManager get:str params:nil m:@"product" s:@"list" success:^(id responseObject){
         NSLog(@"responseObject ====%@",responseObject);
-        NSString *sum = responseObject[@"data"][@"sum"];
-        if (sum.floatValue == 0) {
-            
-            [_productList removeAllObjects];
-            self.blankView.hidden  = NO;
-            
-            [self.tableView reloadData];
-            [self.collectionView reloadData];
-            self.tableView.footer.hidden = YES;
-            self.collectionView.footer.hidden = YES;
-            
-        }else{
-            self.blankView.hidden = YES;
-            self.tableView.footer.hidden = NO;
-            self.collectionView.footer.hidden = NO;
-            
-            if (page==1) {
+        if ([responseObject[@"code"]isEqual:@0]) {
+            NSString *sum = responseObject[@"data"][@"sum"];
+            if (sum.floatValue == 0) {
                 
                 [_productList removeAllObjects];
+                self.blankView.hidden  = NO;
                 
-            }
-            if (responseObject) {
-                NSArray *ary;
-                if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                [self.tableView reloadData];
+                [self.collectionView reloadData];
+                self.tableView.footer.hidden = YES;
+                self.collectionView.footer.hidden = YES;
+                
+            }else{
+                self.blankView.hidden = YES;
+                self.tableView.footer.hidden = NO;
+                self.collectionView.footer.hidden = NO;
+                
+                if (page==1) {
                     
-                    NSDictionary *resdic = responseObject[@"data"];
-                    ary = (NSArray *)resdic[@"ret"];
+                    [_productList removeAllObjects];
                     
-                    
-                    NSNumber *count = resdic[@"retcount"];
-                    NSLog(@"count====%@",count);
-                    if ([count isEqualToNumber:@0] ) {
-                        MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableView.footer;
-                        MJRefreshAutoNormalFooter *footer1 = (MJRefreshAutoNormalFooter *)self.collectionView.footer;
-                        footer.stateLabel.text = @"没有更多了";
-                        footer1.stateLabel.text = @"没有更多了";
+                }
+                if (responseObject) {
+                    NSArray *ary;
+                    if ([responseObject isKindOfClass:[NSDictionary class]]) {
                         
-                        return ;
+                        NSDictionary *resdic = responseObject[@"data"];
+                        ary = (NSArray *)resdic[@"ret"];
+                        
+                        
+                        NSNumber *count = resdic[@"retcount"];
+                        NSLog(@"count====%@",count);
+                        if ([count isEqualToNumber:@0] ) {
+                            MJRefreshAutoNormalFooter *footer = (MJRefreshAutoNormalFooter *)self.tableView.footer;
+                            MJRefreshAutoNormalFooter *footer1 = (MJRefreshAutoNormalFooter *)self.collectionView.footer;
+                            footer.stateLabel.text = @"没有更多了";
+                            footer1.stateLabel.text = @"没有更多了";
+                            
+                            return ;
+                        }
                     }
-                }
-                if ([responseObject isKindOfClass:[NSArray class]]) {
-                    ary = (NSArray *)responseObject;
+                    if ([responseObject isKindOfClass:[NSArray class]]) {
+                        ary = (NSArray *)responseObject;
+                    }
+                    
+                    if (ary && ary.count>0) {
+                        [_productList addObjectsFromArray:ary];
+                    }
+                    
+                    
                 }
                 
-                if (ary && ary.count>0) {
-                    [_productList addObjectsFromArray:ary];
-                }
+                page ++;
                 
+                [_tableView reloadData];
+                [_collectionView reloadData];
                 
             }
             
-            page ++;
             
-            [_tableView reloadData];
-            [_collectionView reloadData];
+            [_hud show:YES];
+            [_hud hide:YES afterDelay:1];
             
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
         }
-        [_hud show:YES];
-        [_hud hide:YES afterDelay:1];
+        
+       
         
     } failure:^(NSError *error){
         
@@ -932,6 +945,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     page = 1;
     
     [self getGoodsList];
+}
+
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
 }
 
 #pragma mark-UITextFieldDelegate

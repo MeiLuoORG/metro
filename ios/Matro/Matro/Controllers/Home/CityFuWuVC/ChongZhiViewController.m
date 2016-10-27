@@ -165,6 +165,11 @@
                 }
                 
             }
+        }else if ([result[@"code"] isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
         }
         
     } failure:^(NSError *error) {
@@ -246,6 +251,11 @@
         if([result[@"error_code"] isEqual:@0]){
             _isChongZhi = YES;
             
+        }else if ([result[@"code"] isEqual:@1002]){
+            _isChongZhi = NO;
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
         }
         else{
             _isChongZhi = NO;
@@ -307,10 +317,10 @@
                 [_jiaGeDic setObject:str forKey:_cardNumARRS[index]];
                 NSLog(@"index++++:%d",index);
             }
-        }
-        else{
+        }else if ([result[@"code"] isEqual:@1002]){
             
-            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
             
         }
         
@@ -476,6 +486,11 @@
                 
                 [self someButtonClickedwithTitle:nil];
             }
+        }else if ([result[@"code"] isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
         }
         else{
         [MBProgressHUD showSuccess:REQUEST_ERROR_ZL toView:self.view];
@@ -545,6 +560,11 @@
     
 }
 
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

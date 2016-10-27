@@ -29,6 +29,7 @@
 #import "MLReturnRequestViewController.h"
 #import "MLPayViewController.h"
 #import "MLReturnsDetailViewController.h"
+#import "MLLoginViewController.h"
 
 
 
@@ -343,7 +344,11 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
                 }
             }
              [self.tableView reloadData];
-        }else{
+        }else if ([result[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+        
+        } else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD show:msg view:self.view];
         }
@@ -395,6 +400,10 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
         if ([result[@"code"] isEqual:@0]) { //操作成功
           [MBProgressHUD showSuccess:@"操作成功" toView:self.view];
           [self.tableView.header beginRefreshing];
+        }else if ([result[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD show:msg view:self.view];
@@ -407,7 +416,11 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
 
 }
 
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 
 

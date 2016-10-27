@@ -1011,6 +1011,7 @@ static NSInteger pageIndex = 0;
         [self.tableView.header endRefreshing];
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([[result objectForKey:@"code"] isEqual:@0]) {
+            
             self.shopCart = [MLShopingCartlistModel mj_objectWithKeyValues:result[@"data"][@"cart_list"]];
             [self countAllPrice];
             [self.tableView reloadData];
@@ -1020,11 +1021,18 @@ static NSInteger pageIndex = 0;
                 [self closeLoadingView];
                 [self configBlankPage];
             }
+        }else if ([[result objectForKey:@"code"] isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
         }else{
+            
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
             [self configBlankPage];
             [self closeLoadingView];
+            
         }
         //[self configBlankPage];
     } failure:^(NSError *error) {
@@ -1055,6 +1063,11 @@ static NSInteger pageIndex = 0;
             if (self.isLogin == NO) {
                 [self.tableView reloadData];
             }
+            
+        }else if ([[result objectForKey:@"code"] isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
             
         }else{
             NSString *msg = result[@"msg"];
@@ -1127,9 +1140,12 @@ static NSInteger pageIndex = 0;
             prolist.num = count;
             [self countAllPrice];
             [self.tableView reloadData];
-        }
-        else
-        {
+        }else if ([[result objectForKey:@"code"] isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
+        }else{
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
             [self getDataSource];
@@ -1159,6 +1175,11 @@ static NSInteger pageIndex = 0;
             [self.likeArray removeAllObjects];
             [self.collectionView reloadData];
             [self getDataSource];
+        }else if ([[result objectForKey:@"code"] isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD show:msg view:self.view];
@@ -1186,6 +1207,11 @@ static NSInteger pageIndex = 0;
             [self.likeArray removeAllObjects];
             [self.collectionView reloadData];
             [self getDataSource];
+        }else if ([[result objectForKey:@"code"] isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD show:msg view:self.view];
@@ -1227,6 +1253,11 @@ static NSInteger pageIndex = 0;
             vc.params = products;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
+        }else if ([[result objectForKey:@"code"] isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD show:msg view:self.view];
@@ -1292,6 +1323,11 @@ static NSInteger pageIndex = 0;
                 [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
                 //请求购物车商品 线上
                 [self getDataSource];
+            }else if ([[result objectForKey:@"code"] isEqual:@1002]){
+                
+                [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                [self loginAction:nil];
+                
             }
         } failure:^(NSError *error) {
             //[self closeLoadingView];

@@ -123,7 +123,7 @@
         NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                                 completionHandler:
                                       ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          NSLog(@"原生错误error:%@",error);
+                                          NSLog(@"原生错误error:%@===0000000===%@",error,response);
                                           
                                           //请求没有错误
                                           if (!error) {
@@ -155,7 +155,7 @@
                                                       [_hud show:YES];
                                                       _hud.mode = MBProgressHUDModeText;
                                                       _hud.labelText = result[@"msg"];
-                                                      [_hud hide:YES afterDelay:2];
+                                                      [_hud hide:YES afterDelay:1];
                                                       });
                                                   }
                                                   

@@ -24,7 +24,7 @@
 #import "UPAPayPlugin.h"
 //#import <PassKit/PassKit.h>
 #import "MLHttpManager.h"
-
+#import "MLLoginViewController.h"
 #define kAppleMerchantID @"merchant.Matro"
 
 @interface MLPayViewController ()<UITableViewDataSource,UITableViewDelegate,UPAPayPluginDelegate
@@ -312,6 +312,9 @@
                             NSLog(@"支付宝支付结果reslut = %@",resultDic);
                         }];
                     }
+                }else if ([result[@"code"]isEqual:@1002]){
+                    [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                    [self loginAction:nil];
                 }
                 
                 
@@ -338,6 +341,12 @@
     }];
     
     
+}
+
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
 }
 
 //显示 风火轮
@@ -379,6 +388,9 @@
                     [self hideFengHuoLun];
                     [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
                 }];
+            }else if ([results[@"code"]isEqual:@1002]){
+                [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                [self loginAction:nil];
             }
             [self hideFengHuoLun];
         } failure:^(NSError *error) {
@@ -498,6 +510,9 @@
                 [_hud hide:YES afterDelay:2];
             }];
 
+        }else if ([results[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
         
     } failure:^(NSError *error) {
@@ -547,6 +562,9 @@
                 _hud.labelText = REQUEST_ERROR_ZL;
                 [_hud hide:YES afterDelay:2];
             }];
+        }else if ([results[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
         
     } failure:^(NSError *error) {

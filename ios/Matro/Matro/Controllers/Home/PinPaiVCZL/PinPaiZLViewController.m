@@ -8,6 +8,7 @@
 
 #import "PinPaiZLViewController.h"
 #import "MLHttpManager.h"
+#import "MLLoginViewController.h"
 @interface PinPaiZLViewController ()
 
 @end
@@ -175,36 +176,48 @@
         [self closeLoadingView];
         NSDictionary * result = (NSDictionary *)responseObject;
         //NSLog(@"请求品牌馆：%@",result);
-        NSDictionary * dataDic = result[@"data"];
-        NSString * sumStr = dataDic[@"sum"];
-        if (![sumStr isEqualToString:@"0"]) {
-            NSArray * brandARR = dataDic[@"brand"];
-            if (brandARR.count > 0 ) {
-                for (NSDictionary * brandDic in brandARR) {
-                    //[PinPaiModelZl modelWithDictionary:brandDic error:nil];
-                    PinPaiModelZl * pinPaiModel = [[PinPaiModelZl alloc]init];
-                    pinPaiModel.id = brandDic[@"id"];
-                    pinPaiModel.char_index = brandDic[@"char_index"];
-                    pinPaiModel.name = brandDic[@"name"];
-                    pinPaiModel.ishot = brandDic[@"ishot"];
-                    pinPaiModel.logo = brandDic[@"logo"];
-                    
-                    [_zongARR addObject:pinPaiModel];
-                    
+        if ([result[@"code"]isEqual:@0]) {
+            NSDictionary * dataDic = result[@"data"];
+            NSString * sumStr = dataDic[@"sum"];
+            if (![sumStr isEqualToString:@"0"]) {
+                NSArray * brandARR = dataDic[@"brand"];
+                if (brandARR.count > 0 ) {
+                    for (NSDictionary * brandDic in brandARR) {
+                        //[PinPaiModelZl modelWithDictionary:brandDic error:nil];
+                        PinPaiModelZl * pinPaiModel = [[PinPaiModelZl alloc]init];
+                        pinPaiModel.id = brandDic[@"id"];
+                        pinPaiModel.char_index = brandDic[@"char_index"];
+                        pinPaiModel.name = brandDic[@"name"];
+                        pinPaiModel.ishot = brandDic[@"ishot"];
+                        pinPaiModel.logo = brandDic[@"logo"];
+                        
+                        [_zongARR addObject:pinPaiModel];
+                        
+                    }
+                    //数组排序
+                    [self arrPaiXuWith:_zongARR];
                 }
-                //数组排序
-                [self arrPaiXuWith:_zongARR];
             }
-        }
-        else{
+            else{
+                _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+                [self.view addSubview:_hud];
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"没有品牌信息";
+                [_hud hide:YES afterDelay:1];
+                
+            }
+        }else if ([result[@"code"]isEqual:@1002]){
             _hud  = [[MBProgressHUD alloc]initWithView:self.view];
             [self.view addSubview:_hud];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"没有品牌信息";
+            _hud.labelText = @"登录超时，请重新登录";
             [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
             
         }
+   
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self closeLoadingView];
@@ -556,9 +569,18 @@
                 [_hud show:YES];
                 _hud.mode = MBProgressHUDModeText;
                 _hud.labelText = @"没有品牌信息";
-                [_hud hide:YES afterDelay:2];
+                [_hud hide:YES afterDelay:1];
                 
             }
+        }else if ([result[@"code"]isEqual:@1002]){
+            _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+            [self.view addSubview:_hud];
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
+            
         }
         else{
             _hud  = [[MBProgressHUD alloc]initWithView:self.view];
@@ -566,7 +588,7 @@
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"没有品牌信息";
-            [_hud hide:YES afterDelay:2];
+            [_hud hide:YES afterDelay:1];
             
             
         }
@@ -752,6 +774,13 @@
     }
 
 }
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
+
+
 /*
 #pragma mark - Navigation
 

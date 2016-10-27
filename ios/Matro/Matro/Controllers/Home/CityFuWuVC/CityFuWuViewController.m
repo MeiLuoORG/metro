@@ -7,6 +7,7 @@
 //
 
 #import "CityFuWuViewController.h"
+#import "MLLoginViewController.h"
 
 @interface CityFuWuViewController (){
 
@@ -67,7 +68,11 @@
                 }
             }
 
-        }
+        }else if ([result[@"code"]isEqual:@1002]){
+        
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+    }
         
         
     } failure:^(NSError *error) {
@@ -111,6 +116,12 @@
     //http://op.juhe.cn/ofpay/mobile/telcheck?cardnum=100&phoneno=13429667914&key=您申请的KEY
 
 
+}
+
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -15,6 +15,7 @@
 #import "MLshopGoodsListViewController.h"
 #import "CommonHeader.h"
 #import "MLHttpManager.h"
+#import "MLLoginViewController.h"
 @interface MLshopFLViewController ()<RATreeViewDelegate,RATreeViewDataSource>{
     
     RADataObject *_selectedItem;
@@ -65,38 +66,46 @@
     
     [MLHttpManager get:urlStr params:nil m:@"product" s:@"filter" success:^(id responseObject){
         NSLog(@"responseObject ====%@",responseObject);
-        NSDictionary *dataDic = responseObject[@"data"];
-        
-        NSArray *result = dataDic[@"retcat"];
-        
-        NSLog(@"result=222=%@",result);
-        
-        if (result && result.count > 0) {
-            int i=0;
-            for (NSDictionary *temp in result) {
-                NSDictionary *toptemp = temp[@"top"];
-                NSArray *secondArr = temp[@"second"];
-                
-                RADataObject *itemAll = [RADataObject dataObjectWithIdstr:toptemp[@"catid"] name:toptemp[@"cat"] children:nil];
-                
-                for (NSDictionary *secondDic in secondArr) {
+        if ([responseObject[@"code"]isEqual:@0]) {
+            NSDictionary *dataDic = responseObject[@"data"];
+            
+            NSArray *result = dataDic[@"retcat"];
+            
+            NSLog(@"result=222=%@",result);
+            
+            if (result && result.count > 0) {
+                int i=0;
+                for (NSDictionary *temp in result) {
+                    NSDictionary *toptemp = temp[@"top"];
+                    NSArray *secondArr = temp[@"second"];
                     
-                    secondName = [RADataObject dataObjectWithIdstr:secondDic[@"catid"] name:secondDic[@"cat"] children:nil];
-                    [itemAll addChild:secondName];
+                    RADataObject *itemAll = [RADataObject dataObjectWithIdstr:toptemp[@"catid"] name:toptemp[@"cat"] children:nil];
+                    
+                    for (NSDictionary *secondDic in secondArr) {
+                        
+                        secondName = [RADataObject dataObjectWithIdstr:secondDic[@"catid"] name:secondDic[@"cat"] children:nil];
+                        [itemAll addChild:secondName];
+                    }
+                    
+                    itemAll.level = @0;
+                    itemAll.dataId = [NSNumber numberWithInt:0];
+                    itemAll.selected = NO;
+                    [spArray addObject:itemAll];
+                    
+                    i++;
+                    
                 }
-                
-                itemAll.level = @0;
-                itemAll.dataId = [NSNumber numberWithInt:0];
-                itemAll.selected = NO;
-                [spArray addObject:itemAll];
-                
-                i++;
-                
+                [_treeView reloadData];
             }
-            [_treeView reloadData];
-        }
+        }else if ([responseObject[@"code"]isEqual:@1002]){
         
-        NSLog(@"请求成功");
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
+            
+        }
         
     } failure:^(NSError *error){
         
@@ -285,7 +294,11 @@
     return 0;
 }
 
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

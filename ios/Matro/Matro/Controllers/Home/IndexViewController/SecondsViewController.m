@@ -18,6 +18,7 @@
 #import "MLYourlikeTableViewCell.h"
 #import "UIColor+HeinQi.h"
 #import "MJRefresh.h"
+#import "MLLoginViewController.h"
 
 #define FristCCELL_IDENTIFIER @"MLFristCollectionViewCell"
 //#define FristPPCCELL_IDENTIFIER @"MLFirstPPCollectionViewCell"
@@ -223,6 +224,10 @@ static NSInteger page3 = 1;
             }
             
             [self.tableview reloadData];
+        }else if ([[responseObject objectForKey:@"code"] isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
          [self endRefrsesh];
         
@@ -297,6 +302,10 @@ static NSInteger page3 = 1;
             }
             
             [self.tableview reloadData];
+        }else if ([[responseObject objectForKey:@"code"] isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
         [self endRefrsesh];
         
@@ -1401,6 +1410,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     }
     
     
+}
+
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -36,6 +36,7 @@
 #import "CommonHeader.h"
 #import "MLHttpManager.h"
 #import "MLActiveWebViewController.h"
+#import "MLLoginViewController.h"
 
 #define HEADER_IDENTIFIER @"MLClassHeader"//第二大类用tableview的header来显示
 #define CCELL_IDENTIFIER @"MLClassCollectionViewCell"//第三大类用tableview的cell来显示
@@ -219,15 +220,25 @@
         [self closeLoadingView];
         NSLog(@"responseObject===%@",responseObject);
         //[MBProgressHUD hideHUDForView:self.view animated:YES];
-        NSArray *arr = responseObject[@"data"][@"ret"];
-        
-        _classTitleArray = [MTLJSONAdapter modelsOfClass:[MLClass class] fromJSONArray:arr error:nil];
-        NSMutableArray *tempTitleArr = [NSMutableArray array];
-        for (MLClass *title in _classTitleArray) {
-            [tempTitleArr addObject:title.MC];
+        if ([responseObject[@"code"]isEqual:@0]) {
+            NSArray *arr = responseObject[@"data"][@"ret"];
+            
+            _classTitleArray = [MTLJSONAdapter modelsOfClass:[MLClass class] fromJSONArray:arr error:nil];
+            NSMutableArray *tempTitleArr = [NSMutableArray array];
+            for (MLClass *title in _classTitleArray) {
+                [tempTitleArr addObject:title.MC];
+            }
+            //标题按钮的使用的仅仅是大类里面的标题，在点击事件里面还是要用MLClass的
+            _topScrollSegmentControl.buttons = tempTitleArr;
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
+            
         }
-        //标题按钮的使用的仅仅是大类里面的标题，在点击事件里面还是要用MLClass的
-        _topScrollSegmentControl.buttons = tempTitleArr;
+        
         
     } failure:^(NSError *error){
         [self closeLoadingView];
@@ -254,45 +265,53 @@
         [self closeLoadingView];
         NSLog(@"responseObject===%@",responseObject);
         [_classSecondArray removeAllObjects];
-        
-        actimageArr = responseObject[@"data"][@"advertise"];
-        if (actimageArr .count >0) {
-            NSDictionary *actimageDic = actimageArr[0];
-            NSString *imgurl = actimageDic[@"imgurl"];
-            if (![imgurl isKindOfClass:[NSNull class]]) {
-                
-                if ([imgurl hasSuffix:@"webp"]) {
-                    [imageview setZLWebPImageWithURLStr:imgurl withPlaceHolderImage:PLACEHOLDER_IMAGE];
-                } else {
-                    [imageview sd_setImageWithURL:[NSURL URLWithString:imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+        if ([responseObject[@"code"]isEqual:@0]) {
+            actimageArr = responseObject[@"data"][@"advertise"];
+            if (actimageArr .count >0) {
+                NSDictionary *actimageDic = actimageArr[0];
+                NSString *imgurl = actimageDic[@"imgurl"];
+                if (![imgurl isKindOfClass:[NSNull class]]) {
+                    
+                    if ([imgurl hasSuffix:@"webp"]) {
+                        [imageview setZLWebPImageWithURLStr:imgurl withPlaceHolderImage:PLACEHOLDER_IMAGE];
+                    } else {
+                        [imageview sd_setImageWithURL:[NSURL URLWithString:imgurl] placeholderImage:[UIImage imageNamed:@"icon_default"]];
+                    }
+                }else{
+                    
+                    imageview.image = [UIImage imageNamed:@"icon_default"];
                 }
+                
             }else{
                 
                 imageview.image = [UIImage imageNamed:@"icon_default"];
             }
             
-        }else{
+            NSArray *arr = responseObject[@"data"][@"ret"];
+            brandDic = responseObject[@"data"][@"brandtitle"];
+            brandArr = responseObject[@"data"][@"brand"];
+            _classSecondArray = [[MTLJSONAdapter modelsOfClass:[MLSecondClass class] fromJSONArray:arr error:nil] mutableCopy];
+            [MLSecondClass mj_setupObjectClassInArray:^NSDictionary *{
+                return @{@"SecondaryClassification_Ggw":[MLClassInfo class]};
+            }];
             
-            imageview.image = [UIImage imageNamed:@"icon_default"];
+            [_classSecondArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                MLSecondClass *model = (MLSecondClass*)obj;
+                
+                if (!model.SecondaryClassification_Ggw || [model.SecondaryClassification_Ggw isKindOfClass:[NSNull class]]) {
+                    [_classSecondArray removeObject:model];
+                }
+            }];
+            
+            [_tableView reloadData];
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+        
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
         }
-        
-        NSArray *arr = responseObject[@"data"][@"ret"];
-        brandDic = responseObject[@"data"][@"brandtitle"];
-        brandArr = responseObject[@"data"][@"brand"];
-        _classSecondArray = [[MTLJSONAdapter modelsOfClass:[MLSecondClass class] fromJSONArray:arr error:nil] mutableCopy];
-        [MLSecondClass mj_setupObjectClassInArray:^NSDictionary *{
-            return @{@"SecondaryClassification_Ggw":[MLClassInfo class]};
-        }];
-        
-        [_classSecondArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            MLSecondClass *model = (MLSecondClass*)obj;
-            
-            if (!model.SecondaryClassification_Ggw || [model.SecondaryClassification_Ggw isKindOfClass:[NSNull class]]) {
-                [_classSecondArray removeObject:model];
-            }
-        }];
-
-        [_tableView reloadData];
         
     } failure:^(NSError *error){
         [self closeLoadingView];
@@ -695,6 +714,12 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
         return tagValue;
     }
     return @"";
+}
+
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
 }
 
 @end

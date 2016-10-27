@@ -21,7 +21,7 @@
 #import "MLCommentProductModel.h"
 #import "MLProductComDetailViewController.h"
 #import "MLHttpManager.h"
-
+#import "MLLoginViewController.h"
 
 
 @interface MLOrderComViewController ()<UITableViewDelegate,UITableViewDataSource>{
@@ -81,7 +81,12 @@
                     self.pingjiachenggong();
                 }
                 [self performSelector:@selector(goBack) withObject:nil afterDelay:0.5];
-            }else{
+            }else if ([result[@"code"]isEqual:@1002]){
+                
+                [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                [self loginAction:nil];
+            }
+            else{
                 NSString *msg = result[@"msg"];
                  [MBProgressHUD show:msg view:self.view];
                 
@@ -117,6 +122,10 @@
                 self.order_comment = data[@"order_comment"];
             }
             [self.tableView reloadData];
+        }else if ([result[@"code"]isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
         else{
             NSString *msg = result[@"msg"];
@@ -243,7 +252,11 @@
     return _productArr;
 }
 
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 
 

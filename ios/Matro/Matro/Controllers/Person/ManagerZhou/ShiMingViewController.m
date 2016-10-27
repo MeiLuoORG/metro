@@ -11,6 +11,7 @@
 #import "GTMNSString+URLArguments.h"
 #import "KZPhotoManager.h"
 #import "ZhengZePanDuan.h"
+#import "MLLoginViewController.h"
 @interface ShiMingViewController ()
 
 @end
@@ -172,6 +173,7 @@
     [MLHttpManager post:SHANGCHUAN_RENZHENG_URLString params:ret m:@"member" s:@"admin_member" success:^(id responseObject) {
         NSDictionary * result = (NSDictionary *)responseObject;
         NSLog(@"添加认证信息接口：%@",result);
+        
         NSDictionary * dataDic = result[@"data"];
         BOOL is_Add_suc = dataDic[@"identity_add"];
         if (is_Add_suc) {
@@ -655,7 +657,11 @@
 }
 
 
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

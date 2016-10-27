@@ -19,6 +19,7 @@
 #import "CommonHeader.h"
 #import "MLHttpManager.h"
 #import "Masonry.h"
+#import "MLLoginViewController.h"
 
 @interface MLSearchViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,DWTagListDelegate,UITextFieldDelegate>
 {
@@ -193,27 +194,35 @@ static CGFloat kHeight = 0;
     [MLHttpManager get:str params:nil m:@"product" s:@"recommend" success:^(id responseObject){
         
         NSLog(@"responseObject====%@",responseObject);
-        NSDictionary *dataDic = responseObject[@"data"];
-        hotSearchplaceholderArray = dataDic[@"recommend"];
-        
-        NSLog(@"hotSearchplaceholderArray===%@",hotSearchplaceholderArray);
-        
-        if ([self.searchDic objectForKey:@"keyWord"]) {
-            
-            NSString *str = self.searchDic[@"keyWord"];
-            searchText.text = str;
-            
-        }else{
-            
-            if (hotSearchplaceholderArray.count == 0) {
-                //_searchBar.placeholder  = @"默认搜索内容";
-                searchText.placeholder = @"默认搜索内容";
+       
+        if ([responseObject[@"code"] isEqual:@0]) {
+            NSDictionary *dataDic = responseObject[@"data"];
+            hotSearchplaceholderArray = dataDic[@"recommend"];
+            if ([self.searchDic objectForKey:@"keyWord"]) {
+                
+                NSString *str = self.searchDic[@"keyWord"];
+                searchText.text = str;
+                
             }else{
-                //_searchBar.placeholder = hotSearchplaceholderArray[0];
-                searchText.placeholder = hotSearchplaceholderArray[0];
+                
+                if (hotSearchplaceholderArray.count == 0) {
+                    //_searchBar.placeholder  = @"默认搜索内容";
+                    searchText.placeholder = @"默认搜索内容";
+                }else{
+                    //_searchBar.placeholder = hotSearchplaceholderArray[0];
+                    searchText.placeholder = hotSearchplaceholderArray[0];
+                }
             }
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+            
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
+        
         }
-  
+
     } failure:^( NSError *error){
         
         [_hud show:YES];
@@ -236,7 +245,7 @@ static CGFloat kHeight = 0;
         
         self.hotView.hidden = NO;
         
-        if (responseObject) {
+        if ([responseObject[@"code"] isEqual:@0]) {
             NSLog(@"responseObject===1111%@",responseObject);
             
             NSDictionary *dataDic = responseObject[@"data"];
@@ -262,6 +271,13 @@ static CGFloat kHeight = 0;
                 _hotSearchTagList.frame = _hotSearchTagView.bounds;
                 
             }
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+        
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
         }
         
     } failure:^( NSError *error){
@@ -543,6 +559,11 @@ static CGFloat kHeight = 0;
         }];
     }
  
+}
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
 }
 
 @end

@@ -29,6 +29,7 @@
 #import "CommonHeader.h"
 #import "MLShopBagCloseTableViewCell.h"
 #import "MLGoodsDetailsViewController.h"
+#import "MLLoginViewController.h"
 @interface MLOrderSubmitViewController ()<UITableViewDelegate,UITableViewDataSource>{
     BOOL idCardOk;
 }
@@ -624,7 +625,11 @@
                 }
             }
             
-        }else{
+        }else if ([result[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+        }
+        else{
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
         }
@@ -660,7 +665,11 @@
             [self.tableView reloadData];
             [self changeHeadView];
             [self refreshHeadView];
-        }else{
+        }else if ([result[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+        }
+        else{
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
         }
@@ -683,6 +692,11 @@
     }
     return _addVc;
     
+}
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
 }
 
 

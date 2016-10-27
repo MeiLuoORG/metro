@@ -35,6 +35,8 @@
 #import "MLPersonAlertViewController.h"
 #import "UMMobClick/MobClick.h"
 #import "CommonHeader.h"
+#import "MLLoginViewController.h"
+
 @interface MLReturnRequestViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     BOOL isOpen;
@@ -301,7 +303,12 @@
                             if (already == uploadCount) { //图片上传完成  请求退货操作
                                 [self submitTuihuoActionWithPic:YES];
                             }
-                        }else{//上传失败就跳过 少传一张
+                        }else if ([result[@"code"]isEqual:@1002]){
+                        
+                            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                            [self loginAction:nil];
+                        }
+                        else{//上传失败就跳过 少传一张
                             uploadCount -- ;
                         }
                         [self closeLoadingView];
@@ -334,6 +341,10 @@
             vc.order_id = self.order_id;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
+        }else if ([result[@"code"]isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
         else{
             NSString *msg = result[@"msg"];
@@ -376,6 +387,11 @@
             tagsArray = [tmp copy];
             [self.tableView reloadData];
             
+        }
+        else if ([result[@"code"]isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }else{
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
@@ -406,6 +422,12 @@
         }
     }
     return NO;
+}
+
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

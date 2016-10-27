@@ -32,6 +32,7 @@
 #import "MLLogisticsModel.h"
 #import "MLGoodsDetailsViewController.h"
 #import "MLMoreTableViewCell.h"
+#import "MLLoginViewController.h"
 
 
 
@@ -335,7 +336,11 @@
                 [self downLoadLogTrackWithCompany:self.orderDetail.deliver_name AndNum:self.orderDetail.deliver_code];
             }
             self.titleLoadFinished = YES;
-        }else{
+        }else if ([result[@"code"]isEqual:@1002]){
+        
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+        } else{
             self.titleLoadFinished = NO;
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
@@ -380,6 +385,10 @@
                 self.orderHandleBlock();
             }
             [self getOrderDetail];
+        }else if ([result[@"code"]isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD show:msg view:self.view];
@@ -773,6 +782,10 @@
                 logisticModel = [self.logisticsArray firstObject];
                 [self.tableView reloadData];
             }
+        }else if ([result[@"code"]isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -781,7 +794,11 @@
     }];
     
 }
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 - (NSMutableArray *)logisticsArray{
     if (!_logisticsArray) {

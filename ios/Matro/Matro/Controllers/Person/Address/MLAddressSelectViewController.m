@@ -22,6 +22,7 @@
 #import "MLAddressInfoViewController.h"
 #import "MBProgressHUD+Add.h"
 #import "MLHttpManager.h"
+#import "MLLoginViewController.h"
 
 
 @interface MLAddressSelectViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -81,7 +82,11 @@ static MLAddressListModel *selAddress;
     [self loadDateAddressList];
 }
 
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 - (void)addAddress:(id)sender{
     MLAddressInfoViewController *vc = [[MLAddressInfoViewController alloc]init];
     __weak typeof(self) weakself = self;
@@ -175,6 +180,9 @@ static MLAddressListModel *selAddress;
                 [self.addressList addObjectsFromArray:[MLAddressListModel mj_objectArrayWithKeyValuesArray:address_lists]];
             }
             [self.tableView reloadData];
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }else{
             NSString *msg = result[@"msg"];
             [MBProgressHUD show:msg view:self.view];
@@ -209,6 +217,9 @@ static MLAddressListModel *selAddress;
                 self.addressSelectBlock(selAddress);
             }
             [self.navigationController popViewControllerAnimated:YES];
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
         else{
             NSString *msg = result[@"msg"];

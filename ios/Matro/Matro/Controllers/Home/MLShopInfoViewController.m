@@ -370,28 +370,35 @@
             
             _hud = [[MBProgressHUD alloc]initWithView:self.view];
             [self.view addSubview:_hud];
-
-            if ([responseObject[@"data"][@"shop_add"]isEqual:@1]) {
-    
-                 [_hud show:YES];
-                _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"收藏成功";
-                [_hud hide:YES afterDelay:2];
-                
-                NSString *alertJS=@"resStoreCollect(1)"; //准备执行的js代码
-                [self.context evaluateScript:alertJS];//通过oc方法调用js的方法
-                
- 
-            }else{
-                
+            if ([responseObject[@"code"]isEqual:@0]) {
+                if ([responseObject[@"data"][@"shop_add"]isEqual:@1]) {
+                    
+                    [_hud show:YES];
+                    _hud.mode = MBProgressHUDModeText;
+                    _hud.labelText = @"收藏成功";
+                    [_hud hide:YES afterDelay:2];
+                    
+                    NSString *alertJS=@"resStoreCollect(1)"; //准备执行的js代码
+                    [self.context evaluateScript:alertJS];//通过oc方法调用js的方法
+                    
+                    
+                }else{
+                    
+                    [_hud show:YES];
+                    _hud.mode = MBProgressHUDModeText;
+                    _hud.labelText = @"收藏失败";
+                    [_hud hide:YES afterDelay:1];
+                    
+                }
+            }else if ([responseObject[@"code"]isEqual:@1002]){
                 [_hud show:YES];
                 _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"收藏失败";
+                _hud.labelText = @"登录超时，请重新登录";
                 [_hud hide:YES afterDelay:1];
+                [self showError];
                 
             }
-            
-            
+    
         } failure:^(NSError *error) {
             
             NSLog(@"请求失败 error===%@",error);
@@ -430,25 +437,33 @@
                         
                         _hud = [[MBProgressHUD alloc]initWithView:self.view];
                         [self.view addSubview:_hud];
+                        if ([responseObject[@"code"]isEqual:@0]) {
+                            if ([responseObject[@"data"][@"shop_del"]isEqual:@1]) {
+                                
+                                [_hud show:YES];
+                                _hud.mode = MBProgressHUDModeText;
+                                _hud.labelText = @"取消收藏成功";
+                                [_hud hide:YES afterDelay:2];
+                                
+                                NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
+                                [self.context evaluateScript:alertJS];//通过oc方法调用js的alert
+                                
+                            }else{
+                                
+                                [_hud show:YES];
+                                _hud.mode = MBProgressHUDModeText;
+                                _hud.labelText = @"您的网络不给力啊";
+                                [_hud hide:YES afterDelay:1];
+                            }
+                        }else if ([responseObject[@"code"]isEqual:@1002]){
                         
-                        if ([responseObject[@"data"][@"shop_del"]isEqual:@1]) {
-             
                             [_hud show:YES];
                             _hud.mode = MBProgressHUDModeText;
-                            _hud.labelText = @"取消收藏成功";
-                            [_hud hide:YES afterDelay:2];
-                            
-                            NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
-                            [self.context evaluateScript:alertJS];//通过oc方法调用js的alert
-                            
-                        }else{
-                            
-                            [_hud show:YES];
-                            _hud.mode = MBProgressHUDModeText;
-                            _hud.labelText = @"您的网络不给力啊";
+                            _hud.labelText = @"登录超时，请重新登录";
                             [_hud hide:YES afterDelay:1];
+                            [self showError];
                         }
-                        
+           
                         
                     } failure:^(NSError *error) {
                         NSLog(@"请求失败 error===%@",error);
@@ -487,6 +502,13 @@
             dpDic = responseObject[@"data"][@"shop_info"];
             NSLog(@"%@",dpDic);
             
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+            
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self showError];
         }
         
     } failure:^(NSError *error){
@@ -526,46 +548,55 @@
     
     [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
         NSLog(@"请求成功responseObject===%@",responseObject);
-        
-        if ([responseObject[@"data"][@"shop_list"] isKindOfClass:[NSString class]]) {
-            
-            NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
-            [self.context evaluateScript:alertJS];//通过oc方法调用js的方法
-            
-        }else{
-            
-            NSString *shopid = _shopparamDic[@"userid"];
-            NSMutableArray *dpIDArr = [NSMutableArray array];
-            
-            for (NSDictionary *tempdic in responseObject[@"data"][@"shop_list"]) {
+        if ([responseObject[@"code"]isEqual:@0]) {
+            if ([responseObject[@"data"][@"shop_list"] isKindOfClass:[NSString class]]) {
                 
-                [dpIDArr addObject:tempdic[@"shopid"]];
-                /*
-                if ([shopid isEqualToString:tempdic[@"shopid"]]) {
+                NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
+                [self.context evaluateScript:alertJS];//通过oc方法调用js的方法
+                
+            }else{
+                
+                NSString *shopid = _shopparamDic[@"userid"];
+                NSMutableArray *dpIDArr = [NSMutableArray array];
+                
+                for (NSDictionary *tempdic in responseObject[@"data"][@"shop_list"]) {
                     
-                        NSString *alertJS=@"resStoreCollect(1)"; //准备执行的js代码
-                        [self.context evaluateScript:alertJS];//通过oc方法调用js的
-                            
+                    [dpIDArr addObject:tempdic[@"shopid"]];
+                    /*
+                     if ([shopid isEqualToString:tempdic[@"shopid"]]) {
+                     
+                     NSString *alertJS=@"resStoreCollect(1)"; //准备执行的js代码
+                     [self.context evaluateScript:alertJS];//通过oc方法调用js的
+                     
+                     }else{
+                     
+                     NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
+                     [self.context evaluateScript:alertJS];//通过oc方法调用js的
+                     }
+                     */
+                    
+                }
+                
+                if ([dpIDArr containsObject:shopid]) {
+                    NSString *alertJS=@"resStoreCollect(1)"; //准备执行的js代码
+                    [self.context evaluateScript:alertJS];//通过oc方法调用js的
                 }else{
-                            
+                    
                     NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
                     [self.context evaluateScript:alertJS];//通过oc方法调用js的
                 }
-                 */
-
+                
             }
-            
-            if ([dpIDArr containsObject:shopid]) {
-                NSString *alertJS=@"resStoreCollect(1)"; //准备执行的js代码
-                [self.context evaluateScript:alertJS];//通过oc方法调用js的
-            }else{
-            
-                NSString *alertJS=@"resStoreCollect(0)"; //准备执行的js代码
-                [self.context evaluateScript:alertJS];//通过oc方法调用js的
-            }
-            
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+        
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self showError];
+        
         }
-    
+ 
     } failure:^(NSError *error) {
         
         NSLog(@"请求失败 error===%@",error);

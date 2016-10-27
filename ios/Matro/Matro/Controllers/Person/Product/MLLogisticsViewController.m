@@ -19,6 +19,7 @@
 #import "MJExtension.h"
 #import "MBProgressHUD+Add.h"
 #import "MLHttpManager.h"
+#import "MLLoginViewController.h"
 
 @interface MLLogisticsViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -53,6 +54,10 @@
             NSArray *time_line = data[@"timeline"];
             [self.logisticsArray addObjectsFromArray:[MLLogisticsModel mj_objectArrayWithKeyValuesArray:time_line]];
             [self.tableView reloadData];
+        }else if ([result[@"code"]isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
         else{
             NSString *msg = result[@"msg"];
@@ -120,6 +125,11 @@
     return 100;
 }
 
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 - (NSMutableArray *)logisticsArray{
     if(!_logisticsArray){

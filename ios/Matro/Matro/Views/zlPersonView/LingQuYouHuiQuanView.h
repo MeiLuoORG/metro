@@ -17,6 +17,7 @@
 #import "MLHttpManager.h"
 #import "MBProgressHUD.h"
 
+
 typedef void(^HideTableViewBlock)(BOOL success);
 typedef void(^SelectQuanCellBlock)(BOOL success,YouHuiQuanModel * ret);
 

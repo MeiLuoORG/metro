@@ -146,6 +146,7 @@
 		28CF86141CEDC59A00E582EE /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 28CF85FB1CEDC59A00E582EE /* TencentOpenApi_IOS_Bundle.bundle */; };
 		28CF86151CEDC59A00E582EE /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85FE1CEDC59A00E582EE /* libSocialWechat.a */; };
 		28CF86161CEDC59A00E582EE /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CF85FF1CEDC59A00E582EE /* libWeChatSDK.a */; };
+		28E693521DC194DF00AD4DE4 /* MLGoodsComViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E693511DC194DF00AD4DE4 /* MLGoodsComViewController.m */; };
 		28E8B1181D503E230088B840 /* MLQuanqiugouViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E8B1161D503E230088B840 /* MLQuanqiugouViewController.m */; };
 		28E8B1191D503E230088B840 /* MLQuanqiugouViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E8B1171D503E230088B840 /* MLQuanqiugouViewController.xib */; };
 		28E8B11F1D5040370088B840 /* MLFristTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E8B11D1D5040370088B840 /* MLFristTableViewCell.m */; };
@@ -668,7 +669,6 @@
 		7AEC88C91CE4522E00B43DD4 /* MLScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC88C81CE4522E00B43DD4 /* MLScoreView.m */; };
 		7AEC88CE1CE45D1500B43DD4 /* MLGoodsComHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC88CD1CE45D1500B43DD4 /* MLGoodsComHeadView.m */; };
 		7AEC88D01CE45D2200B43DD4 /* MLGoodsComHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC88CF1CE45D2200B43DD4 /* MLGoodsComHeadView.xib */; };
-		7AEC88D31CE4617700B43DD4 /* MLGoodsComViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC88D21CE4617700B43DD4 /* MLGoodsComViewController.m */; };
 		7AEC88D61CE462E000B43DD4 /* MLGoodsComFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC88D51CE462E000B43DD4 /* MLGoodsComFootView.m */; };
 		7AEC88D81CE462EF00B43DD4 /* MLGoodsComFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC88D71CE462EF00B43DD4 /* MLGoodsComFootView.xib */; };
 		7AEC88DC1CE464EC00B43DD4 /* MLGoodsComPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC88DA1CE464EC00B43DD4 /* MLGoodsComPhotoCell.m */; };
@@ -979,6 +979,8 @@
 		28CF86011CEDC59A00E582EE /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		28CF86021CEDC59A00E582EE /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		28CF86031CEDC59A00E582EE /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		28E693501DC194DF00AD4DE4 /* MLGoodsComViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsComViewController.h; sourceTree = "<group>"; };
+		28E693511DC194DF00AD4DE4 /* MLGoodsComViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsComViewController.m; sourceTree = "<group>"; };
 		28E8B1151D503E230088B840 /* MLQuanqiugouViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLQuanqiugouViewController.h; sourceTree = "<group>"; };
 		28E8B1161D503E230088B840 /* MLQuanqiugouViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLQuanqiugouViewController.m; sourceTree = "<group>"; };
 		28E8B1171D503E230088B840 /* MLQuanqiugouViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLQuanqiugouViewController.xib; sourceTree = "<group>"; };
@@ -1931,8 +1933,6 @@
 		7AEC88CC1CE45D1500B43DD4 /* MLGoodsComHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsComHeadView.h; sourceTree = "<group>"; };
 		7AEC88CD1CE45D1500B43DD4 /* MLGoodsComHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsComHeadView.m; sourceTree = "<group>"; };
 		7AEC88CF1CE45D2200B43DD4 /* MLGoodsComHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsComHeadView.xib; sourceTree = "<group>"; };
-		7AEC88D11CE4617700B43DD4 /* MLGoodsComViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsComViewController.h; sourceTree = "<group>"; };
-		7AEC88D21CE4617700B43DD4 /* MLGoodsComViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsComViewController.m; sourceTree = "<group>"; };
 		7AEC88D41CE462E000B43DD4 /* MLGoodsComFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLGoodsComFootView.h; sourceTree = "<group>"; };
 		7AEC88D51CE462E000B43DD4 /* MLGoodsComFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLGoodsComFootView.m; sourceTree = "<group>"; };
 		7AEC88D71CE462EF00B43DD4 /* MLGoodsComFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsComFootView.xib; sourceTree = "<group>"; };
@@ -4435,8 +4435,8 @@
 				7A3A62641CDB874F00D265F2 /* MLReturnsViewController.m */,
 				7A3A62651CDB874F00D265F2 /* MLServiceMainController.h */,
 				7A3A62661CDB874F00D265F2 /* MLServiceMainController.m */,
-				7AEC88D11CE4617700B43DD4 /* MLGoodsComViewController.h */,
-				7AEC88D21CE4617700B43DD4 /* MLGoodsComViewController.m */,
+				28E693501DC194DF00AD4DE4 /* MLGoodsComViewController.h */,
+				28E693511DC194DF00AD4DE4 /* MLGoodsComViewController.m */,
 				7AEDD0D61CE5C498009B12F4 /* MLReturnRequestViewController.h */,
 				7AEDD0D71CE5C498009B12F4 /* MLReturnRequestViewController.m */,
 				7AEDD0DE1CE5D64A009B12F4 /* MLFootMarkViewController.h */,
@@ -5035,6 +5035,7 @@
 				2814D60D1D26467F00F8ECB8 /* MLOrderListViewCell.m in Sources */,
 				3C2E204E1D0ABDAF00184D48 /* UIButton+Badge.m in Sources */,
 				3C7D3F311D3F73E70038FD5D /* UIApplication+Extend.m in Sources */,
+				28E693521DC194DF00AD4DE4 /* MLGoodsComViewController.m in Sources */,
 				7AEDD0CF1CE5A913009B12F4 /* MLServiceTracksTableViewCell.m in Sources */,
 				3A633B601C9EA36E00C11FD5 /* ZLPhotoPickerGroup.m in Sources */,
 				7AEDD0DC1CE5CAF6009B12F4 /* MLReturnRequestTableViewCell.m in Sources */,
@@ -5332,7 +5333,6 @@
 				3A16DC511CA1390F007AE4A2 /* MLGoodsDetailsTableViewCell.m in Sources */,
 				7A09367E1D1BCB9B002325A2 /* MLProductComDetailHeadCell.m in Sources */,
 				287585701D210386000BDEF4 /* MLFootTableViewCell.m in Sources */,
-				7AEC88D31CE4617700B43DD4 /* MLGoodsComViewController.m in Sources */,
 				3A633B7E1C9EA65500C11FD5 /* HFSApplicationContext.m in Sources */,
 				3ACF2CD71CA4D9DF003D1F67 /* WKWebViewJavascriptBridge.m in Sources */,
 				7A40B49A1D18D8380026AFD2 /* MLTuiHuoModel.m in Sources */,

@@ -21,6 +21,7 @@
 #import "MLHttpManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "MBProgressHUD+Add.h"
+#import "MLLoginViewController.h"
 #define CollectionViewCellMargin 10.0f//间隔10
 @interface MLPingjiaListViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 {
@@ -199,6 +200,10 @@ static float height;
             
             pageIndex ++;
            [self.commentTableView reloadData];
+        }else if([result[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
         }
         
         [self.view configBlankPage:EaseBlankPageTypePingjia hasData:(commentList.count>0)];
@@ -500,6 +505,13 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     
     return loadMoreFooter;
 }
+
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -33,6 +33,7 @@
 
 #import "MLPersonAlertViewController.h"
 #import "MLGoodsDetailsViewController.h"
+#import "MLLoginViewController.h"
 
 
 
@@ -266,6 +267,10 @@
             self.returnsDetail = [MLReturnsDetailModel mj_objectWithKeyValues:order_detail];
             self.returnInfo = [MLReturnsReturnInfo mj_objectWithKeyValues:returnInfo];
             [self.tableView reloadData];
+        }else if ([result[@"code"]isEqual:@1002]){
+        
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }
         else{
             NSString *msg = result[@"msg"];
@@ -293,6 +298,10 @@
             }
             [self performSelector:@selector(popback) withObject:nil afterDelay:1];
             
+        }else if ([result[@"code"]isEqual:@1002]){
+            
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
         }else{
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
@@ -302,7 +311,11 @@
     }];
 }
 
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 - (void)popback{
     [self.navigationController popViewControllerAnimated:YES];
 }

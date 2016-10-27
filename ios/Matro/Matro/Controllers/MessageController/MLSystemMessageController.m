@@ -19,7 +19,7 @@
 #import "MLPersonOrderDetailViewController.h"
 #import "HFSUtility.h"
 #import "UIViewController+MLMenu.h"
-
+#import "MLLoginViewController.h"
 
 
 @interface MLSystemMessageController ()<UITableViewDataSource,UITableViewDelegate>
@@ -162,6 +162,10 @@
             }else{
                 [MBProgressHUD showMessag:@"暂无更多数据" toView:self.view];
             }
+        }else if ([result[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
         }
         else{
             NSString *msg = result[@"msg"];
@@ -182,7 +186,11 @@
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             [MBProgressHUD showMessag:@"删除成功" toView:self.view];
-        }else{
+        }else if ([result[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
+        } else{
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
         }
@@ -191,6 +199,11 @@
     }];
 }
 
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 - (NSMutableArray *)messageArray{
     if (!_messageArray) {

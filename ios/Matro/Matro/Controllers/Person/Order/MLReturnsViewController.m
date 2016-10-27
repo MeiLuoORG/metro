@@ -25,6 +25,7 @@
 #import "MLGoodsDetailsViewController.h"
 
 #import "MLMoreTableViewCell.h"
+#import "MLLoginViewController.h"
 
 
 @interface MLReturnsViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -199,6 +200,10 @@ static NSInteger pageIndex = 1;
                 [MBProgressHUD showMessag:@"已没有更多记录" toView:self.view];
             }
 
+        }else if([result[@"code"]isEqual:@1002]){
+           
+            [MBProgressHUD showMessag:@"登录超时，请重新登录" toView:self.view];
+            [self loginAction:nil];
         }else{
             NSString *str = result[@"msg"];
             [MBProgressHUD showMessag:str toView:self.view];
@@ -211,6 +216,10 @@ static NSInteger pageIndex = 1;
     }];
     
 }
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 @end

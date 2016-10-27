@@ -17,6 +17,7 @@
 #import "MJExtension.h"
 #import "MLPushConfigViewController.h"
 #import "UIView+BlankPage.h"
+#import "MLLoginViewController.h"
 
 
 
@@ -126,6 +127,12 @@
     }
 }
 
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
+
 - (void)getDataSource{
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=message_center",MATROJP_BASE_URL];
     [MLHttpManager get:url params:nil m:@"push" s:@"message_center" success:^(id responseObject) {
@@ -136,7 +143,11 @@
             [self.messageArray addObjectsFromArray:[MLMessageCenterModel mj_objectArrayWithKeyValuesArray:list]];
             [self.tableView reloadData];
             
-        }else{
+        }else if ([result[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+            
+        }  else{
             NSString *msg = result[@"msg"];
              [MBProgressHUD show:msg view:self.view];
         }

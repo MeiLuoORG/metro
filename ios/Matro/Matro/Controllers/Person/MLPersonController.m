@@ -232,7 +232,11 @@
 }
 
 
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 - (void)renZhengAction:(id)sender{
     //查询实名认证
@@ -319,6 +323,9 @@
                 //_allOrderbadgeView.badgeText = all;
             }
             
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self showError];
         }
         else{
             
@@ -605,39 +612,45 @@
             
             [MLHttpManager post:urlStr params:ret m:@"member" s:@"assets" success:^(id responseObject) {
                 NSLog(@"请求我的资产的结果：%@",responseObject);
-                NSDictionary * dataDic = responseObject[@"data"];
+                if ([responseObject[@"code"]isEqual:@0]) {
+                    NSDictionary * dataDic = responseObject[@"data"];
+                    
+                    //identity_list
+                    NSDictionary * assets_dataDic = dataDic[@"assets_data"];
+                    
+                    if (assets_dataDic[@"xyx_num"] && ![assets_dataDic[@"xyx_num"] isEqualToString:@""]) {
+                        NSString * xyx_numStr = assets_dataDic[@"xyx_num"];
+                        _xingYunXingValueLabel.text = xyx_numStr;
+                    }
+                    else{
+                        _xingYunXingValueLabel.text = @"0";
+                    }
+                    if (assets_dataDic[@"ye_num"]&& ![assets_dataDic[@"ye_num"] isEqualToString:@""]) {
+                        NSString * yEStr = assets_dataDic[@"ye_num"];
+                        _yuEValueLabel.text = yEStr;
+                    }
+                    else{
+                        _yuEValueLabel.text = @"0";
+                    }
+                    if (assets_dataDic[@"jifen_num"]&&![assets_dataDic[@"jifen_num"] isEqualToString:@""]) {
+                        NSString * jiFenStr = assets_dataDic[@"jifen_num"];
+                        _jiFenValueLabel.text = jiFenStr;
+                    }
+                    else{
+                        _jiFenValueLabel.text =@"0";
+                    }
+                    if (assets_dataDic[@"yhq_num"]&&![assets_dataDic[@"yhq_num"] isEqualToString:@""]) {
+                        NSString * yhqStr = assets_dataDic[@"yhq_num"];
+                        _youhuiValueLabel.text = yhqStr;
+                    }
+                    else{
+                        _youhuiValueLabel.text = @"0";
+                    }
+                }else if ([responseObject[@"code"]isEqual:@1002]){
+                    [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                    [self showError];
+                }
                 
-                //identity_list
-                NSDictionary * assets_dataDic = dataDic[@"assets_data"];
-                
-                if (assets_dataDic[@"xyx_num"] && ![assets_dataDic[@"xyx_num"] isEqualToString:@""]) {
-                    NSString * xyx_numStr = assets_dataDic[@"xyx_num"];
-                    _xingYunXingValueLabel.text = xyx_numStr;
-                }
-                else{
-                    _xingYunXingValueLabel.text = @"0";
-                }
-                if (assets_dataDic[@"ye_num"]&& ![assets_dataDic[@"ye_num"] isEqualToString:@""]) {
-                    NSString * yEStr = assets_dataDic[@"ye_num"];
-                    _yuEValueLabel.text = yEStr;
-                }
-                else{
-                    _yuEValueLabel.text = @"0";
-                }
-                if (assets_dataDic[@"jifen_num"]&&![assets_dataDic[@"jifen_num"] isEqualToString:@""]) {
-                    NSString * jiFenStr = assets_dataDic[@"jifen_num"];
-                    _jiFenValueLabel.text = jiFenStr;
-                }
-                else{
-                    _jiFenValueLabel.text =@"0";
-                }
-                if (assets_dataDic[@"yhq_num"]&&![assets_dataDic[@"yhq_num"] isEqualToString:@""]) {
-                    NSString * yhqStr = assets_dataDic[@"yhq_num"];
-                    _youhuiValueLabel.text = yhqStr;
-                }
-                else{
-                    _youhuiValueLabel.text = @"0";
-                }
                 
             } failure:^(NSError *error) {
                 
@@ -789,6 +802,9 @@
                     [_hud hide:YES afterDelay:1];
                 }
             }
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self showError];
         }
         else{
         }
@@ -809,32 +825,38 @@
         _youHuiQuanMuARR = [[NSMutableArray alloc]init];
         NSLog(@"请求用户已领取的优惠券：%@",responseObject);
         NSDictionary * result = (NSDictionary *)responseObject;
-        NSDictionary * dataDic = result[@"data"];
-        NSArray * allCouponsARR = dataDic[@"b2c_allcoupons"];
-        if (allCouponsARR) {
-            _youHuiQuanCount = [NSString stringWithFormat:@"%ld",allCouponsARR.count];
-        }
-        else{
-        
-            _youHuiQuanCount = @"0";
-        }
-        int yuE = 0;
-        if (allCouponsARR.count > 0) {
-            
-            for (NSDictionary * dic in allCouponsARR) {
-                YouHuiQuanModel * model = [[YouHuiQuanModel alloc]init];
-                model.balance = [dic[@"Balance"] intValue];
-                model.mingChengStr = dic[@"CouponTypeName"];
-                model.endTime = dic[@"ValidDate"];
-                model.quanID = dic[@"CouponType"];
-                [_youHuiQuanMuARR addObject:model];
-                yuE = yuE + model.balance;
+        if ([result[@"code"]isEqual:@0]) {
+            NSDictionary * dataDic = result[@"data"];
+            NSArray * allCouponsARR = dataDic[@"b2c_allcoupons"];
+            if (allCouponsARR) {
+                _youHuiQuanCount = [NSString stringWithFormat:@"%ld",allCouponsARR.count];
             }
-           
+            else{
+                
+                _youHuiQuanCount = @"0";
+            }
+            int yuE = 0;
+            if (allCouponsARR.count > 0) {
+                
+                for (NSDictionary * dic in allCouponsARR) {
+                    YouHuiQuanModel * model = [[YouHuiQuanModel alloc]init];
+                    model.balance = [dic[@"Balance"] intValue];
+                    model.mingChengStr = dic[@"CouponTypeName"];
+                    model.endTime = dic[@"ValidDate"];
+                    model.quanID = dic[@"CouponType"];
+                    [_youHuiQuanMuARR addObject:model];
+                    yuE = yuE + model.balance;
+                }
+                
+            }
+            _youHuiQuanYuE = [NSString stringWithFormat:@"%d",yuE];
+            _yuEValueLabel.text = _youHuiQuanYuE;
+            _youhuiValueLabel.text = _youHuiQuanCount;
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self showError];
         }
-         _youHuiQuanYuE = [NSString stringWithFormat:@"%d",yuE];
-        _yuEValueLabel.text = _youHuiQuanYuE;
-        _youhuiValueLabel.text = _youHuiQuanCount;
+       
         
         
     } failure:^(NSError *error) {
@@ -1194,6 +1216,9 @@
                 }
                 
                 _isRenZhengQequestSuc = YES;
+            }else if ([responseObject[@"code"]isEqual:@1002]){
+                [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                [self showError];
             }
             else{
                 _pay_id = @"";

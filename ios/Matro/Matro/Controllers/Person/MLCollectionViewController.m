@@ -22,6 +22,7 @@
 #import "MJExtension.h"
 #import "MLHttpManager.h"
 #import "MLGoodsDetailsViewController.h"
+#import "MLLoginViewController.h"
 
 @interface MLCollectionViewController ()<UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *_collectionArray;
@@ -132,6 +133,12 @@ static NSInteger page = 1;
     // Do any additional setup after loading the view from its nib.
 }
 
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
+
 -(void)viewDidAppear:(BOOL)animated{
 
     [self loadDate];
@@ -156,32 +163,43 @@ static NSInteger page = 1;
         NSLog(@"请求成功responseObject===%@",responseObject);
         [_hud show:YES];
         [_hud hide:YES afterDelay:1];
-        _collectionArray = responseObject[@"data"][@"share_list"];
-        
-        __weak typeof(self) weakself = self;
-        
-        if (_collectionArray.count>0) {
+        if ([responseObject[@"code"]isEqual:@0]) {
+            _collectionArray = responseObject[@"data"][@"share_list"];
             
-            if (page == 1) {
+            __weak typeof(self) weakself = self;
+            
+            if (_collectionArray.count>0) {
+                
+                if (page == 1) {
+                    [self.dataSource removeAllObjects];
+                }
+                
+                [self.dataSource addObjectsFromArray:[MLCollectgoodsModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
+                
+                NSLog(@"self.goods===%@",self.dataSource);
+                
+                [self.tableView reloadData];
+                
+            }else{
+                self.footView.hidden = YES;
                 [self.dataSource removeAllObjects];
+                [self.tableView reloadData];
+                [self.view configBlankPage:EaseBlankPageTypeShouCang hasData:(self.dataSource.count>0)];
+                self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+                    weakself.tabBarController.selectedIndex = 1;
+                    [weakself.navigationController popToRootViewControllerAnimated:YES];
+                };
             }
-
-            [self.dataSource addObjectsFromArray:[MLCollectgoodsModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
+        }else if ([responseObject[@"code"]isEqual:@1002]){
+        
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
             
-            NSLog(@"self.goods===%@",self.dataSource);
-            
-            [self.tableView reloadData];
-            
-        }else{
-            self.footView.hidden = YES;
-            [self.dataSource removeAllObjects];
-            [self.tableView reloadData];
-            [self.view configBlankPage:EaseBlankPageTypeShouCang hasData:(self.dataSource.count>0)];
-            self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
-                weakself.tabBarController.selectedIndex = 1;
-                [weakself.navigationController popToRootViewControllerAnimated:YES];
-            };
         }
+        
        
     } failure:^(NSError *error) {
         NSLog(@"请求失败 error===%@",error);
@@ -346,12 +364,20 @@ static NSInteger page = 1;
     [MLHttpManager post:urlStr params:params m:@"product" s:@"cart" success:^(id responseObject) {
         
         NSDictionary *result = (NSDictionary *)responseObject;
-        NSString *code = result[@"code"];
-        if ([code isEqual:@0]) {
+//        NSString *code = result[@"code"];
+        if ([result[@"code"] isEqual:@0]) {
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"加入购物袋成功";
             [_hud hide:YES afterDelay:1];
+        }else if ([result[@"code"]isEqual:@1002]){
+            
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
+            
         }
         NSLog(@"请求成功 result====%@",result);
     } failure:^(NSError *error) {
@@ -395,18 +421,29 @@ static NSInteger page = 1;
     [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_product" success:^(id responseObject) {
         NSLog(@"请求成功responseObject===%@",responseObject);
         NSDictionary *result = (NSDictionary *)responseObject;
-        NSString *share_add = result[@"data"][@"ads_del"];
-        if (share_add) {
+        if ([result[@"code"]isEqual:@0]) {
+            NSString *share_add = result[@"data"][@"ads_del"];
+            if (share_add) {
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText = @"取消收藏成功";
+                [_hud hide:YES afterDelay:2];
+                [self loadDate];
+                
+                [self.tableView reloadData];
+            }else{
+                
+            }
+        }else if ([result[@"code"]isEqual:@1002]){
+            
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"取消收藏成功";
-            [_hud hide:YES afterDelay:2];
-            [self loadDate];
+            _hud.labelText = @"登录超时，请重新登录";
+            [_hud hide:YES afterDelay:1];
+            [self loginAction:nil];
             
-            [self.tableView reloadData];
-        }else{
-        
         }
+        
         
         
         NSLog(@"请求成功 result====%@",result);

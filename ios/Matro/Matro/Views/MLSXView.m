@@ -17,6 +17,7 @@
 #import "CommonHeader.h"
 #import "MLHttpManager.h"
 #import "MBProgressHUD+Add.h"
+#import "MLLoginViewController.h"
 #define PriceCellIdentifier @"PriceCellIdentifier"
 
 @interface MLSXView()<RATreeViewDataSource, RATreeViewDelegate,UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate>{
@@ -1165,7 +1166,6 @@ static BOOL selectPP = NO;
     
     return YES;
 }
-
 
 
 @end

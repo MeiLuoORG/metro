@@ -13,6 +13,7 @@
 #import "UIButton+HeinQi.h"
 #import "HFSConstants.h"
 #import "HFSUtility.h"
+#import "MLLoginViewController.h"
 
 @interface MLInvoiceViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *kai;
@@ -168,6 +169,11 @@
                 [MBProgressHUD showMessag:@"发票添加失败" toView:self.view];
             }
             
+        }else if ([result[@"code"]isEqual:@1002]){
+        
+            [MBProgressHUD showMessag:@"登录超时，请重新登录" toView:self.view];
+            [self loginAction:nil];
+            
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -179,7 +185,11 @@
    
 }
 
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 
 

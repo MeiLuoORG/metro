@@ -30,6 +30,7 @@
 #import "HFSConstants.h"
 #import "UMMobClick/MobClick.h"
 #import "MLGoodsDetailsViewController.h"
+#import "MLLoginViewController.h"
 
 @interface MLReturnsRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
@@ -210,7 +211,11 @@ static NSInteger pageIndex = 1;
                 [MBProgressHUD showMessag:@"暂无更多数据" toView:self.view];
             }
 
-        }else{
+        }else if ([result[@"code"]isEqual:@1002]){
+        
+            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [self loginAction:nil];
+        } else{
             NSString *str = result[@"msg"];
             [MBProgressHUD showMessag:str toView:self.view];
         }
@@ -234,6 +239,10 @@ static NSInteger pageIndex = 1;
     
 }
 
-
+- (void)loginAction:(id)sender{
+    MLLoginViewController *loginVc = [[MLLoginViewController alloc]init];
+    loginVc.isLogin = YES;
+    [self presentViewController:loginVc animated:YES completion:nil];
+}
 
 @end

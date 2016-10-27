@@ -32,6 +32,7 @@
 #import "MLThirdTableViewCell.h"
 #import "MLYourlikeTableViewCell.h"
 #import "MLYourlikeCollectionViewCell.h"
+#import "MLLoginViewController.h"
 
 #import "MJRefresh.h"
 #import "ZLPageControl.h"
