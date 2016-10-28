@@ -217,10 +217,16 @@ static CGFloat kHeight = 0;
             
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"登录超时，请重新登录";
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
             [_hud hide:YES afterDelay:1];
             [self loginAction:nil];
         
+        }else{
+        
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+            [_hud hide:YES afterDelay:1];
         }
 
     } failure:^( NSError *error){
@@ -275,9 +281,15 @@ static CGFloat kHeight = 0;
         
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"登录超时，请重新登录";
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
             [_hud hide:YES afterDelay:1];
             [self loginAction:nil];
+        }else{
+        
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+            [_hud hide:YES afterDelay:1];
         }
         
     } failure:^( NSError *error){

@@ -127,8 +127,8 @@
                         [self uploadCommentInfoWithUpImage:YES];
                     }
                 }else if ([result[@"code"]isEqual:@1002]){
-                    
-                    [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                     NSString *msg = result[@"msg"];
+                    [MBProgressHUD show:msg view:self.view];
 //                    [self loginAction:nil];
                 }else{//上传失败就跳过 少传一张
                     uploadCount -- ;
@@ -161,8 +161,8 @@
             [MBProgressHUD showMessag:@"评价成功" toView:self.view];
             [self performSelector:@selector(goBack) withObject:nil afterDelay:1];
         }else if ([result[@"code"]isEqual:@1002]){
-            
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+             NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
 //            [self loginAction:nil];
         }
         else{

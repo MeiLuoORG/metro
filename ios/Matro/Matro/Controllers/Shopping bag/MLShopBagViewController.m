@@ -1023,7 +1023,8 @@ static NSInteger pageIndex = 0;
             }
         }else if ([[result objectForKey:@"code"] isEqual:@1002]){
             
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
             
         }else{
@@ -1066,7 +1067,8 @@ static NSInteger pageIndex = 0;
             
         }else if ([[result objectForKey:@"code"] isEqual:@1002]){
             
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
             
         }else{
@@ -1142,7 +1144,8 @@ static NSInteger pageIndex = 0;
             [self.tableView reloadData];
         }else if ([[result objectForKey:@"code"] isEqual:@1002]){
             
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
             
         }else{
@@ -1177,7 +1180,8 @@ static NSInteger pageIndex = 0;
             [self getDataSource];
         }else if ([[result objectForKey:@"code"] isEqual:@1002]){
             
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
             
         }else{
@@ -1209,7 +1213,8 @@ static NSInteger pageIndex = 0;
             [self getDataSource];
         }else if ([[result objectForKey:@"code"] isEqual:@1002]){
             
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
             
         }else{
@@ -1255,7 +1260,8 @@ static NSInteger pageIndex = 0;
             [self.navigationController pushViewController:vc animated:YES];
         }else if ([[result objectForKey:@"code"] isEqual:@1002]){
             
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
             
         }else{
@@ -1325,7 +1331,8 @@ static NSInteger pageIndex = 0;
                 [self getDataSource];
             }else if ([[result objectForKey:@"code"] isEqual:@1002]){
                 
-                [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                NSString *msg = result[@"msg"];
+                [MBProgressHUD show:msg view:self.view];
                 [self loginAction:nil];
                 
             }

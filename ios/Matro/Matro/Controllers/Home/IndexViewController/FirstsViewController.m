@@ -120,6 +120,7 @@
 
     //http://bbctest.matrojp.com/api.php?m=product&s=webframe&method=display
     NSString * url = [NSString stringWithFormat:@"%@/api.php?m=product&s=webframe&method=display",ZHOULU_ML_BASE_URLString];
+    //
     [MLHttpManager get:url params:nil m:@"product" s:@"webframe" success:^(id responseObject) {
         NSLog(@"请求首页 接口的数据为：%@",responseObject);
         
@@ -203,9 +204,12 @@
             }
             [self.tableview reloadData];
         }else if ([result[@"code"] isEqual:@1002]){
-        
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
+        }else{
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
         }
         [self jieShuShuaXin];
     } failure:^(NSError *error) {
@@ -244,8 +248,8 @@
                 }
             }
         }else if ([result[@"code"] isEqual:@1002]){
-            
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
         }
         [self jieShuShuaXin];

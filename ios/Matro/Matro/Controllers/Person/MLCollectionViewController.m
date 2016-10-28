@@ -194,10 +194,16 @@ static NSInteger page = 1;
         
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"登录超时，请重新登录";
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
             [_hud hide:YES afterDelay:1];
             [self loginAction:nil];
             
+        }else{
+        
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+            [_hud hide:YES afterDelay:1];
         }
         
        
@@ -374,10 +380,15 @@ static NSInteger page = 1;
             
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"登录超时，请重新登录";
+            _hud.labelText = [NSString stringWithFormat:@"%@",result[@"msg"]];
             [_hud hide:YES afterDelay:1];
             [self loginAction:nil];
             
+        }else{
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = [NSString stringWithFormat:@"%@",result[@"msg"]];
+            [_hud hide:YES afterDelay:1];
         }
         NSLog(@"请求成功 result====%@",result);
     } failure:^(NSError *error) {
@@ -438,9 +449,15 @@ static NSInteger page = 1;
             
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"登录超时，请重新登录";
+            _hud.labelText = [NSString stringWithFormat:@"%@",result[@"msg"]];
             [_hud hide:YES afterDelay:1];
             [self loginAction:nil];
+            
+        }else{
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = [NSString stringWithFormat:@"%@",result[@"msg"]];
+            [_hud hide:YES afterDelay:1];
             
         }
         

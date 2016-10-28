@@ -211,8 +211,6 @@
 //调用 李佳重新认证接口
 - (void)renZhengLiJiaWithPhone:(NSString *)phoneString withAccessToken:(NSString *) accessTokenStr{
     //GCD异步实现
-    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    //dispatch_sync(q1, ^{
     //获取设备ID
     NSString *identifierForVendor = [JPUSHService registrationID];
     if (!identifierForVendor || identifierForVendor == nil || [identifierForVendor isEqualToString:@""]) {
@@ -222,15 +220,13 @@
     [[NSUserDefaults standardUserDefaults] setObject:identifierForVendor forKey:DEVICE_ID_JIGUANG_LU];
     NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
     NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor];
-    //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
     NSString * urlStr = urlPinJie;
     NSLog(@"李佳的认证接口：%@",urlStr);
     NSURL * URL = [NSURL URLWithString:urlStr];
     
     NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
     [request setHTTPMethod:@"get"]; //指定请求方式
-    //NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
-    //[request setHTTPBody:data3];
     [request setURL:URL]; //设置请求的地址
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
@@ -267,22 +263,16 @@
                                                   }
                                               }
                                               NSLog(@"%@",result);
-                                              
-                                              
-                                              //NSLog(@"error原生数据登录：++： %@",yuanDic);
-                                              
-                                              
                                           }
-                                      }
-                                      else{
+                                      }else{
 
                                           
-                                      }
+                                        }
                                       
                                   }];
     
     [task resume];
-    //});
+
     
     
     

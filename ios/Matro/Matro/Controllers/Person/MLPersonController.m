@@ -324,11 +324,13 @@
             }
             
         }else if ([responseObject[@"code"]isEqual:@1002]){
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = responseObject[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self showError];
         }
         else{
-            
+            NSString *msg = responseObject[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             
         }
         
@@ -647,7 +649,9 @@
                         _youhuiValueLabel.text = @"0";
                     }
                 }else if ([responseObject[@"code"]isEqual:@1002]){
-                    [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                    NSString *msg = responseObject[@"msg"];
+                    [MBProgressHUD show:msg view:self.view];
+                    
                     [self showError];
                 }
                 
@@ -803,10 +807,13 @@
                 }
             }
         }else if ([responseObject[@"code"]isEqual:@1002]){
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = responseObject[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self showError];
         }
         else{
+            NSString *msg = responseObject[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
         }
     } failure:^(NSError *error) {
         _dianWOButton.enabled = YES;
@@ -853,7 +860,9 @@
             _yuEValueLabel.text = _youHuiQuanYuE;
             _youhuiValueLabel.text = _youHuiQuanCount;
         }else if ([responseObject[@"code"]isEqual:@1002]){
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = responseObject[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
+        
             [self showError];
         }
        
@@ -1217,7 +1226,8 @@
                 
                 _isRenZhengQequestSuc = YES;
             }else if ([responseObject[@"code"]isEqual:@1002]){
-                [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                NSString *msg = responseObject[@"msg"];
+                [MBProgressHUD show:msg view:self.view];
                 [self showError];
             }
             else{

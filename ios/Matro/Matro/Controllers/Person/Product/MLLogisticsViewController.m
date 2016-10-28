@@ -55,8 +55,9 @@
             [self.logisticsArray addObjectsFromArray:[MLLogisticsModel mj_objectArrayWithKeyValuesArray:time_line]];
             [self.tableView reloadData];
         }else if ([result[@"code"]isEqual:@1002]){
+            NSString *msg = result[@"msg"];
             
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
         }
         else{

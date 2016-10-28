@@ -213,7 +213,8 @@ static NSInteger pageIndex = 1;
 
         }else if ([result[@"code"]isEqual:@1002]){
         
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
         } else{
             NSString *str = result[@"msg"];

@@ -183,7 +183,8 @@ static MLShippingaddress *province,*city,*area;
                 moren = YES;
             }
         }else if ([result[@"code"]isEqual:@1002]){
-            [ MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [ MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
         
         }
@@ -346,7 +347,8 @@ static MLShippingaddress *province,*city,*area;
             }
             
         }else if ([result[@"code"]isEqual:@1002]){
-            [ MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [ MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
             
         }else{
@@ -375,8 +377,13 @@ static MLShippingaddress *province,*city,*area;
             }
             [self.navigationController popViewControllerAnimated:YES];
         }else if ([responseObject[@"code"]isEqual:@1002]){
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = responseObject[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
+        }else{
+            NSString *msg = responseObject[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
+            
         }
         
     } failure:^(NSError *error) {
@@ -535,8 +542,9 @@ static MLShippingaddress *province,*city,*area;
                 }
             }
             [self.addressPickerView reloadAllComponents];
-        }else if ([responseObject[@"code"]isEqual:@1002]){
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+        }else if ([result[@"code"]isEqual:@1002]){
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
         }else{
             NSString *msg = result[@"msg"];

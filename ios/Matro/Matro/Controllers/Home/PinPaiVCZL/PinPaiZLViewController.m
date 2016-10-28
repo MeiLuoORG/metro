@@ -212,7 +212,7 @@
             [self.view addSubview:_hud];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"登录超时，请重新登录";
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
             [_hud hide:YES afterDelay:1];
             [self loginAction:nil];
             
@@ -577,7 +577,7 @@
             [self.view addSubview:_hud];
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"登录超时，请重新登录";
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
             [_hud hide:YES afterDelay:1];
             [self loginAction:nil];
             

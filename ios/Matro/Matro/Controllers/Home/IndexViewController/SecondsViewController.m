@@ -226,7 +226,8 @@ static NSInteger page3 = 1;
             [self.tableview reloadData];
         }else if ([[responseObject objectForKey:@"code"] isEqual:@1002]){
             
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = responseObject[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
         }
          [self endRefrsesh];
@@ -304,7 +305,8 @@ static NSInteger page3 = 1;
             [self.tableview reloadData];
         }else if ([[responseObject objectForKey:@"code"] isEqual:@1002]){
             
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = responseObject[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
         }
         [self endRefrsesh];

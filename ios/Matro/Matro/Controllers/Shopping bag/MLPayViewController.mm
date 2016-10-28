@@ -313,7 +313,8 @@
                         }];
                     }
                 }else if ([result[@"code"]isEqual:@1002]){
-                    [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                    NSString *msg = result[@"msg"];
+                    [MBProgressHUD show:msg view:self.view];
                     [self loginAction:nil];
                 }
                 
@@ -389,7 +390,8 @@
                     [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];
                 }];
             }else if ([results[@"code"]isEqual:@1002]){
-                [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+                NSString *msg = results[@"msg"];
+                [MBProgressHUD show:msg view:self.view];
                 [self loginAction:nil];
             }
             [self hideFengHuoLun];
@@ -511,7 +513,8 @@
             }];
 
         }else if ([results[@"code"]isEqual:@1002]){
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = results[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
         }
         
@@ -563,7 +566,8 @@
                 [_hud hide:YES afterDelay:2];
             }];
         }else if ([results[@"code"]isEqual:@1002]){
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = results[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
         }
         

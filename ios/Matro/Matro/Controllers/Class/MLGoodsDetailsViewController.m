@@ -988,10 +988,17 @@
                 [overView removeFromSuperview];
                 [_hud show:YES];
                 _hud.mode = MBProgressHUDModeText;
-                _hud.labelText = @"登录超时，请重新登录";
+                _hud.labelText =[NSString stringWithFormat:@"%@",responseObject[@"msg"]];
                 [_hud hide:YES afterDelay:1];
                 [self showError];
                 
+            }else{
+            
+                [overView removeFromSuperview];
+                [_hud show:YES];
+                _hud.mode = MBProgressHUDModeText;
+                _hud.labelText =[NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+                [_hud hide:YES afterDelay:1];
             }
     
         } failure:^( NSError *error) {
@@ -1106,10 +1113,16 @@
             
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"登录超时，请重新登录";
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
             [_hud hide:YES afterDelay:1];
             [self showError];
         
+        }else{
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+            [_hud hide:YES afterDelay:1];
+            
         }
         
     } failure:^(NSError *error){
@@ -1140,26 +1153,33 @@
             if (arr && arr.count>0) {
                 [_recommendArray addObjectsFromArray:arr];
             }
+            NSInteger row = 2;
+            if (_recommendArray.count != 0) {
+                _likeH.constant = 170*row;
+                
+            }else{
+                
+                _likeH.constant = 0;
+                
+            }
+            [_collectionView reloadData];
             NSLog(@"猜你喜欢数据：++++%@",responseObject[@"data"]);
         }else if ([responseObject[@"code"]isEqual:@1002]){
         
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"登录超时，请重新登录";;
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
             [_hud hide:YES afterDelay:1];
             [self showError];
+        }else{
+        
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+            [_hud hide:YES afterDelay:1];
         }
         
-        NSInteger row = 2;
-        if (_recommendArray.count != 0) {
-            _likeH.constant = 170*row;
-            
-        }else{
-            
-            _likeH.constant = 0;
-            
-        }
-        [_collectionView reloadData];
+        
     } failure:^(NSError *error) {
         [self closeLoadingView];
         [_hud show:YES];
@@ -1276,10 +1296,16 @@
         }else if ([result[@"code"] isEqual:@1002]){
             [_hud show:YES];
             _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"登录超时，请重新登录";
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
             [_hud hide:YES afterDelay:1];
             [self showError];
             
+        }else{
+        
+            [_hud show:YES];
+            _hud.mode = MBProgressHUDModeText;
+            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+            [_hud hide:YES afterDelay:1];
         }
     }
     failure:^(NSError *error) {
@@ -2349,9 +2375,15 @@
           }else if ([result[@"code"]isEqual:@1002]){
               [_hud show:YES];
               _hud.mode = MBProgressHUDModeText;
-              _hud.labelText = @"登录超时，请重新登录";
+              _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
               [_hud hide:YES afterDelay:1];
               [self showError];
+              
+          }else{
+              [_hud show:YES];
+              _hud.mode = MBProgressHUDModeText;
+              _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+              [_hud hide:YES afterDelay:1];
               
           }
           
@@ -2438,9 +2470,15 @@
                                             
                                             [_hud show:YES];
                                             _hud.mode = MBProgressHUDModeText;
-                                            _hud.labelText = @"登录超时，请重新登录";
+                                            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
                                             [_hud hide:YES afterDelay:1];
                                             [self showError];
+                                            
+                                        }else{
+                                            [_hud show:YES];
+                                            _hud.mode = MBProgressHUDModeText;
+                                            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+                                            [_hud hide:YES afterDelay:1];
                                             
                                         }
                                        
@@ -2463,10 +2501,16 @@
                    
                     [_hud show:YES];
                     _hud.mode = MBProgressHUDModeText;
-                    _hud.labelText = @"登录超时，请重新登录";
+                    _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
                     [_hud hide:YES afterDelay:1];
                     [self showError];
                     
+                }else{
+                    [_hud show:YES];
+                    _hud.mode = MBProgressHUDModeText;
+                    _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+                    [_hud hide:YES afterDelay:1];
+                
                 }
                
     } failure:^(NSError *error) {

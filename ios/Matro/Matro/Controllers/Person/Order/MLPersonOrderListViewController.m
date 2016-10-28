@@ -345,7 +345,8 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
             }
              [self.tableView reloadData];
         }else if ([result[@"code"]isEqual:@1002]){
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
         
         } else{
@@ -401,7 +402,8 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
           [MBProgressHUD showSuccess:@"操作成功" toView:self.view];
           [self.tableView.header beginRefreshing];
         }else if ([result[@"code"]isEqual:@1002]){
-            [MBProgressHUD show:@"登录超时，请重新登录" view:self.view];
+            NSString *msg = result[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
             
         }else{

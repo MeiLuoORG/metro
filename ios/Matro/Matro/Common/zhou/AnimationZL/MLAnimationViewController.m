@@ -7,6 +7,8 @@
 //
 
 #import "MLAnimationViewController.h"
+#import "JPUSHService.h"
+#import "Masonry.h"
 
 @interface MLAnimationViewController (){
 
@@ -45,9 +47,9 @@
         [imageArr addObject:image];
     }
     
-    
+     [self.view addSubview:_imageviews];
     _imageviews.animationImages = imageArr;
-    [self.view addSubview:_imageviews];
+    
     
     //设置动画总时间
     _imageviews.animationDuration=1.0;
@@ -57,16 +59,10 @@
     [_imageviews startAnimating];
     
     [self performSelector:@selector(animationEndAction:) withObject:nil afterDelay:1.0f];
-    /*
-    _indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(self.view.frame.size.width/2-50, self.view.frame.size.height/2-60, 100, 120)];
-    [_indicator setLoadText:@"努力加载中..."];
-    
-    [self.view addSubview:_indicator];
-    
-    [_indicator startAnimation];
-     
-     */
-    // Do any additional setup after loading the view from its nib.
+
+    //获取设备id
+    NSString *deviceid = [JPUSHService registrationID];
+        
 }
 
 - (void)animationEndAction:(id)sender{
