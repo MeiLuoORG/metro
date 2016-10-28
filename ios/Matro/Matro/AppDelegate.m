@@ -113,8 +113,11 @@
     //设置微信AppId、appSecret，分享url
     
     [UMSocialWechatHandler setWXAppId:@"wx5aced428a6ce270e" appSecret:@"54e1071ad99428a88330eee8489fb37c" url:@"http://www.matrojp.com/"];
-    [self buildTabBarController];
     
+    //创建TabBarController
+    [self buildTabBarController];
+    //开始认证
+    [self autoLogin];
     
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
     manager.enable = YES;
@@ -140,9 +143,6 @@
     //判断是否需要显示：（内部已经考虑版本及本地版本缓存）
     BOOL canShow = [CoreNewFeatureVC canShowNewFeature];
     
-    //测试代码，正式版本应该删除
-    //canShow = YES;
-    
     if(canShow){
         
         NewFeatureModel *m1 = [NewFeatureModel model:[UIImage imageNamed:@"yindao01.jpg"]];
@@ -162,14 +162,50 @@
         }];
     }else{
         
+//        [self autoLogin];
         
         MLAnimationViewController * vcs = [[MLAnimationViewController alloc]init];
+        vcs.reView.hidden = YES;
+        self.window.rootViewController = vcs;
         [vcs animationBlockAction:^(BOOL success) {
             
-            self.window.rootViewController = _tabBarController;
-            [self autoLogin];
+            if (self.isFinished == YES) {
+                vcs.reView.hidden = YES;
+                self.window.rootViewController = _tabBarController;
+                
+            }else{
+                vcs.reView.hidden = NO;
+                self.window.rootViewController = vcs;
+            }
+            
         }];
-        self.window.rootViewController = vcs;
+        
+        __weak typeof(vcs) weakvcs = vcs;
+        vcs.reblock = ^{
+            [self autoLogin];
+            NSLog(@"点击了重新加载");
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSLog(@"延时了4秒");
+                if (self.isFinished == YES) {
+                    
+                    [self performSelector:@selector(loginTabBar) withObject:nil afterDelay:1.0];
+                    
+                }else{
+                    
+                    self.window.rootViewController = weakvcs;
+                }
+                
+            });
+            
+        };
+        
+//        MLAnimationViewController * vcs = [[MLAnimationViewController alloc]init];
+//        [vcs animationBlockAction:^(BOOL success) {
+//            
+//            self.window.rootViewController = _tabBarController;
+//            [self autoLogin];
+//        }];
+//        self.window.rootViewController = vcs;
         
     }
 
@@ -178,12 +214,22 @@
     return YES;
 }
 
+-(void)loginTabBar{
+    
+    self.window.rootViewController = _tabBarController;
+}
+
++(AppDelegate *)sharedAppDelegate{
+
+    return (AppDelegate*)[UIApplication sharedApplication].delegate;
+}
+
+
 - (void)selectSecondVC:(id)sender{
     
     [self.tabBarController setSelectedIndex:1];
     
 }
-
 
 - (void)autoLogin{
     if ([[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID] &&[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN] ) {
@@ -246,23 +292,30 @@
                                                       NSString *bbc_token = [data objectForKey:@"bbc_token"];
                                                       NSString *timestamp = data[@"timestamp"];
                                                       NSLog(@"李佳认证返回的时间戳+++++：%@",timestamp);
-                                                      NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
-                                                      model1.timeInterval =[timestamp integerValue];
-                                                      model1.firstDate = [NSDate date];
-                                                      [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
-                                                      if ([[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID] &&[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN] ) {
+                                                      if (timestamp != nil) {
+                                                          self.isFinished = YES;
+                                                          NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
+                                                          model1.timeInterval =[timestamp integerValue];
+                                                          model1.firstDate = [NSDate date];
+                                                          [[NSUserDefaults standardUserDefaults]setObject:bbc_token forKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
+                                                          if ([[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID] &&[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN] ) {
+                                                              
+                                                              NSString * UID  = data[@"uid"];
+                                                              [[NSUserDefaults standardUserDefaults]setObject:UID forKey:DIANPU_MAIJIA_UID];
+                                                          }
                                                           
-                                                          NSString * UID  = data[@"uid"];
-                                                          [[NSUserDefaults standardUserDefaults]setObject:UID forKey:DIANPU_MAIJIA_UID];
+                                                          
+                                                          //认证成功后发送通知
+                                                          [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
+                                                          [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_HOME_Notification object:nil];
+                                                      }else{
+                                                      
+                                                          self.isFinished = NO;
                                                       }
                                                       
-                                                      
-                                                      //认证成功后发送通知
-                                                      [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
-                                                      [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_HOME_Notification object:nil];
                                                   }
                                               }
-                                              NSLog(@"%@",result);
+                                             
                                           }
                                       }else{
 

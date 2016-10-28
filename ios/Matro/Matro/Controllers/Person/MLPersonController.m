@@ -323,16 +323,17 @@
                 //_allOrderbadgeView.badgeText = all;
             }
             
-        }else if ([responseObject[@"code"]isEqual:@1002]){
-            NSString *msg = responseObject[@"msg"];
-            [MBProgressHUD show:msg view:self.view];
-            [self showError];
         }
-        else{
-            NSString *msg = responseObject[@"msg"];
-            [MBProgressHUD show:msg view:self.view];
-            
-        }
+//        else if ([responseObject[@"code"]isEqual:@1002]){
+//            NSString *msg = responseObject[@"msg"];
+//            [MBProgressHUD show:msg view:self.view];
+//            [self showError];
+//        }
+//        else{
+//            NSString *msg = responseObject[@"msg"];
+//            [MBProgressHUD show:msg view:self.view];
+//            
+//        }
         
     } failure:^(NSError *error) {
         NSLog(@"请求订单数目错误：%@",error);
@@ -648,12 +649,13 @@
                     else{
                         _youhuiValueLabel.text = @"0";
                     }
-                }else if ([responseObject[@"code"]isEqual:@1002]){
-                    NSString *msg = responseObject[@"msg"];
-                    [MBProgressHUD show:msg view:self.view];
-                    
-                    [self showError];
                 }
+//                else if ([responseObject[@"code"]isEqual:@1002]){
+//                    NSString *msg = responseObject[@"msg"];
+//                    [MBProgressHUD show:msg view:self.view];
+//                    
+//                    [self showError];
+//                }
                 
                 
             } failure:^(NSError *error) {
@@ -1225,11 +1227,12 @@
                 }
                 
                 _isRenZhengQequestSuc = YES;
-            }else if ([responseObject[@"code"]isEqual:@1002]){
-                NSString *msg = responseObject[@"msg"];
-                [MBProgressHUD show:msg view:self.view];
-                [self showError];
             }
+//            else if ([responseObject[@"code"]isEqual:@1002]){
+//                NSString *msg = responseObject[@"msg"];
+//                [MBProgressHUD show:msg view:self.view];
+//                [self showError];
+//            }
             else{
                 _pay_id = @"";
                 _pay_mobile = @"";

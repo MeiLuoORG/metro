@@ -28,8 +28,10 @@ static BOOL isProduction = FALSE;
 
 
 @property (strong, nonatomic) UITabBarController *tabBarController;
+@property BOOL isFinished;
 
 - (void)autoLogin;
++(AppDelegate *)sharedAppDelegate;
 
 
 @end

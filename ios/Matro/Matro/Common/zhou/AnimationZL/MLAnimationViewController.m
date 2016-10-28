@@ -8,7 +8,7 @@
 
 #import "MLAnimationViewController.h"
 #import "JPUSHService.h"
-#import "Masonry.h"
+#import "AppDelegate.h"
 
 @interface MLAnimationViewController (){
 
@@ -51,23 +51,76 @@
     _imageviews.animationImages = imageArr;
     
     
-    //设置动画总时间
-    _imageviews.animationDuration=1.0;
-    //设置重复次数,0表示不重复
-    _imageviews.animationRepeatCount=1;
-    //开始动画
-    [_imageviews startAnimating];
-    
-    [self performSelector:@selector(animationEndAction:) withObject:nil afterDelay:1.0f];
-
-    //获取设备id
-    NSString *deviceid = [JPUSHService registrationID];
+    if ([AppDelegate sharedAppDelegate].isFinished == YES) {
+        //设置动画总时间
+        _imageviews.animationDuration = 3.0;
+        //设置重复次数,0表示不重复
+        _imageviews.animationRepeatCount = 1;
         
+        //开始动画
+        [_imageviews startAnimating];
+        
+        [self performSelector:@selector(animationEndAction:) withObject:nil afterDelay:3.0f];
+    }else{
+    
+        //设置动画总时间
+        _imageviews.animationDuration = 4.5;
+        //设置重复次数,0表示不重复
+        _imageviews.animationRepeatCount = 2;
+        
+        //开始动画
+        [_imageviews startAnimating];
+        
+        [self performSelector:@selector(animationEndAction:) withObject:nil afterDelay:9.0f];
+    }
+    
+    
+    
+    
+    
+    
+    self.reView = [[UIView alloc]initWithFrame:CGRectMake((SIZE_WIDTH-200)/2.0, 400, 200, 80)];
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0 ,0, 200, 40)];
+    label.text = @"网络加载失败!\n点击按钮重新加载";
+    label.textColor = [UIColor whiteColor];
+    label.numberOfLines = 0;
+    [label setFont:[UIFont systemFontOfSize:12]];
+    label.textAlignment = NSTextAlignmentCenter;
+    [self.reView addSubview:label];
+    
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(20, 50, 160, 30)];
+    [btn setTitle:@"重新加载" forState:UIControlStateNormal];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [btn addTarget:self action:@selector(rework:) forControlEvents:UIControlEventTouchUpInside];
+    btn.layer.borderWidth = 1.f;
+    btn.layer.borderColor = [UIColor yellowColor].CGColor;
+    btn.layer.cornerRadius = 4.f;
+    btn.layer.masksToBounds = YES;
+    [self.reView addSubview:btn];
+    
+    [self.view addSubview:self.reView];
+    self.reView.hidden = YES;
+        
+}
+
+-(void)rework:(id)sender{
+    
+    if (self.block) {
+        [_imageviews startAnimating];
+        self.reblock();
+    }
 }
 
 - (void)animationEndAction:(id)sender{
 
-    self.block(YES);
+    if ([AppDelegate sharedAppDelegate].isFinished == YES) {
+        self.reView.hidden = YES;
+        self.block(YES);
+    }else{
+        self.reView.hidden = NO;
+        self.block(NO);
+    }
 }
 
 - (void)animationBlockAction:(AnimationMLBlock)block{

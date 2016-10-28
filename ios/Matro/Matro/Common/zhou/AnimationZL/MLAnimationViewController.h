@@ -11,13 +11,15 @@
 #import "CommonHeader.h"
 
 typedef void(^AnimationMLBlock)(BOOL success);
+typedef void(^ReworkBlock)();
 
 
 @interface MLAnimationViewController : MLBaseViewController
 
 
 @property (copy, nonatomic) AnimationMLBlock block;
-
+@property (copy,nonatomic)ReworkBlock reblock;
+@property (retain,nonatomic)UIView *reView;
 
 - (void)animationBlockAction:(AnimationMLBlock)block;
 
