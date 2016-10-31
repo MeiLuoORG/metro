@@ -20,6 +20,7 @@
 #import "HFSConstants.h"
 #import "MJExtension.h"
 #import "MLLoginViewController.h"
+#import "MLQQGshenfenViewController.h"
 
 #define HEADER_IDENTIFIER @"MLPayresultHeader"
 #define HEADER_IDENTIFIER01 @"OrderListHeaderIdentifier"
@@ -28,6 +29,7 @@
     NSMutableArray *_likeArray;
     NSArray *_likeArr;
     NSArray * _errTitleArray;
+    BOOL isShangchuan;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *otherBgView;
@@ -70,6 +72,36 @@
     
     self.navigationItem.leftBarButtonItem = item;
     [self guessYourLike];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self shangchuan];
+
+}
+
+-(void)shangchuan{
+
+    //判断是否需要对身份进行验证
+    //    http://bbctest.matrojp.com/api.php?m=product&s=admin_buyorder&action=order_idcard&order_id=201610311432524240     order_id
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=order_idcard&order_id=%@",MATROJP_BASE_URL,self.order_id];
+    [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
+        if ([responseObject[@"code"]isEqual:@0]) {
+            NSDictionary *result = responseObject[@"data"];
+            if ([result[@"flag"] isEqual:@1]) {
+                isShangchuan = YES;
+            }else{
+                isShangchuan = NO;
+            }
+        }else{
+            isShangchuan = NO;
+        }
+    } failure:^(NSError *error) {
+
+        isShangchuan = NO;
+        [MBProgressHUD showMessag:REQUEST_ERROR_ZL toView:self.view];
+    }];
+
 }
 
 - (void)goBack{
@@ -399,6 +431,12 @@
             headerView.tisLabel.text = @"支付成功";
             headerView.tisImageView.image = [UIImage imageNamed:@"zhifuchenggong-1"];
             [headerView.toOrder addTarget:self action:@selector(toOrderAction:) forControlEvents:UIControlEventTouchUpInside];
+            if (isShangchuan == YES) {
+                [headerView.toHome setTitle:@"完善信息" forState:UIControlStateNormal];
+            }else{
+                [headerView.toHome setTitle:@"继续购物" forState:UIControlStateNormal];
+
+            }
             [headerView.toHome addTarget:self action:@selector(toHomeAction:) forControlEvents:UIControlEventTouchUpInside];
             
             
@@ -418,9 +456,16 @@
 - (void)toHomeAction:(UIButton *)sender{
     //[self.navigationController popViewControllerAnimated:NO];
     //self.hidesBottomBarWhenPushed = NO;
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    [self.tabBarController.tabBar setHidden:NO];
-    [self getAppDelegate].tabBarController.selectedIndex = 0;
+    if ([sender.titleLabel.text isEqualToString: @"完善信息"]) {
+        MLQQGshenfenViewController *vc = [[MLQQGshenfenViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+
+    }else{
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        [self.tabBarController.tabBar setHidden:NO];
+        [self getAppDelegate].tabBarController.selectedIndex = 0;
+    }
+
 }
 
 - (void)toOrderAction:(UIButton *)sender{

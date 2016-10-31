@@ -64,9 +64,9 @@
     }else{
     
         //设置动画总时间
-        _imageviews.animationDuration = 4.5;
+        _imageviews.animationDuration = 3;
         //设置重复次数,0表示不重复
-        _imageviews.animationRepeatCount = 2;
+        _imageviews.animationRepeatCount = 3;
         
         //开始动画
         [_imageviews startAnimating];

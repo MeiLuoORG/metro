@@ -451,6 +451,8 @@
 		3CAE049E1D06DDD5004504EA /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04961D06DDD5004504EA /* GCDQueue.m */; };
 		3CAE049F1D06DDD5004504EA /* GCDSemaphore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE04981D06DDD5004504EA /* GCDSemaphore.m */; };
 		3CAE04A01D06DDD5004504EA /* GCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAE049A1D06DDD5004504EA /* GCDTimer.m */; };
+		3CB03A731DC7267C001629B6 /* MLQQGshenfenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB03A711DC7267C001629B6 /* MLQQGshenfenViewController.m */; };
+		3CB03A741DC7267C001629B6 /* MLQQGshenfenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CB03A721DC7267C001629B6 /* MLQQGshenfenViewController.xib */; };
 		3CC5F7721D2B50DE00E1A5B5 /* ViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5F7711D2B50DE00E1A5B5 /* ViewPagerController.m */; };
 		3CC5F7761D2B56C500E1A5B5 /* ShaiXuanZlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5F7751D2B56C500E1A5B5 /* ShaiXuanZlView.m */; };
 		3CC5F7781D2B56E500E1A5B5 /* ShaiXuanZlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5F7771D2B56E500E1A5B5 /* ShaiXuanZlView.xib */; };
@@ -1569,6 +1571,9 @@
 		3CAE04991D06DDD5004504EA /* GCDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDTimer.h; sourceTree = "<group>"; };
 		3CAE049A1D06DDD5004504EA /* GCDTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDTimer.m; sourceTree = "<group>"; };
 		3CAE049B1D06DDD5004504EA /* HYGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYGCD.h; sourceTree = "<group>"; };
+		3CB03A701DC7267C001629B6 /* MLQQGshenfenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLQQGshenfenViewController.h; sourceTree = "<group>"; };
+		3CB03A711DC7267C001629B6 /* MLQQGshenfenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLQQGshenfenViewController.m; sourceTree = "<group>"; };
+		3CB03A721DC7267C001629B6 /* MLQQGshenfenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLQQGshenfenViewController.xib; sourceTree = "<group>"; };
 		3CC5F7701D2B50DE00E1A5B5 /* ViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPagerController.h; sourceTree = "<group>"; };
 		3CC5F7711D2B50DE00E1A5B5 /* ViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPagerController.m; sourceTree = "<group>"; };
 		3CC5F7741D2B56C500E1A5B5 /* ShaiXuanZlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaiXuanZlView.h; sourceTree = "<group>"; };
@@ -3829,6 +3834,9 @@
 				3CEAC66A1D1E799B00E953A7 /* XiuGaiPasswordViewController.h */,
 				3CEAC66B1D1E799B00E953A7 /* XiuGaiPasswordViewController.m */,
 				3CEAC66C1D1E799B00E953A7 /* XiuGaiPasswordViewController.xib */,
+				3CB03A701DC7267C001629B6 /* MLQQGshenfenViewController.h */,
+				3CB03A711DC7267C001629B6 /* MLQQGshenfenViewController.m */,
+				3CB03A721DC7267C001629B6 /* MLQQGshenfenViewController.xib */,
 			);
 			path = ManagerZhou;
 			sourceTree = "<group>";
@@ -4558,6 +4566,8 @@
 					3A633A511C9E9E2F00C11FD5 = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = K7B37N4V6S;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -4814,6 +4824,7 @@
 				7A0720411D17E98400E0B58E /* MLXuanZeTuPianTableViewCell.xib in Resources */,
 				285326EF1CFD6F1300FA2AB0 /* Info.plist in Resources */,
 				287C86DD1D1D4E4F0002E5E2 /* MLPinpaiCollectionViewCell.xib in Resources */,
+				3CB03A741DC7267C001629B6 /* MLQQGshenfenViewController.xib in Resources */,
 				7AF725B51CE0AF9800B00FB8 /* declare.html in Resources */,
 				7A3A626E1CDB874F00D265F2 /* MLOrderComProductCell.xib in Resources */,
 				28C88CFE1D5C728D00564C69 /* Loading0019.png in Resources */,
@@ -5255,6 +5266,7 @@
 				687703D31CCEF72B0008ED46 /* HQRSA.m in Sources */,
 				3A630BE21CA256BC006E67F4 /* MLClassHeader.m in Sources */,
 				3C0032061D55B52D004DBD6D /* UIImage+WebP.m in Sources */,
+				3CB03A731DC7267C001629B6 /* MLQQGshenfenViewController.m in Sources */,
 				284073351D2DFAD4003A13AE /* MLOrderFootCollectionReusableView.m in Sources */,
 				3A1F72C61CA3F8CD000ECE08 /* HFSOrderListHeaderView.m in Sources */,
 				285808031D14F20B0097D334 /* MLCommentTableViewCell.m in Sources */,
@@ -5429,7 +5441,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "62e44b1a-475c-4eb2-8a60-fe338bef85b5";
@@ -5467,7 +5479,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "62e44b1a-475c-4eb2-8a60-fe338bef85b5";
 				SDKROOT = iphoneos;
@@ -5480,8 +5492,10 @@
 			baseConfigurationReference = 5DBB37CE6C3BF0EADC461009 /* Pods-Matro.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Song Chang (PDPCG4V7LN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Song Chang (PDPCG4V7LN)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = K7B37N4V6S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5531,7 +5545,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4086498f-27a7-4383-8d15-451e5372faec";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -5541,8 +5558,10 @@
 			baseConfigurationReference = 665E7595487B22B165F5C4BB /* Pods-Matro.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Song Chang (PDPCG4V7LN)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Song Chang (PDPCG4V7LN)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = K7B37N4V6S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5592,7 +5611,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4086498f-27a7-4383-8d15-451e5372faec";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

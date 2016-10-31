@@ -21,4 +21,5 @@
 @property (strong, nonatomic) NSString * order_id;
 @property (weak, nonatomic) IBOutlet UIButton *XuanZeQiTaButton;
 
+
 @end

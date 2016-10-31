@@ -118,7 +118,7 @@
     [self buildTabBarController];
     //开始认证
     [self autoLogin];
-    
+
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
     manager.enable = YES;
     manager.shouldResignOnTouchOutside = YES;
@@ -161,9 +161,8 @@
             
         }];
     }else{
-        
-//        [self autoLogin];
-        
+        [self autoLogin];
+
         MLAnimationViewController * vcs = [[MLAnimationViewController alloc]init];
         vcs.reView.hidden = YES;
         self.window.rootViewController = vcs;
@@ -175,7 +174,9 @@
                 
             }else{
                 vcs.reView.hidden = NO;
+//                self.window.rootViewController = _tabBarController;
                 self.window.rootViewController = vcs;
+
             }
             
         }];
@@ -184,8 +185,8 @@
         vcs.reblock = ^{
             [self autoLogin];
             NSLog(@"点击了重新加载");
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSLog(@"延时了4秒");
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSLog(@"延时了4.5秒");
                 if (self.isFinished == YES) {
                     
                     [self performSelector:@selector(loginTabBar) withObject:nil afterDelay:1.0];
@@ -293,7 +294,9 @@
                                                       NSString *timestamp = data[@"timestamp"];
                                                       NSLog(@"李佳认证返回的时间戳+++++：%@",timestamp);
                                                       if (timestamp != nil) {
+
                                                           self.isFinished = YES;
+                                                          
                                                           NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
                                                           model1.timeInterval =[timestamp integerValue];
                                                           model1.firstDate = [NSDate date];
@@ -308,6 +311,7 @@
                                                           //认证成功后发送通知
                                                           [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
                                                           [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_HOME_Notification object:nil];
+
                                                       }else{
                                                       
                                                           self.isFinished = NO;

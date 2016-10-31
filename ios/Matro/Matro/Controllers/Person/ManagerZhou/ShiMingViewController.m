@@ -12,6 +12,9 @@
 #import "KZPhotoManager.h"
 #import "ZhengZePanDuan.h"
 #import "MLLoginViewController.h"
+
+#import "MLQQGshenfenViewController.h"
+
 @interface ShiMingViewController ()
 
 @end
@@ -129,6 +132,7 @@
 }
 
 - (void)buttonAction1{
+
     [_xingMingLabel resignFirstResponder];
     [_shenFenCardId resignFirstResponder];
     
@@ -160,6 +164,7 @@
     
     //上传信息
     [self tianjiaRenZhengInfo];
+    
 }
 //添加认证信息接口
 - (void)tianjiaRenZhengInfo{
