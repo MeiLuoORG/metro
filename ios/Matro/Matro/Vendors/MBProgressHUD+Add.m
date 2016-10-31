@@ -39,7 +39,7 @@
     HUD.removeFromSuperViewOnHide = YES;
     HUD.detailsLabelText = text;
     HUD.labelFont = [UIFont systemFontOfSize:13]; //Johnkui - added
-    [HUD hide:YES afterDelay:1.5];
+    [HUD hide:YES afterDelay:2];
 }
 
 #pragma mark 显示错误信息
