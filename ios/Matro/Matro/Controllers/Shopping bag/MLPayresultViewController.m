@@ -86,6 +86,7 @@
     //    http://bbctest.matrojp.com/api.php?m=product&s=admin_buyorder&action=order_idcard&order_id=201610311432524240     order_id
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=product&s=admin_buyorder&action=order_idcard&order_id=%@",MATROJP_BASE_URL,self.order_id];
     [MLHttpManager get:url params:nil m:@"product" s:@"admin_buyorder" success:^(id responseObject) {
+        NSLog(@"是否需要对身份进行验证===%@",responseObject);
         if ([responseObject[@"code"]isEqual:@0]) {
             NSDictionary *result = responseObject[@"data"];
             if ([result[@"flag"] isEqual:@1]) {
@@ -432,9 +433,12 @@
             headerView.tisImageView.image = [UIImage imageNamed:@"zhifuchenggong-1"];
             [headerView.toOrder addTarget:self action:@selector(toOrderAction:) forControlEvents:UIControlEventTouchUpInside];
             if (isShangchuan == YES) {
+                headerView.tisqqgLabel.hidden = NO;
                 [headerView.toHome setTitle:@"完善信息" forState:UIControlStateNormal];
             }else{
+                headerView.tisqqgLabel.hidden = YES;
                 [headerView.toHome setTitle:@"继续购物" forState:UIControlStateNormal];
+                
 
             }
             [headerView.toHome addTarget:self action:@selector(toHomeAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -458,6 +462,7 @@
     //self.hidesBottomBarWhenPushed = NO;
     if ([sender.titleLabel.text isEqualToString: @"完善信息"]) {
         MLQQGshenfenViewController *vc = [[MLQQGshenfenViewController alloc] init];
+        vc.order_id = self.order_id;
         [self.navigationController pushViewController:vc animated:YES];
 
     }else{

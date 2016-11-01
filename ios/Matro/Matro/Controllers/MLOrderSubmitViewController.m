@@ -370,7 +370,15 @@
                         cell.subLabel.text = @"免邮";
                     }
                     else{
-                        cell.subLabel.text = cart.kuaiDiFangshi.company;
+//                        cell.subLabel.text = cart.kuaiDiFangshi.company;
+                        NSString *priceStr = nil;
+                        if (cart.kuaiDiFangshi.price && cart.kuaiDiFangshi.price >0) {
+                            priceStr = [NSString stringWithFormat:@"￥%.2f",cart.kuaiDiFangshi.price];
+                            cell.subLabel.text = [NSString stringWithFormat:@"%@-%@",cart.kuaiDiFangshi.company,priceStr];
+                        }else{
+                            priceStr = @"免邮";
+                            cell.subLabel.text = [NSString stringWithFormat:@"%@-%@",cart.kuaiDiFangshi.company,priceStr];
+                        }
                     }
                     cell.dataSource = cart.shipping;
                     cell.orderKuaiDiSel = ^(NSInteger index){

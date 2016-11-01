@@ -13,5 +13,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *tisLabel;
 @property (strong, nonatomic) IBOutlet UIButton *toOrder;
 @property (strong, nonatomic) IBOutlet UIButton *toHome;
+@property (weak, nonatomic) IBOutlet UILabel *tisqqgLabel;
 
 @end

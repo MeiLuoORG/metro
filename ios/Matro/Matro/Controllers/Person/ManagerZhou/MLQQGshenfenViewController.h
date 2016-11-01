@@ -23,5 +23,6 @@
 #import "SBJSON.h"
 
 @interface MLQQGshenfenViewController : MLBaseViewController
+@property(copy ,nonatomic ) NSString *order_id;//订单id
 
 @end

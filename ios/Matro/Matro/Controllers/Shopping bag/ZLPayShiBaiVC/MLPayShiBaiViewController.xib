@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MLPayShiBaiViewController">
@@ -25,12 +29,12 @@
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oir-ps-LHQ">
                     <rect key="frame" x="37" y="344" width="300" height="42"/>
-                    <color key="backgroundColor" red="0.68235294117647061" green="0.55686274509803924" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.68235294117647061" green="0.55686274509803924" blue="0.36470588235294116" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="42" id="6w0-mG-QiV"/>
                     </constraints>
                     <state key="normal" title="选择其他支付方式">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="qiTaButtonAction:" destination="-1" eventType="touchUpInside" id="ahy-Ve-kVm"/>
@@ -42,11 +46,11 @@
                         <constraint firstAttribute="width" constant="142" id="M9b-Oj-elo"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="itg-Vm-PbV" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="FBm-Iy-hoF"/>
                 <constraint firstItem="Oir-ps-LHQ" firstAttribute="top" secondItem="RDE-zw-Bo1" secondAttribute="bottom" constant="82" id="Qzn-9s-w6W"/>
@@ -56,11 +60,10 @@
                 <constraint firstItem="RDE-zw-Bo1" firstAttribute="top" secondItem="itg-Vm-PbV" secondAttribute="bottom" constant="20" id="vdX-Rx-1dO"/>
                 <constraint firstAttribute="trailing" secondItem="Oir-ps-LHQ" secondAttribute="trailing" constant="38" id="z0j-WR-8t7"/>
             </constraints>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <point key="canvasLocation" x="460" y="406"/>
+            <point key="canvasLocation" x="40" y="147"/>
         </view>
     </objects>
     <resources>
-        <image name="zhifushibai" width="123" height="123"/>
+        <image name="zhifushibai" width="122" height="122"/>
     </resources>
 </document>
