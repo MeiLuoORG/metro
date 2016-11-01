@@ -30,7 +30,7 @@
 #import "MLPayViewController.h"
 #import "MLReturnsDetailViewController.h"
 #import "MLLoginViewController.h"
-
+#import "MLQQGshenfenViewController.h"
 
 
 typedef NS_ENUM(NSInteger,OrderActionType){
@@ -135,6 +135,10 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     };
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+//    [self getOrderList];
+}
 
 
 
@@ -173,6 +177,21 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     if ((order.isMore && order.isOpen && indexPath.row == order.product.count+1 )||(order.isMore && indexPath.row == 4 && !order.isOpen) ||(!order.isMore && indexPath.row == order.product.count+1) ) {
         MLOrderInfoFooterTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kOrderInfoFooterTableViewCell forIndexPath:indexPath];
         cell.orderList = order;
+        
+        //全球购商品是否要完善认证信息
+        if (order.status == 2 && order.way == 1 && order.idcard_status == 1) {
+            cell.wanshanView.hidden = NO;
+        }else{
+            cell.wanshanView.hidden = YES;
+        }
+        cell.wanshanAction = ^(){
+            
+            MLQQGshenfenViewController *vc = [[MLQQGshenfenViewController alloc]init];
+            vc.order_id = order.order_id;
+            [self.navigationController pushViewController:vc animated:YES];
+        
+        };
+        
         cell.cancelAction = ^(){ //取消操作
             MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定取消此订单？" AndAlertDoneAction:^{
                 [weakself OrderActionWithButtonType:ButtonActionTypeQuxiao AndOrder:order.order_id];
@@ -252,11 +271,29 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+//    MLPersonOrderModel *order = [self.orderList objectAtIndex:indexPath.section];
+//    if ((order.isMore && !order.isOpen && indexPath.row == 3 )|| (indexPath.row == 0) || (order.isMore && order.isOpen && indexPath.row == order.product.count+1 )||(order.isMore && indexPath.row == 4 && !order.isOpen) ||(!order.isMore && indexPath.row == order.product.count+1)) { // 有更多
+//        return 40;
+//    }else if (indexPath.row == order.product.count+1){
+//    
+//        return 80;
+//    }
+//     
+//    return 134;
     MLPersonOrderModel *order = [self.orderList objectAtIndex:indexPath.section];
-    if ((order.isMore && !order.isOpen && indexPath.row == 3 )|| (indexPath.row == 0) || (order.isMore && order.isOpen && indexPath.row == order.product.count+1 )||(order.isMore && indexPath.row == 4 && !order.isOpen) ||(!order.isMore && indexPath.row == order.product.count+1)) { // 有更多
+    if ((order.isMore && !order.isOpen && indexPath.row == 3 )|| (indexPath.row == 0) || (order.isMore && order.isOpen && indexPath.row == order.product.count+1 )||(order.isMore && indexPath.row == 4 && !order.isOpen) ) { // 有更多
+        return 40;
+    }else if (indexPath.row == order.product.count+1){
+        if (order.status == 2 && order.way == 1 && order.idcard_status == 1) {
+            return 80;
+        }
+        
         return 40;
     }
+    
     return 134;
+    
 }
 
 
@@ -279,6 +316,9 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     };
     vc.order_id = order.order_id;
     vc.order_price = order.order_price;
+    vc.order_way = order.way;
+    vc.order_status = order.status;
+    vc.order_idcard_status = order.idcard_status;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

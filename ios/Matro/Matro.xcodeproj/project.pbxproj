@@ -81,6 +81,8 @@
 		285808041D14F20B0097D334 /* MLCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808021D14F20B0097D334 /* MLCommentTableViewCell.xib */; };
 		285808081D1517AA0097D334 /* MLgoodsCollectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */; };
 		285808091D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */; };
+		285FED221DC87CC500E61BA4 /* MLWanshanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285FED201DC87CC500E61BA4 /* MLWanshanCell.m */; };
+		285FED231DC87CC500E61BA4 /* MLWanshanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285FED211DC87CC500E61BA4 /* MLWanshanCell.xib */; };
 		2867375D1D65492400EB0607 /* MLErweimaResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2867375B1D65492400EB0607 /* MLErweimaResultViewController.m */; };
 		2867375E1D65492400EB0607 /* MLErweimaResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2867375C1D65492400EB0607 /* MLErweimaResultViewController.xib */; };
 		2869F6891D221AF7003C4663 /* MLServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869F6871D221AF7003C4663 /* MLServiceViewController.m */; };
@@ -874,6 +876,9 @@
 		285808051D1517AA0097D334 /* MLgoodsCollectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLgoodsCollectTableViewCell.h; sourceTree = "<group>"; };
 		285808061D1517AA0097D334 /* MLgoodsCollectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLgoodsCollectTableViewCell.m; sourceTree = "<group>"; };
 		285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLgoodsCollectTableViewCell.xib; sourceTree = "<group>"; };
+		285FED1F1DC87CC500E61BA4 /* MLWanshanCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLWanshanCell.h; sourceTree = "<group>"; };
+		285FED201DC87CC500E61BA4 /* MLWanshanCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLWanshanCell.m; sourceTree = "<group>"; };
+		285FED211DC87CC500E61BA4 /* MLWanshanCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLWanshanCell.xib; sourceTree = "<group>"; };
 		2867375A1D65492400EB0607 /* MLErweimaResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLErweimaResultViewController.h; sourceTree = "<group>"; };
 		2867375B1D65492400EB0607 /* MLErweimaResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLErweimaResultViewController.m; sourceTree = "<group>"; };
 		2867375C1D65492400EB0607 /* MLErweimaResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLErweimaResultViewController.xib; sourceTree = "<group>"; };
@@ -3339,6 +3344,9 @@
 				284073371D2E272D003A13AE /* MLOrderListTableViewCell.h */,
 				284073381D2E272D003A13AE /* MLOrderListTableViewCell.m */,
 				284073391D2E272D003A13AE /* MLOrderListTableViewCell.xib */,
+				285FED1F1DC87CC500E61BA4 /* MLWanshanCell.h */,
+				285FED201DC87CC500E61BA4 /* MLWanshanCell.m */,
+				285FED211DC87CC500E61BA4 /* MLWanshanCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -4844,6 +4852,7 @@
 				3ACF2D061CA53046003D1F67 /* MLAddTableViewCell.xib in Resources */,
 				7AEC88E71CE47A6A00B43DD4 /* MLGoodsSharePhotoViewController.xib in Resources */,
 				7A09367F1D1BCB9B002325A2 /* MLProductComDetailHeadCell.xib in Resources */,
+				285FED231DC87CC500E61BA4 /* MLWanshanCell.xib in Resources */,
 				2867375E1D65492400EB0607 /* MLErweimaResultViewController.xib in Resources */,
 				28C88CF71D5C728D00564C69 /* Loading0012.png in Resources */,
 				28C88D011D5C728D00564C69 /* Loading003.png in Resources */,
@@ -5261,6 +5270,7 @@
 				687703671CC82FF90008ED46 /* RSAEncryptor.m in Sources */,
 				3C7D3F331D3F73E70038FD5D /* CoreNewFeatureVC.m in Sources */,
 				7A083FC51D194299001F0256 /* MLReturnsRecordViewController.m in Sources */,
+				285FED221DC87CC500E61BA4 /* MLWanshanCell.m in Sources */,
 				3A630BE81CA25C5B006E67F4 /* MLClassCollectionViewCell.m in Sources */,
 				7A3486641D0EBFC4002EE211 /* MLLikeHeadCollectionReusableView.m in Sources */,
 				687703D31CCEF72B0008ED46 /* HQRSA.m in Sources */,

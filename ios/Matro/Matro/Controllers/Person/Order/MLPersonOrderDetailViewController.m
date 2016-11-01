@@ -33,7 +33,8 @@
 #import "MLGoodsDetailsViewController.h"
 #import "MLMoreTableViewCell.h"
 #import "MLLoginViewController.h"
-
+#import "MLWanshanCell.h"
+#import "MLQQGshenfenViewController.h"
 
 
 @interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>{
@@ -68,6 +69,7 @@
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderInfoHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderInfoHeaderTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLOrderCenterTableViewCell" bundle:nil] forCellReuseIdentifier:kOrderCenterTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLMoreTableViewCell" bundle:nil] forCellReuseIdentifier:@"MoreCell"];
+        [tableView registerNib:[UINib nibWithNibName:@"MLWanshanCell" bundle:nil] forCellReuseIdentifier:@"MLWanshanCell"];
         
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:tableView];
@@ -405,9 +407,9 @@
 
 
 
-
 #pragma mark UITableView Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+ 
     if (section == 0) {
         return 2;
     }
@@ -431,7 +433,13 @@
     }else if (section == 6){
         return 6;
     }else if (section == 7){
-        return 1;
+        
+        if (self.order_status == 2 && self.order_way == 1 && self.order_idcard_status == 1){
+            return 2;
+        }else{
+            return 1;
+        }
+       
     }
     return 0;
     
@@ -444,239 +452,289 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) { //ZTTableViewCell
-        MLZTTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kZTTableViewCell forIndexPath:indexPath];
-        if (indexPath.row == 0) {
-            cell.titleLabel.text = @"订单编号：";
-            cell.ztLabel.text = self.orderDetail.order_id;
-            
-        }
-        else{
-            cell.titleLabel.text = @"订单状态：";
-            cell.ztLabel.text = self.orderDetail.statu_text;
-            
-        }
-        return cell;
-        
-    }
-    else if (indexPath.section == 1){
-        MLTisTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTisTableViewCell forIndexPath:indexPath];
-        if (logisticModel) { //如果有第一条记录
-            cell.tisLabel.text = logisticModel.context;
-            cell.timeLabel.text = logisticModel.time;
-            cell.contentView.hidden = !(self.orderDetail.deliver_name.length>0 && self.orderDetail.deliver_code.length > 0);
-            
-        }
-        else{
-            cell.tisLabel.text = @"订单已通过审核，仓库配送中.....";
-            NSDate *time = [NSDate dateWithTimeIntervalSince1970:self.orderDetail.deliver_time];
-            NSDateFormatter *fm = [[NSDateFormatter alloc]init];
-            [fm setDateFormat:@"yyy-MM-dd HH:mm"];
-            cell.timeLabel.text = [fm stringFromDate:time];
-            cell.contentView.hidden = !(self.orderDetail.deliver_name.length>0 && self.orderDetail.deliver_code.length > 0);
-        }
-        return cell;
-    }
-    else if (indexPath.section == 2){
-        MLAddTableViewCell   *cell = [tableView dequeueReusableCellWithIdentifier:kAddTableViewCell forIndexPath:indexPath];
-        cell.nameLabel.text = self.orderDetail.buyer_name;
-        cell.phoneLabel.text = self.orderDetail.buyer_mobile;
-        cell.addressLabel.text = self.orderDetail.buyer_addr;
-        return cell;
-    }else if (indexPath.section == 3){ //商品列表
-        if (indexPath.row == 0) { //头部
-            MLOrderInfoHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderInfoHeaderTableViewCell forIndexPath:indexPath];
-            cell.shopName.text = self.orderDetail.sellerinfo.company;
-            cell.statusLabel.hidden = YES;
-
-            return cell;
-        }else if(self.orderDetail.isMore && !self.orderDetail.isOpen && indexPath.row == 3) //有更多的情况
-        {
-            MLMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MoreCell" forIndexPath:indexPath];
-            
-            [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%lu件",self.orderDetail.product.count - 2] forState:UIControlStateNormal];
-            cell.moreActionBlock = ^(){
-                self.orderDetail.isOpen = YES;
-                [self.tableView reloadData];
-            };
-            return cell;
-        }
-        
-        else{
-            MLOrderCenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
-            MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:indexPath.row-1];
-            cell.productOrder = model;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-            return cell;
-        }
-
-    }else if (indexPath.section == 4){
-        MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
-        if (indexPath.row == 0) {
-            cell.titleLabel.text = @"支付方式";
-            cell.subLabel.text = self.orderDetail.payment_name?:@"在线支付";
-        }
-        else{
-            cell.titleLabel.text = @"配送方式";
-            if (self.orderDetail.logistics_type.length > 2) {
-                cell.subLabel.text = self.orderDetail.logistics_type;
-            }
-            else{
-                cell.subLabel.text = @"快递配送";
-            }
-            
-        }
-        return cell;
-    }else if (indexPath.section == 5){
-        if (self.orderDetail.invoice == 0) {
-            MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
-            cell.titleLabel.text = @"发票信息";
-            cell.subLabel.text = @"不开发票";
-            return cell;
-        }
-        else{
-            MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
-              cell.subLabel.hidden = YES;
-            if (indexPath.row == 0) { //
-                cell.titleLabel.text = @"发票信息";
-            }else if (indexPath.row == 1){
-                cell.titleLabel.text = [NSString stringWithFormat:@"抬头：%@",self.orderDetail.invinfo.rise];
-                cell.titleLabel.textColor = RGBA(153, 153,153, 1);
-
-            }else{
-                cell.titleLabel.text = [NSString stringWithFormat:@"内容：%@",self.orderDetail.invinfo.content];
-                cell.titleLabel.textColor = RGBA(153, 153,153, 1);
+        if (indexPath.section == 0) { //ZTTableViewCell
+            MLZTTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kZTTableViewCell forIndexPath:indexPath];
+            if (indexPath.row == 0) {
+                cell.titleLabel.text = @"订单编号：";
+                cell.ztLabel.text = self.orderDetail.order_id;
                 
             }
-            cell.contentView.hidden = NO;
-            return cell;
-        }
-    }
-    else if (indexPath.section == 6){
-        if (indexPath.row <5) {
-            MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
-            switch (indexPath.row) {
-                case 0:
-                {
-                    cell.contentView.hidden = NO;
-                    cell.titleLabel.text = @"商品总额：";
-                    cell.subLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderDetail.product_price];
-                    cell.subLabel.textColor = RGBA(255, 78, 37, 1);
-
-                }
-                    break;
-                case 1:
-                {
-                    cell.titleLabel.text = @"优    惠：";
-                    cell.subLabel.text = [NSString stringWithFormat:@"-￥%.2f",_orderDetail.b2cyhq];
-                    cell.subLabel.textColor = [UIColor blackColor];
-                    cell.contentView.hidden = (self.orderDetail.b2cyhq == 0) ;
-                }
-                    break;
-                case 2:
-                {
-                    cell.titleLabel.text = @"满    减：";
-                    cell.subLabel.text = [NSString stringWithFormat:@"-￥%.2f",_orderDetail.discount_price];
-                    
-                    cell.contentView.hidden = (self.orderDetail.discount_price == 0);
-                    
-                    cell.subLabel.textColor = RGBA(255, 78, 37, 1);
-
-                    
-                }
-                    break;
-                case 3:
-                {
-                    cell.titleLabel.text = @"税    费：";
-                    cell.subLabel.text = [NSString stringWithFormat:@"+￥%.2f",_orderDetail.tax_price];
-                    cell.subLabel.textColor = RGBA(255, 78, 37, 1);
-                    cell.contentView.hidden = (self.orderDetail.way != 2);
-                }
-                    break;
-                case 4:
-                {
-                    cell.titleLabel.text = @"运    费：";
-                    cell.contentView.hidden = NO;
-                    
-                    cell.subLabel.text = [NSString stringWithFormat:@"+￥%.2f",_orderDetail.logistics_price];
-                    cell.subLabel.textColor = RGBA(255, 78, 37, 1);
-                }
-                    break;
-                default:
-                    break;
+            else{
+                cell.titleLabel.text = @"订单状态：";
+                cell.ztLabel.text = self.orderDetail.statu_text;
+                
             }
-
+            return cell;
+            
+        }
+        else if (indexPath.section == 1){
+            MLTisTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTisTableViewCell forIndexPath:indexPath];
+            if (logisticModel) { //如果有第一条记录
+                cell.tisLabel.text = logisticModel.context;
+                cell.timeLabel.text = logisticModel.time;
+                cell.contentView.hidden = !(self.orderDetail.deliver_name.length>0 && self.orderDetail.deliver_code.length > 0);
+                
+            }
+            else{
+                cell.tisLabel.text = @"订单已通过审核，仓库配送中.....";
+                NSDate *time = [NSDate dateWithTimeIntervalSince1970:self.orderDetail.deliver_time];
+                NSDateFormatter *fm = [[NSDateFormatter alloc]init];
+                [fm setDateFormat:@"yyy-MM-dd HH:mm"];
+                cell.timeLabel.text = [fm stringFromDate:time];
+                cell.contentView.hidden = !(self.orderDetail.deliver_name.length>0 && self.orderDetail.deliver_code.length > 0);
+            }
             return cell;
         }
-        MLRPayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRPayTableViewCell forIndexPath:indexPath];
-        cell.rpayLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderDetail.order_price];
-        cell.rpayLabel.textColor = RGBA(255, 78, 37, 1);
-        return cell;
-    }else if (indexPath.section == 7){
-        MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
-        cell.titleLabel.text = @"下单时间";
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:_orderDetail.creat_time];
-        NSDateFormatter *fm = [[NSDateFormatter alloc]init];
-        [fm setDateFormat:@"YYY-MM-dd hh:mm:ss"];
-        
-        cell.subLabel.text = [fm stringFromDate:date];
-        return cell;
-        
-    }
-    
+        else if (indexPath.section == 2){
+            MLAddTableViewCell   *cell = [tableView dequeueReusableCellWithIdentifier:kAddTableViewCell forIndexPath:indexPath];
+            cell.nameLabel.text = self.orderDetail.buyer_name;
+            cell.phoneLabel.text = self.orderDetail.buyer_mobile;
+            cell.addressLabel.text = self.orderDetail.buyer_addr;
+            return cell;
+        }else if (indexPath.section == 3){ //商品列表
+            if (indexPath.row == 0) { //头部
+                MLOrderInfoHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderInfoHeaderTableViewCell forIndexPath:indexPath];
+                cell.shopName.text = self.orderDetail.sellerinfo.company;
+                cell.statusLabel.hidden = YES;
+                
+                return cell;
+            }else if(self.orderDetail.isMore && !self.orderDetail.isOpen && indexPath.row == 3) //有更多的情况
+            {
+                MLMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MoreCell" forIndexPath:indexPath];
+                
+                [cell.moreButton setTitle:[NSString stringWithFormat:@"还有%lu件",self.orderDetail.product.count - 2] forState:UIControlStateNormal];
+                cell.moreActionBlock = ^(){
+                    self.orderDetail.isOpen = YES;
+                    [self.tableView reloadData];
+                };
+                return cell;
+            }
+            
+            else{
+                MLOrderCenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
+                MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:indexPath.row-1];
+                cell.productOrder = model;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                return cell;
+            }
+            
+        }else if (indexPath.section == 4){
+            MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
+            if (indexPath.row == 0) {
+                cell.titleLabel.text = @"支付方式";
+                cell.subLabel.text = self.orderDetail.payment_name?:@"在线支付";
+            }
+            else{
+                cell.titleLabel.text = @"配送方式";
+                if (self.orderDetail.logistics_type.length > 2) {
+                    cell.subLabel.text = self.orderDetail.logistics_type;
+                }
+                else{
+                    cell.subLabel.text = @"快递配送";
+                }
+                
+            }
+            return cell;
+        }else if (indexPath.section == 5){
+            if (self.orderDetail.invoice == 0) {
+                MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
+                cell.titleLabel.text = @"发票信息";
+                cell.subLabel.text = @"不开发票";
+                return cell;
+            }
+            else{
+                MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
+                cell.subLabel.hidden = YES;
+                if (indexPath.row == 0) { //
+                    cell.titleLabel.text = @"发票信息";
+                }else if (indexPath.row == 1){
+                    cell.titleLabel.text = [NSString stringWithFormat:@"抬头：%@",self.orderDetail.invinfo.rise];
+                    cell.titleLabel.textColor = RGBA(153, 153,153, 1);
+                    
+                }else{
+                    cell.titleLabel.text = [NSString stringWithFormat:@"内容：%@",self.orderDetail.invinfo.content];
+                    cell.titleLabel.textColor = RGBA(153, 153,153, 1);
+                    
+                }
+                cell.contentView.hidden = NO;
+                return cell;
+            }
+        }
+        else if (indexPath.section == 6){
+            if (indexPath.row <5) {
+                MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        cell.contentView.hidden = NO;
+                        cell.titleLabel.text = @"商品总额：";
+                        cell.subLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderDetail.product_price];
+                        cell.subLabel.textColor = RGBA(255, 78, 37, 1);
+                        
+                    }
+                        break;
+                    case 1:
+                    {
+                        cell.titleLabel.text = @"优    惠：";
+                        cell.subLabel.text = [NSString stringWithFormat:@"-￥%.2f",_orderDetail.b2cyhq];
+                        cell.subLabel.textColor = [UIColor blackColor];
+                        cell.contentView.hidden = (self.orderDetail.b2cyhq == 0) ;
+                    }
+                        break;
+                    case 2:
+                    {
+                        cell.titleLabel.text = @"满    减：";
+                        cell.subLabel.text = [NSString stringWithFormat:@"-￥%.2f",_orderDetail.discount_price];
+                        
+                        cell.contentView.hidden = (self.orderDetail.discount_price == 0);
+                        
+                        cell.subLabel.textColor = RGBA(255, 78, 37, 1);
+                        
+                        
+                    }
+                        break;
+                    case 3:
+                    {
+                        cell.titleLabel.text = @"税    费：";
+                        cell.subLabel.text = [NSString stringWithFormat:@"+￥%.2f",_orderDetail.tax_price];
+                        cell.subLabel.textColor = RGBA(255, 78, 37, 1);
+                        cell.contentView.hidden = (self.orderDetail.way != 2);
+                    }
+                        break;
+                    case 4:
+                    {
+                        cell.titleLabel.text = @"运    费：";
+                        cell.contentView.hidden = NO;
+                        
+                        cell.subLabel.text = [NSString stringWithFormat:@"+￥%.2f",_orderDetail.logistics_price];
+                        cell.subLabel.textColor = RGBA(255, 78, 37, 1);
+                    }
+                        break;
+                    default:
+                        break;
+                }
+                
+                return cell;
+            }
+            MLRPayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRPayTableViewCell forIndexPath:indexPath];
+            cell.rpayLabel.text = [NSString stringWithFormat:@"￥%.2f",_orderDetail.order_price];
+            cell.rpayLabel.textColor = RGBA(255, 78, 37, 1);
+            return cell;
+        }else if (indexPath.section == 7){
+            
+            if (self.order_status == 2 && self.order_way == 1 && self.order_idcard_status == 1){
+                if (indexPath.row == 0) {
+                    MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
+                    cell.titleLabel.text = @"下单时间";
+                    NSDate *date = [NSDate dateWithTimeIntervalSince1970:_orderDetail.creat_time];
+                    NSDateFormatter *fm = [[NSDateFormatter alloc]init];
+                    [fm setDateFormat:@"YYY-MM-dd hh:mm:ss"];
+                    
+                    cell.subLabel.text = [fm stringFromDate:date];
+                    return cell;
+                }else{
+                    MLWanshanCell *cell =[tableView dequeueReusableCellWithIdentifier:@"MLWanshanCell" forIndexPath:indexPath];
+                    cell.wanshanBlock = ^(){
+                        MLQQGshenfenViewController *vc = [[MLQQGshenfenViewController alloc] init];
+                        vc.order_id = self.order_id ;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    };
+                    /*
+                    if (self.order_idcard_status == 1) {
+                        cell.wanshanBlock = ^(){
+                            MLQQGshenfenViewController *vc = [[MLQQGshenfenViewController alloc] init];
+                            vc.order_id = self.order_id ;
+                            [self.navigationController pushViewController:vc animated:YES];
+                        };
+                        
+                    }else{
+                        cell.wanshanLabel.text = @"收货人信息已认证";
+                        [cell.wanshanBtn setTitle:@"查看信息" forState:UIControlStateNormal];
+                        cell.wanshanBlock = ^(){
+                            MLQQGshenfenViewController *vc = [[MLQQGshenfenViewController alloc] init];
+                            vc.order_id = self.order_id ;
+                            [self.navigationController pushViewController:vc animated:YES];
+                        };
+                    }
+                     */
+                    
+                    return cell;
+                }
+            }else{
+                
+                MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
+                cell.titleLabel.text = @"下单时间";
+                NSDate *date = [NSDate dateWithTimeIntervalSince1970:_orderDetail.creat_time];
+                NSDateFormatter *fm = [[NSDateFormatter alloc]init];
+                [fm setDateFormat:@"YYY-MM-dd hh:mm:ss"];
+                
+                cell.subLabel.text = [fm stringFromDate:date];
+                return cell;
+            
+            }
+//            MLZTextTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kZTextTableViewCell forIndexPath:indexPath];
+//            cell.titleLabel.text = @"下单时间";
+//            NSDate *date = [NSDate dateWithTimeIntervalSince1970:_orderDetail.creat_time];
+//            NSDateFormatter *fm = [[NSDateFormatter alloc]init];
+//            [fm setDateFormat:@"YYY-MM-dd hh:mm:ss"];
+//            
+//            cell.subLabel.text = [fm stringFromDate:date];
+//            return cell;
+        }
     return nil;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        return 35;
-    }else if (indexPath.section == 1){
-        if (self.orderDetail.deliver_name.length > 0 && self.orderDetail.deliver_code.length > 0 ) {
-            return 60;
-        }
-        return 0;
-    }else if (indexPath.section == 2){
-        return 88;
-    }
-    else if (indexPath.section == 3){
-        if (indexPath.row == 0) {
-            return 44;
-        }else if (self.orderDetail.isMore && !self.orderDetail.isOpen && indexPath.row == 3){
-            return 44;
-        }
-        return 134;
-    }
-    else if (indexPath.section == 4){
-        if (indexPath.row<2) {
-            return 44;
-        }
-        return 25;
-    }else if (indexPath.section == 5){
-        if (self.orderDetail.invinfo == 0) {
-            return 44;
-        }
-        return 30;
-    }else if (indexPath.section == 6){
-        if (indexPath.row < 6) {
-            if (indexPath.row == 1 && self.orderDetail.b2cyhq == 0) {
-                return 0;
+    
+        if (indexPath.section == 0) {
+            return 35;
+        }else if (indexPath.section == 1){
+            if (self.orderDetail.deliver_name.length > 0 && self.orderDetail.deliver_code.length > 0 ) {
+                return 60;
             }
-            if (indexPath.row == 2 && self.orderDetail.discount_price == 0) {
-                return 0;
-                
+            return 0;
+        }else if (indexPath.section == 2){
+            return 88;
+        }
+        else if (indexPath.section == 3){
+            if (indexPath.row == 0) {
+                return 44;
+            }else if (self.orderDetail.isMore && !self.orderDetail.isOpen && indexPath.row == 3){
+                return 44;
             }
-            if ((indexPath.row == 3 && self.orderDetail.way != 2)) {
-                return 0;
+            return 134;
+        }
+        else if (indexPath.section == 4){
+            if (indexPath.row<2) {
+                return 44;
             }
-            
+            return 25;
+        }else if (indexPath.section == 5){
+            if (self.orderDetail.invinfo == 0) {
+                return 44;
+            }
             return 30;
+        }else if (indexPath.section == 6){
+            if (indexPath.row < 6) {
+                if (indexPath.row == 1 && self.orderDetail.b2cyhq == 0) {
+                    return 0;
+                }
+                if (indexPath.row == 2 && self.orderDetail.discount_price == 0) {
+                    return 0;
+                    
+                }
+                if ((indexPath.row == 3 && self.orderDetail.way != 2)) {
+                    return 0;
+                }
+                
+                return 30;
+            }
+            return 50;
+        }else if (indexPath.section == 7){
+            return 44;
         }
-        return 50;
-    }else if (indexPath.section == 7){
-        return 44;
-    }
     return 0;
 }
 

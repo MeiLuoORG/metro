@@ -79,6 +79,7 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,strong)NSArray *product;
 @property (nonatomic,assign)float order_price;
 @property (nonatomic,strong)MLInvinfo *invinfo;
+@property (nonatomic,assign)NSInteger idcard_status;
 
 @property (nonatomic,assign)NSTimeInterval remainder;
 

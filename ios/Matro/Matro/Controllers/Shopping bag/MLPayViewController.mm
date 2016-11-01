@@ -620,6 +620,7 @@
     MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
     payResultVC.hidesBottomBarWhenPushed = YES;
     payResultVC.isSuccess = YES;
+    payResultVC.order_id = self.order_id;
     [self.navigationController pushViewController:payResultVC animated:YES];
 }
 - (void)yinLianPayFail:(id)sender{
@@ -633,21 +634,16 @@
 - (void)yinLianPanCancel:(id)sender{
     NSLog(@"银联支付取消");
     [self hideFengHuoLun];
-    
-    
-    /*
     MLPayShiBaiViewController * shiBaiVC = [[MLPayShiBaiViewController alloc]init];
     shiBaiVC.hidesBottomBarWhenPushed = YES;
-    
     [self.navigationController pushViewController:shiBaiVC animated:YES];
-    */
-    
-    //用于测试的  回头要去掉  把上面的注释打开
-    MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
-    payResultVC.hidesBottomBarWhenPushed = YES;
-    payResultVC.isSuccess = YES;
-    payResultVC.order_id = self.order_id;
-    [self.navigationController pushViewController:payResultVC animated:YES];
+   
+//    //用于测试的  回头要去掉  把上面的注释打开
+//    MLPayresultViewController * payResultVC = [[MLPayresultViewController alloc]init];
+//    payResultVC.hidesBottomBarWhenPushed = YES;
+//    payResultVC.isSuccess = YES;
+//    payResultVC.order_id = self.order_id;
+//    [self.navigationController pushViewController:payResultVC animated:YES];
 }
 
 - (void)showHudString:(NSString *)hud{

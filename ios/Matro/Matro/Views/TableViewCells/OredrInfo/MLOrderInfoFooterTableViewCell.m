@@ -22,6 +22,9 @@
     self.rightBtn.layer.borderColor = RGBA(174, 142, 93, 1).CGColor;
     self.rightBtn.layer.borderWidth = 1.f;
     
+    self.wanshanBtn.layer.borderColor = RGBA(174, 142, 93, 1).CGColor;
+    self.wanshanBtn.layer.borderWidth = 1.f;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -159,6 +162,12 @@
             break;
     }
 
+}
+
+- (IBAction)wanshanClick:(id)sender {
+    if (self.wanshanAction) {
+        self.wanshanAction();
+    }
 }
 
 

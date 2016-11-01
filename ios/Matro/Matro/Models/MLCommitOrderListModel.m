@@ -72,7 +72,7 @@
 - (BOOL)isHaveHaiWai{
     BOOL isHave = NO;
     for (MLOrderCartModel *model in self.cart) {
-        if (model.way == 2) {
+        if (model.way == 2 || model.way == 1) {
             isHave = YES;
             break;
         }

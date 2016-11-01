@@ -86,6 +86,8 @@
             NSDictionary *dic = responseObject[@"data"][@"idcardata"];
             NSString *buyer_name = dic[@"buyer_name"]?:@"";
             NSString *identity_card = dic[@"identity_card"]?:@"";
+            NSString *zidcard_url = dic[@"zidcard_url"]?:@"";
+            NSString *fidcard_url = dic[@"fidcard_url"]?:@"";
             if (buyer_name.length > 0) {
                 _xingMingLabel.text = buyer_name;
                 
@@ -93,6 +95,22 @@
             if (identity_card.length > 0) {
                 _shenFenCardId.text = identity_card;
             }
+            /*
+            if (zidcard_url.length > 0) {
+                if ([zidcard_url hasSuffix:@"webp"]) {
+                    [_shangChuanButton1 setZLWebPButton_ImageWithURLStr:zidcard_url withPlaceHolderImage:[UIImage imageNamed:@"jiahao"]];
+                } else {
+                    [_shangChuanButton1 sd_setImageWithURL:[NSURL URLWithString:zidcard_url] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
+                }
+            }
+            if (fidcard_url.length > 0) {
+                if ([fidcard_url hasSuffix:@"webp"]) {
+                    [_shangChuanButton2 setZLWebPButton_ImageWithURLStr:fidcard_url withPlaceHolderImage:[UIImage imageNamed:@"jiahao"]];
+                } else {
+                    [_shangChuanButton2 sd_setImageWithURL:[NSURL URLWithString:fidcard_url] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
+                }
+            }
+             */
           
         }else{
             NSString *msg = responseObject[@"msg"];
