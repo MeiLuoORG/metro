@@ -56,6 +56,7 @@
         NSLog(@"请求成功responseObject===%@",responseObject);
         if ([responseObject[@"code"]isEqual:@0]) {
             [MBProgressHUD show:@"保存成功" view:self.view];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             NSString *msg = responseObject[@"msg"];
             [MBProgressHUD show:msg view:self.view];

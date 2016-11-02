@@ -137,7 +137,7 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-//    [self getOrderList];
+    [self.tableView reloadData];
 }
 
 

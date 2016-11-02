@@ -246,6 +246,12 @@
 // [wifi currentReachabilityStatus] == NotReachable
 // [conn currentReachabilityStatus] == NotReachable
 
+-(void)viewWillAppear:(BOOL)animated{
+
+    [super viewWillAppear:YES];
+    [self.tableView reloadData];
+}
+
 - (void)dealloc{
     [self.conn stopNotifier];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
