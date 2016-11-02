@@ -161,7 +161,7 @@
             
         }];
     }else{
-        [self autoLogin];
+//        [self autoLogin];
 
         MLAnimationViewController * vcs = [[MLAnimationViewController alloc]init];
         vcs.reView.hidden = YES;
@@ -183,8 +183,11 @@
         
         __weak typeof(vcs) weakvcs = vcs;
         vcs.reblock = ^{
-            [self autoLogin];
             NSLog(@"点击了重新加载");
+            
+            [self autoLogin];
+            weakvcs.reView.hidden = YES;
+            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 NSLog(@"延时了4.5秒");
                 if (self.isFinished == YES) {
@@ -192,7 +195,9 @@
                     [self performSelector:@selector(loginTabBar) withObject:nil afterDelay:1.0];
                     
                 }else{
-                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        weakvcs.reView.hidden = NO;
+                    });
                     self.window.rootViewController = weakvcs;
                 }
                 

@@ -240,7 +240,7 @@
     
     BOOL result = [UIImagePNGRepresentation(img)writeToFile: filePath atomically:YES]; // 保存成功会返回YES
     NSLog(@"是否保存到本地:%d",result);
-    NSDictionary *params = @{@"method":@"card_type"};
+    NSDictionary *params = @{@"method":@"identity_pic"};
     
     
     [MLHttpManager post:UPLOADTOUXIANG_IMAGE_URLString params:params m:@"uploadimg" s:@"index" sconstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -248,8 +248,6 @@
     } success:^(id responseObject) {
         NSLog(@"上传身份证++%@",responseObject);
         NSDictionary *result = (NSDictionary *)responseObject;
-        
-        NSLog(@"上传身份证++%@",result);
         NSDictionary * dataDic = result[@"data"];
         if ([result[@"code"] isEqual:@0]) { //上传成功
             

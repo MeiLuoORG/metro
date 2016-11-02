@@ -51,33 +51,30 @@
     _imageviews.animationImages = imageArr;
     
     
-    if ([AppDelegate sharedAppDelegate].isFinished == YES) {
-        //设置动画总时间
-        _imageviews.animationDuration = 3.0;
-        //设置重复次数,0表示不重复
-        _imageviews.animationRepeatCount = 1;
-        
-        //开始动画
-        [_imageviews startAnimating];
-        
-        [self performSelector:@selector(animationEndAction:) withObject:nil afterDelay:3.0f];
-    }else{
-    
-        //设置动画总时间
-        _imageviews.animationDuration = 3;
-        //设置重复次数,0表示不重复
-        _imageviews.animationRepeatCount = 3;
-        
-        //开始动画
-        [_imageviews startAnimating];
-        
-        [self performSelector:@selector(animationEndAction:) withObject:nil afterDelay:9.0f];
-    }
-    
-    
-    
-    
-    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([AppDelegate sharedAppDelegate].isFinished == YES) {
+            //设置动画总时间
+            _imageviews.animationDuration = 3.0;
+            //设置重复次数,0表示不重复
+            _imageviews.animationRepeatCount = 1;
+            
+            //开始动画
+            [_imageviews startAnimating];
+            
+            [self performSelector:@selector(animationEndAction:) withObject:nil afterDelay:3.0f];
+        }else{
+            
+            //设置动画总时间
+            _imageviews.animationDuration = 3;
+            //设置重复次数,0表示不重复
+            _imageviews.animationRepeatCount = 3;
+            
+            //开始动画
+            [_imageviews startAnimating];
+            
+            [self performSelector:@selector(animationEndAction:) withObject:nil afterDelay:9.0f];
+        }
+    });
     
     self.reView = [[UIView alloc]initWithFrame:CGRectMake((SIZE_WIDTH-200)/2.0, 400, 200, 80)];
     
