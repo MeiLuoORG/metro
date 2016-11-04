@@ -20,10 +20,7 @@
 {
     // 1.创建请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
-
-
-    
+  
     NSString * userID = [[NSUserDefaults standardUserDefaults] objectForKey:kUSERDEFAULT_USERID];
     NSString *accessToken = nil;
     if (userID && ![userID isEqualToString:@""]) {
@@ -33,7 +30,6 @@
         accessToken = @"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r";
     }
 
-    
     NSString * accessTokenStrEncode = [accessToken URLEncodedString];
     NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];

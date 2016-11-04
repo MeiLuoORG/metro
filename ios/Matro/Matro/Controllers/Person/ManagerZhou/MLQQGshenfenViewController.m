@@ -25,6 +25,8 @@
     BOOL isBtn;//判断是点的哪一个按钮
     NSString * _uploadIMG_URLString1;//正面
     NSString * _uploadIMG_URLString2;//反面
+    
+    UIBarButtonItem * item;
 }
 @end
 
@@ -41,7 +43,7 @@
     [rightBtn addTarget:self action:@selector(buttonAction1) forControlEvents:UIControlEventTouchUpInside];
     [rightBtn setTitleColor:[HFSUtility hexStringToColor:Main_BackgroundColor] forState:UIControlStateNormal];
 
-    UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    item = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     self.navigationItem.rightBarButtonItem = item;
     [self createView];
 
@@ -49,26 +51,31 @@
 
 -(void)buttonAction1{
     NSLog(@"_uploadIMG_URLString1===%@-----_uploadIMG_URLString2===%@",_uploadIMG_URLString1,_uploadIMG_URLString2);
-    NSDictionary *params = @{@"zcard_pic":_uploadIMG_URLString1,@"fcard_pic":_uploadIMG_URLString2};
-    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_member&action=add_idcardpic&order_id=%@",ZHOULU_ML_BASE_URLString,self.order_id];
-    NSLog(@"url====%@",url);
-    [MLHttpManager post:url params:params m:@"member" s:@"admin_member" success:^(id responseObject) {
-        NSLog(@"请求成功responseObject===%@",responseObject);
-        if ([responseObject[@"code"]isEqual:@0]) {
-            [MBProgressHUD show:@"保存成功" view:self.view];
-            [self.navigationController popViewControllerAnimated:YES];
-        }else{
-            NSString *msg = responseObject[@"msg"];
+    if (_uploadIMG_URLString1.length > 0 && _uploadIMG_URLString2.length > 0) {
+        NSDictionary *params = @{@"zcard_pic":_uploadIMG_URLString1,@"fcard_pic":_uploadIMG_URLString2};
+        NSString *url = [NSString stringWithFormat:@"%@/api.php?m=member&s=admin_member&action=add_idcardpic&order_id=%@",ZHOULU_ML_BASE_URLString,self.order_id];
+        [MLHttpManager post:url params:params m:@"member" s:@"admin_member" success:^(id responseObject) {
+            NSLog(@"请求成功responseObject===%@",responseObject);
+            if ([responseObject[@"code"]isEqual:@0]) {
+                [MBProgressHUD show:@"保存成功" view:self.view];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                NSString *msg = responseObject[@"msg"];
+                [MBProgressHUD show:msg view:self.view];
+            }
+            
+        } failure:^(NSError *error) {
+            NSString *msg = [NSString stringWithFormat:@"%@",error];
             [MBProgressHUD show:msg view:self.view];
-        }
-        
-    } failure:^(NSError *error) {
-        NSString *msg = [NSString stringWithFormat:@"%@",error];
-        [MBProgressHUD show:msg view:self.view];
-    }];
+        }];
+    }else if(_uploadIMG_URLString1 == nil && _uploadIMG_URLString2.length > 0) {
+        [MBProgressHUD show:@"请上传您的身份证正面" view:self.view];
+    }else if(_uploadIMG_URLString1.length > 0 && _uploadIMG_URLString2 == nil ) {
+        [MBProgressHUD show:@"请上传您的身份证反面" view:self.view];
+    }else{
+         [MBProgressHUD show:@"请完善您的信息" view:self.view];
+    }
     
-    
-
 }
 - (void)viewWillAppear:(BOOL)animated{
 
@@ -96,22 +103,6 @@
             if (identity_card.length > 0) {
                 _shenFenCardId.text = identity_card;
             }
-            /*
-            if (zidcard_url.length > 0) {
-                if ([zidcard_url hasSuffix:@"webp"]) {
-                    [_shangChuanButton1 setZLWebPButton_ImageWithURLStr:zidcard_url withPlaceHolderImage:[UIImage imageNamed:@"jiahao"]];
-                } else {
-                    [_shangChuanButton1 sd_setImageWithURL:[NSURL URLWithString:zidcard_url] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
-                }
-            }
-            if (fidcard_url.length > 0) {
-                if ([fidcard_url hasSuffix:@"webp"]) {
-                    [_shangChuanButton2 setZLWebPButton_ImageWithURLStr:fidcard_url withPlaceHolderImage:[UIImage imageNamed:@"jiahao"]];
-                } else {
-                    [_shangChuanButton2 sd_setImageWithURL:[NSURL URLWithString:fidcard_url] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
-                }
-            }
-             */
           
         }else{
             NSString *msg = responseObject[@"msg"];
@@ -261,7 +252,9 @@
                         [_shangChuanButton1 setZLWebPButton_ImageWithURLStr:_uploadIMG_URLString1 withPlaceHolderImage:[UIImage imageNamed:@"jiahao"]];
                     } else {
                         [_shangChuanButton1 sd_setImageWithURL:[NSURL URLWithString:_uploadIMG_URLString1] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"jiahao"]];
+                       
                     }
+                    
                 }else{
                     _uploadIMG_URLString2 = dataDic[@"pic_url"];
                     if ([_uploadIMG_URLString2 hasSuffix:@"webp"]) {
@@ -292,6 +285,7 @@
         [_hud hide:YES afterDelay:1];
         NSLog(@"上传身份证错误信息：%@",error);
     }];
+    
       
 }
 

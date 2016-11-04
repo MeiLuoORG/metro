@@ -572,6 +572,10 @@
         [MBProgressHUD showMessag:@"请选择收货地址" toView:self.view];
         return;
     }
+    if (self.order_info.isHaveHaiWai && [self.headView.shenfenzhengField.text isEqualToString:@""]) {
+        [MBProgressHUD showMessag:@"因涉及全球购商品，请填写身份证号码" toView:self.view];
+        return;
+    }
     
     __block NSInteger proIndex = 0;
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
