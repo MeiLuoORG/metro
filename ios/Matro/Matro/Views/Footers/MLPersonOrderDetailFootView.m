@@ -55,7 +55,7 @@
                 self.payBtn.hidden = NO;
                 self.cancelBtn.hidden = NO;
                 self.shenyuLb.hidden = YES;
-                [self.cancelBtn setTitle:@"退款" forState:UIControlStateNormal];
+                [self.cancelBtn setTitle:@"申请售后" forState:UIControlStateNormal];
                 [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
             }
                 break;
@@ -67,7 +67,7 @@
                 self.payBtn.hidden = NO;
                 self.cancelBtn.hidden = NO;
                 self.shenyuLb.hidden = YES;
-                [self.cancelBtn setTitle:@"退款" forState:UIControlStateNormal];
+                [self.cancelBtn setTitle:@"申请售后" forState:UIControlStateNormal];
                 [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
             }
                 break;

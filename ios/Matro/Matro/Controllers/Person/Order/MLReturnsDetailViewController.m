@@ -34,13 +34,14 @@
 #import "MLPersonAlertViewController.h"
 #import "MLGoodsDetailsViewController.h"
 #import "MLLoginViewController.h"
-
-
+#import "MLTuihuoCaozuoCell.h"
+#import "MLTuihuojineCell.h"
 
 @interface MLReturnsDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+{
+    NSArray *talk_listArr;
+}
 @property (nonatomic,strong)UITableView *tableView;
-
 @property (nonatomic,strong)MLReturnsDetailModel *returnsDetail;
 @property (nonatomic,strong)MLReturnsReturnInfo *returnInfo;
 @end
@@ -66,7 +67,8 @@
         [tableView registerNib:[UINib nibWithNibName:@"MLReturnsWentiTableViewCell" bundle:nil] forCellReuseIdentifier:kReturnsWentiTableViewCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLReturnsDetailPhototCell" bundle:nil] forCellReuseIdentifier:kReturnsDetailPhototCell];
         [tableView registerNib:[UINib nibWithNibName:@"MLLogisticsTableViewCell" bundle:nil] forCellReuseIdentifier:kLogisticsTableViewCell];
-        
+        [tableView registerNib:[UINib nibWithNibName:@"MLTuihuoCaozuoCell" bundle:nil] forCellReuseIdentifier:@"MLTuihuoCaozuoCell"];
+        [tableView registerNib:[UINib nibWithNibName:@"MLTuihuojineCell" bundle:nil] forCellReuseIdentifier:@"MLTuihuojineCell"];
         [self.view addSubview:tableView];
         tableView;
     });
@@ -87,9 +89,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return self.returnsDetail.products.count+2;
-    }else{
+        return self.returnsDetail.products.count+3;
+    }else if(section == 1){
         return 2;
+    }else{
+        return talk_listArr.count;
     }
     
 }
@@ -97,7 +101,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 3;
 }
 
 
@@ -138,11 +142,19 @@
             cell.shopName.text = self.returnsDetail.company;
             
             return cell;
+        }else if (indexPath.row == 2+self.returnsDetail.products.count){
+            MLTuihuojineCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MLTuihuojineCell" forIndexPath:indexPath];
+            cell.jiaoyiLab.text = [NSString stringWithFormat:@"￥%.2f",self.returnsDetail.transaction_price.floatValue];
+            cell.tuikuanLab.text = [NSString stringWithFormat:@"￥%.2f",self.returnsDetail.return_price.floatValue];
+            return cell;
+        
         }
         else{
             MLOrderCenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             MLTuiHuoProductModel *model = [self.returnsDetail.products objectAtIndex:indexPath.row-2];
+            cell.shouhouBtn.hidden = YES;
+            cell.countNum.hidden = YES;
             cell.tuiHuoProduct = model;
             return cell;
         }
@@ -172,6 +184,22 @@
             };
             return cell;
         }
+    }else{
+        MLTuihuoCaozuoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MLTuihuoCaozuoCell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (talk_listArr && talk_listArr.count >0) {
+            
+            NSDictionary *talkDic = [talk_listArr objectAtIndex:indexPath.row];
+            cell.tuihuoInfoLab.text = talkDic[@"content"];
+            cell.tuihuoTimeLab.text = talkDic[@"add_time"];
+            cell.tuihuorenNameLab.text = [NSString stringWithFormat:@"操作人:%@",talkDic[@"username"]] ;
+        }
+        
+        if (indexPath.row == 0) {
+            cell.shangView.hidden = YES;
+        }
+        return cell;
+        
     }
     
     return nil;
@@ -185,7 +213,7 @@
                 return 140;
             }
             return 100;
-        }else if (indexPath.row == 1){
+        }else if (indexPath.row == 1 || indexPath.row == 2 + self.returnsDetail.products.count){
             return 40;
         }
         else{
@@ -197,6 +225,8 @@
         }else if (indexPath.row ==1){
             return 120;
         }
+    }else if(indexPath.section == 2){
+        return 130;
     }
     return 0;
 }
@@ -241,7 +271,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 40)];
     headView.backgroundColor = [UIColor whiteColor];
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(16, 10, 200, 40)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(16, 0, 200, 40)];
     label.font = [UIFont systemFontOfSize:16];
     label.text = @"售后信息跟踪";
     [headView addSubview:label];
@@ -253,9 +283,10 @@
 
 - (void)getOrderDetail{
     //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSLog(@"vc.order_id===%@ vc.pro_id===%@",self.order_id,self.pro_id);
     [self showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_detail",MATROJP_BASE_URL];
-    NSDictionary *params = @{@"order_id":self.order_id?:@""};
+    NSDictionary *params = @{@"order_id":self.order_id?:@"",@"pro_id":self.pro_id?:@""};
     [MLHttpManager post:url params:params m:@"return" s:@"order_detail" success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self closeLoadingView];
@@ -264,6 +295,9 @@
             NSDictionary *data = result[@"data"];
             NSDictionary *returnInfo = data[@"returnInfo"];
             NSDictionary *order_detail = data[@"order_detail"];
+            talk_listArr = data[@"order_detail"][@"talk_list"];
+            NSLog(@"talk_listArr===%@",talk_listArr);
+            
             self.returnsDetail = [MLReturnsDetailModel mj_objectWithKeyValues:order_detail];
             self.returnInfo = [MLReturnsReturnInfo mj_objectWithKeyValues:returnInfo];
             [self.tableView reloadData];
@@ -278,6 +312,7 @@
              [MBProgressHUD show:msg view:self.view];
         }
     } failure:^(NSError *error) {
+        
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self closeLoadingView];
         [MBProgressHUD showMessag:NETWORK_ERROR_MESSAGE toView:self.view];

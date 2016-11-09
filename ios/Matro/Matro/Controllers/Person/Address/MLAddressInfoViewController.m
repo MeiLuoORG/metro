@@ -278,32 +278,37 @@ static MLShippingaddress *province,*city,*area;
         return;
     }
     if ([self.nameTextField.text isEqualToString:@""]) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"姓名不能为空";
-        [_hud hide:YES afterDelay:1];
+//        [_hud show:YES];
+//        _hud.mode = MBProgressHUDModeText;
+//        _hud.labelText = @"姓名不能为空";
+//        [_hud hide:YES afterDelay:1];
+        [MBProgressHUD showMessag:@"姓名不能为空" toView:self.view];
         return;
     }
+    
     if (self.nameTextField.text.length > 10) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"姓名长度不能超过10";
-        [_hud hide:YES afterDelay:1];
+//        [_hud show:YES];
+//        _hud.mode = MBProgressHUDModeText;
+//        _hud.labelText = @"姓名长度不能超过10";
+//        [_hud hide:YES afterDelay:1];
+         [MBProgressHUD showMessag:@"姓名长度不能超过10" toView:self.view];
         return;
     }
     if ([self.phoneTextField.text isEqualToString:@""]) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"电话号码不能为空";
-        [_hud hide:YES afterDelay:1];
+//        [_hud show:YES];
+//        _hud.mode = MBProgressHUDModeText;
+//        _hud.labelText = @"电话号码不能为空";
+//        [_hud hide:YES afterDelay:1];
+        [MBProgressHUD showMessag:@"电话号码不能为空" toView:self.view];
         return;
 
     }
     if ([self.inputTextField.text isEqualToString:@""]) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"详细地址不能为空";
-        [_hud hide:YES afterDelay:1];
+//        [_hud show:YES];
+//        _hud.mode = MBProgressHUDModeText;
+//        _hud.labelText = @"详细地址不能为空";
+//        [_hud hide:YES afterDelay:1];
+         [MBProgressHUD showMessag:@"详细地址不能为空" toView:self.view];
         return;
 
     }

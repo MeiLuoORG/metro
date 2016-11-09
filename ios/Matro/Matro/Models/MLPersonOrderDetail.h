@@ -23,6 +23,7 @@
 @property (nonatomic,assign)NSTimeInterval remainder;
 @property (nonatomic,copy)NSString *process;
 @property (nonatomic,assign)float b2cyhq;
+@property (nonatomic,assign)NSInteger partial_return;
 
 @property (nonatomic,strong)MLOrderDetailSellerinfo *sellerinfo;
 

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 @class MLReturnsQuestiontype;
 @class MLReturnsReturnInfo;
+
 @interface MLReturnsDetailModel : NSObject
 @property (nonatomic,copy)NSString *order_id;
 @property (nonatomic,copy)NSString *company;
@@ -18,6 +19,8 @@
 @property (nonatomic,copy)NSString *return_code;
 @property (nonatomic,copy)NSString *return_status;
 @property (nonatomic,copy)NSString *return_add_time;
+@property (nonatomic,copy)NSString *transaction_price;
+@property (nonatomic,copy)NSString *return_price;
 
 
 @property (nonatomic,assign)BOOL isMore;
@@ -40,5 +43,6 @@
 @property (nonatomic,copy)NSString *ID;
 @property (nonatomic,copy)NSString *content;
 @end
+
 
 

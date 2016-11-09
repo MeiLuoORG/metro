@@ -97,9 +97,15 @@ static NSInteger pageIndex = 1;
     __weak typeof(self) weakself = self;
     if (indexPath.row == 0 ) {
         MLRetrunsHeadCell *cell =[tableView dequeueReusableCellWithIdentifier:kMLRetrunsHeadCell forIndexPath:indexPath];
+        if (model.partial_return == 0) {
+            cell.returnBtn.hidden = NO;
+        }else{
+            cell.returnBtn.hidden = YES;
+        }
         cell.tuihuoBlock = ^(){
             MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
             vc.order_id = model.order_id;
+            vc.isAll = YES;
             vc.hidesBottomBarWhenPushed = YES;
             [weakself.navigationController pushViewController:vc animated:YES];
         };
@@ -122,6 +128,23 @@ static NSInteger pageIndex = 1;
         return cell;
     }
     MLOrderCenterTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
+    cell.countNum.hidden = YES;
+    MLTuiHuoProductModel *product =  [model.products objectAtIndex:indexPath.row - 2];
+    if (model.partial_return == 1 && product.return_status == 1) {
+        cell.shouhouBtn.hidden = NO;
+        cell.shouhoublock = ^(){
+            
+            MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
+            vc.order_id = model.order_id;
+            vc.pro_id = product.pro_id;
+            vc.isAll = NO;
+            vc.hidesBottomBarWhenPushed = YES;
+            [weakself.navigationController pushViewController:vc animated:YES];
+            
+        };
+    }else{
+        cell.shouhouBtn.hidden = YES;
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.tuiHuoProduct = [model.products objectAtIndex:indexPath.row - 2];
     return cell;

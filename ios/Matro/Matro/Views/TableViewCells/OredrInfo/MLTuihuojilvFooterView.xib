@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MLTuihuojilvFooterView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cMO-Fw-vJR">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="￥1000.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8sN-ci-117">
+                            <rect key="frame" x="275" y="9" width="90" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.94509803920000002" green="0.39607843139999999" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="退款金额:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9M-rQ-913">
+                            <rect key="frame" x="210" y="9" width="65" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="交易金额:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKZ-sb-55Y">
+                            <rect key="frame" x="45" y="9" width="65" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="￥1000.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Tt-Wn-c0M">
+                            <rect key="frame" x="110" y="10" width="90" height="20"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="2hn-gA-PRw"/>
+                        <constraint firstItem="8sN-ci-117" firstAttribute="leading" secondItem="S9M-rQ-913" secondAttribute="trailing" constant="5" id="3PG-Ki-E23"/>
+                        <constraint firstItem="8sN-ci-117" firstAttribute="centerY" secondItem="cMO-Fw-vJR" secondAttribute="centerY" id="AY7-mz-V4a"/>
+                        <constraint firstItem="6Tt-Wn-c0M" firstAttribute="centerY" secondItem="cMO-Fw-vJR" secondAttribute="centerY" id="KWr-lj-5iR"/>
+                        <constraint firstItem="RKZ-sb-55Y" firstAttribute="centerY" secondItem="cMO-Fw-vJR" secondAttribute="centerY" id="P7f-eh-t99"/>
+                        <constraint firstItem="S9M-rQ-913" firstAttribute="leading" secondItem="6Tt-Wn-c0M" secondAttribute="trailing" constant="10" id="e0a-gn-Ggf"/>
+                        <constraint firstItem="6Tt-Wn-c0M" firstAttribute="leading" secondItem="RKZ-sb-55Y" secondAttribute="trailing" constant="5" id="jfh-fT-avx"/>
+                        <constraint firstItem="S9M-rQ-913" firstAttribute="centerY" secondItem="cMO-Fw-vJR" secondAttribute="centerY" id="lLQ-Ig-fPh"/>
+                        <constraint firstAttribute="trailing" secondItem="8sN-ci-117" secondAttribute="trailing" constant="10" id="wXr-o0-4u7"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="cMO-Fw-vJR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="OHD-pC-q7e"/>
+                <constraint firstItem="cMO-Fw-vJR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Pde-Xo-rwD"/>
+                <constraint firstAttribute="trailing" secondItem="cMO-Fw-vJR" secondAttribute="trailing" id="dWS-MW-3Kb"/>
+                <constraint firstAttribute="bottom" secondItem="cMO-Fw-vJR" secondAttribute="bottom" constant="5" id="t1W-46-vBn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="jiaoyiLab" destination="6Tt-Wn-c0M" id="nb8-t2-YtZ"/>
+                <outlet property="tuihuojineLab" destination="8sN-ci-117" id="PIk-vF-5QS"/>
+            </connections>
+            <point key="canvasLocation" x="26.5" y="52"/>
+        </view>
+    </objects>
+</document>

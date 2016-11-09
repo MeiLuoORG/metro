@@ -47,7 +47,7 @@
     }else{
         if ([self.editBtn.titleLabel.text isEqualToString:@"编辑"]) {//如果是编辑状态
             if (newSFZ) {
-                self.shenfenzhengField.text = newSFZ;
+//                self.shenfenzhengField.text = newSFZ;
             }
             self.sfLeading.constant = -77;
             self.fieldLeading.constant = 16;

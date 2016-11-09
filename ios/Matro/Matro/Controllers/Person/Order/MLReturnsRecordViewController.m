@@ -31,7 +31,8 @@
 #import "UMMobClick/MobClick.h"
 #import "MLGoodsDetailsViewController.h"
 #import "MLLoginViewController.h"
-
+#import "MLTuihuojilvFooterView.h"
+#import "CommonHeader.h"
 @interface MLReturnsRecordViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *orderList;
@@ -46,9 +47,9 @@ static NSInteger pageIndex = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = RGBA(245, 245, 245, 1);
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _tableView = ({
-        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero];
+        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tableView.delegate = self;
         tableView.dataSource = self;
@@ -134,11 +135,11 @@ static NSInteger pageIndex = 1;
     }
     MLOrderCenterTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.shouhouBtn.hidden = YES;
+    cell.countNum.hidden = YES;
     cell.tuiHuoProduct = [model.products objectAtIndex:indexPath.row - 2];
     return cell;
 }
-
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -146,6 +147,8 @@ static NSInteger pageIndex = 1;
     if (indexPath.row == 0 ) {
         MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
         vc.order_id = model.order_id;
+        vc.pro_id = model.pro_id;
+        NSLog(@"vc.order_id===%@ vc.pro_id===%@",vc.order_id,vc.pro_id);
         vc.cancelSuccess = ^(){
             [self.tableView.header beginRefreshing];
         };
@@ -174,15 +177,38 @@ static NSInteger pageIndex = 1;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    return [[UIView alloc]init];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 8.f;
+    MLTuiHuoModel *model = [self.orderList objectAtIndex:section];
+    if ([model.return_status_code isEqualToString:@"9"]) {
+        MLTuihuojilvFooterView *footerView = [[MLTuihuojilvFooterView  alloc] initWithReuseIdentifier:@"MLTuihuojilvFooterView"];
+        footerView.jiaoyiLab.text = [NSString stringWithFormat:@"￥%.2f",model.transaction_price.floatValue];
+        footerView.tuihuojineLab.text = [NSString stringWithFormat:@"￥%.2f",model.return_price.floatValue];
+        return footerView;
+    }else{
+        
+        return [[UIView alloc] init];
+        
+    }
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    MLTuiHuoModel *model = [self.orderList objectAtIndex:section];
+    if ([model.return_status_code isEqualToString:@"9"]) {
+        return 45;
+    }else{
+        return 5;
+    }
+    
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SIZE_WIDTH, 0.5)];
+    return view;
+}
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.5;
+}
 
 - (NSMutableArray *)orderList{
     if (!_orderList) {

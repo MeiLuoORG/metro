@@ -57,6 +57,8 @@
 		2840733B1D2E272D003A13AE /* MLOrderListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284073391D2E272D003A13AE /* MLOrderListTableViewCell.xib */; };
 		2840733F1D2E5DF2003A13AE /* MLshopGoodsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2840733D1D2E5DF2003A13AE /* MLshopGoodsListViewController.m */; };
 		284073401D2E5DF2003A13AE /* MLshopGoodsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2840733E1D2E5DF2003A13AE /* MLshopGoodsListViewController.xib */; };
+		28422E351DD080CB0065C74B /* MLTuihuoCaozuoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28422E331DD080CB0065C74B /* MLTuihuoCaozuoCell.m */; };
+		28422E361DD080CB0065C74B /* MLTuihuoCaozuoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28422E341DD080CB0065C74B /* MLTuihuoCaozuoCell.xib */; };
 		284850D01D13F41B003C2649 /* MLGoodsDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */; };
 		284850D41D13F6DE003C2649 /* MLpingjiaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */; };
 		2848FA4B1D51C5040001D8FC /* MLSecondCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2848FA491D51C5040001D8FC /* MLSecondCollectionViewCell.m */; };
@@ -89,6 +91,10 @@
 		2869F68A1D221AF7003C4663 /* MLServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F6881D221AF7003C4663 /* MLServiceViewController.xib */; };
 		2869F68D1D2279B7003C4663 /* MLKefuHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869F68C1D2279B7003C4663 /* MLKefuHeader.m */; };
 		2869F68F1D227A08003C4663 /* MLKefuHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2869F68E1D227A08003C4663 /* MLKefuHeader.xib */; };
+		286BAB421DD176B700BA8A37 /* MLTuihuojineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 286BAB401DD176B700BA8A37 /* MLTuihuojineCell.m */; };
+		286BAB431DD176B700BA8A37 /* MLTuihuojineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286BAB411DD176B700BA8A37 /* MLTuihuojineCell.xib */; };
+		286BAB461DD17BFC00BA8A37 /* MLTuihuojilvFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 286BAB451DD17BFC00BA8A37 /* MLTuihuojilvFooterView.m */; };
+		286BAB481DD17C3300BA8A37 /* MLTuihuojilvFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286BAB471DD17C3300BA8A37 /* MLTuihuojilvFooterView.xib */; };
 		2875856C1D210030000BDEF4 /* MLFootMarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2875856B1D210030000BDEF4 /* MLFootMarkTableViewCell.xib */; };
 		287585701D210386000BDEF4 /* MLFootTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2875856E1D210386000BDEF4 /* MLFootTableViewCell.m */; };
 		287585711D210386000BDEF4 /* MLFootTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2875856F1D210386000BDEF4 /* MLFootTableViewCell.xib */; };
@@ -840,6 +846,9 @@
 		2840733C1D2E5DF2003A13AE /* MLshopGoodsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLshopGoodsListViewController.h; path = Class/MLshopGoodsListViewController.h; sourceTree = "<group>"; };
 		2840733D1D2E5DF2003A13AE /* MLshopGoodsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLshopGoodsListViewController.m; path = Class/MLshopGoodsListViewController.m; sourceTree = "<group>"; };
 		2840733E1D2E5DF2003A13AE /* MLshopGoodsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MLshopGoodsListViewController.xib; path = Class/MLshopGoodsListViewController.xib; sourceTree = "<group>"; };
+		28422E321DD080CB0065C74B /* MLTuihuoCaozuoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTuihuoCaozuoCell.h; sourceTree = "<group>"; };
+		28422E331DD080CB0065C74B /* MLTuihuoCaozuoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTuihuoCaozuoCell.m; sourceTree = "<group>"; };
+		28422E341DD080CB0065C74B /* MLTuihuoCaozuoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLTuihuoCaozuoCell.xib; sourceTree = "<group>"; };
 		284850CF1D13F41B003C2649 /* MLGoodsDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLGoodsDetailsViewController.xib; sourceTree = "<group>"; };
 		284850D11D13F6DE003C2649 /* MLpingjiaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLpingjiaViewController.h; sourceTree = "<group>"; };
 		284850D21D13F6DE003C2649 /* MLpingjiaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLpingjiaViewController.m; sourceTree = "<group>"; };
@@ -888,6 +897,12 @@
 		2869F68B1D2279B7003C4663 /* MLKefuHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLKefuHeader.h; sourceTree = "<group>"; };
 		2869F68C1D2279B7003C4663 /* MLKefuHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLKefuHeader.m; sourceTree = "<group>"; };
 		2869F68E1D227A08003C4663 /* MLKefuHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLKefuHeader.xib; sourceTree = "<group>"; };
+		286BAB3F1DD176B700BA8A37 /* MLTuihuojineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTuihuojineCell.h; sourceTree = "<group>"; };
+		286BAB401DD176B700BA8A37 /* MLTuihuojineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTuihuojineCell.m; sourceTree = "<group>"; };
+		286BAB411DD176B700BA8A37 /* MLTuihuojineCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLTuihuojineCell.xib; sourceTree = "<group>"; };
+		286BAB441DD17BFC00BA8A37 /* MLTuihuojilvFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTuihuojilvFooterView.h; sourceTree = "<group>"; };
+		286BAB451DD17BFC00BA8A37 /* MLTuihuojilvFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTuihuojilvFooterView.m; sourceTree = "<group>"; };
+		286BAB471DD17C3300BA8A37 /* MLTuihuojilvFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLTuihuojilvFooterView.xib; sourceTree = "<group>"; };
 		2875856B1D210030000BDEF4 /* MLFootMarkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLFootMarkTableViewCell.xib; sourceTree = "<group>"; };
 		2875856D1D210386000BDEF4 /* MLFootTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFootTableViewCell.h; sourceTree = "<group>"; };
 		2875856E1D210386000BDEF4 /* MLFootTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLFootTableViewCell.m; sourceTree = "<group>"; };
@@ -3771,6 +3786,15 @@
 				2875856D1D210386000BDEF4 /* MLFootTableViewCell.h */,
 				2875856E1D210386000BDEF4 /* MLFootTableViewCell.m */,
 				2875856F1D210386000BDEF4 /* MLFootTableViewCell.xib */,
+				28422E321DD080CB0065C74B /* MLTuihuoCaozuoCell.h */,
+				28422E331DD080CB0065C74B /* MLTuihuoCaozuoCell.m */,
+				28422E341DD080CB0065C74B /* MLTuihuoCaozuoCell.xib */,
+				286BAB3F1DD176B700BA8A37 /* MLTuihuojineCell.h */,
+				286BAB401DD176B700BA8A37 /* MLTuihuojineCell.m */,
+				286BAB411DD176B700BA8A37 /* MLTuihuojineCell.xib */,
+				286BAB441DD17BFC00BA8A37 /* MLTuihuojilvFooterView.h */,
+				286BAB451DD17BFC00BA8A37 /* MLTuihuojilvFooterView.m */,
+				286BAB471DD17C3300BA8A37 /* MLTuihuojilvFooterView.xib */,
 			);
 			path = OredrInfo;
 			sourceTree = "<group>";
@@ -4642,6 +4666,7 @@
 				7AF1415F1CE1E5BC005DDE70 /* HFSProductTableViewCell.xib in Resources */,
 				3CEDAD7F1D13ECFB00990DA8 /* placeholder.png in Resources */,
 				28C88CF41D5C728D00564C69 /* Loading001.png in Resources */,
+				286BAB481DD17C3300BA8A37 /* MLTuihuojilvFooterView.xib in Resources */,
 				3CEDAD7E1D13ECFB00990DA8 /* page.png in Resources */,
 				284E36451D2B7C0D000CC90F /* MLPeisongTableViewCell.xib in Resources */,
 				280F7CE61CF832C600D42FA6 /* MLYHQTableViewCell.xib in Resources */,
@@ -4682,6 +4707,7 @@
 				7AEDD0ED1CE5EE9A009B12F4 /* MLWishlistTableViewCell.xib in Resources */,
 				28E8B1191D503E230088B840 /* MLQuanqiugouViewController.xib in Resources */,
 				28C88D031D5C728D00564C69 /* Loading005.png in Resources */,
+				28422E361DD080CB0065C74B /* MLTuihuoCaozuoCell.xib in Resources */,
 				3CEDAD7D1D13ECFB00990DA8 /* background.png in Resources */,
 				7AF6EEBA1CE40AD100ECFCAA /* MLPersonHeadView.xib in Resources */,
 				2832619F1D192E4800C9EE4E /* MLstoreCollectTableViewCell.xib in Resources */,
@@ -4716,6 +4742,7 @@
 				3A633A601C9E9E2F00C11FD5 /* Main.storyboard in Resources */,
 				3A0E99FE1CB3B19900364D6E /* MLLogisticsTableViewCell.xib in Resources */,
 				3A877F9B1C9F820A0052F60A /* MLLoginViewController.xib in Resources */,
+				286BAB431DD176B700BA8A37 /* MLTuihuojineCell.xib in Resources */,
 				280F7CDB1CF8249000D42FA6 /* MLWishlistViewController.xib in Resources */,
 				28C88CFF1D5C728D00564C69 /* Loading002.png in Resources */,
 				284850D01D13F41B003C2649 /* MLGoodsDetailsViewController.xib in Resources */,
@@ -4961,6 +4988,7 @@
 				3C1306E11D260BBC005CFCEC /* UIColor+RGBA.m in Sources */,
 				3A633B4B1C9EA36E00C11FD5 /* AsyncSocket.m in Sources */,
 				3A633B2C1C9EA36E00C11FD5 /* UIBarButtonItem+Badge.m in Sources */,
+				28422E351DD080CB0065C74B /* MLTuihuoCaozuoCell.m in Sources */,
 				3CC5F7761D2B56C500E1A5B5 /* ShaiXuanZlView.m in Sources */,
 				3C7D3F3A1D3F7C470038FD5D /* YYAnimationIndicator.m in Sources */,
 				7AEC88CE1CE45D1500B43DD4 /* MLGoodsComHeadView.m in Sources */,
@@ -5072,6 +5100,7 @@
 				7AF141631CE1FD50005DDE70 /* MLProductOrderCell.m in Sources */,
 				3A633B531C9EA36E00C11FD5 /* ZLCameraImageView.m in Sources */,
 				3A633B5C1C9EA36E00C11FD5 /* ZLPhotoPickerBrowserPhotoView.m in Sources */,
+				286BAB421DD176B700BA8A37 /* MLTuihuojineCell.m in Sources */,
 				7ACFA5FD1D1125AF00987A03 /* MLPersonOrderListViewController.m in Sources */,
 				2840733A1D2E272D003A13AE /* MLOrderListTableViewCell.m in Sources */,
 				2CBAD64D1CA3B3AC0044601B /* MLBagZengpinTableViewCell.m in Sources */,
@@ -5263,6 +5292,7 @@
 				3A633B3E1C9EA36E00C11FD5 /* UIView+SDExtension.m in Sources */,
 				7AEDD0D81CE5C498009B12F4 /* MLReturnRequestViewController.m in Sources */,
 				287585741D2114CE000BDEF4 /* MLFootModel.m in Sources */,
+				286BAB461DD17BFC00BA8A37 /* MLTuihuojilvFooterView.m in Sources */,
 				2CBAD6481CA3B0650044601B /* MLBagGoodsTableViewCell.m in Sources */,
 				7A3A62671CDB874F00D265F2 /* MLAfterSaleHeadCell.m in Sources */,
 				287C86C91D1A35DA0002E5E2 /* MLCollectgoodsModel.m in Sources */,

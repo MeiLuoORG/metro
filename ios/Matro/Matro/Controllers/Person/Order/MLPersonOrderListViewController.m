@@ -267,6 +267,11 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     MLOrderCenterTableViewCell *cell= [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
     MLPersonOrderProduct *product = [order.product objectAtIndex:indexPath.row-1];
     cell.productOrder = product;
+    cell.shouhouBtn.hidden = YES;
+    cell.countNum.hidden = YES;
+    cell.shouhoublock = ^(){
+        NSLog(@"点击了列表的申请售后");
+    };
     return cell;
     
 }

@@ -12,6 +12,8 @@
 @interface MLReturnRequestViewController : UIViewController
 
 @property (nonatomic,copy)NSString *order_id;
+@property (nonatomic,copy)NSString *pro_id;
+@property BOOL isAll;
 
 //窗体加载进度
 - (void)showLoadingView;

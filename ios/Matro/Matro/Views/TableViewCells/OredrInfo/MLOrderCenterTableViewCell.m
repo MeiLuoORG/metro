@@ -14,7 +14,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.shouhouBtn.layer.cornerRadius = 4.f;
+    self.shouhouBtn.layer.masksToBounds = YES;
+    self.shouhouBtn.layer.borderColor = RGBA(174, 142, 93, 1).CGColor;
+    self.shouhouBtn.layer.borderWidth = 1.f;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -55,9 +58,11 @@
         } else {
             [self.goodsImg sd_setImageWithURL:[NSURL URLWithString:_tuiHuoProduct.pic] placeholderImage:PLACEHOLDER_IMAGE];
         }
-        NSLog(@"%@",_tuiHuoProduct.pic);
+        NSLog(@"%@--%@",_tuiHuoProduct.pic,_tuiHuoProduct.return_num);
         self.goodsCount.text = [NSString stringWithFormat:@"x%@",_tuiHuoProduct.num];
-        
+        self.countNum.maxValue = _tuiHuoProduct.return_num.integerValue;
+        self.countNum.minValue = 1;
+        [self.countNum setValue:[_tuiHuoProduct.return_num integerValue]];
         
     }
 }
@@ -80,6 +85,11 @@
     }
 }
 
+- (IBAction)shouhouClick:(id)sender {
+    if (self.shouhoublock) {
+        self.shouhoublock();
+    }
+}
 
 
 

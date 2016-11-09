@@ -20,16 +20,14 @@
     return @{@"question_type":[MLReturnsQuestiontype class],@"products":[MLTuiHuoProductModel class]};
 }
 
-
-
 - (void)setProducts:(NSArray *)products{
     _products = products;
     self.isMore = (_products.count>2);
     
 }
 
-
 @end
+
 
 @implementation MLReturnsReturnInfo
 

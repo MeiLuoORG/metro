@@ -576,6 +576,17 @@
         [MBProgressHUD showMessag:@"因涉及全球购商品，请填写身份证号码" toView:self.view];
         return;
     }
+    if (self.order_info.consignee.name.length > 0 && self.order_info.isHaveHaiWai) {
+        NSRange range=NSMakeRange(0,1);
+        
+        NSString *subString=[self.order_info.consignee.name substringWithRange:range];
+        
+        const char *cString=[subString UTF8String];
+        if (strlen(cString) == 1) {
+            [MBProgressHUD showMessag:@"请使用和身份证号对应的真实姓名" toView:self.view];
+            return;
+        }
+    }
     
     __block NSInteger proIndex = 0;
     NSMutableDictionary *params = [NSMutableDictionary dictionary];

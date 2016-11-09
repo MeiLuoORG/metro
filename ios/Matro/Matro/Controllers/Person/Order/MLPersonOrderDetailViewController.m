@@ -519,9 +519,18 @@
             else{
                 MLOrderCenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
                 MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:indexPath.row-1];
+                if (self.orderDetail.partial_return == 1 && model.return_status == 1) {
+                    cell.countNum.hidden = YES;
+                    cell.shouhouBtn.hidden = NO;
+                    cell.shouhoublock = ^(){
+                        NSLog(@"点击了订单详情的申请售后");
+                    };
+                }else{
+                    cell.countNum.hidden = YES;
+                    cell.shouhouBtn.hidden = YES;
+                }
                 cell.productOrder = model;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                
                 return cell;
             }
             

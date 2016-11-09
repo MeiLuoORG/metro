@@ -53,6 +53,14 @@
     // Override point for customization after application launch.
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
+//  设备系统的版本
+//  NSString *systemVer = [[UIDevice currentDevice] systemVersion];
+//  NSLog(@"systemVer===%@",systemVer);
+//  NSLog(@"bounds--->%@",NSStringFromCGRect([[UIScreen mainScreen] bounds]));
+    CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
+    NSString *uuid = (NSString *)CFBridgingRelease(CFUUIDCreateString (kCFAllocatorDefault,uuidRef));
+    NSLog(@"uuid===%@",uuid);
+    
     UMConfigInstance.appKey = @"578c85b0e0f55a304d000028";
     UMConfigInstance.channelId = @"App Store";
     [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！

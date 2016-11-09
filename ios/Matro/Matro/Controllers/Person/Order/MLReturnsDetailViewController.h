@@ -15,6 +15,7 @@ typedef void(^CancelSuccess)();
 
 @interface MLReturnsDetailViewController : MLBaseViewController
 @property (nonatomic,copy)NSString *order_id;
+@property (nonatomic,copy)NSString *pro_id;
 @property (nonatomic,copy)CancelSuccess cancelSuccess;
 
 @end

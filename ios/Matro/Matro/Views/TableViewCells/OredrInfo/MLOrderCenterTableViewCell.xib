@@ -58,12 +58,37 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcC-nD-YfG">
+                        <rect key="frame" x="234" y="91.5" width="70" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="3OK-HK-h7B"/>
+                            <constraint firstAttribute="width" constant="70" id="Ia5-EF-tJ3"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="申请售后">
+                            <color key="titleColor" red="0.59999999999999998" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="shouhouClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="r7v-o4-Weu"/>
+                        </connections>
+                    </button>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UID-7H-jNL" customClass="CPStepper">
+                        <rect key="frame" x="207" y="90" width="97" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="97" id="J7v-eL-MzI"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="UID-7H-jNL" secondAttribute="trailing" constant="8" id="0Sp-jo-jtz"/>
                     <constraint firstItem="z3Z-1o-LkM" firstAttribute="top" secondItem="5YL-ex-TYa" secondAttribute="bottom" constant="2" id="17a-if-Py8"/>
                     <constraint firstAttribute="trailing" secondItem="z3Z-1o-LkM" secondAttribute="trailing" constant="8" id="BgG-x8-0be"/>
                     <constraint firstItem="qHt-jS-tQL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="EJk-c6-Olk"/>
                     <constraint firstItem="5YL-ex-TYa" firstAttribute="top" secondItem="QTt-dK-zOO" secondAttribute="bottom" constant="2" id="Edp-We-KKY"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="tcC-nD-YfG" secondAttribute="trailing" constant="8" id="F1X-3a-9dt"/>
                     <constraint firstAttribute="bottom" secondItem="sA8-yc-BCY" secondAttribute="bottom" id="GcT-td-T2v"/>
                     <constraint firstItem="Rhk-UM-eV3" firstAttribute="width" secondItem="QTt-dK-zOO" secondAttribute="width" id="LLl-Ds-3TC"/>
                     <constraint firstItem="Rhk-UM-eV3" firstAttribute="height" secondItem="QTt-dK-zOO" secondAttribute="height" id="Psn-dp-0ym"/>
@@ -71,8 +96,10 @@
                     <constraint firstAttribute="bottom" secondItem="Rhk-UM-eV3" secondAttribute="bottom" constant="17" id="V99-mU-wRT"/>
                     <constraint firstAttribute="trailing" secondItem="Rhk-UM-eV3" secondAttribute="trailing" constant="8" id="YK6-hi-lyp"/>
                     <constraint firstItem="z3Z-1o-LkM" firstAttribute="leading" secondItem="qHt-jS-tQL" secondAttribute="trailing" constant="20" id="fNJ-el-hsL"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="UID-7H-jNL" secondAttribute="bottom" constant="4" id="is5-tr-LtC"/>
                     <constraint firstAttribute="trailing" secondItem="5YL-ex-TYa" secondAttribute="trailing" constant="8" id="lEz-m2-I0G"/>
                     <constraint firstItem="5YL-ex-TYa" firstAttribute="width" secondItem="QTt-dK-zOO" secondAttribute="width" id="m02-vc-2Sw"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="tcC-nD-YfG" secondAttribute="bottom" constant="8" id="pL8-c6-9S4"/>
                     <constraint firstItem="qHt-jS-tQL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sgM-0M-52N"/>
                     <constraint firstItem="z3Z-1o-LkM" firstAttribute="width" secondItem="QTt-dK-zOO" secondAttribute="width" id="tSq-u4-eL8"/>
                     <constraint firstItem="QTt-dK-zOO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="uAu-Gr-LRv"/>
@@ -82,11 +109,13 @@
             </tableViewCellContentView>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
+                <outlet property="countNum" destination="UID-7H-jNL" id="Jlz-ah-v2h"/>
                 <outlet property="goodsCount" destination="z3Z-1o-LkM" id="UzP-T5-z02"/>
                 <outlet property="goodsDesc" destination="5YL-ex-TYa" id="tG4-0d-gYS"/>
                 <outlet property="goodsImg" destination="qHt-jS-tQL" id="mZs-ZB-yPi"/>
                 <outlet property="goodsName" destination="QTt-dK-zOO" id="OAK-TK-EPi"/>
                 <outlet property="goodsPrice" destination="Rhk-UM-eV3" id="MU7-zZ-ecP"/>
+                <outlet property="shouhouBtn" destination="tcC-nD-YfG" id="ZZJ-i7-7hY"/>
             </connections>
             <point key="canvasLocation" x="413" y="364.5"/>
         </tableViewCell>

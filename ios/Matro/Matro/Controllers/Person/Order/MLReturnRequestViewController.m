@@ -37,19 +37,22 @@
 #import "CommonHeader.h"
 #import "MLLoginViewController.h"
 
-@interface MLReturnRequestViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MLReturnRequestViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,CPStepperDelegate>
 {
     BOOL isOpen;
     PlaceholderTextView *messageText;
     MLReturnsQuestiontype *selQuestion;
     NSArray *tagsArray;
     YYAnimationIndicator *indicator;
+    NSInteger countNum ;
+    NSArray *ProductArr;
 }
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,assign)BOOL fapiao;
 @property (nonatomic,strong)NSMutableArray *imgsUrlArray;
 @property (nonatomic,strong)MLReturnsDetailModel *returnsDetail;
 @property (nonatomic,strong)MLReturnsReturnInfo  *returnInfo;
+
 
 @end
 
@@ -96,7 +99,7 @@
     UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:backButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(backBtnAction)];
-    
+    ProductArr = [NSArray array];
     [self getOrderDetail];
 
 }
@@ -153,8 +156,12 @@
                 return cell;
             }
             MLOrderCenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
+            cell.shouhouBtn.hidden = YES;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.tuiHuoProduct = [self.returnsDetail.products objectAtIndex:indexPath.row-2];
+            cell.countNum.stepperDelegate = self;
+            cell.countNum.proList = cell.tuiHuoProduct;
+            countNum = cell.countNum.value;
             return cell;
             
         }
@@ -266,6 +273,11 @@
 
 - (void)submitAction:(id)seder{
     
+//    
+//    NSIndexPath *index1 = [NSIndexPath indexPathForRow:2 inSection:0];
+//    MLOrderCenterTableViewCell *cell1  =[self.tableView cellForRowAtIndexPath:index1];
+//    NSLog(@"count===%ld",cell1.countNum.value);
+    
     if (![self checkFormat]) {
         return;
     }
@@ -328,11 +340,38 @@
 
 }
 
+#pragma 数量操作点击操作
+- (void)addField:(CPStepper *)field  ButtonClick:(id)prolist  count:(int)textCount{
+    countNum = textCount;
+}
+
+- (void)subButtonClick:(id)prolist count:(int)textCount{
+    countNum = textCount;
+}
+
+
 - (void)submitTuihuoActionWithPic:(BOOL)isUpImage{
    //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *proid ;
+    NSString *returnnum ;
+
+    NSLog(@"countNum===%ld",countNum);
+    
+    if (self.isAll == YES) {
+        proid = @"";
+        returnnum = @"";
+    }else{
+    
+        proid = self.pro_id;
+        returnnum = [NSString stringWithFormat:@"%ld",countNum];
+        
+    }
+    
     [self showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=save_return",MATROJP_BASE_URL];
-    NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":selQuestion.ID,@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"pic":isUpImage?[self.imgsUrlArray componentsJoinedByString:@","]:@""};
+    NSDictionary *params = @{@"order_id":self.self.returnsDetail.order_id,@"question_type":selQuestion.ID,@"message":messageText.text.length?messageText.text:@"",@"invoice":_fapiao?@"1":@"0",@"pic":isUpImage?[self.imgsUrlArray componentsJoinedByString:@","]:@"",@"pro_id":proid,@"return_num":returnnum};
+    NSLog(@"params===%@",params);
+    
     [MLHttpManager post:url params:params m:@"return" s:@"save_return" success:^(id responseObject) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [self closeLoadingView];
@@ -371,12 +410,13 @@
 
 - (void)getOrderDetail{
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_detail",MATROJP_BASE_URL];
-    NSDictionary *params = @{@"order_id":self.order_id?:@""};
+    NSDictionary *params = @{@"order_id":self.order_id?:@"",@"pro_id":self.pro_id?:@""};
     [MLHttpManager post:url params:params m:@"return" s:@"order_detail" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSDictionary *order_detail = data[@"order_detail"];
+            ProductArr = order_detail[@"products"];
             NSDictionary *returnInfo = data[@"returnInfo"];
             self.returnsDetail = [MLReturnsDetailModel mj_objectWithKeyValues:order_detail];
             self.returnInfo = [MLReturnsReturnInfo mj_objectWithKeyValues:returnInfo];
