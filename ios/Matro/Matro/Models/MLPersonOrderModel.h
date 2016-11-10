@@ -128,6 +128,7 @@ typedef NS_ENUM(NSInteger,OrderStatus){
 @property (nonatomic,copy)NSString *recomment_cash;
 @property (nonatomic,copy)NSString *buy_cash;
 @property (nonatomic,assign)NSInteger return_status;
+@property (nonatomic,copy)NSString *pro_id;
 
 
 @property (nonatomic,copy)NSString *setmeal_str;

@@ -21,4 +21,5 @@ typedef void(^OrderHandleBlock)();
 @property (assign, nonatomic) NSInteger order_status;
 @property (assign, nonatomic) NSInteger order_way;
 @property (assign, nonatomic) NSInteger order_idcard_status;
+@property (assign, nonatomic) NSInteger partial_return;
 @end

@@ -21,6 +21,7 @@
 @property (nonatomic,copy)NSString *return_add_time;
 @property (nonatomic,copy)NSString *transaction_price;
 @property (nonatomic,copy)NSString *return_price;
+@property (nonatomic,copy)NSString *pro_id;
 
 
 @property (nonatomic,assign)BOOL isMore;

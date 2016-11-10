@@ -21,6 +21,8 @@
 
 
 - (void)setFooterType:(FooterType)footerType{
+    NSLog(@"self.partial_return===%ld",self.partial_return);
+    
     if (_footerType != footerType) {
         _footerType = footerType;
         switch (_footerType) {
@@ -49,26 +51,81 @@
                 break;
             case FooterTypeDaiQueren:
             {
-                self.orderTime.hidden = YES;
-                self.shengyufukuanLb.hidden = YES;
-                self.daojishiLb.hidden = YES;
-                self.payBtn.hidden = NO;
-                self.cancelBtn.hidden = NO;
-                self.shenyuLb.hidden = YES;
-                [self.cancelBtn setTitle:@"申请售后" forState:UIControlStateNormal];
-                [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+                if (self.partial_return == 0) {
+                    self.orderTime.hidden = YES;
+                    self.shengyufukuanLb.hidden = YES;
+                    self.daojishiLb.hidden = YES;
+                    self.payBtn.hidden = NO;
+                    self.cancelBtn.hidden = NO;
+                    self.shenyuLb.hidden = YES;
+                    [self.cancelBtn setTitle:@"申请售后" forState:UIControlStateNormal];
+                    [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+                }else if (self.partial_return == 1){
+                    self.orderTime.hidden = YES;
+                    self.shengyufukuanLb.hidden = YES;
+                    self.daojishiLb.hidden = YES;
+                    self.payBtn.hidden = NO;
+                    self.cancelBtn.hidden = YES;
+                    self.shenyuLb.hidden = YES;
+//                    [self.cancelBtn setTitle:@"申请售后" forState:UIControlStateNormal];
+                    [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+                    
+                }else if (self.partial_return == 2){
+                    self.orderTime.hidden = YES;
+                    self.shengyufukuanLb.hidden = YES;
+                    self.daojishiLb.hidden = YES;
+                    self.payBtn.hidden = NO;
+                    self.cancelBtn.hidden = YES;
+                    self.shenyuLb.hidden = YES;
+//                    [self.cancelBtn setTitle:@"售后进度" forState:UIControlStateNormal];
+                    [self.payBtn setTitle:@"售后进度" forState:UIControlStateNormal];
+                    
+                }
+                
             }
                 break;
             case FooterTypeDaishouhuo:
             {
-                self.orderTime.hidden = YES;
-                self.shengyufukuanLb.hidden = YES;
-                self.daojishiLb.hidden = YES;
-                self.payBtn.hidden = NO;
-                self.cancelBtn.hidden = NO;
-                self.shenyuLb.hidden = YES;
-                [self.cancelBtn setTitle:@"申请售后" forState:UIControlStateNormal];
-                [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+//                self.orderTime.hidden = YES;
+//                self.shengyufukuanLb.hidden = YES;
+//                self.daojishiLb.hidden = YES;
+//                self.payBtn.hidden = NO;
+//                self.cancelBtn.hidden = NO;
+//                self.shenyuLb.hidden = YES;
+//                [self.cancelBtn setTitle:@"申请售后" forState:UIControlStateNormal];
+//                [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+                
+                if (self.partial_return == 0) {
+                    self.orderTime.hidden = YES;
+                    self.shengyufukuanLb.hidden = YES;
+                    self.daojishiLb.hidden = YES;
+                    self.payBtn.hidden = NO;
+                    self.cancelBtn.hidden = NO;
+                    self.shenyuLb.hidden = YES;
+                    [self.cancelBtn setTitle:@"申请售后" forState:UIControlStateNormal];
+                    [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+                }else if (self.partial_return == 1){
+                    self.orderTime.hidden = YES;
+                    self.shengyufukuanLb.hidden = YES;
+                    self.daojishiLb.hidden = YES;
+                    self.payBtn.hidden = NO;
+                    self.cancelBtn.hidden = YES;
+                    self.shenyuLb.hidden = YES;
+//                    [self.cancelBtn setTitle:@"申请售后" forState:UIControlStateNormal];
+                    [self.payBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+                    
+                }else if (self.partial_return == 2){
+                    self.orderTime.hidden = YES;
+                    self.shengyufukuanLb.hidden = YES;
+                    self.daojishiLb.hidden = YES;
+                    self.payBtn.hidden = NO;
+                    self.cancelBtn.hidden = YES;
+                    self.shenyuLb.hidden = YES;
+//                    [self.cancelBtn setTitle:@"售后进度" forState:UIControlStateNormal];
+                    [self.payBtn setTitle:@"售后进度" forState:UIControlStateNormal];
+                    
+                }
+                
             }
                 break;
             case FooterTypeJiaoyiguanbi:

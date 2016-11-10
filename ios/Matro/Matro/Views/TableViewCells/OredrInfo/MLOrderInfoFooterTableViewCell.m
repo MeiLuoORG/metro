@@ -54,9 +54,18 @@
                 break;
             case OrderStatusDaiqueren:
             {
-                [self.leftBtn setTitle:@"确认收货" forState:UIControlStateNormal];
-                [self.rightBtn setTitle:@"订单追踪" forState:UIControlStateNormal];
-                self.leftBtn.hidden = self.rightBtn.hidden = NO;
+                if (self.orderList.return_status == 1) {
+                    
+                    self.leftBtn.hidden = YES;
+                    self.rightBtn.hidden = NO;
+                    [self.rightBtn setTitle:@"订单追踪" forState:UIControlStateNormal];
+                    
+                }else{
+                    [self.leftBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+                    [self.rightBtn setTitle:@"订单追踪" forState:UIControlStateNormal];
+                    self.leftBtn.hidden = self.rightBtn.hidden = NO;
+                }
+               
             }
                 break;
             case OrderStatusWancheng:
@@ -71,7 +80,7 @@
                     self.leftBtn.hidden = YES;
                 }else{
                     [self.leftBtn setTitle:@"退货详情" forState:UIControlStateNormal];
-                    self.leftBtn.hidden = NO;
+                    self.leftBtn.hidden = YES;
                 }
                 self.rightBtn.hidden = NO;
             }

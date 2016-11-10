@@ -35,10 +35,12 @@
 #import "MLLoginViewController.h"
 #import "MLWanshanCell.h"
 #import "MLQQGshenfenViewController.h"
+#import "MLReturnsDetailViewController.h"
 
 
 @interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>{
     MLLogisticsModel *logisticModel;
+    NSString *pro_id;
     
 }
 @property (nonatomic,strong)UITableView *tableView;
@@ -119,12 +121,20 @@
                     break;
                 case ButtonActionTypeQuerenshouhuo://确认收货
                 {
+                    if (self.orderDetail.partial_return == 2 ) {
+                        
+                        MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
+                        vc.order_id = weakself.order_id;
+                        vc.pro_id = @"0";
+                        [weakself.navigationController pushViewController:vc animated:YES];
+                    }else{
                     
-                    MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定确认收货？" AndAlertDoneAction:^{
-                        [weakself OrderActionWithButtonType:actionType];
-                    }];
-                    [weakself showTransparentController:vc];
-                   
+                        MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定确认收货？" AndAlertDoneAction:^{
+                            [weakself OrderActionWithButtonType:actionType];
+                        }];
+                        [weakself showTransparentController:vc];
+                    }
+ 
                 }
                     break;
                 case ButtonActionTypePingJia://评价
@@ -151,14 +161,24 @@
                     break;
                 case ButtonActionTypeTuiKuan://退款
                 {
-                    
-                    if (self.orderDetail.way == 2) { //跨境购
-                        [MBProgressHUD showMessag:@"跨境购商品不支持退款" toView:self.view];
-                    }else{
-                        MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
-                        vc.order_id =weakself.order_id;
-                        [weakself.navigationController pushViewController:vc animated:YES];
+                    if (self.orderDetail.partial_return == 0) {
+                        if (self.orderDetail.way == 2) { //跨境购
+                            [MBProgressHUD showMessag:@"跨境购商品不支持退款" toView:self.view];
+                        }else{
+                            MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
+                            vc.order_id = weakself.order_id;
+                            vc.pro_id = pro_id;
+                            [weakself.navigationController pushViewController:vc animated:YES];
+                        }
                     }
+//                    else if (self.orderDetail.partial_return == 2){
+//                        MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
+//                        vc.order_id = weakself.order_id;
+//                        vc.pro_id = pro_id;
+//                        [weakself.navigationController pushViewController:vc animated:YES];
+//                        
+//                    }
+                    
                 }
                     break;
                     
@@ -288,15 +308,47 @@
                     break;
                 case OrderStatusDaifahuo:  //待发货
                 {
-                    self.footView.hidden = YES;
-                    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.right.top.bottom.equalTo(self.view);
-                    }];
+                    if (self.orderDetail.partial_return == 0) {
+                        self.footView.partial_return = 0;
+                        self.footView.footerType = FooterTypeDaishouhuo;
+                        
+                    }else if(self.orderDetail.partial_return == 1){
+                        self.footView.partial_return = 1;
+                        self.footView.cancelBtn.hidden = YES;
+                        
+                    }else if(self.orderDetail.partial_return == 2){
+                        self.footView.partial_return = 2;
+                        self.footView.footerType = FooterTypeDaishouhuo;
+                        
+                    }else{
+                        self.footView.hidden = YES;
+                    }
+//                    self.footView.hidden = YES;
+//                    self.footView.footerType = FooterTypeDaishouhuo;
+//                    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                        make.left.right.top.bottom.equalTo(self.view);
+//                    }];
                 }
                     break;
                 case OrderStatusDaiqueren:  //待确认
                 {
-                    self.footView.footerType = FooterTypeDaiQueren;  
+//                    self.footView.footerType = FooterTypeDaiQueren;
+                    if (self.orderDetail.partial_return == 0) {
+                        self.footView.partial_return = 0;
+                        self.footView.footerType = FooterTypeDaiQueren;
+                        
+                    }else if(self.orderDetail.partial_return == 1){
+                        self.footView.partial_return = 1;
+                        self.footView.cancelBtn.hidden = YES;
+                        
+                    }else if(self.orderDetail.partial_return == 2){
+                        self.footView.partial_return = 2;
+                        self.footView.footerType = FooterTypeDaiQueren;
+                        
+                        
+                    }else{
+                        self.footView.hidden = YES;
+                    }
                 }
                     break;
                 case OrderStatusWancheng:  //已完成
@@ -519,11 +571,15 @@
             else{
                 MLOrderCenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
                 MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:indexPath.row-1];
+                pro_id = model.pro_id;
                 if (self.orderDetail.partial_return == 1 && model.return_status == 1) {
                     cell.countNum.hidden = YES;
                     cell.shouhouBtn.hidden = NO;
                     cell.shouhoublock = ^(){
-                        NSLog(@"点击了订单详情的申请售后");
+                        MLReturnRequestViewController  *vc = [[MLReturnRequestViewController alloc]init];
+                        vc.order_id = self.order_id;
+                        vc.pro_id = model.pro_id;
+                        [self.navigationController pushViewController:vc animated:YES];
                     };
                 }else{
                     cell.countNum.hidden = YES;

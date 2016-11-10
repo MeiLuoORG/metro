@@ -125,6 +125,7 @@
             cell.returnsDetailBianjiAction = ^(){//编辑订单
                 MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
                 vc.order_id = weakself.returnsDetail.order_id;
+                vc.pro_id = weakself.returnsDetail.pro_id;
                 [weakself.navigationController pushViewController:vc animated:YES];
             };
             cell.returnsDetailQuxiaoAction = ^(){ //取消退货
@@ -284,6 +285,7 @@
 - (void)getOrderDetail{
     //[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSLog(@"vc.order_id===%@ vc.pro_id===%@",self.order_id,self.pro_id);
+    
     [self showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=order_detail",MATROJP_BASE_URL];
     NSDictionary *params = @{@"order_id":self.order_id?:@"",@"pro_id":self.pro_id?:@""};
@@ -323,7 +325,7 @@
 
 - (void)returnsCancelAction{
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=return&s=cancel",MATROJP_BASE_URL];
-    NSDictionary *params = @{@"order_id":self.returnsDetail.order_id?:@""};
+    NSDictionary *params = @{@"order_id":self.returnsDetail.order_id?:@"",@"pro_id":self.returnsDetail.pro_id?:@""};
     [MLHttpManager post:url params:params m:@"return" s:@"cancel" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {

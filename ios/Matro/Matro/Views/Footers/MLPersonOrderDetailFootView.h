@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MLPersonOrderDetail.h"
 typedef NS_ENUM(NSInteger,FooterType){
     FooterTypeDaifahuo,
     FooterTypeDaifukuan,
@@ -48,5 +48,5 @@ typedef void(^OrderDetailButtonActionBlock)(ButtonActionType);
 @property (nonatomic,assign)FooterType footerType;
 @property (nonatomic,copy)OrderDetailButtonActionBlock  orderDetailButtonActionBlock;
 
-
+@property (nonatomic,assign)NSInteger partial_return;
 @end

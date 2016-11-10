@@ -754,7 +754,8 @@
                 [_hud hide:YES afterDelay:2];
                 
             }
-        }else if ([result[@"code"]isEqual:@1002]){
+        }
+            else if ([result[@"code"]isEqual:@1002]){
             _hud  = [[MBProgressHUD alloc]initWithView:self.view];
             [self.view addSubview:_hud];
             [_hud show:YES];

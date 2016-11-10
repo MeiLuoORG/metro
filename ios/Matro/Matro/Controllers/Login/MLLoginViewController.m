@@ -1554,7 +1554,9 @@
                             @"password":[self textField:_passwordView].text,
                             @"sign":signDic[@"sign"]
                             };
+    
     NSData *data2 = [HFSUtility RSADicToData:dic2];
+    NSLog(@"dic2===%@===%@",dic2,data2);
     NSString *ret2 = base64_encode_data(data2);
     NSLog(@"加密后----：%@",ret2);
     
