@@ -123,7 +123,6 @@
         
         [self.navigationController pushViewController:vc
                                              animated:YES];
-        
     }
 }
 
@@ -135,6 +134,7 @@
 
 - (void)getDataSource{
     NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=message_center",MATROJP_BASE_URL];
+    NSLog(@"url===%@",url);
     [MLHttpManager get:url params:nil m:@"push" s:@"message_center" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
         if ([result[@"code"] isEqual:@0]) {

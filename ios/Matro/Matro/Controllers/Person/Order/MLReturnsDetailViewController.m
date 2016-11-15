@@ -89,7 +89,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return self.returnsDetail.products.count+3;
+        if ([self.returnsDetail.return_status_code isEqualToString:@"9"]) {
+            return self.returnsDetail.products.count+3;
+        }else{
+            return self.returnsDetail.products.count+2;
+        }
+        
     }else if(section == 1){
         return 2;
     }else{
@@ -123,10 +128,21 @@
                 [weakself presentViewController:alertVc animated:YES completion:nil];
             };
             cell.returnsDetailBianjiAction = ^(){//编辑订单
-                MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
-                vc.order_id = weakself.returnsDetail.order_id;
-                vc.pro_id = weakself.returnsDetail.pro_id;
-                [weakself.navigationController pushViewController:vc animated:YES];
+                if ([weakself.returnsDetail.pro_id isEqualToString:@"0"]) {
+                    MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
+                    vc.isAll = YES;
+                    vc.order_id = weakself.returnsDetail.order_id;
+                    vc.pro_id = weakself.returnsDetail.pro_id;
+                    [weakself.navigationController pushViewController:vc animated:YES];
+                    
+                }else{
+                    MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
+                    vc.isAll = NO;
+                    vc.order_id = weakself.returnsDetail.order_id;
+                    vc.pro_id = weakself.returnsDetail.pro_id;
+                    [weakself.navigationController pushViewController:vc animated:YES];
+                }
+                
             };
             cell.returnsDetailQuxiaoAction = ^(){ //取消退货
                 MLPersonAlertViewController *vc = [MLPersonAlertViewController alertVcWithTitle:@"确定取消退货？" AndAlertDoneAction:^{
@@ -137,14 +153,16 @@
             };
             return cell;
         }else if (indexPath.row == 1){
+            
             MLOrderInfoHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderInfoHeaderTableViewCell forIndexPath:indexPath];
             cell.contentView.backgroundColor = [UIColor whiteColor];
             cell.statusLabel.hidden = YES;
             cell.shopName.text = self.returnsDetail.company;
             
             return cell;
-        }else if (indexPath.row == 2+self.returnsDetail.products.count){
+        }else if ([self.returnsDetail.return_status_code isEqualToString:@"9"] && indexPath.row == 2+self.returnsDetail.products.count){
             MLTuihuojineCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MLTuihuojineCell" forIndexPath:indexPath];
+            
             cell.jiaoyiLab.text = [NSString stringWithFormat:@"￥%.2f",self.returnsDetail.transaction_price.floatValue];
             cell.tuikuanLab.text = [NSString stringWithFormat:@"￥%.2f",self.returnsDetail.return_price.floatValue];
             return cell;
@@ -198,6 +216,13 @@
         
         if (indexPath.row == 0) {
             cell.shangView.hidden = YES;
+            cell.tuihuoInfoLab.textColor = [UIColor colorWithHexString:@"996633"];
+            
+        }else{
+            cell.tuihuoInfoLab.textColor = [UIColor colorWithHexString:@"000000"];
+            cell.shangView.backgroundColor = [UIColor colorWithHexString:@"aaaaaa"];
+            cell.yuanView.backgroundColor = [UIColor colorWithHexString:@"aaaaaa"];
+            cell.xiaView.backgroundColor = [UIColor colorWithHexString:@"aaaaaa"];
         }
         return cell;
         
@@ -257,6 +282,8 @@
              return;
         }else if (indexPath.row == 1){
             return;
+        }else if (indexPath.row == 2+self.returnsDetail.products.count){
+            return;
         }
         else{
             MLTuiHuoProductModel *model = [self.returnsDetail.products objectAtIndex:indexPath.row-2];
@@ -293,6 +320,7 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self closeLoadingView];
         NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"result===%@",result);
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSDictionary *returnInfo = data[@"returnInfo"];

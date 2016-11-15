@@ -150,9 +150,16 @@
         identifierForVendor = @"123456789";
     }
     NSLog(@"设备ID为：%@",identifierForVendor);
+    NSString *device_version = [[NSUserDefaults standardUserDefaults] objectForKey:@"systemVer"];
+    NSString *uuid = [[NSUserDefaults standardUserDefaults] objectForKey:@"result"];
+    NSString *network = [[NSUserDefaults standardUserDefaults] objectForKey:@"status"];
+    NSString *device_model = [[NSUserDefaults standardUserDefaults] objectForKey:@"devicemodel"];
+    NSString *screen = [[NSUserDefaults standardUserDefaults] objectForKey:@"bounds"];
+    
     NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
-    NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor];
-    //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor];
+    NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&client_type=ios&device_id=%@&device_source=ios&device_version=%@&uuid=%@&device_network=%d&device_model=%@&device_screen=%@",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor,device_version,uuid,network.intValue,device_model,screen];
+    
     NSString * urlStr = urlPinJie;
     NSLog(@"李佳的认证接口：%@",urlStr);
     NSURL * URL = [NSURL URLWithString:urlStr];

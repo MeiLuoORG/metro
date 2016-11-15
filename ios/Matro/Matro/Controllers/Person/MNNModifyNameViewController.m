@@ -11,10 +11,13 @@
 #import "HFSServiceClient.h"
 #import "HFSUtility.h"
 #import "CommonHeader.h"
+#import "MLHttpManager.h"
+#import "MBProgressHUD+Add.h"
 
 @interface MNNModifyNameViewController () {
     UITextField *_textField;
     UIButton *_preservationButton;
+    NSString *typeStr;
 }
 
 @end
@@ -23,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"修改昵称";
+    self.navigationItem.title = self.navTitle;
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
     [self.view addGestureRecognizer:gesture];
     
@@ -38,7 +41,7 @@
     self.navigationItem.rightBarButtonItem = item;
     
     [self createView];
-    // Do any additional setup after loading the view.
+    
 }
 
 
@@ -46,12 +49,23 @@
 - (void)tap {
     [_textField resignFirstResponder];
 }
-
 //创建修改试图golden_button
 - (void)createView {
     _textField = [[UITextField alloc] initWithFrame:CGRectMake(22, 40, self.view.frame.size.width-44, 41)];
     _textField.borderStyle = UITextBorderStyleRoundedRect;
-    _textField.placeholder = @"请输入新的昵称";
+    if ([self.xiugaitype isEqualToString:@"1"]) {
+       _textField.placeholder = @"请输入新的昵称";
+        typeStr = @"ckuser";
+    }else if ([self.xiugaitype isEqualToString:@"2"]){
+        _textField.placeholder = @"请输入您的真实姓名";
+        typeStr = @"name";
+    }else if ([self.xiugaitype isEqualToString:@"3"]){
+        _textField.placeholder = @"请输入您的身份证号";
+        typeStr = @"identity_card";
+    }else if ([self.xiugaitype isEqualToString:@"5"]){
+        _textField.placeholder = @"请输入您的通讯地址";
+        typeStr = @"temp_add";
+    }
     _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _textField.text = self.currentName;
     [self.view addSubview:_textField];
@@ -61,169 +75,91 @@
     [_preservationButton addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
     
     [_textField becomeFirstResponder];
-    //[self.view addSubview:_preservationButton];
+    
 }
 #pragma mark 保存修改后的昵称
 - (void)buttonAction {
     
     [_textField resignFirstResponder];
-    if ([_textField.text isEqualToString:@""] || _textField.text.length <2 || _textField.text.length > 20) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"昵称格式不正确，请确认。";
-        [_hud hide:YES afterDelay:2];
-    }
-    else {
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *avatorurl = [userDefaults objectForKey:kUSERDEFAULT_USERAVATOR];
-        NSString *mphone = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];
-        NSString *cardno = [userDefaults objectForKey:kUSERDEFAULT_USERCARDNO];
-         NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
-        NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"phone":mphone,@"nickName":_textField.text}];
-        NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
-                                @"phone":mphone,
-                                @"nickName":_textField.text,
-                                @"sign":signDic[@"sign"],
-                                @"accessToken":accessToken
-                                };
-        
-        NSData *data = [HFSUtility RSADicToData:dic2] ;
-        NSString *ret = base64_encode_data(data);
-        [self yuanShengRegisterAcrionWithRet2:ret];
-        /*
-        [[HFSServiceClient sharedClient]POST:XiuGaiInfo_URLString parameters:ret success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    if ([self.xiugaitype isEqualToString:@"1"]) {
+        if ([_textField.text isEqualToString:@""]) {
             
-            NSDictionary *result = (NSDictionary *)responseObject;
+            [MBProgressHUD show:@"昵称不能为空，请确认" view:self.view];
+            return;
+        }else if (_textField.text.length < 2 || _textField.text.length >20){
             
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = @"请求失败";
-            [_hud hide:YES afterDelay:2];
-        }];
-         */
+            [MBProgressHUD show:@"昵称的长度不能小于2且不能大于20额，请确认" view:self.view];
+            return;
+        }
+        
     }
-}
-
-- (void) yuanShengRegisterAcrionWithRet2:(NSString *)ret2{
-    //GCD异步实现
-    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    //dispatch_sync(q1, ^{
-        NSString *urlStr = [NSString stringWithFormat:@"%@",XiuGaiInfo_URLString];
-        NSURL * URL = [NSURL URLWithString:urlStr];
-        NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
-        [request setHTTPMethod:@"post"]; //指定请求方式
-        NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
-        [request setHTTPBody:data3];
-        [request setURL:URL]; //设置请求的地址
-        NSURLSession *session = [NSURLSession sharedSession];
-        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                                completionHandler:
-                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          NSLog(@"原生错误error:%@",error);
-                                          
-                                          //请求没有错误
-                                          if (!error) {
-                                              if (data && data.length > 0) {
-                                                  //JSON解析
-                                                  // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                                  NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
-                                                  NSLog(@"修改昵称信息：%@",result);
-                                                  if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                      [_hud show:YES];
-                                                      _hud.mode = MBProgressHUDModeText;
-                                                      _hud.labelText = @"昵称修改成功";
-                                                      [_hud hide:YES afterDelay:2];
-                                                      });
-                                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                                      [[NSUserDefaults standardUserDefaults]setObject:_textField.text forKey:kUSERDEFAULT_USERNAME];
-                                                      
-                                                      
-                                                      [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_CHANGEUSERINFO object:nil];
-                                                      
-                                                      [self popView];
-                                                       });
-                                                      
-                                                  }else{
-                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                      [_hud show:YES];
-                                                      _hud.mode = MBProgressHUDModeText;
-                                                      _hud.labelText = result[@"msg"];
-                                                      [_hud hide:YES afterDelay:2];
-                                                      });
-                                                  }
-
-                                                  
-                                              }
-                                          }
-                                          else{
-                                              //请求有错误
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  
-                                                  [_hud show:YES];
-                                                  _hud.mode = MBProgressHUDModeText;
-                                                  _hud.labelText = REQUEST_ERROR_ZL;
-                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
-                                                  [_hud hide:YES afterDelay:1];
-                                              });
-                                              
-                                          }
-                                          
-                                      }];
+    
+    if ([self.xiugaitype isEqualToString:@"2"]) {
+        if (_textField.text.length ==0) {
+            [MBProgressHUD show:@"真实姓名不能为空，请确认" view:self.view];
+            return;
+        }
+    }
+    if ([self.xiugaitype isEqualToString:@"3"]) {
+        if (_textField.text.length ==0 || _textField.text.length <18 || _textField.text.length >18 ) {
+            [MBProgressHUD show:@"请输入正确的身份证号" view:self.view];
+            return;
+        }
+    }
+    
+    if ([self.xiugaitype isEqualToString:@"5"]) {
+        if (_textField.text.length ==0 ) {
+            [MBProgressHUD show:@"通讯地址不能为空，请确认" view:self.view];
+            return;
+        }
+    }
+    NSDictionary *params;
+    if ([self.xiugaitype isEqualToString:@"1"]) {
+        params = @{@"type":self.xiugaitype,@"ckuser":_textField.text};
         
-        [task resume];
-   // });
-}
-
-/*
-- (void) yuanShengRegisterAcrionWithRet2:(NSString *)ret2{
-    //GCD异步实现
-    dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_sync(q1, ^{
-        NSString *urlStr = [NSString stringWithFormat:@"%@",Login_URLString];
-        NSURL * URL = [NSURL URLWithString:urlStr];
-        NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
-        [request setHTTPMethod:@"post"]; //指定请求方式
-        NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
-        [request setHTTPBody:data3];
-        [request setURL:URL]; //设置请求的地址
-        NSURLSession *session = [NSURLSession sharedSession];
-        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                                completionHandler:
-                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          NSLog(@"原生错误error:%@",error);
-                                          
-                                          //请求没有错误
-                                          if (!error) {
-                                              if (data && data.length > 0) {
-                                                  //JSON解析
-                                                  // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                                  NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
-                                                  
-                                                  
-                                              }
-                                          }
-                                          else{
-                                              //请求有错误
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  
-                                                  [_hud show:YES];
-                                                  _hud.mode = MBProgressHUDModeText;
-                                                  _hud.labelText = REQUEST_ERROR_ZL;
-                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
-                                                  [_hud hide:YES afterDelay:1];
-                                              });
-                                              
-                                          }
-                                          
-                                      }];
+    }else if ([self.xiugaitype isEqualToString:@"2"]){
+         params = @{@"type":self.xiugaitype,@"name":_textField.text};
         
-        [task resume];
-    });
-}*/
+    }else if ([self.xiugaitype isEqualToString:@"3"]){
+        params = @{@"type":self.xiugaitype,@"identity_card":_textField.text};
+        
+    }else if ([self.xiugaitype isEqualToString:@"5"]){
+        params = @{@"type":self.xiugaitype,@"temp_add":_textField.text};
+        
+    }
+    
+    [MLHttpManager post:XiuGaiBaseInfo_URLString params:params m:@"member" s:@"admin_member" success:^(id responseObject) {
+            NSLog(@"上传成功responseObject=123=%@",responseObject);
+        if ([responseObject[@"code"] isEqual:@0]) {
+           
+            [MBProgressHUD show:@"修改成功" view:self.view];
+            if ([self.xiugaitype isEqualToString:@"1"]) {
+                [[NSUserDefaults standardUserDefaults]setObject:_textField.text forKey:kUSERDEFAULT_USERNAME];
+                
+            }else if ([self.xiugaitype isEqualToString:@"2"]){
+                [[NSUserDefaults standardUserDefaults]setObject:_textField.text forKey:@"name"];
+                
+            }else if ([self.xiugaitype isEqualToString:@"3"]){
+               [[NSUserDefaults standardUserDefaults]setObject:_textField.text forKey:KUSERDEFAULT_IDCARD_SHENFEN];
+                
+            }else if ([self.xiugaitype isEqualToString:@"5"]){
+               [[NSUserDefaults standardUserDefaults]setObject:_textField.text forKey:@"txAddr"];
+            }
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_CHANGEUSERINFO object:nil];
+                
+            [self popView];
+        }else{
+            NSString *msg = responseObject[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD show:[NSString stringWithFormat:@"%@",error] view:self.view];
+
+    }];
+
+}
 
 - (void)popView {
     [self.navigationController popViewControllerAnimated:YES];
@@ -234,14 +170,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

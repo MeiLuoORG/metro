@@ -41,6 +41,7 @@
 @interface MLPersonOrderDetailViewController ()<UITableViewDelegate,UITableViewDataSource>{
     MLLogisticsModel *logisticModel;
     NSString *pro_id;
+    BOOL isTuihuo;
     
 }
 @property (nonatomic,strong)UITableView *tableView;
@@ -121,7 +122,13 @@
                     break;
                 case ButtonActionTypeQuerenshouhuo://确认收货
                 {
-                    if (self.orderDetail.partial_return == 2 ) {
+                    if (isTuihuo == YES ) {
+                        
+                        MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
+                        vc.order_id = weakself.order_id;
+                        vc.pro_id = @"0";
+                        [weakself.navigationController pushViewController:vc animated:YES];
+                    }else if (self.orderDetail.partial_return == 2 ) {
                         
                         MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
                         vc.order_id = weakself.order_id;
@@ -156,6 +163,7 @@
                 {
                     MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
                     vc.order_id =weakself.order_id;
+                    vc.pro_id = @"0";
                     [weakself.navigationController pushViewController:vc animated:YES];
                 }
                     break;
@@ -168,6 +176,7 @@
                             MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
                             vc.order_id = weakself.order_id;
                             vc.pro_id = pro_id;
+                            vc.isAll = YES;
                             [weakself.navigationController pushViewController:vc animated:YES];
                         }
                     }
@@ -181,7 +190,43 @@
                     
                 }
                     break;
+                case ButtonActionTypeJiaoyichenggong:{
+                    NSInteger return_status = 0;
+                    if (self.orderDetail.product && self.orderDetail.product.count >0) {
+                        MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:self.orderDetail.product.count-1];
+                        if (model.return_status == -1) {
+                            return_status = -1;
+                        }
+                    }
                     
+                    if (self.orderDetail.partial_return == 0) {
+                        MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
+                        vc.order_id = weakself.order_id;
+                        vc.pro_id = pro_id;
+                        vc.isAll = YES;
+                        [weakself.navigationController pushViewController:vc animated:YES];
+                    }else if(self.orderDetail.partial_return == 2) {
+                    
+                        MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
+                        vc.order_id = weakself.order_id;
+                        vc.pro_id = @"0";
+                        [weakself.navigationController pushViewController:vc animated:YES];
+                    }else if (self.orderDetail.partial_return == 1 && return_status == -1){
+                    
+                        MLLogisticsViewController *vc = [[MLLogisticsViewController alloc]init];
+                        vc.express_number = self.orderDetail.deliver_code;
+                        vc.express_company = self.orderDetail.deliver_name;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }else if (self.orderDetail.partial_return == -1){
+                        
+                        MLLogisticsViewController *vc = [[MLLogisticsViewController alloc]init];
+                        vc.express_number = self.orderDetail.deliver_code;
+                        vc.express_company = self.orderDetail.deliver_name;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                }
+                    break;
                 default:
                     break;
             }
@@ -309,19 +354,28 @@
                 case OrderStatusDaifahuo:  //待发货
                 {
                     if (self.orderDetail.partial_return == 0) {
+                        isTuihuo = YES;
                         self.footView.partial_return = 0;
                         self.footView.footerType = FooterTypeDaishouhuo;
                         
                     }else if(self.orderDetail.partial_return == 1){
-                        self.footView.partial_return = 1;
-                        self.footView.cancelBtn.hidden = YES;
+//                        self.footView.partial_return = 1;
+//                        self.footView.cancelBtn.hidden = YES;
+                        self.footView.hidden = YES;
+                        [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            make.left.right.top.bottom.equalTo(self.view);
+                        }];
                         
                     }else if(self.orderDetail.partial_return == 2){
+                        isTuihuo = NO;
                         self.footView.partial_return = 2;
                         self.footView.footerType = FooterTypeDaishouhuo;
                         
                     }else{
                         self.footView.hidden = YES;
+                        [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            make.left.right.top.bottom.equalTo(self.view);
+                        }];
                     }
 //                    self.footView.hidden = YES;
 //                    self.footView.footerType = FooterTypeDaishouhuo;
@@ -332,7 +386,6 @@
                     break;
                 case OrderStatusDaiqueren:  //待确认
                 {
-//                    self.footView.footerType = FooterTypeDaiQueren;
                     if (self.orderDetail.partial_return == 0) {
                         self.footView.partial_return = 0;
                         self.footView.footerType = FooterTypeDaiQueren;
@@ -347,19 +400,83 @@
                         
                         
                     }else{
-                        self.footView.hidden = YES;
+                        self.footView.partial_return = -1;
+                        self.footView.footerType = FooterTypeDaiQueren;
+//                        self.footView.hidden = YES;
+//                        [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                            make.left.right.top.bottom.equalTo(self.view);
+//                        }];
                     }
                 }
                     break;
                 case OrderStatusWancheng:  //已完成
                 {
-                    
-                    self.footView.footerType = FooterTypeJiaoyichenggong;
-                    if (self.orderDetail.buyer_comment == 0) {
-                        [self.footView.payBtn setTitle:@"评价" forState:UIControlStateNormal];
+                    if (self.orderDetail.partial_return == 0) {
+                        self.footView.partial_return = 0;
+                        self.footView.footerType = FooterTypeJiaoyichenggong;
+                        if (self.orderDetail.buyer_comment == 0) {
+                            [self.footView.payBtn setTitle:@"评价" forState:UIControlStateNormal];
+                        }else{
+                            [self.footView.payBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+                        }
+                    }else if (self.orderDetail.partial_return == 1){
+//                        if (self.orderDetail.product && self.orderDetail.product.count >0) {
+//                            MLPersonOrderProduct *model = [self.orderDetail.product objectAtIndex:self.orderDetail.product.count-1];
+//                            if (model.return_status == -1) {
+//                                self.footView.return_status = -1;
+//                            }
+//                            self.footView.partial_return = 1;
+//                            self.footView.footerType = FooterTypeJiaoyichenggong;
+//                            if (self.orderDetail.buyer_comment == 0) {
+//                                [self.footView.payBtn setTitle:@"评价" forState:UIControlStateNormal];
+//                            }else{
+//                                [self.footView.payBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+//                            }
+//                        }else{
+//                            
+//                            self.footView.partial_return = 1;
+//                            self.footView.footerType = FooterTypeJiaoyichenggong;
+//                            if (self.orderDetail.buyer_comment == 0) {
+//                                [self.footView.payBtn setTitle:@"评价" forState:UIControlStateNormal];
+//                            }else{
+//                                [self.footView.payBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+//                            }
+//                            
+//                        }
+                        self.footView.partial_return = 1;
+                        self.footView.footerType = FooterTypeJiaoyichenggong;
+                        if (self.orderDetail.buyer_comment == 0) {
+                            [self.footView.payBtn setTitle:@"评价" forState:UIControlStateNormal];
+                        }else{
+                            [self.footView.payBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+                        }
+                        
+                    }else if(self.orderDetail.partial_return == 2){
+                        self.footView.partial_return = 2;
+                        self.footView.footerType = FooterTypeJiaoyichenggong;
+                        if (self.orderDetail.buyer_comment == 0) {
+                            [self.footView.payBtn setTitle:@"评价" forState:UIControlStateNormal];
+                        }else{
+                            [self.footView.payBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+                        }
+                    }else if(self.orderDetail.partial_return == -1){
+                        self.footView.partial_return = -1;
+                        self.footView.footerType = FooterTypeJiaoyichenggong;
+                        if (self.orderDetail.buyer_comment == 0) {
+                            [self.footView.payBtn setTitle:@"评价" forState:UIControlStateNormal];
+                        }else{
+                            [self.footView.payBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+                        }
                     }else{
-                        [self.footView.payBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+                        
+                        self.footView.footerType = FooterTypeJiaoyichenggong;
+                        if (self.orderDetail.buyer_comment == 0) {
+                            [self.footView.payBtn setTitle:@"评价" forState:UIControlStateNormal];
+                        }else{
+                            [self.footView.payBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+                        }
                     }
+                    
                 }
                     break;
                 case OrderStatusQuxiao:   //取消
@@ -378,10 +495,18 @@
                     break;
                 case OrderStatusTuihuochenggong:
                 {
-                    self.footView.hidden = YES;
-                    [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.right.top.bottom.equalTo(self.view);
-                    }];
+
+                    if(self.orderDetail.partial_return == 2){
+                        self.footView.partial_return = 2;
+                        self.footView.footerType = FooterTypeDaiQueren;
+                    }else{
+                    
+                        self.footView.hidden = YES;
+                        [self.tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                            make.left.right.top.bottom.equalTo(self.view);
+                        }];
+                    }
+
                 }
                     break;
                     
@@ -581,6 +706,17 @@
                         vc.pro_id = model.pro_id;
                         [self.navigationController pushViewController:vc animated:YES];
                     };
+                }else if(self.orderDetail.partial_return == 1 && model.return_status == 0){
+                    cell.countNum.hidden = YES;
+                    cell.shouhouBtn.hidden = NO;
+                    [cell.shouhouBtn setTitle:@"售后进度" forState:UIControlStateNormal];
+                    cell.shouhoublock = ^(){
+                        MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
+                        vc.order_id = self.order_id;
+                        vc.pro_id = model.pro_id;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    };
+            
                 }else{
                     cell.countNum.hidden = YES;
                     cell.shouhouBtn.hidden = YES;

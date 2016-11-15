@@ -27,7 +27,8 @@ typedef NS_ENUM(NSInteger,ButtonActionType){
     ButtonActionTypeQuerenshouhuo,
     ButtonActionTypePingJia,
     ButtonActionTypeTuiHuo,
-    ButtonActionTypeTuiKuan
+    ButtonActionTypeTuiKuan,
+    ButtonActionTypeJiaoyichenggong
 };
 
 
@@ -49,4 +50,5 @@ typedef void(^OrderDetailButtonActionBlock)(ButtonActionType);
 @property (nonatomic,copy)OrderDetailButtonActionBlock  orderDetailButtonActionBlock;
 
 @property (nonatomic,assign)NSInteger partial_return;
+@property (nonatomic,assign)NSInteger return_status;
 @end

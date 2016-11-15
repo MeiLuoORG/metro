@@ -108,12 +108,7 @@
         
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"已经是最大数量了" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [alert show];
-        
-//        MBProgressHUD *hub = [[MBProgressHUD alloc]initWithView:self.view];
-//        [hub show:YES];
-//        hub.mode = MBProgressHUDModeText;
-//        hub.labelText = @"已经是最大数量了";
-//        [hub hide:YES afterDelay:1];
+
         return;
     }
 
@@ -121,8 +116,8 @@
     
     if ([self.proList isKindOfClass:[MLProlistModel class]]) {
         MLProlistModel *model = (MLProlistModel *)self.proList;
-        if (model.limit_quantity&&model.limit_quantity > 0) {
-            if (_value > model.limit_quantity) {//提示
+        if (model.amount&&model.amount > 0) {
+            if (_value > model.amount) {//提示
                 _value --;
                self.text = [NSString stringWithFormat:@"%lu", (unsigned long)_value];
                 

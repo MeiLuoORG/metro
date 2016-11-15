@@ -29,14 +29,22 @@
     else{
         accessToken = @"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r";
     }
-
+    NSString *device_id = [[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_ID_JIGUANG_LU];
+    NSString *device_version = [[NSUserDefaults standardUserDefaults] objectForKey:@"systemVer"];
+    NSString *uuid = [[NSUserDefaults standardUserDefaults] objectForKey:@"result"];
+    NSString *network = [[NSUserDefaults standardUserDefaults] objectForKey:@"status"];
+    NSString *device_model = [[NSUserDefaults standardUserDefaults] objectForKey:@"devicemodel"];
+    NSString *screen = [[NSUserDefaults standardUserDefaults] objectForKey:@"bounds"];
+    
     NSString * accessTokenStrEncode = [accessToken URLEncodedString];
     NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
     NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
     NSString *sign = [self md5:signStr];
-    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr];
+    
+    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@&device_id=%@&device_version=%@&uuid=%@&device_network=%d",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr,device_id,device_version,uuid,network.intValue];
+//    NSString * newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@&device_id=%@&device_source=ios&device_version=%@&uuid=%@&device_network=%d&device_model=%@&device_screen=%@",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor,device_version,uuid,network.intValue,device_model,screen];
     
     // 2.发送请求
     [mgr POST:newUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -65,6 +73,13 @@
         accessToken = @"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r";
     }
     
+    NSString *device_id = [[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_ID_JIGUANG_LU];
+    NSString *device_version = [[NSUserDefaults standardUserDefaults] objectForKey:@"systemVer"];
+    NSString *uuid = [[NSUserDefaults standardUserDefaults] objectForKey:@"result"];
+    NSString *network = [[NSUserDefaults standardUserDefaults] objectForKey:@"status"];
+    NSString *device_model = [[NSUserDefaults standardUserDefaults] objectForKey:@"devicemodel"];
+    NSString *screen = [[NSUserDefaults standardUserDefaults] objectForKey:@"bounds"];
+    
     NSString * accessTokenStrEncode = [accessToken URLEncodedString];
     NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
@@ -73,7 +88,8 @@
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
 
     NSString *sign = [self md5:signStr];
-    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr];
+//    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr];
+    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@&device_id=%@&device_version=%@&uuid=%@&device_network=%d",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr,device_id,device_version,uuid,network.intValue];
     [mgr POST:newUrl parameters:params constructingBodyWithBlock:block success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success(responseObject);
@@ -104,14 +120,22 @@
         accessToken = @"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r";
     }
 
+    NSString *device_id = [[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_ID_JIGUANG_LU];
+    NSString *device_version = [[NSUserDefaults standardUserDefaults] objectForKey:@"systemVer"];
+    NSString *uuid = [[NSUserDefaults standardUserDefaults] objectForKey:@"result"];
+    NSString *network = [[NSUserDefaults standardUserDefaults] objectForKey:@"status"];
+    NSString *device_model = [[NSUserDefaults standardUserDefaults] objectForKey:@"devicemodel"];
+    NSString *screen = [[NSUserDefaults standardUserDefaults] objectForKey:@"bounds"];
+    
     NSString * accessTokenStrEncode = [accessToken URLEncodedString];
     NSString *accessTokenStr =[accessTokenStrEncode substringToIndex:12];
     NSString *bbc_token = [[NSUserDefaults standardUserDefaults]objectForKey:KUSERDEFAULT_BBC_ACCESSTOKEN_LIJIA];
     NSTimeInterval timestamp = [[NSDatezlModel sharedInstance] currentTimeDate];
     NSString *signStr =[NSString stringWithFormat:@"%@%@%.f%@",accessTokenStr,m,timestamp,s];
     NSString *sign = [self md5:signStr];
-    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr];
+//    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr];
     
+    NSString *newUrl = [NSString stringWithFormat:@"%@&bbc_token=%@&sign=%@&timestamp=%.f&client_type=ios&app_version=%@&device_id=%@&device_version=%@&uuid=%@&device_network=%d",url,bbc_token,sign,timestamp,vCFBundleShortVersionStr,device_id,device_version,uuid,network.intValue];
     // 2.发送请求
     [mgr GET:newUrl parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

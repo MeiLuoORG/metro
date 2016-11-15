@@ -60,7 +60,7 @@
         }
         NSLog(@"%@--%@",_tuiHuoProduct.pic,_tuiHuoProduct.return_num);
         self.goodsCount.text = [NSString stringWithFormat:@"x%@",_tuiHuoProduct.num];
-        self.countNum.maxValue = _tuiHuoProduct.return_num.integerValue;
+        self.countNum.maxValue = _tuiHuoProduct.num.integerValue;
         self.countNum.minValue = 1;
         [self.countNum setValue:[_tuiHuoProduct.return_num integerValue]];
         

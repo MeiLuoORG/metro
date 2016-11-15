@@ -471,6 +471,7 @@ static NSInteger pageIndex = 0;
         cell.prolistModel = model;
         cell.checkBox.cartSelected = (model.is_check == 1);
         [cell.countField setValue:model.num];
+        cell.countField.maxValue = model.amount;
         cell.countField.stepperDelegate = self;
         cell.countField.proList = model;
         cell.shopCartCheckBoxBlock = ^(BOOL isCheck){ //添加反向选择

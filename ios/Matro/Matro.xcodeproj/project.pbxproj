@@ -85,6 +85,8 @@
 		285808091D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285808071D1517AA0097D334 /* MLgoodsCollectTableViewCell.xib */; };
 		285FED221DC87CC500E61BA4 /* MLWanshanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285FED201DC87CC500E61BA4 /* MLWanshanCell.m */; };
 		285FED231DC87CC500E61BA4 /* MLWanshanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 285FED211DC87CC500E61BA4 /* MLWanshanCell.xib */; };
+		286257951DD944260084F12C /* MLBasicInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286257931DD944260084F12C /* MLBasicInfoViewController.m */; };
+		286257961DD944260084F12C /* MLBasicInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286257941DD944260084F12C /* MLBasicInfoViewController.xib */; };
 		2867375D1D65492400EB0607 /* MLErweimaResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2867375B1D65492400EB0607 /* MLErweimaResultViewController.m */; };
 		2867375E1D65492400EB0607 /* MLErweimaResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2867375C1D65492400EB0607 /* MLErweimaResultViewController.xib */; };
 		2869F6891D221AF7003C4663 /* MLServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2869F6871D221AF7003C4663 /* MLServiceViewController.m */; };
@@ -888,6 +890,9 @@
 		285FED1F1DC87CC500E61BA4 /* MLWanshanCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLWanshanCell.h; sourceTree = "<group>"; };
 		285FED201DC87CC500E61BA4 /* MLWanshanCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLWanshanCell.m; sourceTree = "<group>"; };
 		285FED211DC87CC500E61BA4 /* MLWanshanCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLWanshanCell.xib; sourceTree = "<group>"; };
+		286257921DD944260084F12C /* MLBasicInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLBasicInfoViewController.h; sourceTree = "<group>"; };
+		286257931DD944260084F12C /* MLBasicInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLBasicInfoViewController.m; sourceTree = "<group>"; };
+		286257941DD944260084F12C /* MLBasicInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLBasicInfoViewController.xib; sourceTree = "<group>"; };
 		2867375A1D65492400EB0607 /* MLErweimaResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLErweimaResultViewController.h; sourceTree = "<group>"; };
 		2867375B1D65492400EB0607 /* MLErweimaResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLErweimaResultViewController.m; sourceTree = "<group>"; };
 		2867375C1D65492400EB0607 /* MLErweimaResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLErweimaResultViewController.xib; sourceTree = "<group>"; };
@@ -3426,6 +3431,9 @@
 				3A633B941C9EA85800C11FD5 /* MLPersonViewController.xib */,
 				D658CBD71CAA91DD006C70F4 /* MNNManagementViewController.h */,
 				D658CBD81CAA91DD006C70F4 /* MNNManagementViewController.m */,
+				286257921DD944260084F12C /* MLBasicInfoViewController.h */,
+				286257931DD944260084F12C /* MLBasicInfoViewController.m */,
+				286257941DD944260084F12C /* MLBasicInfoViewController.xib */,
 				D658CBD91CAA91DD006C70F4 /* MNNModifyNameViewController.h */,
 				D658CBDA1CAA91DD006C70F4 /* MNNModifyNameViewController.m */,
 				D658CBDB1CAA91DD006C70F4 /* MNNModifyPasswordViewController.h */,
@@ -4666,6 +4674,7 @@
 				7AF1415F1CE1E5BC005DDE70 /* HFSProductTableViewCell.xib in Resources */,
 				3CEDAD7F1D13ECFB00990DA8 /* placeholder.png in Resources */,
 				28C88CF41D5C728D00564C69 /* Loading001.png in Resources */,
+				286257961DD944260084F12C /* MLBasicInfoViewController.xib in Resources */,
 				286BAB481DD17C3300BA8A37 /* MLTuihuojilvFooterView.xib in Resources */,
 				3CEDAD7E1D13ECFB00990DA8 /* page.png in Resources */,
 				284E36451D2B7C0D000CC90F /* MLPeisongTableViewCell.xib in Resources */,
@@ -5250,6 +5259,7 @@
 				280F7D6F1CF972CC00D42FA6 /* MLPropertysubCell.m in Sources */,
 				7AED645F1CDD9C3C008F55BD /* YMPhoneCondeButton.m in Sources */,
 				280F7CD31CF7F44800D42FA6 /* qrencode.c in Sources */,
+				286257951DD944260084F12C /* MLBasicInfoViewController.m in Sources */,
 				7AD815FD1CDD7736001761C8 /* YMNavigationController.m in Sources */,
 				285808081D1517AA0097D334 /* MLgoodsCollectTableViewCell.m in Sources */,
 				3C8D93CA1D1944240015CC66 /* NSString+URLZL.m in Sources */,

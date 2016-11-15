@@ -156,6 +156,11 @@
                 return cell;
             }
             MLOrderCenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
+            if (self.isAll == YES) {
+                cell.countNum.hidden = YES;
+            }else{
+                cell.countNum.hidden = NO;
+            }
             cell.shouhouBtn.hidden = YES;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.tuiHuoProduct = [self.returnsDetail.products objectAtIndex:indexPath.row-2];
@@ -413,6 +418,7 @@
     NSDictionary *params = @{@"order_id":self.order_id?:@"",@"pro_id":self.pro_id?:@""};
     [MLHttpManager post:url params:params m:@"return" s:@"order_detail" success:^(id responseObject) {
         NSDictionary *result = (NSDictionary *)responseObject;
+        NSLog(@"result===%@",result);
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSDictionary *order_detail = data[@"order_detail"];

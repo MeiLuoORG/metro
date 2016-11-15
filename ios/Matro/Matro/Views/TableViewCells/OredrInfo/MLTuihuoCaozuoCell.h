@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *tuihuoTimeLab;
 @property (weak, nonatomic) IBOutlet UIView *shangView;
 @property (weak, nonatomic) IBOutlet UIView *yuanView;
+@property (weak, nonatomic) IBOutlet UIView *xiaView;
 
 @end

@@ -112,6 +112,7 @@
     MLSystemMessageModel *model = [self.messageArray objectAtIndex:indexPath.section];
     MLPersonOrderDetailViewController *vc = [[MLPersonOrderDetailViewController alloc]init];
     vc.order_id = model.order_id;
+    
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

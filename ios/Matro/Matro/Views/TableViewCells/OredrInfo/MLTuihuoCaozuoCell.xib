@@ -105,6 +105,7 @@
                 <outlet property="tuihuoInfoLab" destination="k9i-hl-xJK" id="SGV-bN-TVz"/>
                 <outlet property="tuihuoTimeLab" destination="XKB-jg-FdG" id="F8s-fL-I0Y"/>
                 <outlet property="tuihuorenNameLab" destination="0zZ-J0-8wM" id="Zkc-LI-nVX"/>
+                <outlet property="xiaView" destination="AVb-wD-ZgW" id="SLI-2o-9Cu"/>
                 <outlet property="yuanView" destination="ggN-Hp-VIX" id="T6f-oh-eQT"/>
             </connections>
             <point key="canvasLocation" x="26" y="51.5"/>

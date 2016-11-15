@@ -20,7 +20,9 @@
 @interface MNNModifyNameViewController : MLBaseViewController
 
 
-@property (strong, nonatomic) NSString * currentName;
+@property (copy, nonatomic) NSString * currentName;
+@property (copy, nonatomic) NSString * navTitle;
+@property (copy, nonatomic) NSString *xiugaitype;
 @property (nonatomic,weak)id<MNNModifyNameViewControllerDelegate>delegate;
 
 @end

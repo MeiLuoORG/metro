@@ -22,7 +22,7 @@
 @property (nonatomic,copy)NSString *transaction_price;
 @property (nonatomic,copy)NSString *return_price;
 @property (nonatomic,copy)NSString *pro_id;
-
+@property (nonatomic,copy)NSString *return_status_code;
 
 @property (nonatomic,assign)BOOL isMore;
 @property (nonatomic,assign)BOOL isOpen;

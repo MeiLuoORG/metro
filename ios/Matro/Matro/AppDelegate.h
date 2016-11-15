@@ -31,6 +31,8 @@ static BOOL isProduction = FALSE;
 @property BOOL isFinished;
 
 - (void)autoLogin;
+- (NSString*)deviceVersion;
+- (void)deviceInfo;
 +(AppDelegate *)sharedAppDelegate;
 
 

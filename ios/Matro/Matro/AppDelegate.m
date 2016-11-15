@@ -42,6 +42,10 @@
 #import "CoreNewFeatureVC.h"
 #import <Bugly/Bugly.h>
 
+#import "sys/utsname.h"
+#import <AdSupport/AdSupport.h>
+#import "Reachability.h"
+
 @interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>
 
 @end
@@ -52,14 +56,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    //获取设备信息
+    [self deviceInfo];
     
-//  设备系统的版本
-//  NSString *systemVer = [[UIDevice currentDevice] systemVersion];
-//  NSLog(@"systemVer===%@",systemVer);
-//  NSLog(@"bounds--->%@",NSStringFromCGRect([[UIScreen mainScreen] bounds]));
-    CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
-    NSString *uuid = (NSString *)CFBridgingRelease(CFUUIDCreateString (kCFAllocatorDefault,uuidRef));
-    NSLog(@"uuid===%@",uuid);
     
     UMConfigInstance.appKey = @"578c85b0e0f55a304d000028";
     UMConfigInstance.channelId = @"App Store";
@@ -212,15 +211,6 @@
             });
             
         };
-        
-//        MLAnimationViewController * vcs = [[MLAnimationViewController alloc]init];
-//        [vcs animationBlockAction:^(BOOL success) {
-//            
-//            self.window.rootViewController = _tabBarController;
-//            [self autoLogin];
-//        }];
-//        self.window.rootViewController = vcs;
-        
     }
 
     [Bugly startWithAppId:@"fef22c2596"];
@@ -278,8 +268,15 @@
     }
     NSLog(@"设备ID为：%@",identifierForVendor);
     [[NSUserDefaults standardUserDefaults] setObject:identifierForVendor forKey:DEVICE_ID_JIGUANG_LU];
+    NSString *device_version = [[NSUserDefaults standardUserDefaults] objectForKey:@"systemVer"];
+    NSString *uuid = [[NSUserDefaults standardUserDefaults] objectForKey:@"result"];
+    NSString *network = [[NSUserDefaults standardUserDefaults] objectForKey:@"status"];
+    NSString *device_model = [[NSUserDefaults standardUserDefaults] objectForKey:@"devicemodel"];
+    NSString *screen = [[NSUserDefaults standardUserDefaults] objectForKey:@"bounds"];
+    
+    
     NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
-    NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor];
+    NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&client_type=ios&device_id=%@&device_source=ios&device_version=%@&uuid=%@&device_network=%d&device_model=%@&device_screen=%@",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor,device_version,uuid,network.intValue,device_model,screen];
 
     NSString * urlStr = urlPinJie;
     NSLog(@"李佳的认证接口：%@",urlStr);
@@ -294,6 +291,7 @@
                                   ^(NSData *data, NSURLResponse *response, NSError *error) {
                                       NSString *resultString  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                       NSLog(@"李佳认证:%@,错误信息：%@",resultString,error);
+                                      
                                       //请求没有错误
                                       if (!error) {
                                           if (data && data.length > 0) {
@@ -601,5 +599,115 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
     return self.tabBarController;
 }
 
+- (void)deviceInfo{
+    //  设备系统的版本
+    NSString *systemVer = [[UIDevice currentDevice] systemVersion];
+    [[NSUserDefaults standardUserDefaults]setObject:systemVer forKey:@"systemVer"];
+    //设备的分辨率
+    NSString *bounds = [NSString stringWithFormat:@"%.f-%.f",2*[[UIScreen mainScreen] bounds].size.width,2*[[UIScreen mainScreen] bounds].size.height];
+    [[NSUserDefaults standardUserDefaults]setObject:bounds forKey:@"bounds"];
+    //uuid  IDFA同一设备上所有的APP获取到的值是相同的，用于追踪用户而设的，用于可以通过设置->隐私->广告->广告追踪进行设置，可能取不到，苹果设备默认是开的。
+    NSString *resultString = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+
+    //IDFV 用于Vender表示标识用户用的，Vender是指应用提供商，每个设备在所属同一个Vender的应用里，都有相同的值。通过BundleID的反转的前两部分进行匹配，如果相同就是同一个Vender。(例如com.370969280.app1 和 com.370969280.app2 就是同一个Vender,IDFV值就相同)。
+    //PS：1、只要APP1与APP2不全部删除，此值就不会发生改变；全部删除后，再安装APP，此值将会发生改变。
+    //例如：先安装APP1，再安装APP2，两个APP的IDFV值相同；删除APP2保留APP1，然后重装APP2，此时APP2获取的IDFV值依旧与APP1相同。
+    //2、此值一定可以获取到。
+    //NSString *resultString = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSLog(@"resultString===%@",resultString);
+    
+    
+    [[NSUserDefaults standardUserDefaults]setObject:resultString forKey:@"result"];
+    //设备型号
+    NSString *devicemodel = [self deviceVersion];
+    [[NSUserDefaults standardUserDefaults]setObject:devicemodel forKey:@"devicemodel"];
+    //当前设备的网络类型
+    Reachability *conn = [Reachability reachabilityForInternetConnection];
+    NSString *status;
+    if ([conn currentReachabilityStatus] != NotReachable) { // 没有使用wifi, 使用手机自带网络进行上网
+        if ([conn currentReachabilityStatus] == ReachableViaWiFi) {
+            status = @"1";
+            NSLog(@"使用WIFI网络进行上网===%@",status);
+   
+        }
+        if ([conn currentReachabilityStatus] == ReachableViaWWAN) {
+            status = @"0";
+            NSLog(@"使用手机自带网络进行上网===%@",status);
+        }
+    }else { // 没有网络
+        status = @"0";
+    }
+   [[NSUserDefaults standardUserDefaults]setObject:status forKey:@"status"];
+}
+
+- (NSString*)deviceVersion
+{
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString *deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    
+    //iPhone
+    if ([deviceString isEqualToString:@"iPhone1,1"])    return @"iPhone1G";
+    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
+    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
+    if ([deviceString isEqualToString:@"iPhone3,1"])    return @"iPhone4";
+    if ([deviceString isEqualToString:@"iPhone3,2"])    return @"VerizoniPhone 4";
+    if ([deviceString isEqualToString:@"iPhone4,1"])    return @"iPhone4S";
+    if ([deviceString isEqualToString:@"iPhone5,1"])    return @"iPhone5";
+    if ([deviceString isEqualToString:@"iPhone5,2"])    return @"iPhone5";
+    if ([deviceString isEqualToString:@"iPhone5,3"])    return @"iPhone5C";
+    if ([deviceString isEqualToString:@"iPhone5,4"])    return @"iPhone5C";
+    if ([deviceString isEqualToString:@"iPhone6,1"])    return @"iPhone5S";
+    if ([deviceString isEqualToString:@"iPhone6,2"])    return @"iPhone5S";
+    if ([deviceString isEqualToString:@"iPhone7,1"])    return @"iPhone6Plus";
+    if ([deviceString isEqualToString:@"iPhone7,2"])    return @"iPhone6";
+    if ([deviceString isEqualToString:@"iPhone8,1"])    return @"iPhone6s";
+    if ([deviceString isEqualToString:@"iPhone8,2"])    return @"iPhone6sPlus";
+    if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7";
+    if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7Plus";
+    
+    //iPod
+    if ([deviceString isEqualToString:@"iPod1,1"])      return @"iPodTouch1G";
+    if ([deviceString isEqualToString:@"iPod2,1"])      return @"iPodTouch2G";
+    if ([deviceString isEqualToString:@"iPod3,1"])      return @"iPodTouch3G";
+    if ([deviceString isEqualToString:@"iPod4,1"])      return @"iPodTouch4G";
+    if ([deviceString isEqualToString:@"iPod5,1"])      return @"iPodTouch5G";
+    
+    //iPad
+    if ([deviceString isEqualToString:@"iPad1,1"])      return @"iPad";
+    if ([deviceString isEqualToString:@"iPad2,1"])      return @"iPad2(WiFi)";
+    if ([deviceString isEqualToString:@"iPad2,2"])      return @"iPad2(GSM)";
+    if ([deviceString isEqualToString:@"iPad2,3"])      return @"iPad2(CDMA)";
+    if ([deviceString isEqualToString:@"iPad2,4"])      return @"iPad2(32nm)";
+    if ([deviceString isEqualToString:@"iPad2,5"])      return @"iPadmini(WiFi)";
+    if ([deviceString isEqualToString:@"iPad2,6"])      return @"iPadmini(GSM)";
+    if ([deviceString isEqualToString:@"iPad2,7"])      return @"iPadmini(CDMA)";
+    
+    if ([deviceString isEqualToString:@"iPad3,1"])      return @"iPad3(WiFi)";
+    if ([deviceString isEqualToString:@"iPad3,2"])      return @"iPad3(CDMA)";
+    if ([deviceString isEqualToString:@"iPad3,3"])      return @"iPad3(4G)";
+    if ([deviceString isEqualToString:@"iPad3,4"])      return @"iPad4(WiFi)";
+    if ([deviceString isEqualToString:@"iPad3,5"])      return @"iPad4(4G)";
+    if ([deviceString isEqualToString:@"iPad3,6"])      return @"iPad4(CDMA)";
+    
+    if ([deviceString isEqualToString:@"iPad4,1"])      return @"iPadAir";
+    if ([deviceString isEqualToString:@"iPad4,2"])      return @"iPadAir";
+    if ([deviceString isEqualToString:@"iPad4,3"])      return @"iPadAir";
+    if ([deviceString isEqualToString:@"iPad5,3"])      return @"iPadAir2";
+    if ([deviceString isEqualToString:@"iPad5,4"])      return @"iPadAir2";
+    if ([deviceString isEqualToString:@"iPad6,7"])      return @"iPadPro";
+    if ([deviceString isEqualToString:@"i386"])         return @"Simulator";
+    if ([deviceString isEqualToString:@"x86_64"])       return @"Simulator";
+    
+    if ([deviceString isEqualToString:@"iPad4,4"]
+        ||[deviceString isEqualToString:@"iPad4,5"]
+        ||[deviceString isEqualToString:@"iPad4,6"])      return @"iPadmini2";
+    
+    if ([deviceString isEqualToString:@"iPad4,7"]
+        ||[deviceString isEqualToString:@"iPad4,8"]
+        ||[deviceString isEqualToString:@"iPad4,9"])      return @"iPadmini3";
+    
+    return deviceString;
+}
 
 @end

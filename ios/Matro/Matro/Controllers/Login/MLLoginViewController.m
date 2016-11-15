@@ -899,6 +899,7 @@
                                                       // 存储用户信息
                                                       NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                                                       NSDictionary * userDataDic = result[@"data"];
+                                                      NSDictionary *address = userDataDic[@"address"];
 
                                                       if (userDataDic[@"img"] && ![@"" isEqualToString:userDataDic[@"img"]]) {
                                                           [userDefaults setObject:userDataDic[@"img"] forKey:kUSERDEFAULT_USERAVATOR ];
@@ -977,6 +978,29 @@
                                                                   }
                                                                   
                                                               }
+                                                              //所在地区
+                                                              if (address) {
+                                                                  NSString *province = address[@"province"];
+                                                                  NSString *city = address[@"city"];
+                                                                  NSString *county = address[@"county"];
+                                                                  NSString *txAddr = address[@"address"];
+                                                                  NSString *userAddr = [NSString stringWithFormat:@"%@ %@ %@",province,city,county];
+                                                                  [userDefaults setObject:userAddr forKey:@"userAddr"];
+                                                                  [userDefaults setObject:txAddr forKey:@"txAddr"];
+                                                              }
+                                                              //性别，真实姓名，邮箱
+                                                              NSString *sex = userDataDic[@"sex"]?:@"";
+                                                              NSString *name = userDataDic[@"name"]?:@"";
+                                                              if (userDataDic[@"email"] && ![userDataDic[@"email"] isEqualToString:@""]) {
+                                                                  [userDefaults setObject: userDataDic[@"email"] forKey:@"email"];
+                                                                  
+                                                              }else{
+                                                                  NSString *pjemail = [NSString stringWithFormat:@"%@@matrojp.com",userDataDic[@"phone"]];
+                                                                  [userDefaults setObject:pjemail forKey:@"email"];
+                                                              }
+                                                              NSLog(@"sex===%@--name===%@",sex,name);
+                                                              [userDefaults setObject:sex forKey:@"sex"];
+                                                              [userDefaults setObject:name forKey:@"name"];
                                                               
                                                               if (!isDefault) {
                                                                   //存储时，除NSNumber类型使用对应的类型意外，其他的都是使用setObject:forKey:
@@ -1441,7 +1465,6 @@
     [request setHTTPMethod:@"post"]; //指定请求方式
     [request setURL:URL]; //设置请求的地址
     [request setHTTPBody:params];  //设置请求的参数}
-//    [request mutableSetValueForKeyPath:<#(nonnull NSString *)#>]
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                             completionHandler:
@@ -1593,15 +1616,15 @@
                                                   //JSON解析
                                                   // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                                    NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                                                  NSLog(@"error原生数据登录：++： %@",result);
+                                                  NSLog(@"原生登录数据%@",result);
+                                                  
                                                   if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
-                                                      
-  
-                                                      
+      
                                                       // 存储用户信息
                                                       NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                                                       NSDictionary * userDataDic = result[@"data"];
                                                       NSArray * vipCardDic = userDataDic[@"vipCard"];
+                                                      NSDictionary *address = userDataDic[@"address"];
                                                       BOOL isDefault = NO;
                                                       
                                                       if (vipCardDic.count > 0) {
@@ -1621,8 +1644,6 @@
                                                                   else{
                                                                       [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                                   }
-                                                                  
-                                                                  //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]] forKey:kUSERDEFAULT_USERCARDNO];
                                                                   isDefault = YES;
                                                               }
                                                           }
@@ -1635,38 +1656,54 @@
                                                       
                                                       [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE];
                                                       
-                                  [MobClick profileSignInWithPUID:kUSERDEFAULT_USERPHONE];
+                                                      [MobClick profileSignInWithPUID:kUSERDEFAULT_USERPHONE];
                                                       [userDefaults setObject:_loginPasswordString forKey:KUSERDEFAULT_PASSWORD_ZL];
-
-
-                                                      
 
                                                       [userDefaults setObject:_loginPasswordString forKey:KUSERDEFAULT_PASSWORD_ZL];
                                                           [JPUSHService setTags:nil aliasInbackground:userDataDic[@"phone"]];
-
-
-                                                      NSLog(@"登录方法中的nickName值为：%@",userDataDic[@"nickName"]);
+                                                      //昵称
                                                       if ([userDataDic[@"nickName"] isEqualToString:@""] || !userDataDic[@"nickName"]) {
                                                           [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERNAME ];
-                                                          //NSLog(@"登录方法中kUSERDEFAULT_USERNAME值phone为：%@",userDataDic[@"phone"]);
                                                       }
                                                       else{
                                                           [userDefaults setObject:userDataDic[@"nickName"] forKey:kUSERDEFAULT_USERNAME ];
-                                                          //NSLog(@"登录方法中kUSERDEFAULT_USERNAME值nickname为：%@",userDataDic[@"nickname"]);
                                                       }
                                                       
-                                                      NSLog(@"accessToken====：%@",userDataDic[@"accessToken"]);
-                                                      [userDefaults setObject:userDataDic[@"accessToken"] forKey:kUSERDEFAULT_ACCCESSTOKEN];
-                                                      
-                                                      [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERID ];
-                                                      NSLog(@"userDataDic-----:%@",userDataDic[@"idcard"]);
+                                                     
+                                                      //身份证
                                                       if (userDataDic[@"idcard"]) {
                                                           [userDefaults setObject:userDataDic[@"idcard"] forKey:KUSERDEFAULT_IDCARD_SHENFEN];
                                                       }
                                                       else{
                                                           [userDefaults setObject:@"" forKey:KUSERDEFAULT_IDCARD_SHENFEN];
                                                       }
+                                                      //所在地区
+                                                      if (address) {
+                                                          NSString *province = address[@"province"];
+                                                          NSString *city = address[@"city"];
+                                                          NSString *county = address[@"county"];
+                                                          NSString *txAddr = address[@"address"];
+                                                          NSString *userAddr = [NSString stringWithFormat:@"%@ %@ %@",province,city,county];
+                                                          [userDefaults setObject:userAddr forKey:@"userAddr"];
+                                                          [userDefaults setObject:txAddr forKey:@"txAddr"];
+                                                      }
+                                                      //性别，真实姓名，邮箱
+                                                      NSString *sex = userDataDic[@"sex"]?:@"";
+                                                      NSString *name = userDataDic[@"name"]?:@"";
+                                                      if (userDataDic[@"email"] && ![userDataDic[@"email"] isEqualToString:@""]) {
+                                                          [userDefaults setObject: userDataDic[@"email"] forKey:@"email"];
+                                                          
+                                                      }else{
+                                                          NSString *pjemail = [NSString stringWithFormat:@"%@@matrojp.com",userDataDic[@"phone"]];
+                                                          [userDefaults setObject:pjemail forKey:@"email"];
+                                                      }
+                                                      NSLog(@"sex===%@--name===%@",sex,name);
+                                                      [userDefaults setObject:sex forKey:@"sex"];
+                                                      [userDefaults setObject:name forKey:@"name"];
                                                       
+                                                      [userDefaults setObject:userDataDic[@"accessToken"] forKey:kUSERDEFAULT_ACCCESSTOKEN];
+                                                      
+                                                      [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERID ];
                                                       //调用李佳认证接口
                                                       [self renZhengLiJiaWithPhone:userDataDic[@"phone"] withAccessToken:userDataDic[@"accessToken"]];
                                                       [userDefaults synchronize];
@@ -1700,9 +1737,7 @@
                                                               else{
                                                                   [userDefaults setObject:@"B2C会员" forKey:KUSERDEFAULT_CARDTYPE_CURRENT];
                                                               }
-                                                              
-                                                              //[[userDefaults setObject:[NSString stringWithFormat:@"%@",dics[@"isDefault"]]  forKey:kUSERDEFAULT_USERCARDNO];
-                                                              
+                                                             
                                                               //绑定会员卡
                                                               [weakSelf loadBindCardViewwithPhone:userDataDic[@"phone"] withCardNo:cardno withAccessToken:userDataDic[@"accessToken"]];
                                                               
@@ -1745,44 +1780,7 @@
                                           }
                                           
                                       }];
-    
-    
-//    NSString *urlStr = [NSString stringWithFormat:@"%@",Login_URLString];
-//    NSURL * URL = [NSURL URLWithString:urlStr];
-//    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
-//    [request setHTTPMethod:@"post"]; //指定请求方式
-//    NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
-//    [request setHTTPBody:data3];
-//    [request setURL:URL]; //设置请求的地址
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-//                                            completionHandler:
-//                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
-//                                      //NSData 转NSString
-//                                      if (data && data.length>0) {
-//                                          NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//                                          NSLog(@"error %@",result);
-//                                          if ([@"true" isEqualToString:result]) {
-//                                              
-//                                              
-//                                          }
-//                                          else
-//                                          {
-//                                              dispatch_async(dispatch_get_main_queue(), ^{
-//                                                  
-//                                                  [_hud show:YES];
-//                                                  _hud.mode = MBProgressHUDModeText;
-//                                                  _hud.labelText = result;
-//                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
-//                                                  [_hud hide:YES afterDelay:2];
-//                                              });
-//                                              
-//                                          }
-//                                      }
-//                                      
-//                                  }];
-//    
-//    [task resume];
+
         [task resume];
 
 }
@@ -1798,10 +1796,16 @@
     }
     NSLog(@"设备号ID：%@",identifierForVendor);
     [[NSUserDefaults standardUserDefaults] setObject:identifierForVendor forKey:DEVICE_ID_JIGUANG_LU];
+    NSString *device_version = [[NSUserDefaults standardUserDefaults] objectForKey:@"systemVer"];
+    NSString *uuid = [[NSUserDefaults standardUserDefaults] objectForKey:@"result"];
+    NSString *network = [[NSUserDefaults standardUserDefaults] objectForKey:@"status"];
+    NSString *device_model = [[NSUserDefaults standardUserDefaults] objectForKey:@"devicemodel"];
+    NSString *screen = [[NSUserDefaults standardUserDefaults] objectForKey:@"bounds"];
     //NSString *identifierForAdvertising = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
     //NSLog(@"accessToken编码前为：%@",accessTokenStr);
         NSString * accessTokenEncodeStr = [accessTokenStr URLEncodedString];
-        NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor];
+//        NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&device_id=%@&device_source=ios",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor];
+    NSString * urlPinJie = [NSString stringWithFormat:@"%@/api.php?m=member&s=check_token&phone=%@&accessToken=%@&client_type=ios&device_id=%@&device_source=ios&device_version=%@&uuid=%@&device_network=%d&device_model=%@&device_screen=%@",ZHOULU_ML_BASE_URLString,phoneString,accessTokenEncodeStr,identifierForVendor,device_version,uuid,network.intValue,device_model,screen];
         //NSString *urlStr = [urlPinJie stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString * urlStr = urlPinJie;
         NSLog(@"李佳的认证接口：%@",urlStr);
@@ -1843,10 +1847,6 @@
                                                   }
                                                   NSLog(@"%@",result);
                                                   
-                                                  
-                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
-
-                                                  //NSLog(@"李佳原生数据登录：++： %@",result);
                                                   NSDictionary * dataDic = result[@"data"];
                                                   
                                                   //单例方法获取 时间戳
@@ -1896,56 +1896,7 @@
 
 #pragma end mark 原生登录方法  结束
 #pragma mark 原生请求方法
-/*
-#pragma mark 原生注册方法 开始
-- (void) yuanShengRegisterAcrionWithRet2:(NSString *)ret2{
-    //GCD异步实现
-    dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_sync(q1, ^{
-        NSString *urlStr = [NSString stringWithFormat:@"%@",Login_URLString];
-        NSURL * URL = [NSURL URLWithString:urlStr];
-        NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
-        [request setHTTPMethod:@"post"]; //指定请求方式
-        NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
-        [request setHTTPBody:data3];
-        [request setURL:URL]; //设置请求的地址
-        NSURLSession *session = [NSURLSession sharedSession];
-        NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                                completionHandler:
-                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          NSLog(@"原生错误error:%@",error);
-                                          
-                                          //请求没有错误
-                                          if (!error) {
-                                              if (data && data.length > 0) {
-                                                  //JSON解析
-                                                  // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                                  NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                                                  //NSLog(@"error原生数据登录：++： %@",yuanDic);
-                                                  
-                                                  
-                                              }
-                                          }
-                                          else{
-                                              //请求有错误
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  
-                                                  [_hud show:YES];
-                                                  _hud.mode = MBProgressHUDModeText;
-                                                  _hud.labelText = REQUEST_ERROR_ZL;
-                                                  _hud.labelFont = [UIFont systemFontOfSize:13];
-                                                  [_hud hide:YES afterDelay:1];
-                                              });
-                                              
-                                          }
-                                          
-                                      }];
-        
-        [task resume];
-    });
-}
-#pragma end mark 原生注册方法  结束
-*/
+
 //快速注册按钮
 - (IBAction)fresisterButtonAction:(id)sender {
     _loginTypeButton.selected = NO;
@@ -2075,21 +2026,6 @@
     NSData *data = [HFSUtility RSADicToData:params] ;
     NSString *ret = base64_encode_data(data);
     
-    //[self yuanShengThirdLoginAcrionWithRet2:ret];
-    /*
-    [[HFSServiceClient sharedClient] POST:ThirdLogin_URLString parameters:ret success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"第三方登录信息：%@",responseObject);
-        NSDictionary *result = (NSDictionary *)responseObject;
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = REQUEST_ERROR_ZL;
-        NSLog(@"error %@",error);
-        [_hud hide:YES afterDelay:2];
-    }];
-    */
     //GCD异步实现
     //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     //dispatch_sync(q1, ^{

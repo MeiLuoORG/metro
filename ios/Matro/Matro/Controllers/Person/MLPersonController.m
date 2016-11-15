@@ -1022,7 +1022,7 @@
             }
             if (k == 5) {
                 imageview.image = [UIImage imageNamed:@"shimingrenzhegnzhou"];
-                label.text = @"实名认证";
+                label.text = @"个人信息";
                 [btn setFrame:CGRectMake(btnHW*2, btnHW, btnHW ,btnHW)];
                 [btn addSubview:imageview];
                 [btn addSubview:label];
@@ -1133,6 +1133,8 @@
             [self showError];
             return;
         }
+        
+        /*
         NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
         NSLog(@"model2地址为：%p",model1);
         [model1 currentTimeDate];
@@ -1158,10 +1160,11 @@
                 shiMingVC.shenFenImageURLStr = _identity_picurl;
                 NSLog(@"姓名为：%@,身份证号为：%@,图片地址：%@",shiMingVC.userName,shiMingVC.userShenFenCardID,shiMingVC.shenFenImageURLStr);
             }
-            
-            [self.navigationController pushViewController:shiMingVC animated:YES];
-        }
-
+         */
+        [self hideZLMessageBtnAndSetingBtn];
+        MNNManagementViewController *managementVC = [[MNNManagementViewController alloc] init];
+        managementVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:managementVC animated:YES];
     }
 
 }

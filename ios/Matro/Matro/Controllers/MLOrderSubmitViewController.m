@@ -309,6 +309,8 @@
                 }
                 MLOrderCenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kOrderCenterTableViewCell forIndexPath:indexPath];
                 cell.order_submit_product = [cart.prolist objectAtIndex:indexPath.row-1];
+                cell.shouhouBtn.hidden = YES;
+                cell.countNum.hidden = YES;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
             }

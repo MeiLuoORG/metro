@@ -261,6 +261,8 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define VIPCardJiLu_URLString           ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/getVipSaleItem"
 //修改账户信息
 #define XiuGaiInfo_URLString            ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/updateUserInfo"
+//账户基本信息修改
+#define XiuGaiBaseInfo_URLString        MATROJP_BASE_URL@"/api.php?m=member&s=admin_member&action=user_info"
 
 //会员卡消费记录
 #define VIPCARD_HISTORY_URLString       ZHOULU_ML_CRM_URLString@"/member/ajax/app/access/getVipSaleItem"
