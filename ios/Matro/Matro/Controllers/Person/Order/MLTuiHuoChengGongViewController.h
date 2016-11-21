@@ -11,5 +11,6 @@
 
 @interface MLTuiHuoChengGongViewController : MLBaseViewController
 @property (nonatomic,copy)NSString *order_id;
+@property (nonatomic,copy)NSString *pro_id;
 
 @end

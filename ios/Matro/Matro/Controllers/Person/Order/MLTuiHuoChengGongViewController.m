@@ -37,6 +37,7 @@
 - (IBAction)btnAction:(id)sender {
     MLReturnsDetailViewController *vc = [[MLReturnsDetailViewController alloc]init];
     vc.order_id = self.order_id;
+    vc.pro_id  = self.pro_id;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     

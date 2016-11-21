@@ -384,6 +384,7 @@
         if ([result[@"code"] isEqual:@0]) {
             MLTuiHuoChengGongViewController *vc = [[MLTuiHuoChengGongViewController alloc]init];
             vc.order_id = self.order_id;
+            vc.pro_id = self.pro_id;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }else if ([result[@"code"]isEqual:@1002]){

@@ -313,14 +313,8 @@
                             NSLog(@"支付宝支付结果reslut = %@",resultDic);
                         }];
                     }
-                }else if ([result[@"code"]isEqual:@1002]){
-                    NSString *msg = result[@"msg"];
-                    [MBProgressHUD show:msg view:self.view];
-                    [self loginAction:nil];
                 }
-                
-                
-                
+     
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 [self hideFengHuoLun];
                 [_hud show:YES];
@@ -329,8 +323,14 @@
                 _hud.labelText = REQUEST_ERROR_ZL;
                 [_hud hide:YES afterDelay:2];
             }];
-
-            
+  
+        }else if ([results[@"code"]isEqual:@1002]){
+            NSString *msg = results[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
+            [self loginAction:nil];
+        }else{
+            NSString *msg = results[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
         }
         
     } failure:^(NSError *error) {
@@ -394,6 +394,9 @@
                 NSString *msg = results[@"msg"];
                 [MBProgressHUD show:msg view:self.view];
                 [self loginAction:nil];
+            }else{
+                NSString *msg = results[@"msg"];
+                [MBProgressHUD show:msg view:self.view];
             }
             [self hideFengHuoLun];
         } failure:^(NSError *error) {
@@ -517,6 +520,9 @@
             NSString *msg = results[@"msg"];
             [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
+        }else{
+            NSString *msg = results[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
         }
         
     } failure:^(NSError *error) {
@@ -570,6 +576,9 @@
             NSString *msg = results[@"msg"];
             [MBProgressHUD show:msg view:self.view];
             [self loginAction:nil];
+        }else{
+            NSString *msg = results[@"msg"];
+            [MBProgressHUD show:msg view:self.view];
         }
         
     } failure:^(NSError *error) {

@@ -1625,6 +1625,7 @@
                                                       NSDictionary * userDataDic = result[@"data"];
                                                       NSArray * vipCardDic = userDataDic[@"vipCard"];
                                                       NSDictionary *address = userDataDic[@"address"];
+                                                      NSLog(@"address===%@",address);
                                                       BOOL isDefault = NO;
                                                       
                                                       if (vipCardDic.count > 0) {
