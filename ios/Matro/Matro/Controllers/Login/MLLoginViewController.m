@@ -985,8 +985,21 @@
                                                                   NSString *county = address[@"county"];
                                                                   NSString *txAddr = address[@"address"];
                                                                   NSString *userAddr = [NSString stringWithFormat:@"%@ %@ %@",province,city,county];
-                                                                  [userDefaults setObject:userAddr forKey:@"userAddr"];
-                                                                  [userDefaults setObject:txAddr forKey:@"txAddr"];
+                                                                  if (txAddr && txAddr.length > 0 ) {
+                                                                      [userDefaults setObject:txAddr forKey:@"txAddr"];
+                                                                  }else{
+                                                                      [userDefaults setObject:@"" forKey:@"txAddr"];
+                                                                  }
+                                                                  if (userAddr && userAddr.length > 0 ) {
+                                                                      [userDefaults setObject:userAddr forKey:@"userAddr"];
+                                                                  }else{
+                                                                      [userDefaults setObject:@"" forKey:@"userAddr"];
+                                                                  }
+                                                                  
+                                                                  
+                                                              }else{
+                                                                  [userDefaults setObject:@"" forKey:@"txAddr"];
+                                                                  [userDefaults setObject:@"" forKey:@"userAddr"];
                                                               }
                                                               //性别，真实姓名，邮箱
                                                               NSString *sex = userDataDic[@"sex"]?:@"";
@@ -1685,8 +1698,21 @@
                                                           NSString *county = address[@"county"];
                                                           NSString *txAddr = address[@"address"];
                                                           NSString *userAddr = [NSString stringWithFormat:@"%@ %@ %@",province,city,county];
-                                                          [userDefaults setObject:userAddr forKey:@"userAddr"];
-                                                          [userDefaults setObject:txAddr forKey:@"txAddr"];
+                                                          if (txAddr && txAddr.length > 0 ) {
+                                                              [userDefaults setObject:txAddr forKey:@"txAddr"];
+                                                          }else{
+                                                              [userDefaults setObject:@"" forKey:@"txAddr"];
+                                                          }
+                                                          if (userAddr && userAddr.length > 0 ) {
+                                                              [userDefaults setObject:userAddr forKey:@"userAddr"];
+                                                          }else{
+                                                              [userDefaults setObject:@"" forKey:@"userAddr"];
+                                                          }
+                                                          
+                                                          
+                                                      }else{
+                                                           [userDefaults setObject:@"" forKey:@"txAddr"];
+                                                          [userDefaults setObject:@"" forKey:@"userAddr"];
                                                       }
                                                       //性别，真实姓名，邮箱
                                                       NSString *sex = userDataDic[@"sex"]?:@"";

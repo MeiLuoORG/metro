@@ -22,7 +22,7 @@
 #import "Masonry.h"
 #import "MLShippingaddress.h"
 #import "MJExtension.h"
-
+#import "MJRefresh.h"
 @interface MLBasicInfoViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,MNNModifyNameViewControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
 {
     UIImageView *_imageView;
@@ -37,12 +37,14 @@
     BOOL isHeader;
     int seltype;
     UIControl *_blackView;
+    
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) IBOutlet UIView *pickerRootView;
 @property (strong, nonatomic) IBOutlet UIPickerView *addressPickerView;
 @property (nonatomic,strong)NSMutableArray *addressData;
+@property (strong,nonatomic)NSDictionary *inforesult;
 @end
 
 static MLShippingaddress *province,*city,*area;
@@ -53,7 +55,9 @@ static MLShippingaddress *province,*city,*area;
     self.navigationItem.title = @"基本信息设置";
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
+    
     [self creatTableView];
+    
     userDefaults = [NSUserDefaults standardUserDefaults];
     avatorurl = [userDefaults objectForKey:kUSERDEFAULT_USERAVATOR];
     
@@ -66,7 +70,7 @@ static MLShippingaddress *province,*city,*area;
     _blackView.hidden = YES;
     UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:_blackView];
-//    [self.view insertSubview:self.pickerRootView atIndex:0];
+    [self loadData];
     
     NSString *string = [[NSString alloc]initWithContentsOfFile:[self getDocumentpath] encoding:NSUTF8StringEncoding error:nil];
     
@@ -90,16 +94,30 @@ static MLShippingaddress *province,*city,*area;
         [self.addressPickerView reloadAllComponents];
         
     }
+    
 }
+//-(void)viewWillAppear:(BOOL)animated{
+//
+//    [super viewWillAppear:YES];
+//    self.inforesult  = [NSDictionary dictionary];
+//    [self loadData];
+////    [self.tableView reloadData];
+//   
+//}
 
 -(void)creatTableView{
     
 //    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+//    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        [self.tableView.header endRefreshing];
+//        [self.tableView reloadData];
+//        
+//    }];
     _tableView.tableFooterView = [[UIView alloc] init];
     _tableView.scrollEnabled = NO;
-    [self.view addSubview:_tableView];
+//    [self.view addSubview:_tableView];
     
 }
 - (void)updateUserInfo{
@@ -114,10 +132,15 @@ static MLShippingaddress *province,*city,*area;
     realNameLabel.text = [userDefaults objectForKey:@"name"];
     
     NSString *sfzstr = [userDefaults objectForKey:KUSERDEFAULT_IDCARD_SHENFEN];;
-    NSMutableString *Mutablestr = [NSMutableString stringWithString:sfzstr];
-    [Mutablestr replaceCharactersInRange:NSMakeRange(6, 8)withString:@"********"];
-    NSString *newsfzstr = [Mutablestr copy];
-    IDcardLabel.text = newsfzstr;
+    if (sfzstr.length > 0) {
+        NSMutableString *Mutablestr = [NSMutableString stringWithString:sfzstr];
+        [Mutablestr replaceCharactersInRange:NSMakeRange(6, 8)withString:@"********"];
+        NSString *newsfzstr = [Mutablestr copy];
+        IDcardLabel.text = newsfzstr;
+    }else{
+        IDcardLabel.text = @"";
+    }
+    
     
     addressLabel.text = [userDefaults objectForKey:@"txAddr"];
 }
@@ -128,6 +151,7 @@ static MLShippingaddress *province,*city,*area;
     return 10;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"inforesult===%@",self.inforesult);
     static NSString *cellId = @"cellID";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
@@ -138,6 +162,11 @@ static MLShippingaddress *province,*city,*area;
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH-90, 2, 36, 36)];
         _imageView.layer.cornerRadius = 18;
         _imageView.layer.masksToBounds = YES;
+        if (self.inforesult[@"img"] && ![@"" isEqualToString:self.inforesult[@"img"]]) {
+            NSString *img = self.inforesult[@"img"];
+            avatorurl = img;
+            
+        }
         if (avatorurl) {
             
             if ([avatorurl hasSuffix:@"webp"]) {
@@ -150,7 +179,7 @@ static MLShippingaddress *province,*city,*area;
     }else if (indexPath.row == 1){
         cell.textLabel.text = @"  用户名";
         UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH-250, 10, 200, 20)];
-        lable.text = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];;
+        lable.text = self.inforesult[@"phone"];
         lable.textAlignment = NSTextAlignmentRight;
         lable.font = [UIFont systemFontOfSize:15];
         lable.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -161,7 +190,16 @@ static MLShippingaddress *province,*city,*area;
     }else if (indexPath.row == 2){
         cell.textLabel.text = @"  昵称";
         niChengLabel = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 250, 10, 200, 20)];
-        niChengLabel.text = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];
+        if ([self.inforesult[@"nickName"] isEqualToString:@""] || !self.inforesult[@"nickName"]) {
+            NSString *nickName = self.inforesult[@"phone"];
+            niChengLabel.text = nickName;
+        }
+        else{
+            
+            NSString *nickName = self.inforesult[@"nickName"];
+            niChengLabel.text = nickName;
+        }
+        
         niChengLabel.textAlignment = NSTextAlignmentRight;
         niChengLabel.font = [UIFont systemFontOfSize:15.0];
         niChengLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -171,10 +209,10 @@ static MLShippingaddress *province,*city,*area;
     }else if (indexPath.row == 3){
         cell.textLabel.text = @"  性别";
         sexLabel = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 250, 10, 200, 20)];
-        NSString *sexLX = [userDefaults objectForKey:@"sex"] ;
-        if ([sexLX isEqual:@1]) {
+        NSString *sexLX = self.inforesult[@"sex"];
+        if ([sexLX isEqual:@0]) {
             sexLabel.text = @"男";
-        }else if([sexLX isEqual:@2]){
+        }else if([sexLX isEqual:@1]){
             sexLabel.text = @"女";
         }
         sexLabel.textAlignment = NSTextAlignmentRight;
@@ -186,7 +224,7 @@ static MLShippingaddress *province,*city,*area;
     }else if (indexPath.row == 4){
         cell.textLabel.text = @"  真实姓名";
         realNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 250, 10, 200, 20)];
-        realNameLabel.text = [userDefaults objectForKey:@"name"];
+        realNameLabel.text = self.inforesult[@"name"]?:@"";
         realNameLabel.textAlignment = NSTextAlignmentRight;
         realNameLabel.font = [UIFont systemFontOfSize:15.0];
         realNameLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -196,7 +234,14 @@ static MLShippingaddress *province,*city,*area;
     }else if (indexPath.row == 5){
         cell.textLabel.text = @"  身份证";
         IDcardLabel = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 250, 10, 200, 20)];
-        NSString *sfzstr = [userDefaults objectForKey:KUSERDEFAULT_IDCARD_SHENFEN];
+        NSString *sfzstr ;
+        if (self.inforesult[@"idcard"]) {
+            
+            sfzstr = self.inforesult[@"idcard"];
+        }
+        else{
+            sfzstr = @"";
+        }
         if (sfzstr && ![sfzstr isEqualToString:@""]) {
             NSMutableString *Mutablestr = [NSMutableString stringWithString:sfzstr];
             [Mutablestr replaceCharactersInRange:NSMakeRange(6, 8)withString:@"********"];
@@ -205,10 +250,7 @@ static MLShippingaddress *province,*city,*area;
         }else{
             IDcardLabel.text = @"";
         }
-//        NSMutableString *Mutablestr = [NSMutableString stringWithString:sfzstr];
-//        [Mutablestr replaceCharactersInRange:NSMakeRange(6, 8)withString:@"********"];
-//        NSString *newsfzstr = [Mutablestr copy];
-//        IDcardLabel.text = newsfzstr;
+
         IDcardLabel.textAlignment = NSTextAlignmentRight;
         IDcardLabel.font = [UIFont systemFontOfSize:15.0];
         IDcardLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -218,6 +260,20 @@ static MLShippingaddress *province,*city,*area;
     }else if (indexPath.row == 6){
         cell.textLabel.text = @"  邮箱";
         UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH-250, 10, 200, 20)];
+        
+////        lable.text = @"";
+//        if (self.inforesult[@"email"] && ![self.inforesult[@"email"] isEqualToString:@""]) {
+//            
+//            lable.text = self.inforesult[@"email"];
+//            
+//        }else{
+//            NSString *comstr = @"@matrojp.com";
+//            NSString *phone = self.inforesult[@"phone"];
+//            NSString *pjemail = [NSString stringWithFormat:@"%@%@",phone,comstr];
+//            lable.text = pjemail;
+////            lable.text = [NSString stringWithFormat:@"%@%@",phone,comstr];
+////            lable.text = pjemail;
+//        }
         lable.text = [userDefaults objectForKey:@"email"];;
         lable.textAlignment = NSTextAlignmentRight;
         lable.font = [UIFont systemFontOfSize:15];
@@ -229,7 +285,7 @@ static MLShippingaddress *province,*city,*area;
     }else if (indexPath.row == 7){
         cell.textLabel.text = @"  手机";
         UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH-250, 10, 200, 20)];
-        lable.text = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];;
+        lable.text = self.inforesult[@"phone"];
         lable.textAlignment = NSTextAlignmentRight;
         lable.font = [UIFont systemFontOfSize:15];
         lable.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -240,7 +296,20 @@ static MLShippingaddress *province,*city,*area;
     }else if (indexPath.row == 8){
         cell.textLabel.text = @"  所在地区";
         areaLabel = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 250, 10, 200, 20)];
-        areaLabel.text = [userDefaults objectForKey:@"userAddr"];
+        NSDictionary *address = self.inforesult[@"address"];
+        if (address) {
+            NSString *province = address[@"province"];
+            NSString *city = address[@"city"];
+            NSString *county = address[@"county"];
+            NSString *userAddr = [NSString stringWithFormat:@"%@ %@ %@",province,city,county];
+            
+            areaLabel.text = userAddr;
+        
+        }else{
+           
+            areaLabel.text = @"";
+            
+        }
         areaLabel.textAlignment = NSTextAlignmentRight;
         areaLabel.font = [UIFont systemFontOfSize:15.0];
         areaLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -251,6 +320,17 @@ static MLShippingaddress *province,*city,*area;
         cell.textLabel.text = @"  通讯地址";
         addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - 250, 10, 200, 20)];
         addressLabel.text = [userDefaults objectForKey:@"txAddr"];
+        NSDictionary *address = self.inforesult[@"address"];
+        if (address) {
+           
+            NSString *txAddr = address[@"address"];
+          
+            addressLabel.text = txAddr;
+            
+            
+        }else{
+            addressLabel.text = @"";
+        }
         addressLabel.textAlignment = NSTextAlignmentRight;
         addressLabel.font = [UIFont systemFontOfSize:15.0];
         addressLabel.textColor = [HFSUtility hexStringToColor:Main_grayBackgroundColor];
@@ -281,7 +361,8 @@ static MLShippingaddress *province,*city,*area;
         modifyNameVC.xiugaitype = @"1";
         seltype = 1;
         modifyNameVC.delegate = self;
-        modifyNameVC.currentName = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];
+//        modifyNameVC.currentName = [userDefaults objectForKey:kUSERDEFAULT_USERNAME];
+        modifyNameVC.currentName = niChengLabel.text;
         [self.navigationController pushViewController:modifyNameVC animated:YES];
     }else if (indexPath.row == 3){
         isHeader = NO;
@@ -293,7 +374,8 @@ static MLShippingaddress *province,*city,*area;
         modifyNameVC.xiugaitype = @"2";
         seltype = 2;
         modifyNameVC.delegate = self;
-        modifyNameVC.currentName = [userDefaults objectForKey:@"name"];
+//        modifyNameVC.currentName = [userDefaults objectForKey:@"name"];
+        modifyNameVC.currentName = realNameLabel.text;
         [self.navigationController pushViewController:modifyNameVC animated:YES];
     }else if (indexPath.row == 5){
         self.hidesBottomBarWhenPushed = YES;
@@ -302,12 +384,14 @@ static MLShippingaddress *province,*city,*area;
         modifyNameVC.xiugaitype = @"3";
         seltype = 3;
         modifyNameVC.delegate = self;
-        modifyNameVC.currentName = [userDefaults objectForKey:KUSERDEFAULT_IDCARD_SHENFEN];
+//        modifyNameVC.currentName = [userDefaults objectForKey:KUSERDEFAULT_IDCARD_SHENFEN];
+        NSString *sfzstr = self.inforesult[@"idcard"];
+        modifyNameVC.currentName = sfzstr;
         [self.navigationController pushViewController:modifyNameVC animated:YES];
     }else if(indexPath.row == 8){
         NSLog(@"点击了地址");
         _blackView.hidden = _pickerRootView.hidden = NO;
-        [self.tableView insertSubview:self.pickerRootView atIndex:0];
+//        [self.tableView insertSubview:self.pickerRootView atIndex:0];
         
     }else if(indexPath.row == 9){
         self.hidesBottomBarWhenPushed = YES;
@@ -316,7 +400,8 @@ static MLShippingaddress *province,*city,*area;
         modifyNameVC.xiugaitype = @"5";
         seltype = 5;
         modifyNameVC.delegate = self;
-        modifyNameVC.currentName = [userDefaults objectForKey:@"txAddr"];
+//        modifyNameVC.currentName = [userDefaults objectForKey:@"txAddr"];
+        modifyNameVC.currentName = addressLabel.text;
         [self.navigationController pushViewController:modifyNameVC animated:YES];
     }
     
@@ -380,7 +465,7 @@ static MLShippingaddress *province,*city,*area;
                 NSLog(@"responseObject===%@",responseObject);
                 if ([responseObject[@"code"] isEqual:@0]) {
                     sexLabel.text = @"男";
-                    int reSex = 1;
+                    int reSex = 0;
                     [userDefaults setObject:[NSNumber numberWithInt:reSex] forKey:@"sex"];
                 }else{
                     NSString *msg = responseObject[@"msg"];
@@ -419,7 +504,7 @@ static MLShippingaddress *province,*city,*area;
                 NSLog(@"responseObject===%@",responseObject);
                 if ([responseObject[@"code"] isEqual:@0]) {
                     sexLabel.text = @"女";
-                    int reSex = 2;
+                    int reSex = 1;
                     [userDefaults setObject:[NSNumber numberWithInt:reSex] forKey:@"sex"];
                 }else{
                     NSString *msg = responseObject[@"msg"];
@@ -676,6 +761,12 @@ static MLShippingaddress *province,*city,*area;
     return _addressData;
 }
 
+- (NSDictionary *)inforesult{
+    if (!_inforesult) {
+        _inforesult = [NSDictionary dictionary];
+    }
+    return _inforesult;
+}
 
 //获取行政区
 - (void)getAllarea
@@ -740,6 +831,9 @@ static MLShippingaddress *province,*city,*area;
                 areaLabel.text = newaddress;
 //                [self.tableView reloadData];
                 [MBProgressHUD show:@"修改地址成功" view:self.view];
+            }else{
+                NSString *msg = responseObject[@"msg"];
+               [MBProgressHUD show:msg view:self.view];
             }
         } failure:^(NSError *error) {
             
@@ -749,6 +843,169 @@ static MLShippingaddress *province,*city,*area;
     
 }
 
+
+#pragma mark 获取会员  会员卡信息
+- (void)loadData {
+    NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];
+    NSString * phone = [userDefaults objectForKey:kUSERDEFAULT_USERPHONE];
+    NSDictionary * signDic = [HFSUtility SIGNDic:@{@"appSecret":APP_Secrect_ZHOU,@"phone":phone}];
+    NSDictionary * dic2 = @{@"appId":APP_ID_ZHOU,
+                            @"phone":phone,
+                            @"sign":signDic[@"sign"],
+                            @"accessToken":accessToken
+                            };
+    
+    NSData *data2 = [HFSUtility RSADicToData:dic2];
+    NSString *ret2 = base64_encode_data(data2);
+    
+    [self yuanShengHuiYuanKaWithRet2:ret2];
+ 
+}
+#pragma mark 原生会员卡信息
+- (void) yuanShengHuiYuanKaWithRet2:(NSString *)ret2{
+    //GCD异步实现
+    //dispatch_queue_t q1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //dispatch_sync(q1, ^{
+    NSString *urlStr = [NSString stringWithFormat:@"%@",VIPInfo_URLString];
+    NSURL * URL = [NSURL URLWithString:urlStr];
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc]init];
+    [request setHTTPMethod:@"post"]; //指定请求方式
+    NSData *data3 = [ret2 dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:data3];
+    [request setURL:URL]; //设置请求的地址
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      //请求没有错误
+                                      if (!error) {
+                                          if (data && data.length > 0) {
+                                              //JSON解析
+                                              // NSString *result  =[[ NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+                                              NSDictionary * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                                              
+                                              NSLog(@"获取会员卡信息%@",result);
+//                                              Inforesult = result;
+                                              if([@"1" isEqualToString:[NSString stringWithFormat:@"%@",result[@"succ"]]]){
+                                         
+                                                  NSDictionary * userDataDic = result[@"data"];
+                                                  self.inforesult = userDataDic;
+                                                  NSLog(@"self.inforesult===%@",self.inforesult);
+                                                  NSDictionary *address = userDataDic[@"address"];
+                                                  NSLog(@"address===%@",address);
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                    [self.tableView reloadData];
+                                                  });
+                                                  
+             /*
+                                                  if (userDataDic[@"img"] && ![@"" isEqualToString:userDataDic[@"img"]]) {
+                                                      [userDefaults setObject:userDataDic[@"img"] forKey:kUSERDEFAULT_USERAVATOR ];
+                                                      avatorurl = userDataDic[@"img"];
+                                                      
+                                                  }
+                                                  
+                                                  [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERPHONE];
+                                                  //昵称
+                                                  if ([userDataDic[@"nickName"] isEqualToString:@""] || !userDataDic[@"nickName"]) {
+                                                      [userDefaults setObject:userDataDic[@"phone"] forKey:kUSERDEFAULT_USERNAME ];
+                                                      NSString *nickName = userDataDic[@"phone"];
+                                                      niChengLabel.text = nickName;
+                                                  }
+                                                  else{
+                                                      [userDefaults setObject:userDataDic[@"nickName"] forKey:kUSERDEFAULT_USERNAME ];
+                                                      NSString *nickName = userDataDic[@"nickName"];
+                                                      niChengLabel.text = nickName;
+                                                  }
+                             
+                                                  //身份证
+                                                  if (userDataDic[@"idcard"]) {
+                                                      [userDefaults setObject:userDataDic[@"idcard"] forKey:KUSERDEFAULT_IDCARD_SHENFEN];
+                                                      IDcardLabel.text = userDataDic[@"idcard"];
+                                                  }
+                                                  else{
+                                                      [userDefaults setObject:@"" forKey:KUSERDEFAULT_IDCARD_SHENFEN];
+                                                  }
+                                                  //所在地区
+                                                  if (address) {
+                                                      NSString *province = address[@"province"];
+                                                      NSString *city = address[@"city"];
+                                                      NSString *county = address[@"county"];
+                                                      NSString *txAddr = address[@"address"];
+                                                      NSString *userAddr = [NSString stringWithFormat:@"%@ %@ %@",province,city,county];
+                                                      if (txAddr && txAddr.length > 0 ) {
+                                                          [userDefaults setObject:txAddr forKey:@"txAddr"];
+                                                      }else{
+                                                          [userDefaults setObject:@"" forKey:@"txAddr"];
+                                                      }
+                                                      if (userAddr && userAddr.length > 0 ) {
+                                                          [userDefaults setObject:userAddr forKey:@"userAddr"];
+                                                      }else{
+                                                          [userDefaults setObject:@"" forKey:@"userAddr"];
+                                                      }
+                                                      areaLabel.text = userAddr;
+                                                      addressLabel.text = txAddr;
+                                                      
+                                                      
+                                                  }else{
+                                                      [userDefaults setObject:@"" forKey:@"txAddr"];
+                                                      [userDefaults setObject:@"" forKey:@"userAddr"];
+                                                      areaLabel.text = @"";
+                                                      addressLabel.text = @"";
+                                                  }
+                                                  //性别，真实姓名，邮箱
+                                                  NSString *sex = userDataDic[@"sex"]?:@"";
+                                                  NSString *name = userDataDic[@"name"]?:@"";
+                                                  if (userDataDic[@"email"] && ![userDataDic[@"email"] isEqualToString:@""]) {
+                                                      [userDefaults setObject: userDataDic[@"email"] forKey:@"email"];
+                                                      
+                                                      
+                                                  }else{
+                                                      NSString *pjemail = [NSString stringWithFormat:@"%@@matrojp.com",userDataDic[@"phone"]];
+                                                      [userDefaults setObject:pjemail forKey:@"email"];
+                                                  }
+                                                  NSLog(@"sex===%@--name===%@",sex,name);
+                                                  [userDefaults setObject:sex forKey:@"sex"];
+                                                  [userDefaults setObject:name forKey:@"name"];
+                                                  
+                                                  if ([sex isEqual:@0]) {
+                                                      sexLabel.text = @"男";
+                                                  }else if([sex isEqual:@1]){
+                                                      sexLabel.text = @"女";
+                                                  }
+                                                  realNameLabel.text = name;
+                                                 
+                                                */  
+                                              }else{
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      
+                                                      [_hud show:YES];
+                                                      _hud.mode = MBProgressHUDModeText;
+                                                      _hud.labelText = result[@"errMsg"];
+                                                      _hud.labelFont = [UIFont systemFontOfSize:13];
+                                                      [_hud hide:YES afterDelay:1];
+                                                  });
+                                              }
+                                          }
+                                      }
+                                      else{
+                                          //请求有错误
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              
+                                              [_hud show:YES];
+                                              _hud.mode = MBProgressHUDModeText;
+                                              _hud.labelText = REQUEST_ERROR_ZL;
+                                              _hud.labelFont = [UIFont systemFontOfSize:13];
+                                              [_hud hide:YES afterDelay:1];
+                                          });
+                                          
+                                      }
+                                      
+                                  }];
+    
+    [task resume];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -127,6 +127,7 @@
                         MLReturnRequestViewController *vc = [[MLReturnRequestViewController alloc]init];
                         vc.order_id = weakself.order_id;
                         vc.pro_id = @"0";
+                        vc.isAll = YES;
                         [weakself.navigationController pushViewController:vc animated:YES];
                     }else if (self.orderDetail.partial_return == 2 ) {
                         

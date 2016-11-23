@@ -382,7 +382,7 @@
                 NSString *url = @"http://pay.matrojp.com/PayCenter/app/v200/applepay";
                 
                 [[HFSServiceClient sharedPayClient]POST:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
- 
+                    [self hideFengHuoLun];
                     NSString *tn = [responseObject objectForKey:@"tn"];
 
                     [self performSelectorOnMainThread:@selector(applePayWithTn:) withObject:tn waitUntilDone:YES];
@@ -485,7 +485,7 @@
             
             
             [[HFSServiceClient sharedPayClient] POST:WXPAY_SERVICE_URL parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                
+                [self hideFengHuoLun];
                 NSDictionary *data = (NSDictionary *)responseObject;
                 NSLog(@"微信顾阳返回结果：%@",data);
                 NSString *noncestr = [data objectForKey:@"noncestr"];
