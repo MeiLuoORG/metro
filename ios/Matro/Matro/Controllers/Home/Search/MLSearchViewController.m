@@ -62,6 +62,9 @@ static CGFloat kHeight = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self registerForKeyboardNotifications];
+    _hud = [[MBProgressHUD alloc]initWithView:self.view];
+    [self.view addSubview:_hud];
+    
 //    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, MAIN_SCREEN_WIDTH, 44)];
 //    [ _searchBar setImage:[UIImage imageNamed:@"sousuo2"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
 //    _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor] size:_searchBar.bounds.size];
@@ -80,7 +83,9 @@ static CGFloat kHeight = 0;
     _searchBar.delegate = self;
     
     //添加边框和提示
-    UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(45, 25, MAIN_SCREEN_WIDTH-45-46, 28)] ;
+    /*
+//    UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(45, 25, MAIN_SCREEN_WIDTH-45-46, 28)] ;
+    UIView   *frameView = [[UIView alloc] initWithFrame:CGRectMake(0, 25, MAIN_SCREEN_WIDTH - 50, 28)] ;
     frameView.backgroundColor = [UIColor whiteColor];
     frameView.layer.cornerRadius = 4.f;
     frameView.layer.masksToBounds = YES;
@@ -107,7 +112,47 @@ static CGFloat kHeight = 0;
     searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
     
     self.navigationItem.titleView = frameView;
-
+*/
+    UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 25, MAIN_SCREEN_WIDTH, 28)] ;
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(8, 4, 30, 20)];
+    [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(returnAction :) forControlEvents:UIControlEventTouchUpInside];
+    [mainView addSubview:backBtn];
+    
+    UIView *frameView = [[UIView alloc] initWithFrame:CGRectMake(40, 0, mainView.frame.size.width - 100, 28)] ;
+    frameView.backgroundColor = [UIColor whiteColor];
+    frameView.layer.cornerRadius = 4.f;
+    frameView.layer.masksToBounds = YES;
+    
+    CGFloat H = frameView.bounds.size.height - 8;
+    CGFloat imgW = H;
+    CGFloat textW = frameView.bounds.size.width - imgW - 6;
+    UIImageView *searchImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"sousuozhou"]];
+    
+    searchText = [[UITextField alloc] initWithFrame:CGRectMake(imgW+6, 4, textW, H)];
+    searchText.returnKeyType = UIReturnKeySearch;
+    searchText.enablesReturnKeyAutomatically = YES;
+    searchText.delegate = self;
+    searchText.enabled = YES;
+    
+    
+    [frameView addSubview:searchText];
+    [frameView addSubview:searchImg];
+    searchImg.frame = CGRectMake(8 , 6, imgW-6, imgW-6);
+    
+    searchText.textColor = [UIColor grayColor];
+    searchText.font = [UIFont fontWithName:@"Arial" size:15.0f];
+    [mainView addSubview:frameView];
+    
+    UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(frameView.frame.size.width + 50, 4, 40, 20)];
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+//    [cancelBtn setTintColor:[UIColor blackColor]];
+    [cancelBtn setTitleColor:RGBA(131, 131, 131, 1) forState:UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(returnAction :) forControlEvents:UIControlEventTouchUpInside];
+    [mainView addSubview:cancelBtn];
+    
+    self.navigationItem.titleView = mainView;
+    
     UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     [frameView addGestureRecognizer:singleTap];
     
@@ -121,22 +166,25 @@ static CGFloat kHeight = 0;
 //    [_searchBar becomeFirstResponder];
     [searchText becomeFirstResponder];
  
-    
+    /*
     UIBarButtonItem *returnBtn = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(returnAction :)];
-    
+    returnBtn.imageInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    returnBtn.width = -20;
     NSDictionary * attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14]};
     [returnBtn setTitleTextAttributes:attributes forState:UIControlStateNormal];
     [returnBtn setTintColor:RGBA(131, 131, 131, 1)];
     self.navigationItem.rightBarButtonItem = returnBtn;
     
-    UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -40, 0, 0)];
+    
+    UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, -5, 0, 0)];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@""  style:UIBarButtonItemStylePlain target:self action:@selector(returnAction :)];
+    item.imageInsets = UIEdgeInsetsMake(0, 5, 0, 0);
     item.title = @"";
     item.image = backButtonImage;
     item.width = -20;
     self.navigationItem.leftBarButtonItem = item;
-    
+    */
     self.view.backgroundColor = [UIColor colorWithHexString:@"#F6F6F6"];
     
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];

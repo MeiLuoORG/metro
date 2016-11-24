@@ -4607,7 +4607,7 @@
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = K7B37N4V6S;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -5543,8 +5543,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Matro/Matro.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
 				DEVELOPMENT_TEAM = K7B37N4V6S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5595,8 +5596,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "c40e88ed-e38a-4144-b531-9213efe5d5f6";
+				PROVISIONING_PROFILE_SPECIFIER = matroAppDis1123;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -5609,8 +5610,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Matro/Matro.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Suzhou Matro Global Boutique Purchasing Co., Ltd. (K7B37N4V6S)";
 				DEVELOPMENT_TEAM = K7B37N4V6S;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5661,8 +5663,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "c40e88ed-e38a-4144-b531-9213efe5d5f6";
+				PROVISIONING_PROFILE_SPECIFIER = matroAppDis1123;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

@@ -6,14 +6,18 @@
 //  Copyright © 2016年 HeinQi. All rights reserved.
 //
 
-#import "MLBaseViewController.h"
+//#import "MLBaseViewController.h"
+#import <UIKit/UIKit.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 
 @protocol SearchDelegate <NSObject>
 - (void)SearchText:(NSString *)text;
 @end
 
-@interface MLSearchViewController : MLBaseViewController
+@interface MLSearchViewController :UIViewController{
+    MBProgressHUD *_hud;
+}
 
 @property (nonatomic, weak) UIViewController *activeViewController;
 

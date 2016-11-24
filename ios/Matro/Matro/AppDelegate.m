@@ -263,6 +263,7 @@
     //GCD异步实现
     //获取设备ID
     NSString *identifierForVendor = [JPUSHService registrationID];
+    
     if (!identifierForVendor || identifierForVendor == nil || [identifierForVendor isEqualToString:@""]) {
         identifierForVendor = @"123456789";
     }

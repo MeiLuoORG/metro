@@ -125,6 +125,9 @@
     [self checkNetworkState];
     
     [self loadCreateLoadView];
+    
+    [self getVersion];
+    [self loadVersion];
 }
 
 //检测网络状态
@@ -198,8 +201,8 @@
     [self performSelectorOnMainThread:@selector(ceshiViewAppear) withObject:nil waitUntilDone:YES];
 }
 - (void)ceshiViewAppear{
-    [self getVersion];
-    [self loadVersion];
+//    [self getVersion];
+//    [self loadVersion];
 
 }
 
