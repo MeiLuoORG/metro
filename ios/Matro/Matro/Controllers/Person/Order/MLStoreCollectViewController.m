@@ -22,11 +22,13 @@
 #import "MLHttpManager.h"
 #import "MLShopInfoViewController.h"
 #import "MLLoginViewController.h"
+#import "MBProgressHUD+Add.h"
+
 @interface MLStoreCollectViewController ()<UITableViewDelegate,UITableViewDataSource> {
     NSMutableArray *_collectionArray;
     NSString *userid;
     BOOL isSelect;
-    
+    UIBarButtonItem *right;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *_tableView;
@@ -113,7 +115,7 @@ static NSInteger page = 1;
    // [self._tableView.header beginRefreshing];
     
     
-    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(changeEditState:)];
+    right = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(changeEditState:)];
     right.tintColor = RGBA(174, 142, 93, 1);
     
     self.navigationItem.rightBarButtonItem = right;
@@ -146,22 +148,30 @@ static NSInteger page = 1;
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/api.php?m=sns&s=admin_share_shop",MATROJP_BASE_URL];
     NSDictionary *params = @{@"do":@"sel"};
+    [self showLoadingView];
     
     [MLHttpManager post:urlStr params:params m:@"sns" s:@"admin_share_shop" success:^(id responseObject) {
         NSLog(@"请求成功responseObject===%@",responseObject);
-        [_hud show:YES];
-        [_hud hide:YES afterDelay:1];
+//        [_hud show:YES];
+//        [_hud hide:YES afterDelay:1];
+        
         if ([responseObject[@"code"]isEqual:@0]) {
+            [self closeLoadingView];
+            __weak typeof(self) weakself = self;
+            
             if ([responseObject[@"data"][@"shop_list"] isKindOfClass:[NSString class]]) {
+                right.enabled = NO;
+                [right setTitle:@"编辑"];
                 self.footView.hidden = YES;
                 [self.dataSource removeAllObjects];
                 [self._tableView reloadData];
                 [self.view configBlankPage:EaseBlankPageTypeShouCangstore hasData:(self.dataSource.count>0)];
-                
+                self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+                    weakself.tabBarController.selectedIndex = 0;
+                    [weakself.navigationController popToRootViewControllerAnimated:YES];
+                };
             }else{
                 _collectionArray = responseObject[@"data"][@"shop_list"];
-                
-                __weak typeof(self) weakself = self;
                 
                 if (_collectionArray.count>0) {
                     
@@ -170,34 +180,59 @@ static NSInteger page = 1;
                         [self.dataSource removeAllObjects];
                     }
                     [self.dataSource addObjectsFromArray:[MLCollectstoresModel mj_objectArrayWithKeyValuesArray:_collectionArray]];
+                    self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+                        weakself.tabBarController.selectedIndex = 0;
+                        [weakself.navigationController popToRootViewControllerAnimated:YES];
+                    };
                     
                     [self._tableView reloadData];
                     
                     
                 }else{
+                    right.enabled = NO;
+                    [right setTitle:@"编辑"];
                     self.footView.hidden = YES;
                     [self.dataSource removeAllObjects];
                     [self._tableView reloadData];
                     [self.view configBlankPage:EaseBlankPageTypeShouCangstore hasData:(self.dataSource.count>0)];
-                    
+                    self.view.blankPage.clickButtonBlock = ^(EaseBlankPageType type){
+                        weakself.tabBarController.selectedIndex = 0;
+                        [weakself.navigationController popToRootViewControllerAnimated:YES];
+                    };
                 }
             }
         }else if ([responseObject[@"code"]isEqual:@1002]){
-        
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
-            [_hud hide:YES afterDelay:1];
+            [self closeLoadingView];
+//            [_hud show:YES];
+//            _hud.mode = MBProgressHUDModeText;
+//            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+//            [_hud hide:YES afterDelay:1];
+            right.enabled = NO;
+            [right setTitle:@"编辑"];
+            self.footView.hidden = YES;
+            [MBProgressHUD show:[NSString stringWithFormat:@"%@",responseObject[@"msg"]] view:self.view];
             [self loginAction:nil];
+        }else{
+            [self closeLoadingView];
+            right.enabled = NO;
+            [right setTitle:@"编辑"];
+            self.footView.hidden = YES;
+            [MBProgressHUD show:[NSString stringWithFormat:@"%@",responseObject[@"msg"]] view:self.view];
+            
         }
         
        
     } failure:^(NSError *error) {
         NSLog(@"请求失败 error===%@",error);
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:1];
+//        [_hud show:YES];
+//        _hud.mode = MBProgressHUDModeText;
+//        _hud.labelText = @"请求失败";
+//        [_hud hide:YES afterDelay:1];
+        [self closeLoadingView];
+        right.enabled = NO;
+        [right setTitle:@"编辑"];
+        self.footView.hidden = YES;
+        [MBProgressHUD show:@"请求失败" view:self.view];
         
     }];
     

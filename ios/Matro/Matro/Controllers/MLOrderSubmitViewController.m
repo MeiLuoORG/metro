@@ -170,6 +170,7 @@
 
 
 - (void)refreshHeadView{
+    NSLog(@"self.shenfenzhengField.text===%@",self.headView.shenfenzhengField.text);
     if (self.order_info.identity_card.length>0 && ![self.order_info.identity_card isEqualToString:@""]) { //如果有身份证直接显示
         self.headView.shenfenzhengField.text = self.order_info.identity_card;
         [self.headView haveIdCardSave];
