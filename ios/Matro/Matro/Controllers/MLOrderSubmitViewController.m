@@ -170,14 +170,28 @@
 
 
 - (void)refreshHeadView{
-    NSLog(@"self.shenfenzhengField.text===%@",self.headView.shenfenzhengField.text);
-    if (self.order_info.identity_card.length>0 && ![self.order_info.identity_card isEqualToString:@""]) { //如果有身份证直接显示
+//    NSLog(@"self.shenfenzhengField.text===%@",self.headView.shenfenzhengField.text);
+//    if (self.order_info.identity_card.length>0 && ![self.order_info.identity_card isEqualToString:@""]) { //如果有身份证直接显示
+//        self.headView.shenfenzhengField.text = self.order_info.identity_card;
+//        [self.headView haveIdCardSave];
+//        idCardOk = YES;
+//    }else{
+//    
+//        self.headView.shenfenzhengField.text = @"";
+//    }
+    
+    NSString *IDcard = self.headView.shenfenzhengField.text;
+    
+    if (idCardOk == NO && self.order_info.identity_card.length>0 && ![self.order_info.identity_card isEqualToString:@""]) { //如果有身份证直接显示
         self.headView.shenfenzhengField.text = self.order_info.identity_card;
         [self.headView haveIdCardSave];
         idCardOk = YES;
     }else{
-    
-        self.headView.shenfenzhengField.text = @"";
+        if (idCardOk == YES) {
+            self.headView.shenfenzhengField.text = IDcard;
+        }else{
+            self.headView.shenfenzhengField.text = @"";
+        }
     }
     self.headView.nameLabel.text = self.order_info.consignee.name;
     self.headView.phoneLabel.text = self.order_info.consignee.mobile;
@@ -715,6 +729,7 @@
         _addVc = [[MLAddressSelectViewController alloc]init];
         __weak typeof(self) weakself = self;
         _addVc.addressSelectBlock = ^(MLAddressListModel *address){ //返回后设置当前地址为默认地址 然后重新拉取数据
+            idCardOk = NO;
             [weakself confirmOrder];
         };
     }

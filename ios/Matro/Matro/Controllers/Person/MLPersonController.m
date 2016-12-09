@@ -1280,21 +1280,24 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    [self getMessageDataSource];
     [self.tabBarController.tabBar setHidden:NO];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     
     //消息
+    /*
     NSString * message_num = [userDefaults objectForKey:Message_badge_num];
     if ([message_num isEqualToString:@"1"]) {
         _messageBadgeView.badgeText = @"●";
+        [_messageBadgeView setBadgeTextFont:[UIFont systemFontOfSize:8]];
     }
     else{
     
         _messageBadgeView.hidden = YES;
     }
+     */
     
     
     loginid = [userDefaults objectForKey:kUSERDEFAULT_USERID];
@@ -1745,6 +1748,8 @@
 }
 
 
+
+
 -(void)actMessage{
     [self hideZLMessageBtnAndSetingBtn];
 
@@ -1765,9 +1770,70 @@
         [self presentViewController:loginVC animated:YES completion:nil];
         
     }
-    
-   
+  
 }
+
+- (void)getMessageDataSource{
+    NSString *url = [NSString stringWithFormat:@"%@/api.php?m=push&s=message_center",MATROJP_BASE_URL];
+    [MLHttpManager get:url params:nil m:@"push" s:@"message_center" success:^(id responseObject) {
+        NSDictionary *result = (NSDictionary *)responseObject;
+        if ([result[@"code"] isEqual:@0]) {
+            NSDictionary *data = result[@"data"];
+            NSArray *list = data[@"list"];
+            NSString *read_satus;
+            if (list.count > 0) {
+                for (NSDictionary *tempdic in list) {
+                    read_satus = tempdic[@"read_status"];
+                    if ([read_satus isEqual:@1]) {
+                        break;
+                    }
+                }
+                if ([read_satus isEqual:@1]) {
+                    _messageBadgeView.hidden = NO;
+                    _messageBadgeView.badgeText = @"●";
+                    [_messageBadgeView setBadgeTextFont:[UIFont systemFontOfSize:8]];
+                    NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+                    [userdefaults setObject:@"1" forKey:Message_badge_num];
+                }else{
+                    _messageBadgeView.hidden = YES;
+                    NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+                    [userdefaults setObject:@"0" forKey:Message_badge_num];
+                }
+                
+            }
+            else{
+                _messageBadgeView.hidden = YES;
+                NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+                [userdefaults setObject:@"0" forKey:Message_badge_num];
+            }
+        }
+        //        else if([result[@"code"] isEqual:@1002]){
+        //            _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+        //            [self.view addSubview:_hud];
+        //            [_hud show:YES];
+        //            _hud.mode = MBProgressHUDModeText;
+        //            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+        //            [_hud hide:YES afterDelay:1];
+        //            [self loginAction:nil];
+        //
+        //        }
+        else{
+            NSString *msg = result[@"msg"];
+            _messageBadgeView.hidden = YES;
+            NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+            [userdefaults setObject:@"0" forKey:Message_badge_num];
+            [MBProgressHUD showMessag:msg toView:self.view];
+        }
+        
+    } failure:^(NSError *error) {
+        _messageBadgeView.hidden = YES;
+        NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+        [userdefaults setObject:@"0" forKey:Message_badge_num];
+        [MBProgressHUD showSuccess:NETWORK_ERROR_MESSAGE toView:self.view];
+    }];
+    
+}
+
 //设置
 - (void)actSettingAction{
     [self hideZLMessageBtnAndSetingBtn];

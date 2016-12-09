@@ -418,7 +418,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    [self getMessageDataSource];
     [MobClick beginLogPageView:NSStringFromClass([self class])];
     [self.navigationController setNavigationBarHidden:YES];
     [self.tabBarController.tabBar setHidden:NO];
@@ -1741,11 +1741,25 @@
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSArray *list = data[@"list"];
+            NSString *read_satus;
             if (list.count > 0) {
-                self.messageBadgeView.badgeText = @"●";
-                
-                NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
-                [userdefaults setObject:@"1" forKey:Message_badge_num];
+                for (NSDictionary *tempdic in list) {
+                    read_satus = tempdic[@"read_status"];
+                    if ([read_satus isEqual:@1]) {
+                        break;
+                    }
+                }
+                if ([read_satus isEqual:@1]) {
+                    self.messageBadgeView.hidden = NO;
+                    self.messageBadgeView.badgeText = @"●";
+                    [self.messageBadgeView setBadgeTextFont:[UIFont systemFontOfSize:8]];
+                    NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+                    [userdefaults setObject:@"1" forKey:Message_badge_num];
+                }else{
+                    self.messageBadgeView.hidden = YES;
+                    NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
+                    [userdefaults setObject:@"0" forKey:Message_badge_num];
+                }
                 
             }
             else{
@@ -1753,16 +1767,17 @@
                 NSUserDefaults * userdefaults = [NSUserDefaults standardUserDefaults];
                 [userdefaults setObject:@"0" forKey:Message_badge_num];
             }
-        }else if([result[@"code"] isEqual:@1002]){
-            _hud  = [[MBProgressHUD alloc]initWithView:self.view];
-            [self.view addSubview:_hud];
-            [_hud show:YES];
-            _hud.mode = MBProgressHUDModeText;
-            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
-            [_hud hide:YES afterDelay:1];
-            [self loginAction:nil];
-            
         }
+//        else if([result[@"code"] isEqual:@1002]){
+//            _hud  = [[MBProgressHUD alloc]initWithView:self.view];
+//            [self.view addSubview:_hud];
+//            [_hud show:YES];
+//            _hud.mode = MBProgressHUDModeText;
+//            _hud.labelText = [NSString stringWithFormat:@"%@",responseObject[@"msg"]];
+//            [_hud hide:YES afterDelay:1];
+//            [self loginAction:nil];
+//            
+//        }
         else{
             NSString *msg = result[@"msg"];
             self.messageBadgeView.hidden = YES;

@@ -18,13 +18,14 @@
 #import "MLPushConfigViewController.h"
 #import "UIView+BlankPage.h"
 #import "MLLoginViewController.h"
-
+#import "JSBadgeView.h"
 
 
 @interface MLMessagesViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray *messageArray;
+@property (strong, nonatomic) JSBadgeView *BadgeView;
 
 @end
 
@@ -52,9 +53,14 @@
     [btn addTarget:self action:@selector(actSettingAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
     [self.view configBlankPage:EaseBlankPageTypeXiaoxi hasData:NO];
-    [self getDataSource];
+//    [self getDataSource];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self getDataSource];
+
+}
 - (void)backBtnAction{
     [self.navigationController popViewControllerAnimated:NO];
 }
@@ -78,6 +84,18 @@
     if (indexPath.row == 0) {
         cell.titleLabel.text = @"系统消息";
         cell.imgView.image = [UIImage imageNamed:@"icon_xitongxiaoxi"];
+        self.BadgeView = [[JSBadgeView alloc]initWithParentView:cell.imgView alignment:JSBadgeViewAlignmentTopRight];
+        if (model.noread_num.integerValue >0 && model.noread_num.integerValue < 10) {
+           self.BadgeView.badgeText = model.noread_num;
+        }else if(model.noread_num.integerValue > 9){
+           self.BadgeView.badgeText = @"9+";
+            
+        }else{
+            self.BadgeView.hidden = YES;
+        }
+        
+        [self.BadgeView setBadgeTextColor:[UIColor whiteColor]];
+        [self.BadgeView setBadgeBackgroundColor:[HFSUtility hexStringToColor:Main_textRedBackgroundColor]];
         if (model.type == 1) {
             cell.timeLabel.text = model.last_time;
             cell.contentLabel.text = model.desc;
@@ -91,6 +109,16 @@
     else{
         cell.titleLabel.text = @"优惠促销";
         cell.imgView.image = [UIImage imageNamed:@"icon_youhuiquan"];
+        self.BadgeView = [[JSBadgeView alloc]initWithParentView:cell.imgView alignment:JSBadgeViewAlignmentTopRight];
+        if (model.noread_num.integerValue >0 && model.noread_num.integerValue < 10) {
+            self.BadgeView.badgeText = model.noread_num;
+        }else if(model.noread_num.integerValue >9){
+            self.BadgeView.badgeText = @"9+";
+        }else{
+            self.BadgeView.hidden = YES;
+        }
+        [self.BadgeView setBadgeTextColor:[UIColor whiteColor]];
+        [self.BadgeView setBadgeBackgroundColor:[HFSUtility hexStringToColor:Main_textRedBackgroundColor]];
         if (model.type == 2) {
             cell.timeLabel.text = model.last_time;
             cell.contentLabel.text = model.desc;
@@ -113,11 +141,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0 ) {
+        self.BadgeView.hidden = YES;
         MLSystemMessageController *vc = [[MLSystemMessageController alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         
         [self.navigationController pushViewController:vc animated:YES];
     }else{
+        self.BadgeView.hidden = YES;
         MLActMessageViewController *vc = [[MLActMessageViewController alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         
@@ -140,6 +170,7 @@
         if ([result[@"code"] isEqual:@0]) {
             NSDictionary *data = result[@"data"];
             NSArray *list = data[@"list"];
+            [self.messageArray removeAllObjects];
             [self.messageArray addObjectsFromArray:[MLMessageCenterModel mj_objectArrayWithKeyValuesArray:list]];
             [self.tableView reloadData];
             

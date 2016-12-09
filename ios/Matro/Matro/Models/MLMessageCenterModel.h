@@ -13,6 +13,7 @@
 @property (nonatomic,assign)NSInteger type;
 @property (nonatomic,copy)NSString *desc;
 @property (nonatomic,copy)NSString *last_time;
+@property (nonatomic,copy)NSString *noread_num;
 @end
 
 @interface MLSystemMessageModel : NSObject
