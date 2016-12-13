@@ -45,9 +45,12 @@
 #import "sys/utsname.h"
 #import <AdSupport/AdSupport.h>
 #import "Reachability.h"
+#import "MLHttpManager.h"
 
 @interface AppDelegate ()<UITabBarControllerDelegate,WXApiDelegate>
-
+{
+     NSInteger cart_num;
+}
 @end
 
 @implementation AppDelegate
@@ -121,8 +124,6 @@
     
     [UMSocialWechatHandler setWXAppId:@"wx5aced428a6ce270e" appSecret:@"54e1071ad99428a88330eee8489fb37c" url:@"http://www.matrojp.com/"];
     
-    //创建TabBarController
-    [self buildTabBarController];
     //开始认证
     [self autoLogin];
 
@@ -162,7 +163,8 @@
         self.window.rootViewController = [CoreNewFeatureVC newFeatureVCWithModels:@[m1,m2,m3,m4] enterBlock:^{
             
             NSLog(@"进入主页面");
-            
+            //创建TabBarController
+            [self buildTabBarController];
             self.window.rootViewController = _tabBarController;
             [self autoLogin];
             
@@ -177,6 +179,8 @@
             
             if (self.isFinished == YES) {
                 vcs.reView.hidden = YES;
+                //创建TabBarController
+                [self buildTabBarController];
                 self.window.rootViewController = _tabBarController;
                 
             }else{
@@ -198,7 +202,8 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 NSLog(@"延时了4.5秒");
                 if (self.isFinished == YES) {
-                    
+                    //创建TabBarController
+                    [self buildTabBarController];
                     [self performSelector:@selector(loginTabBar) withObject:nil afterDelay:1.0];
                     
                 }else{
@@ -238,6 +243,7 @@
 - (void)autoLogin{
     if ([[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID] &&[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN] ) {
         [self renZhengLiJiaWithPhone:[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_USERID] withAccessToken:[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN]];
+       
     }
     else{
      [self renZhengLiJiaWithPhone:@"99999999999" withAccessToken:@"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r"];
@@ -308,7 +314,6 @@
                                                       if (timestamp != nil) {
 
                                                           self.isFinished = YES;
-                                                          
                                                           NSDatezlModel * model1 = [NSDatezlModel sharedInstance];
                                                           model1.timeInterval =[timestamp integerValue];
                                                           model1.firstDate = [NSDate date];
@@ -317,9 +322,10 @@
                                                               
                                                               NSString * UID  = data[@"uid"];
                                                               [[NSUserDefaults standardUserDefaults]setObject:UID forKey:DIANPU_MAIJIA_UID];
+                                                              
+                                                               [self getCartNum:[[NSUserDefaults standardUserDefaults]objectForKey:kUSERDEFAULT_ACCCESSTOKEN]];
                                                           }
-                                                          
-                                                          
+                                                        
                                                           //认证成功后发送通知
                                                           [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
                                                           [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_HOME_Notification object:nil];
@@ -554,6 +560,30 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
 }
 
 
+- (void)getCartNum:(NSString*)accessToken{
+   
+    NSString * accessTokenEncodeStr = [accessToken URLEncodedString];
+    NSString * url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=cart_num&accessToken=%@",ZHOULU_ML_BASE_URLString,accessTokenEncodeStr];
+    [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
+        NSLog(@"cart_num---->%@",responseObject);
+        if ([responseObject[@"code"] isEqual:@0]) {
+            if (responseObject[@"data"]) {
+                if (responseObject[@"data"][@"cart_num"] && [responseObject[@"data"][@"cart_num"] isKindOfClass:[NSString class]]) {
+                    cart_num = 0;
+                }else{
+                    NSNumber *cart = responseObject[@"data"][@"cart_num"];
+                    cart_num = [cart integerValue];
+                    
+                    
+                }
+            }
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
 #pragma mark- 初始化TabBar
 
 - (UITabBarController*)buildTabBarController
@@ -579,6 +609,19 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
     bagNavigationController.tabBarItem.image = [UIImage imageNamed:@"shopcar3"];
     bagNavigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"shopcar-15-15"];
     bagNavigationController.tabBarItem.title = @"购物袋";
+//    if ([cart_num isKindOfClass:[NSNull class]]) {
+//        bagNavigationController.tabBarItem.badgeValue = nil;
+//    }else if ([cart_num isEqual:nil]) {
+//        bagNavigationController.tabBarItem.badgeValue = nil;
+//    }
+    if (cart_num == 0) {
+        bagNavigationController.tabBarItem.badgeValue = nil;
+    }
+    else{
+        NSString *cartNum = [NSString stringWithFormat:@"%ld",cart_num];
+        bagNavigationController.tabBarItem.badgeValue = cartNum;
+    }
+    
     
     MLPersonController *personViewController = [[MLPersonController alloc]init];
     personViewController.title = @"我";

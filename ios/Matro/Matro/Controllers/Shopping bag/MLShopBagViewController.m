@@ -45,6 +45,9 @@
 #import "UIColor+HeinQi.h"
 
 @interface MLShopBagViewController ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,CPStepperDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
+{
+    NSInteger CartNum;
+}
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)MLShopCartFootView *footView;
 @property (nonatomic,strong)LingQuYouHuiQuanView *lingQuQuanView;
@@ -55,6 +58,7 @@
 @property (nonatomic,strong)MLShopingCartlistModel *shopCart;
 @property (nonatomic,strong)UICollectionView *collectionView;
 @property (strong, nonatomic) UIBarButtonItem * rightBarButtonzl;
+
 @end
 static float allPrice = 0;
 static NSInteger pageIndex = 0;
@@ -71,8 +75,7 @@ static NSInteger pageIndex = 0;
     /*
      zhoulu修改 START
      */
-    
-    
+
     self.rightBarButtonzl = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightBianjiButtonAction:)];
     self.rightBarButtonzl.tintColor = [UIColor colorWithHexString:@"ae8e5d"];//625046
     
@@ -181,7 +184,20 @@ static NSInteger pageIndex = 0;
     //[self configBlankPage];
     [self ctreateYOUHUIQuanView];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(TUICHUSuccess) name:kNOTIFICATIONTUICHUSUC object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(LOGINSuccess) name:kNOTIFICATIONLOGINSUC object:nil];
+    
 }
+
+-(void)TUICHUSuccess{
+    NSLog(@"退出了");
+    self.navigationController.tabBarItem.badgeValue = nil;
+}
+-(void)LOGINSuccess{
+    NSLog(@"登陆了");
+    [self loginAfter1];
+}
+
 /*
  zhoulu修改 START
  */
@@ -834,6 +850,7 @@ static NSInteger pageIndex = 0;
 
 - (void)countAllPrice{
     allPrice = 0.f;
+    CartNum = 0;
     //[self closeLoadingView];
     if (self.isLogin) {
         for (MLShopingCartModel *model in self.shopCart.cart) {
@@ -846,10 +863,17 @@ static NSInteger pageIndex = 0;
     }else{
         for (MLOffLineShopCart *model in self.offlineCart) {
             for (OffLlineShopCart *prolist in model.goodsArray) {
+                CartNum+= prolist.num;
                 if (prolist.is_check == 1) {
                     allPrice+= prolist.pro_price * prolist.num;
                 }
             }
+        }
+        if (CartNum >0) {
+            NSString *cartNum = [NSString stringWithFormat:@"%ld",(long)CartNum];
+            self.navigationController.tabBarItem.badgeValue = cartNum;
+        }else{
+            self.navigationController.tabBarItem.badgeValue = nil;
         }
     }
     
@@ -951,7 +975,7 @@ static NSInteger pageIndex = 0;
         
     }
     else{ //未登录情况
-
+        self.navigationController.tabBarItem.badgeValue = nil;
         self.isLogin = NO;
         NSArray *allCart = [CompanyInfo MR_findAll];
         NSMutableArray *tmp = [NSMutableArray array];
@@ -991,9 +1015,8 @@ static NSInteger pageIndex = 0;
 
 - (void)loginAfter1{
 
-    
-    
     [self addShopCart];
+    [self getCartNum];
     
 }
 
@@ -1141,6 +1164,7 @@ static NSInteger pageIndex = 0;
         if ([result[@"code"] isEqual:@0]) { //修改成功
             //调用接口
             prolist.num = count;
+            [self getCartNum];
             [self countAllPrice];
             [self.tableView reloadData];
         }else if ([[result objectForKey:@"code"] isEqual:@1002]){
@@ -1160,6 +1184,30 @@ static NSInteger pageIndex = 0;
     
 }
 
+//更改购物车数据后重新调接口同步
+- (void)getCartNum{
+
+    NSString * url = [NSString stringWithFormat:@"%@/api.php?m=product&s=cart&action=cart_num",ZHOULU_ML_BASE_URLString];
+    [MLHttpManager get:url params:nil m:@"product" s:@"cart" success:^(id responseObject) {
+        NSLog(@"cart_num---->%@",responseObject);
+        
+        if ([responseObject[@"code"] isEqual:@0]) {
+            if (responseObject[@"data"]) {
+               
+                if (responseObject[@"data"][@"cart_num"] && [responseObject[@"data"][@"cart_num"] isKindOfClass:[NSString class]]) {
+                   self.navigationController.tabBarItem.badgeValue = nil;
+                }else{
+                    NSString *cartNum = responseObject[@"data"][@"cart_num"];
+                    self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@",cartNum];
+                }
+                
+            }
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
 
 /**
  *  删除购物车商品
@@ -1179,6 +1227,7 @@ static NSInteger pageIndex = 0;
             [self.likeArray removeAllObjects];
             [self.collectionView reloadData];
             [self getDataSource];
+            [self getCartNum];
         }else if ([[result objectForKey:@"code"] isEqual:@1002]){
             
             NSString *msg = result[@"msg"];
@@ -1212,6 +1261,7 @@ static NSInteger pageIndex = 0;
             [self.likeArray removeAllObjects];
             [self.collectionView reloadData];
             [self getDataSource];
+            [self getCartNum];
         }else if ([[result objectForKey:@"code"] isEqual:@1002]){
             
             NSString *msg = result[@"msg"];
@@ -1330,6 +1380,8 @@ static NSInteger pageIndex = 0;
                 [[NSManagedObjectContext MR_defaultContext]MR_saveToPersistentStoreAndWait];
                 //请求购物车商品 线上
                 [self getDataSource];
+                [self getCartNum];
+                
             }else if ([[result objectForKey:@"code"] isEqual:@1002]){
                 
                 NSString *msg = result[@"msg"];

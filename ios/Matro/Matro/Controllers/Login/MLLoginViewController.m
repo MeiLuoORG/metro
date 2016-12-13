@@ -30,6 +30,7 @@
 #import "OffLlineShopCart.h"
 #import "MLHttpManager.h"
 #import "UMMobClick/MobClick.h"
+#import "MLShopBagViewController.h"
 
 #define CODE_TIME_KEY @"CODE_TIME_KEY"
 
@@ -1895,6 +1896,7 @@
                                                   
                                                   //认证成功后发送通知
                                                   [[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
+                                                  [[NSNotificationCenter defaultCenter]postNotificationName:kNOTIFICATIONLOGINSUC object:nil];
                                                   
                                               }
                                           }
@@ -1917,9 +1919,6 @@
     
         [task resume];
 }
-
-
-
 
 #pragma end mark 原生登录方法  结束
 #pragma mark 原生请求方法

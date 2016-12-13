@@ -311,6 +311,7 @@ static BOOL selectPP = NO;
     
     
     _priceArray = [[NSMutableArray alloc ] initWithObjects:@"不限", @"自定义", nil];
+//    _priceArray = [[NSMutableArray alloc ] initWithObjects:@"不限", nil];
     NSString *keystr = [self.keywords stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",keystr);
     
@@ -600,6 +601,7 @@ static BOOL selectPP = NO;
 //            _jiage.text = @"不限";
 //            [self confirmAction];
 //        }else{
+        NSLog(@"_jiage.text--->%@",_selectedItem.name);
             _jiage.text = _selectedItem.name;
             [self confirmAction];
 //        }
@@ -1001,6 +1003,7 @@ static BOOL selectPP = NO;
     
     NSString * string;
     
+    
     if ([_selectedIndexPath isEqual:_selectAllIndexPath]) {
         _minPrice = nil;
         _maxPrice = nil;
@@ -1014,8 +1017,19 @@ static BOOL selectPP = NO;
         _maxPrice = @(toPriceTextField.text.integerValue);
         
         string = [NSString stringWithFormat:@"%ld~%ld",_minPrice.integerValue,_maxPrice.integerValue];
-    }else {
-        string = _priceArray[_selectedIndexPath.row];
+    }
+    else {
+        NSLog(@"====%@",_priceArray[_selectedIndexPath.row]);
+        if ([_priceArray[_selectedIndexPath.row] isEqualToString:@"自定义"]) {
+            _minPrice = @(fromPriceTextField.text.integerValue);
+            _maxPrice = @(toPriceTextField.text.integerValue);
+            
+            string = [NSString stringWithFormat:@"%ld~%ld",_minPrice.integerValue,_maxPrice.integerValue];
+
+        }else{
+            string = _priceArray[_selectedIndexPath.row];
+        }
+        
     }
     
     _jiage.text = string;

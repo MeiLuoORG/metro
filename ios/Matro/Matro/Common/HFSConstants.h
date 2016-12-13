@@ -124,6 +124,8 @@
 #define NOTIFICATION_WEICHAT_PAY_FAIL @"NOTIFICATION_WEICHAT_PAY_FAIL"
 #define NOTIFICATION_CHANGEUSERINFO  @"NOTIFICATION_CHANGEUSERINFO"
 #define kNOTIFICATIONBINDSUC   @"NOTIFICATION_BINDSUCCESS"
+#define kNOTIFICATIONTUICHUSUC   @"NOTIFICATION_TUICHUSUCCESS"
+#define kNOTIFICATIONLOGINSUC   @"NOTIFICATION_LOGINSUCCESS"
 
 //#define WECHAT_MCH_ID @""
 //#define WECHAT_PARTNER_ID @""
@@ -292,8 +294,8 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define PinPaiGuanList_URLString        ZHOULU_ML_BASE_URLString@"/api.php?m=brand&s=brand&method=list"
 //首页地址
 //http://61.155.212.146:3000
-//#define HomeHTML_URLString              @"http://61.155.212.146:3000"
-#define HomeHTML_URLString              @"http://h5.matrojp.com"
+#define HomeHTML_URLString              @"http://61.155.212.146:3000"
+//#define HomeHTML_URLString              @"http://h5.matrojp.com"
 
 //店铺ID
 #define DIANPU_MAIJIA_UID               @"dainpu_maijia_uid"
@@ -329,8 +331,8 @@ typedef NS_ENUM(NSUInteger, PaymentType) {
 #define FenLeiName_URLString            ZHOULU_ML_BASE_URLString@"/api.php?m=category&s=list&method=GetCategoryByID&catid="
 
 //店铺链接
-#define DianPuURL_URLString             @"http://h5.matrojp.com"
-//#define DianPuURL_URLString              @"http://61.155.212.146:3000"
+//#define DianPuURL_URLString             @"http://h5.matrojp.com"
+#define DianPuURL_URLString              @"http://61.155.212.146:3000"
 
 //手机充值  查询
 #define SHOUJI_CHONGZHI_CHAXUN_URLString    ZHOULU_ML_BASE_URLString@"/api.php?m=recharge&s=phone_recharge&action=query"

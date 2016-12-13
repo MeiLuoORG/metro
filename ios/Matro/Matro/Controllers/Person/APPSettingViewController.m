@@ -16,7 +16,7 @@
 #import "MBProgressHUD+Add.h"
 #import "AppDelegate.h"
 #import "MLLoginViewController.h"
-
+#import "MLShopBagViewController.h"
 
 @interface APPSettingViewController ()<UITableViewDataSource,UITableViewDelegate,PulldownMenuDelegate>{
     
@@ -131,7 +131,9 @@
     [userDefaults removeObjectForKey:DIANPU_MAIJIA_UID];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:LOGOUT_TUICHU_NOTIFICATION object:nil];
-    
+    [[NSNotificationCenter defaultCenter]postNotificationName:kNOTIFICATIONTUICHUSUC object:nil];
+    MLShopBagViewController *vc = [[MLShopBagViewController alloc]init];
+    vc.navigationController.tabBarItem.badgeValue = nil;
     //[[self getAppDelegate] autoLogin];
     [self renZhengLiJiaWithPhone:@"99999999999" withAccessToken:@"ChnUN7ynJnoJ6K2Z39LtOBtlXkT91r"];
     [self.navigationController popViewControllerAnimated:YES];
@@ -194,6 +196,7 @@
                                                       //认证成功后发送通知
                                                       //[[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_Notification object:nil];
                                                       //[[NSNotificationCenter defaultCenter]postNotificationName:RENZHENG_LIJIA_HOME_Notification object:nil];
+                                                      
                                                   }else if ([result[@"code"]isEqual:@1002]){
                                                       NSString *msg = result[@"msg"];
                                                       [MBProgressHUD show:msg view:self.view];
@@ -222,6 +225,11 @@
 
 #pragma mark 退出登录
 - (void)logoutAction{
+
+//    MLShopBagViewController *bagViewController = [[MLShopBagViewController alloc]init];
+//    MLNavigationController *bagNavigationController = [[MLNavigationController alloc]initWithRootViewController:bagViewController];
+//    bagNavigationController.tabBarItem.badgeValue = nil;
+    
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * accessToken = [userDefaults objectForKey:kUSERDEFAULT_ACCCESSTOKEN];

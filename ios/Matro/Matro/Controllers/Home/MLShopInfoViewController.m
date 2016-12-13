@@ -321,6 +321,7 @@
 
     NSLog(@"storeid===%@",storeid);
     shopDetailurl  = storeid;
+ 
     [self performSelector:@selector(gotoMLshopDetail) withObject:self afterDelay:0.5f];
 //    [self performSelectorOnMainThread:@selector(shopdetail) withObject:nil waitUntilDone:YES];
     
@@ -520,24 +521,6 @@
         
     }];
    
-    /*
-    [[HFSServiceClient sharedClient] GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"responseObject===%@",responseObject);
-        
-        if ([responseObject[@"code"] isEqual:@0] && ![responseObject[@"data"][@"shop_info"] isKindOfClass:[NSNull class]]) {
-            dpDic = responseObject[@"data"][@"shop_info"];
-            NSLog(@"%@",dpDic);
-            
-        }
- 
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [_hud show:YES];
-        _hud.mode = MBProgressHUDModeText;
-        _hud.labelText = @"请求失败";
-        [_hud hide:YES afterDelay:2];
-        
-    }];
-    */
 }
 
 //店铺是否收藏
